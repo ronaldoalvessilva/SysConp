@@ -1873,8 +1873,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         pHABILITA_JURIDICO = "Não";
                         objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                         objPortaEntrada.setNomeInternoCrc(jNomeInternoJuridico.getText());
-                        objPortaEntrada.setHabPsi(pHABILITA_JURIDICO);
-                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        objPortaEntrada.setHabJur(pHABILITA_JURIDICO);
+                        control_PE.alterarPortaEntradaJuridico(objPortaEntrada);
                         // PRIMEIRA EVOLUÇÃO EM CONJUNTO COM A ADMISSÃO
                         objEvolu.setDataEvo(jDataLanc.getDate());
                         objEvolu.setDataEnca(jDataEncaminhamento.getDate());

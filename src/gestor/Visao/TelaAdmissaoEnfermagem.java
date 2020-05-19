@@ -4505,18 +4505,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
-                        // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
-                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                        objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
-                        objEvolEnferma.setAdmEvo(admEvolucao);
-                        // log de usuario
-                        objEvolEnferma.setUsuarioInsert(nameUser);
-                        objEvolEnferma.setDataInsert(dataModFinal);
-                        objEvolEnferma.setHoraInsert(horaMov);
-                        controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
                         //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
                         pATENDIMENTO_CONCLUIDO = "Sim";
                         objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
@@ -4533,8 +4521,20 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         pHABILITA_MEDICO = "Não";
                         objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objPortaEntrada.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
-                        objPortaEntrada.setHabPsi(pHABILITA_MEDICO);
-                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        objPortaEntrada.setHabEnf(pHABILITA_MEDICO);
+                        control_PE.alterarPortaEntradaEnfermeira(objPortaEntrada);
+                        // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                        objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
+                        objEvolEnferma.setAdmEvo(admEvolucao);
+                        // log de usuario
+                        objEvolEnferma.setUsuarioInsert(nameUser);
+                        objEvolEnferma.setDataInsert(dataModFinal);
+                        objEvolEnferma.setHoraInsert(horaMov);
+                        controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);                        
                         //
                         preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                                 + "WHERE IdLanc='" + jIdLanc.getText() + "'");
@@ -6265,18 +6265,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
-                        // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
-                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                        objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
-                        objEvolEnferma.setAdmEvo(admEvolucao);
-                        // log de usuario
-                        objEvolEnferma.setUsuarioInsert(nameUser);
-                        objEvolEnferma.setDataInsert(dataModFinal);
-                        objEvolEnferma.setHoraInsert(horaMov);
-                        controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
                         //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
                         pATENDIMENTO_CONCLUIDO = "Sim";
                         objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
@@ -6293,8 +6281,20 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         pHABILITA_MEDICO = "Não";
                         objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objPortaEntrada.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
-                        objPortaEntrada.setHabPsi(pHABILITA_MEDICO);
-                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        objPortaEntrada.setHabEnf(pHABILITA_MEDICO);
+                        control_PE.alterarPortaEntradaEnfermeira(objPortaEntrada);
+                        // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                        objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
+                        objEvolEnferma.setAdmEvo(admEvolucao);
+                        // log de usuario
+                        objEvolEnferma.setUsuarioInsert(nameUser);
+                        objEvolEnferma.setDataInsert(dataModFinal);
+                        objEvolEnferma.setHoraInsert(horaMov);
+                        controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);                        
                         //
                         preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                                 + "WHERE IdLanc='" + jIdLanc.getText() + "'");

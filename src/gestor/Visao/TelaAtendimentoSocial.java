@@ -2454,8 +2454,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                                 pHABILITA_SS = "Não";
                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                                 objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
-                                objPortaEntrada.setHabPsi(pHABILITA_SS);
-                                control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                                objPortaEntrada.setHabSso(pHABILITA_SS);
+                                control_PE.alterarPortaEntradaSocial(objPortaEntrada);
                                 //GRAVAR UMA EVOLUÇÃO REFERENTE A ADMISSÃO (13/05/2020)
                                 objEvol.setDataEvol(jDataAtendimento.getDate());
                                 objEvol.setTextoEvolucao(jConsideracoes.getText());

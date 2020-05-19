@@ -1701,7 +1701,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
             bloquearBotoes();
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
-            jBtExcluir.setEnabled(true);          
+            jBtExcluir.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //
@@ -1861,7 +1861,8 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     dataModFinal = jDataSistema.getText();
                     preencherComboBoxDepartamento();
                     pesquisarInternoManual();
-                } else {                   
+                } else {
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1869,8 +1870,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     if (jIdInternoNovo.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                         Novo();
-                        acao = 1;                        
+                        acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
                         dataModFinal = jDataSistema.getText();

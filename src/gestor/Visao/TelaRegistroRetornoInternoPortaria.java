@@ -729,7 +729,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jLabel11.setText("Tipo de Operação");
 
         jOrigemOperacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jOrigemOperacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retono Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar" }));
+        jOrigemOperacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retorno Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar" }));
         jOrigemOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jOrigemOperacao.setEnabled(false);
 
@@ -1469,7 +1469,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                                 populacaoAlimentacao();
                             } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Condenação")) {
                                 populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retono Espontâneo")) {
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Espontâneo")) {
                                 populacaoAlimentacao();
                             } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Prisão")) {
                                 populacaoAlimentacao();

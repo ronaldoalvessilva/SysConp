@@ -825,7 +825,7 @@ public class TelaLiberacaoAtendimentoGruposEF extends javax.swing.JDialog {
         String statusLanc = "FINALIZADO";
         objRegAtend.setStatusAtendimento(statusLanc);
         objRegAtend.setIdAtend(Integer.valueOf(jCodigoAtend.getText()));
-        control.finalizarAtendimentoGrupoPSI(objRegAtend);
+        control.finalizarAtendimentoGrupoEF(objRegAtend);
         objLog();
         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
         jStatusAtend.setText("FINALIZADO");

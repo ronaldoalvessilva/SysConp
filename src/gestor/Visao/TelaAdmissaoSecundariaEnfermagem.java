@@ -2010,6 +2010,9 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
+                    limparCampos();
+                    bloquearCampos();
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -2017,9 +2020,6 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     if (jIdInternoEnfermeiroAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                        limparCampos();
-                        bloquearCampos();
-                        Novo();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -2180,18 +2180,6 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
-                    // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
-                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
-                    objEvolEnferma.setAdmEvo(admEvolucao);
-                    // log de usuario
-                    objEvolEnferma.setUsuarioInsert(nameUser);
-                    objEvolEnferma.setDataInsert(dataModFinal);
-                    objEvolEnferma.setHoraInsert(horaMov);
-                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
                     //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
                     pATENDIMENTO_CONCLUIDO = "Sim";
                     objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
@@ -2204,16 +2192,28 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
-                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                    //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_MEDICO = "Não";
                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
                     objPortaEntrada.setNomeInternoCrc(jNomeInternoEnfermeiroAD.getText());
-                    objPortaEntrada.setHabMed(pHABILITA_MEDICO);
-                    control_PE.alterarPortaEntradaMedica(objPortaEntrada);
+                    objPortaEntrada.setHabEnf(pHABILITA_MEDICO);
+                    control_PE.alterarPortaEntradaEnfermeira(objPortaEntrada);
+                    // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO - RETIRADO POR INCONSISTENCIA
+//                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+//                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
+//                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
+//                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+//                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+//                    objEvolEnferma.setAdmEvo(admEvolucao);
+//                    // log de usuario
+//                    objEvolEnferma.setUsuarioInsert(nameUser);
+//                    objEvolEnferma.setDataInsert(dataModFinal);
+//                    objEvolEnferma.setHoraInsert(horaMov);
+//                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
                     //
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
-                    buscarEvolucao();                   
+//                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+//                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
+//                    buscarEvolucao();
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2236,19 +2236,19 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.alterarMovTec(objAdmEnfermagem);
-                    // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objEvolEnferma.setIdItem(Integer.valueOf(jIdADM_Secundaria.getText()));
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
-                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
-                    // log de usuario
-                    objEvolEnferma.setUsuarioInsert(nameUser);
-                    objEvolEnferma.setDataInsert(dataModFinal);
-                    objEvolEnferma.setHoraInsert(horaMov);
-                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
+                    // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO - RETIRADO POR INCONSISTENCIA
+//                    objEvolEnferma.setIdItem(Integer.valueOf(jIdADM_Secundaria.getText()));
+//                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
+//                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
+//                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+//                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+//                    // log de usuario
+//                    objEvolEnferma.setUsuarioInsert(nameUser);
+//                    objEvolEnferma.setDataInsert(dataModFinal);
+//                    objEvolEnferma.setHoraInsert(horaMov);
+//                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
+//                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+//                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();
@@ -2603,7 +2603,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
                     + "AND ADMISSAOENFERMEIRA.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
             conecta.rs.first();
-            jIdADM_Secundaria.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdADM_Princial.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");

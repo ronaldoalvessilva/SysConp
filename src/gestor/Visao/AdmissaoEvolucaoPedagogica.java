@@ -1754,13 +1754,14 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
         jEvolucaoADM.setColumns(20);
         jEvolucaoADM.setRows(5);
+        jEvolucaoADM.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         jEvolucaoADM.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEvolucaoADM.setEnabled(false);
         jScrollPane5.setViewportView(jEvolucaoADM);
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel31.setText("Evolução ADM");
+        jLabel31.setText("Evolução Admissão");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1805,7 +1806,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel31)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
@@ -3038,8 +3039,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         pHABILITA_PEDAGOGIA = "Não";
                         objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                         objPortaEntrada.setNomeInternoCrc(jNomeInternoAdm.getText());
-                        objPortaEntrada.setHabPsi(pHABILITA_PEDAGOGIA);
-                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        objPortaEntrada.setHabPed(pHABILITA_PEDAGOGIA);
+                        control_PE.alterarPortaEntradaPedagogia(objPortaEntrada);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         bloquearCampos();

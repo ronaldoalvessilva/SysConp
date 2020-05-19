@@ -25,14 +25,17 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" pref="484" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -68,13 +71,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel31" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jScrollPane4" pref="543" max="32767" attributes="0"/>
-                                  <Component id="jPanel14" pref="543" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel14" pref="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -86,7 +84,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" pref="298" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="313" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="jPanel30" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -475,8 +473,7 @@
                           <Component id="jPanel16" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTabbedPane2" min="-2" pref="291" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jTabbedPane2" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1066,7 +1063,7 @@
                                   <Component id="jComboBoxTrabalho" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" pref="86" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="104" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1083,6 +1080,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
+                            <Property name="text" type="java.lang.String" value="DIGITE AQUI A EVOLU&#xc7;&#xc3;O DA ADMISS&#xc3;O."/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                                 <BevelBorder bevelType="1"/>
@@ -1588,7 +1586,7 @@
                                   <Component id="jCheckBoxIntDom" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" pref="137" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="155" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2014,7 +2012,7 @@
                                   <Component id="jLabel72" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="136" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="154" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2374,7 +2372,7 @@
                                   <Component id="jComboBoxAnsiedade" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                              <Component id="jScrollPane7" pref="156" max="32767" attributes="0"/>
+                              <Component id="jScrollPane7" pref="174" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2715,7 +2713,7 @@
                                   <Component id="jComboBoxSPAUsuario" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" pref="125" max="32767" attributes="0"/>
+                              <Component id="jScrollPane5" pref="143" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -3150,7 +3148,7 @@
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" pref="125" max="32767" attributes="0"/>
+                              <Component id="jScrollPane6" pref="143" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -3447,31 +3445,33 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel5" linkSize="12" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jPanel34" linkSize="12" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel37" linkSize="12" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel12" linkSize="12" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jPanel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Component id="jPanel34" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPanel37" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel34" min="-2" pref="187" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel37" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel37" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel12" max="32767" attributes="0"/>
+                      <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -3945,19 +3945,19 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtNovoHistoricoEduca" linkSize="17" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtNovoHistoricoEduca" linkSize="6" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jBtAlterarHistoricoEduca" linkSize="17" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtAlterarHistoricoEduca" linkSize="6" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jBtExcluirHistoricoEduca" linkSize="17" min="-2" pref="22" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtExcluirHistoricoEduca" linkSize="6" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="jBtSalvarHistoricoEduca" linkSize="17" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvarHistoricoEduca" linkSize="6" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtCancelarHistoricoEduca" linkSize="6" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jBtCancelarHistoricoEduca" linkSize="17" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-                          <Component id="jBtRefersCursos" linkSize="6" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="205" max="32767" attributes="0"/>
+                          <Component id="jBtRefersCursos" linkSize="17" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace pref="197" max="32767" attributes="0"/>
                           <Component id="jBtAuditoriaHistoricoEduca" min="-2" pref="21" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -3965,13 +3965,19 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jBtRefersCursos" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtCancelarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtAuditoriaHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtAlterarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtExcluirHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtSalvarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtNovoHistoricoEduca" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jBtAuditoriaHistoricoEduca" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtRefersCursos" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtCancelarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtAlterarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtExcluirHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtSalvarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtNovoHistoricoEduca" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -4381,7 +4387,7 @@
                               <Component id="jBtIncluirExperiencia" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtExcluirExperiencia" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="19" max="32767" attributes="0"/>
+                              <EmptySpace pref="26" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -4476,18 +4482,18 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtNovoHistoricoLabor" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jBtNovoHistoricoLabor" linkSize="16" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtAlterarHistoricoLabor" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jBtAlterarHistoricoLabor" linkSize="16" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtExcluirHistoricoLabor" min="-2" pref="34" max="-2" attributes="0"/>
+                          <Component id="jBtExcluirHistoricoLabor" linkSize="16" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvarHistoricoLabor" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jBtSalvarHistoricoLabor" linkSize="16" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jBtCancelarHistoricoLabor" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="jBtCancelarHistoricoLabor" linkSize="16" min="-2" pref="31" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                           <Component id="jBtRefersProfissao" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="131" max="32767" attributes="0"/>
+                          <EmptySpace pref="117" max="32767" attributes="0"/>
                           <Component id="jBtSairHistorico" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaHistoricoLabor" min="-2" pref="22" max="-2" attributes="0"/>
@@ -4674,9 +4680,9 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="jPanel26" max="32767" attributes="0"/>
+                      <Component id="jPanel23" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <Component id="jPanel26" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -5162,7 +5168,7 @@
                                   <Component id="jComboBoxParticipoProjetosImport" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -5604,6 +5610,7 @@
                               <Component id="jBtAlterarAvaliacaoI" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtNovoAvaliacaoI" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -5762,7 +5769,7 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel29" pref="68" max="32767" attributes="0"/>
+                      <Component id="jPanel29" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -6559,6 +6566,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtNovoAvaliacaoII" linkSize="9" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jBtAlterarAvaliacaoII" linkSize="9" min="-2" pref="33" max="-2" attributes="0"/>
@@ -6568,7 +6576,7 @@
                           <Component id="jBtSalvarAvaliacaoII" linkSize="9" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jBtCancelarAvaliacaoII" linkSize="9" min="-2" pref="33" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
                           <Component id="jBtSairAvaliacaoII" linkSize="9" min="-2" pref="36" max="-2" attributes="0"/>
                           <EmptySpace pref="147" max="32767" attributes="0"/>
                           <Component id="jBtAuditoriaAvaliacaoII" min="-2" pref="27" max="-2" attributes="0"/>

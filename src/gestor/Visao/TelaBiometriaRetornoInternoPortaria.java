@@ -234,7 +234,7 @@ public class TelaBiometriaRetornoInternoPortaria extends javax.swing.JDialog {
         jLabel9.setText("Tipo Movimentação");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retono Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retorno Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -473,7 +473,7 @@ public class TelaBiometriaRetornoInternoPortaria extends javax.swing.JDialog {
                             populacaoAlimentacao();
                         } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno por Nova Condenação")) {
                             populacaoAlimentacao();
-                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retono Espontâneo")) {
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno Espontâneo")) {
                             populacaoAlimentacao();
                         } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno por Nova Prisão")) {
                             populacaoAlimentacao();

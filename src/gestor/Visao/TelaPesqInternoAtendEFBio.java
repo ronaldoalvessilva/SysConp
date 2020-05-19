@@ -14,6 +14,7 @@ import static gestor.Visao.TelaAdmissaoEvolucoEF.jIdInternoEF;
 import static gestor.Visao.TelaAdmissaoEvolucoEF.jNomeInternoEF;
 import static gestor.Visao.TelaAdmissaoEvolucoEF.jFotoInternoEF;
 import static gestor.Visao.TelaAdmissaoEvolucoEF.codigoDepartamentoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jMatriculaEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.nomeModuloEF;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -359,6 +360,7 @@ public class TelaPesqInternoAtendEFBio extends javax.swing.JInternalFrame {
                     jFotoInternoEF.setIcon(icon);
                 }
                 jDataNascimentoEF.setDate(conecta.rs.getDate("DataNasciCrc"));
+                jMatriculaEF.setText(conecta.rs.getString("MatriculaCrc"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);

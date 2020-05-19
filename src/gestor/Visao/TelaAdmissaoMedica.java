@@ -4018,6 +4018,22 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV    
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_MEDICO = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objPortaEntrada.setHabMed(pHABILITA_MEDICO);
+                        control_PE.alterarPortaEntradaMedica(objPortaEntrada);
                         //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
@@ -4053,23 +4069,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             buscarCodEvolPsiquiatrica();
                             preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                                     + "WHERE IdLanc='" + jIdAdm.getText() + "'");
-                        }
-                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV    
-                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                        objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        control_ATENDE.confirmarAtendimento(objRegAtend);
-                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
-                        pHABILITA_MEDICO = "Não";
-                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAdm.getText());
-                        objPortaEntrada.setHabPsi(pHABILITA_MEDICO);
-                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        }                        
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         Salvar();
                     }

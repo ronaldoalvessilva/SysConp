@@ -1777,6 +1777,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1784,8 +1785,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     if (jIdInternoAdmAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                        limpaTabelaDoencas();
-                        Novo();
+                        limpaTabelaDoencas();                        
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -1978,12 +1978,16 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
-                    //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
-                    pHABILITA_MEDICO = "Não";
-                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
-                    objPortaEntrada.setNomeInternoCrc(jNomeInternoAdmAD.getText());
-                    objPortaEntrada.setHabMed(pHABILITA_MEDICO);
-                    control_PE.alterarPortaEntradaMedica(objPortaEntrada);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdmAD.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_MEDICO = "Não";
                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
@@ -2026,16 +2030,6 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                         preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                                 + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     }
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoAdmAD.getText());
-                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                    objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
                 }
@@ -2676,7 +2670,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     + "AND HabMed='" + pHABILITA_MEDICO + "'");
             conecta.rs.first();
             pINTERNOCRC = conecta.rs.getString("IdInternoCrc");
-            pDEPARTAMENTO = conecta.rs.getString("PSPEnf");
+            pDEPARTAMENTO = conecta.rs.getString("PSPMed");
             pHABILITADO = conecta.rs.getString("HabMed");
         } catch (Exception e) {
         }

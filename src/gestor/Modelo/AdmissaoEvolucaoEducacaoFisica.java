@@ -14,6 +14,7 @@ import java.util.Date;
 public class AdmissaoEvolucaoEducacaoFisica {
 
     private Integer idRegistroEF;
+    private Integer idRegistroEF_NOVA;
     private String statusEF;
     private Date dataRegistroEF;
     private Integer idInternoEF;
@@ -64,8 +65,9 @@ public class AdmissaoEvolucaoEducacaoFisica {
     public AdmissaoEvolucaoEducacaoFisica() {
     }
 
-    public AdmissaoEvolucaoEducacaoFisica(Integer idRegistroEF, String statusEF, Date dataRegistroEF, Integer idInternoEF, String matriculaEF, Date dataNascimentoEF, float pesoEF, float alturaEF, String nomeInternoEF, String caminhoFoto, byte[] imagemBanco, String atividadeFisica, String frequenciaSemanal, String nivelCondicionamento, String restricaoAtividadeFisica, String qualRestricaoFisica, String problemaCardiaco, String qualProblemaCardiaco, String algumTipoCirurgia, String especificarCirurgia, String problemaOrtopedico, String habitoFumar, Integer quantosCigarros, String algumMedicamento, String especificarMedicamento, String diabetico, String pressaoSanguinea, String doresPeito, String desmaio, String textoEvolucaoAdmissao, Integer idItem, Integer idEvolucao, Date dataEvolucaoEF, String textoEvolucaoEF, String admEvo, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public AdmissaoEvolucaoEducacaoFisica(Integer idRegistroEF, Integer idRegistroEF_NOVA, String statusEF, Date dataRegistroEF, Integer idInternoEF, String matriculaEF, Date dataNascimentoEF, float pesoEF, float alturaEF, String nomeInternoEF, String caminhoFoto, byte[] imagemBanco, String atividadeFisica, String frequenciaSemanal, String nivelCondicionamento, String restricaoAtividadeFisica, String qualRestricaoFisica, String problemaCardiaco, String qualProblemaCardiaco, String algumTipoCirurgia, String especificarCirurgia, String problemaOrtopedico, String habitoFumar, Integer quantosCigarros, String algumMedicamento, String especificarMedicamento, String diabetico, String pressaoSanguinea, String doresPeito, String desmaio, String textoEvolucaoAdmissao, Integer idItem, Integer idEvolucao, Date dataEvolucaoEF, String textoEvolucaoEF, String admEvo, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idRegistroEF = idRegistroEF;
+        this.idRegistroEF_NOVA = idRegistroEF_NOVA;
         this.statusEF = statusEF;
         this.dataRegistroEF = dataRegistroEF;
         this.idInternoEF = idInternoEF;
@@ -120,6 +122,20 @@ public class AdmissaoEvolucaoEducacaoFisica {
      */
     public void setIdRegistroEF(Integer idRegistroEF) {
         this.idRegistroEF = idRegistroEF;
+    }
+
+    /**
+     * @return the idRegistroEF_NOVA
+     */
+    public Integer getIdRegistroEF_NOVA() {
+        return idRegistroEF_NOVA;
+    }
+
+    /**
+     * @param idRegistroEF_NOVA the idRegistroEF_NOVA to set
+     */
+    public void setIdRegistroEF_NOVA(Integer idRegistroEF_NOVA) {
+        this.idRegistroEF_NOVA = idRegistroEF_NOVA;
     }
 
     /**

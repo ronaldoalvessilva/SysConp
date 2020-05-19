@@ -4624,8 +4624,8 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                             pHABILITA_TO = "Não";
                             objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                             objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
-                            objPortaEntrada.setHabPsi(pHABILITA_TO);
-                            control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                            objPortaEntrada.setHabTer(pHABILITA_TO);
+                            control_PE.alterarPortaEntradaTerapia(objPortaEntrada);
                             //EVOLUÇÃO DA ADMISSÃO (13/05/2020)
                             objEvolu.setDataEvo(jDataLanc.getDate());
                             objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
@@ -6592,7 +6592,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAtendimentoTerapia;
     private javax.swing.JTable jTabelaCursos;
-    private javax.swing.JTable jTabelaEvolucao;
+    public static javax.swing.JTable jTabelaEvolucao;
     private javax.swing.JTable jTabelaExperiencia;
     private javax.swing.JFormattedTextField jTipoEtilismo;
     private javax.swing.JFormattedTextField jTipoMedicaoAlopatica;

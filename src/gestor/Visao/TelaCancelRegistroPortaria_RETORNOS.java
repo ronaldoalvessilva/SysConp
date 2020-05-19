@@ -1494,7 +1494,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
                                 //ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
-                            } else if (pTIPO_RETORNO.equals("Retono Espontâneo")) {
+                            } else if (pTIPO_RETORNO.equals("Retorno Espontâneo")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
@@ -1649,7 +1649,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
                                 //ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
-                            } else if (pTIPO_RETORNO.equals("Retono Espontâneo")) {
+                            } else if (pTIPO_RETORNO.equals("Retorno Espontâneo")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.

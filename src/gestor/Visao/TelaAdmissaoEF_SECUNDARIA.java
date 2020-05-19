@@ -5,7 +5,7 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleAdmissaoEvolucaoEF;
+import gestor.Controle.ControleAdmissaoEvolucaoEF_NOVA;
 import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovEFEvolucao;
@@ -23,6 +23,13 @@ import gestor.Modelo.AdmissaoPsicologica;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jDataNascimentoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jFotoInternoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jIdInternoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jIdRegistroEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jMatriculaEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jNomeInternoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jTabelaEvolucaoEF;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEducacaoFisica.codAbrirEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.codAlterarEF;
@@ -37,7 +44,6 @@ import static gestor.Visao.TelaModuloEducacaoFisica.codigoUserGroupEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.nomeGrupoEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.nomeModuloEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.nomeTelaEF;
-import static gestor.Visao.TelaModuloEducacaoFisica.telaAdmissoEvol_EF;
 import static gestor.Visao.TelaModuloEducacaoFisica.telaAdmissoManu_EF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -64,11 +70,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ronal
  */
-public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
+public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AdmissaoEvolucaoEducacaoFisica objAdmissao = new AdmissaoEvolucaoEducacaoFisica();
-    ControleAdmissaoEvolucaoEF control = new ControleAdmissaoEvolucaoEF();
+    ControleAdmissaoEvolucaoEF_NOVA control = new ControleAdmissaoEvolucaoEF_NOVA();
     listarTodosRegistros listaTodos = new listarTodosRegistros();
     listarAdmissaoDatas listarPorData = new listarAdmissaoDatas();
     listarAdmissaoInternos listarPorNome = new listarAdmissaoInternos();
@@ -115,34 +121,44 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     String pADM_EVOLUCAO = "";
     public static String pIDEVOLUCAO = "";
     //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
-    String pHABILITA_EDUCACAO_FISICA = "Não";
+//    String pHABILITA_EDUCACAO_FISICA = "Não";
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
     String atendido = "Sim";
     String tipoAtendimentoAdm = "Admissão Educação Física";
     String tipoAtendimentoEvol = "Evolução Educação Física";
-    String deptoTecnico = "EDUCAÇÃO FÍSICA";
+    String deptoTecnico = "EDUCACAO FISICA";
     String dataReg = "";
     String codigoInternoAtend = "";
     String opcao = "Não";
     String statusEvolucao = "EVOLUINDO";
-    //
+    //PORTA DE ENTRADA COM ORIGEM NO CRC/TRIAGEM
+    String pHABILITA_EDUCACAO_FISICA = "Sim";
+    String pDEPARTAMENTO = "";
+    String pINTERNOCRC = "";
+    String pHABILITADO = "";
+    String pCONFIRMA_ADMISSAO = "Sim";
+    int codigoDepartamento = 0;
+    String situacao = "ENTRADA NA UNIDADE";
+    String sitRetorno = "RETORNO A UNIDADE";
+    String codInterno;
+    String nomeInternoAnterior = "";
+    String pATENDIDO_PESQUISA = "Não";
 
     /**
-     * Creates new form TelaAdmissaoEvolucoEF
+     * Creates new form TelaAdmissaoEF_SECUNDARIA
      */
-    public static TelaAdmissaoEF_SECUNDARIA pADM_secundaria;
+    public static TelaAdmissaoEvolucoEF pADM_EVOLUCAO_EF;
 
-    public TelaAdmissaoEvolucoEF() {
+    public TelaAdmissaoEF_SECUNDARIA(TelaAdmissaoEvolucoEF parent, boolean modal) {
+        this.pADM_EVOLUCAO_EF = parent;
+        this.setModal(modal);
+        setLocationRelativeTo(pADM_EVOLUCAO_EF);
         initComponents();
+        jTabbedPane1.setSelectedIndex(1);
         corCampos();
         formataCampos();
-    }
-
-    public void mostrarTelaNovaAdm() {
-        pADM_secundaria = new TelaAdmissaoEF_SECUNDARIA(this, true);
-        pADM_secundaria.setVisible(true);
     }
 
     /**
@@ -156,6 +172,13 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jPanel41 = new javax.swing.JPanel();
+        jPanel38 = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
+        jPanel42 = new javax.swing.JPanel();
+        jtotalRegistros = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTabelaAdmissaoEF = new javax.swing.JTable();
         jPanel15 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jID_REGISTRO_Pesquisa = new javax.swing.JTextField();
@@ -169,35 +192,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jLabel31 = new javax.swing.JLabel();
         jPesqNomeInterno = new javax.swing.JTextField();
         jBtPesquisarInternos = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTabelaAdmissaoEF = new javax.swing.JTable();
-        jPanel41 = new javax.swing.JPanel();
-        jPanel38 = new javax.swing.JPanel();
-        jLabel63 = new javax.swing.JLabel();
-        jPanel42 = new javax.swing.JPanel();
-        jtotalRegistros = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jIdRegistroEF = new javax.swing.JTextField();
-        jStatusEF = new javax.swing.JTextField();
-        jDataRegistroEF = new com.toedter.calendar.JDateChooser();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jIdInternoEF = new javax.swing.JTextField();
-        jNomeInternoEF = new javax.swing.JTextField();
-        jMatriculaEF = new javax.swing.JTextField();
-        jDataNascimentoEF = new com.toedter.calendar.JDateChooser();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jPesoEF = new javax.swing.JTextField();
-        jAlturaEF = new javax.swing.JTextField();
-        jBtPesquisarInterno = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -207,7 +202,28 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jBtFinalizar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
-        jBtNovaAdmissao = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jIdRegistroEF_NOVO = new javax.swing.JTextField();
+        jStatusEF = new javax.swing.JTextField();
+        jDataRegistroEF = new com.toedter.calendar.JDateChooser();
+        jIdRegistroEF_PRINCIPAL = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jIdInternoEF_NOVO = new javax.swing.JTextField();
+        jNomeInternoEF_NOVO = new javax.swing.JTextField();
+        jMatriculaEF_NOVA = new javax.swing.JTextField();
+        jDataNascimentoEF_NOVA = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPesoEF = new javax.swing.JTextField();
+        jAlturaEF = new javax.swing.JTextField();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel8 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -256,36 +272,80 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jPanel14 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextoEvolucaoAdmissao = new javax.swing.JTextArea();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTabelaEvolucaoEF = new javax.swing.JTable();
-        jPanel17 = new javax.swing.JPanel();
-        jBtNovaEvolucao = new javax.swing.JButton();
-        jBtAlterarEvolucao = new javax.swing.JButton();
-        jBtExcluirEvolucao = new javax.swing.JButton();
-        jBtSalvarEvolucao = new javax.swing.JButton();
-        jBtCancelarEvolucao = new javax.swing.JButton();
-        jBtAuditoriaEvolucao = new javax.swing.JButton();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jIdInternoEEF = new javax.swing.JTextField();
-        jNomeInternoEEF = new javax.swing.JTextField();
-        jDataEvolucaoEF = new com.toedter.calendar.JDateChooser();
-        jLabel32 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextoEvolucaoEF = new javax.swing.JTextArea();
-        jPanel19 = new javax.swing.JPanel();
-        jFotoInternoEF = new javax.swing.JLabel();
-        jPanel20 = new javax.swing.JPanel();
-        jPanel21 = new javax.swing.JPanel();
 
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("...::: Admissão/Evolução Educação Física :::...");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("...::: Admissão Educação Física :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
+        jPanel41.setLayout(jPanel41Layout);
+        jPanel41Layout.setHorizontalGroup(
+            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel41Layout.setVerticalGroup(
+            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel63.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
+        jPanel38.setLayout(jPanel38Layout);
+        jPanel38Layout.setHorizontalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel38Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel63))
+        );
+        jPanel38Layout.setVerticalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel63)
+        );
+
+        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
+        jPanel42.setLayout(jPanel42Layout);
+        jPanel42Layout.setHorizontalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel42Layout.setVerticalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jTabelaAdmissaoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaAdmissaoEF.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Data", "Status", "Nome do Interno"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTabelaAdmissaoEF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaAdmissaoEFMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTabelaAdmissaoEF);
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -377,7 +437,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                                 .addGap(3, 3, 3)
                                 .addComponent(jBtPesquisarInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(7, 7, 7)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -401,85 +461,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                     .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisarInternos))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabelaAdmissaoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaAdmissaoEF.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Data", "Status", "Nome do Interno"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTabelaAdmissaoEF.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaAdmissaoEFMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTabelaAdmissaoEF);
-        if (jTabelaAdmissaoEF.getColumnModel().getColumnCount() > 0) {
-            jTabelaAdmissaoEF.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaAdmissaoEF.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaAdmissaoEF.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaAdmissaoEF.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaAdmissaoEF.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaAdmissaoEF.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaAdmissaoEF.getColumnModel().getColumn(3).setMinWidth(300);
-            jTabelaAdmissaoEF.getColumnModel().getColumn(3).setMaxWidth(300);
-        }
-
-        jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-
-        javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
-        jPanel41.setLayout(jPanel41Layout);
-        jPanel41Layout.setHorizontalGroup(
-            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel41Layout.setVerticalGroup(
-            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 14, Short.MAX_VALUE)
-        );
-
-        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-
-        jLabel63.setText("Total de Registros:");
-
-        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
-        jPanel38.setLayout(jPanel38Layout);
-        jPanel38Layout.setHorizontalGroup(
-            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel38Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel63))
-        );
-        jPanel38Layout.setVerticalGroup(
-            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel63)
-        );
-
-        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-
-        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
-        jPanel42.setLayout(jPanel42Layout);
-        jPanel42Layout.setHorizontalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-        jPanel42Layout.setVerticalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -515,185 +496,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Código");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Status");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Data");
-
-        jIdRegistroEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdRegistroEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdRegistroEF.setEnabled(false);
-
-        jStatusEF.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jStatusEF.setForeground(new java.awt.Color(204, 0, 0));
-        jStatusEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jStatusEF.setDisabledTextColor(new java.awt.Color(204, 0, 0));
-        jStatusEF.setEnabled(false);
-
-        jDataRegistroEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataRegistroEF.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jIdRegistroEF, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jStatusEF))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDataRegistroEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jStatusEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataRegistroEF, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdRegistroEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Código");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Nome do Interno");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Nascimento");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Matricula");
-
-        jIdInternoEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInternoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInternoEF.setEnabled(false);
-
-        jNomeInternoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInternoEF.setEnabled(false);
-
-        jMatriculaEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jMatriculaEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jMatriculaEF.setEnabled(false);
-
-        jDataNascimentoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataNascimentoEF.setEnabled(false);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Peso");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("Altura");
-
-        jPesoEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPesoEF.setText("0");
-        jPesoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPesoEF.setEnabled(false);
-
-        jAlturaEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jAlturaEF.setText("0");
-        jAlturaEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAlturaEF.setEnabled(false);
-
-        jBtPesquisarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesquisarInterno.setToolTipText("Pesquisar Interno");
-        jBtPesquisarInterno.setContentAreaFilled(false);
-        jBtPesquisarInterno.setEnabled(false);
-        jBtPesquisarInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisarInternoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNomeInternoEF)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jIdInternoEF, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jMatriculaEF, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jDataNascimentoEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jPesoEF, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jAlturaEF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdInternoEF, jMatriculaEF});
-
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesquisarInterno)
-                    .addComponent(jAlturaEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPesoEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataNascimentoEF, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMatriculaEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdInternoEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeInternoEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -768,15 +570,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovaAdmissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/290718163923_16.png"))); // NOI18N
-        jBtNovaAdmissao.setToolTipText("Nova Admissão");
-        jBtNovaAdmissao.setEnabled(false);
-        jBtNovaAdmissao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovaAdmissaoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -794,8 +587,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtNovaAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -803,14 +594,13 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovaAdmissao, jBtNovo, jBtSair, jBtSalvar});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
 
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtNovaAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAuditoria)
                     .addComponent(jBtSair)
                     .addComponent(jBtFinalizar)
@@ -823,6 +613,180 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Código");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Status");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Data");
+
+        jIdRegistroEF_NOVO.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdRegistroEF_NOVO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdRegistroEF_NOVO.setEnabled(false);
+
+        jStatusEF.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jStatusEF.setForeground(new java.awt.Color(204, 0, 0));
+        jStatusEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jStatusEF.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jStatusEF.setEnabled(false);
+
+        jDataRegistroEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataRegistroEF.setEnabled(false);
+
+        jIdRegistroEF_PRINCIPAL.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdRegistroEF_PRINCIPAL.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdRegistroEF_PRINCIPAL.setEnabled(false);
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel32.setText("ADM Principal");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jIdRegistroEF_PRINCIPAL))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jIdRegistroEF_NOVO, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jStatusEF, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDataRegistroEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(33, 33, 33))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdRegistroEF_PRINCIPAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdRegistroEF_NOVO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jStatusEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataRegistroEF, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Código");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Nome do Interno");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Nascimento");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Matricula");
+
+        jIdInternoEF_NOVO.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoEF_NOVO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoEF_NOVO.setEnabled(false);
+
+        jNomeInternoEF_NOVO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoEF_NOVO.setEnabled(false);
+
+        jMatriculaEF_NOVA.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jMatriculaEF_NOVA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jMatriculaEF_NOVA.setEnabled(false);
+
+        jDataNascimentoEF_NOVA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataNascimentoEF_NOVA.setEnabled(false);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Peso");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Altura");
+
+        jPesoEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPesoEF.setText("0");
+        jPesoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesoEF.setEnabled(false);
+
+        jAlturaEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlturaEF.setText("0");
+        jAlturaEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlturaEF.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNomeInternoEF_NOVO)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jIdInternoEF_NOVO, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jMatriculaEF_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jDataNascimentoEF_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jPesoEF, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jAlturaEF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jAlturaEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPesoEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataNascimentoEF_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMatriculaEF_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdInternoEF_NOVO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jNomeInternoEF_NOVO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
 
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -922,9 +886,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                                 .addComponent(jQualRestricaoFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
-
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jQualProblemaCardiaco, jQualRestricaoFisica});
-
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -1186,18 +1147,18 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 14, Short.MAX_VALUE)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxDiabetico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxPressaoSanguinea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxDoresPeito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxDesmaio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jComboBoxDiabetico, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxPressaoSanguinea, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxDesmaio, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxDoresPeito, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -1207,19 +1168,19 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxDiabetico, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(jComboBoxPressaoSanguinea, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxPressaoSanguinea, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel26)
                     .addComponent(jComboBoxDoresPeito, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel27)
                     .addComponent(jComboBoxDesmaio, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1302,9 +1263,9 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane2)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1313,7 +1274,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1322,306 +1283,39 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Admissão", jPanel2);
 
-        jTabelaEvolucaoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaEvolucaoEF.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Item", "Código", "Data", "Texto da Evolução"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTabelaEvolucaoEF.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaEvolucaoEFMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jTabelaEvolucaoEF);
-        if (jTabelaEvolucaoEF.getColumnModel().getColumnCount() > 0) {
-            jTabelaEvolucaoEF.getColumnModel().getColumn(0).setMinWidth(60);
-            jTabelaEvolucaoEF.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaEvolucaoEF.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaEvolucaoEF.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaEvolucaoEF.getColumnModel().getColumn(2).setMinWidth(70);
-            jTabelaEvolucaoEF.getColumnModel().getColumn(2).setMaxWidth(70);
-            jTabelaEvolucaoEF.getColumnModel().getColumn(3).setMinWidth(300);
-            jTabelaEvolucaoEF.getColumnModel().getColumn(3).setMaxWidth(300);
-        }
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovaEvolucao.setToolTipText("Nova Evolução");
-        jBtNovaEvolucao.setEnabled(false);
-        jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarEvolucao.setToolTipText("Alterar Evolução");
-        jBtAlterarEvolucao.setEnabled(false);
-        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
-        jBtExcluirEvolucao.setToolTipText("Excluir Evolução");
-        jBtExcluirEvolucao.setEnabled(false);
-        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarEvolucao.setToolTipText("Gravar Evolução");
-        jBtSalvarEvolucao.setEnabled(false);
-        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarEvolucao.setToolTipText("Cancelar Operação");
-        jBtCancelarEvolucao.setEnabled(false);
-        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAuditoriaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaEvolucao.setToolTipText("Auditoria");
-        jBtAuditoriaEvolucao.setContentAreaFilled(false);
-        jBtAuditoriaEvolucao.setEnabled(false);
-        jBtAuditoriaEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
-
-        jPanel17Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
-
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(4, 4, 4))
-        );
-
-        jPanel17Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
-
-        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel33.setText("Código");
-
-        jLabel34.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel34.setText("Nome do Interno");
-
-        jLabel35.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel35.setText("Data");
-
-        jIdInternoEEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInternoEEF.setEnabled(false);
-
-        jNomeInternoEEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInternoEEF.setEnabled(false);
-
-        jDataEvolucaoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataEvolucaoEF.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel33)
-                    .addComponent(jIdInternoEEF, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNomeInternoEEF)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jLabel34)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDataEvolucaoEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel35))
-                .addContainerGap())
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel33)
-                    .addComponent(jLabel34)
-                    .addComponent(jLabel35))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jNomeInternoEEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataEvolucaoEF, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdInternoEEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel32.setText("Texto da Evolução");
-
-        jScrollPane4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jTextoEvolucaoEF.setColumns(20);
-        jTextoEvolucaoEF.setRows(5);
-        jTextoEvolucaoEF.setEnabled(false);
-        jScrollPane4.setViewportView(jTextoEvolucaoEF);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane4)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel32)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
-        );
-
-        jTabbedPane1.addTab("Evolução", jPanel3);
-
-        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoEF, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoEF, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-        );
-
-        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 88, Short.MAX_VALUE)
-        );
-
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, Short.MAX_VALUE)
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel19, jPanel20, jPanel21});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 60, 616, 487);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTabelaAdmissaoEFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAdmissaoEFMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String pREGISTRO_ADM = "" + jTabelaAdmissaoEF.getValueAt(jTabelaAdmissaoEF.getSelectedRow(), 0);
+            jID_REGISTRO_Pesquisa.setText(pREGISTRO_ADM);
+            pesquisarInternoExistente();
+            //
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            //EVOLUÇAO
+            limparTabelaEvolucao();
+            preencherEvolucaoEF();
+        }
+    }//GEN-LAST:event_jTabelaAdmissaoEFMouseClicked
 
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
         // TODO add your handling code here:
@@ -1635,7 +1329,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             try {
                 for (AdmissaoEvolucaoEducacaoFisica dd : control.read()) {
                     if (row0 == 0) {
-                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela
                     }
                     pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
                     String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
@@ -1668,7 +1362,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             try {
                 for (AdmissaoEvolucaoEducacaoFisica dd : listaTodos.read()) {
                     if (row0 == 0) {
-                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela
                     }
                     pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
                     String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
@@ -1724,7 +1418,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             try {
                 for (AdmissaoEvolucaoEducacaoFisica dd : listarPorData.read()) {
                     if (row0 == 0) {
-                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela
                     }
                     pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
                     String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
@@ -1759,7 +1453,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             try {
                 for (AdmissaoEvolucaoEducacaoFisica dd : listarPorNome.read()) {
                     if (row0 == 0) {
-                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela
                     }
                     pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
                     String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
@@ -1787,15 +1481,41 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissoManu_EF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoManu_EF) && codIncluirEF == 1) {
-            acao = 1;
-            limparTodosCampos();
-            bloquearTodosBotoes(!true);
-            abrirCamposAdm(true);
-            limparTabelaEvolucao();
-            Novo();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            verificarPortaEntrada();
+            verificarRegistroBiometria();
+            if (jIdInternoEF.getText().equals(pINTERNOCRC) && deptoTecnico.equals(pDEPARTAMENTO) && pHABILITADO.equals("Sim")) {
+                if (pHabilitaEducacaoFisica.equals("Não")) {
+                    acao = 1;
+                    limparTodosCampos();
+                    bloquearTodosBotoes(!true);
+                    abrirCamposAdm(true);
+                    limparTabelaEvolucao();
+                    Novo();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    limparTodosCampos();
+                    bloquearTodosBotoes(!true);
+                    abrirCamposAdm(true);
+                    limparTabelaEvolucao();
+                    //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
+                    procurarDepartamento();
+                    //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
+                    pesquisarInternoColaboradorBiometria();
+                    if (jIdInternoEF_NOVO.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
+                    } else {
+                        acao = 1;
+                        Novo();
+                        statusMov = "Incluiu";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Já existe uma admissão para esse interno, por isso não é possível fazer uma nova admissão.");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1835,7 +1555,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
                 verificarEvolucao();
-                if (jIdRegistroEF.getText().equals(pID_EVOLUCAO)) {
+                if (jIdRegistroEF_NOVO.getText().equals(pID_EVOLUCAO)) {
                     JOptionPane.showMessageDialog(rootPane, "Não é possível excluir a admissão, existem evolução(ões) relacionado(s).");
                 } else {
                     verificarUsuario();
@@ -1850,10 +1570,10 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                             bloquearTodosCampos(!true);
                             limparTodosCampos();
                             Excluir();
-                            objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                            objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                             control.excluirAdmissaoEF(objAdmissao);
                             //APAGAR HISTÓRICO DE MOVIMENTAÇÃO DO INTERNO.
-                            objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF.getText()));
+                            objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                             controle.excluirMovTec(objAdmPsi);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1876,9 +1596,9 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoManu_EF) && codGravarEF == 1) {
             DecimalFormat valorReal = new DecimalFormat("###,##00.0");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-            if (jIdInternoEF.getText().equals("")) {
+            if (jIdInternoEF_NOVO.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-            } else if (jNomeInternoEF.getText().equals("")) {
+            } else if (jNomeInternoEF_NOVO.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
             } else if (jPesoEF.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o peso do interno.");
@@ -1889,14 +1609,17 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             } else {
                 objAdmissao.setStatusEF(jStatusEF.getText());
                 objAdmissao.setDataRegistroEF(jDataRegistroEF.getDate());
-                objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
-                objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
+                objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
                 try {
                     objAdmissao.setPesoEF(valorReal.parse(jPesoEF.getText()).floatValue());
                     objAdmissao.setAlturaEF(valorReal.parse(jAlturaEF.getText()).floatValue());
+
                 } catch (ParseException ex) {
-                    Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TelaAdmissaoEvolucoEF.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
+                objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
                 objAdmissao.setAtividadeFisica((String) jComboBoxAtividadeFisica.getSelectedItem());
                 objAdmissao.setFrequenciaSemanal(jFrequenciaSemanal.getText());
                 objAdmissao.setNivelCondicionamento((String) jComboBoxNivelCondicionamento.getSelectedItem());
@@ -1917,8 +1640,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 objAdmissao.setDesmaio((String) jComboBoxDesmaio.getSelectedItem());
                 objAdmissao.setTextoEvolucaoAdmissao(jTextoEvolucaoAdmissao.getText());
                 if (acao == 1) {
-                    verificarAdmissao();
-                    if (jIdInternoEF.getText().equals(pCODIGO_INTERNO)) {
+                    verificarAdmissao();                    
+                    if (jIdInternoEF_NOVO.getText().equals(pCODIGO_INTERNO)) {
                         JOptionPane.showMessageDialog(rootPane, "Esse interno já fez admissão anteriormente nessa tela.");
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
                                 JOptionPane.YES_NO_OPTION);
@@ -1926,7 +1649,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                             bloquearTodosBotoes(!true);
                             jBtNovo.setEnabled(true);
                             pesquisarInternoExistente();
-                            mostrarTelaNovaAdm();
                         }
                     } else {
                         // log de usuario
@@ -1941,48 +1663,48 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                         //MOVIMENTO TÉCNICO DO INTENO NO PSP
                         objAdmPsi.setStatusLanc(jStatusEF.getText());
                         objAdmPsi.setDataLanc(jDataRegistroEF.getDate());
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF.getText()));
-                        objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                        objAdmPsi.setNomeInterno(jNomeInternoEF.getText());
+                        objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+                        objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                        objAdmPsi.setNomeInterno(jNomeInternoEF_NOVO.getText());
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAdmPsi);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO
                         atendido = "Sim";
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoEF.getText());
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoEF);
                         objRegAtend.setNomeDepartamento(nomeModuloEF);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataRegistroEF.getDate());
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF.getText()));
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                         objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
-                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
                         objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoEF.getText());
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoEF);
                         objRegAtend.setNomeDepartamento(nomeModuloEF);
                         objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                         objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF.getText()));
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         control_ATENDE.confirmarAtendimento(objRegAtend);
                         //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                         pHABILITA_EDUCACAO_FISICA = "Não";
-                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                        objPortaEntrada.setNomeInternoCrc(jNomeInternoEF.getText());
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
                         objPortaEntrada.setHabPsi(pHABILITA_EDUCACAO_FISICA);
                         control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                         //GRAVAR EVOLUÇÃO DA ADMISSÃO
-                        objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
-                        objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
-                        objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                        objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                        objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
+                        objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                         objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
                         objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
                         objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
@@ -2004,22 +1726,22 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                     objAdmissao.setDataUp(dataModFinal);
                     objAdmissao.setHorarioUp(horaMov);
                     //
-                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                     control.alterarAdmissaoEF(objAdmissao);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     //MOVIMENTO TÉCNICO
                     objAdmPsi.setStatusLanc(jStatusEF.getText());
                     objAdmPsi.setDataLanc(jDataRegistroEF.getDate());
-                    objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF.getText()));
-                    objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                    objAdmPsi.setNomeInterno(jNomeInternoEF.getText());
+                    objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+                    objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objAdmPsi.setNomeInterno(jNomeInternoEF_NOVO.getText());
                     objAdmPsi.setDeptoPsicologico(deptoTecnico);
                     controle.alterarMovTec(objAdmPsi);
                     //EVOLUÇÃO DA ADMISSÃO
-                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
-                    objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
-                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
+                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                     objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
                     objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
                     objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
@@ -2057,11 +1779,11 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 dataModFinal = jDataSistema.getText();
                 String pSTATUS_FINALIZADO = "FINALIZADO";
                 objAdmissao.setStatusEF(pSTATUS_FINALIZADO);
-                objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
                 control.finalizarAdmissaoEF(objAdmissao);
                 //
                 objAdmPsi.setStatusLanc(pSTATUS_FINALIZADO);
-                objAdmPsi.setIdLanc(Integer.parseInt(jIdRegistroEF.getText()));
+                objAdmPsi.setIdLanc(Integer.parseInt(jIdRegistroEF_NOVO.getText()));
                 controle.finalizarMovTec(objAdmPsi);
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2071,15 +1793,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
-
-    private void jBtNovaAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaAdmissaoActionPerformed
-        // TODO add your handling code here:
-        if (jIdRegistroEF.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É ncessário selecionara admissão antiga.");
-        } else {
-            mostrarTelaNovaAdm();
-        }
-    }//GEN-LAST:event_jBtNovaAdmissaoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
@@ -2093,320 +1806,69 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         audPsi.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
-    private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
-        // TODO add your handling code here:
-        verificarRegistroBiometria();
-        if (pHabilitaEducacaoFisica.equals("Não")) {
-            TelaPesqInternoAdmEducacaoFisica objPesqIntAdmPsi = new TelaPesqInternoAdmEducacaoFisica();
-            TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objPesqIntAdmPsi);
-            objPesqIntAdmPsi.show();
-        } else {
-            TelaPesqInternoAtendEFBio objPesqIntBio = new TelaPesqInternoAtendEFBio();
-            TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objPesqIntBio);
-            objPesqIntBio.show();
-        }
-    }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
 
-    private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmissoEvol_EF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codIncluirEF == 1) {
-            if (jStatusEF.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
-            } else {
-                verificarInternoRegistradoAdm();
-                if (atendido == null) {
-                    JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-                } else if (atendido.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-                } else if (atendido.equals("Sim")) {
-                    JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-                } else if (atendido.equals("Não")) {
-                    verificarUsuario();
-                    if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                        bloquearTodosBotoes(!true);
-                        acao = 3;
-                        abrirCamposEvolucao(true);
-                        NovaEvolucao();
-                        statusMov = "Incluiu";
-                        horaMov = jHoraSistema.getText();
-                        dataModFinal = jDataSistema.getText();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-                        conecta.desconecta();
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaAdmissaoEF_SECUNDARIA.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaAdmissaoEF_SECUNDARIA.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaAdmissaoEF_SECUNDARIA.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaAdmissaoEF_SECUNDARIA.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                TelaAdmissaoEF_SECUNDARIA dialog = new TelaAdmissaoEF_SECUNDARIA(pADM_EVOLUCAO_EF, true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
                     }
-                }
+                });
+                dialog.setVisible(true);
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
-        }
-    }//GEN-LAST:event_jBtNovaEvolucaoActionPerformed
-
-    private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmissoEvol_EF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codAlterarEF == 1) {
-            if (jStatusEF.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
-            } else {
-                verificarEvolucaoAdmissao();
-                if (pADM_EVOLUCAO == null) {
-                    verificarUsuario_EVOLUCAO();
-                    if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                        bloquearTodosBotoes(!true);
-                        acao = 4;
-                        abrirCamposEvolucao(true);
-                        AlterarEvolucao();
-                        statusMov = "Alterou";
-                        horaMov = jHoraSistema.getText();
-                        dataModFinal = jDataSistema.getText();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-                        conecta.desconecta();
-                    }
-                } else if (pADM_EVOLUCAO.equals("")) {
-                    verificarUsuario_EVOLUCAO();
-                    if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                        bloquearTodosBotoes(!true);
-                        acao = 4;
-                        abrirCamposEvolucao(true);
-                        AlterarEvolucao();
-                        statusMov = "Alterou";
-                        horaMov = jHoraSistema.getText();
-                        dataModFinal = jDataSistema.getText();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-                        conecta.desconecta();
-                    }
-                } else if (pADM_EVOLUCAO.equals("Sim")) {
-                    JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
-        }
-    }//GEN-LAST:event_jBtAlterarEvolucaoActionPerformed
-
-    private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmissoEvol_EF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codExcluirEF == 1) {
-            if (jStatusEF.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
-            } else {
-                verificarUsuario_EVOLUCAO();
-                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        statusMov = "Excluiu";
-                        horaMov = jHoraSistema.getText();
-                        dataModFinal = jDataSistema.getText();
-                        bloquearTodosBotoes(!true);
-                        bloquearTodosCampos(!true);
-                        limparCamposEvolucao();
-                        limparTabelaEvolucao();
-                        Excluir();
-                        objAdmissao.setIdItem(idItemEvolucao);
-                        control.excluir_EVOLUCAO_EF(objAdmissao);
-                        objLog1();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-                    conecta.desconecta();
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
-        }
-    }//GEN-LAST:event_jBtExcluirEvolucaoActionPerformed
-
-    private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmissoEvol_EF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codGravarEF == 1) {
-            if (jIdInternoEEF.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-            } else if (jNomeInternoEEF.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-            } else {
-                objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
-                objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
-                objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
-                objAdmissao.setDataEvolucaoEF(jDataEvolucaoEF.getDate());
-                objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoEF.getText());
-                objAdmissao.setStatusEF(statusEvolucao);
-                if (acao == 3) {
-                    // log de usuario
-                    objAdmissao.setUsuarioInsert(nameUser);
-                    objAdmissao.setDataInsert(dataModFinal);
-                    objAdmissao.setHorarioInsert(horaMov);
-                    control.incluir_EVOLUCAO_EF(objAdmissao);
-                    buscarCodigoEvolucao();
-                    objLog1();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    //MOVIMENTO TÉCNICO DO INTENO NO PSP
-                    objAdmPsi.setStatusLanc(jStatusEF.getText());
-                    objAdmPsi.setDataLanc(jDataRegistroEF.getDate());
-                    objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF.getText()));
-                    objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                    objAdmPsi.setNomeInterno(jNomeInternoEF.getText());
-                    objAdmPsi.setDeptoPsicologico(deptoTecnico);
-                    controleEvo.incluirMovTec(objAdmPsi);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
-                    atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoEF.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoEF);
-                    objRegAtend.setNomeDepartamento(nomeModuloEF);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataRegistroEF.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF.getText()));
-                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                    //
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegAtend(objRegAtend);
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoEF.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoEF);
-                    objRegAtend.setNomeDepartamento(nomeModuloEF);
-                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                    objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);
-                    bloquearTodosBotoes(!true);
-                    bloquearTodosCampos(!true);
-                    SalvarEvolucao();
-                    limparTabelaEvolucao();
-                    preencherEvolucao_REGISTRO_EF();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
-                if (acao == 4) {
-                    objAdmissao.setUsuarioUp(nameUser);
-                    objAdmissao.setDataUp(dataModFinal);
-                    objAdmissao.setHorarioUp(horaMov);
-                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
-                    objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
-                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
-                    objAdmissao.setDataEvolucaoEF(jDataEvolucaoEF.getDate());
-                    objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoEF.getText());
-                    objAdmissao.setStatusEF(statusEvolucao);
-                    objAdmissao.setIdItem(Integer.valueOf(pIDEVOLUCAO));
-                    control.alterar_EVOLUCAO_EF(objAdmissao);
-                    //MOVIMENTO TÉCNICO DO INTENO NO PSP                    
-                    objAdmPsi.setDataLanc(jDataRegistroEF.getDate());
-                    objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF.getText()));
-                    objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
-                    objAdmPsi.setNomeInterno(jNomeInternoEF.getText());
-                    objAdmPsi.setDeptoPsicologico(deptoTecnico);
-                    controleEvo.alterarMovTec(objAdmPsi);
-                    objLog1();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    bloquearTodosBotoes(!true);
-                    bloquearTodosCampos(!true);
-                    SalvarEvolucao();
-                    limparTabelaEvolucao();
-                    preencherEvolucao_REGISTRO_EF();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
-        }
-    }//GEN-LAST:event_jBtSalvarEvolucaoActionPerformed
-
-    private void jBtCancelarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarEvolucaoActionPerformed
-        // TODO add your handling code here:
-        limparCamposEvolucao();
-        bloquearTodosBotoes(!true);
-        bloquearTodosCampos(!true);
-        CancelarEvolucao();
-    }//GEN-LAST:event_jBtCancelarEvolucaoActionPerformed
-
-    private void jBtAuditoriaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEvolucaoActionPerformed
-        // TODO add your handling code here:
-        TelaAuditoriaEvolucaoEF objEvolu = new TelaAuditoriaEvolucaoEF();
-        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objEvolu);
-        objEvolu.show();
-    }//GEN-LAST:event_jBtAuditoriaEvolucaoActionPerformed
-
-    private void jTabelaEvolucaoEFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEvolucaoEFMouseClicked
-        // TODO add your handling code here:
-        flag = 1;
-        if (flag == 1) {
-            limparCamposEvolucao();
-            jBtNovaEvolucao.setEnabled(true);
-            jBtAlterarEvolucao.setEnabled(true);
-            jBtExcluirEvolucao.setEnabled(true);
-            jBtCancelarEvolucao.setEnabled(true);
-            jBtAuditoriaEvolucao.setEnabled(true);
-            pIDEVOLUCAO = "" + jTabelaEvolucaoEF.getValueAt(jTabelaEvolucaoEF.getSelectedRow(), 0);
-            try {
-                for (AdmissaoEvolucaoEducacaoFisica pp : lista_REGISTRO.read()) {
-                    idItemEvolucao = pp.getIdItem();
-                    jIdInternoEEF.setText(String.valueOf(pp.getIdInternoEF()));
-                    jNomeInternoEEF.setText(pp.getNomeInternoEF());
-                    jDataEvolucaoEF.setDate(pp.getDataEvolucaoEF());
-                    jTextoEvolucaoEF.setText(pp.getTextoEvolucaoEF());
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_jTabelaEvolucaoEFMouseClicked
-
-    private void jTabelaAdmissaoEFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAdmissaoEFMouseClicked
-        // TODO add your handling code here:
-        flag = 1;
-        if (flag == 1) {
-            String pREGISTRO_ADM = "" + jTabelaAdmissaoEF.getValueAt(jTabelaAdmissaoEF.getSelectedRow(), 0);
-            jID_REGISTRO_Pesquisa.setText(pREGISTRO_ADM);
-            pesquisarInternoExistente();
-            //
-            jBtNovo.setEnabled(true);
-            jBtAlterar.setEnabled(true);
-            jBtExcluir.setEnabled(true);
-            jBtFinalizar.setEnabled(true);
-            jBtNovaAdmissao.setEnabled(true);
-            jBtAuditoria.setEnabled(true);
-            //EVOLUÇAO
-            limparCamposEvolucao();
-            limparTabelaEvolucao();
-            preencherEvolucaoEF();
-            jBtNovaEvolucao.setEnabled(true);
-        }
-    }//GEN-LAST:event_jTabelaAdmissaoEFMouseClicked
-
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField jAlturaEF;
     private javax.swing.JButton jBtAlterar;
-    private javax.swing.JButton jBtAlterarEvolucao;
     private javax.swing.JButton jBtAuditoria;
-    private javax.swing.JButton jBtAuditoriaEvolucao;
     private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtCancelarEvolucao;
     private javax.swing.JButton jBtExcluir;
-    private javax.swing.JButton jBtExcluirEvolucao;
     private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtIDPesq;
-    private javax.swing.JButton jBtNovaAdmissao;
-    private javax.swing.JButton jBtNovaEvolucao;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqDatas;
-    private javax.swing.JButton jBtPesquisarInterno;
     private javax.swing.JButton jBtPesquisarInternos;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
-    private javax.swing.JButton jBtSalvarEvolucao;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBoxAlgumMedicamento;
     private javax.swing.JComboBox<String> jComboBoxAlgumTipoCirurgia;
@@ -2420,19 +1882,17 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jComboBoxProblemaCardiaco;
     private javax.swing.JComboBox<String> jComboBoxProblemaOrtopedico;
     private javax.swing.JComboBox<String> jComboBoxRestricaoAtividadeFisica;
-    private com.toedter.calendar.JDateChooser jDataEvolucaoEF;
-    public static com.toedter.calendar.JDateChooser jDataNascimentoEF;
+    public static com.toedter.calendar.JDateChooser jDataNascimentoEF_NOVA;
     public static com.toedter.calendar.JDateChooser jDataPesFinal;
     public static com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataRegistroEF;
     private javax.swing.JTextField jEspecificarCirurgia;
     private javax.swing.JTextField jEspecificarMedicamento;
-    public static javax.swing.JLabel jFotoInternoEF;
     private javax.swing.JTextField jFrequenciaSemanal;
     public static javax.swing.JTextField jID_REGISTRO_Pesquisa;
-    private javax.swing.JTextField jIdInternoEEF;
-    public static javax.swing.JTextField jIdInternoEF;
-    public static javax.swing.JTextField jIdRegistroEF;
+    public static javax.swing.JTextField jIdInternoEF_NOVO;
+    public static javax.swing.JTextField jIdRegistroEF_NOVO;
+    public static javax.swing.JTextField jIdRegistroEF_PRINCIPAL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2459,9 +1919,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2469,9 +1926,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    public static javax.swing.JTextField jMatriculaEF;
-    private javax.swing.JTextField jNomeInternoEEF;
-    public static javax.swing.JTextField jNomeInternoEF;
+    public static javax.swing.JTextField jMatriculaEF_NOVA;
+    public static javax.swing.JTextField jNomeInternoEF_NOVO;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2480,13 +1936,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel41;
@@ -2503,28 +1953,114 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jQuantosCigarros;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jStatusEF;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAdmissaoEF;
-    public static javax.swing.JTable jTabelaEvolucaoEF;
     private javax.swing.JTextArea jTextoEvolucaoAdmissao;
-    private javax.swing.JTextArea jTextoEvolucaoEF;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarPortaEntrada() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PORTA_ENTRADA "
+                    + "WHERE IdInternoCrc='" + jIdInternoEF.getText() + "' "
+                    + "AND PSPEdu='" + deptoTecnico + "' "
+                    + "AND HabEdu='" + pHABILITA_EDUCACAO_FISICA + "'");
+            conecta.rs.first();
+            pINTERNOCRC = conecta.rs.getString("IdInternoCrc");
+            pDEPARTAMENTO = conecta.rs.getString("PSPEdu");
+            pHABILITADO = conecta.rs.getString("HabEdu");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarInternoManual() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN ADMISSAOPSI "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOPSI.IdInternoCrc "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacao + "' "
+                    + "AND ADMISSAOPSI.IdInternoCrc='" + jIdInternoEF.getText() + " '"
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
+                    + "AND ADMISSAOPSI.IdInternoCrc='" + jIdInternoEF.getText() + "'");
+            conecta.rs.first();
+            jIdRegistroEF_PRINCIPAL.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
+            codInterno = conecta.rs.getString("IdInternoCrc");
+            nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
+            jIdInternoEF_NOVO.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoEF_NOVO.setText(conecta.rs.getString("NomeInternoCrc"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloEF + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoEF = conecta.rs.getInt("IdDepartamento");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarInternoColaboradorBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoEF.getText() + "' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoEF.getText() + "' "
+                    + "AND SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
+            conecta.rs.first();
+            jIdRegistroEF_PRINCIPAL.setText(jIdRegistroEF.getText());
+            // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
+            codInterno = conecta.rs.getString("IdInternoCrc");
+            nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
+            jIdInternoEF.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoEF.setText(conecta.rs.getString("NomeInternoCrc"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void pesquisarInternoExistente() {
         bloquearTodosCampos(!true);
         try {
             for (AdmissaoEvolucaoEducacaoFisica dd : control.read()) {
-                jIdRegistroEF.setText(String.valueOf(dd.getIdRegistroEF()));
+                jIdRegistroEF_NOVO.setText(String.valueOf(dd.getIdRegistroEF()));
                 jStatusEF.setText(dd.getStatusEF());
                 jDataRegistroEF.setDate(dd.getDataRegistroEF());
-                jIdInternoEF.setText(String.valueOf(dd.getIdInternoEF()));
-                jMatriculaEF.setText(dd.getMatriculaEF());
-                jDataNascimentoEF.setDate(dd.getDataNascimentoEF());
+                jIdInternoEF_NOVO.setText(String.valueOf(dd.getIdInternoEF()));
+                jMatriculaEF_NOVA.setText(dd.getMatriculaEF());
+                jDataNascimentoEF_NOVA.setDate(dd.getDataNascimentoEF());
                 dd.getPesoEF();
                 DecimalFormat pPESO = new DecimalFormat("#,##0.00");
                 String vqtdItem = pPESO.format(dd.getPesoEF());
@@ -2533,7 +2069,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 DecimalFormat pALTURA = new DecimalFormat("#,##0.00");
                 String pALTURA_INTERNO = pALTURA.format(dd.getAlturaEF());
                 jAlturaEF.setText(pALTURA_INTERNO);
-                jNomeInternoEF.setText(dd.getNomeInternoEF());
+                jNomeInternoEF_NOVO.setText(dd.getNomeInternoEF());
                 jFotoInternoEF.setIcon(null);
                 // Capturando foto
                 caminho = dd.getCaminhoFoto();
@@ -2574,22 +2110,25 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 jComboBoxDesmaio.setSelectedItem(dd.getDesmaio());
                 //EVOLUÇÃO ADMISSÃO
                 jTextoEvolucaoAdmissao.setText(dd.getTextoEvolucaoAdmissao());
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAdmissaoEvolucoEF.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void corCampos() {
-        jIdRegistroEF.setBackground(Color.white);
+        jIdRegistroEF_PRINCIPAL.setBackground(Color.white);
+        jIdRegistroEF_NOVO.setBackground(Color.white);
         jStatusEF.setBackground(Color.white);
         jDataRegistroEF.setBackground(Color.white);
-        jIdInternoEF.setBackground(Color.white);
-        jMatriculaEF.setBackground(Color.white);
-        jDataNascimentoEF.setBackground(Color.white);
+        jIdInternoEF_NOVO.setBackground(Color.white);
+        jMatriculaEF_NOVA.setBackground(Color.white);
+        jDataNascimentoEF_NOVA.setBackground(Color.white);
         jPesoEF.setBackground(Color.white);
         jAlturaEF.setBackground(Color.white);
-        jNomeInternoEF.setBackground(Color.white);
+        jNomeInternoEF_NOVO.setBackground(Color.white);
         //PARTE I
         jComboBoxAtividadeFisica.setBackground(Color.white);
         jFrequenciaSemanal.setBackground(Color.white);
@@ -2613,30 +2152,23 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jComboBoxDesmaio.setBackground(Color.white);
         //EVOLUÇÃO ADMISSÃO
         jTextoEvolucaoAdmissao.setBackground(Color.white);
-        //EVOLUÇÃO
-        jIdInternoEEF.setBackground(Color.white);
-        jNomeInternoEEF.setBackground(Color.white);
-        jDataEvolucaoEF.setBackground(Color.white);
-        jTextoEvolucaoEF.setBackground(Color.white);
     }
 
     public void formataCampos() {
         jTextoEvolucaoAdmissao.setLineWrap(true);
         jTextoEvolucaoAdmissao.setWrapStyleWord(true);
-        jTextoEvolucaoEF.setLineWrap(true);
-        jTextoEvolucaoEF.setWrapStyleWord(true);
     }
 
     public void bloquearTodosCampos(boolean opcao) {
-        jIdRegistroEF.setEnabled(opcao);
+        jIdRegistroEF_NOVO.setEnabled(opcao);
         jStatusEF.setEnabled(opcao);
         jDataRegistroEF.setEnabled(opcao);
-        jIdInternoEF.setEnabled(opcao);
-        jMatriculaEF.setEnabled(opcao);
-        jDataNascimentoEF.setEnabled(opcao);
+        jIdInternoEF_NOVO.setEnabled(opcao);
+        jMatriculaEF_NOVA.setEnabled(opcao);
+        jDataNascimentoEF_NOVA.setEnabled(opcao);
         jPesoEF.setEnabled(opcao);
         jAlturaEF.setEnabled(opcao);
-        jNomeInternoEF.setEnabled(opcao);
+        jNomeInternoEF_NOVO.setEnabled(opcao);
         //PARTE I
         jComboBoxAtividadeFisica.setEnabled(opcao);
         jFrequenciaSemanal.setEnabled(opcao);
@@ -2660,11 +2192,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jComboBoxDesmaio.setEnabled(opcao);
         //EVOLUÇÃO ADMISSÃO
         jTextoEvolucaoAdmissao.setEnabled(opcao);
-        //EVOLUÇÃO
-        jIdInternoEEF.setEnabled(opcao);
-        jNomeInternoEEF.setEnabled(opcao);
-        jDataEvolucaoEF.setEnabled(opcao);
-        jTextoEvolucaoEF.setEnabled(opcao);
     }
 
     public void abrirCamposAdm(boolean opcao) {
@@ -2696,7 +2223,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     }
 
     public void abrirCamposEvolucao(boolean opcao) {
-        jTextoEvolucaoEF.setEnabled(opcao);
+//        jTextoEvolucaoEF.setEnabled(opcao);
     }
 
     public void bloquearTodosBotoes(boolean opcao) {
@@ -2706,16 +2233,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jBtSalvar.setEnabled(opcao);
         jBtCancelar.setEnabled(opcao);
         jBtFinalizar.setEnabled(opcao);
-        jBtNovaAdmissao.setEnabled(opcao);
         jBtAuditoria.setEnabled(opcao);
-        jBtPesquisarInterno.setEnabled(opcao);
-        //
-        jBtNovaEvolucao.setEnabled(opcao);
-        jBtAlterarEvolucao.setEnabled(opcao);
-        jBtExcluirEvolucao.setEnabled(opcao);
-        jBtSalvarEvolucao.setEnabled(opcao);
-        jBtCancelarEvolucao.setEnabled(opcao);
-        jBtAuditoriaEvolucao.setEnabled(opcao);
     }
 
     public void bloquearBotoesAdm(boolean opcao) {
@@ -2725,30 +2243,19 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jBtSalvar.setEnabled(opcao);
         jBtCancelar.setEnabled(opcao);
         jBtFinalizar.setEnabled(opcao);
-        jBtNovaAdmissao.setEnabled(opcao);
         jBtAuditoria.setEnabled(opcao);
-        jBtPesquisarInterno.setEnabled(opcao);
-    }
-
-    public void bloquearBotoesEvolucao(boolean opcao) {
-        jBtNovaEvolucao.setEnabled(opcao);
-        jBtAlterarEvolucao.setEnabled(opcao);
-        jBtExcluirEvolucao.setEnabled(opcao);
-        jBtSalvarEvolucao.setEnabled(opcao);
-        jBtCancelarEvolucao.setEnabled(opcao);
-        jBtAuditoriaEvolucao.setEnabled(opcao);
     }
 
     public void limparTodosCampos() {
-        jIdRegistroEF.setText("");
+        jIdRegistroEF_NOVO.setText("");
         jStatusEF.setText("");
         jDataRegistroEF.setDate(null);
-        jIdInternoEF.setText("");
-        jMatriculaEF.setText("");
-        jDataNascimentoEF.setDate(null);
+        jIdInternoEF_NOVO.setText("");
+        jMatriculaEF_NOVA.setText("");
+        jDataNascimentoEF_NOVA.setDate(null);
         jPesoEF.setText("");
         jAlturaEF.setText("");
-        jNomeInternoEF.setText("");
+        jNomeInternoEF_NOVO.setText("");
         jFotoInternoEF.setIcon(null);
         //PARTE I
         jComboBoxAtividadeFisica.setSelectedItem("Não");
@@ -2773,34 +2280,25 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jComboBoxDesmaio.setSelectedItem("Não");
         //EVOLUÇÃO ADMISSÃO
         jTextoEvolucaoAdmissao.setText("");
-        //EVOLUÇÃO
-        jIdInternoEEF.setText("");
-        jNomeInternoEEF.setText("");
-        jDataEvolucaoEF.setDate(null);
-        jTextoEvolucaoEF.setText("");
-    }
-
-    public void limparCamposEvolucao() {
-        jIdInternoEEF.setText("");
-        jNomeInternoEEF.setText("");
-        jDataEvolucaoEF.setDate(null);
-        jTextoEvolucaoEF.setText("");
     }
 
     public void Novo() {
         jStatusEF.setText("ABERTO");
+        jIdRegistroEF_PRINCIPAL.setText(jIdRegistroEF.getText());
         jDataRegistroEF.setCalendar(Calendar.getInstance());
+        jIdInternoEF_NOVO.setText(jIdInternoEF.getText());
+        jNomeInternoEF_NOVO.setText(jNomeInternoEF.getText());
+        jMatriculaEF_NOVA.setText(jMatriculaEF.getText());
+        jDataNascimentoEF_NOVA.setDate(jDataNascimentoEF.getDate());
         jTextoEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         jPesoEF.setText("0");
         jAlturaEF.setText("0");
         jQuantosCigarros.setText("0");
-        jBtPesquisarInterno.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
 
     public void Alterar() {
-        jBtPesquisarInterno.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
@@ -2817,14 +2315,11 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
         jBtFinalizar.setEnabled(true);
-        jBtNovaAdmissao.setEnabled(true);
         jBtAuditoria.setEnabled(true);
-        //
-        jBtNovaEvolucao.setEnabled(true);
     }
 
     public void Cancelar() {
-        if (jIdRegistroEF.getText().equals("")) {
+        if (jIdRegistroEF_NOVO.getText().equals("")) {
             bloquearTodosCampos(!true);
             bloquearTodosBotoes(!true);
             limparTodosCampos();
@@ -2837,10 +2332,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             jBtSalvar.setEnabled(true);
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
-            jBtNovaAdmissao.setEnabled(true);
             jBtAuditoria.setEnabled(true);
-            //
-            jBtNovaEvolucao.setEnabled(true);
         }
     }
 
@@ -2852,9 +2344,9 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     public void buscarCodigoAdm() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA_NOVA");
             conecta.rs.last();
-            jIdRegistroEF.setText(conecta.rs.getString("IdRegistroEF"));
+            jIdRegistroEF_NOVO.setText(conecta.rs.getString("IdRegistroEF_NOVA"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o código do lançamento");
         }
@@ -2864,8 +2356,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     public void verificarAdmissao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
-                    + "WHERE IdInternoCrc='" + jIdInternoEF.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA_NOVA "
+                    + "WHERE IdInternoCrc='" + jIdInternoEF_NOVO.getText() + "'");
             conecta.rs.first();
             pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {
@@ -2884,49 +2376,6 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void NovaEvolucao() {
-        jIdInternoEEF.setText(jIdInternoEF.getText());
-        jNomeInternoEEF.setText(jNomeInternoEF.getText());
-        jDataEvolucaoEF.setCalendar(Calendar.getInstance());
-        //
-        jBtSalvarEvolucao.setEnabled(true);
-        jBtCancelarEvolucao.setEnabled(true);
-    }
-
-    public void AlterarEvolucao() {
-        jBtSalvarEvolucao.setEnabled(true);
-        jBtCancelarEvolucao.setEnabled(true);
-    }
-
-    public void ExcluirEvolucao() {
-        jIdInternoEEF.setText("");
-        jNomeInternoEEF.setText("");
-        jDataEvolucaoEF.setDate(null);
-        jTextoEvolucaoEF.setText("");
-        jBtNovaEvolucao.setEnabled(true);
-    }
-
-    public void SalvarEvolucao() {
-        jIdInternoEEF.setText("");
-        jNomeInternoEEF.setText("");
-        jDataEvolucaoEF.setDate(null);
-        jTextoEvolucaoEF.setText("");
-        jBtNovaEvolucao.setEnabled(true);
-    }
-
-    public void CancelarEvolucao() {
-        jIdInternoEEF.setText("");
-        jNomeInternoEEF.setText("");
-        jDataEvolucaoEF.setDate(null);
-        jBtNovaEvolucao.setEnabled(true);
-        //
-        jBtNovo.setEnabled(true);
-        jBtAlterar.setEnabled(true);
-        jBtExcluir.setEnabled(true);
-        jBtFinalizar.setEnabled(true);
-        jBtAuditoria.setEnabled(true);
-    }
-
     public void buscarCodigoEvolucao() {
         conecta.abrirConexao();
         try {
@@ -2942,8 +2391,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     public void verificarUsuario() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
-                    + "WHERE IdRegistroEF='" + jIdRegistroEF.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA_NOVA "
+                    + "WHERE IdRegistroEF_NOVA='" + jIdRegistroEF_NOVO.getText() + "'");
             conecta.rs.first();
             nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
         } catch (SQLException ex) {
@@ -2956,7 +2405,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM EVOLUCAO_EDUCACAO_FISICA "
-                    + "WHERE IdRegistroEF='" + jIdRegistroEF.getText() + "'");
+                    + "WHERE IdRegistroEF='" + jIdRegistroEF_NOVO.getText() + "'");
             conecta.rs.first();
             nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
         } catch (SQLException ex) {
@@ -2970,7 +2419,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM EVOLUCAO_EDUCACAO_FISICA "
-                    + "WHERE IdRegistroEF='" + jIdRegistroEF.getText() + "' "
+                    + "WHERE IdRegistroEF='" + jIdRegistroEF_NOVO.getText() + "' "
                     + "AND IdItem='" + pIDEVOLUCAO + "'");
             conecta.rs.first();
             pADM_EVOLUCAO = conecta.rs.getString("AdmEvo");
@@ -2983,7 +2432,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM EVOLUCAO_EDUCACAO_FISICA "
-                    + "WHERE IdRegistroEF='" + jIdRegistroEF.getText() + "'");
+                    + "WHERE IdRegistroEF='" + jIdRegistroEF_NOVO.getText() + "'");
             conecta.rs.first();
             pID_EVOLUCAO = conecta.rs.getString("IdRegistroEF");
         } catch (SQLException ex) {
@@ -2999,7 +2448,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         dataReg = formatoAmerica.format(jDataRegistroEF.getDate().getTime());
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIdInternoEF.getText() + "' "
+                    + "WHERE IdInternoCrc='" + jIdInternoEF_NOVO.getText() + "' "
                     + "AND Atendido='" + opcao + "'");
             conecta.rs.first();
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
@@ -3029,9 +2478,11 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 jTabelaEvolucaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                 jTabelaEvolucaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 jTabelaEvolucaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAdmissaoEvolucoEF.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -3054,9 +2505,11 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 jTabelaEvolucaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                 jTabelaEvolucaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 jTabelaEvolucaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAdmissaoEvolucoEF.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -3117,7 +2570,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroEF.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -3126,7 +2579,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela1);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroEF.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
