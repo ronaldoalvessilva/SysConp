@@ -1494,11 +1494,13 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
+                    pesquisarInternoManual();
                 } else {
                     limparTodosCampos();
                     bloquearTodosBotoes(!true);
                     abrirCamposAdm(true);
                     limparTabelaEvolucao();
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1507,7 +1509,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
                         acao = 1;
-                        Novo();
+
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
                         dataModFinal = jDataSistema.getText();
@@ -1640,7 +1642,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                 objAdmissao.setDesmaio((String) jComboBoxDesmaio.getSelectedItem());
                 objAdmissao.setTextoEvolucaoAdmissao(jTextoEvolucaoAdmissao.getText());
                 if (acao == 1) {
-                    verificarAdmissao();                    
+                    verificarAdmissao();
                     if (jIdInternoEF_NOVO.getText().equals(pCODIGO_INTERNO)) {
                         JOptionPane.showMessageDialog(rootPane, "Esse interno já fez admissão anteriormente nessa tela.");
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
@@ -1699,19 +1701,19 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                         pHABILITA_EDUCACAO_FISICA = "Não";
                         objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
                         objPortaEntrada.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
-                        objPortaEntrada.setHabPsi(pHABILITA_EDUCACAO_FISICA);
-                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
-                        //GRAVAR EVOLUÇÃO DA ADMISSÃO
-                        objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-                        objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
-                        objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
-                        objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
-                        objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
-                        objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
-                        control.incluir_EVOLUCAO_EF(objAdmissao);
-                        buscarCodigoEvolucao();
-                        limparTabelaEvolucao();
-                        preencherEvolucao_REGISTRO_EF();
+                        objPortaEntrada.setHabEdu(pHABILITA_EDUCACAO_FISICA);
+                        control_PE.alterarPortaEntradaEducacao(objPortaEntrada);
+//                        //GRAVAR EVOLUÇÃO DA ADMISSÃO  - IMPLEMENTAR NA PRÓXIMA VERSÃO
+//                        objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+//                        objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
+//                        objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+//                        objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
+//                        objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
+//                        objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
+//                        control.incluir_EVOLUCAO_EF(objAdmissao);
+//                        buscarCodigoEvolucao();
+//                        limparTabelaEvolucao();
+//                        preencherEvolucao_REGISTRO_EF();
                         objLog1();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         bloquearTodosBotoes(!true);
@@ -1738,16 +1740,16 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                     objAdmPsi.setNomeInterno(jNomeInternoEF_NOVO.getText());
                     objAdmPsi.setDeptoPsicologico(deptoTecnico);
                     controle.alterarMovTec(objAdmPsi);
-                    //EVOLUÇÃO DA ADMISSÃO
-                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-                    objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
-                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
-                    objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
-                    objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
-                    objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
-                    control.alterar_EVOLUCAO_EF_ADM(objAdmissao);
-                    limparTabelaEvolucao();
-                    preencherEvolucao_REGISTRO_EF();
+                    //EVOLUÇÃO DA ADMISSÃO - IMPLEMENTAR NA PRÓXIMA VERSÃO
+//                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+//                    objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
+//                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+//                    objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
+//                    objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
+//                    objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
+//                    control.alterar_EVOLUCAO_EF_ADM(objAdmissao);
+//                    limparTabelaEvolucao();
+//                    preencherEvolucao_REGISTRO_EF();
                     objLog1();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosBotoes(!true);

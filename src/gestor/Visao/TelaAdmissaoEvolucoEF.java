@@ -1977,8 +1977,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                         pHABILITA_EDUCACAO_FISICA = "Não";
                         objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEF.getText()));
                         objPortaEntrada.setNomeInternoCrc(jNomeInternoEF.getText());
-                        objPortaEntrada.setHabPsi(pHABILITA_EDUCACAO_FISICA);
-                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        objPortaEntrada.setHabEdu(pHABILITA_EDUCACAO_FISICA);
+                        control_PE.alterarPortaEntradaEducacao(objPortaEntrada);
                         //GRAVAR EVOLUÇÃO DA ADMISSÃO
                         objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
                         objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
