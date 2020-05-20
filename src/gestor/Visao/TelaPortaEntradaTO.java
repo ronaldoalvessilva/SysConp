@@ -4490,6 +4490,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
+                    bloquearCampos();
+                    limparTabelaCursos();
+                    limparTabelaExperiencia();
                     Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
@@ -4498,9 +4501,6 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     if (jIdInternoAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                        bloquearCampos();
-                        limparTabelaCursos();
-                        limparTabelaExperiencia();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();

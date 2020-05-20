@@ -543,7 +543,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         MapaConfere = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
         RelatorioPopulacaoInternosNominal = new javax.swing.JMenuItem();
+        jRelatorioInternosNominalNovo = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jListagemPaises = new javax.swing.JMenuItem();
         jListagemCidade = new javax.swing.JMenuItem();
@@ -1330,13 +1332,26 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
         jMenuRelatorios.add(RelatoriosConfere);
 
+        jMenu13.setText("Relatórios de População de Internos Nominal");
+
         RelatorioPopulacaoInternosNominal.setText("Relatório de População de Internos Nominal");
         RelatorioPopulacaoInternosNominal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RelatorioPopulacaoInternosNominalActionPerformed(evt);
             }
         });
-        jMenuRelatorios.add(RelatorioPopulacaoInternosNominal);
+        jMenu13.add(RelatorioPopulacaoInternosNominal);
+
+        jRelatorioInternosNominalNovo.setForeground(new java.awt.Color(204, 0, 0));
+        jRelatorioInternosNominalNovo.setText("Relatório de População de Internos Nominal - NOVO");
+        jRelatorioInternosNominalNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioInternosNominalNovoActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jRelatorioInternosNominalNovo);
+
+        jMenuRelatorios.add(jMenu13);
         jMenuRelatorios.add(jSeparator6);
 
         jListagemPaises.setText("Listagem de Países");
@@ -3576,6 +3591,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelarRegistro_RETORNOSActionPerformed
 
+    private void jRelatorioInternosNominalNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioInternosNominalNovoActionPerformed
+        // TODO add your handling code here:
+        TelaRelPopulacaoInternosNominalNovo objRelPop = new TelaRelPopulacaoInternosNominalNovo();
+        TelaModuloCRC.jPainelCRC.add(objRelPop);
+        objRelPop.show();
+    }//GEN-LAST:event_jRelatorioInternosNominalNovoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3657,6 +3679,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -3683,6 +3706,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jProrrogacaoSaidaTemporaria;
     private javax.swing.JMenuItem jRelatorioDocumentacaoCompleta;
     private javax.swing.JMenuItem jRelatorioEvadidos;
+    private javax.swing.JMenuItem jRelatorioInternosNominalNovo;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
     private javax.swing.JMenuItem jRevalidarAtestadoReclusao;

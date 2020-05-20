@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPopulacaoNominalCRC_Todos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b711901-050c-46d7-ab0d-6fc6dae49daf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="pDATA_INICIAL" class="java.lang.String"/>
+	<parameter name="pDATA_FINAL" class="java.lang.String"/>
+	<parameter name="pUNIDADE" class="java.lang.String"/>
+	<parameter name="pUSUARIO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT POPULACAOINTERNOS_CRC.DataPop,
+       POPULACAOINTERNOS_CRC.IdInternoCrc,
+	   PRONTUARIOSCRC.NomeInternoCrc,
+	   PRONTUARIOSCRC.SituacaoCrc,
+DADOSPENAISINTERNOS.Regime
+       FROM POPULACAOINTERNOS_CRC
+       INNER JOIN PRONTUARIOSCRC
+	   ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN $P{pDATA_INICIAL} AND $P{pDATA_FINAL} ORDER BY PRONTUARIOSCRC.NomeInternoCrc]]>
+	</queryString>
+	<field name="DataPop" class="java.sql.Date"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="Regime" class="java.lang.String"/>
+	<variable name="pTOTAL_INTERNOS_UNIDADE" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="pTOTAL_INTERNOS_STMP" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{SituacaoCrc}!=null && $F{SituacaoCrc}.equals("SAIDA TEMPORARIA"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="pTOTAL_INTERNOS_COVID" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{SituacaoCrc}!=null && $F{SituacaoCrc}.equals("PRISAO DOMICILIAR - COVID-19"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="pPOPULACAO_FISICA" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{pTOTAL_INTERNOS_UNIDADE} - $V{pTOTAL_INTERNOS_STMP} - $V{pTOTAL_INTERNOS_COVID}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="554" height="108" uuid="3004dddf-a1f8-462a-ac77-1d619f3d23a9"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="23" y="49" width="100" height="15" forecolor="#000000" uuid="f8fb389c-6829-40f9-b8d8-df6edc0ebd2c"/>
+				<text><![CDATA[Data População:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="123" y="49" width="75" height="15" uuid="251b89ab-3dcc-4da9-a580-5f0c97f94ef8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataPop}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="11" width="247" height="20" uuid="9ee6bd23-ddfb-43e3-a0aa-bb9e8b3bcd38"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="275" y="11" width="277" height="20" uuid="df9bb0b4-3d3f-43de-9167-97a4b08dc738"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pUNIDADE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="80" width="550" height="20" uuid="07b34d87-0a26-4da5-a095-570674d251fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Demostrativo de População da Unidade]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="e9d85137-ab79-4cda-b6bb-f409e2667c99"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="2" y="0" width="44" height="15" forecolor="#000000" uuid="b3c81f4d-903b-43cf-9f50-609799f6fe9d"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="51" y="0" width="225" height="15" forecolor="#000000" uuid="b9f0d80d-a7ac-4e8a-b8f0-2b1531c0ff49"/>
+				<text><![CDATA[Nome do Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="277" y="0" width="213" height="15" forecolor="#000000" uuid="7a6778b7-bdc0-41da-98a4-3b1e2ca30b4a"/>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="65" height="16" uuid="966583a9-e3ee-447c-822a-781ff72f18e3"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Regime]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="48565b7c-c7c7-4e68-b832-d88f897298fc"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="2" y="0" width="44" height="15" uuid="9de93482-57d3-4572-b008-f06e34d31dfc"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="51" y="0" width="225" height="15" uuid="f52bc5ce-c766-4d8e-9ff4-5a57c4eb9ade"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="277" y="0" width="213" height="15" uuid="5399fcdc-ed4a-4a53-8564-879ad340aa16"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SituacaoCrc}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="490" y="0" width="65" height="15" uuid="0509728c-d5fd-46cf-a72d-d1aa7d5f2dd7"/>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Regime}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="bd84e73a-ea3b-452a-9381-61fb022fec2f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="34f42896-322b-49f1-b64d-69c61665b045"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="66680aeb-a648-4bdc-88c7-023825c7c65a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="94d22848-ce3b-4774-a066-20c7b2c47b50"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="f774fed2-759f-4b22-b0cb-6351df524d65"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="219" y="3" width="234" height="20" uuid="98662e47-c6bb-48e1-be22-57b4ed3c1eb1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pUSUARIO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="70" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="3" width="553" height="66" uuid="e156287a-87d8-4f9e-8400-45733eda2e9a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="16" y="42" width="213" height="20" uuid="70010e8a-d154-43a7-836d-ad658fc1d100"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[População de Internos na Unidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="9" width="215" height="20" forecolor="#CC0000" uuid="550d3539-db12-419c-a26f-83685311347a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Internos Saída Temporária:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="9" width="163" height="20" forecolor="#0000CC" uuid="48dbdf21-806a-406b-917f-9a409c2b988f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Internos COVID-19:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="231" y="9" width="45" height="20" forecolor="#CC0000" uuid="33c9b693-3b03-4886-9ceb-f4ecd8d413d3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pTOTAL_INTERNOS_STMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="9" width="50" height="20" forecolor="#0000CC" uuid="f4df853b-99a1-40ec-9b59-ac55d777f934"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pTOTAL_INTERNOS_COVID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="42" width="50" height="20" uuid="7b84a07a-3e55-4c32-ac63-726b4f25a96b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pTOTAL_INTERNOS_UNIDADE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="42" width="45" height="20" uuid="295ea53b-edbd-4261-bff4-7dad68b4d726"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pPOPULACAO_FISICA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="42" width="163" height="20" uuid="d082bbb0-97b5-4b53-809b-2effd6ad3df3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral de Registros:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -834,14 +834,32 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <MenuItem class="javax.swing.JMenuItem" name="RelatorioPopulacaoInternosNominal">
+            <Menu class="javax.swing.JMenu" name="jMenu13">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Popula&#xe7;&#xe3;o de Internos Nominal"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Popula&#xe7;&#xe3;o de Internos Nominal"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioPopulacaoInternosNominalActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="RelatorioPopulacaoInternosNominal">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Popula&#xe7;&#xe3;o de Internos Nominal"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioPopulacaoInternosNominalActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosNominalNovo">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Popula&#xe7;&#xe3;o de Internos Nominal - NOVO"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioInternosNominalNovoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator6">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jListagemPaises">
