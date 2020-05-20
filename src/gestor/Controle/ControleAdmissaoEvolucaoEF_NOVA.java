@@ -7,7 +7,6 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEvolucaoEducacaoFisica;
-import static gestor.Visao.TelaAdmissaoEF_SECUNDARIA.jID_REGISTRO_Pesquisa;
 import static gestor.Visao.TelaAdmissaoEF_SECUNDARIA.pTOTAL_REGISTROS_ATIVIDADES;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaAdmissaoEF_SECUNDARIA.jID_REGISTRO_Pesquisa_NOVA;
 
 /**
  *
@@ -234,10 +234,10 @@ public class ControleAdmissaoEvolucaoEF_NOVA {
         List<AdmissaoEvolucaoEducacaoFisica> listaTodasAdmissao = new ArrayList<AdmissaoEvolucaoEducacaoFisica>();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA_NOVA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_EDUCACAO_FISICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE ADMISSAO_EDUCACAO_FISICA.IdRegistroEF='" + jID_REGISTRO_Pesquisa.getText() + "'");
+                    + "ON ADMISSAO_EDUCACAO_FISICA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAO_EDUCACAO_FISICA_NOVA.IdRegistroEF='" + jID_REGISTRO_Pesquisa_NOVA.getText() + "'");
             while (conecta.rs.next()) {
                 AdmissaoEvolucaoEducacaoFisica pAdmissao = new AdmissaoEvolucaoEducacaoFisica();
                 pAdmissao.setIdRegistroEF(conecta.rs.getInt("IdRegistroEF"));

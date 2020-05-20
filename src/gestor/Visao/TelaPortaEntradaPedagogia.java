@@ -21,6 +21,7 @@ import gestor.Modelo.EvolucaoPedagogica;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import static gestor.Visao.AdmissaoEvolucaoPedagogica.jCodigoAdmissao;
 import static gestor.Visao.AdmissaoEvolucaoPedagogica.jDataNascimentoInternoAdm;
 import static gestor.Visao.AdmissaoEvolucaoPedagogica.jMaeInternoAdm;
 import static gestor.Visao.AdmissaoEvolucaoPedagogica.jNaturalidadeInternoAdm;
@@ -976,7 +977,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2076,19 +2077,23 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addComponent(jBtNovoFeminino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarFeminino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirFeminino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarFeminino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarFeminino)
+                .addContainerGap()
+                .addComponent(jBtNovoFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jBtAlterarFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jBtExcluirFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jBtSalvarFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jBtCancelarFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel17Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarFeminino, jBtCancelarFeminino, jBtExcluirFeminino, jBtNovoFeminino, jBtSalvarFeminino});
+
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -2099,6 +2104,8 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 .addComponent(jBtCancelarFeminino)
                 .addComponent(jBtAuditoriaFeminino))
         );
+
+        jPanel17Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarFeminino, jBtCancelarFeminino, jBtExcluirFeminino, jBtNovoFeminino, jBtSalvarFeminino});
 
         javax.swing.GroupLayout FemininoLayout = new javax.swing.GroupLayout(Feminino);
         Feminino.setLayout(FemininoLayout);
@@ -2162,7 +2169,10 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                         preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataAdm BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataAdm BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_PEDAGOGIA_NOVA.IdAdm='" + jCodigoAdmissao.getText() + "'"
+                                + "AND ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
                     }
                 }
             }
@@ -2184,7 +2194,10 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                         preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataAdm BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataAdm BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_PEDAGOGIA_NOVA.IdAdm='" + jCodigoAdmissao.getText() + "' "
+                                + "AND ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
                     }
                 }
             }
@@ -2201,7 +2214,8 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             preencherTodasAdmissaoNomes("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND ADMISSAO_PEDAGOGIA_NOVA.IdAdm='" + jCodigoAdmissao.getText() + "'");
         }
     }//GEN-LAST:event_jBtNomeInternoActionPerformed
 
@@ -2212,7 +2226,9 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAO_PEDAGOGIA_NOVA.IdAdm='" + jCodigoAdmissao.getText() + "' "
+                    + "AND ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -2228,7 +2244,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdAdmNova='" + jIDPesqLan.getText() + "'");
+                    + "WHERE IdAdmNova='" + jIDPesqLan.getText() + "' ");
         }
     }//GEN-LAST:event_jBtIdLancActionPerformed
 
@@ -2618,7 +2634,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     objAdmPedago.setDataUp(dataModFinal);
                     objAdmPedago.setHorarioUp(horaMov);
                     //
-                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
+                    objAdmPedago.setIdAdmNova(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                     control.alterarAdmissaoEscolar(objAdmPedago);
                     // MOVIMENTAÇÃO CORPO TÉCNICO
                     objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
@@ -2828,7 +2844,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 objAdmPedago.setAchaEscola((String) jComboBoxAchaEscola.getSelectedItem());
                 objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
+                objAdmPedago.setIdAdmNova(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                 if (acao == 3) {
                     if (jCodigoAdmissaoSEC.getText().equals(codigoAdm) && jIdInternoAdmNova.getText().equals(codigoInternoFAM)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
@@ -3018,7 +3034,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 objAdmPedago.setObservacaoSocializacao(jObservacaoSocializacao.getText());
                 objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
+                objAdmPedago.setIdAdmNova(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                 if (acao == 5) {
                     if (jCodigoAdmissaoSEC.getText().equals(codigoAdmSocial) && jIdInternoAdmNova.getText().equals(codigoInternoSocial)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
@@ -3156,7 +3172,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             objAdmPedago.setComoFoiParto(jTextoComoFoiParto.getText());
             objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
             objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-            objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
+            objAdmPedago.setIdAdmNova(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
             if (acao == 7) {
                 if (jCodigoAdmissaoSEC.getText().equals(codigoAdmFem) && jIdInternoAdmNova.getText().equals(codigoInternoFem)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
@@ -3932,9 +3948,9 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     public void buscarCodigo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA");
             conecta.rs.last();
-            jCodigoAdmissaoSEC.setText(conecta.rs.getString("IdAdm"));
+            jCodigoAdmissaoSEC.setText(conecta.rs.getString("IdAdmNova"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -3944,19 +3960,19 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     public void verificarRegistros() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoFamilia = conecta.rs.getString("IdInternoCrc");
             //
-            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
+            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoSocializa = conecta.rs.getString("IdInternoCrc");
             //
-            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoFeminino = conecta.rs.getString("IdInternoCrc");
             //
-            conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
+            conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoEvolucao = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {

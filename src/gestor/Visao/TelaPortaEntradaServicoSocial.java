@@ -1856,7 +1856,8 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE IdAtendSS='" + jIDPesqAtend.getText() + "'");
+                    + "WHERE IdAtendSS='" + jIDPesqAtend.getText() + "' "
+                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "'");
         }
     }//GEN-LAST:event_jBtAtendActionPerformed
 
@@ -1887,7 +1888,10 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE DataAtend BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
+                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
                     }
                 }
             }
@@ -1911,7 +1915,10 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE DataAtend BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
+                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
                     }
                 }
             }
@@ -1931,7 +1938,8 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
+                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -1944,7 +1952,9 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc");
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
+                    + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
         } else {
             limparTabelaAtendimentoSocial();
         }
@@ -2089,7 +2099,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     pesquisarInternoColaboradorBiometria();
                     if (jIDInternoAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
-                    } else {                        
+                    } else {
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();

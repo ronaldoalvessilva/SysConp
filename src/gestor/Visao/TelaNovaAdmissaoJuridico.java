@@ -990,7 +990,8 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             preencherAtendimetoJuridico("SELECT * FROM ADMISSAO_JURIDICO_ADICIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -1019,7 +1020,9 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "' "
+                                + "AND ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
                     }
                 }
             }
@@ -1042,7 +1045,9 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "' "
+                                + "AND ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
                     }
                 }
             }
@@ -1057,7 +1062,8 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             this.preencherAtendimetoJuridico("SELECT * FROM ADMISSAO_JURIDICO_ADICIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+                    + "WHERE ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "' "
+                    + "AND ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -1161,7 +1167,6 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     if (jIDInternoJuridicoAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-
                         pAcao_AD = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();

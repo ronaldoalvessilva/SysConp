@@ -262,7 +262,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jID_REGISTRO_Pesquisa" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Component id="jID_REGISTRO_Pesquisa_NOVA" min="-2" pref="50" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jBtIDPesq" min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
@@ -286,7 +286,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel28" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jID_REGISTRO_Pesquisa" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jID_REGISTRO_Pesquisa_NOVA" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtIDPesq" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBox1" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -318,7 +318,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jID_REGISTRO_Pesquisa">
+                <Component class="javax.swing.JTextField" name="jID_REGISTRO_Pesquisa_NOVA">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

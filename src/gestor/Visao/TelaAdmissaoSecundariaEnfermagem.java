@@ -1764,7 +1764,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
             preencherAdmissaoEnfermeira("SELECT * FROM ADMISSAO_ENFERMEIRA_COMPLEMENTAR "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdLanc='" + jCodigoLanc.getText() + "'");
+                    + "WHERE IdADME='" + jCodigoLanc.getText() + "' ");
         }
     }//GEN-LAST:event_jBtPesqCodigoActionPerformed
 
@@ -1777,7 +1777,8 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
             preencherAdmissaoEnfermeira("SELECT * FROM ADMISSAO_ENFERMEIRA_COMPLEMENTAR "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jNomesInternoPesq.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jNomesInternoPesq.getText() + "%' "
+                    + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdLanc='" + jIdLanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -1788,7 +1789,9 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherAdmissaoEnfermeira("SELECT * FROM ADMISSAO_ENFERMEIRA_COMPLEMENTAR "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdLanc='" + jIdLanc.getText() + "'"
+                    + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=" + jIdInternoEnfermeiro.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabelaAdmissao();
@@ -1820,7 +1823,9 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdLanc='" + jIdLanc.getText() + "' "
+                                + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
                     }
                 }
             }
@@ -1843,7 +1848,9 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdLanc='" + jIdLanc.getText() + "' "
+                                + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
                     }
                 }
             }
@@ -2085,6 +2092,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 jNomeInternoEnfermeiroAD.setBackground(Color.red);
             } else {
                 compararRadioButtons(); // Compara qual botão foi assionado pelo usuário
+                objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                 objAdmEnfermagem.setStatusLanc(statusLanc);
                 objAdmEnfermagem.setDataLanc(jDataLanc.getDate());
                 objAdmEnfermagem.setEstadoEmocional(statusEstadoEmocional);

@@ -198,7 +198,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jBtIDPesq = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jPesqNomeInterno = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
+        jBtPesquisaNome = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jDataInicial = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
@@ -356,11 +356,11 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
 
         jPesqNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jButton10.setContentAreaFilled(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jBtPesquisaNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisaNome.setContentAreaFilled(false);
+        jBtPesquisaNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jBtPesquisaNomeActionPerformed(evt);
             }
         });
 
@@ -423,7 +423,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jBtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
@@ -444,7 +444,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     .addComponent(jBtPesqDatas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton10)
+                    .addComponent(jBtPesquisaNome)
                     .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1600,29 +1600,28 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (jIDPesq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
-        } else {
-            jTabelaAdmissaoPsicologica.setVisible(true);
+        } else {          
             preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdPortaPSI='" + jIDPesq.getText() + "'");
+                    + "WHERE IdPortaPSI='" + jIDPesq.getText() + "' ");
         }
     }//GEN-LAST:event_jBtIDPesqActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void jBtPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaNomeActionPerformed
         // TODO add your handling code here:
         flag = 1;
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             jPesqNomeInterno.requestFocus();
-        } else {
-            jTabelaAdmissaoPsicologica.setVisible(true);
+        } else {            
             preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "'");
         }
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_jBtPesquisaNomeActionPerformed
 
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
@@ -1648,7 +1647,10 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -1671,7 +1673,10 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -1684,7 +1689,9 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "' "
+                    + "AND PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInterno.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -2263,10 +2270,10 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     private javax.swing.JButton jBtLocalizarVisitaRol;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqDatas;
+    private javax.swing.JButton jBtPesquisaNome;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtTratamento;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBoxAlcool;
     private javax.swing.JCheckBox jCheckBoxCigarro;

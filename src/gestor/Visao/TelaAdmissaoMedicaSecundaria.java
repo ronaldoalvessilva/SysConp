@@ -1785,7 +1785,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     if (jIdInternoAdmAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                        limpaTabelaDoencas();                        
+                        limpaTabelaDoencas();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -2128,7 +2128,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL WHERE IdAdmADI='" + jIdAdmAdicional.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
+                    + "WHERE IdAdmADI='" + jIdAdmAdicional.getText() + "'");
             conecta.rs.first();
             jStatusLancAD.setText(conecta.rs.getString("StatusLanc"));
             if (jStatusLancAD.getText().equals("FINALIZADO")) {
@@ -2159,7 +2160,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         preencherAdmissaoMedica("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoAdmissaoAD.getText() + "%'");
+                + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoAdmissaoAD.getText() + "%' "
+                + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'");
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
     private void jBtIdPesqAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdPesqAtendActionPerformed
@@ -2169,7 +2171,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         preencherAdmissaoMedica("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE IdAdmADI='" + jIDPesqAtendAD.getText() + "'");
+                + "WHERE IdAdmADI='" + jIDPesqAtendAD.getText() + "' ");
     }//GEN-LAST:event_jBtIdPesqAtendActionPerformed
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -2197,7 +2199,9 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'"
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdinternoCrc='" + jIdInternoAdm.getText() + "' ");
                     }
                 }
             }
@@ -2221,7 +2225,9 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'"
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdinternoCrc='" + jIdInternoAdm.getText() + "' ");
                     }
                 }
             }
@@ -2235,7 +2241,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
             this.preencherAdmissaoMedica("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.IdinternoCrc='" + jIdInternoAdm.getText() + "'");
+                    + "WHERE ADMISSAO_MEDICA_ADICIONAL.IdinternoCrc='" + jIdInternoAdm.getText() + "' "
+                    + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'");
         } else {
             count = 0;
             jtotalRegistros.setText("");

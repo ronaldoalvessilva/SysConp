@@ -181,7 +181,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
         jTabelaAdmissaoEF = new javax.swing.JTable();
         jPanel15 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jID_REGISTRO_Pesquisa = new javax.swing.JTextField();
+        jID_REGISTRO_Pesquisa_NOVA = new javax.swing.JTextField();
         jBtIDPesq = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel29 = new javax.swing.JLabel();
@@ -352,8 +352,8 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel28.setText("Código:");
 
-        jID_REGISTRO_Pesquisa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jID_REGISTRO_Pesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jID_REGISTRO_Pesquisa_NOVA.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jID_REGISTRO_Pesquisa_NOVA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtIDPesq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtIDPesq.setContentAreaFilled(false);
@@ -428,7 +428,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addComponent(jID_REGISTRO_Pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jID_REGISTRO_Pesquisa_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBtIDPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,7 +445,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel28)
-                    .addComponent(jID_REGISTRO_Pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jID_REGISTRO_Pesquisa_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtIDPesq)
                     .addComponent(jCheckBox1))
                 .addGap(3, 3, 3)
@@ -1303,7 +1303,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
         flag = 1;
         if (flag == 1) {
             String pREGISTRO_ADM = "" + jTabelaAdmissaoEF.getValueAt(jTabelaAdmissaoEF.getSelectedRow(), 0);
-            jID_REGISTRO_Pesquisa.setText(pREGISTRO_ADM);
+            jID_REGISTRO_Pesquisa_NOVA.setText(pREGISTRO_ADM);
             pesquisarInternoExistente();
             //
             jBtNovo.setEnabled(true);
@@ -1321,9 +1321,9 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         Integer row0 = jTabelaAdmissaoEF.getModel().getRowCount();
-        if (jID_REGISTRO_Pesquisa.getText().equals("")) {
+        if (jID_REGISTRO_Pesquisa_NOVA.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
-            jID_REGISTRO_Pesquisa.requestFocus();
+            jID_REGISTRO_Pesquisa_NOVA.requestFocus();
         } else {
             DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAdmissaoEF.getModel();
             try {
@@ -1879,7 +1879,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
     private javax.swing.JTextField jEspecificarCirurgia;
     private javax.swing.JTextField jEspecificarMedicamento;
     private javax.swing.JTextField jFrequenciaSemanal;
-    public static javax.swing.JTextField jID_REGISTRO_Pesquisa;
+    public static javax.swing.JTextField jID_REGISTRO_Pesquisa_NOVA;
     public static javax.swing.JTextField jIdInternoEF_NOVO;
     public static javax.swing.JTextField jIdRegistroEF_NOVO;
     public static javax.swing.JTextField jIdRegistroEF_PRINCIPAL;

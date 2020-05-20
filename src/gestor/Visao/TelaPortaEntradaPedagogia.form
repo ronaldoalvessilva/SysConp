@@ -467,7 +467,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="105" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="99" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -3145,15 +3145,16 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jBtNovoFeminino" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtAlterarFeminino" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtExcluirFeminino" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtSalvarFeminino" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtCancelarFeminino" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtNovoFeminino" linkSize="5" min="-2" pref="39" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jBtAlterarFeminino" linkSize="5" min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jBtExcluirFeminino" linkSize="5" min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jBtSalvarFeminino" linkSize="5" min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="jBtCancelarFeminino" linkSize="5" min="-2" pref="38" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jBtAuditoriaFeminino" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -3163,11 +3164,11 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="2" attributes="0">
-                          <Component id="jBtNovoFeminino" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtAlterarFeminino" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtExcluirFeminino" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvarFeminino" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtCancelarFeminino" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtNovoFeminino" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAlterarFeminino" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExcluirFeminino" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtSalvarFeminino" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtCancelarFeminino" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaFeminino" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
