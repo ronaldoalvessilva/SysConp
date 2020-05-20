@@ -1642,67 +1642,56 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                 objAdmissao.setDesmaio((String) jComboBoxDesmaio.getSelectedItem());
                 objAdmissao.setTextoEvolucaoAdmissao(jTextoEvolucaoAdmissao.getText());
                 if (acao == 1) {
-                    verificarAdmissao();
-                    if (jIdInternoEF_NOVO.getText().equals(pCODIGO_INTERNO)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse interno já fez admissão anteriormente nessa tela.");
-                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta == JOptionPane.YES_OPTION) {
-                            bloquearTodosBotoes(!true);
-                            jBtNovo.setEnabled(true);
-                            pesquisarInternoExistente();
-                        }
-                    } else {
-                        // log de usuario
-                        objAdmissao.setUsuarioInsert(nameUser);
-                        objAdmissao.setDataInsert(dataModFinal);
-                        objAdmissao.setHorarioInsert(horaMov);
-                        //
-                        control.incluirAdmissaoEF(objAdmissao);
-                        buscarCodigoAdm();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        //MOVIMENTO TÉCNICO DO INTENO NO PSP
-                        objAdmPsi.setStatusLanc(jStatusEF.getText());
-                        objAdmPsi.setDataLanc(jDataRegistroEF.getDate());
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
-                        objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-                        objAdmPsi.setNomeInterno(jNomeInternoEF_NOVO.getText());
-                        objAdmPsi.setDeptoPsicologico(deptoTecnico);
-                        controle.incluirMovTec(objAdmPsi);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO
-                        atendido = "Sim";
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoEF);
-                        objRegAtend.setNomeDepartamento(nomeModuloEF);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        objRegAtend.setAtendido(atendido);
-                        objRegAtend.setDataAtendimento(jDataRegistroEF.getDate());
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
-                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                        //
-                        objRegAtend.setUsuarioUp(nameUser);
-                        objRegAtend.setDataUp(dataModFinal);
-                        objRegAtend.setHorarioUp(horaMov);
-                        controlRegAtend.alterarRegAtend(objRegAtend);
-                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
-                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoEF);
-                        objRegAtend.setNomeDepartamento(nomeModuloEF);
-                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                        objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        control_ATENDE.confirmarAtendimento(objRegAtend);
-                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
-                        pHABILITA_EDUCACAO_FISICA = "Não";
-                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-                        objPortaEntrada.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
-                        objPortaEntrada.setHabEdu(pHABILITA_EDUCACAO_FISICA);
-                        control_PE.alterarPortaEntradaEducacao(objPortaEntrada);
+                    // log de usuario
+                    objAdmissao.setUsuarioInsert(nameUser);
+                    objAdmissao.setDataInsert(dataModFinal);
+                    objAdmissao.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAdmissaoEF(objAdmissao);
+                    buscarCodigoAdm();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //MOVIMENTO TÉCNICO DO INTENO NO PSP
+                    objAdmPsi.setStatusLanc(jStatusEF.getText());
+                    objAdmPsi.setDataLanc(jDataRegistroEF.getDate());
+                    objAdmPsi.setIdLanc(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+                    objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objAdmPsi.setNomeInterno(jNomeInternoEF_NOVO.getText());
+                    objAdmPsi.setDeptoPsicologico(deptoTecnico);
+                    controle.incluirMovTec(objAdmPsi);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoEF);
+                    objRegAtend.setNomeDepartamento(nomeModuloEF);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataRegistroEF.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoEF);
+                    objRegAtend.setNomeDepartamento(nomeModuloEF);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
+                    //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                    pHABILITA_EDUCACAO_FISICA = "Não";
+                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objPortaEntrada.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
+                    objPortaEntrada.setHabEdu(pHABILITA_EDUCACAO_FISICA);
+                    control_PE.alterarPortaEntradaEducacao(objPortaEntrada);
 //                        //GRAVAR EVOLUÇÃO DA ADMISSÃO  - IMPLEMENTAR NA PRÓXIMA VERSÃO
 //                        objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
 //                        objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
@@ -1714,13 +1703,12 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
 //                        buscarCodigoEvolucao();
 //                        limparTabelaEvolucao();
 //                        preencherEvolucao_REGISTRO_EF();
-                        objLog1();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        bloquearTodosBotoes(!true);
-                        bloquearTodosCampos(!true);
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    }
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearTodosBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 2) {
                     // log de usuario
@@ -2351,18 +2339,6 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
             jIdRegistroEF_NOVO.setText(conecta.rs.getString("IdRegistroEF_NOVA"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o código do lançamento");
-        }
-        conecta.desconecta();
-    }
-
-    public void verificarAdmissao() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA_NOVA "
-                    + "WHERE IdInternoCrc='" + jIdInternoEF_NOVO.getText() + "'");
-            conecta.rs.first();
-            pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
-        } catch (Exception e) {
         }
         conecta.desconecta();
     }
