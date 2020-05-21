@@ -150,7 +150,7 @@ public class TelaRelatorioCancelVisitasExternaInterna extends javax.swing.JInter
         if (jComboBoxTipoVisita.getSelectedItem().equals("Visita Externa") && opcaoRelExt.equals("Externa")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioCancelamentoVisitas.jasper";
+                String path = "reports/ServicoSocial/CancelamentoVisitas/RelatorioCancelamentoVisitas.jasper";
                 conecta.executaSQL("SELECT * FROM CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -183,7 +183,7 @@ public class TelaRelatorioCancelVisitasExternaInterna extends javax.swing.JInter
         } else if (jComboBoxTipoVisita.getSelectedItem().equals("Visita Interna") && opcaoRelInt.equals("Interna")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioCancelamentoVisitasInterna.jasper";
+                String path = "reports/ServicoSocial/CancelamentoVisitasInterna/RelatorioCancelamentoVisitasInterna.jasper";
                 conecta.executaSQL("SELECT * FROM CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -217,7 +217,7 @@ public class TelaRelatorioCancelVisitasExternaInterna extends javax.swing.JInter
         }else if (jComboBoxTipoVisita.getSelectedItem().equals("Visita Externa") && opcaoRel.equals("Externa")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioCancelamentoVisitas.jasper";
+                String path = "reports/ServicoSocial/RelatorioCancelamentoVisitas.jasper";
                 conecta.executaSQL("SELECT * FROM CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -252,7 +252,7 @@ public class TelaRelatorioCancelVisitasExternaInterna extends javax.swing.JInter
         } else if (jComboBoxTipoVisita.getSelectedItem().equals("Visita Interna") && opcaoRel.equals("Interna")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioCancelamentoVisitasInterna.jasper";
+                String path = "reports/ServicoSocial/RelatorioCancelamentoVisitasInterna.jasper";
                 conecta.executaSQL("SELECT * FROM CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

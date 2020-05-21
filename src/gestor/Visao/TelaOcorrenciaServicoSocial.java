@@ -817,7 +817,7 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrencias_ServicoSocial.jasper";
+            String path = "reports/ServicoSocial/ListagemOcorrencias_ServicoSocial.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
                     + "WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();

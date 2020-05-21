@@ -152,7 +152,7 @@ public class TelaRelatorioVisitasAdvogadosInternosPorNome extends javax.swing.JI
         ProntuarioPesquisaRel objPront = (ProntuarioPesquisaRel) jComboBoxNomeInterno.getSelectedItem();
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioInternosAdvogadosGeral.jasper";
+            String path = "reports/GerenciaOperacional/RelatorioInternosAdvogadosGeral.jasper";
             conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
                     + "INNER JOIN ITENSADVOGADOINTERNOS "
                     + "ON ENTRADASADVINTERNOS.IdLanc=ITENSADVOGADOINTERNOS.Idlanc "

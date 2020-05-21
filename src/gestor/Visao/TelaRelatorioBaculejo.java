@@ -142,7 +142,7 @@ public class TelaRelatorioBaculejo extends javax.swing.JInternalFrame {
                 dataInicial = formatoAmerica.format(jDataProcedimento.getDate().getTime());
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioColaboradoresBaculejo.jasper";
+                    String path = "reports/GerenciaOperacional/RelatorioColaboradoresBaculejo.jasper";
                     conecta.executaSQL("SELECT * FROM PROCEDIMENTOS "
                             + "INNER JOIN APOIOPROCEDIMENTO "
                             + "ON PROCEDIMENTOS.IdProc=APOIOPROCEDIMENTO.IdProc "
@@ -179,7 +179,7 @@ public class TelaRelatorioBaculejo extends javax.swing.JInternalFrame {
                 dataInicial = formatoAmerica.format(jDataProcedimento.getDate().getTime());
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioColaboradoresBaculejo.jasper";
+                    String path = "reports/GerenciaOperacional/RelatorioColaboradoresBaculejo.jasper";
                     conecta.executaSQL("SELECT * FROM PROCEDIMENTOS "
                             + "INNER JOIN APOIOPROCEDIMENTO "
                             + "ON PROCEDIMENTOS.IdProc=APOIOPROCEDIMENTO.IdProc "

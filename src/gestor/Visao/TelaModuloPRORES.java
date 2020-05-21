@@ -2357,7 +2357,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioGeralOcorrenciaIndisciplinarVisitasPortaria.jasper";
+            String path = "reports/Portarias/RelatorioGeralOcorrenciaIndisciplinarVisitasPortaria.jasper";
             conecta.executaSQL("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
                     + "INNER JOIN OCORRENCIA_INDISCIPLINA_PORTARIA "
                     + "ON REGISTRO_INDISCIPLINA_PORTARIA.IdReg=OCORRENCIA_INDISCIPLINA_PORTARIA.IdReg "

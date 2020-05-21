@@ -234,7 +234,7 @@ public class TelaRelatorioEntradaSaidaVisitasPortaria extends javax.swing.JInter
                     dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/RelatorioDepartamentoEntradaSaida.jasper";
+                        String path = "reports/GerenciaAdministrativa/RelatorioDepartamentoEntradaSaida.jasper";
                         conecta.executaSQL("SELECT * FROM ITENSVISITASDIVERSAS "
                                 + "INNER JOIN DEPARTAMENTOS "
                                 + "ON ITENSVISITASDIVERSAS.IdDepartamento=DEPARTAMENTOS.IdDepartamento "

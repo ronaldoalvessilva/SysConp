@@ -202,7 +202,7 @@ public class TelaRelatorioAgendamentoBeneficiosInternos extends javax.swing.JInt
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioAgendamentoBeneficiosInternos.jasper";
+                            String path = "reports/Juridico/RelatorioAgendamentoBeneficiosInternos.jasper";
                             conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS INNER "
                                     + "JOIN ITENS_AGENDA_BENEFICIO_INTERNOS "
                                     + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "
@@ -248,7 +248,7 @@ public class TelaRelatorioAgendamentoBeneficiosInternos extends javax.swing.JInt
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioAgendamentoBeneficiosInternos.jasper";
+                            String path = "reports/Juridico/RelatorioAgendamentoBeneficiosInternos.jasper";
                             conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS INNER "
                                     + "JOIN ITENS_AGENDA_BENEFICIO_INTERNOS "
                                     + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "

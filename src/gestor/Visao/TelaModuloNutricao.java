@@ -924,7 +924,7 @@ public class TelaModuloNutricao extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioProdutosCadastradosPorGrupo.jasper";
+            String path = "reports/Almoxarifado/RelatorioProdutosCadastradosPorGrupo.jasper";
             conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo WHERE PRODUTOS_AC.Modulo='" + modulo + "' "
@@ -977,7 +977,7 @@ public class TelaModuloNutricao extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1018,7 +1018,7 @@ public class TelaModuloNutricao extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioListaPassagemInterna.jasper";
+            String path = "reports/TerapiaOcupacional/RelatorioListaPassagemInterna.jasper";
             conecta.executaSQL("SELECT * FROM ITENSAGENDALABORATIVA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1079,7 +1079,7 @@ public class TelaModuloNutricao extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemPronturarioInternosRegime.jasper";
+            String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "

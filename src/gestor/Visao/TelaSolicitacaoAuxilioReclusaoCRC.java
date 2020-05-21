@@ -1505,7 +1505,7 @@ public class TelaSolicitacaoAuxilioReclusaoCRC extends javax.swing.JInternalFram
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioSolicitacaoAtestadoReclusao.jasper";
+                String path = "reports/CRC/RelatorioSolicitacaoAtestadoReclusao.jasper";
                 conecta.executaSQL("SELECT * FROM SOLICITACAO_ATESTADO_RECLUSAO_CRC "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON SOLICITACAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

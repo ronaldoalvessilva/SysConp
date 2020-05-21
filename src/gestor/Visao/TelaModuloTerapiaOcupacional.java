@@ -1144,7 +1144,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioListaPassagemInterna.jasper";
+            String path = "reports/TerapiaOcupacional/RelatorioListaPassagemInterna.jasper";
             conecta.executaSQL("SELECT * FROM ITENSAGENDALABORATIVA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1178,7 +1178,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 //        objRelAmbos.show();
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioListaPassagemInterna.jasper";
+            String path = "reports/TerapiaOcupacional/RelatorioListaPassagemInterna.jasper";
             conecta.executaSQL("SELECT * FROM ITENSAGENDALABORATIVA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1215,7 +1215,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioAcompanhamentoLaborativoTempo.jasper";
+            String path = "reports/TerapiaOcupacional/RelatorioAcompanhamentoLaborativoTempo.jasper";
             conecta.executaSQL("SELECT * FROM ITENSFICHALAB  "
                     + "INNER JOIN FICHALABORATIVA "
                     + "ON ITENSFICHALAB.IdLanc=FICHALABORATIVA.IdLanc "
@@ -1277,7 +1277,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioAtividadesLaborativa.jasper";
+            String path = "reports/TerapiaOcupacional/RelatorioAtividadesLaborativa.jasper";
             conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_LABORATIVA_EXTERNA "
                     + "INNER JOIN FREQUENCIA_LABORATIVA_EXTERNA "
                     + "ON ITENS_FREQUENCIA_LABORATIVA_EXTERNA.IdFreqLab=FREQUENCIA_LABORATIVA_EXTERNA.IdFreqLab "
@@ -1567,7 +1567,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1601,7 +1601,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioInternosComCartaoCNC.jasper";
+            String path = "reports/CRC/RelatorioInternosComCartaoCNC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "

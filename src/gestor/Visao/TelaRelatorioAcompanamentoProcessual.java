@@ -192,7 +192,7 @@ public class TelaRelatorioAcompanamentoProcessual extends javax.swing.JInternalF
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioAcompanhamentoProcesso.jasper";
+                            String path = "reports/Juridico/RelatorioAcompanhamentoProcesso.jasper";
                             conecta.executaSQL("SELECT DISTINCT ITENSATENDIMENTOJURI.IdInternoCrc,NomeInternoCrc,DescricaoPav,EndCelaPav "
                                     + "FROM ITENSLOCACAOINTERNO "
                                     + "INNER JOIN PRONTUARIOSCRC "
@@ -249,7 +249,7 @@ public class TelaRelatorioAcompanamentoProcessual extends javax.swing.JInternalF
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioAcompanhamentoProcesso.jasper";
+                            String path = "reports/Juridico/RelatorioAcompanhamentoProcesso.jasper";
                             conecta.executaSQL("SELECT DISTINCT ITENSATENDIMENTOJURI.IdInternoCrc,NomeInternoCrc,DescricaoPav,EndCelaPav "
                                     + "FROM ITENSLOCACAOINTERNO "
                                     + "INNER JOIN PRONTUARIOSCRC "

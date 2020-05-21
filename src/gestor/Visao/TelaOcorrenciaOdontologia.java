@@ -708,7 +708,7 @@ public class TelaOcorrenciaOdontologia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrenciaOdontologia.jasper";
+            String path = "reports/Odontologia/ListagemOcorrenciaOdontologia.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_OD WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();
             parametros.put("idOcorrencia", jIdOcorrencia.getText());

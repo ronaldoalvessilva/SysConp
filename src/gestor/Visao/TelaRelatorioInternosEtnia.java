@@ -174,7 +174,7 @@ public class TelaRelatorioInternosEtnia extends javax.swing.JInternalFrame {
             dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());                       
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioInternosEtinia.jasper";
+                String path = "reports/CRC/Internos/RelatorioInternosEtinia.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSFISICOSINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "

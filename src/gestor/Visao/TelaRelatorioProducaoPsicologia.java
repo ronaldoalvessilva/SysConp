@@ -169,7 +169,7 @@ public class TelaRelatorioProducaoPsicologia extends javax.swing.JInternalFrame 
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPsicologicoII.jasper";
+                    String path = "reports/Psicologia/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoPsicologicoII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOPSICOLOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -213,7 +213,7 @@ public class TelaRelatorioProducaoPsicologia extends javax.swing.JInternalFrame 
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPsicologicoII.jasper";
+                    String path = "reports/Psicologia/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoPsicologicoII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOPSICOLOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

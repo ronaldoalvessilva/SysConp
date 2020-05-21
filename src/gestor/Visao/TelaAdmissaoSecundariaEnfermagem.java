@@ -2285,7 +2285,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         if (!jIdLanc.getText().equals("") && !jIdInternoEnfermeiroAD.getText().equals("")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProntuariosInternosENFCodigo.jasper";
+                String path = "reports/Enfermaria/ProntuariosInternosENFCodigo.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSFISICOSINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "

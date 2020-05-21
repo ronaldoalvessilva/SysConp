@@ -146,7 +146,7 @@ public class TelaRelatorioStatusColaborador extends javax.swing.JInternalFrame {
         }
 try {
             conecta.abrirConexao();
-            String path = "reports/ListagemColaboradoresStatus.jasper";
+            String path = "reports/GerenciaAdministrativa/ListagemColaboradoresStatus.jasper";
             conecta.executaSQL("SELECT * FROM COLABORADOR "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCArgo=CARGOS.IdCargo "

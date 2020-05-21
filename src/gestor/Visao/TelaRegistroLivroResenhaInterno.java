@@ -2110,7 +2110,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioResenhaInterno.jasper";
+            String path = "reports/Pedagogia/RelatorioResenhaInterno.jasper";
             conecta.executaSQL("SELECT * FROM RESENHA_REMICAO_INTERNO "
                     + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
                     + "ON RESENHA_REMICAO_INTERNO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "

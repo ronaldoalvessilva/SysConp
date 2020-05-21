@@ -2163,7 +2163,7 @@ public class TelaRequisicaoMedicamentosInternos extends javax.swing.JInternalFra
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RequisicaoMedicamentosInternosCodigoRequisicao.jasper";
+                String path = "reports/Enfermaria/MedicamentosInternosCodigoRequisicao/RequisicaoMedicamentosInternosCodigoRequisicao.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_ENF "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON REQUISICAO_PRODUTOS_INTERNOS_ENF.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

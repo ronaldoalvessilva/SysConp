@@ -188,7 +188,7 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaColaboradores.jasper";
+                            String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaColaboradores.jasper";
                             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
@@ -233,7 +233,7 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaColaboradores.jasper";
+                            String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaColaboradores.jasper";
                             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "

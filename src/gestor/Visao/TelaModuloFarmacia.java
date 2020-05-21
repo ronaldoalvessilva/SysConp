@@ -810,7 +810,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioProdutosCadastradosPorGrupoFAR.jasper";
+            String path = "reports/Farmacia/RelatorioProdutosCadastradosPorGrupoFAR.jasper";
             conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo WHERE PRODUTOS_AC.Modulo='" + modulo + "' "
@@ -885,7 +885,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioGeralEstoqueFarmacia.jasper";
+            String path = "reports/Almoxarifado/RelatorioGeralEstoqueFarmacia.jasper";
             conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOTE_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "

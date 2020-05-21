@@ -233,7 +233,7 @@ public class TelaRelatorioVisitantesBasesPavilhoes extends javax.swing.JDialog {
                     //VISITAS DE INTERNO
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/RelatorioVisitasInternosPavilhoes.jasper";
+                        String path = "reports/GerenciaOperacional/RelatorioVisitasInternosPavilhoes.jasper";
                         conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -269,7 +269,7 @@ public class TelaRelatorioVisitantesBasesPavilhoes extends javax.swing.JDialog {
                     // OFICIAL DE JUSTIÇA
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/RelatorioOficialJusticaInternosPavilhoes.jasper";
+                        String path = "reports/GerenciaOperacional/RelatorioOficialJusticaInternosPavilhoes.jasper";
                         conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -305,7 +305,7 @@ public class TelaRelatorioVisitantesBasesPavilhoes extends javax.swing.JDialog {
                     // ADVOGADOS
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/RelatorioAdvogadosInternosPavilhoes.jasper";
+                        String path = "reports/GerenciaOperacional/RelatorioAdvogadosInternosPavilhoes.jasper";
                         conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

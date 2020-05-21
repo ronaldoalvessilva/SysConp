@@ -1820,7 +1820,7 @@ public class TelaRequisicaoMateriaisCardapioNUTRI extends javax.swing.JInternalF
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RequisicaoMateriaisCardapioNutricao.jasper";
+                String path = "reports/Nutricao/MateriaisCardapioNutricao/RequisicaoMateriaisCardapioNutricao.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_CARDAPIO_NUTRI "
                         + "INNER JOIN COLABORADOR "
                         + "ON REQUISICAO_PRODUTOS_CARDAPIO_NUTRI.IdFunc=COLABORADOR.IdFunc "

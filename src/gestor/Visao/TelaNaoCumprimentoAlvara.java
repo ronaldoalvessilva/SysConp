@@ -1190,7 +1190,7 @@ public class TelaNaoCumprimentoAlvara extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioNaoCumprimentoAlvara.jasper";
+                String path = "reports/CRC/RelatorioNaoCumprimentoAlvara.jasper";
                 conecta.executaSQL("SELECT * FROM CUMPRIMENTOALVARA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON CUMPRIMENTOALVARA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

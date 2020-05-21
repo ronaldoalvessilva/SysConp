@@ -572,7 +572,7 @@ public class TelaConsultaSaldoFinDir extends javax.swing.JInternalFrame {
             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
             try {
                 conecta.abrirConexao();
-                String path = "reports/ExtratoValores.jasper";
+                String path = "reports/BancoVirtual/ExtratoValores.jasper";
                 conecta.executaSQL("SELECT * FROM SALDOVALORES "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

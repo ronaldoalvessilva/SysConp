@@ -181,7 +181,7 @@ public class TelaRelatorioEstoqueProdutosNUTRI extends javax.swing.JInternalFram
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioEstoqueProdutoNUTRI.jasper";
+                    String path = "reports/Nutricao/RelatorioEstoqueProdutoNUTRI.jasper";
                     conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                             + "INNER JOIN GRUPO_PRODUTOS_AC "
                             + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
@@ -212,7 +212,7 @@ public class TelaRelatorioEstoqueProdutosNUTRI extends javax.swing.JInternalFram
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioEstoqueProdutoNUTRI.jasper";
+                    String path = "reports/Nutricao/RelatorioEstoqueProdutoNUTRI.jasper";
                     conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                             + "INNER JOIN GRUPO_PRODUTOS_AC "
                             + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "

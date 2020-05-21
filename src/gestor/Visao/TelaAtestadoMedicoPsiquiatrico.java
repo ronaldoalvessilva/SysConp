@@ -738,7 +738,7 @@ public class TelaAtestadoMedicoPsiquiatrico extends javax.swing.JDialog {
                 viewer.setSize(800, 600);
                 viewer.setLocationRelativeTo(null);
                 conecta.abrirConexao();
-                String path = "reports/RelatorioAtestadoMedico.jasper";
+                String path = "reports/Enfermaria/RelatorioAtestadoMedico.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

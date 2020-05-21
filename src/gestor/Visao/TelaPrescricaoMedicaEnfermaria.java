@@ -685,7 +685,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                 viewer.setSize(800, 600);
                 viewer.setLocationRelativeTo(null);
                 conecta.abrirConexao();
-                String path = "reports/RelatorioPrescricaoMedica.jasper";
+                String path = "reports/Enfermaria/RelatorioPrescricaoMedica.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

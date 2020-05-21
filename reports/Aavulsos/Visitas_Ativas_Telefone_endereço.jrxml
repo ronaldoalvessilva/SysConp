@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Visitas_Ativas_Telefone_endereço" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37112505-a3e7-431a-a923-f3152d9c422c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="63"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pNOME_UNIDADE" class="java.lang.String"/>
+	<parameter name="pNOME_USUARIO" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     VISITASINTERNO."IdVisita",
+     VISITASINTERNO."StatusVisita",
+     VISITASINTERNO."NomeVisita",
+     VISITASINTERNO."EnderecoVisita",
+     VISITASINTERNO."BairroVisita",
+     VISITASINTERNO."CidadeVisita",
+     VISITASINTERNO."CepVisita",
+     VISITASINTERNO."EstadoVisita",
+     VISITASINTERNO."TelefoneVisita",
+     VISITASINTERNO."Telefone1Visita",
+     VISITASINTERNO."CelularVisita",
+     VISITASINTERNO."Celular1Visita",
+     VISITASINTERNO."IdVisita",
+     VISITASINTERNO."StatusVisita",
+     VISITASINTERNO."NomeVisita",
+     VISITASINTERNO."EnderecoVisita",
+     VISITASINTERNO."BairroVisita",
+     VISITASINTERNO."CidadeVisita",
+     VISITASINTERNO."CepVisita",
+     VISITASINTERNO."EstadoVisita",
+     VISITASINTERNO."Telefone1Visita",
+     VISITASINTERNO."Celular1Visita",
+     VISITASINTERNO."CelularVisita",
+     VISITASINTERNO."TelefoneVisita"
+FROM
+     "VISITASINTERNO" VISITASINTERNO
+WHERE
+     StatusVisita LIKE 'Ativo']]>
+	</queryString>
+	<field name="IdVisita" class="java.lang.Integer"/>
+	<field name="StatusVisita" class="java.lang.String"/>
+	<field name="NomeVisita" class="java.lang.String"/>
+	<field name="EnderecoVisita" class="java.lang.String"/>
+	<field name="BairroVisita" class="java.lang.String"/>
+	<field name="CidadeVisita" class="java.lang.String"/>
+	<field name="CepVisita" class="java.lang.String"/>
+	<field name="EstadoVisita" class="java.lang.String"/>
+	<field name="TelefoneVisita" class="java.lang.String"/>
+	<field name="Telefone1Visita" class="java.lang.String"/>
+	<field name="CelularVisita" class="java.lang.String"/>
+	<field name="Celular1Visita" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="103" width="802" height="1" uuid="b7c2c977-bf25-4efc-906e-384ce41774aa"/>
+			</line>
+			<textField>
+				<reportElement x="2" y="38" width="802" height="20" uuid="f46c4a41-8290-4537-a34a-7ba5d2e82425"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pNOME_UNIDADE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="16" width="802" height="20" uuid="f6f29670-d055-4a69-9304-ebfabba558e3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<image>
+				<reportElement x="655" y="8" width="127" height="73" uuid="2f60ebe6-dd3b-4c63-980c-a3e74db3656d"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\LogoSocializa274X81.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="64" width="802" height="27" uuid="b2794e9b-f5ee-40ae-ab19-1334d184be54"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTAGEM DE VISITAS COM ENDEREÇO E TELEFONE]]></text>
+			</staticText>
+			<image>
+				<reportElement x="29" y="8" width="74" height="55" uuid="d177eca3-3c91-4b5f-863d-76b558c0106f">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\Brasão64x64.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="42" y="0" width="178" height="23" uuid="bfcce084-d2f3-4a54-8aeb-3bc4546e55a5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="648" y="0" width="154" height="23" uuid="c07d4d3e-593c-4151-9182-c97236b8d71c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="0" width="137" height="23" uuid="dede1561-6ddf-4c37-9db2-0eddcc5aa4c7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="0" width="126" height="23" uuid="5c70623c-7ffe-4a2e-a63b-f8cccdea345d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="0" width="126" height="23" uuid="f066d587-86d4-4a2c-8c78-d8d0e030070e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="0" width="35" height="23" uuid="2505cf14-5a71-4ae2-9db2-ac5586f258ce"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="42" height="23" uuid="59a714db-812d-4247-b4a0-d98f4029987f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-3" y="22" width="802" height="1" uuid="acd2953b-1c5e-4913-bce5-1a73a71d28f2"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="42" height="20" uuid="5fdb4af4-e8a8-470e-afb7-0b4a27cde3a9"/>
+				<textFieldExpression><![CDATA[$F{IdVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="0" width="178" height="20" uuid="7da5db90-a640-402e-8e20-6492bca6645e"/>
+				<textFieldExpression><![CDATA[$F{NomeVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="137" height="20" uuid="479f83fd-e2ab-4f7a-85d0-d3b72673ab61"/>
+				<textFieldExpression><![CDATA[$F{EnderecoVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="0" width="126" height="20" uuid="a066ecac-5e1e-437c-9775-35743a386f1d"/>
+				<textFieldExpression><![CDATA[$F{BairroVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="0" width="130" height="20" uuid="4eac9f4c-369d-45ca-99c7-a079b921b2bd"/>
+				<textFieldExpression><![CDATA[$F{CidadeVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="613" y="0" width="35" height="20" uuid="2806c98e-b09f-4eac-b4bf-c33e45a4c568"/>
+				<textFieldExpression><![CDATA[$F{EstadoVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="648" y="0" width="77" height="20" uuid="497ad9c6-30ca-4d8a-ad50-ca5ff4ec057e"/>
+				<textFieldExpression><![CDATA[$F{TelefoneVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="725" y="0" width="77" height="20" uuid="25b1b1fd-08c7-4d58-9ea7-16892143dac2"/>
+				<textFieldExpression><![CDATA[$F{CelularVisita}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="802" height="1" uuid="784f6bcb-ca8f-4d5c-a4e6-6f9328a17ff2"/>
+			</line>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="2" y="0" width="135" height="20" uuid="d78507d0-bac0-41ec-9639-d7d9066360e2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="682" y="0" width="80" height="20" uuid="184e6af9-863e-4a7c-ae85-1388cf876576"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="762" y="0" width="40" height="20" uuid="6256a604-d519-4f2f-bdf0-6bcc9c9ff0be"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="137" y="0" width="545" height="20" uuid="ff3b1125-3dd2-4331-8b77-bc816c7de71a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{pNOME_USUARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

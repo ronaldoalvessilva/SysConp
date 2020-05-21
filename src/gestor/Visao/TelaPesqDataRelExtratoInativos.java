@@ -209,7 +209,7 @@ public class TelaPesqDataRelExtratoInativos extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         conecta.abrirConexao();
                         try {
-                            String path = "reports/ExtratoValoresGeralInternosInativos.jasper";
+                            String path = "reports/BancoVirtual/ExtratoValoresGeralInternosInativos.jasper";
                             conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -251,7 +251,7 @@ public class TelaPesqDataRelExtratoInativos extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         conecta.abrirConexao();
                         try {
-                            String path = "reports/ExtratoValoresGeralInternosInativos.jasper";
+                            String path = "reports/BancoVirtual/ExtratoValoresGeralInternosInativos.jasper";
                             conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

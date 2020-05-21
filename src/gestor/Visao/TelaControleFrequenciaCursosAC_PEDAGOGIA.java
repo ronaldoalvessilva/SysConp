@@ -1846,7 +1846,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoManuTO) && codAbrirTO == 1) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioFrequenciaCursos_PEDA.jasper";
+                String path = "reports/Pedagogia/FrequenciaInternosCurso/RelatorioFrequenciaCursos_PEDA.jasper";
                 conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
                         + "ON CURSOS.IdCurso=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso "

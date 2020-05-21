@@ -176,7 +176,7 @@ public class TelaRelatorioDepositosTriagem extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                         conecta.abrirConexao();
                         try {
-                            String path = "reports/RelatorioRegistroDepositosTriagem.jasper";
+                            String path = "reports/BancoVirtual/RelatorioRegistroDepositosTriagem.jasper";
                             conecta.executaSQL("SELECT * FROM DEPOSITOPORTARIA "
                                     + "INNER JOIN ITENSDEPOSITOPORTARIA "
                                     + "ON DEPOSITOPORTARIA.IdLanc=ITENSDEPOSITOPORTARIA.Idlanc "
@@ -222,7 +222,7 @@ public class TelaRelatorioDepositosTriagem extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                         conecta.abrirConexao();
                         try {
-                            String path = "reports/RelatorioRegistroDepositosTriagem.jasper";
+                            String path = "reports/BancoVirtual/RelatorioRegistroDepositosTriagem.jasper";
                             conecta.executaSQL("SELECT * FROM DEPOSITOPORTARIA "
                                     + "INNER JOIN ITENSDEPOSITOPORTARIA "
                                     + "ON DEPOSITOPORTARIA.IdLanc=ITENSDEPOSITOPORTARIA.Idlanc "

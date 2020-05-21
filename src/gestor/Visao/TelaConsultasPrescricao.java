@@ -483,7 +483,7 @@ public class TelaConsultasPrescricao extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioPrescricaoMedica.jasper";
+                String path = "reports/Enfermaria/RelatorioPrescricaoMedica.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

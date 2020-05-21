@@ -819,6 +819,11 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         RelatoriosSeguranca.add(jSeparator7);
 
         RelPavilhao.setText("Pavilhão");
+        RelPavilhao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelPavilhaoActionPerformed(evt);
+            }
+        });
         RelatoriosSeguranca.add(RelPavilhao);
 
         RelCelas.setText("Celas");
@@ -1034,7 +1039,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ProntuariosInternosCrc.jasper";
+            String path = "reports/CRC/ProntuariosInternosCrc.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -1532,7 +1537,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1580,7 +1585,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioListaPassagemInterna.jasper";
+            String path = "reports/TerapiaOcupacional/RelatorioListaPassagemInterna.jasper";
             conecta.executaSQL("SELECT * FROM ITENSAGENDALABORATIVA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -2201,7 +2206,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemPronturarioInternosRegime.jasper";
+            String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -2329,7 +2334,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemInternosPavilhaoCela.jasper";
+            String path = "reports/GerenciaOperacional/ListagemInternosPavilhaoCela.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN LOCALINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=LOCALINTERNOS.IdInternoCrc "
@@ -2363,7 +2368,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemInternosPavilhaoCelaP2.jasper";
+            String path = "reports/GerenciaOperacional/ListagemInternosPavilhaoCelaP2.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN LOCALINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=LOCALINTERNOS.IdInternoCrc "
@@ -2401,7 +2406,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioInternosAdvogadosGeral.jasper";
+            String path = "reports/GerenciaOperacional/RelatorioInternosAdvogadosGeral.jasper";
             conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
                     + "INNER JOIN ITENSADVOGADOINTERNOS "
                     + "ON ENTRADASADVINTERNOS.IdLanc=ITENSADVOGADOINTERNOS.Idlanc "
@@ -2473,6 +2478,10 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         TelaModuloSeguranca.jPainelSeguranca.add(objRel);
         objRel.show();
     }//GEN-LAST:event_jRelatorioInternosComSemTornozeleiraActionPerformed
+
+    private void RelPavilhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelPavilhaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RelPavilhaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -508,7 +508,7 @@ public class TelaOcorrenciaSegurancaDir extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrenciaSeguranca.jasper";
+            String path = "reports/Diretoria/ListagemOcorrenciaSeguranca.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIASEGURANCA WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();
             parametros.put("idOcorrencia", jIdOcorrencia.getText());

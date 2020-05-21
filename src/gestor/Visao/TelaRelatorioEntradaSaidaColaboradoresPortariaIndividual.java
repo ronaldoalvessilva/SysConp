@@ -237,7 +237,7 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortariaIndividual extends ja
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioIndividualColaborador.jasper";
+                            String path = "reports/GerenciaAdministrativa/RelatorioIndividualColaborador.jasper";
                             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
@@ -284,7 +284,7 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortariaIndividual extends ja
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioIndividualColaborador.jasper";
+                            String path = "reports/GerenciaAdministrativa/RelatorioIndividualColaborador.jasper";
                             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "

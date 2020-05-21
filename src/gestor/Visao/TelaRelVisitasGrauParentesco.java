@@ -134,7 +134,7 @@ public class TelaRelVisitasGrauParentesco extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioParentesInternos.jasper";
+                String path = "reports/ServicoSocial/RelatorioParentesInternos.jasper";
                 conecta.executaSQL("SELECT * FROM ROLVISITAS "
                         + "INNER JOIN ITENSROL "
                         + "ON ROLVISITAS.IdRol=ITENSROL.IdRol "

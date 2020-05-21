@@ -1945,7 +1945,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioPagamentoKitInterno.jasper";
+                String path = "reports/GerenciaOperacional/PagamentoKitInterno/RelatorioPagamentoKitInterno.jasper";
                 conecta.executaSQL("SELECT * FROM PAGAMENTO_KIT_INTERNOS "
                         + "INNER JOIN PAVILHAO "
                         + "ON PAGAMENTO_KIT_INTERNOS.IdPav=PAVILHAO.IdPav "

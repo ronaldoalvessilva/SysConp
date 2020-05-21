@@ -1549,7 +1549,7 @@ public class TelaSolicitacaoProdutosENFAR extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/SolicitacaoMedicamentosEnfermariaFarmacia.jasper";
+                String path = "reports/Enfermaria/MedicamentosEnfermariaFarmacia/SolicitacaoMedicamentosEnfermariaFarmacia.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR "
                         + "INNER JOIN SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR "
                         + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdFuncSolici=SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR.IdFuncSolici "

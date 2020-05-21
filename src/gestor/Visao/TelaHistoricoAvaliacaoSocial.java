@@ -892,7 +892,7 @@ public class TelaHistoricoAvaliacaoSocial extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioAvaliacaoServicoSocial.jasper";
+            String path = "reports/ServicoSocial/RelatorioAvaliacaoServicoSocial.jasper";
             conecta.executaSQL("SELECT * FROM HISTORICO_AVALICAO_SERVICO_SOCIAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON HISTORICO_AVALICAO_SERVICO_SOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

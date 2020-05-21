@@ -235,7 +235,7 @@ public class TelaRelatorioEntradaSaidaPorHorario extends javax.swing.JInternalFr
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/RelatorioSaidaInternosPortariaHorario.jasper";
+                                String path = "reports/CRC/SaidaInterno/RelatorioSaidaInternosPortariaHorario.jasper";
                                 conecta.executaSQL("SELECT *  FROM ITENSREGSAIDA "
                                         + "INNER JOIN PRONTUARIOSCRC "
                                         + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -285,7 +285,7 @@ public class TelaRelatorioEntradaSaidaPorHorario extends javax.swing.JInternalFr
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/RelatorioRetornoInternosPortariaHorario.jasper";
+                                String path = "reports/CRC/RelatorioRetornoInternosPortariaHorario.jasper";
                                 conecta.executaSQL("SELECT *  FROM ITENSREGISTRO "
                                         + "INNER JOIN PRONTUARIOSCRC "
                                         + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -337,7 +337,7 @@ public class TelaRelatorioEntradaSaidaPorHorario extends javax.swing.JInternalFr
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/RelatorioSaidaInternosPortariaHorario.jasper";
+                                String path = "reports/CRC/SaidaInterno/RelatorioSaidaInternosPortariaHorario.jasper";
                                 conecta.executaSQL("SELECT *  FROM ITENSREGSAIDA "
                                         + "INNER JOIN PRONTUARIOSCRC "
                                         + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -387,7 +387,7 @@ public class TelaRelatorioEntradaSaidaPorHorario extends javax.swing.JInternalFr
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/RelatorioRetornoInternosPortariaHorario.jasper";
+                                String path = "reports/CRC/SaidaInterno/RelatorioRetornoInternosPortariaHorario.jasper";
                                 conecta.executaSQL("SELECT *  FROM ITENSREGISTRO "
                                         + "INNER JOIN PRONTUARIOSCRC "
                                         + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

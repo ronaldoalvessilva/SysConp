@@ -9811,7 +9811,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                         && jCodigoPAI.getText().equals(codigoPAI_EVOL)) {
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/RelatorioPAI.jasper";
+                        String path = "reports/ServicoSocial/PAI/RelatorioPAI.jasper";
                         conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC AS P "
                                 + "INNER JOIN DADOSFISICOSINTERNOS AS DF ON P.IdInternoCrc=DF.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS AS DP ON P.IdInternoCrc=DP.IdInternoCrc "
@@ -9860,7 +9860,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                         && jCodigoPAI.getText().equals(codigoPAI_EVOL)) {
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/RelatorioPAI-DEME.jasper";
+                        String path = "reports/ServicoSocial/PAI/RelatorioPAI-DEME.jasper";
                         conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC AS P "
                                 + "INNER JOIN DADOSFISICOSINTERNOS AS DF ON P.IdInternoCrc=DF.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS AS DP ON P.IdInternoCrc=DP.IdInternoCrc "

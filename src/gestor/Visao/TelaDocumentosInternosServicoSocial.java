@@ -146,7 +146,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Registro Geral -  (R.G.)")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialRG.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialRG.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -170,7 +170,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Cadastro de Pessoa Fisica - (C.P.F.)")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialCPF.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialCPF.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -194,7 +194,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Carteira Nacional de Habilitação - (C.N.H.)")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialCNH.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialCNH.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -218,7 +218,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Carteira de Reservista")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialRESERVISTA.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialRESERVISTA.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -242,7 +242,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Carteira de Trabalho e Previdência Social - (C.T.P.S)")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialCTPS.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialCTPS.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -266,7 +266,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Titulo de Eleitor")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialTITULOELEITOR.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialTITULOELEITOR.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -290,7 +290,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Passaporte")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialPASSAPORTE.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialPASSAPORTE.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -314,7 +314,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Certidão de Nascimento")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialCERTIDAONASCIMENTO.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialCERTIDAONASCIMENTO.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -338,7 +338,7 @@ public class TelaDocumentosInternosServicoSocial extends javax.swing.JInternalFr
         } else if (jComboBoxTipoDocumento.getSelectedItem().equals("Certidao de Casamento")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDocumentosInternosServicoSocialCERTIDAOCASAMENTO.jasper";
+                String path = "reports/ServicoSocial/RelatorioDocumentosInternosServicoSocialCERTIDAOCASAMENTO.jasper";
                 conecta.executaSQL("SELECT * FROM DOCINTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON DOCINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

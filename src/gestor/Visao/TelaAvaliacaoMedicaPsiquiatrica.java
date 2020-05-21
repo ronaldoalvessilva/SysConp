@@ -1912,7 +1912,7 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioAvaliacaoMedicaPsiquiatrica.jasper";
+                String path = "reports/Enfermaria/RelatorioAvaliacaoMedicaPsiquiatrica.jasper";
                 conecta.executaSQL("SELECT * FROM AVALIACAO_MEDICA_PSIQUIATRICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON AVALIACAO_MEDICA_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

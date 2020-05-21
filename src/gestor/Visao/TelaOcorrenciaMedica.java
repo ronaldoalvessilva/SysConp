@@ -811,7 +811,7 @@ public class TelaOcorrenciaMedica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrencias_ME.jasper";
+            String path = "reports/Enfermaria/ListagemOcorrencias_ME.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_ME WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();
             parametros.put("idOcorrencia", jIdOcorrencia.getText());

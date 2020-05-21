@@ -201,7 +201,7 @@ public class TelaRelatorioRegimePavilhao extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioRegimeInternoPavilhao.jasper";
+                String path = "reports/GerenciaOperacional/RelatorioRegimeInternoPavilhao.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "

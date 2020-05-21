@@ -5103,7 +5103,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioPrescricaoMedica.jasper";
+                String path = "reports/Enfermaria/RelatorioPrescricaoMedica.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -5297,7 +5297,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioAtestadoMedico.jasper";
+                String path = "reports/Enfermaria/RelatorioAtestadoMedico.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -5609,7 +5609,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDietaMedica.jasper";
+                String path = "reports/Enfermaria/RelatorioDietaMedica.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -5799,7 +5799,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/EvolucaoMedica.jasper";
+                String path = "reports/Enfermaria/EvolucaoMedica.jasper";
                 conecta.executaSQL("SELECT * FROM EVOLUCAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON EVOLUCAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -5830,7 +5830,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/EvolucaoPsiquiatrica.jasper";
+                String path = "reports/Enfermaria/EvolucaoPsiquiatrica.jasper";
                 conecta.executaSQL("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON EVOLUCAO_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

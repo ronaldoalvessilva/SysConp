@@ -2392,7 +2392,7 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioOcorrenciaRegimeDisciplinar.jasper";
+            String path = "reports/GerenciaOperacional/RelatorioOcorrenciaRegimeDisciplinar.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIA_AUTORES "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON OCORRENCIA_AUTORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

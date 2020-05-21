@@ -169,7 +169,7 @@ public class TelaRelatorioProducaoOdontologia extends javax.swing.JInternalFrame
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoOdontologicoII.jasper";
+                    String path = "reports/Odontologia/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoOdontologicoII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ODONTOPROCEDIMENTO "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ODONTOPROCEDIMENTO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -213,7 +213,7 @@ public class TelaRelatorioProducaoOdontologia extends javax.swing.JInternalFrame
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoOdontologicoII.jasper";
+                    String path = "reports/Odontologia/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoOdontologicoII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ODONTOPROCEDIMENTO "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ODONTOPROCEDIMENTO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

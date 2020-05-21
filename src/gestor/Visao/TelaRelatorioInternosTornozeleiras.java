@@ -174,7 +174,7 @@ public class TelaRelatorioInternosTornozeleiras extends javax.swing.JInternalFra
         } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Internos com Tornozeleira na Unidade")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioInternosComTornozeleira.jasper";
+                String path = "reports/CRC/Internos/RelatorioInternosComTornozeleira.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -203,7 +203,7 @@ public class TelaRelatorioInternosTornozeleiras extends javax.swing.JInternalFra
         } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Internos sem Tornozeleira na Unidade")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioInternosSemTornozeleira.jasper";
+                String path = "reports/CRC/Internos/RelatorioInternosSemTornozeleira.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -234,7 +234,7 @@ public class TelaRelatorioInternosTornozeleiras extends javax.swing.JInternalFra
         } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Internos com Tornozeleira fora da Unidade")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioInternosComTornozeleiraForaUnidade.jasper";
+                String path = "reports/CRC/Internos/RelatorioInternosComTornozeleiraForaUnidade.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "

@@ -498,6 +498,11 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jMenu4.setText("Relatório de Colaboradores");
 
         jMenuItem6.setText("Ficha Cadastral");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem6);
 
         ListagemColaboradoresAtivoInativo.setText("Listagem de Colaboradores Ativo/Inativo");
@@ -796,7 +801,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         //Relatório de Departamentos (LISTAGEM)
         conecta.abrirConexao();
-        String path = "reports/ListagemDepartamento.jasper";// indica o caminmhodo relatório
+        String path = "reports/GerenciaAdministrativa/ListagemDepartamento.jasper";// indica o caminmhodo relatório
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS");
             HashMap map = new HashMap();
@@ -817,7 +822,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private void RelatorioCargosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioCargosActionPerformed
         // TODO add your handling code here:
         conecta.abrirConexao();
-        String path = "reports/relatorioCargos.jasper";
+        String path = "reports/GerenciaAdministrativa/relatorioCargos.jasper";
         try {
             conecta.executaSQL("SELECT * FROM CARGOS");
             HashMap map = new HashMap();
@@ -837,7 +842,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private void RelatorioPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioPaisesActionPerformed
         // TODO add your handling code here:
         conecta.abrirConexao();
-        String path = "reports/relatorioPaises.jasper";
+        String path = "reports/GerenciaAdministrativa/relatorioPaises.jasper";
         try {
             conecta.executaSQL("SELECT * FROM PAISES");
             HashMap map = new HashMap();
@@ -858,7 +863,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/relatorioCidades.jasper";
+            String path = "reports/GerenciaAdministrativa/relatorioCidades.jasper";
             conecta.executaSQL("SELECT * FROM CIDADES ORDER BY NomeCidade");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
@@ -1183,7 +1188,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioGeralColaboradores.jasper";
+            String path = "reports/GerenciaAdministrativa/RelatorioGeralColaboradores.jasper";
             conecta.executaSQL("SELECT * FROM COLABORADOR "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
@@ -1239,7 +1244,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         // TODO add your handling code here:
         conecta.abrirConexao();
-        String path = "reports/RelatorioTotaisProres.jasper";
+        String path = "reports/GerenciaAdministrativa/TotaisProres/RelatorioTotaisProres.jasper";
         try {
             conecta.executaSQL("SELECT TOP 1 * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP INNER JOIN PRONTUARIOSCRC "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc "
@@ -1275,7 +1280,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private void jMenuItemPRORESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPRORESActionPerformed
         // TODO add your handling code here:
         conecta.abrirConexao();
-        String path = "reports/RelatorioQuantitativoTotalAtendimentoPSP.jasper";
+        String path = "reports/GerenciaAdministrativa/RelatorioQuantitativoTotalAtendimentoPSP.jasper";
         try {
             conecta.executaSQL("SELECT DISTINCT NomeDepartamento,\n"
                     + "                Sum(Qtd) AS Qtd\n"
@@ -1357,6 +1362,10 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelPopAlimenta);
         objRelPopAlimenta.show();
     }//GEN-LAST:event_jRelatorioPopulacaoAlimenticiaActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

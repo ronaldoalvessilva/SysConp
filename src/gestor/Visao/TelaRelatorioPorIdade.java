@@ -204,7 +204,7 @@ public class TelaRelatorioPorIdade extends javax.swing.JInternalFrame {
             
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioInternosIdade.jasper";
+                String path = "reports/CRC/RelatorioInternosIdade.jasper";
                 conecta.executaSQL("SELECT MatriculaCrc, "
                         + "Floor(Datediff(DAY, CONVERT(DATE, DataNasciCrc), Getdate()) / 365.25) AS Idade, "
                         + "NomeInternoCrc, "

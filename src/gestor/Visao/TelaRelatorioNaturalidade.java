@@ -235,7 +235,7 @@ public class TelaRelatorioNaturalidade extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioInternosNaturalidade.jasper";
+            String path = "reports/CRC/RelatorioInternosNaturalidade.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN CIDADES "
                     + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "

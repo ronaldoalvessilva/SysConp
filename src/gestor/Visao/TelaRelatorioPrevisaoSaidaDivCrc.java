@@ -204,7 +204,7 @@ public class TelaRelatorioPrevisaoSaidaDivCrc extends javax.swing.JInternalFrame
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPrevisaoSaidaInternosDiversos.jasper";
+                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -252,7 +252,7 @@ public class TelaRelatorioPrevisaoSaidaDivCrc extends javax.swing.JInternalFrame
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPrevisaoSaidaInternosDiversos.jasper";
+                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

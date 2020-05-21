@@ -225,7 +225,6 @@
                 <Menu class="javax.swing.JMenu" name="RelatorioProntuarios">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Prontu&#xe1;rios"/>
-                    <Property name="borderPainted" type="boolean" value="true"/>
                   </Properties>
                   <SubComponents>
                     <MenuItem class="javax.swing.JMenuItem" name="jProntuarioIndividualInterno">

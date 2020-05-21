@@ -169,7 +169,7 @@ public class TelaRelatorioProducaoJuridico extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoJuridicoII.jasper";
+                    String path = "reports/Juridico/RelatorioQuantitativoAtendimentoJuridicoII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOJURIDICO A "
                             + "INNER JOIN EVOLUCAOJURIDICO E ON E.IdInternoCrc=A.IdInternoCrc "
                             + "INNER JOIN PRONTUARIOSCRC P ON E.IdInternoCrc=P.IdInternoCrc "
@@ -214,7 +214,7 @@ public class TelaRelatorioProducaoJuridico extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoJuridicoII.jasper";
+                    String path = "reports/Juridico/RelatorioQuantitativoAtendimentoJuridicoII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOJURIDICO A "
                             + "INNER JOIN EVOLUCAOJURIDICO E ON E.IdInternoCrc=A.IdInternoCrc "
                             + "INNER JOIN PRONTUARIOSCRC P ON E.IdInternoCrc=P.IdInternoCrc "

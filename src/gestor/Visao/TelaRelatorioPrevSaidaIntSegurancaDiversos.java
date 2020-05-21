@@ -203,7 +203,7 @@ public class TelaRelatorioPrevSaidaIntSegurancaDiversos extends javax.swing.JInt
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPrevisaoSaidaInternosDiversos.jasper";
+                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA INNER JOIN PRONTUARIOSCRC ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE DataPrevSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'AND ConfirmaSaida='" + confirmaSaida + "'ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
@@ -241,7 +241,7 @@ public class TelaRelatorioPrevSaidaIntSegurancaDiversos extends javax.swing.JInt
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPrevisaoSaidaInternosDiversos.jasper";
+                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA INNER JOIN PRONTUARIOSCRC ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE DataPrevSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'AND ConfirmaSaida='" + confirmaSaida + "'ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);

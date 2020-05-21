@@ -2141,7 +2141,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RequisicaoMateriaisInternosSEAC.jasper";
+                String path = "reports/Almoxarifado/MateriaisInternosSEAC/RequisicaoMateriaisInternosSEAC.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_SEAC "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

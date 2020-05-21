@@ -166,7 +166,7 @@ public class TelaRelMovimentacaoAdvogadosInterno extends javax.swing.JInternalFr
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaAdvogadosInternosII.jasper";
+                            String path = "reports/CRC/RelatorioEntradaSaidaAdvogadosInternosII.jasper";
                             conecta.executaSQL("SELECT A.IdAdvogado, A.NomeAdvogado, A.OabAdvogado, P.IdInternoCrc,P.NomeInternoCrc, P.AlcunhaCrc, V.DataEntrada, V.HorarioEntrada, V.DataSaida, V.HorarioSaida "
                                     + "FROM VISITASADVOGADOS V "
                                     + "INNER JOIN PRONTUARIOSCRC AS P "
@@ -212,7 +212,7 @@ public class TelaRelMovimentacaoAdvogadosInterno extends javax.swing.JInternalFr
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaAdvogadosInternosII.jasper";
+                            String path = "reports/CRC/RelatorioEntradaSaidaAdvogadosInternosII.jasper";
                             conecta.executaSQL("SELECT A.IdAdvogado, A.NomeAdvogado, A.OabAdvogado, P.IdInternoCrc,P.NomeInternoCrc, P.AlcunhaCrc, V.DataEntrada, V.HorarioEntrada, V.DataSaida, V.HorarioSaida "
                                     + "FROM VISITASADVOGADOS V "
                                     + "INNER JOIN PRONTUARIOSCRC AS P "

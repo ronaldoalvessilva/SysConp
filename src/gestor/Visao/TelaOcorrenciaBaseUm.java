@@ -1066,7 +1066,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrenciaBaseSegurancaAuxiliar.jasper";
+            String path = "reports/GerenciaOperacional/ListagemOcorrenciaBaseSegurancaAuxiliar.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_BASE_SEGURANCA_AUXILIAR "
                     + "WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();

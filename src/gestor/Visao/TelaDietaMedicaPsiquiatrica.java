@@ -643,7 +643,7 @@ public class TelaDietaMedicaPsiquiatrica extends javax.swing.JDialog {
                 viewer.setSize(800, 600);
                 viewer.setLocationRelativeTo(null);
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDietaMedica.jasper";
+                String path = "reports/Enfermaria/RelatorioDietaMedica.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

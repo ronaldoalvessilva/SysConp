@@ -177,7 +177,7 @@ public class TelaRelatorioConfere extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/Confere.jasper";
+                String path = "reports/GerenciaOperacional/Confere.jasper";
                 conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

@@ -1805,7 +1805,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioCartilhaVacinasInternos.jasper";
+            String path = "reports/Enfermaria/CalendarioVacinasInterno/RelatorioCartilhaVacinasInternos.jasper";
             conecta.executaSQL("SELECT * FROM CARTILHA_VACINAS_INTERNOS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON CARTILHA_VACINAS_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

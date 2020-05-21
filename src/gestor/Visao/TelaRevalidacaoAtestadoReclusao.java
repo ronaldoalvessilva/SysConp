@@ -1888,7 +1888,7 @@ public class TelaRevalidacaoAtestadoReclusao extends javax.swing.JInternalFrame 
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioRevAtestadoReclusaoCRC.jasper";
+                    String path = "reports/CRC/RelatorioRevAtestadoReclusaoCRC.jasper";
                     conecta.executaSQL("SELECT * FROM REVALIDAR_ATESTADO_RECLUSAO "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON REVALIDAR_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

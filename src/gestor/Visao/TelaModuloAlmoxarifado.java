@@ -619,6 +619,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jMenu5.add(RelatorioPendenciaPagtoKit);
 
         jMenuItem2.setText("Relatório de Pagamento de Kits de Higiene de Internos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem2);
 
         Relatorios.add(jMenu5);
@@ -1022,7 +1027,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioProdutosCadastradosPorGrupo.jasper";
+            String path = "reports/Almoxarifado/RelatorioProdutosCadastradosPorGrupo.jasper";
             conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
@@ -1144,7 +1149,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioGeralEstoqueFarmacia.jasper";
+            String path = "reports/Almoxarifado/RelatorioGeralEstoqueFarmacia.jasper";
             conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOTE_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
@@ -1385,6 +1390,10 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         } catch (java.beans.PropertyVetoException e) {
         }
     }//GEN-LAST:event_RelatorioGeralProgramacaoKitActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

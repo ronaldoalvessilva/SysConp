@@ -1327,7 +1327,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioPreLocacaoInternosTriagem.jasper";
+                String path = "reports/Triagem/RelatorioPreLocacaoInternosTriagem.jasper";
                 conecta.executaSQL("SELECT * FROM PRE_LOCACAO_INTERNOS "
                         + "INNER JOIN ITENS_PRE_LOCACAO_INTERNOS "
                         + "ON PRE_LOCACAO_INTERNOS.CodigoReg=ITENS_PRE_LOCACAO_INTERNOS.CodigoReg "
