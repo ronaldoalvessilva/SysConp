@@ -17,6 +17,7 @@
 	<parameter name="pDATA_FINAL" class="java.lang.String"/>
 	<parameter name="pUNIDADE" class="java.lang.String"/>
 	<parameter name="pUSUARIO" class="java.lang.String"/>
+	<parameter name="dataPopulacao" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[SELECT POPULACAOINTERNOS_CRC.DataPop,
        POPULACAOINTERNOS_CRC.IdInternoCrc,
@@ -117,7 +118,7 @@ DADOSPENAISINTERNOS.Regime
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{DataPop}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{dataPopulacao}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="8" y="11" width="247" height="20" uuid="9ee6bd23-ddfb-43e3-a0aa-bb9e8b3bcd38"/>

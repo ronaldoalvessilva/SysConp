@@ -215,6 +215,7 @@ public class TelaRelPopulacaoInternosNominalNovo extends javax.swing.JInternalFr
                         HashMap parametros = new HashMap();
                         parametros.put("pDATA_INICIAL", dataPopInicial);
                         parametros.put("pDATA_FINAL", dataPopFinal);
+                        parametros.put("dataPopulacao", jDataPopInicial.getDate());
                         parametros.put("pUNIDADE", descricaoUnidade);
                         parametros.put("pUSUARIO", nameUser);
                         JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -263,6 +264,7 @@ public class TelaRelPopulacaoInternosNominalNovo extends javax.swing.JInternalFr
                         HashMap parametros = new HashMap();
                         parametros.put("pDATA_INICIAL", dataPopInicial);
                         parametros.put("pDATA_FINAL", dataPopFinal);
+                        parametros.put("dataPopulacao", jDataPopInicial.getDate());
                         parametros.put("pUNIDADE", descricaoUnidade);
                         parametros.put("pUSUARIO", nameUser);
                         JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
