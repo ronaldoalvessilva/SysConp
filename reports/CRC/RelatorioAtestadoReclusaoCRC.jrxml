@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioAtestadoReclusaoCRC" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c986c9ef-0ba9-4995-a93e-af7b273e8ef6">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="516"/>
+	<property name="ireport.y" value="52"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="nomeUnidade" class="java.lang.String"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<parameter name="chaveValidacaoInterno" class="java.lang.String"/>
+	<parameter name="idRegistro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM EMISSAO_ATESTADO_RECLUSAO INNER JOIN PRONTUARIOSCRC ON EMISSAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON DADOSPENAISINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN VISITASINTERNO ON EMISSAO_ATESTADO_RECLUSAO.IdVisita=VISITASINTERNO.IdVisita WHERE EMISSAO_ATESTADO_RECLUSAO.IdAtestado=$P{idRegistro}]]>
+	</queryString>
+	<field name="IdAtestado" class="java.lang.Integer"/>
+	<field name="StatusAtestado" class="java.lang.String"/>
+	<field name="ClassAtestado" class="java.lang.String"/>
+	<field name="DataAtestado" class="java.sql.Timestamp"/>
+	<field name="IdVisita" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="CodRegAux" class="java.lang.Integer"/>
+	<field name="TextoAtestado" class="java.lang.String"/>
+	<field name="AssinaturaColaborador" class="java.lang.Object"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="DataAssinatura" class="java.lang.String"/>
+	<field name="HoraAssinatura" class="java.lang.String"/>
+	<field name="CodigoValidador" class="java.lang.Object"/>
+	<field name="ChaveInterno" class="java.lang.Object"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="IdPenais" class="java.lang.Integer"/>
+	<field name="IdUnid" class="java.lang.Integer"/>
+	<field name="DataEntrada" class="java.sql.Timestamp"/>
+	<field name="DataCrime" class="java.sql.Timestamp"/>
+	<field name="DataPrisao" class="java.sql.Timestamp"/>
+	<field name="DataCondenacao" class="java.sql.Timestamp"/>
+	<field name="Participacao" class="java.lang.String"/>
+	<field name="Regime" class="java.lang.String"/>
+	<field name="Pena" class="java.lang.String"/>
+	<field name="Artigo1" class="java.lang.String"/>
+	<field name="Artigo2" class="java.lang.String"/>
+	<field name="Artigo3" class="java.lang.String"/>
+	<field name="Paragrafo1" class="java.lang.String"/>
+	<field name="Paragrafo2" class="java.lang.String"/>
+	<field name="Paragrafo3" class="java.lang.String"/>
+	<field name="CrimeEdiondo" class="java.lang.String"/>
+	<field name="TerminoPena" class="java.sql.Timestamp"/>
+	<field name="FotoPerfil" class="java.lang.String"/>
+	<field name="FotoCorpo" class="java.lang.String"/>
+	<field name="FotoCorpo1" class="java.lang.String"/>
+	<field name="FotoCorpo2" class="java.lang.String"/>
+	<field name="FotoMinimoDireito" class="java.lang.String"/>
+	<field name="FotoPolegarEsquerdo" class="java.lang.String"/>
+	<field name="FotoIndicadorEsquerdo" class="java.lang.String"/>
+	<field name="FotoMedioEsquerdo" class="java.lang.String"/>
+	<field name="FotoAnularEsquerdo" class="java.lang.String"/>
+	<field name="FotoMinimoEsquerdo" class="java.lang.String"/>
+	<field name="Identificador" class="java.lang.String"/>
+	<field name="Identificador1" class="java.lang.String"/>
+	<field name="Identificador2" class="java.lang.String"/>
+	<field name="Identificador3" class="java.lang.String"/>
+	<field name="Perfil" class="java.lang.String"/>
+	<field name="RegiaoCorpo" class="java.lang.String"/>
+	<field name="RegiaoCorpo1" class="java.lang.String"/>
+	<field name="RegiaoCorpo2" class="java.lang.String"/>
+	<field name="RegiaoCorpo3" class="java.lang.String"/>
+	<field name="VaraCondenatoria" class="java.lang.String"/>
+	<field name="DataNovaEntrada" class="java.sql.Timestamp"/>
+	<field name="ImagemPerfil" class="java.lang.Object"/>
+	<field name="ImagemCorpo" class="java.lang.Object"/>
+	<field name="ImagemCorpo1" class="java.lang.Object"/>
+	<field name="ImagemCorpo2" class="java.lang.Object"/>
+	<field name="StatusVisita" class="java.lang.String"/>
+	<field name="ImagemVisita" class="java.lang.String"/>
+	<field name="NomeVisita" class="java.lang.String"/>
+	<field name="ParentescoVisita" class="java.lang.String"/>
+	<field name="DataNasc" class="java.sql.Timestamp"/>
+	<field name="SexoVisita" class="java.lang.String"/>
+	<field name="DataCadVisita" class="java.sql.Timestamp"/>
+	<field name="EnderecoVisita" class="java.lang.String"/>
+	<field name="BairroVisita" class="java.lang.String"/>
+	<field name="CidadeVisita" class="java.lang.String"/>
+	<field name="CepVisita" class="java.lang.String"/>
+	<field name="EstadoVisita" class="java.lang.String"/>
+	<field name="TelefoneVisita" class="java.lang.String"/>
+	<field name="Telefone1Visita" class="java.lang.String"/>
+	<field name="CelularVisita" class="java.lang.String"/>
+	<field name="Celular1Visita" class="java.lang.String"/>
+	<field name="RgVisita" class="java.lang.String"/>
+	<field name="EmissorVisita" class="java.lang.String"/>
+	<field name="CpfVisita" class="java.lang.String"/>
+	<field name="DataValiAnte" class="java.sql.Timestamp"/>
+	<field name="Classificacao" class="java.lang.String"/>
+	<field name="VisitaIntima" class="java.lang.String"/>
+	<field name="Nacionalidade" class="java.lang.String"/>
+	<field name="DataEmissao" class="java.sql.Timestamp"/>
+	<field name="BiometriaDedo1" class="java.lang.Object"/>
+	<field name="BiometriaDedo2" class="java.lang.Object"/>
+	<field name="BiometriaDedo3" class="java.lang.Object"/>
+	<field name="BiometriaDedo4" class="java.lang.Object"/>
+	<field name="ImagemFrenteVI" class="java.lang.Object"/>
+	<field name="DataValidade" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="237" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="10" y="97" width="109" height="15" forecolor="#000000" uuid="1048a45e-8883-49a2-ae2e-ee2227289f03"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Código Atestado:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="121" y="97" width="49" height="15" uuid="7b8ef847-0d03-4ec6-8ebf-79acb04330e1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdAtestado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="112" width="109" height="15" forecolor="#000000" uuid="0e1b7372-6db7-4db6-8fe6-4cf61b6eac8c"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data Atestado....:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="121" y="112" width="85" height="15" uuid="f682c7a2-a68f-43cf-b517-d07f144fe1a7"/>
+				<textFieldExpression><![CDATA[$F{DataAtestado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="127" width="109" height="15" forecolor="#000000" uuid="4a192554-8c9e-46e7-85fd-d73fd70eb463"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Solicitante..........:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="122" y="127" width="265" height="15" uuid="fcd49c64-5a41-4794-84b8-970bd892c443"/>
+				<textFieldExpression><![CDATA[$F{NomeVisita}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="142" width="109" height="15" forecolor="#000000" uuid="5631520a-deb6-4258-830c-42417494d298"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Parentesco.........:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="123" y="142" width="265" height="15" uuid="da89425b-b40f-43bd-aeae-dd2f609b9f0a"/>
+				<textFieldExpression><![CDATA[$F{ParentescoVisita}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="157" width="109" height="15" forecolor="#000000" uuid="f482eb30-df11-4d75-9096-20b9472e570b"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Código Interno...:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="123" y="157" width="50" height="15" uuid="c0e15e64-6b1a-4a49-91d5-8fa1c7f408d4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="172" width="110" height="15" forecolor="#000000" uuid="4133af88-b6ab-49e3-9036-992081f37cb7"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Nome do Interno:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="124" y="172" width="286" height="15" uuid="efe44cd1-8345-40a4-8871-50003ab38d24"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="187" width="109" height="15" forecolor="#000000" uuid="83d2d510-7a85-4930-85b9-5f2a924fafd1"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Regime Penal.....:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="125" y="187" width="131" height="15" uuid="6a7d2ef6-1f19-4283-85e1-a4df165c76a1"/>
+				<textFieldExpression><![CDATA[$F{Regime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="273" y="187" width="82" height="15" forecolor="#000000" uuid="a9167776-d06a-4e85-a8b1-d75e8f5b1366"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data Entrada:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="359" y="187" width="66" height="15" uuid="94767562-5cbd-41e0-96fc-3e946551e9f0"/>
+				<textFieldExpression><![CDATA[$F{DataEntrada}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="128" y="70" width="428" height="14" uuid="457387e2-2053-45fe-a59f-50f87a09f884"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[SUPERINTENDÊNCIA DE GESTÃO PRISIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="546" height="20" uuid="57a4f787-ddea-4015-91be-e994452eadd2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE CONTROLE PRISIONAL - SISCONP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="54" width="425" height="16" uuid="3d044f31-896b-4016-b5c1-dc8e77e2c3f5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SECRETARIA DE ADMINISTRAÇÃO PENITENCIÁRIA E RESSOCIALIZAÇÃO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="198" y="84" width="337" height="20" uuid="48d3d7f5-83d7-4de9-abff-413224db79be"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeUnidade}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="6" y="20" width="113" height="64" uuid="64ad9406-08a5-4404-820f-5db8eea9a16b"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\LOGO_SEAP_P.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Column header" x="11" y="202" width="108" height="15" forecolor="#CC0000" uuid="837e3789-acea-441d-940a-20701399d916"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Chave Validação.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="217" width="542" height="20" uuid="6c80941d-ae36-4694-9b3b-dfc6e3878c42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{chaveValidacaoInterno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="127" width="57" height="15" uuid="f28344e1-929b-40eb-b726-92231fbde97e"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Validade:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="467" y="127" width="68" height="15" uuid="069e5802-b2a2-421c-bd90-d0d523ce61a1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataValidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="30977ee7-b5ae-424a-aef5-4d15c7fb09e7"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="07e84a4f-5568-4df7-9f61-f98a7e118679"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="ee1b4af2-e1ac-4ad6-876c-771d579c1838"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="42ec1480-36bf-4809-82c8-03f106d8f654"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="19" forecolor="#736343" uuid="f44db968-c358-4215-9019-b25f4212ff6c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="219" y="1" width="234" height="20" uuid="148c847c-a2e5-49a1-9e03-d6a7f96075c4"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="354" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="7" y="10" width="540" height="318" uuid="ac4ca876-87f1-43fb-b183-e863851cb5c5"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{TextoAtestado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

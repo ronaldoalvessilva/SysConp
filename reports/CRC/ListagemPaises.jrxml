@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemPaises" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e151d11-4a01-438e-9793-67c7720c8306">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM PAISES ORDER BY NomePais]]>
+	</queryString>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="NomePais" class="java.lang.String"/>
+	<field name="CodPais" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="170" y="0" width="263" height="62" uuid="108dc3e8-6ef0-4c2e-a121-59891dd3cb2b"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="219" y="62" width="151" height="22" forecolor="#000000" uuid="f77ee7c6-d435-4130-8991-a30c37f8734e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Listagem de Países]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="94" width="383" height="42" uuid="338a83f7-9d45-461a-ae52-8d2c36dc0ed9"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="bd67f7f7-022b-46dc-b4e2-d04638dea720"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="13" y="0" width="51" height="15" forecolor="#736343" uuid="18766592-f7a7-4b93-9269-c6c0cdbc56e5"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ID País]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="185" y="0" width="185" height="15" forecolor="#736343" uuid="8b8b28a0-8ab6-4f0d-b28c-d7221179c9f7"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nome do País]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="370" y="0" width="185" height="15" forecolor="#736343" uuid="27b73cf6-4ba7-4fed-be44-451e92b6fc2b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Código do Paíes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="779c066b-dd9f-46e9-beea-28a5256c262f"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="185" y="0" width="185" height="15" uuid="36a466fe-013e-48f2-b359-ec93262467cb"/>
+					<textFieldExpression><![CDATA[$F{NomePais}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="23" y="0" width="64" height="15" uuid="45646099-f8fd-4b93-9273-a6c7b89d9339"/>
+					<textFieldExpression><![CDATA[$F{IdPais}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="447" y="0" width="41" height="15" uuid="c2e4679a-e82f-4e67-a9ff-b15eb72e54f5"/>
+					<textFieldExpression><![CDATA[$F{CodPais}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="aba2ad43-b797-4674-9d4f-d46d615d3844"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="106ef75d-9d31-41c9-b968-7df430456fda"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="0c845fcd-1517-4491-9843-20b2b9705595"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="058def3b-ff72-4cb4-a5ef-1681ff4930c3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="e6e73a76-9ba0-4041-ab67-c029fc5cc770"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="219" y="1" width="234" height="20" uuid="9679760e-fb32-44b0-ae04-efae36495d25"/>
+					<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

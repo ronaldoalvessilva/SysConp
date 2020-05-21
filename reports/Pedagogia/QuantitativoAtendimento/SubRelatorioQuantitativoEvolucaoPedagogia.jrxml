@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioQuantitativoAtendimentoNovo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c391674-be87-4988-a9a5-c15244f43db5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<parameter name="dataInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pUsuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT R.UsuarioUp,
+       R.DataReg,
+       P.NomeInternoCrc,
+       P.Cnc
+FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP R
+       INNER JOIN PRONTUARIOSCRC P
+               ON P.IdInternoCrc = R.IdInternoCrc
+WHERE  TipoAtendimento LIKE 'Evolução Pedagogica'
+       AND Atendido LIKE 'Sim'
+       AND CONVERT(DATE, DataReg) BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER  BY R.UsuarioUp, R.DataReg]]>
+	</queryString>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataReg" class="java.sql.Timestamp"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<group name="TotalAtendimento">
+		<groupExpression><![CDATA[$F{UsuarioUp}]]></groupExpression>
+		<groupFooter>
+			<band height="38">
+				<rectangle>
+					<reportElement x="1" y="5" width="554" height="20" uuid="43427d9c-3a41-4dd4-9cdf-4c04704c72aa"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="2" y="5" width="154" height="20" uuid="87cc0636-6b67-4ed1-94c3-2a3f5a6bffa0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total de Evoluções de ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="478" y="7" width="76" height="18" uuid="09bbc7d6-501c-46fd-a9c7-0bbda7349280"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TotalAtendimento_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="152" y="4" width="326" height="20" uuid="2cd67fb5-6e6f-4c25-a326-c6c46bac1ea9"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UsuarioUp}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Tecnicos que Atenderam">
+		<groupExpression><![CDATA[$F{UsuarioUp}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<staticText>
+					<reportElement x="2" y="0" width="106" height="16" uuid="9e743be4-f9cc-4b01-95ee-461c82be6334"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome do Técnico :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="115" y="0" width="439" height="16" forecolor="#000099" uuid="b3d5f4b1-e6e0-4add-9ed8-e2c64388ecad"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UsuarioUp}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30" uuid="fde3e52e-5aa4-4a9f-985a-e027bb8b0298"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EVOLUÇÕES]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="ae64fbb5-78a9-4036-a39c-15321db5bb06"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-1" y="1" width="90" height="19" uuid="f4fb6f3d-8f89-4528-8e47-f7f447745bd3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data/Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="0" width="315" height="20" uuid="2e37a261-0596-4b6f-9ac1-3650f8eb772c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="61" height="20" uuid="59240dc7-7248-410e-9ca2-8eb68bb83087"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cnc]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="15" forecolor="#FFFFFF" backcolor="#CCFFFF" uuid="8add5e5b-c72b-41d4-9b19-cd2609adce1e">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==1)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="96" height="15" uuid="9bbedf86-3309-411d-9a84-c117b1333460"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{DataReg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="0" width="400" height="15" uuid="629b91e6-b2a3-42eb-8366-5d1ddf9986ee"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="95" y="0" width="56" height="15" uuid="ca73449d-fee4-4d0c-82d6-7ba135f9dedf"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="25">
+			<rectangle>
+				<reportElement x="1" y="1" width="552" height="20" uuid="12c01340-640d-4fc9-8d91-4b09456f94ef"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="2" width="192" height="20" uuid="1121a52e-6148-4a5a-9236-c84d23c879f9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Evoluções do Setor: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="478" y="2" width="76" height="20" uuid="de32eba4-910d-46e4-b184-03e70015df6a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

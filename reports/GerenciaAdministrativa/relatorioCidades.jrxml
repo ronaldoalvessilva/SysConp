@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioCidades" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="22fc46eb-cdaf-4f0e-ac51-006c93b4ad7b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM CIDADES ORDER BY NomeCidade]]>
+	</queryString>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="NomeCidade" class="java.lang.String"/>
+	<field name="UfCidade" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="DddCidade" class="java.lang.Integer"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<group name="NomeCidade">
+		<groupExpression><![CDATA[$F{NomeCidade}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="29" width="228" height="20" uuid="06b41dd3-bf08-4b32-a404-096934010919"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Cidades por Nome]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="cc2241d9-e0f9-4de4-a5f8-2dee4f96b407"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página: "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="0b5fbd5b-348e-4faf-9d48-8ef832f73b4b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="8fc492ca-3900-4d71-9a8b-78d103ee0e39"/>
+			</line>
+			<staticText>
+				<reportElement x="29" y="2" width="42" height="20" uuid="cc499fb0-26f9-448c-a090-4d5945dfe23a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="2" width="100" height="20" uuid="472fc2c6-203a-4dd3-a20c-b540978f6909"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome da Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="2" width="22" height="20" uuid="ae6a8510-2bb8-4f85-a369-001f7c252468"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="2" width="29" height="20" uuid="30e5ba04-cee9-4d22-ac34-b3882c992bcc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DDD]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="e5fe8e4b-85d2-459c-b063-83d813dc457a"/>
+			</line>
+			<line>
+				<reportElement x="0" y="22" width="555" height="1" uuid="18e312fb-2166-4256-a64d-e90f09e77104"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="149" y="0" width="175" height="20" uuid="23faf568-bc5b-4137-9544-3b749ea6bde9"/>
+				<textFieldExpression><![CDATA[$F{NomeCidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="22" height="20" uuid="9d9c43d7-75a4-4168-b26d-496319f812d6"/>
+				<textFieldExpression><![CDATA[$F{UfCidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="486" y="0" width="17" height="20" uuid="631effc3-ce70-4639-a062-eabb23c1d3a5"/>
+				<textFieldExpression><![CDATA[$F{DddCidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="0" width="23" height="20" uuid="3c9e1710-4fa0-4327-8bda-ed204116a2d3"/>
+				<textFieldExpression><![CDATA[$F{IdCidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="44" width="555" height="1" uuid="bebfc3cc-d450-4ff3-b285-1efcd7999212"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="11" y="6" width="100" height="20" uuid="c987c95d-8d5f-49cd-9884-00ab11381573"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="6" width="100" height="20" uuid="79d3306b-6a0d-4114-8d57-401ad461f789"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="6" width="236" height="20" uuid="ba64fbfb-fb39-4395-8133-a091b87005c4"/>
+				<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

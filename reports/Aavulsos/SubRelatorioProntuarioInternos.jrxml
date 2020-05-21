@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioProntuarioInternos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="08d53cfc-ba40-4e3f-9348-29aa8c27e4aa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="59"/>
+	<parameter name="codigoInterno" class="java.lang.String"/>
+	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM BIOMETRIA_INTERNOS INNER JOIN PRONTUARIOSCRC ON BIOMETRIA_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE BIOMETRIA_INTERNOS.IdInternoCrc=$P{codigoInterno}]]>
+	</queryString>
+	<field name="IdBioInter" class="java.lang.Integer"/>
+	<field name="DataCadastro" class="java.sql.Timestamp"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="BiometriaDedo1" class="java.sql.Blob"/>
+	<field name="BiometriaDedo2" class="java.sql.Blob"/>
+	<field name="BiometriaDedo3" class="java.sql.Blob"/>
+	<field name="BiometriaDedo4" class="java.sql.Blob"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo1" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo2" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo3" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo4" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo5" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo6" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo7" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo8" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo9" class="java.lang.String"/>
+	<field name="CaminhoImagemDedo10" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="258" splitType="Stretch">
+			<rectangle>
+				<reportElement x="391" y="44" width="139" height="131" uuid="54746f76-4cb2-4cdb-a73f-915e8e62b0e0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="256" uuid="fda0e999-eb27-41e1-bfe1-503916283a5e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="67" y="129" width="49" height="20" uuid="3a210888-c2f5-4e26-b7f1-88c19c93583d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Código:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="129" width="69" height="20" uuid="7c8757db-0eeb-411d-9aa4-eb69b07dea06"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="35" y="149" width="81" height="20" uuid="76e1fe8c-525d-4bf0-98ea-a5248074c923"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Matricula Penal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="149" width="107" height="20" uuid="ea7d70fe-ae97-4dd5-8705-7ded01b94524"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="169" width="100" height="20" uuid="957de2fd-7c56-4066-a69d-514dab5593e2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Data Nascimento:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="119" y="169" width="100" height="20" uuid="fd050ac6-0127-4596-82e6-d5c1e4dbefa6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataNasciCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="189" width="100" height="20" uuid="f7e58633-5785-426a-8927-86babb4b0811"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nome do Interno:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="189" width="305" height="20" uuid="30c29e22-8809-4ce6-af62-fbc860f75885"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="209" width="100" height="20" uuid="2c726a27-264b-456e-a195-8827c0f66d41"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nome da Mãe:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="121" y="209" width="303" height="20" uuid="b636c6dc-2296-4a8a-98ab-3c8a10f91c2e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MaeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="229" width="100" height="20" uuid="6465af40-c79d-4729-84cb-7ff0af488de6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nome do Pai:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="122" y="229" width="302" height="20" uuid="27f4bb40-ac12-40f7-9b07-3e54885cb19c"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PaiInternoCrc}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="430" y="120" width="117" height="129" uuid="8c4d5bd4-dd8b-493d-a356-0ff9cca717c0"/>
+			</rectangle>
+			<image>
+				<reportElement x="434" y="128" width="112" height="129" uuid="8653983f-9753-48a3-a9aa-c5c4f51e327b"/>
+				<imageExpression><![CDATA[$F{FotoInternoCrc}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="15" y="14" width="75" height="79" uuid="e1832508-aecf-4a00-89b9-32c0d6d07ae5"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\Logo_JBA.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="15" y="16" width="526" height="20" uuid="c6afb594-ecea-4b60-88fa-9b2798bf3fef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="44" width="437" height="20" uuid="57867de9-4c1e-4662-8122-2c58d3497d56"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECRETARIA DE ADMINISTRAÇÃO PENITENCIARIA E RESSOACIALIZAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="62" width="321" height="20" uuid="e9163dd2-c642-4f15-afe2-660f110bed61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUPERINTEDÊNCIA DE GESTÃO PROSIONAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="80" width="320" height="20" uuid="cb9bb7d6-12d6-46e5-9b2d-057ab5d87f3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="105" width="525" height="1" uuid="61ee4c18-a56d-44a0-a95b-48c897d8fcfb"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="6" width="553" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="af9503a2-7eaa-47af-b305-e4cd73287f65"/>
+				<textField>
+					<reportElement x="106" y="0" width="320" height="20" uuid="2e51c68e-7ae2-4cef-b65d-93c8921dce99"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="6" y="0" width="100" height="20" uuid="fb45a39b-715c-49b9-a0a0-63d3ea52394c"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="426" y="2" width="80" height="20" uuid="78888bfd-4081-4796-a34d-ef5061feee2f"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="506" y="2" width="40" height="20" uuid="9fc2b170-9dfc-42f0-9c88-9e93f9cce1bb"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="498" splitType="Stretch">
+			<rectangle>
+				<reportElement x="7" y="118" width="97" height="108" uuid="bf7b7b3c-7766-4148-8a26-84f48a07d981"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="105" width="97" height="13" uuid="1213061d-141f-424c-a5da-74c9b3e87524"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Polegar]]></text>
+			</staticText>
+			<image>
+				<reportElement x="15" y="123" width="122" height="102" uuid="1937167e-a527-4f4e-af1e-22806113c1c2"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo1}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="118" y="118" width="97" height="108" uuid="52b76c49-b5c9-4a06-8678-e7f0b1471819"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="226" y="118" width="97" height="108" uuid="e167ba8c-6d9d-4742-afd8-4b2ae9a543fb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="335" y="117" width="97" height="108" uuid="6207b343-6e99-433b-b956-d7700b25b2d8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="444" y="118" width="97" height="108" uuid="cb9fadda-9ccb-42bd-8ef2-bb486c712c3e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="118" y="104" width="97" height="14" uuid="739e4de9-5a27-47c1-9638-bb7ff66e4c7b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Indicador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="104" width="97" height="14" uuid="3d6cbe29-e480-4c80-9713-c8f42be8d0fb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="104" width="97" height="14" uuid="466cc557-f24c-49a1-bdab-9e29bb39da52"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Anelar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="102" width="97" height="15" uuid="4fbcf8a0-a082-4123-a216-d3796ec8d217"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mínimo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="284" width="97" height="14" uuid="2230f343-0b7d-4b64-9353-4a67730938df"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Anelar]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="337" y="298" width="97" height="108" uuid="c0ac774a-1d6a-4256-8233-91bbeed588d9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="447" y="298" width="97" height="108" uuid="746ebb1e-27ef-4e6e-a035-d98d533cbbc6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="119" y="298" width="97" height="108" uuid="89a62235-7b68-4693-9c83-dc0a1321bf47"/>
+			</rectangle>
+			<image>
+				<reportElement x="125" y="127" width="134" height="98" uuid="29447ae2-c487-49c9-aeb5-25eb464c2a23"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo2}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="6" y="298" width="97" height="108" uuid="29d7687b-aff9-475a-8daa-cccac90de62d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="448" y="283" width="96" height="15" uuid="0e29ab6a-b2b8-4d65-9f3f-a0662e581523"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mínimo]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="229" y="298" width="97" height="108" uuid="79b2a20b-91c5-4727-87fe-ba26c6c9f0b1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="229" y="283" width="97" height="14" uuid="731bf97b-edac-4b2f-a0f5-c8645b5eb9e4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="284" width="96" height="13" uuid="e0ba03d0-334f-4412-89fb-f85d1d1f1d5e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Polegar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="284" width="97" height="14" uuid="52961ddf-965c-48d8-8192-8f49fc4d0bd8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Indicador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="260" width="555" height="20" uuid="2c1b4c27-d7ca-4060-b595-b5e16a9ade1c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MÃO ESQUERDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="555" height="20" uuid="f37c1de2-3b1a-41ae-b169-d1c9c1739a55"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MÃO DIREITA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="230" y="129" width="108" height="96" uuid="36fa2669-4651-4f89-8fde-fa5442fdd2ca"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="341" y="128" width="104" height="96" uuid="f2cb5ec5-460e-4388-a00e-16b4dba1c31f"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="452" y="123" width="114" height="101" uuid="20725bd4-6b56-483d-bdb4-db4fcc324a98"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="13" y="305" width="100" height="100" uuid="3b52a948-c304-4d69-a293-6dc4512e950e"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo6}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="128" y="305" width="100" height="100" uuid="b4ed98e1-6627-427c-885a-c52a03036fc7"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo7}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="235" y="305" width="100" height="100" uuid="e7bf136a-2b68-492f-b881-9eaf2d62a05e"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo8}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="344" y="305" width="100" height="100" uuid="eff80f45-3729-4115-bd65-2f680f9ffe16"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo9}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="454" y="305" width="100" height="100" uuid="5cc5eb80-4c35-4d8f-a4b1-ade386e290c8"/>
+				<imageExpression><![CDATA[$F{CaminhoImagemDedo10}]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>

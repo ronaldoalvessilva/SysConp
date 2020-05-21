@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioRequisicaoMateriaisInternos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="97fb33a1-ed65-4182-964a-db7de4d210ea">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codSol" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{codSol}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_AC INNER JOIN SOLICITACAO_PRODUTOS_AC ON ITENS_SOLICITACAO_PRODUTOS_AC.IdSol=SOLICITACAO_PRODUTOS_AC.IdSol INNER JOIN PRODUTOS_AC ON ITENS_SOLICITACAO_PRODUTOS_AC.IdProd=PRODUTOS_AC.IdProd WHERE ITENS_SOLICITACAO_PRODUTOS_AC.IdSol=$P{codSol}]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdSol" class="java.lang.Integer"/>
+	<field name="IdProd" class="java.lang.Integer"/>
+	<field name="CodigoBarras" class="java.lang.String"/>
+	<field name="UnidadeProd" class="java.lang.String"/>
+	<field name="QtdItem" class="java.lang.Double"/>
+	<field name="ValorUnitarioItem" class="java.lang.Double"/>
+	<field name="ValorTotalItem" class="java.lang.Double"/>
+	<field name="AprovaSol" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="StatusSol" class="java.lang.String"/>
+	<field name="DataSol" class="java.sql.Timestamp"/>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="IdFuncAprova" class="java.lang.Integer"/>
+	<field name="IdLocal" class="java.lang.Integer"/>
+	<field name="Observacao" class="java.sql.Clob"/>
+	<field name="StatusProd" class="java.lang.String"/>
+	<field name="CodigoBarra" class="java.lang.String"/>
+	<field name="DescricaoProd" class="java.lang.String"/>
+	<field name="ReferenciaProd" class="java.lang.String"/>
+	<field name="FotoProduto" class="java.lang.String"/>
+	<field name="FotoProduto2" class="java.lang.String"/>
+	<field name="IdGrupo" class="java.lang.Integer"/>
+	<field name="IdForn" class="java.lang.Integer"/>
+	<field name="DataFabricacao" class="java.lang.String"/>
+	<field name="DataCompra" class="java.lang.String"/>
+	<field name="DataValidade" class="java.lang.String"/>
+	<field name="ValorCompra" class="java.lang.Double"/>
+	<field name="QtdCompra" class="java.lang.Double"/>
+	<field name="DataSaida" class="java.lang.String"/>
+	<field name="QtdSaida" class="java.lang.Double"/>
+	<field name="AliquotaIcms" class="java.lang.Double"/>
+	<field name="AliquotaIpi" class="java.lang.Double"/>
+	<field name="ClassificacaoFiscal" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<variable name="totalItens" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="79" height="20" uuid="97c90112-72db-4e60-86a5-9164c990d8be"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdProd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="71" height="20" uuid="564ce98f-cf24-47ee-b6ce-9557326e4d7f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CodigoBarras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="0" width="32" height="20" uuid="6d4f8836-eb8b-411e-91da-7a01232f3176"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{UnidadeProd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="0" width="186" height="20" uuid="640f762a-84d5-4fdb-b826-317a68383b71"/>
+				<textFieldExpression><![CDATA[$F{DescricaoProd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="370" y="0" width="33" height="20" uuid="b72cf79a-21ea-4231-a12b-967ab2f68739"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{QtdItem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="403" y="0" width="36" height="20" uuid="cd6d9ce0-8ba9-43e3-9d35-4dcfeaaeeb80"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ValorUnitarioItem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="452" y="0" width="54" height="20" uuid="41d2553a-8656-4542-995b-d51117719f3d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ValorTotalItem}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="67">
+			<rectangle>
+				<reportElement x="4" y="28" width="147" height="20" uuid="97a17f61-e5af-4df7-b286-5d17ee383065"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="28" width="84" height="20" uuid="5b3ea347-814c-4461-aefd-e89ecf8dfa5f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Itens:]]></text>
+			</staticText>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="104" y="28" width="30" height="20" uuid="2bb21cae-d210-489c-9a91-d7f3a70d15b8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalItens}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="227" y="41" width="305" height="1" uuid="93df2c65-5f32-4830-981e-ab3ccd148abe"/>
+			</line>
+			<staticText>
+				<reportElement x="270" y="47" width="203" height="20" uuid="2edc5fa3-51e6-488c-add3-7e9a29923b50"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA DO COLABORADOR]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

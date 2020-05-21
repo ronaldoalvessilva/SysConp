@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ValeTranspoteMes" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="461058d4-9fd0-4f3f-9d28-b9e5380b321a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="mesReferencia" class="java.lang.String"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENSVALETRANSPORTE INNER JOIN COLABORADOR ON ITENSVALETRANSPORTE.IdFunc=COLABORADOR.IdFunc WHERE MesReferencia=$P{mesReferencia} ORDER BY COLABORADOR.NomeFunc]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="MesReferencia" class="java.lang.String"/>
+	<field name="ValorVale" class="java.lang.Float"/>
+	<field name="QtdDias" class="java.lang.Integer"/>
+	<field name="QtdValeDias" class="java.lang.Integer"/>
+	<field name="ValorTotalVale" class="java.lang.Float"/>
+	<field name="TextoRecibo" class="java.sql.Clob"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="DataCadFunc" class="java.sql.Timestamp"/>
+	<field name="ImagemFunc" class="java.lang.String"/>
+	<field name="NomeFunc" class="java.lang.String"/>
+	<field name="SexoFunc" class="java.lang.String"/>
+	<field name="EscolaFunc" class="java.lang.String"/>
+	<field name="IdCargo" class="java.lang.Integer"/>
+	<field name="IdDepartamento" class="java.lang.Integer"/>
+	<field name="StatusFunc" class="java.lang.String"/>
+	<field name="MatriculaFunc" class="java.lang.String"/>
+	<variable name="totalColaborador" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+	</variable>
+	<variable name="valorTotalTransporte" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{ValorTotalVale}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement x="292" y="80" width="213" height="20" uuid="68a81cce-c29f-4df9-93f8-f07f11321ad0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Vale transporte Mensal]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="bffdb00e-3adf-4850-a461-260275b86231"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="114" height="15" forecolor="#736343" uuid="95eda3fc-1aba-46f8-85c6-c288d7953f6e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Mês Referência]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="114" y="0" width="84" height="15" forecolor="#736343" uuid="3e8d09ed-d07f-4f8b-9fbb-255c1a9849a3"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="228" y="0" width="179" height="15" forecolor="#736343" uuid="5dd5d5c2-b0fa-474c-916c-a1c4a9fe518d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nome do Colaborador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="407" y="0" width="101" height="15" forecolor="#736343" uuid="6e6bfdeb-5a66-4a96-8134-81315fa59bef"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor Passagem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="508" y="0" width="62" height="15" forecolor="#736343" uuid="e5ba8f2d-404c-49f9-bdca-248e0717451e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Qtd./Dia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="570" y="0" width="114" height="15" forecolor="#736343" uuid="436cddba-af9c-471a-bea6-d443396d8199"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Qtd./Dias/Mês]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="684" y="0" width="114" height="15" forecolor="#736343" uuid="433b8d88-dc74-4cc3-a8e5-822959fb5e66"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Valor Total R$]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="69e9a7d1-32af-4d12-8ab3-e7ba17eecd8d"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="114" height="15" uuid="a401eaa3-d70b-49a2-a1a8-e9a9ce3d565d"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{MesReferencia}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="135" y="0" width="42" height="15" uuid="3544cd56-847b-442d-b170-8b26f2f7f20d"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{MatriculaFunc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="177" y="0" width="259" height="15" uuid="9318e396-7c73-4727-b6b7-1beb8fb5b0c3"/>
+					<textFieldExpression><![CDATA[$F{NomeFunc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="525" y="0" width="45" height="15" uuid="bbe6da34-c35a-465d-9377-dd0e26d42ff2"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{QtdValeDias}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00">
+					<reportElement style="Detail" x="706" y="0" width="68" height="15" uuid="31a44c59-b21d-4d39-8d8a-d192c25d57e3"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{ValorTotalVale}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="606" y="0" width="50" height="15" uuid="91cd09cd-de7c-43ad-a28b-a9c81d1c1531"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{QtdDias}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00">
+					<reportElement style="Detail" x="436" y="0" width="72" height="15" uuid="8911d70a-5839-4a07-90db-52d8bd5b4f22"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{ValorVale}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="b397f0e0-2b49-4549-8c9a-7f2bbbb1e1ca"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="71bffebe-4f5c-4699-8e10-2af2aadba346"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="2e164804-8016-4de9-b7bc-859bd04e431d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="e804946d-9e82-4a28-a122-7a3f1c49dd40"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="572b16a8-f0e4-417a-ab80-29f5f18ea247"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="249" y="1" width="378" height="20" uuid="b94af6c5-9068-45d1-bd14-b5e8b5c2aeec"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="75" splitType="Stretch">
+			<rectangle>
+				<reportElement x="8" y="22" width="517" height="42" uuid="775e4ea8-0494-4e52-9566-5b8551117cde"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="33" y="32" width="123" height="20" uuid="64d55501-6be9-497d-8485-1c9f19152a7e"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Colaboradores:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="156" y="32" width="31" height="20" uuid="57dbbf9b-be28-4100-9864-f43a0c3e49b4"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalColaborador}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="292" y="32" width="144" height="20" uuid="60329a4b-491e-4971-b7dd-7059521b2eb0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total de Transporte R$]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="436" y="32" width="55" height="20" uuid="9fed0ba3-3a69-4e1f-b48e-e1f2ae44d6bf"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valorTotalTransporte}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="5" width="797" height="1" uuid="4e942c54-0436-4240-9b2f-f74dca541a42"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

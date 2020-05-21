@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioTotaisProres" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3956e00f-9997-4856-a364-e812a5cf5409">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="33"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Vitoria Da Conquista - Servidor "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="249"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="742"/>
+	<parameter name="pUnidade" class="java.lang.String"/>
+	<parameter name="pUsuario" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TOP 1 * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
+INNER JOIN PRONTUARIOSCRC
+ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
+WHERE  Atendido LIKE 'Sim']]>
+	</queryString>
+	<field name="IdRegistro" class="java.lang.Integer"/>
+	<field name="DataReg" class="java.sql.Timestamp"/>
+	<field name="Horario" class="java.lang.String"/>
+	<field name="IdInternoCrc" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="IdInternoCrc"/>
+	</field>
+	<field name="TipoAtendimento" class="java.lang.String"/>
+	<field name="IdDepartamento" class="java.lang.Integer"/>
+	<field name="AssinaturaDigital" class="java.sql.Blob"/>
+	<field name="Atendido" class="java.lang.String"/>
+	<field name="IdAtend" class="java.lang.Integer"/>
+	<field name="IdEvol" class="java.lang.Integer"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="UsuarioUp"/>
+	</field>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DataUp"/>
+	</field>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="HorarioUp"/>
+	</field>
+	<field name="AtendeEvol" class="java.lang.String"/>
+	<field name="Impresso" class="java.lang.String"/>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="DataAssinatura" class="java.lang.String"/>
+	<field name="HoraAssinatura" class="java.lang.String"/>
+	<field name="Motivo" class="java.sql.Clob"/>
+	<field name="AssinaturaLiberador" class="java.sql.Blob"/>
+	<field name="Qtd" class="java.lang.Integer"/>
+	<field name="UsuarioAtendente" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NomeInternoCrc"/>
+	</field>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.sql.Blob"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<variable name="SUB_REPORT" class="java.lang.String" calculation="System"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="115" y="25" width="74" height="20" uuid="c4848347-c7c8-40a4-8bc8-07cae34e5e8b"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="25" width="201" height="20" uuid="1f7cb934-6491-4205-bf8c-8b192521d776"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sistema de Controle Prisional]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="17" width="74" height="55" uuid="d9120128-60f6-49eb-8dd1-3ca880d92dcd">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\Brasão64x64.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="426" y="17" width="127" height="73" uuid="acb58c29-9c1e-46a9-9305-8a1081d80208"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\LogoSocializa274X81.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="73" width="553" height="20" uuid="ac34c844-806b-41ef-86e8-93177a3bf2c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relação de indicadores Totais]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="47" width="552" height="20" uuid="54338dc3-afb7-4020-8f57-9b33793d1a7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pUnidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="437707e1-404e-4e0a-8a9f-2664979fd4a4"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CRC]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="-20" y="5" width="554" height="15" isRemoveLineWhenBlank="true" uuid="c113b9a9-30e1-498a-8149-9a0f23049289"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresCrc.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-29" width="554" height="15" uuid="8d8d13df-5a7a-47c8-bb2b-a80afd6c2ee9"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresCrcII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<printWhenExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresCrcIII.jasper" != 0]]></printWhenExpression>
+			<subreport>
+				<reportElement x="-20" y="-41" width="554" height="20" isRemoveLineWhenBlank="true" uuid="c0e18741-762c-4596-8ca2-4e001cef5f0f"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresCrcIII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="-2" width="100" height="20" uuid="fc163eeb-88dc-431c-8749-2e82c530b9ef"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JURÍDICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="15" width="396" height="20" uuid="e87499b7-b829-4736-9e72-59f242442df9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade de Internos com processos acompanhados :]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="-20" y="21" width="555" height="5" uuid="d82f3b1d-c66a-4254-9e0f-60b09859a11c"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridico.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-15" width="555" height="20" isRemoveLineWhenBlank="true" uuid="ac957bec-198d-4663-a99e-7318025f4603"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-15" width="555" height="20" isRemoveLineWhenBlank="true" uuid="db4037b7-b039-44c4-9c8d-d9305a768756"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoIII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-15" width="555" height="20" isRemoveLineWhenBlank="true" uuid="975ec9cf-4770-4609-8b8a-abffd797f1cb"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoIV.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="33f46ceb-8f62-405d-9bce-1678236950f8"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoV.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="6811fed7-15fc-4386-94d8-5c317daacfe2"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoVI.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="97583acd-6e57-4757-a7a7-8c4af62d21ce"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoVII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="1350cca7-e867-460d-8f2d-8a9a323ba45a"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoVIII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="66312b3a-e52b-412e-a133-db6c95c8709f"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoIX.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="4ced848b-c600-4cf9-abf9-d0cce5ac779e"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoX.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="ebbec2d6-fa97-4428-b86a-63bdc519fb29"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoXI.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="fdac5c9d-35f0-43c1-860c-7113f0d24e09"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoXII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="0014fbce-e2f9-49be-a989-ae5c3458f6cd"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoXIII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="f4fa8592-d524-4ce1-9240-5c7ff133795f"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoXIV.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="8520b130-11d0-4138-bff4-50d731b84591"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoXV.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="52c726d5-ca2e-4f1e-a249-d4b239ae7d5c"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoXVI.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="0dbbf518-c561-4b55-be12-7da7281e1b5c"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresJuridicoXVII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="12">
+			<subreport>
+				<reportElement x="-20" y="-10" width="555" height="22" uuid="ed9a6d50-1e80-457a-a84b-40ab95800b61"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresEnfermagem.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="-4" width="172" height="20" uuid="f156fc3b-0672-4079-b1cb-b818458fa1ac"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVIÇO SOCIAL]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="-20" y="-3" width="555" height="22" uuid="0af34743-b57a-4f62-ade8-6b3a5deab48c"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresServicoSocial.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-20" width="555" height="22" uuid="759e00ff-e339-426a-aa3a-cc7307c7e82f"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresServicoSocialII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="-3" width="100" height="20" uuid="69679bde-da5c-4777-ac35-36b970c1cb76"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PSICOLOGIA]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="-20" y="-6" width="555" height="22" uuid="d10ef83b-7ac8-459a-a7ef-a5463ee48b83"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresPsicologia.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-24" width="555" height="22" uuid="9df3e371-9271-4b70-a270-fb7c49046352"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresPsicologiaII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="-5" width="154" height="20" uuid="babcb094-c34c-4cff-b45e-8dc65adba6cc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERAPIA OCUPACIONAL]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="-20" y="-7" width="555" height="22" uuid="c91db158-a73f-49db-a288-440cd799ee75"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresTO.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-19" width="555" height="22" uuid="26c5742f-2faa-4932-9adc-63003c0225d8"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresTOII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" uuid="5f19a037-bf8a-4d92-a21b-d3dd2936680f"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresTOIII.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" uuid="039defd2-43ff-42b2-8379-68d12192ddf8"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresTOIV.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="5">
+			<subreport>
+				<reportElement x="-20" y="-17" width="555" height="22" uuid="184e2569-1c42-4976-9b7b-a0974b67ac7a"/>
+				<subreportParameter name="pUnidade"/>
+				<subreportParameter name="pUsuario"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresTOV.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="122" y="6" width="287" height="20" uuid="d8a6d463-aac3-46eb-8ef3-d395b274c35c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pUsuario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="0" width="552" height="1" uuid="807a062f-85d5-4ef7-9592-b529e60ce679"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="3" y="6" width="119" height="20" uuid="baacd8e4-386d-4243-a82c-aac2c1d0636d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="6" width="80" height="20" uuid="92208d4d-8ba6-4e39-908d-6c831940044b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="512" y="6" width="40" height="20" uuid="15ae129b-7a6f-408d-980b-13c380c76541"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="46" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioFrequencia" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c1eeaf6c-eca7-419b-bf3c-bd06dd6e468b">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codFreq" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENSFREQUENCIA INNER JOIN PRONTUARIOSCRC ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN FREQUENCIA ON ITENSFREQUENCIA.IdFreq=FREQUENCIA.IdFreq WHERE FREQUENCIA.IdFreq=$P{codFreq}]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdFreq" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="QtdFrequencia" class="java.lang.Float"/>
+	<field name="DataFrequencia" class="java.sql.Date"/>
+	<field name="Utilizado" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="StatusFreq" class="java.lang.String"/>
+	<field name="DataFreq" class="java.sql.Date"/>
+	<field name="IdMat" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="101" height="15" uuid="ea85dd73-500d-4128-8a9f-ea394421b293"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="2" width="291" height="15" backcolor="#F2EBDF" uuid="d287021a-6190-453a-ad3e-2d56d4c6bcde"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="411" y="15" width="344" height="1" uuid="74bc6fae-ee2d-42f9-a103-c42abb848ea0"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

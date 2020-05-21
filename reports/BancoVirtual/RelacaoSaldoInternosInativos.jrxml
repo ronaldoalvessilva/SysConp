@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelacaoSaldoInternosInativos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b7c6e92d-5514-4cf9-ad6a-c5907e324e6b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="descricaoUnidade" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="pEntrada" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pRetorno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomeInterno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="saldoAtual" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM SALDO_VALORES_INATIVOS INNER JOIN PRONTUARIOSCRC ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE PRONTUARIOSCRC.SituacaoCrc NOT LIKE $P{pEntrada} OR PRONTUARIOSCRC.SituacaoCrc NOT LIKE $P{pRetorno} ORDER BY PRONTUARIOSCRC.NomeInternoCrc,SALDO_VALORES_INATIVOS.DataMov]]>
+	</queryString>
+	<field name="IdSaldoAtual" class="java.lang.Integer"/>
+	<field name="DataMov" class="java.sql.Timestamp"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="Historico" class="java.lang.String"/>
+	<field name="FavorecidoDepositante" class="java.lang.String"/>
+	<field name="IdDoc" class="java.lang.Integer"/>
+	<field name="TipoMov" class="java.lang.String"/>
+	<field name="ValorMov" class="java.lang.Float"/>
+	<field name="SaldoAtual" class="java.lang.Float"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<variable name="DataMov_1" class="java.lang.Integer" resetType="Group" resetGroup="NomeInternoCrc" calculation="Count">
+		<variableExpression><![CDATA[$F{DataMov}]]></variableExpression>
+	</variable>
+	<variable name="TipoMov_1" class="java.lang.Integer" resetType="Group" resetGroup="NomeInternoCrc" calculation="Count">
+		<variableExpression><![CDATA[$F{TipoMov}]]></variableExpression>
+	</variable>
+	<variable name="SaldoAtual_1" class="java.lang.Float" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoAtual}]]></variableExpression>
+	</variable>
+	<variable name="ValorMov_1" class="java.lang.Float" resetType="Group" resetGroup="NomeInternoCrc" incrementType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{ValorMov}]]></variableExpression>
+	</variable>
+	<variable name="NomeInternoCrc_1" class="java.lang.Integer" resetType="Group" resetGroup="NomeInternoCrc" calculation="Count">
+		<variableExpression><![CDATA[$F{NomeInternoCrc}]]></variableExpression>
+	</variable>
+	<variable name="NomeInternoCrc_2" class="java.lang.Integer" resetType="Group" resetGroup="NomeInternoCrc" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{NomeInternoCrc}]]></variableExpression>
+	</variable>
+	<variable name="SaldoAtual_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{ValorMov} + $F{ValorMov}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalLiquido" class="java.lang.Float">
+		<variableExpression><![CDATA[($V{total_creditos}.intValue())-($V{total_debitos}.intValue())]]></variableExpression>
+	</variable>
+	<variable name="vcredito" class="java.lang.Float" resetType="Group" resetGroup="NomeInternoCrc" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null + $F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null]]></variableExpression>
+	</variable>
+	<variable name="vdebito" class="java.lang.Float" resetType="Group" resetGroup="NomeInternoCrc" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("D")>= 0? $F{ValorMov}:null + $F{TipoMov}.indexOf("D")>= 0? $F{ValorMov}:null]]></variableExpression>
+	</variable>
+	<variable name="ValorMov_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{ValorMov}]]></variableExpression>
+	</variable>
+	<variable name="SaldoAtual_3" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoAtual}]]></variableExpression>
+	</variable>
+	<variable name="total_creditos" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null + $F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null]]></variableExpression>
+	</variable>
+	<variable name="total_debitos" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("D")>= 0? $F{ValorMov}:null + $F{TipoMov}.indexOf("D")>= 0? $F{ValorMov}:nul]]></variableExpression>
+	</variable>
+	<group name="IdInternoCrc">
+		<groupExpression><![CDATA[$F{IdInternoCrc}]]></groupExpression>
+	</group>
+	<group name="NomeInternoCrc">
+		<groupExpression><![CDATA[$F{NomeInternoCrc}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="5" y="3" width="52" height="20" uuid="68e75fe9-6178-466d-a66e-dab12900cfb6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="57" y="3" width="231" height="20" uuid="fd2ae7e1-e96a-4087-b86a-94230d7e593c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="346" y="3" width="82" height="20" uuid="8c17e15e-cebb-4904-9281-296f81f1fd6d"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{DataMov}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="459" y="3" width="95" height="20" uuid="d9be0ae2-565b-4926-beb8-c40ed1816cfa"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SaldoAtual}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="70" uuid="ee3691e6-5598-4b66-83d0-d2fba1fc1305"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="42" width="555" height="20" uuid="46bed9bb-bdc3-4cd7-86d8-84ef34d2c189"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relação de Saldo Internos Inativos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="12" width="223" height="17" uuid="9f091691-0572-482b-af1f-774e9068911e"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="12" width="52" height="17" uuid="0035f542-4167-441e-9133-b1140781965f"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidade: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="276" y="12" width="278" height="17" uuid="eda7ba87-27f3-4cab-b85d-02069716663d"/>
+				<textElement verticalAlignment="Top">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="57" height="20" forecolor="#666666" uuid="620cda35-fb10-4331-acc8-adcf06fb6e2e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="10" width="120" height="20" forecolor="#666666" uuid="5a9c994e-cabe-4300-b478-8928ff4ccdd7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME DO INTERNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="10" width="150" height="20" forecolor="#666666" uuid="17553d96-3f45-4b13-9633-8307dff4f161"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ÚLTIMA MOVIMENTAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="10" width="81" height="20" forecolor="#666666" backcolor="#666666" uuid="2083322e-6b77-47e8-b2f1-3a3471d546a4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="6" width="555" height="1" uuid="803d69e9-921c-43fa-a2f7-1f6fa729b057"/>
+			</line>
+			<line>
+				<reportElement x="0" y="33" width="555" height="1" uuid="5a0a7eec-3534-4d6a-8529-3d5337084bf4"/>
+			</line>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="34" width="136" height="20" uuid="1d1e8933-052b-4c69-b19f-c1845238e689"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="34" width="298" height="20" uuid="3815a80a-9ab7-407b-b6ad-41ec3eea1efd"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="34" width="80" height="20" uuid="7aa8fa80-9575-4495-a8cc-1316dc52a8fa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="34" width="40" height="20" uuid="aac39c9e-52c7-49d4-b11f-dca70f1ad57f"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="57" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="8" width="555" height="42" uuid="4a3a028c-03b0-425c-9d67-a1b8d006ecc3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="18" y="17" width="70" height="20" uuid="f109f5c7-6b32-444f-b443-09c4f514b2c0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="88" y="17" width="103" height="20" uuid="a0fb4ae4-03f0-4c54-9b90-3de39197c956"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_creditos}-$V{total_debitos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

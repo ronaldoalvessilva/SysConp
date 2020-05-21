@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemCadastroPronturarioInternos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="07d504b6-8dc8-4837-8a1e-ad3e9a61ce48">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc ORDER BY NomeInternoCrc]]>
+	</queryString>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="Regime" class="java.lang.String"/>
+	<variable name="totalRegistros" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalFechados" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Fechado"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="TotalSemiAberto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Semi-Aberto"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalProvisorios" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Provisório"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalAberto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Aberto"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="5" width="263" height="33" uuid="cf29ca16-86a2-420b-bec7-db645d199162"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Wood Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="38" width="300" height="22" forecolor="#000000" uuid="17e002a7-3648-4006-857d-bab2407f8d52"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listagem de Cadastro de Prontuários de Internos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="f16b6d8d-02d3-4d1d-a137-940d474bbccc"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="73" height="15" uuid="9c045ac0-d15c-409a-9e33-441b19771458"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="138" y="19" width="138" height="15" uuid="36bcbe28-518a-45e7-b12c-64bb521a0ca8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nome do Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="329" y="19" width="88" height="15" uuid="d61e7162-8f02-43bc-ac0d-bb32f94fe970"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Data Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="470" y="19" width="82" height="15" uuid="3e5817eb-b162-4d37-8b5d-b422f0014e26"/>
+				<text><![CDATA[Regime]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="d6eb9ab5-0c96-4d89-9a7e-7075292620bd"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="93" height="15" uuid="d17035d6-4955-43ec-96fc-19d6ded9d506"/>
+				<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="117" y="0" width="212" height="15" uuid="b1d5e710-cc47-4bbb-b7fc-6a4ae5ae79af"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="470" y="0" width="82" height="15" uuid="0afbeb48-7c66-4594-9e0a-db9c44e17b26"/>
+				<textFieldExpression><![CDATA[$F{Regime}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="Detail" x="347" y="1" width="70" height="15" uuid="fb38f837-dfcb-4c8a-b824-14f216ea8cef"/>
+				<textFieldExpression><![CDATA[$F{DataCadastCrc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="80a6c89f-632a-49b0-b90b-fdc09b828d79"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="fc3a03c7-4b9c-4a8b-8467-9aac5331701f"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="67e8a4dc-37fc-44aa-b5f7-a6407576f1dc"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="b4d4d015-7e72-4109-9b11-57d6e597cf02"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="0" width="236" height="20" uuid="33418f5c-da9c-44c7-8fb3-09f701cf2c8a"/>
+				<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="116" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="93" width="100" height="20" uuid="f92cc321-e475-48be-aacc-521906ef9b7a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Registros..:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="100" y="93" width="38" height="20" uuid="f018d95f-c927-4089-a642-842470102a9a"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalRegistros}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="13" width="100" height="20" uuid="3fb2ae93-cbbe-4f6f-89ef-33dc82798243"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Fechados..:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="100" y="13" width="38" height="20" uuid="4370f2f2-fe94-409e-aab5-bb547af29bfe"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalFechados}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="33" width="100" height="20" uuid="07193b84-cdaf-430b-8469-93792a577721"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Sem-Aberto....:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="33" width="38" height="20" uuid="1c87641d-27c1-40a6-a09e-0c5915332f86"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalSemiAberto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="53" width="100" height="20" uuid="1be71e6b-c101-4366-8bea-1f3a51a76969"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Provisórios....:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="100" y="53" width="38" height="20" uuid="09434b06-8b81-4f2e-bf35-c6a3949ceb8e"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalProvisorios}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="73" width="100" height="20" uuid="aa0a13d8-a4c0-4d58-bd9f-0394ddb67a22"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Aberto.............:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="73" width="38" height="20" uuid="6d308217-2cf0-4ce8-b040-f832ee0bbe49"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalAberto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

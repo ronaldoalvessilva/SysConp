@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioTotalAtendimentoTerapia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c391674-be87-4988-a9a5-c15244f43db5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<parameter name="pUsuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT UsuarioUp,
+       DataAtendimento,
+       IdInternoCrc
+FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP
+WHERE  ( CONVERT(DATE, DataAtendimento)BETWEEN $P{dataInicial} AND $P{dataFinal} )
+       AND Atendido LIKE 'Sim'
+      AND (TipoAtendimento LIKE 'Admissão Terapia'
+OR TipoAtendimento LIKE 'Evolução Terapia'
+)
+ORDER  BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp,
+          REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento
+]]>
+	</queryString>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<group name="Tecnicos que Atenderam">
+		<groupExpression><![CDATA[$F{UsuarioUp}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField>
+					<reportElement x="2" y="0" width="551" height="16" forecolor="#0000FF" uuid="4c4daca0-dce0-43de-814d-adba2f405854"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UsuarioUp}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="TotalAtendimento">
+		<groupExpression><![CDATA[$F{UsuarioUp}]]></groupExpression>
+		<groupFooter>
+			<band height="22">
+				<textField>
+					<reportElement x="478" y="2" width="76" height="18" uuid="09bbc7d6-501c-46fd-a9c7-0bbda7349280"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TotalAtendimento_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="0" width="186" height="20" uuid="82227d73-2975-44a7-9e86-51f8a5d3a352"/>
+					<textElement verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total de Atendimentos :]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="21" width="555" height="1" uuid="baae928e-08e9-4bb3-9415-6161ef9c7fde"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="40" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="0" width="551" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terapia Ocupacional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="20" width="106" height="20" uuid="89b1f5de-7ffe-457a-b85c-f4bf19fcb063"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Técnico :]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="25">
+			<rectangle>
+				<reportElement x="0" y="2" width="555" height="20" uuid="c36d1b76-6b7e-4124-a474-36f821f67a71"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="2" width="192" height="20" uuid="7cf17eb9-894e-41a2-95a5-8bcc1088b702"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral do Setor : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="478" y="2" width="76" height="20" uuid="9553f282-5294-4727-a427-729322c4b732"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

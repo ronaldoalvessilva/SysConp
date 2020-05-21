@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EvolucaoMedica" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="52d47bfa-4271-4d98-87c0-9ad5f79a025f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="23"/>
+	<property name="ireport.y" value="38"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="codigoEvolucao" class="java.lang.String"/>
+	<parameter name="idEvolucao" class="java.lang.String"/>
+	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *  FROM EVOLUCAOMEDICA INNER JOIN PRONTUARIOSCRC ON EVOLUCAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE EVOLUCAOMEDICA.IdLanc=$P{codigoEvolucao} AND EVOLUCAOMEDICA.IdItem=$P{idEvolucao}]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="DataEvolu" class="java.sql.Date"/>
+	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="TextoEvolucao" class="java.lang.String"/>
+	<field name="HipoteseDiagnostica" class="java.lang.String"/>
+	<field name="ExamesSolicitados" class="java.lang.String"/>
+	<field name="Patologia" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="73" y="70" width="38" height="15" forecolor="#000000" uuid="3d8f14d1-4d93-4497-846d-a21997a74053"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="113" y="70" width="82" height="15" uuid="9c7ab111-5848-4960-87ec-cef9abb82c26"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DataEvolu}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="14" y="88" width="97" height="15" forecolor="#000000" uuid="af22d5be-05a6-45c7-ab35-aaba6daf87e7"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Matricula Penal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="113" y="88" width="111" height="15" uuid="3c840a26-3065-4198-9a1a-69e5df66e299"/>
+				<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="106" width="111" height="15" forecolor="#000000" uuid="88b2665f-ed56-41e3-8596-537882188b2b"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Nomedo Interno:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="113" y="106" width="390" height="15" uuid="2f20bf42-895f-42dc-9491-1cd77e5646bf"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="23" width="250" height="15" uuid="3766caae-d4b5-489e-b4a2-b78a912faa27"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="23" width="151" height="20" uuid="88a50931-a72a-4314-b933-c26e324f82c2"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ: 40.614.547/0001-00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="7" width="356" height="14" forecolor="#000000" uuid="58d19b84-c5bf-42a9-b7f9-ff09379eb30d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Socializa Empreendimentos e Serviços de Manutenção Ltda.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="413" y="39" width="100" height="60" uuid="4dc60436-a788-4e48-991b-46243c1b9277"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\LOGOMARCA_SOCIALIZA.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="16" width="555" height="1" uuid="664926d4-462e-410e-ba3e-64241b944761"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="10" y="0" width="533" height="15" forecolor="#000000" uuid="db30a607-6d63-474e-8690-9512bbb9e396"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Texto da Evolução Médica]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="4" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1" uuid="d49760af-575a-42d7-8740-ef512ef0b225"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="20" width="551" height="20" uuid="c0f903f2-8eb0-40c4-840e-37cd9c3d68da"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Salvador - Bahia - CEP 40.010-020 - Tel./Fax (71) 3317-7445]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="7" width="551" height="15" uuid="b6e56772-38e0-4cef-a4b5-86a6c72b937c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Av. Estado Unidos, nº 528 - Edf. Joaquim Barreto de Araújo - Sala 1113 - Comércio]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="68b0a661-2f41-4302-a5f1-046ca37ae144"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="062e6384-4f71-431f-b204-8752840da8e5"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="c9594b3f-1f62-4a20-8bf1-bddff834b98b"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="238" height="20" uuid="45efcd03-b6da-48d3-aafb-2716ec9e9648"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="579" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="10" y="5" width="531" height="515" uuid="6c27e385-671e-4eca-854a-deeed2aba3c7"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{TextoEvolucao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

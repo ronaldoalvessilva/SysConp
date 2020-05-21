@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioPagtoKit" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9afe387-fb6f-42f3-9326-85d22e8f5e35">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="IdPagto" class="java.lang.String"/>
+	<parameter name="pCodigoInternoCrc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS INNER JOIN PRONTUARIOSCRC ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS ON ITENS_PAGAMENTO_KIT_INTERNOS.IdItem=ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdItem INNER JOIN PRODUTOS_AC ON ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdProd=PRODUTOS_AC.IdProd
+ WHERE ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto=$P{IdPagto} AND ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=$P{pCodigoInternoCrc}]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdPagto" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="DataEntrega" class="java.sql.Timestamp"/>
+	<field name="Horario" class="java.lang.String"/>
+	<field name="AssinaturaDigital" class="java.sql.Blob"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="IdProd" class="java.lang.String"/>
+	<field name="DescricaoProd" class="java.lang.String"/>
+	<field name="QuantProd" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="43">
+			<rectangle>
+				<reportElement x="0" y="0" width="539" height="43" uuid="8b5a2bd5-af1e-4283-8ac8-548908e1aa15"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="3" width="40" height="20" uuid="ae83bcfb-a75c-4b16-af1c-74c7e139dacc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="23" width="40" height="20" uuid="f6fa0687-113f-4315-90cd-3cb464e544d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="45" y="3" width="132" height="20" uuid="b7f21df6-72b9-4c91-aad4-4bbe25e4350c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Interno]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="23" width="460" height="20" uuid="0e403db4-1a6b-4184-8ef4-5dbdb550b632"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<rectangle>
+				<reportElement x="0" y="0" width="539" height="20" uuid="648bff97-7429-414b-bd5f-0d5f3b29d554"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="0" width="64" height="20" uuid="209f858b-7763-4e91-8f31-076cc8818c8b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="0" width="351" height="20" uuid="3b3cc214-8a2a-4b52-87e6-ecf4398cf8a3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO DO PRODUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="0" width="100" height="20" uuid="fc06f26a-33c4-4801-8ac8-a4c9896a17e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUANTIDADE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="4" y="2" width="64" height="20" uuid="d698603f-793b-4fa3-adf1-7bb5ecc6948c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdProd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="2" width="351" height="20" uuid="b0c81df0-e64b-420c-bebd-72b2de55cb5a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DescricaoProd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="2" width="100" height="20" uuid="9889e61e-c8e0-4d3b-9017-73bb5c139ba9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QuantProd}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
