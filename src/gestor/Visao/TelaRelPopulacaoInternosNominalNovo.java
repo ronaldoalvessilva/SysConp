@@ -201,15 +201,17 @@ public class TelaRelPopulacaoInternosNominalNovo extends javax.swing.JInternalFr
                         conecta.executaSQL("SELECT POPULACAOINTERNOS_CRC.DataPop, "
                                 + "POPULACAOINTERNOS_CRC.IdInternoCrc, "
                                 + "PRONTUARIOSCRC.NomeInternoCrc, "
-                                + "PRONTUARIOSCRC.SituacaoCrc "
+                                + "PRONTUARIOSCRC.SituacaoCrc, "
+                                + "PRONTUARIOSCRC.SexoCrc, "
+                                + "DADOSPENAISINTERNOS.Regime "
                                 + "FROM POPULACAOINTERNOS_CRC "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE DataPop BETWEEN'" + dataPopInicial + "' "
+                                + "WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN'" + dataPopInicial + "' "
                                 + "AND '" + dataPopFinal + "' "
-                                + "ORDER BY NomeInternoCrc");
+                                + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
                         HashMap parametros = new HashMap();
                         parametros.put("pDATA_INICIAL", dataPopInicial);
                         parametros.put("pDATA_FINAL", dataPopFinal);
@@ -248,6 +250,7 @@ public class TelaRelPopulacaoInternosNominalNovo extends javax.swing.JInternalFr
                                 + "POPULACAOINTERNOS_CRC.IdInternoCrc, "
                                 + "PRONTUARIOSCRC.NomeInternoCrc, "
                                 + "PRONTUARIOSCRC.SituacaoCrc, "
+                                + "PRONTUARIOSCRC.SexoCrc, "
                                 + "DADOSPENAISINTERNOS.Regime "
                                 + "FROM POPULACAOINTERNOS_CRC "
                                 + "INNER JOIN PRONTUARIOSCRC "
