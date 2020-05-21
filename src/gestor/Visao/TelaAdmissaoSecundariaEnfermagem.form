@@ -1716,7 +1716,7 @@
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o da Admiss&#xe3;o">
+                            <TitledBorder title="Avalia&#xe7;&#xf5;es Adicionais">
                               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                                 <LineBorder roundedCorners="true"/>
                               </Border>
@@ -1847,7 +1847,7 @@
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o da Admiss&#xe3;o">
+                            <TitledBorder title="Drogas">
                               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                                 <LineBorder roundedCorners="true"/>
                               </Border>

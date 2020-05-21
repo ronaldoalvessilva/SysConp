@@ -1954,7 +1954,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
-                    + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
+                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
         } else {
             limparTabelaAtendimentoSocial();
         }
