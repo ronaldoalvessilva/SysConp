@@ -242,7 +242,7 @@ public class TelaRelatorioSaidas extends javax.swing.JInternalFrame {
                             dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/ListagemInternosSaidaTemporaria.jasper";
+                                String path = "reports/CRC/ListagemInternosSaidaTemporaria.jasper";
                                 conecta.executaSQL("SELECT * FROM ITENSSAIDA "
                                         + "INNER JOIN PRONTUARIOSCRC "
                                         + "ON ITENSSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -291,7 +291,7 @@ public class TelaRelatorioSaidas extends javax.swing.JInternalFrame {
                             dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/ListagemInternosSaidaTemporaria.jasper";
+                                String path = "reports/CRC/ListagemInternosSaidaTemporaria.jasper";
                                 conecta.executaSQL("SELECT * FROM ITENSSAIDA "
                                         + "INNER JOIN PRONTUARIOSCRC "
                                         + "ON ITENSSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

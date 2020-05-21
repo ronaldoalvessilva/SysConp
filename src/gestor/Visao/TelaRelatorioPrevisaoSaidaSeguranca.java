@@ -202,7 +202,7 @@ public class TelaRelatorioPrevisaoSaidaSeguranca extends javax.swing.JInternalFr
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPrevisaoSaidaInternosCrc.jasper";
+                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosCrc.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA INNER JOIN PRONTUARIOSCRC ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE DataPrevSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'ORDER BY DataPrevSaida,NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
@@ -239,7 +239,7 @@ public class TelaRelatorioPrevisaoSaidaSeguranca extends javax.swing.JInternalFr
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPrevisaoSaidaInternosCrc.jasper";
+                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosCrc.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA INNER JOIN PRONTUARIOSCRC ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE DataPrevSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'ORDER BY DataPrevSaida,NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);

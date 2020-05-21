@@ -452,7 +452,6 @@
             <Menu class="javax.swing.JMenu" name="RelatorioProntuarios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Prontu&#xe1;rios"/>
-                <Property name="borderPainted" type="boolean" value="true"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="ListagemGeralProntuarios">
@@ -805,7 +804,7 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="RelatoriosConfere">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Confere"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Confere - GER&#xca;NCIA OPERACIONAL"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="MapaConfere">

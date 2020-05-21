@@ -203,7 +203,7 @@ public class TelaRelatorioTransferenciaEntreLocais extends javax.swing.JInternal
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioItensTransferencia.jasper";
+                            String path = "reports/Farmacia/RelatorioItensTransferencia.jasper";
                             conecta.executaSQL("SELECT * FROM TRANSFERENCIA_PRODUTO_FAR "
                                     + "INNER JOIN ITENS_TRANSFERENCIA_PRODUTO_FAR "
                                     + "ON TRANSFERENCIA_PRODUTO_FAR.IdLanc=ITENS_TRANSFERENCIA_PRODUTO_FAR.IdLanc "
@@ -251,7 +251,7 @@ public class TelaRelatorioTransferenciaEntreLocais extends javax.swing.JInternal
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioItensTransferencia.jasper";
+                            String path = "reports/Farmacia/RelatorioItensTransferencia.jasper";
                             conecta.executaSQL("SELECT * FROM TRANSFERENCIA_PRODUTO_FAR "
                                     + "INNER JOIN ITENS_TRANSFERENCIA_PRODUTO_FAR "
                                     + "ON TRANSFERENCIA_PRODUTO_FAR.IdLanc=ITENS_TRANSFERENCIA_PRODUTO_FAR.IdLanc "

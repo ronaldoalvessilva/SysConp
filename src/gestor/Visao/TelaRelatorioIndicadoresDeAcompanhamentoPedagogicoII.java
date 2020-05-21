@@ -170,7 +170,7 @@ public class TelaRelatorioIndicadoresDeAcompanhamentoPedagogicoII extends javax.
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioIndicadoresDeAcompanhamentoPedagogicoII.jasper";
+                    String path = "reports/Pedagogia/RelatorioIndicadoresDeAcompanhamentoPedagogicoII.jasper";
                     conecta.executaSQL("SELECT DISTINCT "
                             + "P.IdInternoCrc, "
                             + "P.NomeInternoCrc, "
@@ -228,7 +228,7 @@ public class TelaRelatorioIndicadoresDeAcompanhamentoPedagogicoII extends javax.
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioIndicadoresDeAcompanhamentoPedagogicoII.jasper";
+                    String path = "reports/Pedagogia/RelatorioIndicadoresDeAcompanhamentoPedagogicoII.jasper";
                     conecta.executaSQL("SELECT DISTINCT "
                             + "P.IdInternoCrc, "
                             + "P.NomeInternoCrc, "

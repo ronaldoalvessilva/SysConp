@@ -202,7 +202,7 @@ public class TelaRelatorioVisitaPorIdade extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioVisitasIdade.jasper";
+                            String path = "reports/ServicoSocial/RelatorioVisitasIdade.jasper";
                             conecta.executaSQL("SELECT * FROM VISITASINTERNO "
                                     + "WHERE DataNasc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "' ORDER BY DataNasc");
                             HashMap parametros = new HashMap();
@@ -240,7 +240,7 @@ public class TelaRelatorioVisitaPorIdade extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioVisitasIdade.jasper";
+                            String path = "reports/ServicoSocial/RelatorioVisitasIdade.jasper";
                             conecta.executaSQL("SELECT * FROM VISITASINTERNO "
                                     + "WHERE DataNasc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "' ORDER BY DataNasc");
                             HashMap parametros = new HashMap();

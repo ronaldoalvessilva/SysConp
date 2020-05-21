@@ -201,7 +201,7 @@ public class TelaRelatorioEntradas extends javax.swing.JInternalFrame {
                         try {
                             conecta.abrirConexao();
                             // String path = "reports/ListagemGeralInternosLocal.jasper";
-                            String path = "reports/RelatorioEntradaInternosUnidadePenal.jasper";
+                            String path = "reports/CRC/RelatorioEntradaInternosUnidadePenal.jasper";
                             conecta.executaSQL("SELECT * FROM MOVIMENTOCRC "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON MOVIMENTOCRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -256,7 +256,7 @@ public class TelaRelatorioEntradas extends javax.swing.JInternalFrame {
                         try {
                             conecta.abrirConexao();
                             // String path = "reports/ListagemGeralInternosLocal.jasper";
-                            String path = "reports/RelatorioEntradaInternosUnidadePenal.jasper";
+                            String path = "reports/CRC/RelatorioEntradaInternosUnidadePenal.jasper";
                             conecta.executaSQL("SELECT * FROM MOVIMENTOCRC "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON MOVIMENTOCRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

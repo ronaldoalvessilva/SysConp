@@ -2007,7 +2007,7 @@ public class TelaTransferenciaEstoqueFarmacia extends javax.swing.JInternalFrame
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/TransferenciaMateriaisLocaisArmazenamento.jasper";
+                String path = "reports/Farmacia/MateriaisLocaisArmazenamento/TransferenciaMateriaisLocaisArmazenamento.jasper";
                 conecta.executaSQL("SELECT * FROM TRANSFERENCIA_PRODUTO_FAR "
                         + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                         + "ON TRANSFERENCIA_PRODUTO_FAR.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "

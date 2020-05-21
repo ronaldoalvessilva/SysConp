@@ -160,7 +160,7 @@ public class TelaRelatorioValeTransporte extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ValeTransporteMes.jasper";
+                String path = "reports/GerenciaAdministrativa/ValeTransporteMes.jasper";
                 conecta.executaSQL("SELECT * FROM ITENSVALETRANSPORTE INNER JOIN COLABORADOR ON ITENSVALETRANSPORTE.IdFunc=COLABORADOR.IdFunc WHERE MesReferencia='" + jComboBoxMesReferenciaVale.getSelectedItem() + "'ORDER BY NomeFunc");
                 HashMap parametros = new HashMap();
                 parametros.put("mesReferencia", jComboBoxMesReferenciaVale.getSelectedItem());

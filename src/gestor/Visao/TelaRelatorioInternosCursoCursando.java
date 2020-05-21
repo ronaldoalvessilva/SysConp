@@ -174,7 +174,7 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioInternosPassaramCurso.jasper";
+                            String path = "reports/TerapiaOcupacional/RelatorioInternosPassaramCurso.jasper";
                             conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso "
                                     + "FROM ITENS_CAPACITACAO_INTERNO_TO "
                                     + "INNER JOIN CAPACITACAO_INTERNO_TO "
@@ -222,7 +222,7 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioInternosPassaramCurso.jasper";
+                            String path = "reports/TerapiaOcupacional/RelatorioInternosPassaramCurso.jasper";
                             conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso "
                                     + "FROM ITENS_CAPACITACAO_INTERNO_TO "
                                     + "INNER JOIN CAPACITACAO_INTERNO_TO "

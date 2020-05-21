@@ -172,7 +172,7 @@ public class TelaRelatorioIndicadoresAcompanhamentoSaude extends javax.swing.JIn
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioIndicadoresDeAcompanhamentoDeSaude.jasper";
+                            String path = "reports/Enfermaria/RelatorioIndicadoresDeAcompanhamentoDeSaude.jasper";
                             conecta.executaSQL("SELECT "
                                     + "P.IdInternoCrc, "
                                     + "P.NomeInternoCrc, "
@@ -260,7 +260,7 @@ public class TelaRelatorioIndicadoresAcompanhamentoSaude extends javax.swing.JIn
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioIndicadoresDeAcompanhamentoDeSaude.jasper";
+                            String path = "reports/Enfermaria/RelatorioIndicadoresDeAcompanhamentoDeSaude.jasper";
                             conecta.executaSQL("SELECT "
                                     + "P.IdInternoCrc, "
                                     + "P.NomeInternoCrc, "

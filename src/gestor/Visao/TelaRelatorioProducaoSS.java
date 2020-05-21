@@ -169,7 +169,7 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoServicoSocialII.jasper";
+                    String path = "reports/ServicoSocial/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoServicoSocialII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOSOCIAL "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ATENDIMENTOSOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -213,7 +213,7 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoServicoSocialII.jasper";
+                    String path = "reports/ServicoSocial/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoServicoSocialII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOSOCIAL "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ATENDIMENTOSOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

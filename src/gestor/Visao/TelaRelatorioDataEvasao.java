@@ -193,7 +193,7 @@ public class TelaRelatorioDataEvasao extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/ListagemInternosEvadidos.jasper";
+                            String path = "reports/CRC/ListagemInternosEvadidos.jasper";
                             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                                     + "INNER JOIN EVADIDOSIND "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=EVADIDOSIND.IdInternoCrc "
@@ -237,7 +237,7 @@ public class TelaRelatorioDataEvasao extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/ListagemInternosEvadidos.jasper";
+                            String path = "reports/CRC/ListagemInternosEvadidos.jasper";
                             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                                     + "INNER JOIN EVADIDOSIND "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=EVADIDOSIND.IdInternoCrc "

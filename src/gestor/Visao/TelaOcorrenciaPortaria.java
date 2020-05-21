@@ -1065,7 +1065,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrencias_P1.jasper";
+            String path = "reports/Portarias/ListagemOcorrencias_P1.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_P1 WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();
             parametros.put("idOcorrencia", jIdOcorrencia.getText());

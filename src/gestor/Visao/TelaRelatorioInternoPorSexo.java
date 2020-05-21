@@ -139,7 +139,7 @@ public class TelaRelatorioInternoPorSexo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemInternosPorSexo.jasper";
+            String path = "reports/CRC/Internos/ListagemInternosPorSexo.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "

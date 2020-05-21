@@ -140,7 +140,7 @@ public class TelaRelatorioInternosDocumentacaoCompleta extends javax.swing.JInte
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/IndicadoresDeDocumntaçãoCompleta.jasper";
+            String path = "reports/CRC/IndicadoresDeDocumntaçãoCompleta.jasper";
             conecta.executaSQL("SELECT "
                     + "IdInternoCrc, "
                     + "NomeInternoCrc, "

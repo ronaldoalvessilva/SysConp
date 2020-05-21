@@ -208,7 +208,7 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaVisitasInternos.jasper";
+                            String path = "reports/ServicoSocial/RelatorioEntradaSaidaVisitasInternos.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSFAMILIAR "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -256,7 +256,7 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaVisitasInternos.jasper";
+                            String path = "reports/ServicoSocial/RelatorioEntradaSaidaVisitasInternos.jasper";
                             conecta.executaSQL("SELECT * FROM ITENSFAMILIAR "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

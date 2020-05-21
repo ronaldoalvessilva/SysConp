@@ -1734,7 +1734,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioFichaCadastroVisitante.jasper";
+            String path = "reports/ServicoSocial/RelatorioFichaCadastroVisitante.jasper";
             conecta.executaSQL("SELECT * FROM VISITASINTERNO "
                     + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA "
                     + "ON VISITASINTERNO.IdVisita=VERIFICA_DOCUMENTOS_VISITA.IdVisita "

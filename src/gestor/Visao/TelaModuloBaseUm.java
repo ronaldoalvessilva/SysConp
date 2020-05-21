@@ -762,7 +762,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -796,7 +796,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioListaPassagemInterna.jasper";
+            String path = "reports/TerapiaOcupacional/RelatorioListaPassagemInterna.jasper";
             conecta.executaSQL("SELECT * FROM ITENSAGENDALABORATIVA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1160,7 +1160,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioPreLocacaoInternosTriagemGeral.jasper";
+            String path = "reports/Triagem/RelatorioPreLocacaoInternosTriagemGeral.jasper";
             conecta.executaSQL("SELECT * FROM PRE_LOCACAO_INTERNOS "
                     + "INNER JOIN ITENS_PRE_LOCACAO_INTERNOS "
                     + "ON PRE_LOCACAO_INTERNOS.CodigoReg=ITENS_PRE_LOCACAO_INTERNOS.CodigoReg "

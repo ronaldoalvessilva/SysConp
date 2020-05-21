@@ -1590,7 +1590,7 @@ public class TelaRequisicaoAvulsaNUTRI extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RequisicaoMateriaisAvulsoCodigoRequisicao.jasper";
+                String path = "reports/Almoxarifado/MateriaisAvulsoCodigoRequisicao/RequisicaoMateriaisAvulsoCodigoRequisicao.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_AVULSA_PRODUTOS_NUTRI "
                         + "INNER JOIN COLABORADOR "
                         + "ON REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdFunc=COLABORADOR.IdFunc "

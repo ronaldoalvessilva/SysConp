@@ -1669,7 +1669,7 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ListagemInventarioProdutosAcervo.jasper";
+                String path = "reports/Pedagogia/ListagemInventarioProdutosAcervo.jasper";
                 conecta.executaSQL("SELECT *,"
                         + "INVENTARIO_LIVROS.IdLanc AS INVENTARIO_LIVROS_IdLanc, "
                         + "INVENTARIO_LIVROS.IdLocal AS INVENTARIO_LIVROS_IdLocal, "
@@ -1713,7 +1713,7 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ListagemInventarioProdutosAcervoFinalizado.jasper";
+                String path = "reports/Pedagogia/ListagemInventarioProdutosAcervoFinalizado.jasper";
                 conecta.executaSQL("SELECT *,"
                         + "INVENTARIO_LIVROS.IdLanc AS INVENTARIO_LIVROS_IdLanc, "
                         + "INVENTARIO_LIVROS.IdLocal AS INVENTARIO_LIVROS_IdLocal, "

@@ -176,7 +176,7 @@ public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPopulacaoAlimenticia.jasper";
+                            String path = "reports/GerenciaAdministrativa/RelatorioPopulacaoAlimenticia.jasper";
                             conecta.executaSQL("SELECT IdRegistro, DataMovimento,HorarioMovimento, "
                                     + "TipoOperacao,Quantidade, Populacao "
                                     + "FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS "
@@ -219,7 +219,7 @@ public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPopulacaoAlimenticia.jasper";
+                            String path = "reports/GerenciaAdministrativa/RelatorioPopulacaoAlimenticia.jasper";
                             conecta.executaSQL("SELECT IdRegistro, DataMovimento,HorarioMovimento, "
                                     + "TipoOperacao,Quantidade, Populacao "
                                     + "FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS "

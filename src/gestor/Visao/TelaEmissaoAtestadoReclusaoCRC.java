@@ -2285,7 +2285,7 @@ public class TelaEmissaoAtestadoReclusaoCRC extends javax.swing.JInternalFrame {
             } else if (jComboBoxTipoSolicitante.getSelectedItem().equals("Advogado")) {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioAtestadoReclusaoCRC_ADV.jasper";
+                    String path = "reports/CRC/RelatorioAtestadoReclusaoCRC_ADV.jasper";
                     conecta.executaSQL("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

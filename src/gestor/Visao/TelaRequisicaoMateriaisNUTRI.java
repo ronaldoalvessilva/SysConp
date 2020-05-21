@@ -1966,7 +1966,7 @@ if (jDataPesqInicial.getDate() == null) {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RequisicaoMateriaisInternosCodigoRequisicao.jasper";
+                String path = "reports/Nutricao/MateriaisInternoCodigoRequisicao/RequisicaoMateriaisInternosCodigoRequisicao.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_NUTRI "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON REQUISICAO_PRODUTOS_INTERNOS_NUTRI.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

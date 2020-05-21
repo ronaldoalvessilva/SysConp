@@ -155,7 +155,7 @@ public class TelaImpressaoIndividualProntuario extends javax.swing.JInternalFram
         }else{
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProntuariosInternosCrcCodigo.jasper";
+                String path = "reports/Diretoria/ProntuariosInternosCrcCodigo.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "

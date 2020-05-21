@@ -2074,7 +2074,7 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioAtestadoReclusaoCRC.jasper";
+                    String path = "reports/CRC/RelatorioAtestadoReclusaoCRC.jasper";
                     conecta.executaSQL("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EMISSAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

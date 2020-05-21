@@ -1647,7 +1647,7 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
         } else if (row != 0 && rows != 0) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/SolicitacaoComprasAprovadosADM.jasper";
+                String path = "reports/GerenciaAdministrativa/ComprasAprovadosADM/SolicitacaoComprasAprovadosADM.jasper";
                 conecta.executaSQL("SELECT * FROM APROVACAO_SOLICITACAO_COMPRAS_ADM "
                         + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
                         + "ON APROVACAO_SOLICITACAO_COMPRAS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "

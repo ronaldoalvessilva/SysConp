@@ -1865,7 +1865,7 @@ public class TelaFrequenciaMensalInternosTO extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioDiasTrabalhadoIndividual.jasper";
+                String path = "reports/TerapiaOcupacional/RelatorioDiasTrabalhadoIndividual.jasper";
                 conecta.executaSQL("SELECT * FROM FREQUENCIA_LABORATIVA_EXTERNA "
                         + "INNER JOIN ITENS_FREQUENCIA_LABORATIVA_EXTERNA "
                         + "ON FREQUENCIA_LABORATIVA_EXTERNA.IdFreqLab=ITENS_FREQUENCIA_LABORATIVA_EXTERNA.IdFreqLab "

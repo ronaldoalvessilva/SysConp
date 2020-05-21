@@ -1426,7 +1426,7 @@ public class TelaAgendaEscolta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioAgendaEscolta.jasper";
+            String path = "reports/CRC/RelatorioAgendaEscolta.jasper";
             conecta.executaSQL("SELECT * FROM ITENSAGENDA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSAGENDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

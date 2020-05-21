@@ -4502,7 +4502,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel23" min="-2" pref="215" max="-2" attributes="0"/>
+                      <Component id="jPanel23" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane7" pref="229" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -4594,7 +4594,7 @@
                               <Component id="jRBPrescricaoMedica" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jRBPrescricaoPsiquiatrica" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="8" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

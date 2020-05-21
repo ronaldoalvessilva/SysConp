@@ -183,7 +183,7 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
         if (jRBt_DECENDIAL.isSelected() == true) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProgramacaoKitDecendial.jasper";
+                String path = "reports/Almoxarifado/ProgramacaoKitDecendial.jasper";
                 conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_DECENDIAL_INTERNOS "
                         + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
@@ -209,7 +209,7 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
         } else if (jRBt_QUINZENAL.isSelected() == true) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProgramacaoKitQuinzenal.jasper";
+                String path = "reports/Almoxarifado/ProgramacaoKitQuinzenal.jasper";
                 conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_QUINZENAL_INTERNOS "
                         + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
@@ -235,7 +235,7 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
         } else if (jRBt_MENSAL.isSelected() == true) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProgramacaoKitMensal.jasper";
+                String path = "reports/Almoxarifado/ProgramacaoKitMensal.jasper";
                 conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_MENSAL_INTERNOS "
                         + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
@@ -261,7 +261,7 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
         } else if (jRBt_SEMESTRAL.isSelected() == true) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProgramacaoKitSemestral.jasper";
+                String path = "reports/Almoxarifado/ProgramacaoKitSemestral.jasper";
                 conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
                         + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
@@ -287,7 +287,7 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
         } else if (jRBt_ANUAL.isSelected() == true) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProgramacaoKitAnual.jasper";
+                String path = "reports/Almoxarifado/ProgramacaoKitAnual.jasper";
                 conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_ANUAL_INTERNOS "
                         + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "

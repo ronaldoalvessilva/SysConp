@@ -1682,7 +1682,7 @@ public class TelaRequisicaoAvulsaMedicamentosENF extends javax.swing.JInternalFr
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RequisicaoMateriaisAvulsoEnfermaria.jasper";
+                String path = "reports/Enfermaria/MateriaisAvulsosEnfermaria/RequisicaoMateriaisAvulsoEnfermaria.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_AVULSA_PRODUTOS_ENF "
                         + "INNER JOIN COLABORADOR "
                         + "ON REQUISICAO_AVULSA_PRODUTOS_ENF.IdFunc=COLABORADOR.IdFunc "

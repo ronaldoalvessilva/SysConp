@@ -202,7 +202,7 @@ public class TelaRelatorioEntradaSaidaAdvogadosInternos extends javax.swing.JInt
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaAdvogadosInternos.jasper";
+                            String path = "reports/Portarias/RelatorioEntradaSaidaAdvogadosInternos.jasper";
                             conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
                                     + "INNER JOIN ADVOGADOS "
                                     + "ON ENTRADASADVINTERNOS.IdAdvogado=ADVOGADOS.IdAdvogado "
@@ -242,7 +242,7 @@ public class TelaRelatorioEntradaSaidaAdvogadosInternos extends javax.swing.JInt
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaAdvogadosInternos.jasper";
+                            String path = "reports/Portarias/RelatorioEntradaSaidaAdvogadosInternos.jasper";
                             conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
                                     + "INNER JOIN ADVOGADOS "
                                     + "ON ENTRADASADVINTERNOS.IdAdvogado=ADVOGADOS.IdAdvogado "

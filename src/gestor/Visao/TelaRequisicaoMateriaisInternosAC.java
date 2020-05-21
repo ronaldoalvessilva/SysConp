@@ -2078,7 +2078,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "C:\\SysConp\\reports\\RequisicaoMateriaisInternosCodigoRequisicao.jasper";
+                String path = "C:\\SysConp\\reports\\Nutricao\\MateriaisInternoCodigoRequisicao\\RequisicaoMateriaisInternosCodigoRequisicao.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON REQUISICAO_PRODUTOS_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

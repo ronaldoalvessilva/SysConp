@@ -199,7 +199,7 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
                         dataPopulacao = dataPopInicial;
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPopulacaoInternosNominal.jasper";
+                            String path = "reports/CRC/RelatorioPopulacaoInternosNominal.jasper";
                             conecta.executaSQL("SELECT DataPop,MatriculaCrc,NomeInternoCrc,SexoCrc,Regime FROM POPULACAOINTERNOS_CRC "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -245,7 +245,7 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
                         dataPopulacao = dataPopInicial;
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioPopulacaoInternosNominal.jasper";
+                            String path = "reports/CRC/RelatorioPopulacaoInternosNominal.jasper";
                             conecta.executaSQL("SELECT DataPop,MatriculaCrc,NomeInternoCrc,SexoCrc,Regime FROM POPULACAOINTERNOS_CRC "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

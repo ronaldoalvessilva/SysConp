@@ -680,7 +680,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralInternosLocal.jasper";
+            String path = "reports/BancoVirtual/ListagemGeralInternosLocal.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -713,7 +713,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioListaPassagemInterna.jasper";
+            String path = "reports/GerenciaOperacional/RelatorioListaPassagemInterna.jasper";
             conecta.executaSQL("SELECT * FROM ITENSAGENDALABORATIVA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -742,7 +742,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1048,7 +1048,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:        
         try {
             conecta.abrirConexao();
-            String path = "reports/RelacaoSaldoInternosAtivos.jasper";
+            String path = "reports/BancoVirtual/RelacaoSaldoInternosAtivos.jasper";
             conecta.executaSQL("SELECT * FROM SALDOVALORES "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1077,7 +1077,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelacaoSaldoInternosInativos.jasper";
+            String path = "reports/BancoVirtual/RelacaoSaldoInternosInativos.jasper";
             conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

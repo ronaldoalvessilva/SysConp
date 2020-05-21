@@ -1319,7 +1319,7 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ReciboSaqueInterno.jasper";
+                String path = "reports/BancoVirtual/ReciboSaqueInterno.jasper";
                 conecta.executaSQL("SELECT * FROM SAQUE "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON SAQUE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

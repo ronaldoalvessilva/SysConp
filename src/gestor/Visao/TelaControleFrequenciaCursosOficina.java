@@ -1606,7 +1606,7 @@ public class TelaControleFrequenciaCursosOficina extends javax.swing.JInternalFr
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoManuTO) && codAbrirTO == 1) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioFrequenciaCursosTO.jasper";
+                String path = "reports/TerapiaOcupacional/FrequenciaCursosTO/RelatorioFrequenciaCursosTO.jasper";
                 conecta.executaSQL("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
                         + "INNER JOIN CURSOS "
                         + "ON CURSOS.IdCurso=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdCurso "

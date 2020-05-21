@@ -148,7 +148,7 @@ public class TelaRelatorioInternosTrabalhando extends javax.swing.JInternalFrame
             }
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioInternosAtividadeLaborativa.jasper";
+                String path = "reports/TerapiaOcupacional/RelatorioInternosAtividadeLaborativa.jasper";
                 conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, RazaoSocial,StatusInterno "
                         + "FROM ITENSAGENDALABORATIVA "

@@ -202,7 +202,7 @@ public class TelaRelatorioCadastroVisitasInternos extends javax.swing.JInternalF
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioCadastroVisitasInternos.jasper";
+                            String path = "reports/ServicoSocial/RelatorioCadastroVisitasInternos.jasper";
                             conecta.executaSQL("SELECT * FROM VISITASINTERNO VI "
                                     + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA VDV ON VDV.IdVisita=VI.IdVisita "
                                     + "INNER JOIN PRONTUARIOSCRC P ON P.IdInternoCrc=VDV.IdInternoCrc "
@@ -244,7 +244,7 @@ public class TelaRelatorioCadastroVisitasInternos extends javax.swing.JInternalF
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioCadastroVisitasInternos.jasper";
+                            String path = "reports/ServicoSocial/RelatorioCadastroVisitasInternos.jasper";
                             conecta.executaSQL("SELECT * FROM VISITASINTERNO VI "
                                     + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA VDV ON VDV.IdVisita=VI.IdVisita "
                                     + "INNER JOIN PRONTUARIOSCRC P ON P.IdInternoCrc=VDV.IdInternoCrc "

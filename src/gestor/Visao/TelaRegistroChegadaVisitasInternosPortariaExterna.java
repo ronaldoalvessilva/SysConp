@@ -1384,7 +1384,7 @@ if (jDataPesqInicial.getDate() == null) {
                 dataRelatorio = formatoAmerica.format(jDataRelChegada.getDate().getTime());
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioRegistroChegadaVisitaPortariaExterna.jasper";
+                    String path = "reports/Portarias/RelatorioRegistroChegadaVisitaPortariaExterna.jasper";
                     conecta.executaSQL("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
                             + "INNER JOIN VISITASINTERNO "
                             + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita "

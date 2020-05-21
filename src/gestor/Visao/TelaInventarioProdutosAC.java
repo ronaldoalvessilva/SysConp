@@ -1744,7 +1744,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ListagemInventarioProdutosAC.jasper";
+                String path = "reports/Almoxarifado/ListagemInventarioProdutosAC.jasper";
                 conecta.executaSQL("SELECT *,"
                         + "INVENTARIO_AC.IdLanc AS INVENTARIO_AC_IdLanc, "
                         + "INVENTARIO_AC.IdLocal AS INVENTARIO_AC_IdLocal, "
@@ -1790,7 +1790,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ListagemInventarioProdutosFinalizadoAC.jasper";
+                String path = "reports/Almoxarifado/ListagemInventarioProdutosFinalizadoAC.jasper";
                 conecta.executaSQL("SELECT *,"
                         + "INVENTARIO_AC.IdLanc AS INVENTARIO_AC_IdLanc, "
                         + "INVENTARIO_AC.IdLocal AS INVENTARIO_AC_IdLocal, "

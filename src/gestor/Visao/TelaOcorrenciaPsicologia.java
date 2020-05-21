@@ -713,7 +713,7 @@ public class TelaOcorrenciaPsicologia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrencias_Psicologia.jasper";
+            String path = "reports/Psicologia/ListagemOcorrencias_Psicologia.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_PSI WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();
             parametros.put("idOcorrencia", jIdOcorrencia.getText());

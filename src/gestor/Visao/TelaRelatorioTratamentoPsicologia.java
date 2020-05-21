@@ -187,7 +187,7 @@ public class TelaRelatorioTratamentoPsicologia extends javax.swing.JInternalFram
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioInternosTratamentoPsicologico.jasper";
+                    String path = "reports/Psicologia/RelatorioInternosTratamentoPsicologico.jasper";
                     conecta.executaSQL("SELECT DISTINCT "
                             + "PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                             + "PAVILHAO.DescricaoPav, "
@@ -235,7 +235,7 @@ public class TelaRelatorioTratamentoPsicologia extends javax.swing.JInternalFram
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioInternosTratamentoPsicologico.jasper";
+                    String path = "reports/Psicologia/RelatorioInternosTratamentoPsicologico.jasper";
                     conecta.executaSQL("SELECT DISTINCT "
                             + "PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                             + "PAVILHAO.DescricaoPav, "

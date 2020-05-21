@@ -516,7 +516,7 @@ public class TelaConsultaInternosIsolamento extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioOcorrenciaRegimeDisciplinar.jasper";
+                String path = "reports/GerenciaOperacional/RelatorioOcorrenciaRegimeDisciplinar.jasper";
                 conecta.executaSQL("SELECT * FROM OCORRENCIA_AUTORES "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON OCORRENCIA_AUTORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

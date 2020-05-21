@@ -680,7 +680,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
                     dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/ExtratoValores.jasper";
+                        String path = "reports/BancoVirtual/ExtratoValores.jasper";
                         conecta.executaSQL("SELECT * FROM SALDOVALORES "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -716,7 +716,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
                     dataFinalInativos = formatoAmerica.format(jDataPesFinalInativos.getDate().getTime());
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/ExtratoValoresInternosInativo.jasper";
+                        String path = "reports/BancoVirtual/ExtratoValoresInternosInativo.jasper";
                         conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -756,7 +756,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
                     dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/ExtratoValores.jasper";
+                        String path = "reports/BancoVirtual/ExtratoValores.jasper";
                         conecta.executaSQL("SELECT * FROM SALDOVALORES "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -792,7 +792,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
                     dataFinalInativos = formatoAmerica.format(jDataPesFinalInativos.getDate().getTime());
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/ExtratoValoresInternosInativo.jasper";
+                        String path = "reports/BancoVirtual/ExtratoValoresInternosInativo.jasper";
                         conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

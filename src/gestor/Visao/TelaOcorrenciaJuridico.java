@@ -708,7 +708,7 @@ public class TelaOcorrenciaJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrencias_ju.jasper";
+            String path = "reports/Juridico/ListagemOcorrencias_ju.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_JU WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();
             parametros.put("idOcorrencia", jIdOcorrencia.getText());

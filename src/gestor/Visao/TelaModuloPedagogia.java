@@ -929,6 +929,11 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Relatorios.setText("Relatórios");
 
         jMenu1.setText("Relatórios de Acervos");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
         Relatorios.add(jMenu1);
 
         RelatorioInternosMatriculados.setText("Relatório de Internos Matriculados");
@@ -2083,7 +2088,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioAtividadesEducacional.jasper";
+            String path = "reports/Pedagogia/RelatorioAtividadesEducacional.jasper";
             conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_PEDAGOGIA_EXTERNA "
                     + "INNER JOIN FREQUENCIA_PEDAGOGIA_EXTERNA "
                     + "ON ITENS_FREQUENCIA_PEDAGOGIA_EXTERNA.IdFreqLab=FREQUENCIA_PEDAGOGIA_EXTERNA.IdFreqLab "
@@ -2220,7 +2225,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -2557,6 +2562,10 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jAtendimentoGrupoActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

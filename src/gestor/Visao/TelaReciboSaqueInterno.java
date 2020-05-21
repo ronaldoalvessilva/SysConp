@@ -336,7 +336,7 @@ public class TelaReciboSaqueInterno extends javax.swing.JDialog {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ReciboSaqueInterno.jasper";
+                String path = "reports/BancoVirtual/ReciboSaqueInterno.jasper";
                 conecta.executaSQL("SELECT * FROM SAQUE "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON SAQUE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

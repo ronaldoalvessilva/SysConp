@@ -1624,7 +1624,7 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaPrin_PEDA) && codAbrirPEDA == 1) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioFrequenciaAulasInternos.jasper";
+                String path = "reports/Pedagogia/FrequenciaAulasInternos/RelatorioFrequenciaAulasInternos.jasper";
                 conecta.executaSQL("SELECT * FROM FREQUENCIA "
                         + "INNER JOIN MATRICULAESCOLAR "
                         + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "

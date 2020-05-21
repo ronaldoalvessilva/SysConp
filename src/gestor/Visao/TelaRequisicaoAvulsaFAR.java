@@ -1677,7 +1677,7 @@ public class TelaRequisicaoAvulsaFAR extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RequisicaoProdutosAvulsoFAR.jasper";
+                String path = "reports/Farmacia/ProdutosAvulsoFAR/RequisicaoProdutosAvulsoFAR.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_AVULSA_PRODUTOS_FAR "
                         + "INNER JOIN COLABORADOR "
                         + "ON REQUISICAO_AVULSA_PRODUTOS_FAR.IdFunc=COLABORADOR.IdFunc "

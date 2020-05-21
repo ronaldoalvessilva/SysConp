@@ -1608,7 +1608,7 @@ public class TelaRequisicaoAvulsaAC extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "C:\\SysConp\\reports\\RequisicaoMateriaisAvulsoCodigoRequisicao.jasper";
+                String path = "C:\\SysConp\\reports\\Almoxarifado\\MateriaisAvulsoCodigoRequisicao\\RequisicaoMateriaisAvulsoCodigoRequisicao.jasper";
                 conecta.executaSQL("SELECT * FROM REQUISICAO_AVULSA_PRODUTOS "
                         + "INNER JOIN COLABORADOR "
                         + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "

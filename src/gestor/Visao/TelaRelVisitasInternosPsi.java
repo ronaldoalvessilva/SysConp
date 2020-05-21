@@ -166,7 +166,7 @@ public class TelaRelVisitasInternosPsi extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioVisitasInternos.jasper";
+                            String path = "reports/ServicoSocial/RelatorioVisitasInternos.jasper";
                             conecta.executaSQL("SELECT * FROM HISTORICOVISITASINTERNOS "
                                     + "INNER JOIN PRONTUARIOSCRC  "
                                     + "ON HISTORICOVISITASINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -207,7 +207,7 @@ public class TelaRelVisitasInternosPsi extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioVisitasInternos.jasper";
+                            String path = "reports/ServicoSocial/RelatorioVisitasInternos.jasper";
                             conecta.executaSQL("SELECT * FROM HISTORICOVISITASINTERNOS "
                                     + "INNER JOIN PRONTUARIOSCRC  "
                                     + "ON HISTORICOVISITASINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

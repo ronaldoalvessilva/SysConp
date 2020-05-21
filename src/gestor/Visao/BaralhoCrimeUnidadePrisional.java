@@ -3227,7 +3227,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioOrganogramaCrime.jasper";
+            String path = "reports/GerenciaOperacional/OrganogramaCrime/RelatorioOrganogramaCrime.jasper";
             conecta.executaSQL("SELECT * FROM ORGANOGRAMA_CRIME "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

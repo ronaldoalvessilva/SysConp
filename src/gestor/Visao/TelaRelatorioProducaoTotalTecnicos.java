@@ -169,7 +169,7 @@ public class TelaRelatorioProducaoTotalTecnicos extends javax.swing.JInternalFra
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioTotalAtendimentoProres.jasper";
+                    String path = "reports/GerenciaAdministrativa/TotalAtendimentoProres/RelatorioTotalAtendimentoProres.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOENFERMAGEM "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -214,7 +214,7 @@ public class TelaRelatorioProducaoTotalTecnicos extends javax.swing.JInternalFra
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioTotalAtendimentoProres.jasper";
+                    String path = "reports/GerenciaAdministrativa/TotalAtendimentoProres/RelatorioTotalAtendimentoProres.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOENFERMAGEM "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

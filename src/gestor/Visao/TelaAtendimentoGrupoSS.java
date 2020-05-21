@@ -3534,7 +3534,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioAtendimentoGrupoInternosSS.jasper";
+                String path = "reports/ServicoSocial/RelatorioAtendimentoGrupoInternosSS.jasper";
                 conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
                         + "INNER JOIN ATENDIMENTO_GRUPO_SS "
                         + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "

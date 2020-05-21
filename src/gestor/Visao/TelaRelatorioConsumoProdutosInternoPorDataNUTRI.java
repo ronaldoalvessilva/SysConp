@@ -203,7 +203,7 @@ public class TelaRelatorioConsumoProdutosInternoPorDataNUTRI extends javax.swing
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioProdutosConsumoInternosPorDataNUTRI.jasper";
+                            String path = "reports/Nutricao/RelatorioProdutosConsumoInternosPorDataNUTRI.jasper";
                             conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_NUTRI "
                                     + "INNER JOIN PRODUTOS_AC "
                                     + "ON ITENS_REQUISICAO_PRODUTOS_NUTRI.IdProd=PRODUTOS_AC.IdProd "
@@ -245,7 +245,7 @@ public class TelaRelatorioConsumoProdutosInternoPorDataNUTRI extends javax.swing
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioProdutosConsumoInternosPorDataNUTRI.jasper";
+                            String path = "reports/Nutricao/RelatorioProdutosConsumoInternosPorDataNUTRI.jasper";
                             conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_NUTRI "
                                     + "INNER JOIN PRODUTOS_AC "
                                     + "ON ITENS_REQUISICAO_PRODUTOS_NUTRI.IdProd=PRODUTOS_AC.IdProd "

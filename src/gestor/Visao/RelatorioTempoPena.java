@@ -168,7 +168,7 @@ public class RelatorioTempoPena extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
          try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioInternosTempoPena.jasper";
+            String path = "reports/CRC/RelatorioInternosTempoPena.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE Pena LIKE'" + jPena.getText()  + "%'ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("tempoPena", jPena.getText());

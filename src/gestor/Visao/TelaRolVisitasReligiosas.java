@@ -2071,7 +2071,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RolVisitasPorRol.jasper";
+            String path = "reports/ServicoSocial/RolVisitasPorRol.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN ROLVISITAS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ROLVISITAS.IdInternoCrc "

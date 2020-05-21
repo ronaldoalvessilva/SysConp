@@ -1991,7 +1991,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RolVisitas.jasper";
+            String path = "reports/ServicoSocial/RolVisitas.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN ROLVISITAS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ROLVISITAS.IdInternoCrc "
@@ -2171,7 +2171,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioGeralColaboradores.jasper";
+            String path = "reports/GerenciaAdministrativa/RelatorioGeralColaboradores.jasper";
             conecta.executaSQL("SELECT * FROM COLABORADOR "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
@@ -2245,7 +2245,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemPronturarioInternosRegime.jasper";
+            String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -2480,7 +2480,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioGeralOcorrenciaIndisciplinarVisitasPortaria.jasper";
+            String path = "reports/Portarias/RelatorioGeralOcorrenciaIndisciplinarVisitasPortaria.jasper";
             conecta.executaSQL("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
                     + "INNER JOIN OCORRENCIA_INDISCIPLINA_PORTARIA "
                     + "ON REGISTRO_INDISCIPLINA_PORTARIA.IdReg=OCORRENCIA_INDISCIPLINA_PORTARIA.IdReg "

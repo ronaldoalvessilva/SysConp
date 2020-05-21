@@ -7,7 +7,8 @@ package gestor.Visao;
 
 //import gestor.Modelo.clsDataHora;
 import Util.Produtividade.Produtividade;
-import com.sun.glass.events.KeyEvent;
+//import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.ControleUsuarioConectado;
 import gestor.Dao.ConexaoBancoDados;
@@ -38,7 +39,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
-
+ 
 /**
  *
  * @author Ronaldo

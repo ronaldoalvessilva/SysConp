@@ -1150,7 +1150,7 @@
                           <Component id="jBtCancelar" min="-2" pref="36" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSair" min="-2" pref="32" max="-2" attributes="0"/>
-                          <EmptySpace pref="55" max="32767" attributes="0"/>
+                          <EmptySpace pref="59" max="32767" attributes="0"/>
                           <Component id="jBtAdcionarItensSoli" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jBtFinalizar" min="-2" pref="38" max="-2" attributes="0"/>

@@ -4912,7 +4912,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioPrescricaoOdontologica.jasper";
+            String path = "reports/Odontologia/RelatorioPrescricaoOdontologica.jasper";
             conecta.executaSQL("SELECT * FROM PRESCRICAO_ODONTOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PRESCRICAO_ODONTOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

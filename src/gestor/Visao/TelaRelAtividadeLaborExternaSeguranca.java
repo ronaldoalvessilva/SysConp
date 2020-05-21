@@ -166,7 +166,7 @@ public class TelaRelAtividadeLaborExternaSeguranca extends javax.swing.JInternal
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntSaiInternosLaborativaExterna.jasper";
+                            String path = "reports/TerapiaOcupacional/RelatorioEntSaiInternosLaborativaExterna.jasper";
                             conecta.executaSQL("SELECT * FROM ENTRADALABORINTERNO  "
                                     + "INNER JOIN ITENSLABORINTERNO  "
                                     + "ON ENTRADALABORINTERNO.IdLanc=ITENSLABORINTERNO.IdLanc  "
@@ -209,7 +209,7 @@ public class TelaRelAtividadeLaborExternaSeguranca extends javax.swing.JInternal
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntSaiInternosLaborativaExterna.jasper";
+                            String path = "reports/TerapiaOcupacional/RelatorioEntSaiInternosLaborativaExterna.jasper";
                             conecta.executaSQL("SELECT * FROM ENTRADALABORINTERNO  "
                                     + "INNER JOIN ITENSLABORINTERNO  "
                                     + "ON ENTRADALABORINTERNO.IdLanc=ITENSLABORINTERNO.IdLanc  "

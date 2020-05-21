@@ -1588,7 +1588,7 @@ public class TelaCapacitacaoInternoTO extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioCapacitacaoInternosTO.jasper";
+                String path = "reports/TerapiaOcupacional/CapacitacaoInternosTO/RelatorioCapacitacaoInternosTO.jasper";
                 conecta.executaSQL("SELECT * FROM CAPACITACAO_INTERNO_TO "
                         + "INNER JOIN CURSOS "
                         + "ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso "

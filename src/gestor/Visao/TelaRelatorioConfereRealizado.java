@@ -210,7 +210,7 @@ public class TelaRelatorioConfereRealizado extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/ConferePavilhao.jasper";
+                    String path = "reports/GerenciaOperacional/ConferePavilhao.jasper";
                     conecta.executaSQL("SELECT * FROM CONFERE_INTERNOS "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON CONFERE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -246,7 +246,7 @@ public class TelaRelatorioConfereRealizado extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/ConferePavilhao.jasper";
+                    String path = "reports/GerenciaOperacional/ConferePavilhao.jasper";
                     conecta.executaSQL("SELECT * FROM CONFERE_INTERNOS "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON CONFERE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

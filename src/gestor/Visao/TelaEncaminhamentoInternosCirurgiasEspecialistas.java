@@ -1614,7 +1614,7 @@ public class TelaEncaminhamentoInternosCirurgiasEspecialistas extends javax.swin
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioEncaminhamentoEmergenciaInterno.jasper";
+                String path = "reports/Enfermaria/RelatorioEncaminhamentoEmergenciaInterno.jasper";
                 conecta.executaSQL("SELECT * FROM ENCAMINHAMENTO_CIRURGIAS_ESPECIALISTAS "
                         + "INNER JOIN ITENS_ENCAMINHAMENTO_CIRURGIAS_ESPECIALISTAS "
                         + "ON ENCAMINHAMENTO_CIRURGIAS_ESPECIALISTAS.IdEnca=ITENS_ENCAMINHAMENTO_CIRURGIAS_ESPECIALISTAS.IdEnca "

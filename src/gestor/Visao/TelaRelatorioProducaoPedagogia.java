@@ -169,7 +169,7 @@ public class TelaRelatorioProducaoPedagogia extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPedagogiaII.jasper";
+                    String path = "reports/Pedagogia/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoPedagogiaII.jasper";
                     conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA A "
                             + "INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc "
                             + "WHERE DataAdm BETWEEN'" + dataInicial + "' "
@@ -212,7 +212,7 @@ public class TelaRelatorioProducaoPedagogia extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPedagogiaII.jasper";
+                    String path = "reports/Pedagogia/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoPedagogiaII.jasper";
                     conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA A "
                             + "INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc "
                             + "WHERE DataAdm BETWEEN'" + dataInicial + "' "

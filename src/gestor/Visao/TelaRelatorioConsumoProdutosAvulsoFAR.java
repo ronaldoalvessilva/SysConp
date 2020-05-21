@@ -203,7 +203,7 @@ public class TelaRelatorioConsumoProdutosAvulsoFAR extends javax.swing.JInternal
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioConsumoProdutosAvulsoFAR.jasper";
+                            String path = "reports/Farmacia/RelatorioConsumoProdutosAvulsoFAR.jasper";
                             conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS_FAR "
                                     + "INNER JOIN PRODUTOS_AC "
                                     + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_FAR.IdProd=PRODUTOS_AC.IdProd "
@@ -253,7 +253,7 @@ public class TelaRelatorioConsumoProdutosAvulsoFAR extends javax.swing.JInternal
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioConsumoProdutosAvulsoFAR.jasper";
+                            String path = "reports/Farmacia/RelatorioConsumoProdutosAvulsoFAR.jasper";
                             conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS_FAR "
                                     + "INNER JOIN PRODUTOS_AC "
                                     + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_FAR.IdProd=PRODUTOS_AC.IdProd "

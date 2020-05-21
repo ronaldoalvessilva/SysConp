@@ -1650,7 +1650,7 @@ public class TelaSolicitacaoComprasMateriaisGerencia extends javax.swing.JIntern
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/SolicitacaoMateriaisCodigoSolicitacaoADM.jasper";
+                String path = "reports/Almoxarifado/MateriaisCodigoSolicitacaoADM/SolicitacaoMateriaisCodigoSolicitacaoADM.jasper";
                 conecta.executaSQL("SELECT * FROM SOLICITACAO_PRODUTOS_ADM "
                         + "INNER JOIN COLABORADOR "
                         + "ON SOLICITACAO_PRODUTOS_ADM.IdFunc=COLABORADOR.IdFunc "

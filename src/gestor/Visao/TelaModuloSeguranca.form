@@ -490,6 +490,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pavilh&#xe3;o"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelPavilhaoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RelCelas">
               <Properties>

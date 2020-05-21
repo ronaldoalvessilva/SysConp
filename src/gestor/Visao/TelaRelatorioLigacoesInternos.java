@@ -155,7 +155,7 @@ public class TelaRelatorioLigacoesInternos extends javax.swing.JInternalFrame {
             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioLigacoesInternos.jasper";
+                String path = "reports/ServicoSocial/RelatorioLigacoesInternos.jasper";
                 conecta.executaSQL("SELECT * FROM CONTROLIGA INNER JOIN PRONTUARIOSCRC ON CONTROLIGA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE DataControl BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'ORDER BY NomeInternoCrc,DataControl");
                 HashMap parametros = new HashMap();
                 parametros.put("dataInicial", dataInicial);
@@ -178,7 +178,7 @@ public class TelaRelatorioLigacoesInternos extends javax.swing.JInternalFrame {
             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioLigacoesInternos.jasper";
+                String path = "reports/ServicoSocial/RelatorioLigacoesInternos.jasper";
                 conecta.executaSQL("SELECT * FROM CONTROLIGA INNER JOIN PRONTUARIOSCRC ON CONTROLIGA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE DataControl BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'ORDER BY NomeInternoCrc,DataControl");
                 HashMap parametros = new HashMap();
                 parametros.put("dataInicial", dataInicial);
