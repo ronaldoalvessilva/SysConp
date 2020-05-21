@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioRequisicaoMateriaisInternos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="97fb33a1-ed65-4182-964a-db7de4d210ea">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="167"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codReq" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{IdRegCancel}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENS_REGISTRO_CANCELADO_NE INNER JOIN REGISTRO_CANCELADO_NE ON ITENS_REGISTRO_CANCELADO_NE.IdRegCancel=REGISTRO_CANCELADO_NE.IdRegCancel INNER JOIN PRONTUARIOSCRC ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE ITENS_REGISTRO_CANCELADO_NE.IdRegCancel=$P{codReq}]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdRegCancel" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="DataSaida" class="java.sql.Timestamp"/>
+	<field name="HoraSaida" class="java.lang.String"/>
+	<field name="ConfirmacaoRegistro" class="java.lang.String"/>
+	<field name="NrDocumento" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="StatusLanc" class="java.lang.String"/>
+	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="Motivo" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<field name="Tornozeleira" class="java.lang.String"/>
+	<field name="DataEntradaAnt" class="java.sql.Timestamp"/>
+	<variable name="totalItens" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="51" height="20" uuid="97c90112-72db-4e60-86a5-9164c990d8be"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="0" width="247" height="20" uuid="640f762a-84d5-4fdb-b826-317a68383b71"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="366" y="0" width="76" height="20" uuid="b72cf79a-21ea-4231-a12b-967ab2f68739"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{DataSaida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="460" y="0" width="54" height="20" uuid="41d2553a-8656-4542-995b-d51117719f3d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{NrDocumento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="52" y="0" width="63" height="20" uuid="a43d9ce2-67db-410a-a1d0-98c5d4c5169b"/>
+				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="67">
+			<rectangle>
+				<reportElement x="4" y="28" width="147" height="20" uuid="97a17f61-e5af-4df7-b286-5d17ee383065"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="28" width="84" height="20" uuid="5b3ea347-814c-4461-aefd-e89ecf8dfa5f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Itens:]]></text>
+			</staticText>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="104" y="28" width="37" height="20" uuid="2bb21cae-d210-489c-9a91-d7f3a70d15b8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalItens}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

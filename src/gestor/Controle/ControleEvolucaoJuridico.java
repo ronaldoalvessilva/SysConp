@@ -94,12 +94,16 @@ public class ControleEvolucaoJuridico {
     }
 
     // Modificar o interno da evolução quando o mesmo foir modificado na capa.
-    public EvolucaoJuridico alterarInternoEvolucaoJuridico(EvolucaoJuridico objEvoluJuri) {
+    public EvolucaoJuridico alterarInternoEvolucaoJuridicoADM(EvolucaoJuridico objEvoluJuri) {
         buscarInternoCrc(objEvoluJuri.getNomeInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOJURIDICO SET IdInternoCrc=? WHERE IdLanc='" + objEvoluJuri.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOJURIDICO SET IdInternoCrc=?,Evolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objEvoluJuri.getIdLanc() + "'AND AdmEvo='" + objEvoluJuri.getAdmEvo() + "'");
             pst.setInt(1, codInt);
+            pst.setString(2, objEvoluJuri.getEvolucao());
+            pst.setString(3, objEvoluJuri.getUsuarioUp());
+            pst.setString(4, objEvoluJuri.getDataUp());
+            pst.setString(5, objEvoluJuri.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);

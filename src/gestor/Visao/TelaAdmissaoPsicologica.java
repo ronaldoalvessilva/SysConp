@@ -17,9 +17,12 @@ import Utilitarios.LimiteDigitos;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosSoNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleMovPsicologiaEvolucao;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AdmissaoPsicologica;
 import gestor.Modelo.EvolucaoPsicologica;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPsicologia.pQUANTIDADE_ATENDIDA;
@@ -67,6 +70,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     ControleAdminssaoPsicologia control = new ControleAdminssaoPsicologia();
     //
     ControleMovPsicologia controle = new ControleMovPsicologia();
+    ControleMovPsicologiaEvolucao controleEvo = new ControleMovPsicologiaEvolucao();
     //
     ControleParecerPsicologico controleParecer = new ControleParecerPsicologico();
     //
@@ -77,6 +81,9 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -110,7 +117,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public static String departamentoAgenda = "PSICOLOGIA";
     String nomeDepartamento;
     String codigoStatusReg;
-    String codigoInterno;
+    String codigoInterno;    
     //
     String dataReg = "";
     String codigoInternoAtend = "";
@@ -125,6 +132,10 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
     String pCODIGO_INTERNO = "";
+    //EVOLUÇÃO DA ADMISSAO
+    String admEvolucao = "Sim";
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_PSICOLOGIA = "Não";
 
     /**
      * Creates new form TelaAdmissaoPsicologica
@@ -2538,6 +2549,38 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                             objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                             control_ATENDE.confirmarAtendimento(objRegAtend);
+                             //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                            pHABILITA_PSICOLOGIA = "Não";
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setHabPsi(pHABILITA_PSICOLOGIA);
+                            control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                            // ADICIONAR UMA EVOLUÇÃO INICIAL
+                            evolu.setDataEvolucao(jDataLanc.getDate());
+                            evolu.setNomeDepartamento((String) jComboBoxDepartamentoEncaminha.getSelectedItem());
+                            evolu.setDataEncaminhamento(jDataEncaminhamento.getDate());
+                            evolu.setHoraEncaminhamento(jHoraAcompanha.getText());
+                            evolu.setHistorico(jEncaminhamento.getText());
+                            // Para o log do registro
+                            evolu.setUsuarioInsert(nameUser);
+                            evolu.setDataInsert(dataModFinal);
+                            evolu.setHorarioInsert(horaMov);
+                            evolu.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                            evolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            evolu.setNomeInternoCrc(jNomeInterno.getText());
+                            evolu.setAdmEvo(admEvolucao);
+                            controlEvolu.incluirEvolucaoPsiADM(evolu);
+                            buscarCodEvolucao();
+                            preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                            //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                            pHABILITA_PSICOLOGIA = "Não";
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setHabPsi(pHABILITA_PSICOLOGIA);
+                            control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                             Salvar();
                             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                             int resposta = JOptionPane.showConfirmDialog(this, "Deseja iniciar tratamento ao interno agora?", "Confirmação",
@@ -2557,9 +2600,29 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
                         objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         control.alterarAdmissaoPsi(objAdmPsi);
+                        //MOVIMENTO TÉCNICO
                         objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.alterarMovTec(objAdmPsi);
+                        //EVOLUÇÃO DA ADMISSÃO
+                        evolu.setUsuarioUp(nameUser);
+                        evolu.setDataUp(jDataSistema.getText());
+                        evolu.setHorarioUp(jHoraSistema.getText());
+                        //
+                        evolu.setDataEvolucao(jDataLanc.getDate());
+                        evolu.setNomeDepartamento((String) jComboBoxDepartamentoEncaminha.getSelectedItem());
+                        evolu.setDataEncaminhamento(jDataEncaminhamento.getDate());
+                        evolu.setHoraEncaminhamento(jHoraAcompanha.getText());
+                        evolu.setHistorico(jEncaminhamento.getText());
+                        evolu.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        evolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        evolu.setNomeInternoCrc(jNomeInterno.getText());
+                        evolu.setAdmEvo(admEvolucao);
+                        controlEvolu.alterarEvolucaoPsiADM(evolu);
+                        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         Salvar();
@@ -2865,24 +2928,49 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:   
         buscarAcessoUsuario(telaMovimentacaoEvolIntPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoEvolIntPSI) && codAlterarPSI == 1) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
-                conecta.rs.first();
-                nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-            }
-            if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                acao = 4;
-                AlterarEvolucao();
-                preencherComboBoxDepartamento();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-                conecta.desconecta();
+            verificarEvolucaoAdmissao();
+            if (admEvolucao == null) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 4;
+                    AlterarEvolucao();
+                    preencherComboBoxDepartamento();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("")) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 4;
+                    AlterarEvolucao();
+                    preencherComboBoxDepartamento();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -2947,7 +3035,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                 evolu.setNomeDepartamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
                 evolu.setDataEncaminhamento(jDataEncaminhamentoEvo.getDate());
                 evolu.setHoraEncaminhamento(jHoraEnvioEvo.getText());
-                evolu.setHistorico(jEvolucao.getText());
+                evolu.setHistorico(jEvolucao.getText());                
                 if (acao == 3) {
                     // Para o log do registro
                     evolu.setUsuarioInsert(nameUser);
@@ -2958,6 +3046,10 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     evolu.setNomeInternoCrc(jNomeInterno.getText());
                     controlEvolu.incluirEvolucaoPsi(evolu);
                     buscarCodEvolucao();
+                    objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmPsi.setNomeInterno(jNomeInterno.getText());
+                    objAdmPsi.setDeptoPsicologico(deptoTecnico);
+                    controleEvo.incluirMovTec(objAdmPsi);
                     // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
                     atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
@@ -3009,6 +3101,11 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     evolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                     evolu.setNomeInternoCrc(jNomeInterno.getText());
                     controlEvolu.alterarEvolucaoPsi(evolu);
+                    //
+                    objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmPsi.setNomeInterno(jNomeInterno.getText());
+                    objAdmPsi.setDeptoPsicologico(deptoTecnico);
+                    controleEvo.alterarMovTec(objAdmPsi);
                     //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3541,7 +3638,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public void verificarAdmissao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL "
+            conecta.executaSQL("SELECT * FROM ADMISSAOPSI "
                     + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
             pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
@@ -3778,7 +3875,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jComboBoxDepartamentoEncaminha.setSelectedItem("Selecione...");
         jDataEncaminhamento.setDate(null);
         jHoraAcompanha.setText(jHoraSistema.getText());
-        jEncaminhamento.setText("");
+        jEncaminhamento.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setSelectedItem("Não");
         jQualTratamentoSaude.setText("");
@@ -4882,6 +4979,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o ID do lançamento");
         }
+        conecta.desconecta();
     }
 
     public void buscarCodEvolucao() {
@@ -5385,5 +5483,21 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+    }
+
+    // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
+    // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
+    public void verificarEvolucaoAdmissao() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                    + "WHERE IdLanc='" + jIdLanc.getText() + "' "
+                    + "AND IdItem='" + jIdEvolucao.getText() + "'");
+            conecta.rs.first();
+            admEvolucao = conecta.rs.getString("AdmEvo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

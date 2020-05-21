@@ -85,8 +85,9 @@ public class ControleItensEntradaPortaria {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSENTRADAPORTARIA SET ConfirmaEntrada=? WHERE NomeInternoCrc='" + objItensEntIntPort.getNomeInternoCrc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSENTRADAPORTARIA SET ConfirmaEntrada=?,RegistroCancelado=? WHERE NomeInternoCrc='" + objItensEntIntPort.getNomeInternoCrc() + "'");
             pst.setString(1, objItensEntIntPort.getConfirmaEntrada());
+            pst.setString(2, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados\n\nERRO: " + ex);

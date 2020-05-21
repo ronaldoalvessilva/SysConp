@@ -59,7 +59,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         jBtSair = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("...::: Pesquisa Registro Entrada Internos :::...");
+        setTitle("...::: Pesquisa Registro Entrada Internos - ENTRADA 1ª VEZ :::...");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -115,7 +115,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         jTabelaPesqInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno"
@@ -233,7 +233,8 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "'AND IdItem='" + idItem + "'");
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdItem")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));

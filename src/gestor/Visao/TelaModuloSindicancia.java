@@ -160,15 +160,15 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         HistoricoMovimentacao = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
-        AtendimentoJuridico = new javax.swing.JMenuItem();
+        jAtendimentoJuridico = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        Beneficios = new javax.swing.JMenuItem();
+        jFichaJuridica = new javax.swing.JMenuItem();
+        jBeneficios = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        AtendimentoFamiliar = new javax.swing.JMenuItem();
-        AtendimentoJudiciario = new javax.swing.JMenuItem();
+        jAtendimentoFamiliar = new javax.swing.JMenuItem();
+        jAtendimentoJudiciario = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        LivroOcorrencia = new javax.swing.JMenuItem();
+        jLivroOcorrencia = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
         RelatorioGeralInternosPavilhao = new javax.swing.JMenuItem();
         ListagemConfere = new javax.swing.JMenuItem();
@@ -338,56 +338,56 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
 
         Movimentacao.setText("Movimentação");
 
-        AtendimentoJuridico.setText("Admissão/Atendimento Jurídico");
-        AtendimentoJuridico.addActionListener(new java.awt.event.ActionListener() {
+        jAtendimentoJuridico.setText("Admissão/Atendimento Jurídico");
+        jAtendimentoJuridico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AtendimentoJuridicoActionPerformed(evt);
+                jAtendimentoJuridicoActionPerformed(evt);
             }
         });
-        Movimentacao.add(AtendimentoJuridico);
+        Movimentacao.add(jAtendimentoJuridico);
         Movimentacao.add(jSeparator5);
 
-        jMenuItem1.setText("Ficha Jurídica");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jFichaJuridica.setText("Ficha Jurídica");
+        jFichaJuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jFichaJuridicaActionPerformed(evt);
             }
         });
-        Movimentacao.add(jMenuItem1);
+        Movimentacao.add(jFichaJuridica);
 
-        Beneficios.setText("Agendamento de Benefícios de Internos");
-        Beneficios.addActionListener(new java.awt.event.ActionListener() {
+        jBeneficios.setText("Agendamento de Benefícios de Internos");
+        jBeneficios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BeneficiosActionPerformed(evt);
+                jBeneficiosActionPerformed(evt);
             }
         });
-        Movimentacao.add(Beneficios);
+        Movimentacao.add(jBeneficios);
         Movimentacao.add(jSeparator1);
 
-        AtendimentoFamiliar.setText("Atendimento Familiar");
-        AtendimentoFamiliar.addActionListener(new java.awt.event.ActionListener() {
+        jAtendimentoFamiliar.setText("Atendimento Familiar");
+        jAtendimentoFamiliar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AtendimentoFamiliarActionPerformed(evt);
+                jAtendimentoFamiliarActionPerformed(evt);
             }
         });
-        Movimentacao.add(AtendimentoFamiliar);
+        Movimentacao.add(jAtendimentoFamiliar);
 
-        AtendimentoJudiciario.setText("Audiência de Justificativa");
-        AtendimentoJudiciario.addActionListener(new java.awt.event.ActionListener() {
+        jAtendimentoJudiciario.setText("Audiência de Justificativa");
+        jAtendimentoJudiciario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AtendimentoJudiciarioActionPerformed(evt);
+                jAtendimentoJudiciarioActionPerformed(evt);
             }
         });
-        Movimentacao.add(AtendimentoJudiciario);
+        Movimentacao.add(jAtendimentoJudiciario);
         Movimentacao.add(jSeparator7);
 
-        LivroOcorrencia.setText("Livro de Ocorrências");
-        LivroOcorrencia.addActionListener(new java.awt.event.ActionListener() {
+        jLivroOcorrencia.setText("Livro de Ocorrências");
+        jLivroOcorrencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LivroOcorrenciaActionPerformed(evt);
+                jLivroOcorrenciaActionPerformed(evt);
             }
         });
-        Movimentacao.add(LivroOcorrencia);
+        Movimentacao.add(jLivroOcorrencia);
 
         jMenuBar1.add(Movimentacao);
 
@@ -607,7 +607,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_HistoricoMovimentacaoActionPerformed
 
-    private void AtendimentoJuridicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoJuridicoActionPerformed
+    private void jAtendimentoJuridicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoJuridicoActionPerformed
         // TODO add your handling code here:
         if (objAtedJuri == null || objAtedJuri.isClosed()) {
             objAtedJuri = new TelaAtendimentoJuridico();
@@ -634,7 +634,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             objAtedJuri.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_AtendimentoJuridicoActionPerformed
+    }//GEN-LAST:event_jAtendimentoJuridicoActionPerformed
 
     private void AgendaRecadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaRecadosActionPerformed
         // TODO add your handling code here:
@@ -700,7 +700,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         objRelPrevSai.show();
     }//GEN-LAST:event_RelatorioPrevisaoSaidaInternosActionPerformed
 
-    private void AtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoFamiliarActionPerformed
+    private void jAtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoFamiliarActionPerformed
         // TODO add your handling code here:
         if (objAtenFam == null || objAtenFam.isClosed()) {
             objAtenFam = new TelaAtendimentoFamiliarJuridico();
@@ -727,9 +727,9 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             objAtenFam.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_AtendimentoFamiliarActionPerformed
+    }//GEN-LAST:event_jAtendimentoFamiliarActionPerformed
 
-    private void LivroOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciaActionPerformed
+    private void jLivroOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLivroOcorrenciaActionPerformed
         // TODO add your handling code here:
         if (objOcorreJuridico == null || objOcorreJuridico.isClosed()) {
             objOcorreJuridico = new TelaOcorrenciaJuridico();
@@ -756,7 +756,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             objOcorreJuridico.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_LivroOcorrenciaActionPerformed
+    }//GEN-LAST:event_jLivroOcorrenciaActionPerformed
 
     private void AtividadesJuridicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtividadesJuridicasActionPerformed
         // TODO add your handling code here:
@@ -787,7 +787,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_AtividadesJuridicasActionPerformed
 
-    private void AtendimentoJudiciarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoJudiciarioActionPerformed
+    private void jAtendimentoJudiciarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoJudiciarioActionPerformed
         // TODO add your handling code here:
         if (objAudJus == null || objAudJus.isClosed()) {
             objAudJus = new TelaAudienciaJustificativa();
@@ -814,9 +814,9 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             objAudJus.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_AtendimentoJudiciarioActionPerformed
+    }//GEN-LAST:event_jAtendimentoJudiciarioActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jFichaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFichaJuridicaActionPerformed
         // TODO add your handling code here:
         if (objFichaJuri == null || objFichaJuri.isClosed()) {
             objFichaJuri = new TelaFichaJuridica();
@@ -843,7 +843,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             objFichaJuri.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jFichaJuridicaActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
@@ -932,7 +932,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_AgendaEventosActionPerformed
 
-    private void BeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeneficiosActionPerformed
+    private void jBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeneficiosActionPerformed
         // TODO add your handling code here:
         if (objAgendaBene == null || objAgendaBene.isClosed()) {
             objAgendaBene = new TelaAgendamentoBeneficiosInterno();
@@ -959,7 +959,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             objAgendaBene.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_BeneficiosActionPerformed
+    }//GEN-LAST:event_jBeneficiosActionPerformed
 
     private void RelatorioAgendamentoBenecifioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioAgendamentoBenecifioActionPerformed
         // TODO add your handling code here:
@@ -1107,18 +1107,13 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
     private javax.swing.JMenuItem AgendaRecados;
-    private javax.swing.JMenuItem AtendimentoFamiliar;
-    private javax.swing.JMenuItem AtendimentoJudiciario;
-    private javax.swing.JMenuItem AtendimentoJuridico;
     private javax.swing.JMenuItem AtividadesJuridicas;
-    private javax.swing.JMenuItem Beneficios;
     private javax.swing.JMenu Cadastros;
     private javax.swing.JMenuItem CalculadoraPena;
     private javax.swing.JMenuItem CalculadoraWindows;
     private javax.swing.JMenu Consultas;
     private javax.swing.JMenuItem HistoricoMovimentacao;
     private javax.swing.JMenuItem ListagemConfere;
-    private javax.swing.JMenuItem LivroOcorrencia;
     private javax.swing.JMenuItem LocalizacaoInterno;
     private javax.swing.JMenu Movimentacao;
     private javax.swing.JMenuItem ProntuarioInternos;
@@ -1132,10 +1127,15 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     private javax.swing.JMenu Relatorios;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenu Utilitarios;
+    private javax.swing.JMenuItem jAtendimentoFamiliar;
+    private javax.swing.JMenuItem jAtendimentoJudiciario;
+    private javax.swing.JMenuItem jAtendimentoJuridico;
+    private javax.swing.JMenuItem jBeneficios;
     private javax.swing.JMenuItem jCalculadoraPena1;
+    private javax.swing.JMenuItem jFichaJuridica;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jLivroOcorrencia;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     public static javax.swing.JDesktopPane jPainelSindicancia;

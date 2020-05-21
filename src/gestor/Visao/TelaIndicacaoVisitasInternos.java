@@ -12,7 +12,6 @@ import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.ModeloTabela;
 import gestor.Modelo.IndicacaoVisitas;
 import gestor.Modelo.LogSistema;
-import static gestor.Visao.TelaAtendimentoSocial.jIDAtend;
 import static gestor.Visao.TelaAtendimentoSocial.jIDInterno;
 import static gestor.Visao.TelaAtendimentoSocial.jNomeInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -26,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaAtendimentoSocial.jIdADM_Principal;
 
 /**
  *
@@ -64,7 +64,7 @@ public class TelaIndicacaoVisitasInternos extends javax.swing.JDialog {
         preencherTabelaIndicacao("SELECT * FROM INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL "
                 + "INNER JOIN ATENDIMENTOSOCIAL "
                 + "ON INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL.IdAtend=ATENDIMENTOSOCIAL.IdAtend "
-                + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIDAtend.getText() + "'");
+                + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIdADM_Principal.getText() + "'");
     }
 
     /**
@@ -454,7 +454,7 @@ public class TelaIndicacaoVisitasInternos extends javax.swing.JDialog {
                 preencherTabelaIndicacao("SELECT * FROM INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL "
                         + "INNER JOIN ATENDIMENTOSOCIAL "
                         + "ON INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL.IdAtend=ATENDIMENTOSOCIAL.IdAtend "
-                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIDAtend.getText() + "'");
+                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIdADM_Principal.getText() + "'");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
@@ -475,7 +475,7 @@ public class TelaIndicacaoVisitasInternos extends javax.swing.JDialog {
             objInd.setGrauParentesco(jGrauParentesco.getText());
             objInd.setNomeVisitante(jNomeVisitante.getText());
             objInd.setTextoArea(jTextoArea.getText());
-            objInd.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+            objInd.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
             objInd.setNomeInternoCrc(jNomeInterno.getText());
             objInd.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
             if (acao == 1) {
@@ -491,7 +491,7 @@ public class TelaIndicacaoVisitasInternos extends javax.swing.JDialog {
                 preencherTabelaIndicacao("SELECT * FROM INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL "
                         + "INNER JOIN ATENDIMENTOSOCIAL "
                         + "ON INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL.IdAtend=ATENDIMENTOSOCIAL.IdAtend "
-                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIDAtend.getText() + "'");
+                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIdADM_Principal.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
             if (acao == 2) {
@@ -507,7 +507,7 @@ public class TelaIndicacaoVisitasInternos extends javax.swing.JDialog {
                 preencherTabelaIndicacao("SELECT * FROM INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL "
                         + "INNER JOIN ATENDIMENTOSOCIAL "
                         + "ON INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL.IdAtend=ATENDIMENTOSOCIAL.IdAtend "
-                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIDAtend.getText() + "'");
+                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIdADM_Principal.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
         }
@@ -541,7 +541,7 @@ public class TelaIndicacaoVisitasInternos extends javax.swing.JDialog {
                 conecta.executaSQL("SELECT * FROM INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL "
                         + "INNER JOIN ATENDIMENTOSOCIAL "
                         + "ON INDICACAO_VISITA_INTERNO_SERVICO_SOCIAL.IdAtend=ATENDIMENTOSOCIAL.IdAtend "
-                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIDAtend.getText() + "' "
+                        + "WHERE ATENDIMENTOSOCIAL.IdAtend='" + jIdADM_Principal.getText() + "' "
                         + "AND IdInd='" + idAtend + "'");
                 conecta.rs.first();
                 jIdIndicacao.setText(String.valueOf(conecta.rs.getInt("IdInd")));

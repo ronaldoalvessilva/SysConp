@@ -28,6 +28,7 @@ import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
 import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoaAtividadesJURI;
+import static gestor.Visao.TelaNovaAdmissaoJuridico.jStatusLancAD;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -389,7 +390,7 @@ public class TelaAtividadesRealizadasADM_NOVA extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codIncluirJURI == 1) {         
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
+            if (jStatusLancAD.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possivel adicionar atividades, registro já finalizado.");
             } else if (jComboBoxDescricaoAtividade.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário selecionar uma atividade.");
@@ -422,7 +423,7 @@ public class TelaAtividadesRealizadasADM_NOVA extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codExcluirJURI == 1) {
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
+            if (jStatusLancAD.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir atividades, registro já finalizado.");
             } else {
                 if (jTabelaRegistrosAtividades.getSelectedRow() != -1) {
@@ -447,7 +448,7 @@ public class TelaAtividadesRealizadasADM_NOVA extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codGravarJURI == 1) {
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
+            if (jStatusLancAD.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possivel confirmar atividades, registro já finalizado.");
             } else {
                 verificarSituacaoInternoCrc();

@@ -18,11 +18,13 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AdmissaoPedagogica;
 import gestor.Modelo.EvolucaoPedagogica;
 import gestor.Modelo.FamiliaAdmissaoPedagogica;
 import gestor.Modelo.FemininoAdmissaoPedago;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Modelo.SocializacaoAdmPedagogica;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -88,6 +90,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -147,6 +152,11 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
     String pCODIGO_INTERNO = "";
+    //EVOLUÇÃO DA ADMISSAO
+    String admEvolucao = "Sim";
+    String nomeUserRegistro;
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_PEDAGOGIA = "Não";
 
     /**
      * Creates new form AdmissaoEvolucaoPsicologica
@@ -330,7 +340,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jQualProblemaAprendizado = new javax.swing.JTextArea();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jObservacaoSocializacao = new javax.swing.JTextArea();
+        jEvolucaoADM = new javax.swing.JTextArea();
         jLabel31 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jBtNovaSocializacao = new javax.swing.JButton();
@@ -1742,14 +1752,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jQualProblemaAprendizado.setEnabled(false);
         jScrollPane4.setViewportView(jQualProblemaAprendizado);
 
-        jObservacaoSocializacao.setColumns(20);
-        jObservacaoSocializacao.setRows(5);
-        jObservacaoSocializacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObservacaoSocializacao.setEnabled(false);
-        jScrollPane5.setViewportView(jObservacaoSocializacao);
+        jEvolucaoADM.setColumns(20);
+        jEvolucaoADM.setRows(5);
+        jEvolucaoADM.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jEvolucaoADM.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEvolucaoADM.setEnabled(false);
+        jScrollPane5.setViewportView(jEvolucaoADM);
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel31.setText("Observação:");
+        jLabel31.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel31.setText("Evolução Admissão");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1822,7 +1834,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel31)
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                 .addContainerGap())
@@ -2798,7 +2810,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 jRepetencias.setText(conecta.rs.getString("Repetencias"));
                 jComboBoxAntecedentes.setSelectedItem(conecta.rs.getString("Antecedentes"));
                 jQualProblemaAprendizado.setText(conecta.rs.getString("QualProblemaAprendizado"));
-                jObservacaoSocializacao.setText(conecta.rs.getString("ObservacaoSocializacao"));
+                jEvolucaoADM.setText(conecta.rs.getString("ObservacaoSocializacao"));
                 if (codigoSocia != 0) {
                     jBtNovaSocializacao.setEnabled(true);
                     jBtAlterarSocializacao.setEnabled(true);
@@ -2972,7 +2984,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                 objAdmPedago.setUltimaEscola(jUltimaEscola.getText());
                 objAdmPedago.setSerieAno((String) jComboBoxSerieAno.getSelectedItem());
-                objAdmPedago.setTurno((String)jComboBoxTurno.getSelectedItem());
+                objAdmPedago.setTurno((String) jComboBoxTurno.getSelectedItem());
                 objAdmPedago.setObservacao(jObservacao.getText());
                 if (acao == 1) {
                     if (jIdInternoAdm.getText().equals(pCODIGO_INTERNO)) {
@@ -2996,6 +3008,39 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                         objAdmPedago.setDeptoPedagogia(deptoTecnico);
                         controleMov.incluirMovTec(objAdmPedago);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());//
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_PEDAGOGIA = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objPortaEntrada.setHabPed(pHABILITA_PEDAGOGIA);
+                        control_PE.alterarPortaEntradaPedagogia(objPortaEntrada);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         bloquearCampos();
@@ -3375,7 +3420,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 objSociaAdmPedago.setRepetencias(jRepetencias.getText());
                 objSociaAdmPedago.setAntecedentes((String) jComboBoxAntecedentes.getSelectedItem());
                 objSociaAdmPedago.setQualProblemaAprendizado(jQualProblemaAprendizado.getText());
-                objSociaAdmPedago.setObservacaoSocializacao(jObservacaoSocializacao.getText());
+                objSociaAdmPedago.setObservacaoSocializacao(jEvolucaoADM.getText());
                 objSociaAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                 objSociaAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                 objSociaAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
@@ -3389,6 +3434,25 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         //
                         controleSocial.incluirAdmissaoSocializaEscolar(objSociaAdmPedago);
                         buscarSocializacao();
+                        //EVOLUÇÃO ADMISSÃO
+                        objEvolucaoAdmPedago.setDataEvolucao(jDataAdm.getDate());
+                        objEvolucaoAdmPedago.setHistorico(jEvolucaoADM.getText());
+                        objEvolucaoAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objEvolucaoAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objEvolucaoAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                        objEvolucaoAdmPedago.setUsuarioInsert(nameUser);
+                        objEvolucaoAdmPedago.setDataInsert(dataModFinal);
+                        objEvolucaoAdmPedago.setHorarioInsert(horaMov);
+                        objEvolucaoAdmPedago.setAdmEvo(admEvolucao);
+                        //
+                        controleEvol.incluirEvolucaoPedADM(objEvolucaoAdmPedago);
+                        buscarEvolucao();
+                        preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
+                                + "INNER JOIN ADMISSAO_PEDAGOGIA "
+                                + "ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
                         //
                         objLog3();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação            
@@ -3406,7 +3470,25 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     //
                     objSociaAdmPedago.setIdSocial(codigoSocia);
                     controleSocial.alterarAdmissaoSocializaEscolar(objSociaAdmPedago);
+                    //EVOLUÇÃO ADMISSÃO
+                    objEvolucaoAdmPedago.setDataEvolucao(jDataAdm.getDate());
+                    objEvolucaoAdmPedago.setHistorico(jEvolucaoADM.getText());
+                    objEvolucaoAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objEvolucaoAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objEvolucaoAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objEvolucaoAdmPedago.setUsuarioUp(nameUser);
+                    objEvolucaoAdmPedago.setDataUp(dataModFinal);
+                    objEvolucaoAdmPedago.setHorarioUp(horaMov);
+                    objEvolucaoAdmPedago.setAdmEvo(admEvolucao);
                     //
+                    objEvolucaoAdmPedago.setIdEvolucao(Integer.valueOf(jCodigoAdmissao.getText()));
+                    controleEvol.alterarEvolucaoPedADM(objEvolucaoAdmPedago);
+                    preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
+                            + "INNER JOIN ADMISSAO_PEDAGOGIA "
+                            + "ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
                     objLog3();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação            
                     bloquearCampos();
@@ -3600,15 +3682,58 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEvolucao_PEDA);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEvolucao_PEDA) && codAlterarPEDA == 1) {
-            acao = 10;
-            bloquearCampos();
-            bloquearBotoes();
-            corCampos();
-            AlterarEvolucao();
-            preencherComboBoxDepartamento();
-            statusMov = "Alterar";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            verificarEvolucaoAdmissao();
+            if (admEvolucao == null) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
+                            + "WHERE IdEvolucao='" + jCodigoEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 10;
+                    bloquearCampos();
+                    bloquearBotoes();
+                    corCampos();
+                    AlterarEvolucao();
+                    preencherComboBoxDepartamento();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("")) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
+                            + "WHERE IdEvolucao='" + jCodigoEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 10;
+                    bloquearCampos();
+                    bloquearBotoes();
+                    corCampos();
+                    AlterarEvolucao();
+                    preencherComboBoxDepartamento();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -3945,6 +4070,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public static com.toedter.calendar.JDateChooser jDataNascimentoInternoAdm;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private javax.swing.JTextArea jEvolucaoADM;
     public static javax.swing.JLabel jFotoInternoPedagogia;
     private javax.swing.JFormattedTextField jHoraEnvioEvo;
     private javax.swing.JTextField jIDPesqLan;
@@ -4024,7 +4150,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jNomeInternoEvolucao;
     private javax.swing.JCheckBox jObediente;
     private javax.swing.JTextArea jObservacao;
-    private javax.swing.JTextArea jObservacaoSocializacao;
     private javax.swing.JCheckBox jOutros;
     public static javax.swing.JTextField jPaiInternoAdm;
     private javax.swing.JPanel jPanel1;
@@ -4238,7 +4363,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             jRepetencias.setText(conecta.rs.getString("Repetencias"));
             jComboBoxAntecedentes.setSelectedItem(conecta.rs.getString("Antecedentes"));
             jQualProblemaAprendizado.setText(conecta.rs.getString("QualProblemaAprendizado"));
-            jObservacaoSocializacao.setText(conecta.rs.getString("ObservacaoSocializacao"));
+            jEvolucaoADM.setText(conecta.rs.getString("ObservacaoSocializacao"));
             if (codigoSocia != 0) {
                 jBtNovaSocializacao.setEnabled(true);
                 jBtAlterarSocializacao.setEnabled(true);
@@ -4317,8 +4442,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
         jQualProblemaAprendizado.setLineWrap(true);
         jQualProblemaAprendizado.setWrapStyleWord(true);
-        jObservacaoSocializacao.setLineWrap(true);
-        jObservacaoSocializacao.setWrapStyleWord(true);
+        jEvolucaoADM.setLineWrap(true);
+        jEvolucaoADM.setWrapStyleWord(true);
         // FEMININO
         jTextoComoFoiGestacao.setLineWrap(true);
         jTextoComoFoiGestacao.setWrapStyleWord(true);
@@ -4373,7 +4498,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setBackground(Color.white);
         jComboBoxAntecedentes.setBackground(Color.white);
         jQualProblemaAprendizado.setBackground(Color.white);
-        jObservacaoSocializacao.setBackground(Color.white);
+        jEvolucaoADM.setBackground(Color.white);
         //FEMININO
         jComboBoxFilhoDesejado.setBackground(Color.white);
         jComboBoxQueriaEngravidar.setBackground(Color.white);
@@ -4442,7 +4567,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setEnabled(!true);
         jComboBoxAntecedentes.setEnabled(!true);
         jQualProblemaAprendizado.setEnabled(!true);
-        jObservacaoSocializacao.setEnabled(!true);
+        jEvolucaoADM.setEnabled(!true);
         //FEMININO
         jComboBoxFilhoDesejado.setEnabled(!true);
         jComboBoxQueriaEngravidar.setEnabled(!true);
@@ -4514,7 +4639,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setText("");
         jComboBoxAntecedentes.setSelectedItem("Não");
         jQualProblemaAprendizado.setText("");
-        jObservacaoSocializacao.setText("");
+        jEvolucaoADM.setText("");
         //FEMININO
         jComboBoxFilhoDesejado.setSelectedItem("Não");
         jComboBoxQueriaEngravidar.setSelectedItem("Não");
@@ -4583,6 +4708,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void Novo() {
         jStatusAdm.setText("ABERTO");
         jDataAdm.setCalendar(Calendar.getInstance());
+        jEvolucaoADM.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         //
         jDataAdm.setEnabled(true);
         jUltimaEscola.setEnabled(true);
@@ -5083,7 +5209,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setText("");
         jComboBoxAntecedentes.setSelectedItem("Não");
         jQualProblemaAprendizado.setText("");
-        jObservacaoSocializacao.setText("");
+        jEvolucaoADM.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         //
         jAmigosFacilidade.setEnabled(true);
         jIntrovertido.setEnabled(true);
@@ -5101,7 +5227,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setEnabled(true);
         jComboBoxAntecedentes.setEnabled(true);
         jQualProblemaAprendizado.setEnabled(true);
-        jObservacaoSocializacao.setEnabled(true);
+        jEvolucaoADM.setEnabled(true);
         //
         jBtNovaSocializacao.setEnabled(!true);
         jBtAlterarSocializacao.setEnabled(!true);
@@ -5128,7 +5254,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setEnabled(true);
         jComboBoxAntecedentes.setEnabled(true);
         jQualProblemaAprendizado.setEnabled(true);
-        jObservacaoSocializacao.setEnabled(true);
+        jEvolucaoADM.setEnabled(true);
         //
         jBtNovaSocializacao.setEnabled(!true);
         jBtAlterarSocializacao.setEnabled(!true);
@@ -5155,7 +5281,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setText("");
         jComboBoxAntecedentes.setSelectedItem("Não");
         jQualProblemaAprendizado.setText("");
-        jObservacaoSocializacao.setText("");
+        jEvolucaoADM.setText("");
         //
         jAmigosFacilidade.setEnabled(!true);
         jIntrovertido.setEnabled(!true);
@@ -5173,7 +5299,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setEnabled(!true);
         jComboBoxAntecedentes.setEnabled(!true);
         jQualProblemaAprendizado.setEnabled(!true);
-        jObservacaoSocializacao.setEnabled(!true);
+        jEvolucaoADM.setEnabled(!true);
         //
         jBtNovaSocializacao.setEnabled(true);
         jBtAlterarSocializacao.setEnabled(!true);
@@ -5200,7 +5326,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setEnabled(!true);
         jComboBoxAntecedentes.setEnabled(!true);
         jQualProblemaAprendizado.setEnabled(!true);
-        jObservacaoSocializacao.setEnabled(!true);
+        jEvolucaoADM.setEnabled(!true);
         // SOCIALIZAÇÃO
         jBtNovaSocializacao.setEnabled(true);
         jBtAlterarSocializacao.setEnabled(true);
@@ -5241,7 +5367,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setEnabled(!true);
         jComboBoxAntecedentes.setEnabled(!true);
         jQualProblemaAprendizado.setEnabled(!true);
-        jObservacaoSocializacao.setEnabled(!true);
+        jEvolucaoADM.setEnabled(!true);
         //
         conecta.abrirConexao();
         try {
@@ -5307,7 +5433,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             jRepetencias.setText(conecta.rs.getString("Repetencias"));
             jComboBoxAntecedentes.setSelectedItem(conecta.rs.getString("Antecedentes"));
             jQualProblemaAprendizado.setText(conecta.rs.getString("QualProblemaAprendizado"));
-            jObservacaoSocializacao.setText(conecta.rs.getString("ObservacaoSocializacao"));
+            jEvolucaoADM.setText(conecta.rs.getString("ObservacaoSocializacao"));
             if (codigoSocia != 0) {
                 jBtNovaSocializacao.setEnabled(true);
                 jBtAlterarSocializacao.setEnabled(true);
@@ -5920,7 +6046,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         //
         jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 
     public void limparTabelaEvolucao() {
@@ -6047,6 +6172,22 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             codGravarPEDA = conecta.rs.getInt("Gravar");
             codConsultarPEDA = conecta.rs.getInt("Consultar");
             nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
+    // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
+    public void verificarEvolucaoAdmissao() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
+                    + "WHERE IdAdm='" + jCodigoAdmissao.getText() + "' "
+                    + "AND IdEvolucao='" + jCodigoEvolucao.getText() + "'");
+            conecta.rs.first();
+            admEvolucao = conecta.rs.getString("AdmEvo");
         } catch (Exception e) {
         }
         conecta.desconecta();

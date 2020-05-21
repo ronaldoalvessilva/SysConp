@@ -69,7 +69,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" pref="521" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" pref="522" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -118,7 +118,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="331" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="332" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="jPanel47" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -551,7 +551,7 @@
                               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jPanel11" max="32767" attributes="0"/>
-                                  <Component id="jPanel6" max="32767" attributes="0"/>
+                                  <Component id="jPanel6" pref="522" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -564,24 +564,25 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jPanel17" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
                                               <Component id="jPanel43" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                               <Component id="jPanel19" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                               <Component id="jPanel44" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jPanel12" pref="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jPanel10" max="32767" attributes="0"/>
+                                                  <Component id="jPanel12" max="32767" attributes="0"/>
+                                              </Group>
                                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                              <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jPanel16" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="jPanel17" max="32767" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -593,7 +594,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Component id="jPanel6" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                                   <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
@@ -618,9 +619,8 @@
                                       <Component id="jPanel43" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                              <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -646,37 +646,42 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jIdInternoEnfermeiroAD" linkSize="2" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
                                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jIdLanc" linkSize="2" min="-2" pref="56" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
+                                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
+                                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jStatusLanc" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jDataLanc" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jNomeInternoEnfermeiroAD" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jIdInternoEnfermeiroAD" linkSize="2" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
                                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jIdADM_Secundaria" linkSize="2" min="-2" pref="56" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
+                                                  <Component id="jIdADM_Princial" max="32767" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jStatusLanc" min="-2" pref="278" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jDataLanc" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
                                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
-                                              <Component id="jNomeInternoEnfermeiroAD" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -686,15 +691,17 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jIdLanc" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jIdADM_Princial" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jIdADM_Secundaria" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jStatusLanc" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jDataLanc" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                                   </Group>
@@ -703,12 +710,12 @@
                                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jIdInternoEnfermeiroAD" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jNomeInternoEnfermeiroAD" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -722,7 +729,7 @@
                             <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jIdLanc">
+                        <Component class="javax.swing.JTextField" name="jIdADM_Secundaria">
                           <Properties>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -839,6 +846,25 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel4">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Tahoma" size="11" style="1"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="A.Principal"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="jIdADM_Princial">
+                          <Properties>
+                            <Property name="horizontalAlignment" type="int" value="4"/>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                                <BevelBorder bevelType="1"/>
+                              </Border>
+                            </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="jPanel10">
@@ -869,7 +895,7 @@
                                   <Component id="jRBTrite" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jRBAgitado" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="16" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1269,7 +1295,7 @@
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="N&#xed;vel de Consci&#xea;ncia">
+                            <TitledBorder title="N&#xed;vel Consci&#xea;ncia">
                               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                                 <LineBorder roundedCorners="true"/>
                               </Border>
@@ -1283,7 +1309,7 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jRBDesorientado" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jRBOrientado" alignment="0" min="-2" max="-2" attributes="0"/>

@@ -1652,25 +1652,30 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                                         objItemSaida.setIdItemSaida(codItem);
                                         objItemSaida.setInternoEvadido(evadido);
                                         controle.incluirItensSaidaPortaria(objItemSaida); // Registros para portaria na tabela ITENSCRCPORTARIA
-                                        if (jDescricaoOp.getText().equals(saidaAudiencia)) { // quando a saida for para audiencia
-                                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja lançar histórico de movimentação do interno?", "Confirmação",
-                                                    JOptionPane.YES_NO_OPTION);
-                                            if (resposta == JOptionPane.YES_OPTION) {
-                                                //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC                                            
-                                                objItemSaida.setIdItemSaida(codItem);
-                                                controlMov.incluirMovSaida(objItemSaida);
-                                                objLog2();
-                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                            }
-                                        } else {
-                                            if (!jDescricaoOp.getText().equals(saidaAudiencia)) {
-                                                //Inserir na tabela de movimentação (SAIDA)                                             
-                                                objItemSaida.setIdItemSaida(codItem);
-                                                controlMov.incluirMovSaida(objItemSaida);
-                                                objLog2();
-                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                            }
-                                        }
+                                        //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC                                            
+                                        objItemSaida.setIdItemSaida(codItem);
+                                        controlMov.incluirMovSaida(objItemSaida);
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                                        if (jDescricaoOp.getText().equals(saidaAudiencia)) { // quando a saida for para audiencia
+//                                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja lançar histórico de movimentação do interno?", "Confirmação",
+//                                                    JOptionPane.YES_NO_OPTION);
+//                                            if (resposta == JOptionPane.YES_OPTION) {
+//                                                //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC                                            
+//                                                objItemSaida.setIdItemSaida(codItem);
+//                                                controlMov.incluirMovSaida(objItemSaida);
+//                                                objLog2();
+//                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                                            }
+//                                        } else {
+//                                            if (!jDescricaoOp.getText().equals(saidaAudiencia)) {
+//                                                //Inserir na tabela de movimentação (SAIDA)                                             
+//                                                objItemSaida.setIdItemSaida(codItem);
+//                                                controlMov.incluirMovSaida(objItemSaida);
+//                                                objLog2();
+//                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                                            }
+//                                        }
                                         buscarItemInternoAgenda(); // BUSCAR ITEM DA TABELA ITENSAGENDA PARA MODIFICAR A RESPOSTA DE "Sim" PARA "Não"
                                         modificarAgendaEscolta();
                                         SalvarItem();
@@ -1697,23 +1702,24 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                                         objItemSaida.setInternoEvadido(evadido);
                                         objItemSaida.setIdItemSaida(Integer.valueOf(idItem));
                                         controle.alterarItensSaidaPortaria(objItemSaida);
+                                        verificaSaidaAudiencia();
                                         objDadosSaidaRetornoInterno();
                                         controlMovSaiRet.alterarMovSaidaEvasao(objMovSaiRetornoEva);
-                                        if (jDescricaoOp.getText().equals(saidaAudiencia)) { // quando a saida for para audiencia
-                                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja lançar histórico de movimentação do interno?", "Confirmação",
-                                                    JOptionPane.YES_NO_OPTION);
-                                            if (resposta == JOptionPane.YES_OPTION) {
-                                                verificaSaidaAudiencia();
-                                            }
-                                        } else {
-                                            if (!jDescricaoOp.getText().equals(saidaAudiencia)) {
-                                                verificaSaidaAudiencia();
-                                                objDadosSaidaRetornoInterno();
-                                                controlMovSaiRet.alterarMovSaidaEvasao(objMovSaiRetornoEva);
-                                                objLog2();
-                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                            }
-                                        }
+//                                        if (jDescricaoOp.getText().equals(saidaAudiencia)) { // quando a saida for para audiencia
+//                                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja lançar histórico de movimentação do interno?", "Confirmação",
+//                                                    JOptionPane.YES_NO_OPTION);
+//                                            if (resposta == JOptionPane.YES_OPTION) {
+//                                                verificaSaidaAudiencia();
+//                                            }
+//                                        } else {
+//                                            if (!jDescricaoOp.getText().equals(saidaAudiencia)) {
+//                                        verificaSaidaAudiencia();
+//                                        objDadosSaidaRetornoInterno();
+//                                        controlMovSaiRet.alterarMovSaidaEvasao(objMovSaiRetornoEva);
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                                            }
+//                                        }
                                         // SE MUDAR O CÓDIGO DO INTERNO
                                         if (jIDInterno.getText() == null ? codInternoAnt != null : !jIDInterno.getText().equals(codInternoAnt)) {
                                             buscarItemInternoAgenda1();

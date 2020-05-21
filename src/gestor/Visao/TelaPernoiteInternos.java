@@ -2238,8 +2238,9 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setEnabled(true);
         jNomeMaeInterno.setEnabled(true);
         jNomePaiInterno.setEnabled(true);
-        jComboBoxOperacaoEntrada.setEnabled(true);
-        jDataEntrada.setEnabled(true);
+        jComboBoxOperacaoEntrada.setSelectedItem("Entrada");
+        jComboBoxOperacaoEntrada.setEnabled(!true);
+        jDataEntrada.setEnabled(!true);
         jHoraEntrada.setEnabled(true);
         //
         jBtSalvarInterno.setEnabled(true);
@@ -2253,7 +2254,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setEnabled(true);
         jNomeMaeInterno.setEnabled(true);
         jNomePaiInterno.setEnabled(true);
-        jDataEntrada.setEnabled(true);
+        jDataEntrada.setEnabled(!true);
         jHoraEntrada.setEnabled(true);
         jComboBoxOperacaoSaida.setEnabled(true);
         jDataSaida.setEnabled(true);

@@ -8,12 +8,12 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEnfermagem;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.acao;
-import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdLanc;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.statusCabelos;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.statusFuncaoRespiratoria;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.statusTorax;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdADM_Secundaria;
 
 /**
  *
@@ -357,7 +357,7 @@ public class TelaFT1 extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAOENFERMEIRA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
             conecta.rs.first();
             statusCabelos = conecta.rs.getInt("Cabelos");
             statusFuncaoRespiratoria = conecta.rs.getInt("FuncaoRespiratoria");

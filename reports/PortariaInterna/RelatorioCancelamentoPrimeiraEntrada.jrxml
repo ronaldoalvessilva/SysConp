@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioCancelamentoPrimeiraEntrada" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="938ac8d9-b9f6-4a91-af51-dc2e6f80d17e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="pCodigo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\PortariaInterna\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pUNIDADE" class="java.lang.String"/>
+	<parameter name="pUSUARIO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM REGISTROCANCELADO WHERE Idlanc=$P{pCodigo}]]>
+	</queryString>
+	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="StatusLanc" class="java.lang.String"/>
+	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="Motivo" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<title>
+		<band height="173" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="2" width="555" height="171" uuid="0cc9a620-bdc1-4b1f-94ec-81ed4ac70169"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="49" y="44" width="59" height="15" forecolor="#000000" uuid="fb40f780-22f0-44c5-9271-6ff81473ce5b"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Registro:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="114" y="45" width="46" height="15" uuid="944db3f1-e1fa-4ed1-a95d-075b7ed20100"/>
+				<textFieldExpression><![CDATA[$F{IdLanc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="49" y="60" width="59" height="15" forecolor="#000000" uuid="3e6ead26-54bd-4de2-8a15-84d674f6a223"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Status:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="113" y="60" width="90" height="15" uuid="8d9c4153-cab8-4351-8ccc-ddaa15c7416b"/>
+				<textFieldExpression><![CDATA[$F{StatusLanc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="24" y="75" width="84" height="15" forecolor="#000000" uuid="7aa58244-3dea-41b4-845e-e12b957e8933"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Data Registro:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="112" y="75" width="72" height="15" uuid="98da279c-b90e-482f-9c70-369345711cab"/>
+				<textFieldExpression><![CDATA[$F{DataLanc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="59" y="92" width="49" height="15" forecolor="#000000" uuid="d76337c7-029a-401e-a49b-767d65a3f715"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Motivo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="111" y="92" width="420" height="36" uuid="b75ecaae-38ea-4929-80d5-e7830d17e656"/>
+				<textFieldExpression><![CDATA[$F{Motivo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="14" width="242" height="20" uuid="3ec935a2-cf01-44e5-8b76-7ca576049335"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="138" width="544" height="20" uuid="873a0dd4-42fb-4d05-bf83-2f774fe8b2e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Cancelamento de Entrada de Internos - PRIMEIRA VEZ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="263" y="14" width="286" height="20" uuid="6ed6b1e9-dbf8-489c-b4c7-3eec8b70b8e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pUNIDADE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" uuid="5e02330a-7b3d-4a98-9243-4847a49dbb72"/>
+			</rectangle>
+			<subreport>
+				<reportElement x="1" y="22" width="200" height="16" uuid="d03827d3-6b5d-4491-8847-b86a3de57e81"/>
+				<subreportParameter name="codReq">
+					<subreportParameterExpression><![CDATA[$F{IdLanc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioCancelamentoPrimeiraEntrada.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="9" y="0" width="100" height="22" uuid="501c6aae-1bef-49c1-a1a1-53b9b8984663"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="1" width="257" height="20" uuid="210f5b80-fcfd-4b00-832f-d3acc2d8cf49"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="2" width="54" height="20" uuid="f152b65f-a36a-49c3-8579-b9c3dd06bc7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="1" width="100" height="20" uuid="1c8418f6-646f-46e9-9600-f4aa0bfd796e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="b6ec83ac-1cc3-4deb-817b-aba88224c33c"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="79fe5daa-201a-4c02-a479-a84eeb566edb"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="d75f5552-d1f9-4015-8bfc-e04648a09976"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="49fea46c-e22f-402c-beb3-bbf99db4716d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="219" y="2" width="234" height="20" uuid="07c49c8d-225f-4d99-a69a-56e75b00adee"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pUSUARIO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

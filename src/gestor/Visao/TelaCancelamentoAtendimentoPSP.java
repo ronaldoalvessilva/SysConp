@@ -12,6 +12,7 @@ import Utilitarios.ModeloTabela;
 import gestor.Modelo.CancelamentoAssinaturaInternoPSP;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloEducacaoFisica.nomeModuloEF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloJuridico.nomeModuloJURI;
 import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
@@ -953,6 +954,12 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
             TelaModuloPedagogia.jPainelPedagogia.add(obj_PESQUISA_PEDAGOGIA);
             obj_PESQUISA_PEDAGOGIA.show();
         } 
+        if(TelaModuloEducacaoFisica.jPainelEducacaoFisica != null){
+            pesquisarDepartamento(nomeModuloEF);
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_EDUCACAO_FISICA = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(obj_PESQUISA_EDUCACAO_FISICA);
+            obj_PESQUISA_EDUCACAO_FISICA.show();
+        }
     }//GEN-LAST:event_jBtPesquisarRegistroActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -990,6 +997,10 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         } else if (TelaModuloPedagogia.jPainelPedagogia != null) {
             pesquisarDepartamento(nomeModuloPEDA);
             TelaModuloPedagogia.jPainelPedagogia.add(objAudRegAtend);
+            objAudRegAtend.show();
+        }else if(TelaModuloEducacaoFisica.jPainelEducacaoFisica != null){
+            pesquisarDepartamento(nomeModuloEF);
+            TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAudRegAtend);
             objAudRegAtend.show();
         }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
@@ -1150,7 +1161,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
             pCODIGO_INTERNO_EXCLUIDO = conecta.rs.getString("IdInternoCrc");
             pCODIGO_REGISTRO_ASSINATURA_INT = conecta.rs.getString("IdRegistro");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar ATENDIMENTO \nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar ATENDIMENTO. \nERRO: " + ex);
         }
         conecta.desconecta();
     }

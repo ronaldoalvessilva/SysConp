@@ -22,7 +22,7 @@ public class ControleEvolucaoPsiquiatrica {
     public EvolucaoPsiquiatrica incluirEvolucaoPsiquiatrica(EvolucaoPsiquiatrica objDiag) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_PSIQUIATRICA (DataEvol,IdLanc,IdInternoCrc,EvolucaoPsiquiatrica,UsuarioInsert,DataInsert,HorarioInsert,HipoteseDiagnostica,ExamesSolicitados,Patologia) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_PSIQUIATRICA (DataEvol,IdLanc,IdInternoCrc,EvolucaoPsiquiatrica,UsuarioInsert,DataInsert,HorarioInsert,HipoteseDiagnostica,ExamesSolicitados,Patologia,AdmEvo) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objDiag.getDataDiag().getTime()));
             pst.setInt(2, objDiag.getIdLanc());
             pst.setInt(3, objDiag.getIdInternoCrc());
@@ -33,6 +33,7 @@ public class ControleEvolucaoPsiquiatrica {
             pst.setString(8, objDiag.getHipoteseDiagnostica());
             pst.setString(9, objDiag.getExamesSolicitados());
             pst.setString(10, objDiag.getPatologiaAdquidida());
+            pst.setString(11, objDiag.getAdmEvo());
             pst.execute();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + e);
@@ -70,6 +71,21 @@ public class ControleEvolucaoPsiquiatrica {
             pst.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + e);
+        }
+        conecta.desconecta();
+        return objDiag;
+    }
+    public EvolucaoPsiquiatrica alterarEvolucaoPsiquiatricaADM(EvolucaoPsiquiatrica objDiag) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_PSIQUIATRICA SET EvolucaoPsiquiatrica=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objDiag.getIdLanc()+ "'AND AdmEvo='" + objDiag.getAdmEvo()  + "'");
+            pst.setString(1, objDiag.getEvolucaoPsiquiatrica());
+            pst.setString(2, objDiag.getUsuarioUp());
+            pst.setString(3, objDiag.getDataUp());
+            pst.setString(4, objDiag.getHorarioUp());
+            pst.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + e);
         }
         conecta.desconecta();
         return objDiag;

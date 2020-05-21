@@ -103,58 +103,58 @@
             <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="AtendimentoJuridico">
+            <MenuItem class="javax.swing.JMenuItem" name="jAtendimentoJuridico">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Admiss&#xe3;o/Atendimento Jur&#xed;dico"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtendimentoJuridicoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtendimentoJuridicoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator5">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="jFichaJuridica">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ficha Jur&#xed;dica"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFichaJuridicaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="Beneficios">
+            <MenuItem class="javax.swing.JMenuItem" name="jBeneficios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agendamento de Benef&#xed;cios de Internos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BeneficiosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBeneficiosActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="AtendimentoFamiliar">
+            <MenuItem class="javax.swing.JMenuItem" name="jAtendimentoFamiliar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atendimento Familiar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtendimentoFamiliarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtendimentoFamiliarActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="AtendimentoJudiciario">
+            <MenuItem class="javax.swing.JMenuItem" name="jAtendimentoJudiciario">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Audi&#xea;ncia de Justificativa"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtendimentoJudiciarioActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtendimentoJudiciarioActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator7">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="LivroOcorrencia">
+            <MenuItem class="javax.swing.JMenuItem" name="jLivroOcorrencia">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Livro de Ocorr&#xea;ncias"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LivroOcorrenciaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLivroOcorrenciaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -6,7 +6,6 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.EmpresaLab;
 import gestor.Modelo.RegistroCanceladoCrc;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

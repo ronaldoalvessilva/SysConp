@@ -24,6 +24,7 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaAdmissaoPsicologica.jIdInterno;
+import static gestor.Visao.TelaAdmissaoPsicologica.jIdLanc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -197,7 +198,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jBtIDPesq = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jPesqNomeInterno = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
+        jBtPesquisaNome = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jDataInicial = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
@@ -218,13 +219,13 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jNomeInterno = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jIdLanc = new javax.swing.JTextField();
+        jIdADM_NOVA = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jStatusLanc = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jDataLanc = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        jIdAdm = new javax.swing.JTextField();
+        jIdADM_Principal = new javax.swing.JTextField();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -355,11 +356,11 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
 
         jPesqNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jButton10.setContentAreaFilled(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jBtPesquisaNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisaNome.setContentAreaFilled(false);
+        jBtPesquisaNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jBtPesquisaNomeActionPerformed(evt);
             }
         });
 
@@ -422,7 +423,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jBtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
@@ -443,7 +444,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     .addComponent(jBtPesqDatas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton10)
+                    .addComponent(jBtPesquisaNome)
                     .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -574,9 +575,9 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código");
 
-        jIdLanc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdLanc.setEnabled(false);
+        jIdADM_NOVA.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdADM_NOVA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdADM_NOVA.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Status");
@@ -596,9 +597,9 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("ADM");
 
-        jIdAdm.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdAdm.setEnabled(false);
+        jIdADM_Principal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdADM_Principal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdADM_Principal.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -616,11 +617,11 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIdADM_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIdADM_Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -645,8 +646,8 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdADM_Principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdADM_NOVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1529,7 +1530,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+            .addComponent(jFotoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1553,7 +1554,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 135, Short.MAX_VALUE))
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1599,29 +1600,28 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (jIDPesq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
-        } else {
-            jTabelaAdmissaoPsicologica.setVisible(true);
+        } else {          
             preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdPortaPSI='" + jIDPesq.getText() + "'");
+                    + "WHERE IdPortaPSI='" + jIDPesq.getText() + "' ");
         }
     }//GEN-LAST:event_jBtIDPesqActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void jBtPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaNomeActionPerformed
         // TODO add your handling code here:
         flag = 1;
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             jPesqNomeInterno.requestFocus();
-        } else {
-            jTabelaAdmissaoPsicologica.setVisible(true);
+        } else {            
             preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "'");
         }
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_jBtPesquisaNomeActionPerformed
 
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
@@ -1647,7 +1647,10 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -1670,7 +1673,10 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "' "
+                                + "AND PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -1683,7 +1689,9 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE PORTA_ENTRADA_PSICOLOGIA.IdLanc='" + jIdLanc.getText() + "' "
+                    + "AND PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInterno.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -1700,7 +1708,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
             bloquearBotoes();
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
-            jBtExcluir.setEnabled(true);          
+            jBtExcluir.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //
@@ -1715,8 +1723,8 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE IdPortaPSI='" + IdLanc + "'");
                 conecta.rs.first();
-                jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdPortaPSI")));
-                jIdAdm.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+                jIdADM_NOVA.setText(String.valueOf(conecta.rs.getInt("IdPortaPSI")));
+                jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                 jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
                 jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
                 jIdInternoNovo.setText(conecta.rs.getString("IdInternoCrc"));
@@ -1855,13 +1863,13 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                 if (pHabilitaPsicologia.equals("Não")) {
                     acao = 1;
                     Novo();
-//                    verificarInternoRegistradoAdm();
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
                     preencherComboBoxDepartamento();
                     pesquisarInternoManual();
                 } else {
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1870,7 +1878,6 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
                         acao = 1;
-                        Novo();
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
                         dataModFinal = jDataSistema.getText();
@@ -1890,7 +1897,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAdmIntManuPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA WHERE IdPortaPSI='" + jIdLanc.getText() + "'");
+                conecta.executaSQL("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA WHERE IdPortaPSI='" + jIdADM_NOVA.getText() + "'");
                 conecta.rs.first();
                 nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
             } catch (SQLException ex) {
@@ -1923,7 +1930,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAdmIntManuPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA WHERE IdPortaPSI='" + jIdLanc.getText() + "'");
+                conecta.executaSQL("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA WHERE IdPortaPSI='" + jIdADM_NOVA.getText() + "'");
                 conecta.rs.first();
                 nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
             } catch (SQLException ex) {
@@ -1940,10 +1947,10 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objAdmPsi.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
                         control.excluirNovaAdmissaoPsi(objAdmPsi);
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());;
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objAdmPsi.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
                         controle.excluirMovTec(objAdmPsi);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1972,7 +1979,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                 if (jNomeInterno.getText().equals("")) {
                     JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno.");
                 } else {
-                    objAdmPsi.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                    objAdmPsi.setIdLanc(Integer.valueOf(jIdADM_Principal.getText()));
                     objAdmPsi.setStatusLanc(jStatusLanc.getText());
                     objAdmPsi.setDataLanc(jDataLanc.getDate());
                     // HISTORICO CRIMINAL
@@ -2069,7 +2076,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
                         control.incluirNovaAdmissaoPsi(objAdmPsi);
                         buscarID();
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objAdmPsi.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAdmPsi);
@@ -2082,7 +2089,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdADM_NOVA.getText()));
                         objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
@@ -2099,7 +2106,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
                         objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                         objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdADM_NOVA.getText()));
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         control_ATENDE.confirmarAtendimento(objRegAtend);
                         //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
@@ -2124,9 +2131,9 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         //
                         objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInternoNovo.getText()));
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
-                        objAdmPsi.setIdPortaPSI(Integer.valueOf(jIdLanc.getText()));
+                        objAdmPsi.setIdPortaPSI(Integer.valueOf(jIdADM_NOVA.getText()));
                         control.alterarNovaAdmissaoPsi(objAdmPsi);
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objAdmPsi.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.alterarMovTec(objAdmPsi);
                         //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
@@ -2157,7 +2164,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
-                    + "WHERE IdPortaPSI='" + jIdLanc.getText() + "'");
+                    + "WHERE IdPortaPSI='" + jIdADM_NOVA.getText() + "'");
             conecta.rs.first();
             jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -2202,7 +2209,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
 
     private void jBtTratamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtTratamentoActionPerformed
         // TODO add your handling code here:
-        if (jIdLanc.getText().equals("")) {
+        if (jIdADM_NOVA.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um registro de atendimento para iniciar ou terminar um tratamento.");
         } else {
             mostraTelaTratamentoPSI();
@@ -2263,10 +2270,10 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     private javax.swing.JButton jBtLocalizarVisitaRol;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqDatas;
+    private javax.swing.JButton jBtPesquisaNome;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtTratamento;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBoxAlcool;
     private javax.swing.JCheckBox jCheckBoxCigarro;
@@ -2298,9 +2305,9 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     private javax.swing.JTextArea jHistoricoCriminal;
     private javax.swing.JFormattedTextField jHoraAcompanha;
     private javax.swing.JTextField jIDPesq;
-    public static javax.swing.JTextField jIdAdm;
+    public static javax.swing.JTextField jIdADM_NOVA;
+    public static javax.swing.JTextField jIdADM_Principal;
     public static javax.swing.JTextField jIdInternoNovo;
-    public static javax.swing.JTextField jIdLanc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2424,7 +2431,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
                     + "AND ADMISSAOPSI.IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
-            jIdAdm.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
@@ -2479,16 +2486,16 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoNovo.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInterno.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoNovo.getText() + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInterno.getText() + "' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdADM_Principal.setText(jIdLanc.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
@@ -2569,8 +2576,8 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     }
 
     public void corCampos() {
-        jIdLanc.setBackground(Color.white);
-        jIdAdm.setBackground(Color.white);
+        jIdADM_NOVA.setBackground(Color.white);
+        jIdADM_Principal.setBackground(Color.white);
         jStatusLanc.setBackground(Color.white);
         jDataLanc.setBackground(Color.white);
         jIdInternoNovo.setBackground(Color.white);
@@ -2674,7 +2681,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     }
 
     public void limparCampos() {
-        jIdLanc.setText("");
+        jIdADM_NOVA.setText("");
         jStatusLanc.setText("");
         jDataLanc.setDate(null);
         jIdInternoNovo.setText("");
@@ -2831,7 +2838,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     }
 
     public void Cancelar() {
-        if (jIdLanc.getText().equals("")) {
+        if (jIdADM_NOVA.getText().equals("")) {
             limparCampos();
             bloquearCampos();
             bloquearBotoes();
@@ -2852,7 +2859,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA");
             conecta.rs.last();
-            jIdLanc.setText(conecta.rs.getString("IdPortaPSI"));
+            jIdADM_NOVA.setText(conecta.rs.getString("IdPortaPSI"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o ID do lançamento");
         }
@@ -2868,7 +2875,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             objAdmPsi.setStatusLanc(statusLanc);
-            objAdmPsi.setIdLanc(Integer.parseInt(jIdLanc.getText()));
+            objAdmPsi.setIdLanc(Integer.parseInt(jIdADM_NOVA.getText()));
             control.finalizarNovaAdmissaoPsi(objAdmPsi);
             controle.finalizarMovTec(objAdmPsi);
             objLog();
@@ -2976,7 +2983,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdADM_NOVA.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemOcorrencias_P1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1855871-42dd-4861-8e0a-bc30a2e47818">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="idOcorrencia" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM OCORRENCIAS_EF WHERE IdLanc=$P{idOcorrencia}]]>
+	</queryString>
+	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="StatusLanc" class="java.lang.String"/>
+	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="Titulo" class="java.lang.String"/>
+	<field name="TextoArea" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Fonte" class="java.lang.String"/>
+	<field name="Tamanho" class="java.lang.String"/>
+	<field name="BtEsq" class="java.lang.Integer"/>
+	<field name="BtCen" class="java.lang.Integer"/>
+	<field name="BtDir" class="java.lang.Integer"/>
+	<field name="BtJus" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="86" y="48" width="347" height="22" forecolor="#FF0000" uuid="91a451bd-0619-4833-b258-305c6e8c925c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="156" y="16" width="228" height="20" forecolor="#0000FF" uuid="59fa5b26-5d7b-4b4c-91e9-c71896b6a3c2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Livro de Ocorrência da Portaria ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="9f94f91a-1517-46eb-a350-823dded51ecb"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="86" height="15" uuid="5bd06691-7c90-4a20-95b6-7f187f289e2e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="197" y="19" width="138" height="15" uuid="426f28ef-200f-4420-9bbe-c8ea0cacd245"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Data Ocorrência]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="456cb661-d190-4a80-85ac-fe09d91a79f9"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="86" height="15" uuid="97221560-c50b-4201-aa18-377df6ec8fc5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdLanc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="Detail" x="231" y="1" width="79" height="15" uuid="19dd455d-36c3-484d-9d64-bbbe48ce8ead"/>
+				<textFieldExpression><![CDATA[$F{DataLanc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="2a19281e-36d2-490c-96b6-332e1843fd77"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="095827fd-87f7-461f-8b06-7b32f6924947"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="2f58178a-6f19-472e-903a-d1904f89109a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="246446ec-fea9-4f0c-b71d-33a2af7aeee8"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="0" width="236" height="20" uuid="f0614fab-514a-44f5-94c5-8c5540b371db"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="634" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="2" y="19" width="553" height="615" uuid="84f32650-3fe6-4539-83cb-dc5f75636cff"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[""+$F{TextoArea}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

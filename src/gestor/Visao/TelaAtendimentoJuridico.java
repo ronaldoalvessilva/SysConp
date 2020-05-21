@@ -14,10 +14,12 @@ import gestor.Controle.ControleMovJuridico;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AtendimentoJuridico;
 import gestor.Modelo.EvolucaoJuridico;
 import gestor.Modelo.ItensAtividadeJuridico;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
@@ -72,6 +74,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -113,7 +118,6 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String pHabilitaJuridico = "";
     //
     String codigoEvolucao;
-    String admEvolucao = "Sim";
     // VETOR PARA GRAVAR CÓDIGO ATIVIDADE NA TELA ATIVIDADES.
     public static int pAtividadeRela[];
     //
@@ -123,6 +127,10 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String status_ATENDIMENTO = "Atendimento Concluido";
     //
     String pCODIGO_INTERNO = "";
+    //EVOLUÇÃO DA ADMISSÃO
+    String admEvolucao = "Sim";
+    String nomeUserRegistro;
+    String pHABILITA_JURIDICO = "Sim";
 
     /**
      * Creates new form TelaAtendimentoJuridico
@@ -1850,6 +1858,23 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_JURIDICO = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                        objPortaEntrada.setHabJur(pHABILITA_JURIDICO);
+                        control_PE.alterarPortaEntradaJuridico(objPortaEntrada);
                         // PRIMEIRA EVOLUÇÃO EM CONJUNTO COM A ADMISSÃO
                         objEvolu.setDataEvo(jDataLanc.getDate());
                         objEvolu.setDataEnca(jDataEncaminhamento.getDate());
@@ -1866,23 +1891,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         //
                         objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                         objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objEvolu.setAdmEvo(admEvolucao);
                         controleJuri.incluirEvolucaoJuridico(objEvolu);
                         // BUSCAR O CÓDIGO DA EVOLUÇÃO CASO O USUÁRIO QUEIRA ALTERAR A EVOLUÇÃO INICIAL.
                         buscarIdEvolucao();
                         //
                         objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
-                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
-                        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
-                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                        objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
                         //
                         preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
                                 + "WHERE IdLanc='" + jIDLanc.getText() + "'");
@@ -1911,7 +1926,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     // Modifica o código do interno na tabela EVOLUCAOJURIDICO
                     objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
                     objEvolu.setNomeInternoCrc(jNomeInternoJuridico.getText());
-                    controleJuri.alterarInternoEvolucaoJuridico(objEvolu);
+                    objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
+                    objEvolu.setAdmEvo(admEvolucao);
+                    controleJuri.alterarInternoEvolucaoJuridicoADM(objEvolu);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     // MODIFICAR A EVOLUÇÃO CASO SEJA MODIFICADA
@@ -2807,7 +2824,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void pesquisarAdmInterno() {        
+    public void pesquisarAdmInterno() {
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
@@ -2931,7 +2948,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jDataNascInternoJuri.setDate(null);
         jDataCondIntJuri.setDate(null);
         jFotoInternoJuridico.setIcon(null);
-        jEvolucaoAdmissao.setText("");
+        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         jComboBoxResposta.setEnabled(true);
         if (pAcao == 1) {
             if (jComboBoxResposta.getSelectedItem().equals("Sim")) {

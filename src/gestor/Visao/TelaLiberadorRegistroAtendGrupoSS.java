@@ -16,6 +16,7 @@ import java.sql.SQLException;
 public class TelaLiberadorRegistroAtendGrupoSS extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    String pTIPO_ATENDIMENTO = "Atendimento em Grupo/SS";
 
     /**
      * Creates new form TelaAuditoriaRolInternas
@@ -158,7 +159,8 @@ public class TelaLiberadorRegistroAtendGrupoSS extends javax.swing.JInternalFram
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN COLABORADOR "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdFunc=COLABORADOR.IdFunc "
-                    + "WHERE IdAtend='" + jCodigoAtend.getText() + "' ");
+                    + "WHERE IdAtend='" + jCodigoAtend.getText() + "' "
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("NomeFunc"));
             jDataInsert.setText(conecta.rs.getString("DataAssinatura"));

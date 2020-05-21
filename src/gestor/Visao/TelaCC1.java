@@ -8,11 +8,11 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEnfermagem;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.acao;
-import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdLanc;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.statusBoca;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.statusCabelos;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdADM_Secundaria;
 
 /**
  *
@@ -376,7 +376,7 @@ public class TelaCC1 extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAOENFERMEIRA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
             conecta.rs.first();
             statusCabelos = conecta.rs.getInt("Cabelos");
             if (statusCabelos == 0) {

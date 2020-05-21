@@ -27,8 +27,12 @@ public class EvolucaoServicoSocial {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
+    private String admEvo;
 
-    public EvolucaoServicoSocial(int idItem, Date dataEvol, int idAtend, String statusLanc, int idInternoCrc, String nomeInterno, String textoEvolucao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public EvolucaoServicoSocial() {
+    }
+
+    public EvolucaoServicoSocial(int idItem, Date dataEvol, int idAtend, String statusLanc, int idInternoCrc, String nomeInterno, String textoEvolucao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String admEvo) {
         this.idItem = idItem;
         this.dataEvol = dataEvol;
         this.idAtend = idAtend;
@@ -43,9 +47,7 @@ public class EvolucaoServicoSocial {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public EvolucaoServicoSocial() {
+        this.admEvo = admEvo;
     }
 
     /**
@@ -242,5 +244,19 @@ public class EvolucaoServicoSocial {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the admEvo
+     */
+    public String getAdmEvo() {
+        return admEvo;
+    }
+
+    /**
+     * @param admEvo the admEvo to set
+     */
+    public void setAdmEvo(String admEvo) {
+        this.admEvo = admEvo;
     }
 }

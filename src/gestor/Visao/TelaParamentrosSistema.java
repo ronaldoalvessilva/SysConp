@@ -235,6 +235,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel59 = new javax.swing.JLabel();
         jComboBoxODON = new javax.swing.JComboBox<>();
         jPanel41 = new javax.swing.JPanel();
+        jLabel71 = new javax.swing.JLabel();
+        jComboBoxEducacaoFisica = new javax.swing.JComboBox<>();
         jPanel42 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel44 = new javax.swing.JPanel();
@@ -2019,17 +2021,34 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Biometria Educação Física", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+
+        jLabel71.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel71.setText("Biometria na Admissão:");
+
+        jComboBoxEducacaoFisica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxEducacaoFisica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxEducacaoFisica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxEducacaoFisica.setEnabled(false);
 
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
         jPanel41Layout.setHorizontalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel41Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel71)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxEducacaoFisica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel41Layout.setVerticalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel41Layout.createSequentialGroup()
+                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxEducacaoFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel71))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -2736,6 +2755,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setNomeEncerradorAG1(jNomeColaboradorEncerraDois.getText());
         objParCrc.setPagamentoKit((String) jComboBoxKitHigene.getSelectedItem());
         objParCrc.setSistemaManutencao((String) jComboBoxSistemaManutencao.getSelectedItem());
+        objParCrc.setBiometriaEF((String) jComboBoxEducacaoFisica.getSelectedItem());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado.");
         } else if (jDataVersao.getDate() == null && !jNumeroVersao.getText().equals("")) {
@@ -2925,6 +2945,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxDocPro;
     private javax.swing.JComboBox jComboBoxDocSaidaTmp;
     private javax.swing.JComboBox jComboBoxDocTrans;
+    private javax.swing.JComboBox<String> jComboBoxEducacaoFisica;
     private javax.swing.JComboBox jComboBoxEnfermeiros;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB1;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB2;
@@ -3042,6 +3063,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jLocalPDF_B1;
@@ -3174,6 +3196,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jComboBoxKitHigene.setBackground(Color.white);
         jComboBoxSistemaManutencao.setBackground(Color.white);
+        jComboBoxEducacaoFisica.setBackground(Color.white);
     }
 
     public void formatarCampos() {
@@ -3273,6 +3296,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             //
             jComboBoxKitHigene.setSelectedItem(conecta.rs.getString("PagamentoKit"));
             jComboBoxSistemaManutencao.setSelectedItem(conecta.rs.getString("SistemaManutencao"));
+            jComboBoxEducacaoFisica.setSelectedItem(conecta.rs.getString("BiometriaEF"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -3384,6 +3408,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jBtPesqColaboradorEncerraDois.setEnabled(true);
         jComboBoxKitHigene.setEnabled(true);
         jComboBoxSistemaManutencao.setEnabled(true);
+        jComboBoxEducacaoFisica.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -3496,6 +3521,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jBtPesqColaboradorEncerraDois.setEnabled(!true);
         jComboBoxKitHigene.setEnabled(!true);
         jComboBoxSistemaManutencao.setEnabled(!true);
+        jComboBoxEducacaoFisica.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -3608,6 +3634,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jBtPesqColaboradorEncerraDois.setEnabled(!true);
         jComboBoxKitHigene.setEnabled(!true);
         jComboBoxSistemaManutencao.setEnabled(!true);
+        jComboBoxEducacaoFisica.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);

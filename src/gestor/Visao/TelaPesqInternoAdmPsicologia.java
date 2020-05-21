@@ -269,7 +269,10 @@ public class TelaPesqInternoAdmPsicologia extends javax.swing.JInternalFrame {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' AND SituacaoCrc='" + situacao + "' OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' AND SituacaoCrc='" + situacaoRet + "'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 

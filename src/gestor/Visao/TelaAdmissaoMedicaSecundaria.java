@@ -1777,6 +1777,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1785,7 +1786,6 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
                         limpaTabelaDoencas();
-                        Novo();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -1978,9 +1978,19 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdmAD.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_MEDICO = "Não";
-                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
+                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objPortaEntrada.setNomeInternoCrc(jNomeInternoAdmAD.getText());
                     objPortaEntrada.setHabMed(pHABILITA_MEDICO);
                     control_PE.alterarPortaEntradaMedica(objPortaEntrada);
@@ -2020,16 +2030,6 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                         preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                                 + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     }
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoAdmAD.getText());
-                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                    objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
                 }
@@ -2128,7 +2128,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL WHERE IdAdmADI='" + jIdAdmAdicional.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
+                    + "WHERE IdAdmADI='" + jIdAdmAdicional.getText() + "'");
             conecta.rs.first();
             jStatusLancAD.setText(conecta.rs.getString("StatusLanc"));
             if (jStatusLancAD.getText().equals("FINALIZADO")) {
@@ -2159,7 +2160,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         preencherAdmissaoMedica("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoAdmissaoAD.getText() + "%'");
+                + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoAdmissaoAD.getText() + "%' "
+                + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'");
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
     private void jBtIdPesqAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdPesqAtendActionPerformed
@@ -2169,7 +2171,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         preencherAdmissaoMedica("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE IdAdmADI='" + jIDPesqAtendAD.getText() + "'");
+                + "WHERE IdAdmADI='" + jIDPesqAtendAD.getText() + "' ");
     }//GEN-LAST:event_jBtIdPesqAtendActionPerformed
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -2197,7 +2199,9 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'"
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdinternoCrc='" + jIdInternoAdm.getText() + "' ");
                     }
                 }
             }
@@ -2221,7 +2225,9 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'"
+                                + "AND ADMISSAO_MEDICA_ADICIONAL.IdinternoCrc='" + jIdInternoAdm.getText() + "' ");
                     }
                 }
             }
@@ -2235,7 +2241,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
             this.preencherAdmissaoMedica("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.IdinternoCrc='" + jIdInternoAdm.getText() + "'");
+                    + "WHERE ADMISSAO_MEDICA_ADICIONAL.IdinternoCrc='" + jIdInternoAdm.getText() + "' "
+                    + "AND ADMISSAO_MEDICA_ADICIONAL.IdLanc='" + jIdAdm.getText() + "'");
         } else {
             count = 0;
             jtotalRegistros.setText("");
@@ -2670,7 +2677,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     + "AND HabMed='" + pHABILITA_MEDICO + "'");
             conecta.rs.first();
             pINTERNOCRC = conecta.rs.getString("IdInternoCrc");
-            pDEPARTAMENTO = conecta.rs.getString("PSPEnf");
+            pDEPARTAMENTO = conecta.rs.getString("PSPMed");
             pHABILITADO = conecta.rs.getString("HabMed");
         } catch (Exception e) {
         }
@@ -2738,16 +2745,16 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdmAD.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdm.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdmAD.getText() + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdm.getText() + "' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdAdmPrincipal.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdAdmPrincipal.setText(jIdAdm.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");

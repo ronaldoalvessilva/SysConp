@@ -7,7 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaCancelRegistroPortaria.jIdLanc;
-import static gestor.Visao.TelaEntradasLote.jIDLanc;
 import java.sql.SQLException;
 
 /**

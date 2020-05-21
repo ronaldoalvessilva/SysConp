@@ -12,7 +12,6 @@ import Utilitarios.ModeloTabela;
 import gestor.Modelo.IndicadoresAcompanhamento;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.acao;
-import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdLanc;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jStatusLanc;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.pGravar;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -43,6 +42,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoEnfermeiro;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jNomeInternoEnfermeiro;
+import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdADM_Secundaria;
 
 /**
  *
@@ -96,7 +96,7 @@ public class TelaTPC1 extends javax.swing.JDialog {
         initComponents();
         corCampos();
         preencherTabelaEnfermaria("SELECT * FROM ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
         //IMPEDIR QUE O USUÁRIO FECHA A TELA PELO X
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X    
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1007,13 +1007,13 @@ public class TelaTPC1 extends javax.swing.JDialog {
                     bloquearCampos();
                     bloquearBotoes();
                     objPerfilInter.setIdEnf(codigoEnf);
-                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdLanc.getText()));
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdADM_Secundaria.getText()));
                     controle.excluirAcompanhamentoEnfermaria(objPerfilInter);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     ExcluirEnfermaria();
                     preencherTabelaEnfermaria("SELECT * FROM ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Para excluir um registro é necessário está em modo alteração do atendimento/evolução.");
@@ -1027,7 +1027,7 @@ public class TelaTPC1 extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaE);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaE) && codGravarENF == 1) {
-            objPerfilInter.setIdIndAco(Integer.valueOf(jIdLanc.getText()));
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdADM_Secundaria.getText()));
             objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
             objPerfilInter.setNomeInternoPerfil(jNomeInternoEnfermeiro.getText());
             objPerfilInter.setHipertensao((String) jComboBoxHipertensao.getSelectedItem());
@@ -1154,7 +1154,7 @@ public class TelaTPC1 extends javax.swing.JDialog {
                 zerarVariaveis();
                 pGravar = 1;
                 preencherTabelaEnfermaria("SELECT * FROM ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                        + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
             if (pAcao == 8) {
@@ -1163,7 +1163,7 @@ public class TelaTPC1 extends javax.swing.JDialog {
                 objPerfilInter.setHorarioUp(horaMov);
                 //
                 objPerfilInter.setIdEnf(codigoEnf);
-                objPerfilInter.setIdIndAco(Integer.valueOf(jIdLanc.getText()));
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdADM_Secundaria.getText()));
                 controle.alterarAcompanhamentoEnfermaria(objPerfilInter);
                 //
                 objLog2();
@@ -1174,7 +1174,7 @@ public class TelaTPC1 extends javax.swing.JDialog {
                 zerarVariaveis();
                 pGravar = 2;
                 preencherTabelaEnfermaria("SELECT * FROM ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                        + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
         } else {

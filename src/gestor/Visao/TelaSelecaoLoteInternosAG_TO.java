@@ -1305,15 +1305,18 @@ public class TelaSelecaoLoteInternosAG_TO extends javax.swing.JDialog {
                         pTOTAL_REGISTROS_PRO = i + 1;
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
+                        if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
+                            jProgressBar1.setValue(100);
+                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                            bloquearTodosBotoes();
+                            bloquearTodosCampos();
+                            dispose();
+                        }
                     }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                     }
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    bloquearTodosBotoes();
-                    bloquearTodosCampos();
-                    dispose();
                 }
             };
             t0.start();
@@ -1337,12 +1340,12 @@ public class TelaSelecaoLoteInternosAG_TO extends javax.swing.JDialog {
                         } else if (i > 0) {
                             jTabelaInternosDestino.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
-                            pTOTAL_REGISTROS = i;
+                            pTOTAL_REGISTROS = i + 1;
                             jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
                             jProgressBar1.setValue(i);
                         }
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(10);
                         } catch (InterruptedException ex) {
                         }
                     }

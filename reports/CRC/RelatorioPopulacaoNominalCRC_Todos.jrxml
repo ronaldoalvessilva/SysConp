@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPopulacaoNominalCRC_Todos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b711901-050c-46d7-ab0d-6fc6dae49daf">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="pDATA_INICIAL" class="java.lang.String"/>
+	<parameter name="pDATA_FINAL" class="java.lang.String"/>
+	<parameter name="pUNIDADE" class="java.lang.String"/>
+	<parameter name="pUSUARIO" class="java.lang.String"/>
+	<parameter name="dataPopulacao" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT POPULACAOINTERNOS_CRC.DataPop,
+       POPULACAOINTERNOS_CRC.IdInternoCrc,
+	   PRONTUARIOSCRC.NomeInternoCrc,
+	   PRONTUARIOSCRC.SituacaoCrc,
+PRONTUARIOSCRC.SexoCrc,
+DADOSPENAISINTERNOS.Regime
+       FROM POPULACAOINTERNOS_CRC
+       INNER JOIN PRONTUARIOSCRC
+	   ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN $P{pDATA_INICIAL} AND $P{pDATA_FINAL} ORDER BY PRONTUARIOSCRC.NomeInternoCrc]]>
+	</queryString>
+	<field name="DataPop" class="java.sql.Date"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="Regime" class="java.lang.String"/>
+	<variable name="pTOTAL_INTERNOS_UNIDADE" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="pTOTAL_INTERNOS_STMP" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{SituacaoCrc}!=null && $F{SituacaoCrc}.equals("SAIDA TEMPORARIA"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="pTOTAL_INTERNOS_COVID" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{SituacaoCrc}!=null && $F{SituacaoCrc}.equals("PRISAO DOMICILIAR - COVID-19"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="pPOPULACAO_FISICA" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{pTOTAL_INTERNOS_UNIDADE} - $V{pTOTAL_INTERNOS_STMP} - $V{pTOTAL_INTERNOS_COVID}]]></variableExpression>
+	</variable>
+	<variable name="totalGeralProvisorios" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Provisório"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalProvisoriosFem" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Provisório") && $F{SexoCrc}.equals("Feminino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalGeralAbertos" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Aberto"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalGeralSemiAberto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Semi-Aberto"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalGeralFechados" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Fechado"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalAbertoFem" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Aberto") && $F{SexoCrc}.equals("Feminino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalSemiAbertoFem" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Semi-Aberto") && $F{SexoCrc}.equals("Feminino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalFechadoFem" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Fechado") && $F{SexoCrc}.equals("Feminino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalAbertoMasc" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Aberto") && $F{SexoCrc}.equals("Masculino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalProvisoriosMasc" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Provisório")&& $F{SexoCrc}.equals("Masculino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="TotalSemiAbertoMasc" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Semi-Aberto") && $F{SexoCrc}.equals("Masculino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalFechadosMasc" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{Regime}.equals("Fechado") && $F{SexoCrc}.equals("Masculino"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="1" width="553" height="107" uuid="634c48dd-2a5b-4e3a-82cc-aebb831da64f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="170" y="47" width="186" height="20" uuid="4bdbe4a3-5525-4954-b140-c5258787a421"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="182" y="49" width="100" height="15" forecolor="#000000" uuid="f8fb389c-6829-40f9-b8d8-df6edc0ebd2c"/>
+				<text><![CDATA[Data População:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" x="282" y="49" width="75" height="15" uuid="251b89ab-3dcc-4da9-a580-5f0c97f94ef8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataPopulacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="11" width="247" height="20" uuid="9ee6bd23-ddfb-43e3-a0aa-bb9e8b3bcd38"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="275" y="11" width="277" height="20" uuid="df9bb0b4-3d3f-43de-9167-97a4b08dc738"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pUNIDADE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="80" width="550" height="20" uuid="07b34d87-0a26-4da5-a095-570674d251fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Demostrativo de População da Unidade]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="e9d85137-ab79-4cda-b6bb-f409e2667c99"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="2" y="0" width="44" height="15" forecolor="#000000" uuid="b3c81f4d-903b-43cf-9f50-609799f6fe9d"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="47" y="0" width="222" height="15" forecolor="#000000" uuid="b9f0d80d-a7ac-4e8a-b8f0-2b1531c0ff49"/>
+				<text><![CDATA[Nome do Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="271" y="0" width="155" height="15" forecolor="#000000" uuid="7a6778b7-bdc0-41da-98a4-3b1e2ca30b4a"/>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="65" height="16" uuid="966583a9-e3ee-447c-822a-781ff72f18e3"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Regime]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="1" width="64" height="15" uuid="b1d82635-0858-40f0-a897-6130e7670e39"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="48565b7c-c7c7-4e68-b832-d88f897298fc"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="2" y="0" width="44" height="15" uuid="9de93482-57d3-4572-b008-f06e34d31dfc"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="46" y="0" width="225" height="15" uuid="f52bc5ce-c766-4d8e-9ff4-5a57c4eb9ade"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="271" y="0" width="155" height="15" uuid="5399fcdc-ed4a-4a53-8564-879ad340aa16"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SituacaoCrc}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="490" y="0" width="65" height="15" uuid="0509728c-d5fd-46cf-a72d-d1aa7d5f2dd7"/>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Regime}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="426" y="0" width="64" height="15" uuid="5a46c958-39ae-4d89-9066-06fb953dfaa9"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{SexoCrc}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="bd84e73a-ea3b-452a-9381-61fb022fec2f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="34f42896-322b-49f1-b64d-69c61665b045"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="66680aeb-a648-4bdc-88c7-023825c7c65a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="94d22848-ce3b-4774-a066-20c7b2c47b50"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="f774fed2-759f-4b22-b0cb-6351df524d65"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="219" y="3" width="234" height="20" uuid="98662e47-c6bb-48e1-be22-57b4ed3c1eb1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{pUSUARIO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="251" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="101" width="555" height="70" uuid="32f0cd71-de2a-42ba-bd63-d9c3f3842328"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="6" width="555" height="84" uuid="a2928d50-b28a-49c6-b1be-231dde0b81cc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="181" width="553" height="62" uuid="e156287a-87d8-4f9e-8400-45733eda2e9a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="16" y="215" width="213" height="20" uuid="70010e8a-d154-43a7-836d-ad658fc1d100"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[População de Internos na Unidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="191" width="215" height="20" forecolor="#CC0000" uuid="550d3539-db12-419c-a26f-83685311347a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Internos Saída Temporária:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="191" width="163" height="20" forecolor="#0000CC" uuid="48dbdf21-806a-406b-917f-9a409c2b988f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Internos COVID-19:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="231" y="191" width="45" height="20" forecolor="#CC0000" uuid="33c9b693-3b03-4886-9ceb-f4ecd8d413d3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pTOTAL_INTERNOS_STMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="191" width="50" height="20" forecolor="#0000CC" uuid="f4df853b-99a1-40ec-9b59-ac55d777f934"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pTOTAL_INTERNOS_COVID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="215" width="50" height="20" uuid="7b84a07a-3e55-4c32-ac63-726b4f25a96b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pTOTAL_INTERNOS_UNIDADE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="215" width="45" height="20" uuid="295ea53b-edbd-4261-bff4-7dad68b4d726"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pPOPULACAO_FISICA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="215" width="163" height="20" uuid="d082bbb0-97b5-4b53-809b-2effd6ad3df3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral de Registros:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="50" width="168" height="20" uuid="3f8485ef-6e8d-41a1-83a0-e5af53dfc9f3"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Aberto Masculino:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="70" width="184" height="20" uuid="9b124ca9-23d8-43d0-88a3-a7cbfca812a4"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Semi-Aberto Feminio:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="443" y="30" width="38" height="20" uuid="5eeb5ad1-f6dc-42d6-9059-a0502f9a2db6"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalProvisoriosFem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="275" y="30" width="168" height="20" uuid="20b98c6e-1332-498c-8244-cc827eb6ad11"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Provisórios Feminino:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="70" width="168" height="20" uuid="6a6e6080-6e54-4d62-b4f0-f1883a2df1c9"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Aberto Feminino:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="70" width="41" height="20" uuid="b43f88f0-91c7-492a-9501-7242c969e47f"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalSemiAbertoFem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="50" width="41" height="20" uuid="90e64856-77e8-4cd0-a544-2cd8f4ce670a"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalSemiAbertoMasc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="274" y="10" width="169" height="20" uuid="84ddaadd-79ae-4a18-a3e4-b30c932804eb"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Provisórios Masculino:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="10" width="41" height="20" uuid="b2b03164-8a99-424e-946e-a3caec069451"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalFechadosMasc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="30" width="41" height="20" uuid="b7413ef2-295a-4bc0-a683-4c3b0d3ebe60"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalFechadoFem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="10" width="184" height="20" uuid="462e809e-d4cd-4a62-9b0a-2c16c7cd09cc"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Fechados Masculino:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="443" y="70" width="38" height="20" uuid="c8905bd9-10ae-4b00-9381-be25cbacd390"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalAbertoFem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="443" y="50" width="38" height="20" uuid="11dafe6c-cec4-47e3-aab5-b0e609578a9f"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalAbertoMasc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="30" width="184" height="20" uuid="c449b19b-eba3-43f4-ae5a-330a6f76ba59"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Fechados Feminino:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="50" width="185" height="20" uuid="35c57033-f920-4d3e-b1dc-bb9fe4522d0e"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Semi-Aberto Masculino:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="443" y="10" width="38" height="20" uuid="27fb6883-d449-44c6-9569-c3347c03ddc5"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalProvisoriosMasc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="270" y="132" width="168" height="20" uuid="1fc23380-b2f6-48dc-93dc-c1c2fcdf750f"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral de Abertos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="112" width="180" height="20" uuid="60f52339-405c-4fed-8944-65cc46da571f"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral de Fechados:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="439" y="132" width="40" height="20" uuid="2e65c179-1c8a-4664-acbf-041f55137719"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalGeralAbertos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="132" width="180" height="20" uuid="0536c31d-8873-4ad5-9b74-e022e8f8b816"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral de Semi-Abertos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="112" width="169" height="20" uuid="a53ba002-b2dd-4966-8223-2170fd0b743c"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral de Provisórios:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="192" y="132" width="41" height="20" uuid="3642ef7a-a0ef-417b-8108-59eba6d8c4d9"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalGeralSemiAberto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="439" y="112" width="40" height="20" uuid="55e9ff26-e86c-46dc-8252-a4aef9db6453"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalGeralProvisorios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="192" y="112" width="41" height="20" uuid="20ed33db-0faf-4b62-b9cf-d39dac9f91ec"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalGeralFechados}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

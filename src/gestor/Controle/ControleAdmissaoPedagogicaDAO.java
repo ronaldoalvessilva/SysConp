@@ -180,7 +180,7 @@ public class ControleAdmissaoPedagogicaDAO {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO FAMILIA_ADMISSAO_PEDAGOGIA_NOVA (IdAdmNova,IdInternoCrc,RelacaoPai,RelacaoMae,Irmaos,PaisLerEscrever,PaisSeparados,Religiao,IdadeAndou,IdadeFalou,DificuldadeFala,QualDificuldadeFala,Comunicacao,Relacionamento,Lider,RepetiuAno,PorqueRepetiuAno,ProblemaProfessor,QualProblemaProfessor,ComoAtitudeSala,FaltaEscola,PorqueFaltaEscola,AchaEscola,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            pst.setInt(1, objAdmPedago.getIdAdm());
+            pst.setInt(1, objAdmPedago.getIdAdmNova());
             pst.setInt(2, idInterno);
             pst.setString(3, objAdmPedago.getRelacaoPai());
             pst.setString(4, objAdmPedago.getRelacaoMae());

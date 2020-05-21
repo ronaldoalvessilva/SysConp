@@ -30,8 +30,13 @@ public class ItensEntradaInternosPortaria {
     private String dataDelete;
     private String horarioInsert;
     private String horarioUp;      
+    private String registroCancelado;
+    private int idRetorno;
 
-    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public ItensEntradaInternosPortaria() {
+    }
+
+    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -49,9 +54,8 @@ public class ItensEntradaInternosPortaria {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ItensEntradaInternosPortaria() {
+        this.registroCancelado = registroCancelado;
+        this.idRetorno = idRetorno;
     }
 
     /**
@@ -290,5 +294,33 @@ public class ItensEntradaInternosPortaria {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the registroCancelado
+     */
+    public String getRegistroCancelado() {
+        return registroCancelado;
+    }
+
+    /**
+     * @param registroCancelado the registroCancelado to set
+     */
+    public void setRegistroCancelado(String registroCancelado) {
+        this.registroCancelado = registroCancelado;
+    }
+
+    /**
+     * @return the idRetorno
+     */
+    public int getIdRetorno() {
+        return idRetorno;
+    }
+
+    /**
+     * @param idRetorno the idRetorno to set
+     */
+    public void setIdRetorno(int idRetorno) {
+        this.idRetorno = idRetorno;
     }
 }

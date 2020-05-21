@@ -60,6 +60,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import static gestor.Visao.TelaAtendimentoSocial.jIdADM_Principal;
 
 /**
  *
@@ -110,8 +111,6 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
     String opcao = "Não";
     String tipoAtendimentoAdm = "Admissão Serviço Social";
     String tipoAtendimentoEvol = "Evolução Serviço Social";
-    //
-    String pHabilitaSSocial = "";
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
@@ -122,6 +121,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
     String pINTERNOCRC = "";
     String pHABILITADO = "";
     String pCONFIRMA_ADMISSAO = "Sim";
+    String pHabilitaSSocial = "";
     int codigoDepartamento = 0;
     String situacao = "ENTRADA NA UNIDADE";
     String sitRetorno = "RETORNO A UNIDADE";
@@ -135,7 +135,6 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
     public static TelaAtendimentoSocial pADMISSAO_SOCIAL;
     public static TelaPesquisaDeptoAtendimento_ADM2 pPESQUISAR_DEPARTAMENTO;
     public static TelaAuditoriaPortaEntradaSS pAUDITORIA;
-    
 
     public TelaPortaEntradaServicoSocial(TelaAtendimentoSocial parent, boolean modal) {
         this.pADMISSAO_SOCIAL = parent;
@@ -191,17 +190,17 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jNomeInterno = new javax.swing.JTextField();
+        jNomeInternoAD = new javax.swing.JTextField();
         jLabel52 = new javax.swing.JLabel();
         jIDNovoAtend = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jStatusAtend = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
         jDataAtendimento = new com.toedter.calendar.JDateChooser();
-        jIDInternoAtual = new javax.swing.JTextField();
+        jIDInternoAD = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jIdAtend = new javax.swing.JTextField();
+        jIdAtend_PRINCIPAL = new javax.swing.JTextField();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         ContatoFamiliar = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -534,7 +533,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                     .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -559,8 +558,8 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Nome Completo do Interno");
 
-        jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInterno.setEnabled(false);
+        jNomeInternoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoAD.setEnabled(false);
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel52.setText("Nova ADM");
@@ -584,9 +583,9 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         jDataAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataAtendimento.setEnabled(false);
 
-        jIDInternoAtual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIDInternoAtual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIDInternoAtual.setEnabled(false);
+        jIDInternoAD.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIDInternoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIDInternoAD.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código");
@@ -594,9 +593,9 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("ADM-PRI");
 
-        jIdAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdAtend.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdAtend.setEnabled(false);
+        jIdAtend_PRINCIPAL.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdAtend_PRINCIPAL.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdAtend_PRINCIPAL.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -612,7 +611,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                         .addGap(6, 6, 6)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jIdAtend_PRINCIPAL, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -625,9 +624,9 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jIDInternoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIDInternoAD, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jNomeInternoAD, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
@@ -642,17 +641,17 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jIDNovoAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdAtend_PRINCIPAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStatusAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jIDInternoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jIDInternoAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jNomeInternoAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1799,15 +1798,17 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(3, 3, 3)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1855,7 +1856,8 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE IdAtendSS='" + jIDPesqAtend.getText() + "'");
+                    + "WHERE IdAtendSS='" + jIDPesqAtend.getText() + "' "
+                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "'");
         }
     }//GEN-LAST:event_jBtAtendActionPerformed
 
@@ -1886,7 +1888,10 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE DataAtend BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
+                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
                     }
                 }
             }
@@ -1910,7 +1915,10 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE DataAtend BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
+                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
                     }
                 }
             }
@@ -1930,7 +1938,8 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
+                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -1943,7 +1952,9 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc");
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
+                    + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
         } else {
             limparTabelaAtendimentoSocial();
         }
@@ -1975,11 +1986,11 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                         + "WHERE IdAtendSS='" + idAtend + "'");
                 conecta.rs.first();
                 jIDNovoAtend.setText(String.valueOf(conecta.rs.getInt("IdAtendSS")));
-                jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+                jIdAtend_PRINCIPAL.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
                 jDataAtendimento.setDate(conecta.rs.getDate("DataAtend"));
                 jStatusAtend.setText(conecta.rs.getString("StatusAtend"));
-                jIDInternoAtual.setText(conecta.rs.getString("IdInternoCrc"));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jIDInternoAD.setText(conecta.rs.getString("IdInternoCrc"));
+                jNomeInternoAD.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 if (caminho != null) {
@@ -2076,21 +2087,20 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                 if (pHabilitaSSocial.equals("Não")) {
                     acao = 1;
                     Novo();
-//                    verificarInternoRegistradoAdm();
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
                     pesquisarInternoManual();
                 } else {
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
                     pesquisarInternoColaboradorBiometria();
-                    if (jIDInternoAtual.getText().equals("")) {
+                    if (jIDInternoAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
                         acao = 1;
-                        Novo();
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
                         dataModFinal = jDataSistema.getText();
@@ -2161,7 +2171,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                 jDataAtendimento.requestFocus();
                 jDataAtendimento.setBackground(Color.red);
             } else {
-                if (jNomeInterno.getText().equals("")) {
+                if (jNomeInternoAD.getText().equals("")) {
                     JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para realizar o atendimento.");
                 } else {
                     if (jPeriodo.getText() == null) {
@@ -2170,7 +2180,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                         jPeriodo.setBackground(Color.red);
                     } else {
                         verificarInternoRegistradoAdm();
-                        objAtendSocial.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                        objAtendSocial.setIdAtend(Integer.valueOf(jIdAtend_PRINCIPAL.getText()));
                         objAtendSocial.setDataAtend(jDataAtendimento.getDate());
                         objAtendSocial.setStatusAtend(statusAtend);
                         // Aba Dados Familiares
@@ -2242,18 +2252,18 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             objAtendSocial.setUsuarioInsert(nameUser);
                             objAtendSocial.setDataInsert(dataModFinal);
                             objAtendSocial.setHoraInsert(horaMov);
-                            objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInternoAtual.getText()));
-                            objAtendSocial.setNomeInterno(jNomeInterno.getText());
+                            objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objAtendSocial.setNomeInterno(jNomeInternoAD.getText());
                             control.incluirAtendSocial(objAtendSocial);
                             buscarCodAtend();
                             objAtendSocial.setIdAtend(Integer.valueOf(jIDNovoAtend.getText()));
-                            objAtendSocial.setNomeInterno(jNomeInterno.getText());
+                            objAtendSocial.setNomeInterno(jNomeInternoAD.getText());
                             objAtendSocial.setDeptoSocial(deptoTecnico);
                             controle.incluirMovTec(objAtendSocial);
                             // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
                             atendido = "Sim";
-                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoAtual.getText()));
-                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
                             objRegAtend.setIdDepartamento(codigoDepartamentoSS);
                             objRegAtend.setNomeDepartamento(nomeModuloSS);
                             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
@@ -2268,8 +2278,8 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             controlRegAtend.alterarRegAtend(objRegAtend);
                             //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
                             objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoAtual.getText()));
-                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
                             objRegAtend.setIdDepartamento(codigoDepartamentoSS);
                             objRegAtend.setNomeDepartamento(nomeModuloSERV);
                             objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
@@ -2279,8 +2289,8 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             control_ATENDE.confirmarAtendimento(objRegAtend);
                             //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                             pHABILITA_ASSISTENTE_SOCIAL = "Não";
-                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInternoAtual.getText()));
-                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInternoAD.getText());
                             objPortaEntrada.setHabSso(pHABILITA_ASSISTENTE_SOCIAL);
                             control_PE.alterarPortaEntradaSocial(objPortaEntrada);
                             objLog();
@@ -2293,20 +2303,20 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             objAtendSocial.setUsuarioUp(nameUser);
                             objAtendSocial.setDataUp(jDataSistema.getText());
                             objAtendSocial.setHoraUp(jHoraSistema.getText());
-                            objAtendSocial.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                            objAtendSocial.setIdAtend(Integer.valueOf(jIdAtend_PRINCIPAL.getText()));
                             objAtendSocial.setIdAtendNova(Integer.valueOf(jIDNovoAtend.getText()));
-                            objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInternoAtual.getText()));
-                            objAtendSocial.setNomeInterno(jNomeInterno.getText());
+                            objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objAtendSocial.setNomeInterno(jNomeInternoAD.getText());
                             control.alterarAtendSocial(objAtendSocial);
                             objAtendSocial.setIdAtend(Integer.valueOf(jIDNovoAtend.getText()));
-                            objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInternoAtual.getText()));
-                            objAtendSocial.setNomeInterno(jNomeInterno.getText());
+                            objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objAtendSocial.setNomeInterno(jNomeInternoAD.getText());
                             objAtendSocial.setDeptoSocial(deptoTecnico);
                             controle.alterarMovTec(objAtendSocial);
                             //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                             pHABILITA_ASSISTENTE_SOCIAL = "Não";
-                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInternoAtual.getText()));
-                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInternoAD.getText());
                             objPortaEntrada.setHabSso(pHABILITA_ASSISTENTE_SOCIAL);
                             control_PE.alterarPortaEntradaSocial(objPortaEntrada);
                             objLog();
@@ -2329,7 +2339,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
-         statusMov = "Finalizou";
+        statusMov = "Finalizou";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
         String statusAtend = "FINALIZADO";
@@ -2462,10 +2472,10 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
     private javax.swing.JTextField jEnderecoContato;
     private javax.swing.JTextField jEstadoContato;
     public static javax.swing.JLabel jFotoInternoPE;
-    public static javax.swing.JTextField jIDInternoAtual;
+    public static javax.swing.JTextField jIDInternoAD;
     public static javax.swing.JTextField jIDNovoAtend;
     private javax.swing.JTextField jIDPesqAtend;
-    public static javax.swing.JTextField jIdAtend;
+    public static javax.swing.JTextField jIdAtend_PRINCIPAL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -2530,7 +2540,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
     private javax.swing.JTextField jMotivo;
     private javax.swing.JTextField jMunicipioNascimento;
     private javax.swing.JTextField jNomeCompanheira;
-    public static javax.swing.JTextField jNomeInterno;
+    public static javax.swing.JTextField jNomeInternoAD;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2602,12 +2612,12 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
                     + "AND ATENDIMENTOSOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
             conecta.rs.first();
-            jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+            jIdAtend_PRINCIPAL.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
-            jIDInternoAtual.setText(conecta.rs.getString("IdInternoCrc"));
-            jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+            jIDInternoAD.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoAD.setText(conecta.rs.getString("NomeInternoCrc"));
             // Capturando foto
             caminho = conecta.rs.getString("FotoInternoCrc");
             if (caminho != null) {
@@ -2657,21 +2667,21 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoAtual.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInterno.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoAtual.getText() + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInterno.getText() + "' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+            jIdAtend_PRINCIPAL.setText(jIdADM_Principal.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
-            jIDInternoAtual.setText(conecta.rs.getString("IdInternoCrc"));
-            jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+            jIDInternoAD.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoAD.setText(conecta.rs.getString("NomeInternoCrc"));
             // Capturando foto
             caminho = conecta.rs.getString("FotoInternoCrc");
             if (caminho != null) {
@@ -2731,11 +2741,11 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
 
     public void corCampos() {
         jIDNovoAtend.setBackground(Color.white);
-        jIdAtend.setBackground(Color.white);
+        jIdAtend_PRINCIPAL.setBackground(Color.white);
         jDataAtendimento.setBackground(Color.white);
         jStatusAtend.setBackground(Color.white);
-        jIDInternoAtual.setBackground(Color.white);
-        jNomeInterno.setBackground(Color.white);
+        jIDInternoAD.setBackground(Color.white);
+        jNomeInternoAD.setBackground(Color.white);
         //
         JContato.setBackground(Color.white);
         jTelefone.setBackground(Color.white);
@@ -2852,11 +2862,11 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
 
     public void limparCampos() {
         jIDNovoAtend.setText("");
-        jIdAtend.setText("");
+        jIdAtend_PRINCIPAL.setText("");
         jDataAtendimento.setDate(null);
         jStatusAtend.setText("");
-        jIDInternoAtual.setText("");
-        jNomeInterno.setText("");
+        jIDInternoAD.setText("");
+        jNomeInternoAD.setText("");
         JContato.setText("");
         jTelefone.setText("");
         jTelefone1.setText("");
@@ -3187,7 +3197,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         dataReg = formatoAmerica.format(jDataAtendimento.getDate().getTime());
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIDInternoAtual.getText() + "' "
+                    + "WHERE IdInternoCrc='" + jIDInternoAD.getText() + "' "
                     + "AND Atendido='" + opcao + "'");
             conecta.rs.first();
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");

@@ -14,6 +14,7 @@ import java.util.Date;
 public class AdmissaoPedagogicaNova {
 
     private int idAdm;
+    private int idAdmNova;
     private String statusAdm;
     private Date dataAdm;
     private int idInternoCrc;
@@ -80,8 +81,9 @@ public class AdmissaoPedagogicaNova {
     public AdmissaoPedagogicaNova() {
     }
 
-    public AdmissaoPedagogicaNova(int idAdm, String statusAdm, Date dataAdm, int idInternoCrc, String nomeInternoCrc, String ultimaEscola, String serieAno, String turno, String observacao, String deptoPedagogia, int idFam, String relacaoPai, String relacaoMae, String irmaos, String paisLerEscrever, String paisSeparados, String religiao, int idadeAndou, int idadeFalou, String dificuldadeFala, String qualDificuldadeFala, String comunicacao, String relacionamento, String lider, String repetiuAno, String porqueRepetiuAno, String problemaProfessor, String qualProblemaProfessor, String comoAtitudeSala, String faltaEscola, String porqueFaltaEscola, String achaEscola, int idSocial, String amigosFacilidade, int introvertido, int afetuoso, int obediente, int resistente, int cooperador, int medroso, int inseguro, int outros, String qualOutros, int idadeEscolar, String familiarPresente, String adaptacao, String repetencias, String antecedentes, String qualProblemaAprendizado, String observacaoSocializacao, int idFemAdm, String filhoDesejado, String queriaEngravidar, String foiAcidental, String perturbou, String comoFoiGestacao, String comoFoiParto, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AdmissaoPedagogicaNova(int idAdm, int idAdmNova, String statusAdm, Date dataAdm, int idInternoCrc, String nomeInternoCrc, String ultimaEscola, String serieAno, String turno, String observacao, String deptoPedagogia, int idFam, String relacaoPai, String relacaoMae, String irmaos, String paisLerEscrever, String paisSeparados, String religiao, int idadeAndou, int idadeFalou, String dificuldadeFala, String qualDificuldadeFala, String comunicacao, String relacionamento, String lider, String repetiuAno, String porqueRepetiuAno, String problemaProfessor, String qualProblemaProfessor, String comoAtitudeSala, String faltaEscola, String porqueFaltaEscola, String achaEscola, int idSocial, String amigosFacilidade, int introvertido, int afetuoso, int obediente, int resistente, int cooperador, int medroso, int inseguro, int outros, String qualOutros, int idadeEscolar, String familiarPresente, String adaptacao, String repetencias, String antecedentes, String qualProblemaAprendizado, String observacaoSocializacao, int idFemAdm, String filhoDesejado, String queriaEngravidar, String foiAcidental, String perturbou, String comoFoiGestacao, String comoFoiParto, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idAdm = idAdm;
+        this.idAdmNova = idAdmNova;
         this.statusAdm = statusAdm;
         this.dataAdm = dataAdm;
         this.idInternoCrc = idInternoCrc;
@@ -158,6 +160,20 @@ public class AdmissaoPedagogicaNova {
      */
     public void setIdAdm(int idAdm) {
         this.idAdm = idAdm;
+    }
+
+    /**
+     * @return the idAdmNova
+     */
+    public int getIdAdmNova() {
+        return idAdmNova;
+    }
+
+    /**
+     * @param idAdmNova the idAdmNova to set
+     */
+    public void setIdAdmNova(int idAdmNova) {
+        this.idAdmNova = idAdmNova;
     }
 
     /**

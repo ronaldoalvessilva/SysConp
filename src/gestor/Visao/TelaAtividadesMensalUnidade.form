@@ -2080,7 +2080,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="ATEN&#xc7;&#xc3;O: A popula&#xe7;&#xe3;o dever&#xe1; ser a &#xfa;ltima popula&#xe7;&#xe3;o do m&#xea;s das atividades."/>
+                    <Property name="text" type="java.lang.String" value="ATEN&#xc7;&#xc3;O: A popula&#xe7;&#xe3;o informada tem como base o range da data inicial e final."/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel149">

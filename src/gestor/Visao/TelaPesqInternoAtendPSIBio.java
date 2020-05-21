@@ -350,6 +350,15 @@ public class TelaPesqInternoAtendPSIBio extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jFotoInterno.setIcon(i);
                 jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jSituacaoUnidade.setText(conecta.rs.getString("SituacaoCrc"));
                 conecta.desconecta();
@@ -575,13 +584,14 @@ public class TelaPesqInternoAtendPSIBio extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
+
     public void procurarDepartamento() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                     + "WHERE NomeDepartamento='" + nomeModuloPSICOLOGIA + "'");
             conecta.rs.first();
-            codigoDepartamento = conecta.rs.getInt("IdDepartamento");   
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
             codigoDepartamentoPSI = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
         }

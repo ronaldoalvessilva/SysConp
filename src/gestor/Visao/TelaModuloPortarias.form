@@ -459,6 +459,45 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cancelamento de Entradas e Retornos de Internos"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelarRegistro_PRIMEIRA_VEZ">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cancelar Registro Entrada Internos Portaria - PRIMEIRA VEZ"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarRegistro_PRIMEIRA_VEZActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelarRegistro_NOVA_ENTRADA">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="66" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Cancelar Registro NOVA ENTRADA na Portaria"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarRegistro_NOVA_ENTRADAActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelarRegistro_RETORNOS">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Cancelar Registro de Retorno de Internos na Portaria"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarRegistro_RETORNOSActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator26">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ControlePertences">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Controle de Pertences de Interno"/>
@@ -598,7 +637,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu3">
+            <Menu class="javax.swing.JMenu" name="jRelatorioFrequenciaColaboradoresUnidadePenal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de frequ&#xea;ncia de Colaboradores na Unidade Penal"/>
               </Properties>
@@ -731,6 +770,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioOcorrenciasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jRelatorioPernoite">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Pernoite de Internos na Unidade"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioPernoiteActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

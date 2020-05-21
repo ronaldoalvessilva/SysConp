@@ -21,12 +21,14 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AtendimentoTerapeuta;
 import gestor.Modelo.AvaliacaoI;
 import gestor.Modelo.AvaliacaoII;
 import gestor.Modelo.EvolucaoTerapia;
 import gestor.Modelo.HistoricoEducacionalLaboral;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -96,6 +98,9 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -164,6 +169,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     String atendido = "Sim";
     String opcao = "Não";
     public static int codigoDepartamentoTO = 0;
+    public static int codigoDepartamentoTO_SEC = 0;
     String tipoAtendimentoAdm = "Admissão Terapia";
     String tipoAtendimentoEvol = "Evolução Terapia";
     //
@@ -172,6 +178,11 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
     String pCODIGO_INTERNO = "";
+    //EVOLUÇÃO DA ADMISSAO
+    String admEvolucao = "Sim";
+    String nomeUserRegistro;
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_TO = "Não";
 
     /**
      * Creates new form TelaAtemdimentoTerapiaOcupacional
@@ -251,7 +262,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jObsDesempenhoOcupacional = new javax.swing.JTextArea();
+        jEvolucaoAdmissao = new javax.swing.JTextArea();
         jLabel96 = new javax.swing.JLabel();
         jComboBoxDominancia = new javax.swing.JComboBox();
         jLabel97 = new javax.swing.JLabel();
@@ -845,30 +856,30 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jStatusLanc)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(14, 14, 14))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel3)
-                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -1018,11 +1029,12 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
 
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jObsDesempenhoOcupacional.setColumns(20);
-        jObsDesempenhoOcupacional.setRows(5);
-        jObsDesempenhoOcupacional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObsDesempenhoOcupacional.setEnabled(false);
-        jScrollPane1.setViewportView(jObsDesempenhoOcupacional);
+        jEvolucaoAdmissao.setColumns(20);
+        jEvolucaoAdmissao.setRows(5);
+        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEvolucaoAdmissao.setEnabled(false);
+        jScrollPane1.setViewportView(jEvolucaoAdmissao);
 
         jLabel96.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel96.setForeground(new java.awt.Color(0, 0, 204));
@@ -4420,7 +4432,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                     objAtend.setaIVD((String) jComboBoxAIVD.getSelectedItem());
                     objAtend.setLazer((String) jComboBoxLazer.getSelectedItem());
                     objAtend.setTrabalho((String) jComboBoxTrabalho.getSelectedItem());
-                    objAtend.setObsDesempenhoOcupacional(jObsDesempenhoOcupacional.getText());
+                    objAtend.setObsDesempenhoOcupacional(jEvolucaoAdmissao.getText());
                     // HISTÓRICO FAMILIAR
                     objAtend.setPaisVivos((String) jComboBoxPaisVivos.getSelectedItem());
                     objAtend.setTemCompanheira((String) jComboBoxTemCompanheira.getSelectedItem());
@@ -4581,6 +4593,54 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                             objAtend.setNomeInternoCrc(jNomeInterno.getText());
                             objAtend.setDeptoTerapia(deptoTecnico);
                             controle.incluirMovTec(objAtend);
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                            atendido = "Sim";
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                            objRegAtend.setNomeDepartamento(nomeModuloTO);
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            objRegAtend.setAtendido(atendido);
+                            objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                            objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                            objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                            //
+                            objRegAtend.setUsuarioUp(nameUser);
+                            objRegAtend.setDataUp(dataModFinal);
+                            objRegAtend.setHorarioUp(horaMov);
+                            controlRegAtend.alterarRegAtend(objRegAtend);
+                            //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                            objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                            objRegAtend.setNomeDepartamento(nomeModuloTO);
+                            objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                            objRegAtend.setHorarioUp(horaMov);
+                            objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            control_ATENDE.confirmarAtendimento(objRegAtend);
+                            //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                            pHABILITA_TO = "Não";
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setHabTer(pHABILITA_TO);
+                            control_PE.alterarPortaEntradaTerapia(objPortaEntrada);
+                            //EVOLUÇÃO DA ADMISSÃO (13/05/2020)
+                            objEvolu.setDataEvo(jDataLanc.getDate());
+                            objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
+                            // log de usuario
+                            objEvolu.setUsuarioInsert(nameUser);
+                            objEvolu.setDataInsert(dataModFinal);
+                            objEvolu.setHorarioInsert(horaMov);
+                            //
+                            objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                            objEvolu.setAdmEvo(admEvolucao);
+                            controleEvolucao.incluirEvolucaoTerapia(objEvolu);
+                            buscarCodEvolucao();
+                            preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+                                    + "WHERE IdLanc='" + jIdAtend.getText() + "'");
                             //
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -4603,6 +4663,21 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.alterarMovTec(objAtend);
+                        //ADMISSÃO EVOLUÇÃO
+                        objEvolu.setDataEvo(jDataLanc.getDate());
+                        objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
+                        // log de usuario
+                        objEvolu.setUsuarioUp(nameUser);
+                        objEvolu.setDataUp(dataModFinal);
+                        objEvolu.setHorarioUp(horaMov);
+                        //
+                        objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
+                        objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                        objEvolu.setAdmEvo(admEvolucao);
+                        controleEvolucao.alterarEvolucaoTerapiaADM(objEvolu);
+                        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+                                + "WHERE IdLanc='" + jIdAtend.getText() + "'");
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
                         JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
@@ -4938,7 +5013,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                 jComboBoxAIVD.setSelectedItem(conecta.rs.getString("AIVD"));
                 jComboBoxLazer.setSelectedItem(conecta.rs.getString("Lazer"));
                 jComboBoxTrabalho.setSelectedItem(conecta.rs.getString("Trabalho"));
-                jObsDesempenhoOcupacional.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
+                jEvolucaoAdmissao.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
                 // QUALIDADE DE VIDA (TRIAGEM SPA)
                 jComboBoxTabagismo.setSelectedItem(conecta.rs.getString("Tabagismo"));
                 jQuantoTabagismo.setText(conecta.rs.getString("QuantoTabagismo"));
@@ -5184,11 +5259,48 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoInternoEvolTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaAtendimentoInternoEvolTO) && codAlterarTO == 1) {
-            acao = 4;
-            AlterarEvolucao();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            verificarEvolucaoAdmissao();
+            if (admEvolucao == null) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOTERAPIA WHERE IdEvo='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 4;
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("")) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOTERAPIA WHERE IdEvo='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 4;
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -5276,6 +5388,8 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                     control_ATENDE.confirmarAtendimento(objRegAtend);
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarEvolucao();
+                    preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+                            + "WHERE IdLanc='" + jIdAtend.getText() + "'");
                 }
                 if (acao == 4) {
                     // log de usuario
@@ -5291,9 +5405,9 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarEvolucao();
+                    preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+                            + "WHERE IdLanc='" + jIdAtend.getText() + "'");
                 }
-                preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
-                        + "WHERE IdLanc='" + jIdAtend.getText() + "'");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -6274,6 +6388,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JTextField jEscolaridade;
     public static javax.swing.JTextField jEstadoCivil;
+    private javax.swing.JTextArea jEvolucaoAdmissao;
     private javax.swing.JTextArea jEvolucaoTerapia;
     public static javax.swing.JLabel jFotoInternoTerapia;
     private javax.swing.JTextField jIDPesqLanc;
@@ -6406,7 +6521,6 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private javax.swing.JTextField jMotivoAborto;
     public static javax.swing.JTextField jNomeInterno;
     private javax.swing.JTextField jNomeInternoEvolucao;
-    private javax.swing.JTextArea jObsDesempenhoOcupacional;
     private javax.swing.JTextArea jObsEstiloVida;
     private javax.swing.JTextArea jObsHistoricoFamiliar;
     private javax.swing.JTextArea jObsTriagemSPA;
@@ -6478,7 +6592,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAtendimentoTerapia;
     private javax.swing.JTable jTabelaCursos;
-    private javax.swing.JTable jTabelaEvolucao;
+    public static javax.swing.JTable jTabelaEvolucao;
     private javax.swing.JTable jTabelaExperiencia;
     private javax.swing.JFormattedTextField jTipoEtilismo;
     private javax.swing.JFormattedTextField jTipoMedicaoAlopatica;
@@ -6500,384 +6614,384 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     }
 
     public void pesquisarInternoExistente() {
-            jBtNovo.setEnabled(true);
-            jBtAlterar.setEnabled(true);
-            jBtExcluir.setEnabled(true);
-            jBtSalvar.setEnabled(!true);
-            jBtCancelar.setEnabled(true);
-            jBtAuditoria.setEnabled(true);
-            jBtFinalizar.setEnabled(true);
-            //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        //
+        jBtNovoHistoricoEduca.setEnabled(true);
+        //
+        jBtNovoHistoricoLabor.setEnabled(true);
+        //
+        jBtNovoAvaliacaoI.setEnabled(true);
+        //
+        jBtNovoAvaliacaoII.setEnabled(true);
+        //
+        jBtNovaEvolucao.setEnabled(true);
+        //
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOTERAPIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOTERAPIA.IdInternoCrc "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
+            jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
+            jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+            // Capturando foto
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            if (caminho != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                jFotoInternoTerapia.setIcon(i);
+                jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInternoTerapia.setIcon(icon);
+            }
+            jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
+            jEstadoCivil.setText(conecta.rs.getString("EstadoCivilCrc"));
+            jEscolaridade.setText(conecta.rs.getString("EscolaridadeCrc"));
+            jReligiao.setText(conecta.rs.getString("ReligiaoCrc"));
+            jProfissao.setText(conecta.rs.getString("ProfissaoCrc"));
+            // HISTÓRICO FAMILIAR
+            jComboBoxPaisVivos.setSelectedItem(conecta.rs.getString("PaisVivos"));
+            jComboBoxTemCompanheira.setSelectedItem(conecta.rs.getString("TemCompanheira"));
+            jComboBoxTemFilhos.setSelectedItem(conecta.rs.getString("TemFilhos"));
+            jQuantosFilhos.setText(conecta.rs.getString("QuantosFilhos"));
+            jComboBoxVisitaFamiliar.setSelectedItem(conecta.rs.getString("VisitaFamiliar"));
+            SFSeg = conecta.rs.getInt("SFseg");
+            if (SFSeg == 0) {
+                jCheckBoxSFSeg.setSelected(true);
+            } else if (SFSeg == 1) {
+                jCheckBoxSFSeg.setSelected(!true);
+            }
+            SFTer = conecta.rs.getInt("SFTer");
+            if (SFTer == 0) {
+                jCheckBoxSFTer.setSelected(true);
+            } else if (SFTer == 1) {
+                jCheckBoxSFTer.setSelected(!true);
+            }
+            SFQua = conecta.rs.getInt("SFQua");
+            if (SFQua == 0) {
+                jCheckBoxSFQua.setSelected(true);
+            } else if (SFQua == 1) {
+                jCheckBoxSFQua.setSelected(!true);
+            }
+            SFQui = conecta.rs.getInt("SFQui");
+            if (SFQui == 0) {
+                jCheckBoxSFQui.setSelected(true);
+            } else if (SFQui == 1) {
+                jCheckBoxSFQui.setSelected(!true);
+            }
+            SFSex = conecta.rs.getInt("SFSex");
+            if (SFSex == 0) {
+                jCheckBoxSFSex.setSelected(true);
+            } else if (SFSex == 1) {
+                jCheckBoxSFSex.setSelected(!true);
+            }
+            SFSab = conecta.rs.getInt("SFSab");
+            if (SFSab == 0) {
+                jCheckBoxSFSab.setSelected(true);
+            } else if (SFSab == 1) {
+                jCheckBoxSFSab.setSelected(!true);
+            }
+            SFDom = conecta.rs.getInt("SFDom");
+            if (SFDom == 0) {
+                jCheckBoxSFDom.setSelected(true);
+            } else if (SFDom == 1) {
+                jCheckBoxSFDom.setSelected(!true);
+            }
+            jComboBoxVisitaIntima.setSelectedItem(conecta.rs.getString("VisitaIntima"));
+            IntSeg = conecta.rs.getInt("IntSeg");
+            if (IntSeg == 0) {
+                jCheckBoxIntSeg.setSelected(true);
+            } else if (IntSeg == 1) {
+                jCheckBoxIntSeg.setSelected(!true);
+            }
+            IntTer = conecta.rs.getInt("IntTer");
+            if (IntTer == 0) {
+                jCheckBoxIntTer.setSelected(true);
+            } else if (IntTer == 1) {
+                jCheckBoxIntTer.setSelected(!true);
+            }
+            IntQua = conecta.rs.getInt("IntQua");
+            if (IntQua == 0) {
+                jCheckBoxIntQua.setSelected(true);
+            } else if (IntQua == 1) {
+                jCheckBoxIntQua.setSelected(!true);
+            }
+            IntQui = conecta.rs.getInt("IntQui");
+            if (IntQui == 0) {
+                jCheckBoxIntQui.setSelected(true);
+            } else if (IntQui == 1) {
+                jCheckBoxIntQui.setSelected(!true);
+            }
+            IntSex = conecta.rs.getInt("IntSex");
+            if (IntSex == 0) {
+                jCheckBoxIntSex.setSelected(true);
+            } else if (IntSex == 1) {
+                jCheckBoxIntSex.setSelected(!true);
+            }
+            IntSab = conecta.rs.getInt("IntSab");
+            if (IntSab == 0) {
+                jCheckBoxIntSab.setSelected(true);
+            } else if (IntSab == 1) {
+                jCheckBoxIntSab.setSelected(!true);
+            }
+            IntDom = conecta.rs.getInt("IntDom");
+            if (IntDom == 0) {
+                jCheckBoxIntDom.setSelected(true);
+            } else if (IntDom == 1) {
+                jCheckBoxIntDom.setSelected(!true);
+            }
+            jObsHistoricoFamiliar.setText(conecta.rs.getString("ObsHistoricoFamiliar"));
+            // DADOS CLINICOS
+            jComboBoxHipertensao.setSelectedItem(conecta.rs.getString("Hipertensao"));
+            jComboBoxDiabetes.setSelectedItem(conecta.rs.getString("Diabetes"));
+            jComboBoxCancer.setSelectedItem(conecta.rs.getString("Cancer"));
+            jComboBoxProRespiratorio.setSelectedItem(conecta.rs.getString("ProRespiratorio"));
+            jComboBoxTransMental.setSelectedItem(conecta.rs.getString("TransMental"));
+            jComboBoxInfectocontagiosa.setSelectedItem(conecta.rs.getString("Infectocontagiosa"));
+            jComboBoxDoencasDigestivo.setSelectedItem(conecta.rs.getString("DoencasDigestiva"));
+            jComboBoxDeficienciaVAF.setSelectedItem(conecta.rs.getString("DeficienciaVAF"));
+            ObsDadosClinicos.setText(conecta.rs.getString("ObsDadosClinicos"));
+            //ALTERAÇÕES PSICOLOGICAS
+            jComboBoxHumor.setSelectedItem(conecta.rs.getString("Humor"));
+            jComboBoxInsonia.setSelectedItem(conecta.rs.getString("Insonia"));
+            jComboBoxIrritabilidade.setSelectedItem(conecta.rs.getString("Irritabilidade"));
+            jComboBoxFrustracao.setSelectedItem(conecta.rs.getString("Frustracao"));
+            jComboBoxDificultadeConcentrar.setSelectedItem(conecta.rs.getString("DificuldadeConcentrar"));
+            jComboBoxRaiva.setSelectedItem(conecta.rs.getString("Raiva"));
+            jComboBoxInquietacao.setSelectedItem(conecta.rs.getString("Inquietacao"));
+            jComboBoxAnsiedade.setSelectedItem(conecta.rs.getString("Ansiedade"));
+            ObsAlteracoesPsicologicas.setText(conecta.rs.getString("ObsAlteracoesPsicologicas"));
+            // DESEMPENHO OCUPACIONAL
+            jComboBoxDominancia.setSelectedItem(conecta.rs.getString("Dominancia"));
+            jComboBoxAmputacao.setSelectedItem(conecta.rs.getString("Amputacao"));
+            jComboBoxDeficienciaOcupa.setSelectedItem(conecta.rs.getString("DeficienciaOcupa"));
+            jComboBoxReabilitacao.setSelectedItem(conecta.rs.getString("Reabilitacao"));
+            jComboBoxMotora.setSelectedItem(conecta.rs.getString("Motora"));
+            jComboBoxCognitiva.setSelectedItem(conecta.rs.getString("Cognitiva"));
+            jComboBoxSensorial.setSelectedItem(conecta.rs.getString("Sensorial"));
+            jComboBoxIntPsi.setSelectedItem(conecta.rs.getString("IntPsi"));
+            jComboBoxAVD.setSelectedItem(conecta.rs.getString("AVD"));
+            jComboBoxAIVD.setSelectedItem(conecta.rs.getString("AIVD"));
+            jComboBoxLazer.setSelectedItem(conecta.rs.getString("Lazer"));
+            jComboBoxTrabalho.setSelectedItem(conecta.rs.getString("Trabalho"));
+            jEvolucaoAdmissao.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
+            // QUALIDADE DE VIDA (TRIAGEM SPA)
+            jComboBoxTabagismo.setSelectedItem(conecta.rs.getString("Tabagismo"));
+            jQuantoTabagismo.setText(conecta.rs.getString("QuantoTabagismo"));
+            jComboBoxTabagismoUsuario.setSelectedItem(conecta.rs.getString("TabagismoUsuario"));
+            jComboBoxEtilismo.setSelectedItem(conecta.rs.getString("Etilismo"));
+            jTipoEtilismo.setText(conecta.rs.getString("TipoEtilismo"));
+            jComboBoxEtilismoUsuario.setSelectedItem(conecta.rs.getString("EtilismoUsuario"));
+            jComboBoxMedicaoAlopatica.setSelectedItem(conecta.rs.getString("MedicacaoAlopatica"));
+            jTipoMedicaoAlopatica.setText(conecta.rs.getString("TipoMedicacaoAlopatica"));
+            jComboBoxMedicaoAlopaticaUsuario.setSelectedItem(conecta.rs.getString("MedicacaoAlopaticaUsuario"));
+            jComboBoxSPA.setSelectedItem(conecta.rs.getString("SPA"));
+            jTipoSPA.setText(conecta.rs.getString("TipoSPA"));
+            jComboBoxSPAUsuario.setSelectedItem(conecta.rs.getString("SPAUsuario"));
+            jObsTriagemSPA.setText(conecta.rs.getString("ObsTriagemSPA"));
+            // QUALIDADE DE VIDA (ESTILO DE VIDA)
+            jComboBoxVidaSexual.setSelectedItem(conecta.rs.getString("VidaSexual"));
+            jComboBoxMetodoContraCeptivo.setSelectedItem(conecta.rs.getString("MetodoContraCeptivo"));
+            jQualMetodoContraCeptivo.setText(conecta.rs.getString("QualMetodoContraCeptivo"));
+            jComboBoxGestante.setSelectedItem(conecta.rs.getString("Gestante"));
+            jComboBoxAborto.setSelectedItem(conecta.rs.getString("Aborto"));
+            jMotivoAborto.setText(conecta.rs.getString("MotivoAborto"));
+            jComboBoxPraticaAtividadeFisica.setSelectedItem(conecta.rs.getString("PraticaAtividadeFisica"));
+            jQualAtividadeFisica.setText(conecta.rs.getString("QualAtividadeFisica"));
+            jComboBoxTrataPsicologico.setSelectedItem(conecta.rs.getString("TrataPsicologico"));
+            jObsEstiloVida.setText(conecta.rs.getString("ObsEstiloVida"));
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser exibido." + e);
+        }
+        // HISTÓRICO EDUCACIONAL
+        limparTabelaCursos();
+        try {
+            conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL "
+                    + "INNER JOIN ATENDIMENTOTERAPIA "
+                    + "ON TO_HISTORICO_EDUCACIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
+                    + "WHERE TO_HISTORICO_EDUCACIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEdu");
+            jComboBoxEscreveProprioNome.setSelectedItem(conecta.rs.getString("EscreveProprioNome"));
+            jComboBoxSabeLerEscrever.setSelectedItem(conecta.rs.getString("SabeLerEscrever"));
+            jComboBoxNivelInstrucao.setSelectedItem(conecta.rs.getString("NivelInstrucao"));
+            jComboBoxInteresseEstudar.setSelectedItem(conecta.rs.getString("InteresseEstudar"));
+            jComboBoxCursoProfissionalizante.setSelectedItem(conecta.rs.getString("CursoProfissionalizante"));
+        } catch (Exception e) {
+        }
+        // TABELA DE CURSOS PROFISSIONALIZANTES          
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL "
+                    + "INNER JOIN CURSOS "
+                    + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso=CURSOS.IdCurso "
+                    + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            idItem = conecta.rs.getInt("IdItem");
+            DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
+            dtmCursos.getDataVector().clear(); // limpa a tabela 
+            do {
+                prioridadeCursoTabela = conecta.rs.getInt("PrioridadeCurso");
+                if (prioridadeCursoTabela == 0) {
+                    prioridadeLetraCurso = "A";
+                } else if (prioridadeCursoTabela == 1) {
+                    prioridadeLetraCurso = "B";
+                } else if (prioridadeCursoTabela == 2) {
+                    prioridadeLetraCurso = "C";
+                }
+                dtmCursos.addRow(new Object[]{conecta.rs.getInt("IdCurso"), conecta.rs.getString("DescricaoCurso"), prioridadeLetraCurso});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        if (codigoHistoricoEduca != 0) {
             jBtNovoHistoricoEduca.setEnabled(true);
-            //
+            jBtAlterarHistoricoEduca.setEnabled(true);
+            jBtExcluirHistoricoEduca.setEnabled(true);
+            jBtSalvarHistoricoEduca.setEnabled(!true);
+            jBtCancelarHistoricoEduca.setEnabled(true);
+            jBtAuditoriaHistoricoEduca.setEnabled(true);
+        }
+        // HISTORICO PROFISSIONAL
+        limparTabelaExperiencia();
+        jComboBoxQualProfissao.removeAllItems();
+        try {
+            conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL "
+                    + "INNER JOIN ATENDIMENTOTERAPIA "
+                    + "ON TO_HISTORICO_PROFISSIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
+                    + "WHERE TO_HISTORICO_PROFISSIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLab");
+            jComboBoxTemProfissao.setSelectedItem(conecta.rs.getString("TemProfissao"));
+            jComboBoxQualProfissao.addItem(conecta.rs.getString("QualProfissao"));
+            jComboBoxExperienciaProfissional.setSelectedItem(conecta.rs.getString("ExperienciaProfissional"));
+            jComboBoxDesejaTrabalharUnid.setSelectedItem(conecta.rs.getString("DesejaTrabalharUnid"));
+            opcaoRemueracao = conecta.rs.getInt("InteresseLabor");
+            if (opcaoRemueracao == 0) {
+                jRadioBtRemunerado.setSelected(true);
+            } else if (opcaoRemueracao == 1) {
+                jRadioBtNaoRemunerado.setSelected(true);
+            } else if (opcaoRemueracao == 2) {
+                jRadioBtAmbos.setSelected(true);
+            }
+        } catch (Exception e) {
+        }
+        // TABELA DE CURSOS PROFISSIONALIZANTES
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL "
+                    + "INNER JOIN PROFISSAO "
+                    + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdCodigoProf=PROFISSAO.IdCodigoProf "
+                    + "WHERE ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            idItemProf = conecta.rs.getInt("IdItem");
+            DefaultTableModel dtmProf = (DefaultTableModel) jTabelaExperiencia.getModel();
+            dtmProf.getDataVector().clear(); // limpa a tabela 
+            do {
+                dtmProf.addRow(new Object[]{conecta.rs.getInt("IdCodigoProf"), conecta.rs.getString("DescricaoProf"), tipoRemuneracao});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        if (codigoHistoricoProf != 0) {
             jBtNovoHistoricoLabor.setEnabled(true);
-            //
-            jBtNovoAvaliacaoI.setEnabled(true);
-            //
-            jBtNovoAvaliacaoII.setEnabled(true);
-            //
-            jBtNovaEvolucao.setEnabled(true);
-            //
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ATENDIMENTOTERAPIA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOTERAPIA.IdInternoCrc "
-                        + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
-                conecta.rs.first();
-                jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
-                jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
-                jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
-                jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
-                // Capturando foto
-                caminho = conecta.rs.getString("FotoInternoCrc");
-                if (caminho != null) {
-                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                    jFotoInternoTerapia.setIcon(i);
-                    jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH)));
-                }
-                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
-                if (imgBytes != null) {
-                    ImageIcon pic = null;
-                    pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon icon = new ImageIcon(scaled);
-                    jFotoInternoTerapia.setIcon(icon);
-                }
-                jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
-                jEstadoCivil.setText(conecta.rs.getString("EstadoCivilCrc"));
-                jEscolaridade.setText(conecta.rs.getString("EscolaridadeCrc"));
-                jReligiao.setText(conecta.rs.getString("ReligiaoCrc"));
-                jProfissao.setText(conecta.rs.getString("ProfissaoCrc"));
-                // HISTÓRICO FAMILIAR
-                jComboBoxPaisVivos.setSelectedItem(conecta.rs.getString("PaisVivos"));
-                jComboBoxTemCompanheira.setSelectedItem(conecta.rs.getString("TemCompanheira"));
-                jComboBoxTemFilhos.setSelectedItem(conecta.rs.getString("TemFilhos"));
-                jQuantosFilhos.setText(conecta.rs.getString("QuantosFilhos"));
-                jComboBoxVisitaFamiliar.setSelectedItem(conecta.rs.getString("VisitaFamiliar"));
-                SFSeg = conecta.rs.getInt("SFseg");
-                if (SFSeg == 0) {
-                    jCheckBoxSFSeg.setSelected(true);
-                } else if (SFSeg == 1) {
-                    jCheckBoxSFSeg.setSelected(!true);
-                }
-                SFTer = conecta.rs.getInt("SFTer");
-                if (SFTer == 0) {
-                    jCheckBoxSFTer.setSelected(true);
-                } else if (SFTer == 1) {
-                    jCheckBoxSFTer.setSelected(!true);
-                }
-                SFQua = conecta.rs.getInt("SFQua");
-                if (SFQua == 0) {
-                    jCheckBoxSFQua.setSelected(true);
-                } else if (SFQua == 1) {
-                    jCheckBoxSFQua.setSelected(!true);
-                }
-                SFQui = conecta.rs.getInt("SFQui");
-                if (SFQui == 0) {
-                    jCheckBoxSFQui.setSelected(true);
-                } else if (SFQui == 1) {
-                    jCheckBoxSFQui.setSelected(!true);
-                }
-                SFSex = conecta.rs.getInt("SFSex");
-                if (SFSex == 0) {
-                    jCheckBoxSFSex.setSelected(true);
-                } else if (SFSex == 1) {
-                    jCheckBoxSFSex.setSelected(!true);
-                }
-                SFSab = conecta.rs.getInt("SFSab");
-                if (SFSab == 0) {
-                    jCheckBoxSFSab.setSelected(true);
-                } else if (SFSab == 1) {
-                    jCheckBoxSFSab.setSelected(!true);
-                }
-                SFDom = conecta.rs.getInt("SFDom");
-                if (SFDom == 0) {
-                    jCheckBoxSFDom.setSelected(true);
-                } else if (SFDom == 1) {
-                    jCheckBoxSFDom.setSelected(!true);
-                }
-                jComboBoxVisitaIntima.setSelectedItem(conecta.rs.getString("VisitaIntima"));
-                IntSeg = conecta.rs.getInt("IntSeg");
-                if (IntSeg == 0) {
-                    jCheckBoxIntSeg.setSelected(true);
-                } else if (IntSeg == 1) {
-                    jCheckBoxIntSeg.setSelected(!true);
-                }
-                IntTer = conecta.rs.getInt("IntTer");
-                if (IntTer == 0) {
-                    jCheckBoxIntTer.setSelected(true);
-                } else if (IntTer == 1) {
-                    jCheckBoxIntTer.setSelected(!true);
-                }
-                IntQua = conecta.rs.getInt("IntQua");
-                if (IntQua == 0) {
-                    jCheckBoxIntQua.setSelected(true);
-                } else if (IntQua == 1) {
-                    jCheckBoxIntQua.setSelected(!true);
-                }
-                IntQui = conecta.rs.getInt("IntQui");
-                if (IntQui == 0) {
-                    jCheckBoxIntQui.setSelected(true);
-                } else if (IntQui == 1) {
-                    jCheckBoxIntQui.setSelected(!true);
-                }
-                IntSex = conecta.rs.getInt("IntSex");
-                if (IntSex == 0) {
-                    jCheckBoxIntSex.setSelected(true);
-                } else if (IntSex == 1) {
-                    jCheckBoxIntSex.setSelected(!true);
-                }
-                IntSab = conecta.rs.getInt("IntSab");
-                if (IntSab == 0) {
-                    jCheckBoxIntSab.setSelected(true);
-                } else if (IntSab == 1) {
-                    jCheckBoxIntSab.setSelected(!true);
-                }
-                IntDom = conecta.rs.getInt("IntDom");
-                if (IntDom == 0) {
-                    jCheckBoxIntDom.setSelected(true);
-                } else if (IntDom == 1) {
-                    jCheckBoxIntDom.setSelected(!true);
-                }
-                jObsHistoricoFamiliar.setText(conecta.rs.getString("ObsHistoricoFamiliar"));
-                // DADOS CLINICOS
-                jComboBoxHipertensao.setSelectedItem(conecta.rs.getString("Hipertensao"));
-                jComboBoxDiabetes.setSelectedItem(conecta.rs.getString("Diabetes"));
-                jComboBoxCancer.setSelectedItem(conecta.rs.getString("Cancer"));
-                jComboBoxProRespiratorio.setSelectedItem(conecta.rs.getString("ProRespiratorio"));
-                jComboBoxTransMental.setSelectedItem(conecta.rs.getString("TransMental"));
-                jComboBoxInfectocontagiosa.setSelectedItem(conecta.rs.getString("Infectocontagiosa"));
-                jComboBoxDoencasDigestivo.setSelectedItem(conecta.rs.getString("DoencasDigestiva"));
-                jComboBoxDeficienciaVAF.setSelectedItem(conecta.rs.getString("DeficienciaVAF"));
-                ObsDadosClinicos.setText(conecta.rs.getString("ObsDadosClinicos"));
-                //ALTERAÇÕES PSICOLOGICAS
-                jComboBoxHumor.setSelectedItem(conecta.rs.getString("Humor"));
-                jComboBoxInsonia.setSelectedItem(conecta.rs.getString("Insonia"));
-                jComboBoxIrritabilidade.setSelectedItem(conecta.rs.getString("Irritabilidade"));
-                jComboBoxFrustracao.setSelectedItem(conecta.rs.getString("Frustracao"));
-                jComboBoxDificultadeConcentrar.setSelectedItem(conecta.rs.getString("DificuldadeConcentrar"));
-                jComboBoxRaiva.setSelectedItem(conecta.rs.getString("Raiva"));
-                jComboBoxInquietacao.setSelectedItem(conecta.rs.getString("Inquietacao"));
-                jComboBoxAnsiedade.setSelectedItem(conecta.rs.getString("Ansiedade"));
-                ObsAlteracoesPsicologicas.setText(conecta.rs.getString("ObsAlteracoesPsicologicas"));
-                // DESEMPENHO OCUPACIONAL
-                jComboBoxDominancia.setSelectedItem(conecta.rs.getString("Dominancia"));
-                jComboBoxAmputacao.setSelectedItem(conecta.rs.getString("Amputacao"));
-                jComboBoxDeficienciaOcupa.setSelectedItem(conecta.rs.getString("DeficienciaOcupa"));
-                jComboBoxReabilitacao.setSelectedItem(conecta.rs.getString("Reabilitacao"));
-                jComboBoxMotora.setSelectedItem(conecta.rs.getString("Motora"));
-                jComboBoxCognitiva.setSelectedItem(conecta.rs.getString("Cognitiva"));
-                jComboBoxSensorial.setSelectedItem(conecta.rs.getString("Sensorial"));
-                jComboBoxIntPsi.setSelectedItem(conecta.rs.getString("IntPsi"));
-                jComboBoxAVD.setSelectedItem(conecta.rs.getString("AVD"));
-                jComboBoxAIVD.setSelectedItem(conecta.rs.getString("AIVD"));
-                jComboBoxLazer.setSelectedItem(conecta.rs.getString("Lazer"));
-                jComboBoxTrabalho.setSelectedItem(conecta.rs.getString("Trabalho"));
-                jObsDesempenhoOcupacional.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
-                // QUALIDADE DE VIDA (TRIAGEM SPA)
-                jComboBoxTabagismo.setSelectedItem(conecta.rs.getString("Tabagismo"));
-                jQuantoTabagismo.setText(conecta.rs.getString("QuantoTabagismo"));
-                jComboBoxTabagismoUsuario.setSelectedItem(conecta.rs.getString("TabagismoUsuario"));
-                jComboBoxEtilismo.setSelectedItem(conecta.rs.getString("Etilismo"));
-                jTipoEtilismo.setText(conecta.rs.getString("TipoEtilismo"));
-                jComboBoxEtilismoUsuario.setSelectedItem(conecta.rs.getString("EtilismoUsuario"));
-                jComboBoxMedicaoAlopatica.setSelectedItem(conecta.rs.getString("MedicacaoAlopatica"));
-                jTipoMedicaoAlopatica.setText(conecta.rs.getString("TipoMedicacaoAlopatica"));
-                jComboBoxMedicaoAlopaticaUsuario.setSelectedItem(conecta.rs.getString("MedicacaoAlopaticaUsuario"));
-                jComboBoxSPA.setSelectedItem(conecta.rs.getString("SPA"));
-                jTipoSPA.setText(conecta.rs.getString("TipoSPA"));
-                jComboBoxSPAUsuario.setSelectedItem(conecta.rs.getString("SPAUsuario"));
-                jObsTriagemSPA.setText(conecta.rs.getString("ObsTriagemSPA"));
-                // QUALIDADE DE VIDA (ESTILO DE VIDA)
-                jComboBoxVidaSexual.setSelectedItem(conecta.rs.getString("VidaSexual"));
-                jComboBoxMetodoContraCeptivo.setSelectedItem(conecta.rs.getString("MetodoContraCeptivo"));
-                jQualMetodoContraCeptivo.setText(conecta.rs.getString("QualMetodoContraCeptivo"));
-                jComboBoxGestante.setSelectedItem(conecta.rs.getString("Gestante"));
-                jComboBoxAborto.setSelectedItem(conecta.rs.getString("Aborto"));
-                jMotivoAborto.setText(conecta.rs.getString("MotivoAborto"));
-                jComboBoxPraticaAtividadeFisica.setSelectedItem(conecta.rs.getString("PraticaAtividadeFisica"));
-                jQualAtividadeFisica.setText(conecta.rs.getString("QualAtividadeFisica"));
-                jComboBoxTrataPsicologico.setSelectedItem(conecta.rs.getString("TrataPsicologico"));
-                jObsEstiloVida.setText(conecta.rs.getString("ObsEstiloVida"));
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser exibido." + e);
+            jBtAlterarHistoricoLabor.setEnabled(true);
+            jBtExcluirHistoricoLabor.setEnabled(true);
+            jBtSalvarHistoricoLabor.setEnabled(!true);
+            jBtCancelarHistoricoLabor.setEnabled(true);
+            jBtAuditoriaHistoricoLabor.setEnabled(true);
+        }
+        // AVALIAÇÃO I
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM AVALIACAO_I "
+                    + "INNER JOIN ATENDIMENTOTERAPIA "
+                    + "ON AVALIACAO_I.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
+                    + "WHERE AVALIACAO_I.IdLanc='" + jIdAtend.getText() + "'");
+            conecta.rs.first();
+            codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaI");
+            jComboBoxConhecoHabilidades.setSelectedItem(conecta.rs.getString("ConhecoHabilidades"));
+            jComboBoxAcreditaRealizacoes.setSelectedItem(conecta.rs.getString("AcreditaRealizacoes"));
+            jComboBoxEsperoResultados.setSelectedItem(conecta.rs.getString("EsperoResultados"));
+            jComboBoxAcreditoRealizaTrabalho.setSelectedItem(conecta.rs.getString("AcreditoRealizaTrabalho"));
+            jComboBoxAcreditoRealizaLar.setSelectedItem(conecta.rs.getString("AcreditoRealizaLar"));
+            jComboBoxAcreditoDiverteLazer.setSelectedItem(conecta.rs.getString("AcreditoDiverteLazer"));
+            jComboBoxFacoAtividades.setSelectedItem(conecta.rs.getString("FacoAtividades"));
+            jComboBoxTenhoExpectativa.setSelectedItem(conecta.rs.getString("TenhoExpectativa"));
+            jComboBoxTenhoObjetoFuturo.setSelectedItem(conecta.rs.getString("TenhoObjetoFuturo"));
+            jComboBoxIdentificoGostos.setSelectedItem(conecta.rs.getString("IdentificoGostos"));
+            jComboBoxParticipoProjetosImport.setSelectedItem(conecta.rs.getString("ParticipoProjetosImport"));
+            jComboBoxTenhoVariosInteresse.setSelectedItem(conecta.rs.getString("TenhoVariosInteresse"));
+            jComboBoxCostumoComprometo.setSelectedItem(conecta.rs.getString("CostumoComprometo"));
+            jComboBoxDeEstudante.setSelectedItem(conecta.rs.getString("DeEstudante"));
+            jComboBoxDeTrabalho.setSelectedItem(conecta.rs.getString("DeTrabalho"));
+            jComboBoxDeAmigo.setSelectedItem(conecta.rs.getString("DeAmigo"));
+            jComboBoxDeFamiliar.setSelectedItem(conecta.rs.getString("DeFamiliar"));
+            jComboBoxReconhecoPapeis.setSelectedItem(conecta.rs.getString("ReconhecoPapeis"));
+            jComboBoxMantenhoVida.setSelectedItem(conecta.rs.getString("MantenhoVida"));
+            if (codigoAvaliacaoI != 0) {
+                jBtNovoAvaliacaoI.setEnabled(true);
+                jBtAlterarAvaliacaoI.setEnabled(true);
+                jBtExcluirAvaliacaoI.setEnabled(true);
+                jBtSalvarAvaliacaoI.setEnabled(!true);
+                jBtCancelarAvaliacaoI.setEnabled(!true);
+                jBtAuditoriaAvaliacaoI.setEnabled(true);
             }
-            // HISTÓRICO EDUCACIONAL
-            limparTabelaCursos();
-            try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_EDUCACIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_EDUCACIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
-                conecta.rs.first();
-                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEdu");
-                jComboBoxEscreveProprioNome.setSelectedItem(conecta.rs.getString("EscreveProprioNome"));
-                jComboBoxSabeLerEscrever.setSelectedItem(conecta.rs.getString("SabeLerEscrever"));
-                jComboBoxNivelInstrucao.setSelectedItem(conecta.rs.getString("NivelInstrucao"));
-                jComboBoxInteresseEstudar.setSelectedItem(conecta.rs.getString("InteresseEstudar"));
-                jComboBoxCursoProfissionalizante.setSelectedItem(conecta.rs.getString("CursoProfissionalizante"));
-            } catch (Exception e) {
+        } catch (Exception e) {
+        }
+        // AVALIAÇÃO II
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM AVALIACAO_II "
+                    + "INNER JOIN ATENDIMENTOTERAPIA "
+                    + "ON AVALIACAO_II.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
+                    + "WHERE AVALIACAO_II.IdLanc='" + jIdAtend.getText() + "'");
+            conecta.rs.first();
+            codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaII");
+            jComboBoxOrganizoTempo.setSelectedItem(conecta.rs.getString("OrganizoTempo"));
+            jComboBoxMantenhoPapeis.setSelectedItem(conecta.rs.getString("MantenhoPapeis"));
+            jComboBoxSouRotina.setSelectedItem(conecta.rs.getString("SouRotina"));
+            jComboBoxConsigoOutros.setSelectedItem(conecta.rs.getString("ConsigoOutros"));
+            jComboBoxTenhoSocial.setSelectedItem(conecta.rs.getString("TenhoSocial"));
+            jComboBoxPlanejoAgir.setSelectedItem(conecta.rs.getString("PlanejoAgir"));
+            jComboBoxConcentroTrabalho.setSelectedItem(conecta.rs.getString("ConcentroTrabalho"));
+            jComboBoxIdentificoProblemas.setSelectedItem(conecta.rs.getString("IdentificoProblemas"));
+            jComboBoxIdentificoSolucaoProblemas.setSelectedItem(conecta.rs.getString("IdentificoSolucaoProblemas"));
+            jComboBoxQuandoAgir.setSelectedItem(conecta.rs.getString("QuandoAgir"));
+            jComboBoxConsigoHigiene.setSelectedItem(conecta.rs.getString("ConsigoHigiene"));
+            jComboBoxConsigoCasa.setSelectedItem(conecta.rs.getString("ConsigoCasa"));
+            jComboBoxConsigoCotidianas.setSelectedItem(conecta.rs.getString("ConsigoCotidianas"));
+            jComboBoxConsigoFinancas.setSelectedItem(conecta.rs.getString("ConsigoFinancas"));
+            jComboBoxSintoPreciso.setSelectedItem(conecta.rs.getString("SintoPreciso"));
+            jComboBoxCostumoFrequentar.setSelectedItem(conecta.rs.getString("CostumoFrequentar"));
+            jDataAplicacao.setDate(conecta.rs.getDate("DataAplicacao"));
+            jResponsavelAplicacao.setText(conecta.rs.getString("ResponsavelAplicacao"));
+            if (codigoAvaliacaoII != 0) {
+                jBtNovoAvaliacaoII.setEnabled(true);
+                jBtAlterarAvaliacaoII.setEnabled(true);
+                jBtExcluirAvaliacaoII.setEnabled(true);
+                jBtSalvarAvaliacaoII.setEnabled(!true);
+                jBtCancelarAvaliacaoII.setEnabled(!true);
+                jBtAuditoriaAvaliacaoII.setEnabled(true);
             }
-            // TABELA DE CURSOS PROFISSIONALIZANTES          
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL "
-                        + "INNER JOIN CURSOS "
-                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso=CURSOS.IdCurso "
-                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
-                conecta.rs.first();
-                idItem = conecta.rs.getInt("IdItem");
-                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
-                dtmCursos.getDataVector().clear(); // limpa a tabela 
-                do {
-                    prioridadeCursoTabela = conecta.rs.getInt("PrioridadeCurso");
-                    if (prioridadeCursoTabela == 0) {
-                        prioridadeLetraCurso = "A";
-                    } else if (prioridadeCursoTabela == 1) {
-                        prioridadeLetraCurso = "B";
-                    } else if (prioridadeCursoTabela == 2) {
-                        prioridadeLetraCurso = "C";
-                    }
-                    dtmCursos.addRow(new Object[]{conecta.rs.getInt("IdCurso"), conecta.rs.getString("DescricaoCurso"), prioridadeLetraCurso});
-                } while (conecta.rs.next());
-            } catch (SQLException ex) {
-            }
-            if (codigoHistoricoEduca != 0) {
-                jBtNovoHistoricoEduca.setEnabled(true);
-                jBtAlterarHistoricoEduca.setEnabled(true);
-                jBtExcluirHistoricoEduca.setEnabled(true);
-                jBtSalvarHistoricoEduca.setEnabled(!true);
-                jBtCancelarHistoricoEduca.setEnabled(true);
-                jBtAuditoriaHistoricoEduca.setEnabled(true);
-            }
-            // HISTORICO PROFISSIONAL
-            limparTabelaExperiencia();
-            jComboBoxQualProfissao.removeAllItems();
-            try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_PROFISSIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_PROFISSIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
-                conecta.rs.first();
-                codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLab");
-                jComboBoxTemProfissao.setSelectedItem(conecta.rs.getString("TemProfissao"));
-                jComboBoxQualProfissao.addItem(conecta.rs.getString("QualProfissao"));
-                jComboBoxExperienciaProfissional.setSelectedItem(conecta.rs.getString("ExperienciaProfissional"));
-                jComboBoxDesejaTrabalharUnid.setSelectedItem(conecta.rs.getString("DesejaTrabalharUnid"));
-                opcaoRemueracao = conecta.rs.getInt("InteresseLabor");
-                if (opcaoRemueracao == 0) {
-                    jRadioBtRemunerado.setSelected(true);
-                } else if (opcaoRemueracao == 1) {
-                    jRadioBtNaoRemunerado.setSelected(true);
-                } else if (opcaoRemueracao == 2) {
-                    jRadioBtAmbos.setSelected(true);
-                }
-            } catch (Exception e) {
-            }
-            // TABELA DE CURSOS PROFISSIONALIZANTES
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL "
-                        + "INNER JOIN PROFISSAO "
-                        + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdCodigoProf=PROFISSAO.IdCodigoProf "
-                        + "WHERE ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdInternoCrc='" + jIdInterno.getText() + "'");
-                conecta.rs.first();
-                idItemProf = conecta.rs.getInt("IdItem");
-                DefaultTableModel dtmProf = (DefaultTableModel) jTabelaExperiencia.getModel();
-                dtmProf.getDataVector().clear(); // limpa a tabela 
-                do {
-                    dtmProf.addRow(new Object[]{conecta.rs.getInt("IdCodigoProf"), conecta.rs.getString("DescricaoProf"), tipoRemuneracao});
-                } while (conecta.rs.next());
-            } catch (SQLException ex) {
-            }
-            if (codigoHistoricoProf != 0) {
-                jBtNovoHistoricoLabor.setEnabled(true);
-                jBtAlterarHistoricoLabor.setEnabled(true);
-                jBtExcluirHistoricoLabor.setEnabled(true);
-                jBtSalvarHistoricoLabor.setEnabled(!true);
-                jBtCancelarHistoricoLabor.setEnabled(true);
-                jBtAuditoriaHistoricoLabor.setEnabled(true);
-            }
-            // AVALIAÇÃO I
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM AVALIACAO_I "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON AVALIACAO_I.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE AVALIACAO_I.IdLanc='" + jIdAtend.getText() + "'");
-                conecta.rs.first();
-                codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaI");
-                jComboBoxConhecoHabilidades.setSelectedItem(conecta.rs.getString("ConhecoHabilidades"));
-                jComboBoxAcreditaRealizacoes.setSelectedItem(conecta.rs.getString("AcreditaRealizacoes"));
-                jComboBoxEsperoResultados.setSelectedItem(conecta.rs.getString("EsperoResultados"));
-                jComboBoxAcreditoRealizaTrabalho.setSelectedItem(conecta.rs.getString("AcreditoRealizaTrabalho"));
-                jComboBoxAcreditoRealizaLar.setSelectedItem(conecta.rs.getString("AcreditoRealizaLar"));
-                jComboBoxAcreditoDiverteLazer.setSelectedItem(conecta.rs.getString("AcreditoDiverteLazer"));
-                jComboBoxFacoAtividades.setSelectedItem(conecta.rs.getString("FacoAtividades"));
-                jComboBoxTenhoExpectativa.setSelectedItem(conecta.rs.getString("TenhoExpectativa"));
-                jComboBoxTenhoObjetoFuturo.setSelectedItem(conecta.rs.getString("TenhoObjetoFuturo"));
-                jComboBoxIdentificoGostos.setSelectedItem(conecta.rs.getString("IdentificoGostos"));
-                jComboBoxParticipoProjetosImport.setSelectedItem(conecta.rs.getString("ParticipoProjetosImport"));
-                jComboBoxTenhoVariosInteresse.setSelectedItem(conecta.rs.getString("TenhoVariosInteresse"));
-                jComboBoxCostumoComprometo.setSelectedItem(conecta.rs.getString("CostumoComprometo"));
-                jComboBoxDeEstudante.setSelectedItem(conecta.rs.getString("DeEstudante"));
-                jComboBoxDeTrabalho.setSelectedItem(conecta.rs.getString("DeTrabalho"));
-                jComboBoxDeAmigo.setSelectedItem(conecta.rs.getString("DeAmigo"));
-                jComboBoxDeFamiliar.setSelectedItem(conecta.rs.getString("DeFamiliar"));
-                jComboBoxReconhecoPapeis.setSelectedItem(conecta.rs.getString("ReconhecoPapeis"));
-                jComboBoxMantenhoVida.setSelectedItem(conecta.rs.getString("MantenhoVida"));
-                if (codigoAvaliacaoI != 0) {
-                    jBtNovoAvaliacaoI.setEnabled(true);
-                    jBtAlterarAvaliacaoI.setEnabled(true);
-                    jBtExcluirAvaliacaoI.setEnabled(true);
-                    jBtSalvarAvaliacaoI.setEnabled(!true);
-                    jBtCancelarAvaliacaoI.setEnabled(!true);
-                    jBtAuditoriaAvaliacaoI.setEnabled(true);
-                }
-            } catch (Exception e) {
-            }
-            // AVALIAÇÃO II
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM AVALIACAO_II "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON AVALIACAO_II.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE AVALIACAO_II.IdLanc='" + jIdAtend.getText() + "'");
-                conecta.rs.first();
-                codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaII");
-                jComboBoxOrganizoTempo.setSelectedItem(conecta.rs.getString("OrganizoTempo"));
-                jComboBoxMantenhoPapeis.setSelectedItem(conecta.rs.getString("MantenhoPapeis"));
-                jComboBoxSouRotina.setSelectedItem(conecta.rs.getString("SouRotina"));
-                jComboBoxConsigoOutros.setSelectedItem(conecta.rs.getString("ConsigoOutros"));
-                jComboBoxTenhoSocial.setSelectedItem(conecta.rs.getString("TenhoSocial"));
-                jComboBoxPlanejoAgir.setSelectedItem(conecta.rs.getString("PlanejoAgir"));
-                jComboBoxConcentroTrabalho.setSelectedItem(conecta.rs.getString("ConcentroTrabalho"));
-                jComboBoxIdentificoProblemas.setSelectedItem(conecta.rs.getString("IdentificoProblemas"));
-                jComboBoxIdentificoSolucaoProblemas.setSelectedItem(conecta.rs.getString("IdentificoSolucaoProblemas"));
-                jComboBoxQuandoAgir.setSelectedItem(conecta.rs.getString("QuandoAgir"));
-                jComboBoxConsigoHigiene.setSelectedItem(conecta.rs.getString("ConsigoHigiene"));
-                jComboBoxConsigoCasa.setSelectedItem(conecta.rs.getString("ConsigoCasa"));
-                jComboBoxConsigoCotidianas.setSelectedItem(conecta.rs.getString("ConsigoCotidianas"));
-                jComboBoxConsigoFinancas.setSelectedItem(conecta.rs.getString("ConsigoFinancas"));
-                jComboBoxSintoPreciso.setSelectedItem(conecta.rs.getString("SintoPreciso"));
-                jComboBoxCostumoFrequentar.setSelectedItem(conecta.rs.getString("CostumoFrequentar"));
-                jDataAplicacao.setDate(conecta.rs.getDate("DataAplicacao"));
-                jResponsavelAplicacao.setText(conecta.rs.getString("ResponsavelAplicacao"));
-                if (codigoAvaliacaoII != 0) {
-                    jBtNovoAvaliacaoII.setEnabled(true);
-                    jBtAlterarAvaliacaoII.setEnabled(true);
-                    jBtExcluirAvaliacaoII.setEnabled(true);
-                    jBtSalvarAvaliacaoII.setEnabled(!true);
-                    jBtCancelarAvaliacaoII.setEnabled(!true);
-                    jBtAuditoriaAvaliacaoII.setEnabled(true);
-                }
-            } catch (Exception e) {
-            }
-            // EVOLUÇÃO
-            preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA WHERE IdLanc='" + jIdAtend.getText() + "'");      
+        } catch (Exception e) {
+        }
+        // EVOLUÇÃO
+        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA WHERE IdLanc='" + jIdAtend.getText() + "'");
     }
 
     public void formataCampos() {
@@ -6890,8 +7004,8 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jMotivoAborto.setDocument(new LimiteDigitosAlfa(42));
         jQualAtividadeFisica.setDocument(new LimiteDigitosAlfa(42));
         //
-        jObsDesempenhoOcupacional.setLineWrap(true);
-        jObsDesempenhoOcupacional.setWrapStyleWord(true);
+        jEvolucaoAdmissao.setLineWrap(true);
+        jEvolucaoAdmissao.setWrapStyleWord(true);
         //
         jObsHistoricoFamiliar.setLineWrap(true);
         jObsHistoricoFamiliar.setWrapStyleWord(true);
@@ -6932,7 +7046,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jQualMetodoContraCeptivo.setBackground(Color.white);
         jMotivoAborto.setBackground(Color.white);
         jQualAtividadeFisica.setBackground(Color.white);
-        jObsDesempenhoOcupacional.setBackground(Color.white);
+        jEvolucaoAdmissao.setBackground(Color.white);
         jObsHistoricoFamiliar.setBackground(Color.white);
         ObsDadosClinicos.setBackground(Color.white);
         jComboBoxInteresseEstudar.setBackground(Color.white);
@@ -6962,7 +7076,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         jComboBoxPaisVivos.setEnabled(!true);
         jComboBoxTemCompanheira.setEnabled(!true);
         jComboBoxTemFilhos.setEnabled(!true);
@@ -7017,7 +7131,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(!true);
         jQuantoTabagismo.setEnabled(!true);
@@ -7138,7 +7252,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setSelectedItem("Não");
         jComboBoxTemCompanheira.setSelectedItem("Não");
@@ -7194,7 +7308,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("");
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setSelectedItem("Não");
         jQuantoTabagismo.setText("0");
@@ -7235,7 +7349,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(true);
         jComboBoxTemCompanheira.setEnabled(true);
@@ -7291,7 +7405,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(true);
         jQuantoTabagismo.setEnabled(true);
@@ -7386,7 +7500,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(true);
         jComboBoxTemCompanheira.setEnabled(true);
@@ -7442,7 +7556,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(true);
         jQuantoTabagismo.setEnabled(true);
@@ -7542,7 +7656,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("");
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setSelectedItem("Não");
         jComboBoxTemCompanheira.setSelectedItem("Não");
@@ -7598,7 +7712,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("");
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setSelectedItem("Não");
         jQuantoTabagismo.setText("0");
@@ -7639,7 +7753,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(!true);
         jComboBoxTemCompanheira.setEnabled(!true);
@@ -7695,7 +7809,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(!true);
         jQuantoTabagismo.setEnabled(!true);
@@ -7785,7 +7899,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(!true);
         jComboBoxTemCompanheira.setEnabled(!true);
@@ -7841,7 +7955,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(!true);
         jQuantoTabagismo.setEnabled(!true);
@@ -7947,7 +8061,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setSelectedItem("Não");
             jComboBoxLazer.setSelectedItem("Não");
             jComboBoxTrabalho.setSelectedItem("Não");
-            jObsDesempenhoOcupacional.setText("");
+            jEvolucaoAdmissao.setText("");
             // HISTÓRICO FAMILIAR
             jComboBoxPaisVivos.setSelectedItem("Não");
             jComboBoxTemCompanheira.setSelectedItem("Não");
@@ -8003,7 +8117,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setSelectedItem("Não");
             jComboBoxLazer.setSelectedItem("Não");
             jComboBoxTrabalho.setSelectedItem("Não");
-            jObsDesempenhoOcupacional.setText("");
+            jEvolucaoAdmissao.setText("");
             // QUALIDADE DE VIDA (TRIAGEM SPA)
             jComboBoxTabagismo.setSelectedItem("Não");
             jQuantoTabagismo.setText("");
@@ -8044,7 +8158,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // HISTÓRICO FAMILIAR
             jComboBoxPaisVivos.setEnabled(!true);
             jComboBoxTemCompanheira.setEnabled(!true);
@@ -8100,7 +8214,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // QUALIDADE DE VIDA (TRIAGEM SPA)
             jComboBoxTabagismo.setEnabled(!true);
             jQuantoTabagismo.setEnabled(!true);
@@ -8150,7 +8264,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // HISTÓRICO FAMILIAR
             jComboBoxPaisVivos.setEnabled(!true);
             jComboBoxTemCompanheira.setEnabled(!true);
@@ -8206,7 +8320,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // QUALIDADE DE VIDA (TRIAGEM SPA)
             jComboBoxTabagismo.setEnabled(!true);
             jQuantoTabagismo.setEnabled(!true);
@@ -10314,6 +10428,22 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
             pHabilitaTerapia = conecta.rs.getString("AdmissaoTO");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
+    // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
+    public void verificarEvolucaoAdmissao() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAOTERAPIA "
+                    + "WHERE IdLanc='" + jIdAtend.getText() + "' "
+                    + "AND IdEvo='" + jIdEvolucao.getText() + "'");
+            conecta.rs.first();
+            admEvolucao = conecta.rs.getString("AdmEvo");
         } catch (Exception e) {
         }
         conecta.desconecta();

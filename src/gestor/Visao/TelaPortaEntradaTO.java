@@ -21,16 +21,22 @@ import gestor.Controle.ControleInclusaoCursosTO_DAO;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AtendimentoTerapeuta;
 import gestor.Modelo.AvaliacaoI;
 import gestor.Modelo.AvaliacaoII;
 import gestor.Modelo.EvolucaoTerapia;
 import gestor.Modelo.HistoricoEducacionalLaboral;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
-import static gestor.Visao.TelaAdmissaoEnfermagem.jIdEvolucao;
+import static gestor.Visao.TelaAtendimentoTerapiaOcupacional.jIdAtend;
+import static gestor.Visao.TelaAtendimentoTerapiaOcupacional.jIdInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloPedagogia.pQUANTIDADE_ATENDIDA;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.pQUANTIDADE_ATENDIDA;
+import static gestor.Visao.TelaAtendimentoTerapiaOcupacional.codigoDepartamentoTO_SEC;
+import static gestor.Visao.TelaAtendimentoTerapiaOcupacional.jIdEvolucao;
+import static gestor.Visao.TelaAtendimentoTerapiaOcupacional.jTabelaEvolucao;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -96,6 +102,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -171,6 +180,24 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
+    //
+    String situacao = "ENTRADA NA UNIDADE";
+    String sitRetorno = "RETORNO A UNIDADE";
+    int codigoDepartamento = 0;
+    //PORTA DE ENTRADA COM ORIGEM NO CRC/TRIAGEM
+    String pHABILITA_TERAPIA = "Sim";
+    String pDEPARTAMENTO = "";
+    String pINTERNOCRC = "";
+    String pHABILITADO = "";
+    String pCONFIRMA_ADMISSAO = "Sim";
+    String pHabilitaTO = "";
+    String codInterno; // VARIÁVEL QUE IMPEDI MUDAR O REGISTRO DE ADMISSÃO, CASO JÁ EXISTA ANAMNESES, PRESCRIÇÃO, ATEDTADO OU DIETA.
+    String nomeInternoAnterior = "";
+    String pATENDIDO_PESQUISA = "Não";
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_TO = "Não";
+    //EVOLUÇÃO DA ADMISSAO
+    String admEvolucao = "Sim";
 
     /**
      * Creates new form TelaPortaEntradaTO
@@ -226,10 +253,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jIdAtendNovo = new javax.swing.JTextField();
         jStatusLanc = new javax.swing.JTextField();
         jDataLanc = new com.toedter.calendar.JDateChooser();
-        jIdInterno = new javax.swing.JTextField();
+        jIdInternoAD = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jNomeInterno = new javax.swing.JTextField();
+        jNomeInternoAD = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jIdADM_Principal = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -614,38 +643,38 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jIDPesqLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtTodos1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(216, 216, 216)
-                        .addComponent(jCheckBox1)
-                        .addGap(390, 390, 390))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(456, 456, 456))))
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jnomeInternoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel14Layout.createSequentialGroup()
+                            .addGap(39, 39, 39)
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jIDPesqLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtTodos1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(216, 216, 216)
+                            .addComponent(jCheckBox1)
+                            .addGap(57, 57, 57))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
+                            .addGap(13, 13, 13)
+                            .addComponent(jLabel21)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel22)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(123, 123, 123)))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jnomeInternoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
@@ -712,7 +741,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
+            .addGap(0, 387, Short.MAX_VALUE)
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -747,11 +776,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
-                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 543, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -760,7 +786,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -794,9 +820,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jDataLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataLanc.setEnabled(false);
 
-        jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInterno.setEnabled(false);
+        jIdInternoAD.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoAD.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Código");
@@ -804,8 +830,15 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Nome Completo do Interno");
 
-        jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInterno.setEnabled(false);
+        jNomeInternoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoAD.setEnabled(false);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("At.Principal");
+
+        jIdADM_Principal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdADM_Principal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdADM_Principal.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -815,15 +848,17 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jIdADM_Principal))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jIdAtendNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jStatusLanc))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -831,45 +866,44 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jIdInternoAD, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(175, 175, 175))
-                            .addComponent(jNomeInterno))))
+                            .addComponent(jNomeInternoAD))))
                 .addContainerGap())
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdAtendNovo, jIdInterno});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdAtendNovo, jIdInternoAD});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jIdAtendNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(4, 4, 4)
-                        .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel6)))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdADM_Principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdAtendNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jIdInternoAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jNomeInternoAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -1052,6 +1086,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
         jObsDesempenhoOcupacional.setColumns(20);
         jObsDesempenhoOcupacional.setRows(5);
+        jObsDesempenhoOcupacional.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         jObsDesempenhoOcupacional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jObsDesempenhoOcupacional.setEnabled(false);
         jScrollPane1.setViewportView(jObsDesempenhoOcupacional);
@@ -1215,7 +1250,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jComboBoxIntPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxAIVD, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1259,7 +1294,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jLabel109)
                     .addComponent(jComboBoxTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Desempenho Ocupacional", jPanel6);
@@ -1427,10 +1462,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBoxIntDom)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel88)
                         .addGap(6, 6, 6)
@@ -1443,11 +1480,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addComponent(jLabel118)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxTemFilhos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addComponent(jLabel119)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jQuantosFilhos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                        .addComponent(jQuantosFilhos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1488,7 +1525,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jCheckBoxIntSab)
                     .addComponent(jCheckBoxIntDom))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Histórico Familiar", jPanel7);
@@ -1612,7 +1649,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                 .addComponent(jLabel72)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxDiabetes, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 18, Short.MAX_VALUE)))
+                        .addGap(0, 43, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -1646,7 +1683,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jComboBoxDiabetes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel72))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Dados Clinicos", jPanel8);
@@ -1772,7 +1809,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addGap(462, 462, 462))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1804,7 +1841,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jLabel115)
                     .addComponent(jComboBoxAnsiedade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Alterações Psicologicas", jPanel10);
@@ -1972,7 +2009,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jTipoSPA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxSPAUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2107,7 +2144,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                     .addComponent(jQualAtividadeFisica, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                                     .addComponent(jMotivoAborto)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                                .addGap(0, 4, Short.MAX_VALUE)
+                                .addGap(0, 29, Short.MAX_VALUE)
                                 .addComponent(jLabel95)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxTrataPsicologico, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -2150,7 +2187,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addComponent(jLabel95)
                         .addComponent(jComboBoxTrataPsicologico, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2162,11 +2199,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoTerapia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jFotoInternoTerapia, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoTerapia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jFotoInternoTerapia, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -2176,13 +2213,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -2198,8 +2233,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2))
         );
 
         jTabbedPane1.addTab("Admissão", jPanel2);
@@ -2368,9 +2402,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel34Layout.createSequentialGroup()
                         .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel34Layout.createSequentialGroup()
                         .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2383,7 +2417,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxEscreveProprioNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jComboBoxNivelInstrucao, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel34Layout.createSequentialGroup()
                                         .addComponent(jLabel9)
@@ -2392,8 +2426,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                     .addGroup(jPanel34Layout.createSequentialGroup()
                                         .addComponent(jLabel59)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBoxSabeLerEscrever, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jComboBoxSabeLerEscrever, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel34Layout.createSequentialGroup()
                                 .addComponent(jComboBoxCursoProfissionalizante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -2508,7 +2541,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
+                .addContainerGap()
                 .addComponent(jBtNovoHistoricoEduca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jBtAlterarHistoricoEduca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2520,7 +2553,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addComponent(jBtCancelarHistoricoEduca, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(144, 144, 144)
                 .addComponent(jBtRefersCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaHistoricoEduca, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2529,13 +2562,17 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtRefersCursos)
-            .addComponent(jBtCancelarHistoricoEduca)
-            .addComponent(jBtAuditoriaHistoricoEduca)
-            .addComponent(jBtAlterarHistoricoEduca)
-            .addComponent(jBtExcluirHistoricoEduca)
-            .addComponent(jBtSalvarHistoricoEduca)
-            .addComponent(jBtNovoHistoricoEduca)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtAuditoriaHistoricoEduca)
+                    .addComponent(jBtRefersCursos)
+                    .addComponent(jBtCancelarHistoricoEduca)
+                    .addComponent(jBtAlterarHistoricoEduca)
+                    .addComponent(jBtExcluirHistoricoEduca)
+                    .addComponent(jBtSalvarHistoricoEduca)
+                    .addComponent(jBtNovoHistoricoEduca))
+                .addGap(3, 3, 3))
         );
 
         jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Histórico Laboral", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
@@ -2644,7 +2681,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addComponent(jBtIncluirExperiencia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirExperiencia)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jRadioBtRemunerado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2671,42 +2708,41 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jPanel37Layout.setHorizontalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel37Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel70, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel65, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel66, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jComboBoxTemProfissao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxDesejaTrabalharUnid, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxExperienciaProfissional, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(6, 6, 6)
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel37Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
+                        .addContainerGap()
                         .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel64, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel63, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel70, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel65, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel66, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxQualProfissao, 0, 190, Short.MAX_VALUE)
-                            .addComponent(jComboBoxQualExperienciaProfissional, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel37Layout.createSequentialGroup()
-                        .addComponent(jLabel71)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioBtRemunerado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioBtNaoRemunerado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioBtAmbos)
-                        .addGap(18, 18, 18))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
-                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                        .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jComboBoxTemProfissao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxDesejaTrabalharUnid, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxExperienciaProfissional, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
+                                .addComponent(jLabel71)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioBtRemunerado)
+                                .addGap(1, 1, 1)
+                                .addComponent(jRadioBtNaoRemunerado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioBtAmbos))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
+                                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel64, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel63, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxQualProfissao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxQualExperienciaProfissional, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
+                        .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2858,12 +2894,15 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addComponent(jBtCancelarHistoricoLabor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(121, 121, 121)
                 .addComponent(jBtRefersProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(jBtSairHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(jBtAuditoriaHistoricoLabor, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel12Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarHistoricoLabor, jBtCancelarHistoricoLabor, jBtExcluirHistoricoLabor, jBtNovoHistoricoLabor, jBtSalvarHistoricoLabor});
+
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
@@ -2885,30 +2924,27 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9))
         );
 
         jTabbedPane1.addTab("Histórico Educacional/Laboral", jPanel4);
@@ -2994,7 +3030,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxConhecoHabilidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxAcreditaRealizacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3070,7 +3106,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addComponent(jComboBoxTenhoExpectativa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel28)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(jComboBoxTenhoObjetoFuturo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -3135,7 +3171,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jComboBoxParticipoProjetosImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addComponent(jLabel31)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxTenhoVariosInteresse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -3155,7 +3191,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel32)
                         .addComponent(jComboBoxParticipoProjetosImport, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(3, 3, 3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Papíes: desempenho e comportamentos sociais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -3236,13 +3272,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                             .addComponent(jLabel38, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxMantenhoVida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxReconhecoPapeis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxDeAmigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxCostumoComprometo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
                                 .addComponent(jLabel34)
@@ -3251,8 +3285,13 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
                                 .addComponent(jLabel37)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxDeFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                                .addComponent(jComboBoxDeFamiliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxMantenhoVida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxReconhecoPapeis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3391,7 +3430,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addComponent(jBtCancelarAvaliacaoI, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(133, 133, 133)
                 .addComponent(jBtSairAvaliacaoI, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaAvaliacaoI, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -3406,7 +3445,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jBtSalvarAvaliacaoI)
                     .addComponent(jBtExcluirAvaliacaoI)
                     .addComponent(jBtAlterarAvaliacaoI)
-                    .addComponent(jBtNovoAvaliacaoI)))
+                    .addComponent(jBtNovoAvaliacaoI))
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -3416,13 +3456,16 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        jPanel18Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel20, jPanel21, jPanel22, jPanel23, jPanel26});
+
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
@@ -3433,9 +3476,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("SAOF I", jPanel18);
@@ -3487,7 +3530,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxMantenhoPapeis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3632,7 +3675,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jComboBoxQuandoAgir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxConsigoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxConsigoCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel53, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3640,7 +3683,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel46, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel44, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxSintoPreciso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxConsigoCotidianas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3717,7 +3760,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addComponent(jLabel55)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxCostumoFrequentar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel56)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDataAplicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3753,7 +3796,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addComponent(jLabel57)
-                        .addGap(0, 293, Short.MAX_VALUE))
+                        .addGap(0, 319, Short.MAX_VALUE))
                     .addComponent(jResponsavelAplicacao, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -3865,6 +3908,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jBtNovoAvaliacaoII, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jBtAlterarAvaliacaoII, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3874,9 +3918,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addComponent(jBtSalvarAvaliacaoII, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jBtCancelarAvaliacaoII, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(156, 156, 156)
+                .addGap(146, 146, 146)
                 .addComponent(jBtSairAvaliacaoII, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaAvaliacaoII, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -3905,13 +3949,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel15Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel24, jPanel25, jPanel27, jPanel28, jPanel29});
@@ -3926,7 +3969,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, 68, Short.MAX_VALUE)
+                .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
@@ -3938,11 +3981,15 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -3988,7 +4035,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND'" + dataFinal + "'");
+                                + "AND'" + dataFinal + "' "
+                                + "AND ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "' "
+                                + "ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -4011,7 +4060,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND'" + dataFinal + "'");
+                                + "AND'" + dataFinal + "' "
+                                + "AND ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "' "
+                                + "ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -4025,7 +4076,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherAtendimentoTerapia("SELECT * FROM ADMISSAO_TERAPIA_PE "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "' "
+                    + "ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -4039,10 +4092,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisar.");
         } else {
             jTabelaAtendimentoTerapia.setVisible(true);
-            preencherAtendimentoTerapia("SELECT * FROM ATENDIMENTOTERAPIA "
+            preencherAtendimentoTerapia("SELECT * FROM ADMISSAO_TERAPIA_PE "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jnomeInternoPesq.getText() + "%'");
+                    + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jnomeInternoPesq.getText() + "%' "
+                    + "AND ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesquisaNomeActionPerformed
 
@@ -4079,8 +4133,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 jIdAtendNovo.setText(String.valueOf(conecta.rs.getInt("IdATN")));
                 jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
                 jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
-                jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jIdInternoAD.setText(conecta.rs.getString("IdInternoCrc"));
+                jNomeInternoAD.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 if (caminho != null) {
@@ -4429,15 +4483,40 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoInternoManuTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaAtendimentoInternoManuTO) && codIncluirTO == 1) {
-            acao = 1;
-            bloquearCampos();
-            Novo();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            limparTabelaCursos();
-            limparTabelaExperiencia();
+            verificarPortaEntrada();
+            verificarRegistroBiometria();
+            if (jIdInterno.getText().equals(pINTERNOCRC) && deptoTecnico.equals(pDEPARTAMENTO) && pHABILITADO.equals("Sim")) {
+                if (pHabilitaTO.equals("Não")) {
+                    bloquearCampos();
+                    Novo();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    limparTabelaCursos();
+                    limparTabelaExperiencia();
+                    acao = 1;
+                    pesquisarInternoManual();
+                } else {
+                    bloquearCampos();
+                    limparTabelaCursos();
+                    limparTabelaExperiencia();
+                    Novo();
+                    //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
+                    procurarDepartamento();
+                    //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
+                    pesquisarInternoColaboradorBiometria();
+                    if (jIdInternoAD.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
+                    } else {
+                        acao = 1;
+                        statusMov = "Incluiu";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Já existe uma admissão para esse interno, por isso não é possível fazer uma nova admissão.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4497,7 +4576,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 jDataLanc.requestFocus();
                 jDataLanc.setBackground(Color.red);
             } else {
-                if (jNomeInterno.getText().equals("")) {
+                if (jNomeInternoAD.getText().equals("")) {
                     JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno a ser atendido");
                 } else if (jQuantoTabagismo.getText().equals("") || jQuantoTabagismo.getText() == null) {
                     JOptionPane.showMessageDialog(rootPane, "Preencha o campo com a quantidade de tabagismo(0) ou quantidade de tabagismo superior a (0)");
@@ -4663,17 +4742,65 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         objAtend.setDataInsert(dataModFinal);
                         objAtend.setHoraInsert(horaMov);
                         //
-                        objAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        objAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objAtend.setNomeInternoCrc(jNomeInternoAD.getText());
                         control.incluirAtendTerapia(objAtend);
                         buscarID();
                         objAtend.setIdLanc(Integer.valueOf(jIdAtendNovo.getText()));
-                        objAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objAtend.setNomeInternoCrc(jNomeInternoAD.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.incluirMovTec(objAtend);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                        objRegAtend.setNomeDepartamento(nomeModuloTO);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                        objRegAtend.setNomeDepartamento(nomeModuloTO);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_TO = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAD.getText());
+                        objPortaEntrada.setHabTer(pHABILITA_TO);
+                        control_PE.alterarPortaEntradaTerapia(objPortaEntrada);
                         //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //EVOLUÇÃO DA ADMISSÃO - AINDA NÃO FOI IMPLEMENTADA
+//                        objEvolu.setDataEvo(jDataLanc.getDate());
+//                        objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
+//                        // log de usuario
+//                        objEvolu.setUsuarioInsert(nameUser);
+//                        objEvolu.setDataInsert(dataModFinal);
+//                        objEvolu.setHorarioInsert(horaMov);
+//                        //
+//                        objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+//                        objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+//                        objEvolu.setAdmEvo(admEvolucao);
+//                        controleEvolucao.incluirEvolucaoTerapia(objEvolu);
+//                        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+//                                + "WHERE IdLanc='" + jIdAtend.getText() + "'");
+                        //
                         JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Se já terminou o atendimento, será necessário clicar no botão <Concluir> para contabilizar o atendimento e liberar o interno.");
@@ -4685,13 +4812,28 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         objAtend.setHoraUp(horaMov);
                         //
                         objAtend.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
-                        objAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        objAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objAtend.setNomeInternoCrc(jNomeInternoAD.getText());
                         control.alterarAtendTerapia(objAtend);
                         objAtend.setIdLanc(Integer.valueOf(jIdAtendNovo.getText()));
-                        objAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objAtend.setNomeInternoCrc(jNomeInternoAD.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.alterarMovTec(objAtend);
+                        //ADMISSÃO EVOLUÇÃO - AINDA NÃO IMPLEMENTADA
+//                        objEvolu.setDataEvo(jDataLanc.getDate());
+//                        objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
+//                        // log de usuario
+//                        objEvolu.setUsuarioUp(nameUser);
+//                        objEvolu.setDataUp(dataModFinal);
+//                        objEvolu.setHorarioUp(horaMov);
+//                        //
+//                        objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
+//                        objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+//                        objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+//                        objEvolu.setAdmEvo(admEvolucao);
+//                        controleEvolucao.alterarEvolucaoTerapiaADM(objEvolu);
+//                        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+//                                + "WHERE IdLanc='" + jIdAtend.getText() + "'");
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
@@ -4756,8 +4898,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             verificarInternoRegistradoAdm();
             // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO
             atendido = "Sim";
-            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+            objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
             objRegAtend.setIdDepartamento(codigoDepartamentoTO);
             objRegAtend.setNomeDepartamento(nomeModuloTO);
             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
@@ -4772,8 +4914,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             controlRegAtend.alterarRegAtend(objRegAtend);
             //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
             objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+            objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
             objRegAtend.setIdDepartamento(codigoDepartamentoTO);
             objRegAtend.setNomeDepartamento(nomeModuloTO);
             objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
@@ -4942,9 +5084,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 objHistEducLabor.setCursoProfissionalizante((String) jComboBoxCursoProfissionalizante.getSelectedItem());
                 objHistEducLabor.setDescricaoCurso((String) jComboBoxDescricaoCurso.getSelectedItem());
                 objHistEducLabor.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
-                objHistEducLabor.setNomeInternoCrc(jNomeInterno.getText());
+                objHistEducLabor.setNomeInternoCrc(jNomeInternoAD.getText());
                 if (acao == 9) {
-                    if (jIdInterno.getText().equals(codigoInterno) && jIdAtendNovo.getText().equals(codigoRegistro)) {
+                    if (jIdInternoAD.getText().equals(codigoInterno) && jIdAtendNovo.getText().equals(codigoRegistro)) {
                         JOptionPane.showMessageDialog(rootPane, "Registro ja foi gravado para esse interno.");
                     } else {
                         objHistEducLabor.setUsuarioInsert(nameUser);
@@ -5150,7 +5292,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 objHistEducLabor.setQualExperienciaProfissional((String) jComboBoxQualExperienciaProfissional.getSelectedItem());
                 objHistEducLabor.setDesejaTrabalharUnid((String) jComboBoxDesejaTrabalharUnid.getSelectedItem());
                 objHistEducLabor.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
-                objHistEducLabor.setNomeInternoCrc(jNomeInterno.getText());
+                objHistEducLabor.setNomeInternoCrc(jNomeInternoAD.getText());
                 if (jRadioBtRemunerado.isSelected()) {
                     remuneracao = 0;
                 } else if (jRadioBtNaoRemunerado.isSelected()) {
@@ -5160,7 +5302,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 }
                 objHistEducLabor.setTipoRemuneracao(remuneracao);
                 if (acao == 11) {
-                    if (jIdInterno.getText().equals(codigoInterno) && jIdAtendNovo.getText().equals(codigoRegistro)) {
+                    if (jIdInternoAD.getText().equals(codigoInterno) && jIdAtendNovo.getText().equals(codigoRegistro)) {
                         JOptionPane.showMessageDialog(rootPane, "Registro ja foi gravado para esse interno.");
                     } else {
                         objHistEducLabor.setUsuarioInsert(nameUser);
@@ -5308,9 +5450,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             objAvaliaI.setReconhecoPapeis((String) jComboBoxReconhecoPapeis.getSelectedItem());
             objAvaliaI.setMantenhoVida((String) jComboBoxMantenhoVida.getSelectedItem());
             objAvaliaI.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
-            objAvaliaI.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+            objAvaliaI.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
             if (acao == 5) {
-                if (jIdAtendNovo.getText().equals(codigoAtend) && jIdInterno.getText().equals(codigoInternoAtend)) {
+                if (jIdAtendNovo.getText().equals(codigoAtend) && jIdInternoAD.getText().equals(codigoInternoAtend)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
                     objAvaliaI.setUsuarioInsert(nameUser);
@@ -5443,9 +5585,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             objAvaliaII.setDataAplicacao(jDataAplicacao.getDate());
             objAvaliaII.setResponsavelAplicacao(jResponsavelAplicacao.getText());
             objAvaliaII.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
-            objAvaliaII.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+            objAvaliaII.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
             if (acao == 7) {
-                if (jIdAtendNovo.getText().equals(codigoAtendII) && jIdInterno.getText().equals(codigoInternoAtendII)) {
+                if (jIdAtendNovo.getText().equals(codigoAtendII) && jIdInternoAD.getText().equals(codigoInternoAtendII)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
                     objAvaliaII.setUsuarioInsert(nameUser);
@@ -5703,8 +5845,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private javax.swing.JLabel jFotoInternoTerapia;
     private javax.swing.JTextField jIDPesqLanc;
+    private javax.swing.JTextField jIdADM_Principal;
     public static javax.swing.JTextField jIdAtendNovo;
-    public static javax.swing.JTextField jIdInterno;
+    public static javax.swing.JTextField jIdInternoAD;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -5778,6 +5921,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
@@ -5820,7 +5964,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JTextField jMotivoAborto;
-    public static javax.swing.JTextField jNomeInterno;
+    public static javax.swing.JTextField jNomeInternoAD;
     private javax.swing.JTextArea jObsDesempenhoOcupacional;
     private javax.swing.JTextArea jObsEstiloVida;
     private javax.swing.JTextArea jObsHistoricoFamiliar;
@@ -5893,6 +6037,157 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void verificarPortaEntrada() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PORTA_ENTRADA "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND PSPTer='" + deptoTecnico + "' "
+                    + "AND HabTer='" + pHABILITA_TERAPIA + "'");
+            conecta.rs.first();
+            pINTERNOCRC = conecta.rs.getString("IdInternoCrc");
+            pDEPARTAMENTO = conecta.rs.getString("PSPTer");
+            pHABILITADO = conecta.rs.getString("HabTer");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarInternoManual() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN ATENDIMENTOTERAPIA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOTERAPIA.IdInternoCrc "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacao + "' "
+                    + "AND ATENDIMENTOTERAPIA.IdInternoCrc='" + jIdInterno.getText() + " '"
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
+                    + "AND ATENDIMENTOTERAPIA.IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
+            codInterno = conecta.rs.getString("IdInternoCrc");
+            nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
+            jIdInternoAD.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoAD.setText(conecta.rs.getString("NomeInternoCrc"));
+            // Capturando foto
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            if (caminho != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                jFotoInternoTerapia.setIcon(i);
+                jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInternoTerapia.setIcon(icon);
+            }
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarInternoColaboradorBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
+            conecta.rs.first();
+            jIdADM_Principal.setText(jIdAtend.getText());
+            // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
+            codInterno = conecta.rs.getString("IdInternoCrc");
+            nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
+            jIdInternoAD.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoAD.setText(conecta.rs.getString("NomeInternoCrc"));
+            // Capturando foto
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            if (caminho != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                jFotoInternoTerapia.setIcon(i);
+                jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInternoTerapia.setIcon(icon);
+            }
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitaTO = conecta.rs.getString("AdmissaoTO");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloTO + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoTO_SEC = conecta.rs.getInt("IdDepartamento");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarInternoRegistradoAdm() {
+
+        conecta.abrirConexao();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataReg = formatoAmerica.format(jDataLanc.getDate().getTime());
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE IdInternoCrc='" + jIdInternoAD.getText() + "' "
+                    + "AND Atendido='" + opcao + "'");
+            conecta.rs.first();
+            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoTO = conecta.rs.getInt("IdDepartamento");
+            atendido = conecta.rs.getString("Atendido");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     public void formataCampos() {
         jQuantosFilhos.setDocument(new LimiteDigitosNum(4));
         jQuantoTabagismo.setDocument(new LimiteDigitosNum(4));
@@ -5923,11 +6218,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     }
 
     public void corCampos() {
+        jIdADM_Principal.setBackground(Color.white);
         jIdAtendNovo.setBackground(Color.white);
         jStatusLanc.setBackground(Color.white);
         jDataLanc.setBackground(Color.white);
-        jIdInterno.setBackground(Color.white);
-        jNomeInterno.setBackground(Color.white);
+        jIdInternoAD.setBackground(Color.white);
+        jNomeInternoAD.setBackground(Color.white);
         //
         jQuantosFilhos.setBackground(Color.white);
         jQuantoTabagismo.setBackground(Color.white);
@@ -6113,9 +6409,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jIdAtendNovo.setText("");
         jStatusLanc.setText("ABERTO");
         jDataLanc.setCalendar(Calendar.getInstance());
-        jIdInterno.setText("");
+        jIdInternoAD.setText("");
         jFotoInternoTerapia.setIcon(null);
-        jNomeInterno.setText("");
+        jNomeInternoAD.setText("");
         jFotoInternoTerapia.setIcon(null);
         //DESEMPENHO OCUPACIONAL
         jComboBoxDominancia.setSelectedItem("Destro");
@@ -6130,7 +6426,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jObsDesempenhoOcupacional.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setSelectedItem("Não");
         jComboBoxTemCompanheira.setSelectedItem("Não");
@@ -6489,9 +6785,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jIdAtendNovo.setText("");
         jStatusLanc.setText("");
         jDataLanc.setDate(null);
-        jIdInterno.setText("");
+        jIdInternoAD.setText("");
         jFotoInternoTerapia.setIcon(null);
-        jNomeInterno.setText("");
+        jNomeInternoAD.setText("");
         //DESEMPENHO OCUPACIONAL
         jComboBoxDominancia.setSelectedItem("Destro");
         jComboBoxAmputacao.setSelectedItem("Não");
@@ -7550,7 +7846,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
-                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "WHERE IdInternoCrc='" + jIdInternoAD.getText() + "' "
                     + "AND IdATN='" + jIdAtendNovo.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
@@ -8109,7 +8405,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL_NOVO "
-                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "WHERE IdInternoCrc='" + jIdInternoAD.getText() + "' "
                     + "AND IdATN='" + jIdAtendNovo.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
@@ -8417,7 +8713,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM AVALIACAO_TO_I "
                     + "WHERE IdATN='" + jIdAtendNovo.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                    + "AND IdInternoCrc='" + jIdInternoAD.getText() + "'");
             conecta.rs.first();
             codigoAtend = conecta.rs.getString("IdATN");
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
@@ -8727,7 +9023,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM AVALIACAO_TO_II "
                     + "WHERE IdATN='" + jIdAtendNovo.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                    + "AND IdInternoCrc='" + jIdInternoAD.getText() + "'");
             conecta.rs.first();
             codigoAtendII = conecta.rs.getString("IdATN");
             codigoInternoAtendII = conecta.rs.getString("IdInternoCrc");
@@ -8819,6 +9115,70 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     }
 
+    public void preencherItensEvolucao(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                // Formatar a data Entrada
+                dataEvolucao = conecta.rs.getString("DataEvo");
+                String diae = dataEvolucao.substring(8, 10);
+                String mese = dataEvolucao.substring(5, 7);
+                String anoe = dataEvolucao.substring(0, 4);
+                dataEvolucao = diae + "/" + mese + "/" + anoe;
+                dados.add(new Object[]{conecta.rs.getInt("IdEvo"), dataEvolucao, conecta.rs.getString("Evolucao")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaEvolucao.setModel(modelo);
+        jTabelaEvolucao.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaEvolucao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaEvolucao.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaEvolucao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaEvolucao.getColumnModel().getColumn(2).setPreferredWidth(500);
+        jTabelaEvolucao.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaEvolucao.getTableHeader().setReorderingAllowed(false);
+        jTabelaEvolucao.setAutoResizeMode(jTabelaEvolucao.AUTO_RESIZE_OFF);
+        jTabelaEvolucao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaEvolucao();
+        conecta.desconecta();
+    }
+
+    public void limparTabelaEvolucao() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaEvolucao.setModel(modelo);
+        jTabelaEvolucao.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaEvolucao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaEvolucao.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaEvolucao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaEvolucao.getColumnModel().getColumn(2).setPreferredWidth(500);
+        jTabelaEvolucao.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaEvolucao.getTableHeader().setReorderingAllowed(false);
+        jTabelaEvolucao.setAutoResizeMode(jTabelaEvolucao.AUTO_RESIZE_OFF);
+        jTabelaEvolucao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaEvolucao() {
+        //
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaEvolucao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaEvolucao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+    }
+
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -8906,35 +9266,6 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             codGravarTO = conecta.rs.getInt("Gravar");
             codConsultarTO = conecta.rs.getInt("Consultar");
             nomeTelaTO = conecta.rs.getString("NomeTela");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
-    public void verificarInternoRegistradoAdm() {
-
-        conecta.abrirConexao();
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataReg = formatoAmerica.format(jDataLanc.getDate().getTime());
-        try {
-            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
-                    + "AND Atendido='" + opcao + "'");
-            conecta.rs.first();
-            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
-            codigoDepartamentoTO = conecta.rs.getInt("IdDepartamento");
-            atendido = conecta.rs.getString("Atendido");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
-    public void verificarRegistroBiometria() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
-            conecta.rs.first();
-            pHabilitaTerapia = conecta.rs.getString("AdmissaoTO");
         } catch (Exception e) {
         }
         conecta.desconecta();

@@ -25,8 +25,12 @@ public class EvolucaoTerapia {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
+    private String admEvo;
 
-    public EvolucaoTerapia(int idEvo, Date dataEvo, int idInternoCrc, String nomeInterno, int idLanc, String evolucao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public EvolucaoTerapia() {
+    }
+
+    public EvolucaoTerapia(int idEvo, Date dataEvo, int idInternoCrc, String nomeInterno, int idLanc, String evolucao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String admEvo) {
         this.idEvo = idEvo;
         this.dataEvo = dataEvo;
         this.idInternoCrc = idInternoCrc;
@@ -39,9 +43,7 @@ public class EvolucaoTerapia {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public EvolucaoTerapia() {
+        this.admEvo = admEvo;
     }
 
     /**
@@ -210,5 +212,19 @@ public class EvolucaoTerapia {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the admEvo
+     */
+    public String getAdmEvo() {
+        return admEvo;
+    }
+
+    /**
+     * @param admEvo the admEvo to set
+     */
+    public void setAdmEvo(String admEvo) {
+        this.admEvo = admEvo;
     }
 }

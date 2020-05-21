@@ -16,6 +16,7 @@ public class ItensRegistroCanceladoCrc {
     private int idItem;
     private int idLanc;
     private Date dataSaida;
+    private int idInternoCrc;
     private String nomeInternoCrc;
     private String horaSaida;
     private String nrDocumento;
@@ -29,10 +30,14 @@ public class ItensRegistroCanceladoCrc {
     private String horarioInsert;
     private String horarioUp;   
 
-    public ItensRegistroCanceladoCrc(int idItem, int idLanc, Date dataSaida, String nomeInternoCrc, String horaSaida, String nrDocumento, String confirmacaoRegistro, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public ItensRegistroCanceladoCrc() {
+    }
+
+    public ItensRegistroCanceladoCrc(int idItem, int idLanc, Date dataSaida, int idInternoCrc, String nomeInternoCrc, String horaSaida, String nrDocumento, String confirmacaoRegistro, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.dataSaida = dataSaida;
+        this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.horaSaida = horaSaida;
         this.nrDocumento = nrDocumento;
@@ -45,9 +50,6 @@ public class ItensRegistroCanceladoCrc {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ItensRegistroCanceladoCrc() {
     }
 
     /**
@@ -90,6 +92,20 @@ public class ItensRegistroCanceladoCrc {
      */
     public void setDataSaida(Date dataSaida) {
         this.dataSaida = dataSaida;
+    }
+
+    /**
+     * @return the idInternoCrc
+     */
+    public int getIdInternoCrc() {
+        return idInternoCrc;
+    }
+
+    /**
+     * @param idInternoCrc the idInternoCrc to set
+     */
+    public void setIdInternoCrc(int idInternoCrc) {
+        this.idInternoCrc = idInternoCrc;
     }
 
     /**

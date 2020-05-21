@@ -11,7 +11,6 @@ import gestor.Controle.ControleEvolucaoJuridico;
 import gestor.Controle.ControleItensAtividadeJuridico;
 import gestor.Controle.ControleJuridicoNovaAdmissao;
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ControleMovJuridico;
 import gestor.Controle.ControleMovJuridico_NOVA_ADM;
 import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
@@ -22,7 +21,6 @@ import gestor.Modelo.ItensAtividadeJuridico;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
-import static gestor.Visao.TelaAdmissaoMedica.jBtNovaEvolucao;
 import static gestor.Visao.TelaAtendimentoJuridico.codigoDepartamentoJURI;
 import static gestor.Visao.TelaAtendimentoJuridico.jAtividadeRealizada;
 import static gestor.Visao.TelaAtendimentoJuridico.jComboBoxEncaminharSetorEvo;
@@ -85,7 +83,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //PORTA DE ENTRADA
     PortaEntrada objPortaEntrada = new PortaEntrada();
-    ControlePortaEntrada control_PE = new ControlePortaEntrada();    
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -122,7 +120,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     String tipoAtendimentoAdm = "Admissão Juridico";
     String tipoAtendimentoEvol = "Evolução Juridico";
     String pHabilitaJuridico = "";
-    public static int pAcao = 0;
+    public static int pAcao_AD = 0;
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
@@ -149,6 +147,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
      */
     public static TelaAtendimentoJuridico pADMISSAO_JURIDICO;
     public static TelaAtividadesRealizadasADM_NOVA pNOVA_ATIVIDADE;
+    public static TelaAuditoriaNovaADM_JURI pAUDITORIA;
 
     public TelaNovaAdmissaoJuridico(TelaAtendimentoJuridico parent, boolean modal) {
         this.pADMISSAO_JURIDICO = parent;
@@ -163,6 +162,11 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     public void mostrarNovaAtividade() {
         pNOVA_ATIVIDADE = new TelaAtividadesRealizadasADM_NOVA(this, true);
         pNOVA_ATIVIDADE.setVisible(true);
+    }
+
+    public void mostarAuditoria() {
+        pAUDITORIA = new TelaAuditoriaNovaADM_JURI(this, true);
+        pAUDITORIA.setVisible(true);
     }
 
     /**
@@ -210,18 +214,18 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jDataCondIntJuriAD = new com.toedter.calendar.JDateChooser();
         jPanel12 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jComboBoxTipoAdvogado = new javax.swing.JComboBox();
+        jComboBoxTipoAdvogadoAD = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jComboBoxEncaminharSetor = new javax.swing.JComboBox();
-        jDataEncaminhamento = new com.toedter.calendar.JDateChooser();
-        jComboBoxResposta = new javax.swing.JComboBox();
+        jComboBoxEncaminharSetorAD = new javax.swing.JComboBox();
+        jDataEncaminhamentoAD = new com.toedter.calendar.JDateChooser();
+        jComboBoxRespostaAD = new javax.swing.JComboBox();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jHoraEnvio = new javax.swing.JFormattedTextField();
+        jHoraEnvioAD = new javax.swing.JFormattedTextField();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jEvolucaoAdmissao = new javax.swing.JTextArea();
+        jEvolucaoAdmissaoAD = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -237,8 +241,8 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jIdADM_JURI = new javax.swing.JTextField();
-        jStatusLanc = new javax.swing.JTextField();
-        jDataLanc = new com.toedter.calendar.JDateChooser();
+        jStatusLancAD = new javax.swing.JTextField();
+        jDataLancAD = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jIdAdmPrincipal = new javax.swing.JTextField();
 
@@ -535,7 +539,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                                         .addGap(1, 1, 1)
                                         .addComponent(jDataNascInternoJuriAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel2))
-                        .addGap(0, 75, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jNomeInternoJuridicoAD))
                 .addContainerGap())
         );
@@ -565,10 +569,15 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Tipo  de Advogado");
 
-        jComboBoxTipoAdvogado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoAdvogado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Unidade", "Particular", "Defensor Público" }));
-        jComboBoxTipoAdvogado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxTipoAdvogado.setEnabled(false);
+        jComboBoxTipoAdvogadoAD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoAdvogadoAD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Unidade", "Particular", "Defensor Público" }));
+        jComboBoxTipoAdvogadoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoAdvogadoAD.setEnabled(false);
+        jComboBoxTipoAdvogadoAD.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTipoAdvogadoADItemStateChanged(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Data");
@@ -576,26 +585,26 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Encaminhado para outro Setor");
 
-        jComboBoxEncaminharSetor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEncaminharSetor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione" }));
-        jComboBoxEncaminharSetor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxEncaminharSetor.setEnabled(false);
-        jComboBoxEncaminharSetor.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxEncaminharSetorAD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxEncaminharSetorAD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione" }));
+        jComboBoxEncaminharSetorAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxEncaminharSetorAD.setEnabled(false);
+        jComboBoxEncaminharSetorAD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxEncaminharSetorActionPerformed(evt);
+                jComboBoxEncaminharSetorADActionPerformed(evt);
             }
         });
 
-        jDataEncaminhamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataEncaminhamento.setEnabled(false);
+        jDataEncaminhamentoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataEncaminhamentoAD.setEnabled(false);
 
-        jComboBoxResposta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxResposta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim" }));
-        jComboBoxResposta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxResposta.setEnabled(false);
-        jComboBoxResposta.addItemListener(new java.awt.event.ItemListener() {
+        jComboBoxRespostaAD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxRespostaAD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Não", "Sim" }));
+        jComboBoxRespostaAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxRespostaAD.setEnabled(false);
+        jComboBoxRespostaAD.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxRespostaItemStateChanged(evt);
+                jComboBoxRespostaADItemStateChanged(evt);
             }
         });
 
@@ -605,10 +614,10 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("Horário");
 
-        jHoraEnvio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHoraEnvio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        jHoraEnvio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jHoraEnvio.setEnabled(false);
+        jHoraEnvioAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHoraEnvioAD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        jHoraEnvioAD.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHoraEnvioAD.setEnabled(false);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -622,23 +631,23 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBoxEncaminharSetor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxEncaminharSetorAD, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxTipoAdvogado, 0, 0, Short.MAX_VALUE))
+                                    .addComponent(jComboBoxTipoAdvogadoAD, 0, 0, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel16)
-                                    .addComponent(jComboBoxResposta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jComboBoxRespostaAD, 0, 174, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataEncaminhamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDataEncaminhamentoAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel15))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel18)
-                                    .addComponent(jHoraEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jHoraEnvioAD, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(27, 27, 27))))
         );
         jPanel12Layout.setVerticalGroup(
@@ -652,24 +661,24 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxTipoAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxResposta, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataEncaminhamento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jHoraEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTipoAdvogadoAD, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxRespostaAD, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataEncaminhamentoAD, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHoraEnvioAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 13, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxEncaminharSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxEncaminharSetorAD, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Evolução da Admissão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
-        jEvolucaoAdmissao.setColumns(20);
-        jEvolucaoAdmissao.setRows(5);
-        jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jEvolucaoAdmissao.setEnabled(false);
-        jScrollPane5.setViewportView(jEvolucaoAdmissao);
+        jEvolucaoAdmissaoAD.setColumns(20);
+        jEvolucaoAdmissaoAD.setRows(5);
+        jEvolucaoAdmissaoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEvolucaoAdmissaoAD.setEnabled(false);
+        jScrollPane5.setViewportView(jEvolucaoAdmissaoAD);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -811,10 +820,13 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jBtAdividadesRealizadasADM, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdividadesRealizadasADM, jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -847,12 +859,12 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jIdADM_JURI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdADM_JURI.setEnabled(false);
 
-        jStatusLanc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jStatusLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jStatusLanc.setEnabled(false);
+        jStatusLancAD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jStatusLancAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jStatusLancAD.setEnabled(false);
 
-        jDataLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataLanc.setEnabled(false);
+        jDataLancAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataLancAD.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Adm.Principal");
@@ -872,17 +884,17 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     .addComponent(jIdAdmPrincipal))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jIdADM_JURI, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jStatusLanc)))
+                    .addComponent(jIdADM_JURI, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jStatusLancAD))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDataLancAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addContainerGap())
         );
@@ -898,10 +910,10 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jStatusLancAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdAdmPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdADM_JURI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDataLancAD, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7))
         );
 
@@ -911,17 +923,14 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel12, jPanel3, jPanel5, jPanel9});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -944,7 +953,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -981,7 +990,8 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             preencherAtendimetoJuridico("SELECT * FROM ADMISSAO_JURIDICO_ADICIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -1010,7 +1020,9 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "AND ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "' "
+                                + "AND ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
                     }
                 }
             }
@@ -1033,7 +1045,9 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                                + "AND '" + dataFinal + "' "
+                                + "ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "' "
+                                + "AND ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
                     }
                 }
             }
@@ -1047,7 +1061,9 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherAtendimetoJuridico("SELECT * FROM ADMISSAO_JURIDICO_ADICIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAO_JURIDICO_ADICIONAL.IdLanc='" + jIDLanc.getText() + "' "
+                    + "AND ADMISSAO_JURIDICO_ADICIONAL.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -1068,7 +1084,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //
-            preencherComboBoxDepartamento();            
+            preencherComboBoxDepartamento();
             //
             conecta.abrirConexao();
             try {
@@ -1079,21 +1095,22 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "WHERE ADMISSAO_JURIDICO_ADICIONAL.IdADM_JURI='" + IdLanc + "'");
                 conecta.rs.first();
+                jIdAdmPrincipal.setText(jIDLanc.getText());
                 jIdADM_JURI.setText(String.valueOf(conecta.rs.getInt("IdADM_JURI")));
-                jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
-                jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
+                jStatusLancAD.setText(conecta.rs.getString("StatusLanc"));
+                jDataLancAD.setDate(conecta.rs.getDate("DataLanc"));
                 jIDInternoJuridicoAD.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInternoJuridicoAD.setText(conecta.rs.getString("NomeInternoCrc"));
                 jMatriculaPenaJuridico.setText(conecta.rs.getString("MatriculaCrc"));
                 jDataNascInternoJuriAD.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jDataCondIntJuriAD.setDate(conecta.rs.getDate("DataCondenacao"));
-                jComboBoxTipoAdvogado.setSelectedItem(conecta.rs.getString("TipoAdvogado"));
-                jComboBoxResposta.setSelectedItem(conecta.rs.getString("Resposta"));
-                jDataEncaminhamento.setDate(conecta.rs.getDate("DataEnca"));
-                jHoraEnvio.setText(conecta.rs.getString("HoraEnvio"));
-                jEvolucaoAdmissao.setText(conecta.rs.getString("Observacao"));
-                if (jComboBoxEncaminharSetor.getSelectedItem() != null || jComboBoxEncaminharSetor.getSelectedItem().equals("")) {
-                    jComboBoxEncaminharSetor.setSelectedItem(conecta.rs.getString("SetorEncaminhamento"));
+                jComboBoxTipoAdvogadoAD.setSelectedItem(conecta.rs.getString("TipoAdvogado"));
+                jComboBoxRespostaAD.setSelectedItem(conecta.rs.getString("Resposta"));
+                jDataEncaminhamentoAD.setDate(conecta.rs.getDate("DataEnca"));
+                jHoraEnvioAD.setText(conecta.rs.getString("HoraEnvio"));
+                jEvolucaoAdmissaoAD.setText(conecta.rs.getString("Observacao"));
+                if (jComboBoxEncaminharSetorAD.getSelectedItem() != null || jComboBoxEncaminharSetorAD.getSelectedItem().equals("")) {
+                    jComboBoxEncaminharSetorAD.setSelectedItem(conecta.rs.getString("SetorEncaminhamento"));
                 }
             } catch (SQLException e) {
             }
@@ -1101,31 +1118,31 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         conecta.desconecta();
     }//GEN-LAST:event_jTabelaAtendimentoJuridicoMouseClicked
 
-    private void jComboBoxEncaminharSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEncaminharSetorActionPerformed
+    private void jComboBoxEncaminharSetorADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEncaminharSetorADActionPerformed
         // TODO add your handling code here:
         preencherComboBoxDepartamento();
-    }//GEN-LAST:event_jComboBoxEncaminharSetorActionPerformed
+    }//GEN-LAST:event_jComboBoxEncaminharSetorADActionPerformed
 
-    private void jComboBoxRespostaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxRespostaItemStateChanged
+    private void jComboBoxRespostaADItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxRespostaADItemStateChanged
         // TODO add your handling code here:
-        if (pAcao == 1 || pAcao == 2) {
-            if (jComboBoxResposta.getSelectedItem().equals("Sim")) {
-                jDataEncaminhamento.setCalendar(Calendar.getInstance());
-                jHoraEnvio.setText(jHoraSistema.getText());
-                jDataEncaminhamento.setEnabled(true);
-                jComboBoxEncaminharSetor.setEnabled(true);
-                jHoraEnvio.setEnabled(true);
+        if (pAcao_AD == 1 || pAcao_AD == 2) {
+            if (jComboBoxRespostaAD.getSelectedItem().equals("Sim")) {
+                jDataEncaminhamentoAD.setCalendar(Calendar.getInstance());
+                jHoraEnvioAD.setText(jHoraSistema.getText());
+                jDataEncaminhamentoAD.setEnabled(true);
+                jComboBoxEncaminharSetorAD.setEnabled(true);
+                jHoraEnvioAD.setEnabled(true);
             } else {
-                jDataEncaminhamento.setDate(null);
-                jHoraEnvio.setText("");
-                jDataEncaminhamento.setEnabled(!true);
-                jComboBoxEncaminharSetor.setSelectedItem("Selecione");
-                jComboBoxEncaminharSetor.setEnabled(!true);
-                jComboBoxResposta.setEnabled(!true);
-                jHoraEnvio.setEnabled(!true);
+                jDataEncaminhamentoAD.setDate(null);
+                jHoraEnvioAD.setText("");
+                jDataEncaminhamentoAD.setEnabled(!true);
+                jComboBoxEncaminharSetorAD.setSelectedItem("Selecione");
+                jComboBoxEncaminharSetorAD.setEnabled(!true);
+                jComboBoxRespostaAD.setEnabled(!true);
+                jHoraEnvioAD.setEnabled(!true);
             }
         }
-    }//GEN-LAST:event_jComboBoxRespostaItemStateChanged
+    }//GEN-LAST:event_jComboBoxRespostaADItemStateChanged
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
@@ -1135,15 +1152,14 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             verificarRegistroBiometria();
             if (jIDInternoJuridico.getText().equals(pINTERNOCRC) && deptoTecnico.equals(pDEPARTAMENTO) && pHABILITADO.equals("Sim")) {
                 if (pHabilitaJuridico.equals("Não")) {
-                    pAcao = 1;
+                    pAcao_AD = 1;
                     Novo();
-                    corCampos();
-                    verificarInternoRegistradoAdm();
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
                     pesquisarInternoManual();
                 } else {
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1151,8 +1167,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     if (jIDInternoJuridicoAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                        Novo();
-                        pAcao = 1;
+                        pAcao_AD = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
                         dataModFinal = jDataSistema.getText();
@@ -1170,14 +1185,13 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoManuJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codAlterarJURI == 1) {
-            objAtendJuri.setStatusLanc(jStatusLanc.getText());
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
+            objAtendJuri.setStatusLanc(jStatusLancAD.getText());
+            if (jStatusLancAD.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                pAcao = 2;
+                pAcao_AD = 2;
                 Alterar();
                 preencherComboBoxDepartamento();
-                corCampos();
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1194,8 +1208,8 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
-            objAtendJuri.setStatusLanc(jStatusLanc.getText());
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
+            objAtendJuri.setStatusLanc(jStatusLancAD.getText());
+            if (jStatusLancAD.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser excluída, o mesmo encontra-se FINALIZADO");
             } else {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o atendimento selecionado?", "Confirmação",
@@ -1221,20 +1235,20 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoManuJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codGravarJURI == 1) {
-            if (jDataLanc.getDate() == null) {
+            if (jDataLancAD.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de atendimento.");
-                jDataLanc.requestFocus();
-                jDataLanc.setBackground(Color.red);
+                jDataLancAD.requestFocus();
+                jDataLancAD.setBackground(Color.red);
             } else {
-                objAtendJuri.setStatusLanc(jStatusLanc.getText());
-                objAtendJuri.setDataLanc(jDataLanc.getDate());
-                objAtendJuri.setObservacao(jEvolucaoAdmissao.getText());
-                objAtendJuri.setDataEnca(jDataEncaminhamento.getDate());
-                objAtendJuri.setSetorEncaminhameto((String) jComboBoxEncaminharSetor.getSelectedItem());
-                objAtendJuri.setTipoAdvogado((String) jComboBoxTipoAdvogado.getSelectedItem());
-                objAtendJuri.setHoraEnvio(jHoraEnvio.getText());
-                objAtendJuri.setResposta((String) jComboBoxResposta.getSelectedItem());
-                if (pAcao == 1) {
+                objAtendJuri.setStatusLanc(jStatusLancAD.getText());
+                objAtendJuri.setDataLanc(jDataLancAD.getDate());
+                objAtendJuri.setObservacao(jEvolucaoAdmissaoAD.getText());
+                objAtendJuri.setDataEnca(jDataEncaminhamentoAD.getDate());
+                objAtendJuri.setSetorEncaminhameto((String) jComboBoxEncaminharSetorAD.getSelectedItem());
+                objAtendJuri.setTipoAdvogado((String) jComboBoxTipoAdvogadoAD.getSelectedItem());
+                objAtendJuri.setHoraEnvio(jHoraEnvioAD.getText());
+                objAtendJuri.setResposta((String) jComboBoxRespostaAD.getSelectedItem());
+                if (pAcao_AD == 1) {
                     // log de usuario
                     objAtendJuri.setUsuarioInsert(nameUser);
                     objAtendJuri.setDataInsert(dataModFinal);
@@ -1256,7 +1270,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                    objRegAtend.setDataAtendimento(jDataLancAD.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdADM_JURI.getText()));
                     objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
@@ -1276,17 +1290,17 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     objRegAtend.setHorarioUp(horaMov);
                     objRegAtend.setIdAtend(Integer.valueOf(jIdADM_JURI.getText()));
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);    
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_JURIDICO = "Não";
                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInternoJuridicoAD.getText()));
                     objPortaEntrada.setNomeInternoCrc(jNomeInternoJuridicoAD.getText());
-                    objPortaEntrada.setHabMed(pHABILITA_JURIDICO);
+                    objPortaEntrada.setHabJur(pHABILITA_JURIDICO);
                     control_PE.alterarPortaEntradaJuridico(objPortaEntrada);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
-                if (pAcao == 2) {
+                if (pAcao_AD == 2) {
                     // log de usuario
                     objAtendJuri.setUsuarioUp(nameUser);
                     objAtendJuri.setDataUp(dataModFinal);
@@ -1304,10 +1318,6 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridicoAD.getText()));
                     objAtivi.setNomeInternoCrc(jNomeInternoJuridicoAD.getText());
                     controleItens.alterarInternoAtividade(objAtivi);
-                    // Modifica o código do interno na tabela EVOLUCAOJURIDICO
-                    objEvolu.setIdLanc(Integer.valueOf(jIdADM_JURI.getText()));
-                    objEvolu.setNomeInternoCrc(jNomeInternoJuridicoAD.getText());
-                    controleJuri.alterarInternoEvolucaoJuridico(objEvolu);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
@@ -1331,8 +1341,8 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM ADMISSAO_JURIDICO_ADICIONAL "
                     + "WHERE IdADM_JURI='" + jIdADM_JURI.getText() + "'");
             conecta.rs.first();
-            jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
+            jStatusLancAD.setText(conecta.rs.getString("StatusLanc"));
+            if (jStatusLancAD.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
             } else {
                 Finalizar();
@@ -1345,9 +1355,11 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAtendJuri objAudiJuri = new TelaAuditoriaAtendJuri();
-        TelaModuloJuridico.jPainelJuridico.add(objAudiJuri);
-        objAudiJuri.show();
+        if (jIdADM_JURI.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um registro para verificar a auditoria.");
+        } else {
+            mostarAuditoria();
+        }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1370,6 +1382,15 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAdividadesRealizadasADMActionPerformed
+
+    private void jComboBoxTipoAdvogadoADItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoAdvogadoADItemStateChanged
+        // TODO add your handling code here:
+        if (pAcao_AD == 1 || pAcao_AD == 2) {
+            if (jComboBoxTipoAdvogadoAD.getSelectedItem().equals("Unidade")) {
+                jComboBoxRespostaAD.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jComboBoxTipoAdvogadoADItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -1427,17 +1448,17 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JCheckBox jCheckBoxTodos;
-    private javax.swing.JComboBox jComboBoxEncaminharSetor;
-    private javax.swing.JComboBox jComboBoxResposta;
-    private javax.swing.JComboBox jComboBoxTipoAdvogado;
+    private javax.swing.JComboBox jComboBoxEncaminharSetorAD;
+    private javax.swing.JComboBox jComboBoxRespostaAD;
+    private javax.swing.JComboBox jComboBoxTipoAdvogadoAD;
     public static com.toedter.calendar.JDateChooser jDataCondIntJuriAD;
-    private com.toedter.calendar.JDateChooser jDataEncaminhamento;
+    private com.toedter.calendar.JDateChooser jDataEncaminhamentoAD;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
-    private com.toedter.calendar.JDateChooser jDataLanc;
+    private com.toedter.calendar.JDateChooser jDataLancAD;
     public static com.toedter.calendar.JDateChooser jDataNascInternoJuriAD;
-    private javax.swing.JTextArea jEvolucaoAdmissao;
-    private javax.swing.JFormattedTextField jHoraEnvio;
+    private javax.swing.JTextArea jEvolucaoAdmissaoAD;
+    private javax.swing.JFormattedTextField jHoraEnvioAD;
     public static javax.swing.JTextField jIDInternoJuridicoAD;
     private javax.swing.JTextField jIDPesq;
     public static javax.swing.JTextField jIdADM_JURI;
@@ -1477,7 +1498,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     private javax.swing.JTextField jPesqNomeInterno;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
-    public static javax.swing.JTextField jStatusLanc;
+    public static javax.swing.JTextField jStatusLancAD;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaAtendimentoJuridico;
     private javax.swing.JLabel jtotalRegistros;
@@ -1486,8 +1507,8 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     public void corCampos() {
         jIdAdmPrincipal.setBackground(Color.white);
         jIdADM_JURI.setBackground(Color.white);
-        jStatusLanc.setBackground(Color.white);
-        jDataLanc.setBackground(Color.white);
+        jStatusLancAD.setBackground(Color.white);
+        jDataLancAD.setBackground(Color.white);
         jIDInternoJuridicoAD.setBackground(Color.white);
         jNomeInternoJuridicoAD.setBackground(Color.white);
         jMatriculaPenaJuridico.setBackground(Color.white);
@@ -1495,50 +1516,50 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jDataCondIntJuriAD.setBackground(Color.white);
         jIdEvolucao.setBackground(Color.white);
         jEvolucao.setBackground(Color.white);
-        jEvolucaoAdmissao.setBackground(Color.white);
-        jHoraEnvio.setBackground(Color.white);
+        jEvolucaoAdmissaoAD.setBackground(Color.white);
+        jHoraEnvioAD.setBackground(Color.white);
         jIdAtiv.setBackground(Color.white);
         jAtividadeRealizada.setBackground(Color.white);
     }
 
     public void formatarCampos() {
-        jEvolucaoAdmissao.setLineWrap(true);
-        jEvolucaoAdmissao.setWrapStyleWord(true);
+        jEvolucaoAdmissaoAD.setLineWrap(true);
+        jEvolucaoAdmissaoAD.setWrapStyleWord(true);
     }
 
     public void Novo() {
         jIdADM_JURI.setText("");
-        jStatusLanc.setText("ABERTO");
-        jDataLanc.setCalendar(Calendar.getInstance());
+        jStatusLancAD.setText("ABERTO");
+        jDataLancAD.setCalendar(Calendar.getInstance());
         jIDInternoJuridicoAD.setText("");
         jNomeInternoJuridicoAD.setText("");
         jMatriculaPenaJuridico.setText("");
         jDataNascInternoJuriAD.setDate(null);
         jDataCondIntJuriAD.setDate(null);
-        jEvolucaoAdmissao.setText("");
-        jComboBoxResposta.setEnabled(true);
-        if (pAcao == 1) {
-            if (jComboBoxResposta.getSelectedItem().equals("Sim")) {
-                jDataEncaminhamento.setCalendar(Calendar.getInstance());
-                jHoraEnvio.setText(jHoraSistema.getText());
-                jDataEncaminhamento.setEnabled(true);
-                jComboBoxEncaminharSetor.setEnabled(true);
-                jComboBoxTipoAdvogado.setEnabled(true);
-                jHoraEnvio.setEnabled(true);
+        jEvolucaoAdmissaoAD.setText("");
+        jComboBoxTipoAdvogadoAD.setEnabled(true);
+        jComboBoxRespostaAD.setEnabled(true);
+        if (pAcao_AD == 1) {
+            if (jComboBoxRespostaAD.getSelectedItem().equals("Sim")) {
+                jDataEncaminhamentoAD.setCalendar(Calendar.getInstance());
+                jHoraEnvioAD.setText(jHoraSistema.getText());
+                jDataEncaminhamentoAD.setEnabled(true);
+                jComboBoxEncaminharSetorAD.setEnabled(true);
+                jComboBoxTipoAdvogadoAD.setEnabled(true);
+                jHoraEnvioAD.setEnabled(true);
             } else {
-                jComboBoxEncaminharSetor.setSelectedItem("Selecione");
-                jComboBoxEncaminharSetor.setSelectedItem("Selecione");
-                jComboBoxResposta.setSelectedItem("Selecione");
+                jComboBoxEncaminharSetorAD.setSelectedItem("Selecione");
+                jComboBoxEncaminharSetorAD.setSelectedItem("Selecione");
+                jComboBoxRespostaAD.setSelectedItem("Selecione");
                 //
-                jDataEncaminhamento.setDate(null);
-                jHoraEnvio.setText("");
-                jDataEncaminhamento.setEnabled(!true);
-                jComboBoxEncaminharSetor.setEnabled(!true);
-                jHoraEnvio.setEnabled(!true);
+                jDataEncaminhamentoAD.setDate(null);
+                jHoraEnvioAD.setText("");
+                jDataEncaminhamentoAD.setEnabled(!true);
+                jComboBoxEncaminharSetorAD.setEnabled(!true);
+                jHoraEnvioAD.setEnabled(!true);
             }
         }
-        jComboBoxTipoAdvogado.setSelectedItem("Selecione");
-        jEvolucao.setText("");
+        jComboBoxTipoAdvogadoAD.setSelectedItem("Selecione");
         //
         jIDPesq.setEnabled(!true);
         jPesqNomeInterno.setEnabled(!true);
@@ -1548,9 +1569,10 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jCheckBoxTodos.setEnabled(!true);
         jBtPesqDatas.setEnabled(!true);
         //
-        jDataLanc.setEnabled(true);
-        jEvolucaoAdmissao.setEnabled(true);
-        jComboBoxTipoAdvogado.setEnabled(true);
+        jDataLancAD.setEnabled(!true);
+        jEvolucaoAdmissaoAD.setEnabled(true);
+        jComboBoxTipoAdvogadoAD.setEnabled(true);
+        jComboBoxRespostaAD.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -1565,20 +1587,20 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     }
 
     public void Alterar() {
-        jDataLanc.setEnabled(true);
-        jEvolucaoAdmissao.setEnabled(true);
-        jComboBoxTipoAdvogado.setEnabled(true);
-        jComboBoxResposta.setEnabled(true);
-        if (pAcao == 2) {
-            if (jComboBoxResposta.getSelectedItem().equals("Sim")) {
-                jDataEncaminhamento.setEnabled(true);
-                jComboBoxEncaminharSetor.setEnabled(true);
-                jComboBoxTipoAdvogado.setEnabled(true);
-                jHoraEnvio.setEnabled(true);
+        jDataLancAD.setEnabled(!true);
+        jEvolucaoAdmissaoAD.setEnabled(true);
+        jComboBoxTipoAdvogadoAD.setEnabled(true);
+        jComboBoxRespostaAD.setEnabled(true);
+        if (pAcao_AD == 2) {
+            if (jComboBoxRespostaAD.getSelectedItem().equals("Sim")) {
+                jDataEncaminhamentoAD.setEnabled(true);
+                jComboBoxEncaminharSetorAD.setEnabled(true);
+                jComboBoxTipoAdvogadoAD.setEnabled(true);
+                jHoraEnvioAD.setEnabled(true);
             } else {
-                jDataEncaminhamento.setEnabled(!true);
-                jComboBoxEncaminharSetor.setEnabled(!true);
-                jHoraEnvio.setEnabled(!true);
+                jDataEncaminhamentoAD.setEnabled(!true);
+                jComboBoxEncaminharSetorAD.setEnabled(!true);
+                jHoraEnvioAD.setEnabled(!true);
             }
         }
         jEvolucao.setEnabled(true);
@@ -1604,28 +1626,28 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     public void Excluir() {
         jIdAdmPrincipal.setText("");
         jIdADM_JURI.setText("");
-        jStatusLanc.setText("");
-        jDataLanc.setDate(null);
+        jStatusLancAD.setText("");
+        jDataLancAD.setDate(null);
         jIDInternoJuridicoAD.setText("");
         jNomeInternoJuridicoAD.setText("");
         jMatriculaPenaJuridico.setText("");
         jDataNascInternoJuriAD.setDate(null);
         jDataCondIntJuriAD.setDate(null);
-        jEvolucaoAdmissao.setText("");
-        jDataEncaminhamento.setDate(null);
-        jComboBoxEncaminharSetor.setSelectedItem("Selecione");
-        jComboBoxTipoAdvogado.setSelectedItem("Selecione");
-        jComboBoxEncaminharSetor.setSelectedItem("Selecione");
-        jComboBoxResposta.setSelectedItem("Selecione");
+        jEvolucaoAdmissaoAD.setText("");
+        jDataEncaminhamentoAD.setDate(null);
+        jComboBoxEncaminharSetorAD.setSelectedItem("Selecione");
+        jComboBoxTipoAdvogadoAD.setSelectedItem("Selecione");
+        jComboBoxEncaminharSetorAD.setSelectedItem("Selecione");
+        jComboBoxRespostaAD.setSelectedItem("Selecione");
         jEvolucao.setText("");
         //
-        jDataLanc.setEnabled(!true);
-        jDataEncaminhamento.setEnabled(!true);
-        jComboBoxEncaminharSetor.setEnabled(!true);
-        jComboBoxTipoAdvogado.setEnabled(!true);
-        jComboBoxEncaminharSetor.setEnabled(!true);
-        jComboBoxResposta.setEnabled(!true);
-        jHoraEnvio.setEnabled(!true);
+        jDataLancAD.setEnabled(!true);
+        jDataEncaminhamentoAD.setEnabled(!true);
+        jComboBoxEncaminharSetorAD.setEnabled(!true);
+        jComboBoxTipoAdvogadoAD.setEnabled(!true);
+        jComboBoxEncaminharSetorAD.setEnabled(!true);
+        jComboBoxRespostaAD.setEnabled(!true);
+        jHoraEnvioAD.setEnabled(!true);
         //
         jEvolucao.setEnabled(!true);
         //
@@ -1648,14 +1670,14 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
     }
 
     public void Salvar() {
-        jDataLanc.setEnabled(!true);
-        jEvolucaoAdmissao.setEnabled(!true);
-        jDataEncaminhamento.setEnabled(!true);
-        jComboBoxEncaminharSetor.setEnabled(!true);
-        jComboBoxTipoAdvogado.setEnabled(!true);
-        jComboBoxEncaminharSetor.setEnabled(!true);
-        jComboBoxResposta.setEnabled(!true);
-        jHoraEnvio.setEnabled(!true);
+        jDataLancAD.setEnabled(!true);
+        jEvolucaoAdmissaoAD.setEnabled(!true);
+        jDataEncaminhamentoAD.setEnabled(!true);
+        jComboBoxEncaminharSetorAD.setEnabled(!true);
+        jComboBoxTipoAdvogadoAD.setEnabled(!true);
+        jComboBoxEncaminharSetorAD.setEnabled(!true);
+        jComboBoxRespostaAD.setEnabled(!true);
+        jHoraEnvioAD.setEnabled(!true);
         //
         jEvolucao.setEnabled(!true);
         //
@@ -1674,34 +1696,34 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jBtIDPesq.setEnabled(true);
         jBtPesqNomeInterno.setEnabled(true);
         jBtPesqDatas.setEnabled(true);
-        jCheckBoxTodos.setEnabled(true);        
+        jCheckBoxTodos.setEnabled(true);
     }
 
     public void Cancelar() {
         if (jIdADM_JURI.getText().equals("")) {
             jIdAdmPrincipal.setText("");
-            jStatusLanc.setText("");
-            jDataLanc.setDate(null);
+            jStatusLancAD.setText("");
+            jDataLancAD.setDate(null);
             jIDInternoJuridicoAD.setText("");
             jNomeInternoJuridicoAD.setText("");
             jMatriculaPenaJuridico.setText("");
             jDataNascInternoJuriAD.setDate(null);
             jDataCondIntJuriAD.setDate(null);
-            jDataEncaminhamento.setDate(null);
-            jComboBoxEncaminharSetor.setSelectedItem("Selecione");
-            jComboBoxTipoAdvogado.setSelectedItem("Selecione");
-            jComboBoxEncaminharSetor.setSelectedItem("Selecione");
-            jComboBoxResposta.setSelectedItem("Selecione");
+            jDataEncaminhamentoAD.setDate(null);
+            jComboBoxEncaminharSetorAD.setSelectedItem("Selecione");
+            jComboBoxTipoAdvogadoAD.setSelectedItem("Selecione");
+            jComboBoxEncaminharSetorAD.setSelectedItem("Selecione");
+            jComboBoxRespostaAD.setSelectedItem("Selecione");
             jEvolucao.setText("");
             jBtAuditoria.setEnabled(!true);
             //
-            jDataLanc.setEnabled(!true);
-            jDataEncaminhamento.setEnabled(!true);
-            jComboBoxEncaminharSetor.setEnabled(!true);
-            jComboBoxTipoAdvogado.setEnabled(!true);
-            jComboBoxEncaminharSetor.setEnabled(!true);
-            jComboBoxResposta.setEnabled(!true);
-            jHoraEnvio.setEnabled(!true);
+            jDataLancAD.setEnabled(!true);
+            jDataEncaminhamentoAD.setEnabled(!true);
+            jComboBoxEncaminharSetorAD.setEnabled(!true);
+            jComboBoxTipoAdvogadoAD.setEnabled(!true);
+            jComboBoxEncaminharSetorAD.setEnabled(!true);
+            jComboBoxRespostaAD.setEnabled(!true);
+            jHoraEnvioAD.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -1719,13 +1741,13 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             jBtPesqDatas.setEnabled(true);
             jCheckBoxTodos.setEnabled(true);
         } else {
-            jDataLanc.setEnabled(!true);
-            jDataEncaminhamento.setEnabled(!true);
-            jComboBoxEncaminharSetor.setEnabled(!true);
-            jComboBoxTipoAdvogado.setEnabled(!true);
-            jComboBoxEncaminharSetor.setEnabled(!true);
-            jComboBoxResposta.setEnabled(!true);
-            jHoraEnvio.setEnabled(!true);
+            jDataLancAD.setEnabled(!true);
+            jDataEncaminhamentoAD.setEnabled(!true);
+            jComboBoxEncaminharSetorAD.setEnabled(!true);
+            jComboBoxTipoAdvogadoAD.setEnabled(!true);
+            jComboBoxEncaminharSetorAD.setEnabled(!true);
+            jComboBoxRespostaAD.setEnabled(!true);
+            jHoraEnvioAD.setEnabled(!true);
             //
             jEvolucao.setEnabled(!true);
             //
@@ -1772,10 +1794,10 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             objAtendJuri.setIdADM_JURI(Integer.parseInt(jIdADM_JURI.getText()));
             control.finalizarAtendJuridicoNOVA(objAtendJuri);
             controle.finalizarMovTecNOVA(objAtendJuri);
-            jStatusLanc.setText("FINALIZADO");
+            jStatusLancAD.setText("FINALIZADO");
             JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
             // Habilitar/Desabilitar campos       
-            jDataLanc.setEnabled(!true);
+            jDataLancAD.setEnabled(!true);
             jEvolucao.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
@@ -1805,7 +1827,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS ORDER BY NomeDepartamento");
             conecta.rs.first();
             do {
-                jComboBoxEncaminharSetor.addItem(conecta.rs.getString("NomeDepartamento"));
+                jComboBoxEncaminharSetorAD.addItem(conecta.rs.getString("NomeDepartamento"));
                 jComboBoxEncaminharSetorEvo.addItem(conecta.rs.getString("NomeDepartamento"));
             } while (conecta.rs.next());
         } catch (Exception ERROR) {
@@ -2055,7 +2077,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
 
         conecta.abrirConexao();
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataReg = formatoAmerica.format(jDataLanc.getDate().getTime());
+        dataReg = formatoAmerica.format(jDataLancAD.getDate().getTime());
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "WHERE IdInternoCrc='" + jIDInternoJuridicoAD.getText() + "' "
@@ -2112,19 +2134,19 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     + "AND ATENDIMENTOJURIDICO.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
             conecta.rs.first();
             jIdAdmPrincipal.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
-            jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
+            jDataLancAD.setDate(conecta.rs.getDate("DataLanc"));
             jIDInternoJuridicoAD.setText(conecta.rs.getString("IdInternoCrc"));
             jNomeInternoJuridicoAD.setText(conecta.rs.getString("NomeInternoCrc"));
             jMatriculaPenaJuridico.setText(conecta.rs.getString("MatriculaCrc"));
             jDataNascInternoJuriAD.setDate(conecta.rs.getDate("DataNasciCrc"));
             jDataCondIntJuriAD.setDate(conecta.rs.getDate("DataCondenacao"));
-            jComboBoxTipoAdvogado.setSelectedItem(conecta.rs.getString("TipoAdvogado"));
-            jComboBoxResposta.setSelectedItem(conecta.rs.getString("Resposta"));
-            jDataEncaminhamento.setDate(conecta.rs.getDate("DataEnca"));
-            jHoraEnvio.setText(conecta.rs.getString("HoraEnvio"));
-            jEvolucaoAdmissao.setText(conecta.rs.getString("Observacao"));
-            if (jComboBoxEncaminharSetor.getSelectedItem() != null || jComboBoxEncaminharSetor.getSelectedItem().equals("")) {
-                jComboBoxEncaminharSetor.setSelectedItem(conecta.rs.getString("SetorEncaminhamento"));
+            jComboBoxTipoAdvogadoAD.setSelectedItem(conecta.rs.getString("TipoAdvogado"));
+            jComboBoxRespostaAD.setSelectedItem(conecta.rs.getString("Resposta"));
+            jDataEncaminhamentoAD.setDate(conecta.rs.getDate("DataEnca"));
+            jHoraEnvioAD.setText(conecta.rs.getString("HoraEnvio"));
+            jEvolucaoAdmissaoAD.setText(conecta.rs.getString("Observacao"));
+            if (jComboBoxEncaminharSetorAD.getSelectedItem() != null || jComboBoxEncaminharSetorAD.getSelectedItem().equals("")) {
+                jComboBoxEncaminharSetorAD.setSelectedItem(conecta.rs.getString("SetorEncaminhamento"));
             }
         } catch (Exception e) {
         }
@@ -2146,16 +2168,16 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridicoAD.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridico.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridicoAD.getText() + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridico.getText() + "' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdADM_JURI.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdAdmPrincipal.setText(jIDLanc.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");

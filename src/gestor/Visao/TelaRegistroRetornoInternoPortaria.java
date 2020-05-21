@@ -115,6 +115,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     int pPOPULCAO_ATUAL = 0;
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
+    String pREGISTRO_CANCELADO = "";
 
     /**
      * Creates new form TelaRetornoInterno
@@ -177,13 +178,13 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jIDLanc = new javax.swing.JTextField();
-        jBtPesqOperacao = new javax.swing.JButton();
         jDataLancamento = new com.toedter.calendar.JDateChooser();
-        jDescricaoOpe = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jStatusRetorno = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jDescricaoOpe = new javax.swing.JTextField();
+        jBtPesqOperacao = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jBtNovolanc = new javax.swing.JButton();
         jBtAlterarlanc = new javax.swing.JButton();
@@ -461,14 +462,28 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jLabel3.setText("Código");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Data:");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Operação:");
+        jLabel4.setText("Data");
 
         jIDLanc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIDLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIDLanc.setEnabled(false);
+
+        jDataLancamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataLancamento.setEnabled(false);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("Status");
+
+        jStatusRetorno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jStatusRetorno.setForeground(new java.awt.Color(255, 0, 0));
+        jStatusRetorno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jStatusRetorno.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Tipo de Operação");
+
+        jDescricaoOpe.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDescricaoOpe.setEnabled(false);
 
         jBtPesqOperacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqOperacao.setContentAreaFilled(false);
@@ -479,62 +494,55 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             }
         });
 
-        jDataLancamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataLancamento.setEnabled(false);
-
-        jDescricaoOpe.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDescricaoOpe.setEnabled(false);
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Status:");
-
-        jStatusRetorno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jStatusRetorno.setForeground(new java.awt.Color(255, 0, 0));
-        jStatusRetorno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jStatusRetorno.setEnabled(false);
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jIDLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jStatusRetorno)
-                    .addComponent(jDescricaoOpe, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesqOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jIDLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jStatusRetorno))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel13)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDescricaoOpe, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(jBtPesqOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel3)
-                    .addComponent(jIDLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jDescricaoOpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqOperacao))
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDataLancamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jIDLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jStatusRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel4)
-                    .addComponent(jDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(jStatusRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                    .addComponent(jBtPesqOperacao)
+                    .addComponent(jDescricaoOpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
@@ -629,7 +637,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(4, 4, 4)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtAudRetorno)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -639,7 +647,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                         .addComponent(jBtSalvarlanc)
                         .addComponent(jBtCancelarlanc)
                         .addComponent(jBtFinalizar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarlanc, jBtAudRetorno, jBtCancelarlanc, jBtExcluirlanc, jBtFinalizar, jBtNovolanc, jBtSalvarlanc});
@@ -657,10 +665,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+            .addComponent(jScrollPane2)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -706,7 +711,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
         confirmadoRetorno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         confirmadoRetorno.setForeground(new java.awt.Color(255, 0, 0));
-        confirmadoRetorno.setToolTipText("Confirmado Retorno pelo CRC");
+        confirmadoRetorno.setToolTipText("Confirmado Retorno pelo CRC\nCancelado pelo CRC");
         confirmadoRetorno.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jBtPesqInterno.setForeground(new java.awt.Color(0, 0, 255));
@@ -724,7 +729,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jLabel11.setText("Tipo de Operação");
 
         jOrigemOperacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jOrigemOperacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retono Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar" }));
+        jOrigemOperacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retorno Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar" }));
         jOrigemOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jOrigemOperacao.setEnabled(false);
 
@@ -1000,16 +1005,16 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
                         .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1018,21 +1023,20 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -1297,9 +1301,12 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                     jFotoInternoRetorno.setIcon(icon);
                 }
                 confirma = conecta.rs.getString("ConfirmacaoRetorno");
+                pREGISTRO_CANCELADO = conecta.rs.getString("RegistroCancelado");
                 // Se confirmado (Sim), siginifica que o CRC já fez o retorno do interno
                 if (confirma.equals("Sim")) {
                     confirmadoRetorno.setText(vconfirmado);
+                } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
+                    confirmadoRetorno.setText("Cancelado pelo CRC");
                 } else {
                     confirmadoRetorno.setText("");
                 }
@@ -1344,9 +1351,11 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             if (retornoBiometria != null) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse registro, o mesmo tem origem da biometria.");
             } else if (jStatusRetorno.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+                JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO.");
             } else if (confirma.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo encontra-se efetuado pelo CRC");
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo encontra-se efetuado pelo CRC.");
+            } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo foi cancelado pelo CRC.");
             } else {
                 acao = 4;
                 flag = 1;
@@ -1366,7 +1375,9 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         buscarAcessoUsuario(telaRegistroRetornoRIIntP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIIntP1) && codExcluirP1 == 1) {
             if (confirma.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais excluído, pois, o mesmo encontra-se efetuado pelo CRC");
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais excluído, pois, o mesmo encontra-se efetuado pelo CRC.");
+            } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais excluído, pois, o mesmo foi cancelado pelo CRC.");
             } else {
                 verificarBiometria();
                 statusMov = "Excluiu";
@@ -1378,37 +1389,38 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                 } else if (retornoBiometria != null) {
                     JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse registro, o mesmo tem origem da biometria.");
                 } else {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        // Limpa as variaveis para limpar os campos da tabela MOVSR               
-                        jDataRetorno.setDate(null);
-                        jNrDocumento.setText("");
-                        //Atualizar a tabela MOVISR pela portaria retirando o número do documento e a data de retorno.
-                        objItensRetorno.setIdRetorno(Integer.valueOf(jIDLanc.getText()));
-                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        objItensRetorno.setDocumento("");
-                        objItensRetorno.setDataRetorno(null);
-                        // objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
-                        controlMOVSR.alterarRegistroRetorno(objItensRetorno); // Tabela MOVISR
-                        // EXCLUIR REGISTRO DA TABELA VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
-                        objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
-                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        controleRetornoPortaria.excluirInternoRetorno(objItensRetorno);
-                        //
-                        objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
-                        controle.excluirItensRetorno(objItensRetorno);
-                        //
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
-                        preencherTabelaItens("SELECT * FROM ITENSREGISTRO "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
-
-                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                        ExcluirItem();
-                    }
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro.");
+//                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+//                            JOptionPane.YES_NO_OPTION);
+//                    if (resposta == JOptionPane.YES_OPTION) {
+//                        // Limpa as variaveis para limpar os campos da tabela MOVSR               
+//                        jDataRetorno.setDate(null);
+//                        jNrDocumento.setText("");
+//                        //Atualizar a tabela MOVISR pela portaria retirando o número do documento e a data de retorno.
+//                        objItensRetorno.setIdRetorno(Integer.valueOf(jIDLanc.getText()));
+//                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+//                        objItensRetorno.setDocumento("");
+//                        objItensRetorno.setDataRetorno(null);
+//                        // objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
+//                        controlMOVSR.alterarRegistroRetorno(objItensRetorno); // Tabela MOVISR
+//                        // EXCLUIR REGISTRO DA TABELA VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+//                        objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
+//                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+//                        controleRetornoPortaria.excluirInternoRetorno(objItensRetorno);
+//                        //
+//                        objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
+//                        controle.excluirItensRetorno(objItensRetorno);
+//                        //
+//                        objLog2();
+//                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
+//                        preencherTabelaItens("SELECT * FROM ITENSREGISTRO "
+//                                + "INNER JOIN PRONTUARIOSCRC "
+//                                + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                                + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
+//
+//                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+//                        ExcluirItem();
+//                    }
                 }
             }
         } else {
@@ -1446,7 +1458,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                             objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
                             controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens ITENSREGISTRO                                                                    
                             buscarIdItem();
-                            //ADICIONAR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                            //ADICIONAR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                             if (jOrigemOperacao.getSelectedItem().equals("Retorno Saída Temporaria")) {
                                 populacaoAlimentacao();
                             } else if (jOrigemOperacao.getSelectedItem().equals("Retorno de Prisão Domiciliar - COVID-19")) {
@@ -1457,7 +1469,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                                 populacaoAlimentacao();
                             } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Condenação")) {
                                 populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retono Espontâneo")) {
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Espontâneo")) {
                                 populacaoAlimentacao();
                             } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Prisão")) {
                                 populacaoAlimentacao();
