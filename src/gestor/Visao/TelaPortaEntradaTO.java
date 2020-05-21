@@ -4078,7 +4078,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "' "
-                    + "ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
+                    + "AND ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -4583,6 +4583,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 } else if (jQuantosFilhos.getText().equals("") || jQuantosFilhos.getText() == null) {
                     JOptionPane.showMessageDialog(rootPane, "Preencha o campo com a quantidade de filhos(0) ou quantidade de filhos superior a (0)");
                 } else {
+                    objAtend.setIdLanc(Integer.valueOf(jIdADM_Principal.getText()));
                     objAtend.setStatusLanc(statusAtendimento);
                     objAtend.setDataLanc(jDataLanc.getDate());
                     // DESEMPENHO OCUPACIONAL

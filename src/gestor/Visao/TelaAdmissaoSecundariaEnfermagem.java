@@ -1255,7 +1255,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
 
         jTabbedPane2.addTab("Dados Iniciais", jPanel3);
 
-        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Anotação/Evolução da Admissão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Avaliações Adicionais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jBtFIA.setText("FIA");
         jBtFIA.setToolTipText("Função Intestinal/Abdome");
@@ -1359,7 +1359,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Anotação/Evolução da Admissão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Drogas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Quais?");
@@ -1791,7 +1791,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdLanc='" + jIdLanc.getText() + "'"
-                    + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=" + jIdInternoEnfermeiro.getText() + "'");
+                    + "AND ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabelaAdmissao();
