@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioOrganogrmaCrime" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d1148bc-e263-4203-8ab5-0330316cf2c8">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="21"/>
+	<property name="ireport.y" value="38"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -16,7 +16,7 @@
 	<parameter name="pREGISTRO" class="java.lang.String"/>
 	<parameter name="pUNIDADE" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Socializa TI 02\\Documents\\NetBeansProjects\\SysConp\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="pUSUARIO" class="java.lang.String"/>
 	<queryString>
@@ -398,7 +398,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reports/SubRelatorioOrganogramaCrime.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="2">
@@ -408,7 +408,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reports/SubRelatorioOrganogramaCrime_L1B.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime_L1B.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="2">
@@ -418,7 +418,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reports/SubRelatorioOrganogramaCrime_L1C.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime_L1C.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="2">
@@ -428,7 +428,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/reports/SubRelatorioOrganogramaCrime_L1D.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime_L1D.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="2">
@@ -438,7 +438,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2A.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime_L2A.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="2">
@@ -448,7 +448,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2B.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime_L2B.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="2">
@@ -458,7 +458,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2C.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime_L2C.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="2">
@@ -468,7 +468,7 @@
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2D.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioOrganogramaCrime_L2D.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
