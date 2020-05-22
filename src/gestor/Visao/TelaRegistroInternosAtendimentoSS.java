@@ -189,7 +189,7 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Horário", "Nome do Interno"
@@ -980,6 +980,7 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
             //
             bloquearCampos();
             //
+            jComboBoxTipoMovimentacao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -997,7 +998,7 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
-                jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
+                jComboBoxTipoMovimentacao.addItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloSS);
                 jIdInternoKitBio.setText(conecta.rs.getString("IdInternoCrc"));

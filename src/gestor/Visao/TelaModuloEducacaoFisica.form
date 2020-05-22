@@ -21,11 +21,17 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu5">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="66" red="0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Registro de Atendimento de Internos - (Biometria ou Impress&#xe3;o)"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jRegistroAtendeInternoBio">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="66" red="0" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Registra Atendimento por Biometria"/>
                   </Properties>
                   <Events>
@@ -34,6 +40,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="RegistroAtendimentoImpresso">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="0" red="0" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Registro Atendimento por Impress&#xe3;o"/>
                   </Properties>
                   <Events>

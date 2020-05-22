@@ -113,6 +113,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
     String pATENDENDO = "Sim";
     String pCONCLUIDO = "Não";
     String pSTATUS_ATENDIMENTO = "Em Atendimento";
+    int pSTATUS_USUARIO = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -1136,6 +1137,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
                 jNomeInternoKitImp.setText(conecta.rs.getString("NomeInternoCrc"));
                 jPavilhaoKitImp.setText(conecta.rs.getString("DescricaoPav"));
                 jCelaKitBio.setText(conecta.rs.getString("EndCelaPav"));
+                jMotivo.setText(conecta.rs.getString("Motivo"));
                 caminhoFotoInterno = conecta.rs.getString("FotoInternoCrc");
                 if (caminhoFotoInterno != null) {
                     javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
@@ -1457,6 +1459,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeDepartamento='" + nomeModuloSS + "' "
+                    + "AND StatusUsuario='" + pSTATUS_USUARIO + "' "
                     + "ORDER BY NomeUsuario");
             conecta.rs.first();
             do {

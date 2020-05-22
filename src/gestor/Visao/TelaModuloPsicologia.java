@@ -375,6 +375,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
         jMenu5.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
 
+        jRegistroAtendeInternoBio.setForeground(new java.awt.Color(0, 0, 204));
         jRegistroAtendeInternoBio.setText("Registra Atendimento por Biometria");
         jRegistroAtendeInternoBio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,6 +384,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         });
         jMenu5.add(jRegistroAtendeInternoBio);
 
+        RegistroAtendimentoImpresso.setForeground(new java.awt.Color(0, 102, 0));
         RegistroAtendimentoImpresso.setText("Registro Atendimento por Impressão");
         RegistroAtendimentoImpresso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -605,7 +605,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         jMenu3.setForeground(new java.awt.Color(0, 102, 0));
         jMenu3.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
 
-        jRegistraAtendimentoBiometria.setForeground(new java.awt.Color(204, 0, 0));
+        jRegistraAtendimentoBiometria.setForeground(new java.awt.Color(0, 102, 0));
         jRegistraAtendimentoBiometria.setText("Registra Atendimento por Biometria");
         jRegistraAtendimentoBiometria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

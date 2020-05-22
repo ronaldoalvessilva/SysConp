@@ -12,11 +12,11 @@ import gestor.Controle.ControleMovEFEvolucao;
 import gestor.Controle.ControleMovEducacaiFisica;
 import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
-import gestor.Controle.listarAdmissaoDatas;
-import gestor.Controle.listarAdmissaoInternos;
-import gestor.Controle.listarTodosRegistros;
+import gestor.Controle.listarAdmissaoDatasEF_NOVA;
+import gestor.Controle.listarAdmissaoInternosEF_NOVA;
 import gestor.Controle.listarTodosRegistrosEvolucao;
 import gestor.Controle.listarTodosRegistrosEvolucao_REGISTRO;
+import gestor.Controle.listarTodosRegistros_EF_NOVA;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEvolucaoEducacaoFisica;
 import gestor.Modelo.AdmissaoPsicologica;
@@ -75,9 +75,9 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AdmissaoEvolucaoEducacaoFisica objAdmissao = new AdmissaoEvolucaoEducacaoFisica();
     ControleAdmissaoEvolucaoEF_NOVA control = new ControleAdmissaoEvolucaoEF_NOVA();
-    listarTodosRegistros listaTodos = new listarTodosRegistros();
-    listarAdmissaoDatas listarPorData = new listarAdmissaoDatas();
-    listarAdmissaoInternos listarPorNome = new listarAdmissaoInternos();
+    listarTodosRegistros_EF_NOVA listaTodos = new listarTodosRegistros_EF_NOVA();
+    listarAdmissaoDatasEF_NOVA listarPorData = new listarAdmissaoDatasEF_NOVA();
+    listarAdmissaoInternosEF_NOVA listarPorNome = new listarAdmissaoInternosEF_NOVA();
     //EVOLUÇÃO
     listarTodosRegistrosEvolucao listaEvo = new listarTodosRegistrosEvolucao();
     listarTodosRegistrosEvolucao_REGISTRO lista_REGISTRO = new listarTodosRegistrosEvolucao_REGISTRO();
@@ -97,8 +97,8 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Educação Física:Admissão Educação Física:Manutenção";
-    String nomeModuloTela1 = "Educação Física:Admissão Educação Física:Evolução";
+    String nomeModuloTela = "Educação Física:Admissão Educação Física Nova:Manutenção";
+    String nomeModuloTela1 = "Educação Física:Admissão Educação Física Nova:Evolução";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -1509,7 +1509,6 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
                         acao = 1;
-
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
                         dataModFinal = jDataSistema.getText();

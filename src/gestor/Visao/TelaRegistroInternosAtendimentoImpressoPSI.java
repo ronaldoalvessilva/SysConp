@@ -106,6 +106,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     String pATENDENDO = "Sim";
     String pCONCLUIDO = "Não";
     String pSTATUS_ATENDIMENTO = "Em Atendimento";
+    int pSTATUS_USUARIO = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -1099,6 +1100,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                 jBtImprimirAutorização.setEnabled(true);
             }
             jComboBoxAtendente.removeAllItems();
+            jComboBoxTipoMovimentacao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1116,7 +1118,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
-                jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
+                jComboBoxTipoMovimentacao.addItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jComboBoxAtendente.addItem(conecta.rs.getString("UsuarioAtendente"));
                 jNomeDepartamento.setText(nomeModuloPSICOLOGIA);
@@ -1126,6 +1128,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                 jNomeInternoKitImp.setText(conecta.rs.getString("NomeInternoCrc"));
                 jPavilhaoKitImp.setText(conecta.rs.getString("DescricaoPav"));
                 jCelaKitBio.setText(conecta.rs.getString("EndCelaPav"));
+                jMotivo.setText(conecta.rs.getString("Motivo"));
                 caminhoFotoInterno = conecta.rs.getString("FotoInternoCrc");
                 if (caminhoFotoInterno != null) {
                     javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
@@ -1283,6 +1286,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeDepartamento='" + nomeModuloPSICOLOGIA + "' "
+                    + "AND StatusUsuario='" + pSTATUS_USUARIO + "' "
                     + "ORDER BY NomeUsuario");
             conecta.rs.first();
             do {

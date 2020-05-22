@@ -980,6 +980,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
             //
             bloquearCampos();
             //
+            jComboBoxTipoMovimentacao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -997,7 +998,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
-                jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
+                jComboBoxTipoMovimentacao.addItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloPSICOLOGIA);
                 jIdInternoKitBio.setText(conecta.rs.getString("IdInternoCrc"));

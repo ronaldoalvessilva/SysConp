@@ -250,7 +250,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         jMenu5.setForeground(new java.awt.Color(0, 102, 0));
         jMenu5.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
 
-        RegistroAtendimentoBiometria.setForeground(new java.awt.Color(204, 0, 0));
+        RegistroAtendimentoBiometria.setForeground(new java.awt.Color(0, 102, 0));
         RegistroAtendimentoBiometria.setText("Registrar  Atendimento por Biometria");
         RegistroAtendimentoBiometria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

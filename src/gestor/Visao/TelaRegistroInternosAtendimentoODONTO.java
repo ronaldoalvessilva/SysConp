@@ -986,6 +986,7 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
             //
             bloquearCampos();
             //
+            jComboBoxTipoMovimentacao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1003,7 +1004,7 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
-                jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
+                jComboBoxTipoMovimentacao.addItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloODONTOLOGIA);
                 jIdInternoKitBio.setText(conecta.rs.getString("IdInternoCrc"));
