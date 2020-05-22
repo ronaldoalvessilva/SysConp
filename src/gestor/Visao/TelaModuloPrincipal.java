@@ -769,7 +769,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel7.setText("Versão: 6.1.0");
+        jLabel7.setText("Versão: 6.1.1");
 
         jNomeUnidade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jNomeUnidade.setForeground(new java.awt.Color(0, 153, 0));
@@ -782,11 +782,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addGroup(jPanelNomeSistemaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(472, 472, 472)
+                .addGap(57, 57, 57)
                 .addComponent(jLabel7)
-                .addGap(61, 61, 61))
+                .addGap(24, 24, 24))
         );
         jPanelNomeSistemaLayout.setVerticalGroup(
             jPanelNomeSistemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -812,11 +812,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jPanielPrincipal.setLayout(jPanielPrincipalLayout);
         jPanielPrincipalLayout.setHorizontalGroup(
             jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelNomeSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 1369, Short.MAX_VALUE)
+            .addComponent(jPanelNomeSistema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanielPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 1345, Short.MAX_VALUE)
+                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanielPrincipalLayout.setVerticalGroup(
@@ -827,7 +827,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanielPrincipal, java.awt.BorderLayout.CENTER);
@@ -1330,7 +1330,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         setJMenuBar(jMenuBar1);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSindicanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSindicanciaActionPerformed

@@ -1353,66 +1353,137 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     }
 
     public void buscarAgendamentoInternos() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
-                    + "WHERE DataAg<='" + jDataSistema.getText() + "' "
-                    + "AND StatusReg='" + statusRegistro + "'");
-            conecta.rs.first();
-            // Formatar a data Agenda
-            dataAgenda = conecta.rs.getString("DataAg");
-            String dia = dataAgenda.substring(8, 10);
-            String mes = dataAgenda.substring(5, 7);
-            String ano = dataAgenda.substring(0, 4);
-            dataAgenda = dia + "/" + mes + "/" + ano;
-            //
-            if (dataAgenda.equals(jDataSistema.getText()) && statusRegistroAgenda.equals(statusRegistro)) {
-                TelaAlertaAgendaBeneficio objAgendaBene = new TelaAlertaAgendaBeneficio();
-                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAgendaBene);
-                objAgendaBene.show();
-                preencherTabelaAgendamento();
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    public void preencherTabelaAgendamento() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Agendamento"};
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENS_AGENDA_BENEFICIO_INTERNOS "
-                    + "INNER JOIN AGENDA_BENEFICIO_INTERNOS "
-                    + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE AGENDA_BENEFICIO_INTERNOS.DataAg<='" + jDataSistema.getText() + "' "
-                    + "AND StatusReg='" + statusRegistro + "'");
-            conecta.rs.first();
-            do {
-                // Formatar a data Saida
+        buscarUsuario(nameUser);
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
+                        + "WHERE DataAg<='" + dataSisConvert + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                // Formatar a data Agenda
                 dataAgenda = conecta.rs.getString("DataAg");
                 String dia = dataAgenda.substring(8, 10);
                 String mes = dataAgenda.substring(5, 7);
                 String ano = dataAgenda.substring(0, 4);
                 dataAgenda = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataAgenda});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
+                //
+                if (dataAgenda.equals(dataSisConvert) && statusRegistroAgenda.equals(statusRegistro)) {
+                    TelaAlertaAgendaBeneficio objAgendaBene = new TelaAlertaAgendaBeneficio();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAgendaBene);
+                    objAgendaBene.show();
+                    preencherTabelaAgendamento();
+                }
+            } catch (Exception e) {
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
+                        + "WHERE DataAg<='" + jDataSistema.getText() + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                // Formatar a data Agenda
+                dataAgenda = conecta.rs.getString("DataAg");
+                String dia = dataAgenda.substring(8, 10);
+                String mes = dataAgenda.substring(5, 7);
+                String ano = dataAgenda.substring(0, 4);
+                dataAgenda = dia + "/" + mes + "/" + ano;
+                //
+                if (dataAgenda.equals(jDataSistema.getText()) && statusRegistroAgenda.equals(statusRegistro)) {
+                    TelaAlertaAgendaBeneficio objAgendaBene = new TelaAlertaAgendaBeneficio();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAgendaBene);
+                    objAgendaBene.show();
+                    preencherTabelaAgendamento();
+                }
+            } catch (Exception e) {
+            }
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaAgendaInternos.setModel(modelo);
-        jTabelaAgendaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaAgendaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaAgendaInternos.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaAgendaInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaAgendaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
-        jTabelaAgendaInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaAgendaInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaAgendaInternos.setAutoResizeMode(jTabelaAgendaInternos.AUTO_RESIZE_OFF);
-        jTabelaAgendaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaInternos();
-        conecta.desconecta();
+    }
+
+    public void preencherTabelaAgendamento() {
+        buscarUsuario(nameUser);
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            ArrayList dados = new ArrayList();
+            String[] Colunas = new String[]{"Código", "Nome do Interno", "Agendamento"};
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_AGENDA_BENEFICIO_INTERNOS "
+                        + "INNER JOIN AGENDA_BENEFICIO_INTERNOS "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE AGENDA_BENEFICIO_INTERNOS.DataAg<='" + dataSisConvert + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                do {
+                    // Formatar a data Saida
+                    dataAgenda = conecta.rs.getString("DataAg");
+                    String dia = dataAgenda.substring(8, 10);
+                    String mes = dataAgenda.substring(5, 7);
+                    String ano = dataAgenda.substring(0, 4);
+                    dataAgenda = dia + "/" + mes + "/" + ano;
+                    dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataAgenda});
+                } while (conecta.rs.next());
+            } catch (SQLException ex) {
+            }
+            ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+            jTabelaAgendaInternos.setModel(modelo);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setPreferredWidth(250);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setResizable(false);
+            jTabelaAgendaInternos.getTableHeader().setReorderingAllowed(false);
+            jTabelaAgendaInternos.setAutoResizeMode(jTabelaAgendaInternos.AUTO_RESIZE_OFF);
+            jTabelaAgendaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            alinharCamposTabelaInternos();
+            conecta.desconecta();
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            ArrayList dados = new ArrayList();
+            String[] Colunas = new String[]{"Código", "Nome do Interno", "Agendamento"};
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_AGENDA_BENEFICIO_INTERNOS "
+                        + "INNER JOIN AGENDA_BENEFICIO_INTERNOS "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE AGENDA_BENEFICIO_INTERNOS.DataAg<='" + jDataSistema.getText() + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                do {
+                    // Formatar a data Saida
+                    dataAgenda = conecta.rs.getString("DataAg");
+                    String dia = dataAgenda.substring(8, 10);
+                    String mes = dataAgenda.substring(5, 7);
+                    String ano = dataAgenda.substring(0, 4);
+                    dataAgenda = dia + "/" + mes + "/" + ano;
+                    dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataAgenda});
+                } while (conecta.rs.next());
+            } catch (SQLException ex) {
+            }
+            ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+            jTabelaAgendaInternos.setModel(modelo);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setPreferredWidth(250);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setResizable(false);
+            jTabelaAgendaInternos.getTableHeader().setReorderingAllowed(false);
+            jTabelaAgendaInternos.setAutoResizeMode(jTabelaAgendaInternos.AUTO_RESIZE_OFF);
+            jTabelaAgendaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            alinharCamposTabelaInternos();
+            conecta.desconecta();
+        }
     }
 
     public void alinharCamposTabelaInternos() {

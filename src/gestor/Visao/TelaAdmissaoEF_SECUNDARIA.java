@@ -1790,7 +1790,7 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAdmissaoEF audPsi = new TelaAuditoriaAdmissaoEF();
+        TelaAuditoriaAdmissaoEF_NOVA audPsi = new TelaAuditoriaAdmissaoEF_NOVA();
         TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(audPsi);
         audPsi.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
