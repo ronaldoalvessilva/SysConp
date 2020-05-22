@@ -16,7 +16,7 @@
 	<parameter name="pREGISTRO" class="java.lang.String"/>
 	<parameter name="pUNIDADE" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\GerenciaOperacional\\OrganogramaCrime\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="pUSUARIO" class="java.lang.String"/>
 	<queryString>
