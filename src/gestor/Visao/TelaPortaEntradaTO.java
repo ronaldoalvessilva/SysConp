@@ -4037,7 +4037,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "' "
                                 + "AND ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "' "
-                                + "ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
+                                + "ADMISSAO_TERAPIA_PE.IdInternoCrc='" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -4062,7 +4062,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "' "
                                 + "AND ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "' "
-                                + "ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
+                                + "ADMISSAO_TERAPIA_PE.IdInternoCrc='" + jIdInterno.getText() + "'");
                     }
                 }
             }
@@ -4078,7 +4078,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE ADMISSAO_TERAPIA_PE.IdLanc='" + jIdAtend.getText() + "' "
-                    + "AND ADMISSAO_TERAPIA_PE.IdInternoCrc=" + jIdInterno.getText() + "'");
+                    + "AND ADMISSAO_TERAPIA_PE.IdInternoCrc='" + jIdInterno.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
