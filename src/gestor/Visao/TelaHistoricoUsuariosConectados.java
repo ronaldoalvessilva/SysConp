@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class TelaHistoricoUsuariosConectados extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Histórico de Usuários Conectados no Sistema :::...");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gestor/Imagens/computer_link.png")));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true), "Histório de Host Conectados/Desconectados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -166,12 +168,20 @@ public class TelaHistoricoUsuariosConectados extends javax.swing.JDialog {
         jTabelaUsuariosConectados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUsuariosConectados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Data", "Horário", "Nome do Usuário", "Status", "Nome do Host", "IP do Host"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTabelaUsuariosConectados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -310,15 +320,15 @@ public class TelaHistoricoUsuariosConectados extends javax.swing.JDialog {
         jTabelaUsuariosConectados.setModel(modelo);
         jTabelaUsuariosConectados.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaUsuariosConectados.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUsuariosConectados.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaUsuariosConectados.getColumnModel().getColumn(1).setPreferredWidth(120);
         jTabelaUsuariosConectados.getColumnModel().getColumn(1).setResizable(false);
         jTabelaUsuariosConectados.getColumnModel().getColumn(2).setPreferredWidth(330);
         jTabelaUsuariosConectados.getColumnModel().getColumn(2).setResizable(false);
         jTabelaUsuariosConectados.getColumnModel().getColumn(3).setPreferredWidth(90);
         jTabelaUsuariosConectados.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaUsuariosConectados.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaUsuariosConectados.getColumnModel().getColumn(4).setPreferredWidth(120);
         jTabelaUsuariosConectados.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaUsuariosConectados.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaUsuariosConectados.getColumnModel().getColumn(5).setPreferredWidth(120);
         jTabelaUsuariosConectados.getColumnModel().getColumn(5).setResizable(false);
         jTabelaUsuariosConectados.getTableHeader().setReorderingAllowed(false);
         jTabelaUsuariosConectados.setAutoResizeMode(jTabelaUsuariosConectados.AUTO_RESIZE_OFF);

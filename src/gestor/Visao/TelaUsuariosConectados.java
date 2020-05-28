@@ -35,9 +35,6 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
     public TelaUsuariosConectados() {
         super();
         initComponents();
-        pesquisarUsuariosConectadosDesconectados("SELECT * FROM USERCONECTADOS "
-                + "WHERE ConectadoDesconectado='" + plugados + "' "
-                + "AND StatusFlag='" + statusFlag + "'ORDER BY DataPlugado");
         setResizable(false);
     }
 
@@ -59,6 +56,7 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
         jBtAtualizar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jBtHistorico = new javax.swing.JButton();
+        jBtPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaUsuariosConectados = new javax.swing.JTable();
         jPanel31 = new javax.swing.JPanel();
@@ -70,6 +68,7 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("...::: Usuários Conectados no Sistema :::...");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/computer_link.png"))); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true)));
 
@@ -111,54 +110,74 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/viewmag.png"))); // NOI18N
+        jBtPesquisar.setToolTipText("Pesquisar Registros");
+        jBtPesquisar.setContentAreaFilled(false);
+        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
+                .addComponent(jBtPesquisar)
+                .addGap(2, 2, 2)
                 .addComponent(jBtAtualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtHistorico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair)
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtSair});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtHistorico, jBtSair});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jBtAtualizar)
             .addComponent(jBtSair)
             .addComponent(jBtHistorico)
+            .addComponent(jBtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtualizar, jBtSair});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtualizar, jBtHistorico, jBtPesquisar, jBtSair});
 
         jTabelaUsuariosConectados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUsuariosConectados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Data", "Horário", "Nome do Usuário", "Status", "Nome do Host", "IP do Host"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTabelaUsuariosConectados);
         if (jTabelaUsuariosConectados.getColumnModel().getColumnCount() > 0) {
             jTabelaUsuariosConectados.getColumnModel().getColumn(0).setMinWidth(80);
             jTabelaUsuariosConectados.getColumnModel().getColumn(0).setMaxWidth(80);
-            jTabelaUsuariosConectados.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaUsuariosConectados.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaUsuariosConectados.getColumnModel().getColumn(1).setMinWidth(120);
+            jTabelaUsuariosConectados.getColumnModel().getColumn(1).setMaxWidth(120);
             jTabelaUsuariosConectados.getColumnModel().getColumn(2).setMinWidth(330);
             jTabelaUsuariosConectados.getColumnModel().getColumn(2).setMaxWidth(330);
             jTabelaUsuariosConectados.getColumnModel().getColumn(3).setMinWidth(90);
             jTabelaUsuariosConectados.getColumnModel().getColumn(3).setMaxWidth(90);
-            jTabelaUsuariosConectados.getColumnModel().getColumn(4).setMinWidth(100);
-            jTabelaUsuariosConectados.getColumnModel().getColumn(4).setMaxWidth(100);
-            jTabelaUsuariosConectados.getColumnModel().getColumn(5).setMinWidth(80);
-            jTabelaUsuariosConectados.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTabelaUsuariosConectados.getColumnModel().getColumn(4).setMinWidth(120);
+            jTabelaUsuariosConectados.getColumnModel().getColumn(4).setMaxWidth(120);
+            jTabelaUsuariosConectados.getColumnModel().getColumn(5).setMinWidth(120);
+            jTabelaUsuariosConectados.getColumnModel().getColumn(5).setMaxWidth(120);
         }
 
         jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -229,7 +248,7 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +257,7 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28))
         );
 
-        setBounds(280, 20, 786, 357);
+        setBounds(280, 20, 786, 378);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
@@ -246,7 +265,8 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
         count = 0;
         pesquisarUsuariosConectadosDesconectados("SELECT * FROM USERCONECTADOS "
                 + "WHERE ConectadoDesconectado='" + plugados + "' "
-                + "AND StatusFlag='" + statusFlag + "'ORDER BY DataPlugado");
+                + "AND StatusFlag='" + statusFlag + "' "
+                + "ORDER BY DataPlugado");
 
     }//GEN-LAST:event_jBtAtualizarActionPerformed
 
@@ -260,10 +280,19 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
         mostrarTelaHistorico();
     }//GEN-LAST:event_jBtHistoricoActionPerformed
 
+    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
+        // TODO add your handling code here:
+        pesquisarUsuariosConectadosDesconectados("SELECT * FROM USERCONECTADOS "
+                + "WHERE ConectadoDesconectado='" + plugados + "' "
+                + "AND StatusFlag='" + statusFlag + "' "
+                + "ORDER BY DataPlugado");
+    }//GEN-LAST:event_jBtPesquisarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAtualizar;
     private javax.swing.JButton jBtHistorico;
+    private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtSair;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JPanel jPanel1;
@@ -293,7 +322,7 @@ public class TelaUsuariosConectados extends javax.swing.JInternalFrame {
         jTabelaUsuariosConectados.setModel(modelo);
         jTabelaUsuariosConectados.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaUsuariosConectados.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUsuariosConectados.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaUsuariosConectados.getColumnModel().getColumn(1).setPreferredWidth(120);
         jTabelaUsuariosConectados.getColumnModel().getColumn(1).setResizable(false);
         jTabelaUsuariosConectados.getColumnModel().getColumn(2).setPreferredWidth(330);
         jTabelaUsuariosConectados.getColumnModel().getColumn(2).setResizable(false);

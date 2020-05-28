@@ -42,12 +42,12 @@ public class ControleUsuarioConectado {
     public UsuarioConectado desconectarHostName(UsuarioConectado userConectado) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USERCONECTADOS SET DataDesconectado=?,HorarioDesconectado=?,ConectadoDesconectado=?,StatusFlag=? WHERE IdUser='" + userConectado.getIdUser() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USERCONECTADOS SET DataDesconectado=?,HorarioDesconectado=?,ConectadoDesconectado=?,StatusFlag=? WHERE IdUser='" + userConectado.getIdUser() + "'AND IpHost='" + userConectado.getIpHost() + "'");
             pst.setString(1, userConectado.getDataDesconectado());
             pst.setString(2, userConectado.getHorarioDesconectado());           
             pst.setString(3, userConectado.getConectadoDesconectado());           
             pst.setString(4, userConectado.getStatusFlag());
-            pst.execute();
+            pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO." + ex);
         }

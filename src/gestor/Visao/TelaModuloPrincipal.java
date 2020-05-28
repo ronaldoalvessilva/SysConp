@@ -39,7 +39,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
- 
+
 /**
  *
  * @author Ronaldo
@@ -60,7 +60,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     public static String usuarioConectado = "Conectado";
     public static String usuarioDesconectado = "Desconectado";
     String statusFlag = "Sim";
-    String idUser;
+    public static String idUser = "";
+    public static String pIP_HOST = "";
+    public static String pSTATUS_CONEXAO = "Sim";
     // VARIAVEIS PARA PERMISSÃO DE USUÁRIOS NOS MÓDULOS
     String loginUsusario = "ADMINISTRADOR DO SISTEMA";
     String nomeUsuario = "";
@@ -151,6 +153,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jLabel10.setText(ipHost);
         jHoraSistema.setText(String.valueOf(hora));    // no lugar do label, por seu JTextField    
         jDataSistema.setText(String.valueOf(date));
+        //GRAVAR OS DADOS DO USUÁRIO E DO HOST
         userConectado.setDataPlugado(jDataSistema.getText());
         userConectado.setHorarioPlugado(jHoraSistema.getText());
         userConectado.setNomeUsuario(nameUser);
@@ -175,6 +178,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                         userConectado.setConectadoDesconectado(usuarioDesconectado);
                         userConectado.setStatusFlag(statusFlag);
                         userConectado.setIdUser(Integer.valueOf(idUser));
+                        userConectado.setIpHost(pIP_HOST);
                         control.desconectarHostName(userConectado);
                         System.exit(0);
                     }
@@ -3386,18 +3390,22 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private void jBtLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLogoffActionPerformed
         // Sair e voltar para troca de usuário
         // RETIRADO PARA VERIFICAR SE O ERRO DE SQL É PROVINIENTE DESSA ROTINA (02/05/2017)
-        //        buscarIdUsuario();
-        //        statusFlag = "Não";
-        //        userConectado.setDataDesconectado(jDataSistema.getText());
-        //        userConectado.setHorarioDesconectado(jHoraSistema.getText());
-        //        userConectado.setConectadoDesconectado(usuarioDesconectado);
-        //        userConectado.setStatusFlag(statusFlag);
-        //        userConectado.setIdUser(Integer.valueOf(idUser));
-        //        control.desconectarHostName(userConectado);
-        // conecta.desconecta();
-        dispose();
-        TelaLoginSenha tls = new TelaLoginSenha(this, true);
-        tls.setVisible(true);
+        int selectedOption = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer Log-Off?", "Sistema informa:", JOptionPane.YES_NO_OPTION);
+        if (selectedOption == JOptionPane.YES_OPTION) {
+            buscarIdUsuario();
+            statusFlag = "Não";
+            userConectado.setDataDesconectado(jDataSistema.getText());
+            userConectado.setHorarioDesconectado(jHoraSistema.getText());
+            userConectado.setConectadoDesconectado(usuarioDesconectado);
+            userConectado.setStatusFlag(statusFlag);
+            userConectado.setIdUser(Integer.valueOf(idUser));
+            userConectado.setIpHost(pIP_HOST);
+            control.desconectarHostName(userConectado);
+            conecta.desconecta();
+            this.dispose();
+            TelaLoginSenha tls = new TelaLoginSenha(this, true);
+            tls.setVisible(true);
+        }
     }//GEN-LAST:event_jBtLogoffActionPerformed
 
     private void jBtSairSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairSistemaActionPerformed
@@ -3409,6 +3417,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         userConectado.setConectadoDesconectado(usuarioDesconectado);
         userConectado.setStatusFlag(statusFlag);
         userConectado.setIdUser(Integer.valueOf(idUser));
+        userConectado.setIpHost(pIP_HOST);
         control.desconectarHostName(userConectado);
         System.exit(0);
     }//GEN-LAST:event_jBtSairSistemaActionPerformed
@@ -7659,13 +7668,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }
 
     public void buscarIdUsuario() {
+        
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USERCONECTADOS "
                     + "WHERE NomeUsuario='" + nameUser + "' "
-                    + "AND HorarioPlugado='" + userConectado.getHorarioPlugado() + "'");
+                    + "AND IpHost='" + ipHost + "' AND StatusFlag='" + pSTATUS_CONEXAO  + "'");
             conecta.rs.first();
             idUser = conecta.rs.getString("IdUser");
+            pIP_HOST = conecta.rs.getString("IpHost");
         } catch (Exception e) {
         }
         conecta.desconecta();
