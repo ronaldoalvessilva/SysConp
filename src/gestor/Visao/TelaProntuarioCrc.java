@@ -187,8 +187,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     int pSAIDA_COVID = 0;
     String pSAIDA_temporaria = "";
     String pSAIDA_covid = "";
-    //
-//    String psaida_TMP = "";
+    int pTOTAL_ATIVOS = 0;    
 
     /**
      * Creates new form TelaTriagem
@@ -285,6 +284,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPanel30 = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
+        jLabel196 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
         jPanel51 = new javax.swing.JPanel();
@@ -295,6 +295,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jLabel195 = new javax.swing.JLabel();
         jPanel54 = new javax.swing.JPanel();
         jtotalRegistrosPDC = new javax.swing.JLabel();
+        jPanel47 = new javax.swing.JPanel();
+        jtotalInternos_ATIVOS = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -840,7 +842,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                         .addComponent(jPesquisaCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jBtCNCPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 60, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -935,26 +937,29 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPanel30.setLayout(jPanel30Layout);
         jPanel30Layout.setHorizontalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel30Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel63))
+            .addComponent(jLabel63)
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel63)
+            .addComponent(jLabel63, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        jPanel31.setToolTipText("t");
+
+        jLabel196.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel196.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel196.setText("Internos Ativos:");
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel196, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 14, Short.MAX_VALUE)
+            .addComponent(jLabel196)
         );
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -965,7 +970,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -998,9 +1003,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPanel52.setLayout(jPanel52Layout);
         jPanel52Layout.setHorizontalGroup(
             jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel52Layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jtotalRegistrosTMP, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel52Layout.createSequentialGroup()
+                .addComponent(jtotalRegistrosTMP, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
         jPanel52Layout.setVerticalGroup(
             jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1033,11 +1038,28 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPanel54.setLayout(jPanel54Layout);
         jPanel54Layout.setHorizontalGroup(
             jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistrosPDC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(jtotalRegistrosPDC, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
         jPanel54Layout.setVerticalGroup(
             jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jtotalRegistrosPDC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel47.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        jPanel47.setToolTipText("");
+
+        jtotalInternos_ATIVOS.setForeground(new java.awt.Color(0, 102, 0));
+        jtotalInternos_ATIVOS.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel47Layout = new javax.swing.GroupLayout(jPanel47);
+        jPanel47.setLayout(jPanel47Layout);
+        jPanel47Layout.setHorizontalGroup(
+            jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalInternos_ATIVOS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+        );
+        jPanel47Layout.setVerticalGroup(
+            jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalInternos_ATIVOS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1050,24 +1072,24 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
+                        .addGap(1, 1, 1)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
+                        .addGap(3, 3, 3)
                         .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
+                        .addGap(2, 2, 2)
                         .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(2, 2, 2)
                         .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
+                        .addGap(2, 2, 2)
                         .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(10, 10, 10))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel32, jPanel52, jPanel54});
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1077,10 +1099,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -4962,6 +4985,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
@@ -4991,6 +5015,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqMatricula.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
@@ -5458,6 +5483,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pTOTAL_ATIVOS = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodosInternos("SELECT PRONTUARIOSCRC.IdInternoCrc, "
@@ -5479,6 +5505,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     + "ORDER BY PRONTUARIOSCRC.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
+            jtotalRegistrosTMP.setText("");
+            jtotalRegistrosPDC.setText("");
+            jtotalInternos_ATIVOS.setText("");
             limparTabelaProntuario();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
@@ -5963,6 +5992,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqAlcunha.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a alcunha para pesquisa.");
@@ -6011,6 +6041,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
@@ -6040,6 +6071,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
@@ -6110,6 +6142,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesquisaCNC.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
@@ -6628,6 +6661,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel193;
     private javax.swing.JLabel jLabel194;
     private javax.swing.JLabel jLabel195;
+    private javax.swing.JLabel jLabel196;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -6767,6 +6801,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
+    private javax.swing.JPanel jPanel47;
     private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
@@ -6820,6 +6855,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static javax.swing.JFormattedTextField jTelefone1;
     private javax.swing.JTextField jTotalDias;
     public static javax.swing.JTextField jVaraCondenacao;
+    private javax.swing.JLabel jtotalInternos_ATIVOS;
     private javax.swing.JLabel jtotalRegistros;
     private javax.swing.JLabel jtotalRegistrosPDC;
     private javax.swing.JLabel jtotalRegistrosTMP;
@@ -8131,7 +8167,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 pSAIDA_covid = conecta.rs.getString("SituacaoCrc");
                 if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
                     pSAIDA_COVID = pSAIDA_COVID + 1;
-                }
+                }                
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8147,6 +8183,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(count));
                 jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
                 jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
+                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
+                jtotalInternos_ATIVOS.setText(Integer.toString(count - pTOTAL_ATIVOS));
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -8219,6 +8257,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
                     pSAIDA_COVID = pSAIDA_COVID + 1;
                 }
+                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8235,6 +8274,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
                 jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
                 jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
+                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
+                jtotalInternos_ATIVOS.setText(Integer.toString(count - pTOTAL_ATIVOS));
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -8283,6 +8324,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
                     pSAIDA_COVID = pSAIDA_COVID + 1;
                 }
+                pTOTAL_ATIVOS = pTOTAL_ATIVOS + pSAIDA_TEMP + pSAIDA_COVID;
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8298,6 +8340,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(count));
                 jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
                 jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
+                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
+                jtotalInternos_ATIVOS.setText(Integer.toString(count - pTOTAL_ATIVOS));
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
