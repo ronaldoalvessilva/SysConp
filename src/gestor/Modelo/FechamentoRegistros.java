@@ -15,15 +15,21 @@ public class FechamentoRegistros {
     private String usuarioUp;
     private String dataFechamento;
     private String horaFechamento;
+    private String sistemaManutencao;
+    private String opcaoBloquear;
+    private String opcaoDesbloquear;
 
     public FechamentoRegistros() {
     }
 
-    public FechamentoRegistros(String statusRegistro, String usuarioUp, String dataFechamento, String horaFechamento) {
+    public FechamentoRegistros(String statusRegistro, String usuarioUp, String dataFechamento, String horaFechamento, String sistemaManutencao, String opcaoBloquear, String opcaoDesbloquear) {
         this.statusRegistro = statusRegistro;
         this.usuarioUp = usuarioUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
+        this.sistemaManutencao = sistemaManutencao;
+        this.opcaoBloquear = opcaoBloquear;
+        this.opcaoDesbloquear = opcaoDesbloquear;
     }
 
     /**
@@ -80,5 +86,47 @@ public class FechamentoRegistros {
      */
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
+    }
+
+    /**
+     * @return the sistemaManutencao
+     */
+    public String getSistemaManutencao() {
+        return sistemaManutencao;
+    }
+
+    /**
+     * @param sistemaManutencao the sistemaManutencao to set
+     */
+    public void setSistemaManutencao(String sistemaManutencao) {
+        this.sistemaManutencao = sistemaManutencao;
+    }
+
+    /**
+     * @return the opcaoBloquear
+     */
+    public String getOpcaoBloquear() {
+        return opcaoBloquear;
+    }
+
+    /**
+     * @param opcaoBloquear the opcaoBloquear to set
+     */
+    public void setOpcaoBloquear(String opcaoBloquear) {
+        this.opcaoBloquear = opcaoBloquear;
+    }
+
+    /**
+     * @return the opcaoDesbloquear
+     */
+    public String getOpcaoDesbloquear() {
+        return opcaoDesbloquear;
+    }
+
+    /**
+     * @param opcaoDesbloquear the opcaoDesbloquear to set
+     */
+    public void setOpcaoDesbloquear(String opcaoDesbloquear) {
+        this.opcaoDesbloquear = opcaoDesbloquear;
     }
 }

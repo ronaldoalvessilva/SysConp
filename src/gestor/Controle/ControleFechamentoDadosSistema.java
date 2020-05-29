@@ -22,7 +22,20 @@ public class ControleFechamentoDadosSistema {
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
     String pSTATUS_FINALIZADO = "ABERTO";
-    
+
+    //BLOQUEAR E DESBLOQUEAR O SISTEMA PARA FECHAMENTO DE REGISTROS.
+    public FechamentoRegistros bloquearSistema(FechamentoRegistros objFecha) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PARAMETROSCRC SET SistemaManutencao=?");
+            pst.setString(1, objFecha.getOpcaoBloquear());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel BLOQUEAR O SISTEMA.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
 
     //MÓDULO CRC
     public FechamentoRegistros fecharEntradas(FechamentoRegistros objFecha) {
