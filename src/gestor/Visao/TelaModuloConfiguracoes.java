@@ -61,10 +61,17 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaConfiguracoes
      */
+    public static TelaFechamentoSistema pFECHAR_SISTEMA;
+
     public TelaModuloConfiguracoes() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela  
         threadMensagem();
+    }
+
+    public void mostrarFechamento() {
+        pFECHAR_SISTEMA = new TelaFechamentoSistema(this, true);
+        pFECHAR_SISTEMA.setVisible(true);
     }
 
     /**
@@ -99,6 +106,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         JMenuSQL = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jFechamentoSistema = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jParametrosSistema = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -124,7 +133,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         );
         jPainelConfiguracoesLayout.setVerticalGroup(
             jPainelConfiguracoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastrar");
@@ -236,6 +245,16 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(JMenuSQL);
+        jMenu3.add(jSeparator5);
+
+        jFechamentoSistema.setForeground(new java.awt.Color(0, 0, 204));
+        jFechamentoSistema.setText("Fechamento dos Registros do Sistema");
+        jFechamentoSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFechamentoSistemaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jFechamentoSistema);
 
         jMenuBar1.add(jMenu3);
 
@@ -536,12 +555,18 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         objSQL.createConnectionDialog();
     }//GEN-LAST:event_JMenuSQLActionPerformed
 
+    private void jFechamentoSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFechamentoSistemaActionPerformed
+        // TODO add your handling code here:
+        mostrarFechamento();
+    }//GEN-LAST:event_jFechamentoSistemaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
     private javax.swing.JMenuItem Empresa;
     private javax.swing.JMenuItem JMenuSQL;
     private javax.swing.JMenuItem UsuariosConectados;
+    private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -564,6 +589,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -694,5 +720,5 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jTabelaTodosRecados.setAutoResizeMode(jTabelaTodosRecados.AUTO_RESIZE_OFF);
         jTabelaTodosRecados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         conecta.desconecta();
-    }    
+    }
 }
