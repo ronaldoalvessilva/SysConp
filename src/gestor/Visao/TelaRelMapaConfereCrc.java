@@ -162,7 +162,7 @@ public class TelaRelMapaConfereCrc extends javax.swing.JInternalFrame {
                     dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                     try {
                         conecta.abrirConexao();
-                        String path = "reports/GerenciaOperacional/Confere/MapaConfere.jasper";
+                        String path = "reports/GerenciaOperacional/MapaConfere.jasper";
                         conecta.executaSQL("SELECT * FROM MOVPOPULACAO "
                                 + "INNER JOIN POPESTRANGMASC "
                                 + "ON MOVPOPULACAO.IdPopMov=POPESTRANGMASC.IdPopMov "

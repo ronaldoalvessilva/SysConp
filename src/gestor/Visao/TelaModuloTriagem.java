@@ -722,7 +722,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/ProntuariosInternosCrc.jasper";
+            String path = "reports/CRC/ProntuariosInternosCRC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "

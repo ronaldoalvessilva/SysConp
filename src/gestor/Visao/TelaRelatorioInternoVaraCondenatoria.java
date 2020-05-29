@@ -147,7 +147,7 @@ public class TelaRelatorioInternoVaraCondenatoria extends javax.swing.JInternalF
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Internos/RelatorioInternosVaraCondenatoria.jasper";
+            String path = "reports/CRC/RelatorioInternosVaraCondenatoria.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "

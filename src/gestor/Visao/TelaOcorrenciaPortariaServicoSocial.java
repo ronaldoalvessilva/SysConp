@@ -2451,7 +2451,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
         if (jComboBoxTipoVisita.getSelectedItem().equals("Externa")) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioOcorrenciasIndisciplinarVisitasPortaria.jasper";
+                String path = "reports/Portarias/RelatorioOcorrenciasIndisciplinarVisitasPortaria.jasper";
                 conecta.executaSQL("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON REGISTRO_INDISCIPLINA_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

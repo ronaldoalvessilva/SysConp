@@ -684,7 +684,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
