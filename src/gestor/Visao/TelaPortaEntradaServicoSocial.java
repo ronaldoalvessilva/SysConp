@@ -1851,13 +1851,15 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Informe um código para pesquisa.");
             jIDPesqAtend.requestFocus();
         } else {
-            preencherAtendInterno("SELECT * FROM PORTA_ENTRADA_SERVICO_SOCIAL "
+            preencherAtendInterno("SELECT IdAtendSS,IdAtend,DataAtend, "
+                    + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc, "
+                    + "NomeInternoCrc,DataEntrada,SituacaoCrc "
+                    + "FROM PORTA_ENTRADA_SERVICO_SOCIAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE IdAtendSS='" + jIDPesqAtend.getText() + "' "
-                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "'");
+                    + "WHERE IdAtendSS='" + jIDPesqAtend.getText() + "' ");
         }
     }//GEN-LAST:event_jBtAtendActionPerformed
 
@@ -1883,15 +1885,18 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherAtendInterno("SELECT * FROM PORTA_ENTRADA_SERVICO_SOCIAL "
+                        preencherAtendInterno("SELECT IdAtendSS,IdAtend,DataAtend, "
+                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc, "
+                                + "NomeInternoCrc,DataEntrada,SituacaoCrc "
+                                + "FROM PORTA_ENTRADA_SERVICO_SOCIAL "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                                 + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "' "
-                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
-                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdAtend='" + jIdADM_Principal.getText() + "' "
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
                     }
                 }
             }
@@ -1910,15 +1915,18 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherAtendInterno("SELECT * FROM PORTA_ENTRADA_SERVICO_SOCIAL "
+                        preencherAtendInterno("SELECT IdAtendSS,IdAtend,DataAtend, "
+                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc, "
+                                + "NomeInternoCrc,DataEntrada,SituacaoCrc "
+                                + "FROM PORTA_ENTRADA_SERVICO_SOCIAL "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                                 + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "' "
-                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
-                                + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdAtend='" + jIdADM_Principal.getText() + "' "
+                                + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
                     }
                 }
             }
@@ -1933,13 +1941,16 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa do Atendimento.");
             jPesqNomeInterno.requestFocus();
         } else {
-            preencherAtendInterno("SELECT * FROM PORTA_ENTRADA_SERVICO_SOCIAL "
+            preencherAtendInterno("SELECT IdAtendSS,IdAtend,DataAtend, "
+                    + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc, "
+                    + "NomeInternoCrc,DataEntrada,SituacaoCrc "
+                    + "FROM PORTA_ENTRADA_SERVICO_SOCIAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
-                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "'");
+                    + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdAtend='" + jIdADM_Principal.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -1948,12 +1959,15 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherAtendInterno("SELECT * FROM PORTA_ENTRADA_SERVICO_SOCIAL "
+            this.preencherAtendInterno("SELECT IdAtendSS,IdAtend,DataAtend, "
+                    + "PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc, "
+                    + "NomeInternoCrc,DataEntrada,SituacaoCrc "
+                    + "FROM PORTA_ENTRADA_SERVICO_SOCIAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PORTA_ENTRADA_SERVICO_SOCIAL.IdLanc='" + jIdADM_Principal.getText() + "' "
+                    + "WHERE PORTA_ENTRADA_SERVICO_SOCIAL.IdAtend='" + jIdADM_Principal.getText() + "' "
                     + "AND PORTA_ENTRADA_SERVICO_SOCIAL.IdInternoCrc='" + jIDInterno.getText() + "'");
         } else {
             limparTabelaAtendimentoSocial();

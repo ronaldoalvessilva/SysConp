@@ -26,7 +26,7 @@ public class ControleIncluirExperienciaProfissionaDAO {
         buscarExperiencias(objHistEducLabor.getExperienciaProfissional());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO (IdATN,IdCodigoProf,IdHistoricoLabN,InteresseLabor) VALUES(?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO (IdATN,IdCodigoProf,IdHistoricoLabPN,InteresseLabor) VALUES(?,?,?,?)");
             pst.setInt(1, objHistEducLabor.getIdATN());
             pst.setInt(2, codProf);
             pst.setInt(3, objHistEducLabor.getIdHistoricoLabPN());

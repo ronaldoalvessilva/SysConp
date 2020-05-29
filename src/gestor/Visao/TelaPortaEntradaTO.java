@@ -203,6 +203,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
      * Creates new form TelaPortaEntradaTO
      */
     public static TelaAtendimentoTerapiaOcupacional pADMISSAO_TO;
+    public static TelaAuditoriaAdmNovaTO pAUDITORIA_MANUTENCAO;
+    public static TelaAuditoriaAdmNova_EDU pAUDITORIA_EDU;
+    public static TelaAuditoriaAdmNova_PROF pAUDITORIA_PROF;
+    public static TelaAuditoriaAdmNova_SOAPI pAUDITORIA_SOAPI;
+    public static TelaAuditoriaAdmNova_SOAPII pAUDITORIA_SOAPII;
 
     public TelaPortaEntradaTO(TelaAtendimentoTerapiaOcupacional parent, boolean modal) {
         this.pADMISSAO_TO = parent;
@@ -214,6 +219,31 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         corCampos();
     }
 
+    public void mostraAdutoriaManu() {
+        pAUDITORIA_MANUTENCAO = new TelaAuditoriaAdmNovaTO(this, true);
+        pAUDITORIA_MANUTENCAO.setVisible(true);
+    }
+
+    public void mostrarAuditoriaHistoricoEduca() {
+        pAUDITORIA_EDU = new TelaAuditoriaAdmNova_EDU(this, true);
+        pAUDITORIA_EDU.setVisible(true);
+    }
+
+    public void mostrarAuditoriaHistoricoLab() {
+        pAUDITORIA_PROF = new TelaAuditoriaAdmNova_PROF(this, true);
+        pAUDITORIA_PROF.setVisible(true);
+    }
+
+    public void mostrarAuditoriaHistoricoSOAFI() {
+        pAUDITORIA_SOAPI = new TelaAuditoriaAdmNova_SOAPI(this, true);
+        pAUDITORIA_SOAPI.setVisible(true);
+    }
+
+    public void mostrarAuditoriaHistoricoSOAFII() {
+pAUDITORIA_SOAPII = new TelaAuditoriaAdmNova_SOAPII(this, true);
+        pAUDITORIA_SOAPII.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,6 +253,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupProf = new javax.swing.ButtonGroup();
+        buttonGroupLab = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -430,7 +462,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jLabel62 = new javax.swing.JLabel();
         jComboBoxDescricaoCurso = new javax.swing.JComboBox();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTabelaCursos = new javax.swing.JTable();
+        jTabelaCursos_NOVO = new javax.swing.JTable();
         jPanel35 = new javax.swing.JPanel();
         jBtIncluirCurso = new javax.swing.JButton();
         jBtExcluirCurso = new javax.swing.JButton();
@@ -2288,8 +2320,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jComboBoxDescricaoCurso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDescricaoCurso.setEnabled(false);
 
-        jTabelaCursos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaCursos.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaCursos_NOVO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaCursos_NOVO.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -2305,12 +2337,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jTabelaCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaCursos_NOVO.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaCursosMouseClicked(evt);
+                jTabelaCursos_NOVOMouseClicked(evt);
             }
         });
-        jScrollPane10.setViewportView(jTabelaCursos);
+        jScrollPane10.setViewportView(jTabelaCursos_NOVO);
 
         jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -2355,16 +2387,19 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
         jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
+        buttonGroupProf.add(jRadioBtC);
         jRadioBtC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRadioBtC.setForeground(new java.awt.Color(0, 0, 255));
         jRadioBtC.setText(" C");
         jRadioBtC.setEnabled(false);
 
+        buttonGroupProf.add(jRadioBtB);
         jRadioBtB.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRadioBtB.setForeground(new java.awt.Color(204, 0, 0));
         jRadioBtB.setText(" B");
         jRadioBtB.setEnabled(false);
 
+        buttonGroupProf.add(jRadioBtA);
         jRadioBtA.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRadioBtA.setForeground(new java.awt.Color(0, 153, 0));
         jRadioBtA.setSelected(true);
@@ -2684,17 +2719,20 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
+        buttonGroupLab.add(jRadioBtRemunerado);
         jRadioBtRemunerado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRadioBtRemunerado.setForeground(new java.awt.Color(0, 0, 255));
         jRadioBtRemunerado.setSelected(true);
         jRadioBtRemunerado.setText("Remunerada");
         jRadioBtRemunerado.setEnabled(false);
 
+        buttonGroupLab.add(jRadioBtNaoRemunerado);
         jRadioBtNaoRemunerado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRadioBtNaoRemunerado.setForeground(new java.awt.Color(255, 0, 0));
         jRadioBtNaoRemunerado.setText("Não remunerada");
         jRadioBtNaoRemunerado.setEnabled(false);
 
+        buttonGroupLab.add(jRadioBtAmbos);
         jRadioBtAmbos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRadioBtAmbos.setText("Ambas");
         jRadioBtAmbos.setEnabled(false);
@@ -4130,6 +4168,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAO_TERAPIA_PE.IdInternoCrc "
                         + "WHERE IdATN='" + idAtend + "'");
                 conecta.rs.first();
+                jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                 jIdAtendNovo.setText(String.valueOf(conecta.rs.getInt("IdATN")));
                 jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
                 jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
@@ -4330,7 +4369,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + idAtend + "'");
                 conecta.rs.first();
                 idItem = conecta.rs.getInt("IdItemICTHEN");
-                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
+                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos_NOVO.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela
                 do {
                     prioridadeCursoTabela = conecta.rs.getInt("PrioridadeCurso");
@@ -4357,12 +4396,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             limparTabelaExperiencia();
             jComboBoxQualProfissao.removeAllItems();
             try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
+                conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL_NOVO "
                         + "INNER JOIN ADMISSAO_TERAPIA_PE "
-                        + "ON TO_HISTORICO_EDUCACIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
-                        + "WHERE TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + idAtend + "'");
+                        + "ON TO_HISTORICO_PROFISSIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE TO_HISTORICO_PROFISSIONAL_NOVO.IdATN='" + idAtend + "'");
                 conecta.rs.first();
-                codigoHistoricoProf = conecta.rs.getInt("IdHistoricoEduN");
+                codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLabPN");
                 jComboBoxTemProfissao.setSelectedItem(conecta.rs.getString("TemProfissao"));
                 jComboBoxQualProfissao.addItem(conecta.rs.getString("QualProfissao"));
                 jComboBoxExperienciaProfissional.setSelectedItem(conecta.rs.getString("ExperienciaProfissional"));
@@ -4886,9 +4925,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaTerapia objAudTera = new TelaAuditoriaTerapia();
-        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudTera);
-        objAudTera.show();
+        if (jIdAtendNovo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe registro selecionado.");
+        } else {
+            mostraAdutoriaManu();
+        }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConcluirActionPerformed
@@ -4932,14 +4973,14 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMotivoAbortoActionPerformed
 
-    private void jTabelaCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCursosMouseClicked
+    private void jTabelaCursos_NOVOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCursos_NOVOMouseClicked
         // TODO add your handling code here:
         //  jComboBoxDescricaoCurso.removeAllItems();
         flag = 1;
         if (acao == 9 || acao == 10) {
             jBtExcluirCurso.setEnabled(true);
             if (flag == 1) {
-                String codItem = "" + jTabelaCursos.getValueAt(jTabelaCursos.getSelectedRow(), 0);
+                String codItem = "" + jTabelaCursos_NOVO.getValueAt(jTabelaCursos_NOVO.getSelectedRow(), 0);
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO "
@@ -4961,7 +5002,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             }
             conecta.desconecta();
         }
-    }//GEN-LAST:event_jTabelaCursosMouseClicked
+    }//GEN-LAST:event_jTabelaCursos_NOVOMouseClicked
 
     private void jBtIncluirCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirCursoActionPerformed
         // TODO add your handling code here:
@@ -4983,7 +5024,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             } else if (jRadioBtC.isSelected()) {
                 letraPrioridade = "C";
             }
-            DefaultTableModel descCursos = (DefaultTableModel) jTabelaCursos.getModel();
+            DefaultTableModel descCursos = (DefaultTableModel) jTabelaCursos_NOVO.getModel();
             objHistEducLabor.setIdCurso(Integer.valueOf(codigoCurso));
             objHistEducLabor.setDescricaoCurso((String) jComboBoxDescricaoCurso.getSelectedItem());
             Object campos[] = {objHistEducLabor.getIdCurso(), objHistEducLabor.getDescricaoCurso(), letraPrioridade};
@@ -4996,12 +5037,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     private void jBtExcluirCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirCursoActionPerformed
         // TODO add your handling code here:
-        if (jTabelaCursos.getSelectedRow() != -1) {
+        if (jTabelaCursos_NOVO.getSelectedRow() != -1) {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o item selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                DefaultTableModel dtm = (DefaultTableModel) jTabelaCursos.getModel();
-                dtm.removeRow(jTabelaCursos.getSelectedRow());
+                DefaultTableModel dtm = (DefaultTableModel) jTabelaCursos_NOVO.getModel();
+                dtm.removeRow(jTabelaCursos_NOVO.getSelectedRow());
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
@@ -5074,7 +5115,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         buscarAcessoUsuario(telaAtendimentoInternoHistEduTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaAtendimentoInternoHistEduTO) && codGravarTO == 1) {
             verificarHistoricoEduca();// VERIFICAR SE O INTERNO JÁ FOI CADASTRADO NO HISTORICO EDUCACIONAL.
-            Integer rows = jTabelaCursos.getModel().getRowCount();
+            Integer rows = jTabelaCursos_NOVO.getModel().getRowCount();
             if (rows == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de curso.");
             } else {
@@ -5096,6 +5137,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         //
                         controleHistEduca.incluirHistoricoEduca(objHistEducLabor);
                         buscarCodigoHistoricoEduca();
+                        JOptionPane.showMessageDialog(rootPane, "CÓDIGO DO HISTÓRICO EDUCAÇÃO: " + codigoHistoricoEduca);
                         //GRAVAR CURSOS NA TABELA ITENS_PROFISSAO_TO_HISTORICO_EDUCACIONAL
                         //codigoHistoricoEduca
                         incluirCursos();
@@ -5142,9 +5184,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     private void jBtAuditoriaHistoricoEducaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaHistoricoEducaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaHistoricoEducacional objAudiHisLab = new TelaAuditoriaHistoricoEducacional();
-        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudiHisLab);
-        objAudiHisLab.show();
+        if (jIdAtendNovo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe registro selecionado.");
+        } else {
+            mostrarAuditoriaHistoricoEduca();
+        }
     }//GEN-LAST:event_jBtAuditoriaHistoricoEducaActionPerformed
 
     private void jTabelaExperienciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaExperienciaMouseClicked
@@ -5365,9 +5409,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     private void jBtAuditoriaHistoricoLaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaHistoricoLaborActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaHistoricoProfissional objAudiHistLab = new TelaAuditoriaHistoricoProfissional();
-        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudiHistLab);
-        objAudiHistLab.show();
+        if (jIdAtendNovo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe registro selecionado.");
+        } else {
+            mostrarAuditoriaHistoricoLab();
+        }
     }//GEN-LAST:event_jBtAuditoriaHistoricoLaborActionPerformed
 
     private void jBtNovoAvaliacaoIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvaliacaoIActionPerformed
@@ -5501,9 +5547,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     private void jBtAuditoriaAvaliacaoIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvaliacaoIActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAvaliacaoI objAudiAvaliaI = new TelaAuditoriaAvaliacaoI();
-        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudiAvaliaI);
-        objAudiAvaliaI.show();
+        if (jIdAtendNovo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe registro selecionado.");
+        } else {
+            mostrarAuditoriaHistoricoSOAFI();
+        }
     }//GEN-LAST:event_jBtAuditoriaAvaliacaoIActionPerformed
 
     private void jBtNovoAvaliacaoIIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvaliacaoIIActionPerformed
@@ -5636,9 +5684,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     private void jBtAuditoriaAvaliacaoIIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvaliacaoIIActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAvaliacaoII objAudiAvaliaII = new TelaAuditoriaAvaliacaoII();
-        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudiAvaliaII);
-        objAudiAvaliaII.show();
+        if (jIdAtendNovo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe registro selecionado.");
+        } else {
+            mostrarAuditoriaHistoricoSOAFII();
+        }
     }//GEN-LAST:event_jBtAuditoriaAvaliacaoIIActionPerformed
 
     /**
@@ -5686,6 +5736,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea ObsAlteracoesPsicologicas;
     private javax.swing.JTextArea ObsDadosClinicos;
+    private javax.swing.ButtonGroup buttonGroupLab;
+    private javax.swing.ButtonGroup buttonGroupProf;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarAvaliacaoI;
     private javax.swing.JButton jBtAlterarAvaliacaoII;
@@ -5846,7 +5898,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private javax.swing.JLabel jFotoInternoTerapia;
     private javax.swing.JTextField jIDPesqLanc;
-    private javax.swing.JTextField jIdADM_Principal;
+    public static javax.swing.JTextField jIdADM_Principal;
     public static javax.swing.JTextField jIdAtendNovo;
     public static javax.swing.JTextField jIdInternoAD;
     private javax.swing.JLabel jLabel1;
@@ -6029,7 +6081,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAtendimentoTerapia;
-    private javax.swing.JTable jTabelaCursos;
+    private javax.swing.JTable jTabelaCursos_NOVO;
     private javax.swing.JTable jTabelaExperiencia;
     private javax.swing.JFormattedTextField jTipoEtilismo;
     private javax.swing.JFormattedTextField jTipoMedicaoAlopatica;
@@ -7761,7 +7813,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
                 idItem = conecta.rs.getInt("IdItemICTHEN");
-                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
+                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos_NOVO.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela 
                 do {
                     prioridadeCursoTabela = conecta.rs.getInt("PrioridadeCurso");
@@ -7874,19 +7926,19 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     public void limparTabelaCursos() {
 
-        while (jTabelaCursos.getModel().getRowCount() > 0) {
-            ((DefaultTableModel) jTabelaCursos.getModel()).removeRow(0);
+        while (jTabelaCursos_NOVO.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaCursos_NOVO.getModel()).removeRow(0);
         }
     }
 
     public void incluirCursos() {
         // Grava os dados do arrayList na tabela
-        for (int i = 0; i < jTabelaCursos.getRowCount(); i++) {
+        for (int i = 0; i < jTabelaCursos_NOVO.getRowCount(); i++) {
             objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtendNovo.getText()));
-            objHistEducLabor.setIdHistoricoEdu(codigoHistoricoEduca);
-            objHistEducLabor.setIdCurso((int) jTabelaCursos.getValueAt(i, 0));
-            objHistEducLabor.setDescricaoCurso((String) jTabelaCursos.getValueAt(i, 1));
-            objHistEducLabor.setCursoProfissionalizante((String) jTabelaCursos.getValueAt(i, 2));
+            objHistEducLabor.setIdHistoricoEduN(codigoHistoricoEduca);
+            objHistEducLabor.setIdCurso((int) jTabelaCursos_NOVO.getValueAt(i, 0));
+            objHistEducLabor.setDescricaoCurso((String) jTabelaCursos_NOVO.getValueAt(i, 1));
+            objHistEducLabor.setCursoProfissionalizante((String) jTabelaCursos_NOVO.getValueAt(i, 2));
             objHistEducLabor.getDescricaoCurso();
             if (objHistEducLabor.getCursoProfissionalizante().equals("A")) {
                 prioridadeCursos = 0;
@@ -7902,15 +7954,15 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     public void tabelaCursos() {
 
-        jTabelaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaCursos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCursos.getColumnModel().getColumn(1).setPreferredWidth(280);
-        jTabelaCursos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaCursos.getColumnModel().getColumn(2).setPreferredWidth(60);
-        jTabelaCursos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaCursos.getTableHeader().setReorderingAllowed(false);
-        jTabelaCursos.setAutoResizeMode(jTabelaCursos.AUTO_RESIZE_OFF);
-        jTabelaCursos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaCursos_NOVO.getTableHeader().setReorderingAllowed(false);
+        jTabelaCursos_NOVO.setAutoResizeMode(jTabelaCursos_NOVO.AUTO_RESIZE_OFF);
+        jTabelaCursos_NOVO.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaCursos();
     }
 
@@ -7920,11 +7972,13 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaCursos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaCursos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaCursos_NOVO.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 
     public void NovoHistoricoLabor() {
+        jBtNovoHistoricoEduca.setEnabled(true);
+        //HISTÓRICO LABORAL
         jComboBoxTemProfissao.setSelectedItem("Não");
         jComboBoxQualProfissao.setSelectedItem("Selecione...");
         jComboBoxExperienciaProfissional.setSelectedItem("Não");
@@ -7955,8 +8009,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jBtNovoHistoricoEduca.setEnabled(!true);
         jBtAlterarHistoricoEduca.setEnabled(!true);
         jBtExcluirHistoricoEduca.setEnabled(!true);
-        jBtSalvarHistoricoEduca.setEnabled(!true);
-        jBtCancelarHistoricoEduca.setEnabled(!true);
+        jBtSalvarHistoricoEduca.setEnabled(true);
+        jBtCancelarHistoricoEduca.setEnabled(true);
         jBtAuditoriaHistoricoEduca.setEnabled(!true);
         // MANUTENÇÃO
         jBtNovo.setEnabled(!true);
@@ -8165,7 +8219,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
                 idItem = conecta.rs.getInt("IdItemICTHEN");
-                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
+                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos_NOVO.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela 
                 do {
                     prioridadeCursoTabela = conecta.rs.getInt("PrioridadeCurso");
@@ -8323,7 +8377,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
                 idItem = conecta.rs.getInt("IdItemICTHEN");
-                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
+                DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos_NOVO.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela 
                 do {
                     prioridadeCursoTabela = conecta.rs.getInt("PrioridadeCurso");
@@ -8364,8 +8418,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void incluirExperiencia() {
         // Grava os dados do arrayList na tabela
         for (int i = 0; i < jTabelaExperiencia.getRowCount(); i++) {
-            objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtendNovo.getText()));
-            objHistEducLabor.setIdHistoricoLab(codigoHistoricoProf);
+            objHistEducLabor.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
+            objHistEducLabor.setIdHistoricoLabPN(codigoHistoricoProf);
             objHistEducLabor.setIdProfissao((int) jTabelaExperiencia.getValueAt(i, 0));
             objHistEducLabor.setExperienciaProfissional((String) jTabelaExperiencia.getValueAt(i, 1));
             objHistEducLabor.getExperienciaProfissional();
