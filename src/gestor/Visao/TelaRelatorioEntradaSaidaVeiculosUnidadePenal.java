@@ -303,7 +303,7 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                 dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
+                    String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
                     conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
                             + "INNER JOIN ITENSVEICULOSUNIDADE "
                             + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
@@ -350,7 +350,7 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                             dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaVeiculosUnidadePenal.jasper";
+                                String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenal.jasper";
                                 conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
                                         + "INNER JOIN ITENSVEICULOSUNIDADE "
                                         + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
@@ -383,7 +383,7 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
             } else if (!jPlacaVeiculo.getText().equals("") && jDataPesqInicial.getDate() == null && jDataPesqFinal.getDate() == null) {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaVeiculosUnidadePenalPlaca.jasper";
+                    String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlaca.jasper";
                     conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
                             + "INNER JOIN ITENSVEICULOSUNIDADE "
                             + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
@@ -412,7 +412,7 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                 dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
+                    String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
                     conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
                             + "INNER JOIN ITENSVEICULOSUNIDADE "
                             + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "

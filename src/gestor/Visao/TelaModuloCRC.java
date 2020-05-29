@@ -1934,7 +1934,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 //        gr.show();
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Prontuarios/ProntuariosInternosCrc.jasper";
+            String path = "reports/CRC/ProntuariosInternosCRC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -2026,7 +2026,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:        
         try {
             conecta.abrirConexao();
-            String path = "reports/relatorioCidades.jasper";
+            String path = "reports/GerenciaAdministrativa/relatorioCidades.jasper";
             conecta.executaSQL("SELECT * FROM CIDADES ORDER BY NomeCidade");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
@@ -2047,7 +2047,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioUnidadePenal.jasper";
+            String path = "reports/Diretoria/RelatorioUnidadePenal.jasper";
             conecta.executaSQL("SELECT * FROM UNIDADE ORDER BY DescricaoUnid");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
@@ -2113,7 +2113,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Internos/RelatorioInternosEscolaridade.jasper";
+            String path = "reports/CRC/RelatorioInternosEscolaridade.jasper";
             conecta.executaSQL("SELECT *, FLOOR(DATEDIFF(DAY, CONVERT(DATE, DataNasciCrc), GETDATE()) / 365.25) AS Idade FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -2163,7 +2163,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // Remodelar esse relatório com o regime e sexo dos internos. (Feito em 26/11/2014)
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Internos/ListagemPronturarioInternosRegime.jasper";
+            String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -2196,7 +2196,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Internos/ListagemPronturarioInternosEstadoCivil.jasper";
+            String path = "reports/CRC/ListagemPronturarioInternosEstadoCivil.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -2280,7 +2280,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Prontuarios/ProntuariosInternosUnidadePenalCRC.jasper";
+            String path = "reports/CRC/ProntuariosInternosUnidadePenalCRC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
@@ -2467,7 +2467,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/GerenciaOperacional/Confere/ListagemGeralConfere.jasper";
+            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -2653,7 +2653,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:  
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioMudancaRegimeProgressao.jasper";
+            String path = "reports/Diretoria/RelatorioMudancaRegimeProgressao.jasper";
             conecta.executaSQL("SELECT * FROM SENTENCAS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON SENTENCAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -2679,7 +2679,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioMudancaRegimeRegressao.jasper";
+            String path = "reports/Diretoria/RelatorioMudancaRegimeRegressao.jasper";
             conecta.executaSQL("SELECT * FROM SENTENCAS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON SENTENCAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -2773,7 +2773,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Internos/RelatorioInternosPorCidade.jasper";
+            String path = "reports/CRC/RelatorioInternosPorCidade.jasper";
             conecta.executaSQL("SELECT MatriculaCrc, NomeInternoCrc, CidadeCrc FROM PRONTUARIOSCRC WHERE SituacaoCrc='" + statusEntrada + "'OR SituacaoCrc='" + statusRetorno + "'ORDER BY CidadeCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
@@ -2796,7 +2796,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Internos/RelatorioInternosPorBairro.jasper";
+            String path = "reports/CRC/RelatorioInternosPorBairro.jasper";
             conecta.executaSQL("SELECT MatriculaCrc, NomeInternoCrc, CidadeCrc,BairroCrc FROM PRONTUARIOSCRC WHERE SituacaoCrc='" + statusEntrada + "'OR SituacaoCrc='" + statusRetorno + "'ORDER BY CidadeCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
@@ -2884,7 +2884,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/InternosSemDocumentos/RelatorioInternosSemCartaoSUS.jasper";
+            String path = "reports/CRC/RelatorioInternosSemCartaoSUS.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
@@ -2961,7 +2961,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/InternosSemDocumentos/RelatorioInternosSemCartaoRG.jasper";
+            String path = "reports/CRC/RelatorioInternosSemCartaoRG.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.RgInternoCrc='" + cartaoRG + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
@@ -2990,7 +2990,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/InternosSemDocumentos/RelatorioInternosSemCartaoCPF.jasper";
+            String path = "reports/CRC/RelatorioInternosSemCartaoCPF.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
@@ -3019,7 +3019,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/InternosComDocumentos/RelatorioInternosComCartaoSUS.jasper";
+            String path = "reports/CRC/RelatorioInternosComCartaoSUS.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
@@ -3048,7 +3048,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/InternosComDocumentos/RelatorioInternosComCartaoRG.jasper";
+            String path = "reports/CRC/RelatorioInternosComCartaoRG.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
@@ -3077,7 +3077,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/InternosComDocumentos/RelatorioInternosComCartaoCPF.jasper";
+            String path = "reports/CRC/RelatorioInternosComCartaoCPF.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
@@ -3113,7 +3113,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/Internos/RelatorioInternosComCartaoCNC.jasper";
+            String path = "reports/CRC/RelatorioInternosComCartaoCNC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
@@ -3432,7 +3432,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/RelatorioInternosAdvogadosGeral.jasper";
+            String path = "reports/GerenciaOperacional/RelatorioInternosAdvogadosGeral.jasper";
             conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
                     + "INNER JOIN ITENSADVOGADOINTERNOS "
                     + "ON ENTRADASADVINTERNOS.IdLanc=ITENSADVOGADOINTERNOS.Idlanc "

@@ -5521,7 +5521,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/ProntuariosInternosCrcCodigo.jasper";
+                    String path = "reports/Diretoria/ProntuariosInternosCrcCodigo.jasper";
                     conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                             + "INNER JOIN DADOSFISICOSINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -5936,7 +5936,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/ProntuariosInternosCrcCodigo.jasper";
+                String path = "reports/Diretoria/ProntuariosInternosCrcCodigo.jasper";
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSFISICOSINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "

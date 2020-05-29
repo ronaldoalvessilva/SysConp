@@ -1745,7 +1745,7 @@ public class TelaModuloDiretoria extends javax.swing.JInternalFrame {
         //        gr.show();
         try {
             conecta.abrirConexao();
-            String path = "reports/CRC/ProntuariosInternosCrc.jasper";
+            String path = "reports/CRC/ProntuariosInternosCRC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "

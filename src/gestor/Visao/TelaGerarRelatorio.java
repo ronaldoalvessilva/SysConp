@@ -104,7 +104,7 @@ public class TelaGerarRelatorio extends javax.swing.JInternalFrame {
     public void listarRelatorio() {
         try {
             conecta.abrirConexao();
-            String path = "reports/ProntuariosInternosCrc.jasper";
+            String path = "reports/CRC/ProntuariosInternosCRC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais = PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
