@@ -100,7 +100,7 @@
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="jAbrirMovimetacaoSistema">
           <Properties>
             <Property name="text" type="java.lang.String" value="Utilit&#xe1;rios"/>
           </Properties>
@@ -145,6 +145,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFechamentoSistemaActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jAbrirMovimentacaoSistema">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abrir Movimentos Fechado do Sistema"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirMovimentacaoSistemaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

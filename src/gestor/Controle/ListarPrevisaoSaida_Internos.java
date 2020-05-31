@@ -8,7 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pTOTAL_ENTRADAS;
+import static gestor.Visao.TelaFechamentoSistema.pPREVISAO_SAIDA;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -22,12 +22,12 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class ListarEntradasInternos {
+public class ListarPrevisaoSaida_Internos {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
-    String pSTATUS_ENTRADA = "ABERTO";
+    String pSTATUS_PREVISAO_SAIDA = "ABERTO";
     String pDATA_PESQUISA_FECHAMENTO = "";
 
     public List<FechamentoRegistros> read() throws Exception {
@@ -40,23 +40,23 @@ public class ListarEntradasInternos {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             pDATA_PESQUISA_FECHAMENTO = formatoAmerica.format(jDataFechamento.getDate().getTime());
         }
-        pTOTAL_ENTRADAS = 0;
-        List<FechamentoRegistros> listaTodasEntradas = new ArrayList<FechamentoRegistros>();
+        pPREVISAO_SAIDA = 0;
+        List<FechamentoRegistros> listaTodasPrevisaoSaida = new ArrayList<FechamentoRegistros>();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT StatusEnt "
-                    + "FROM ENTRADALOTE "
-                    + "WHERE StatusEnt='" + pSTATUS_ENTRADA + "' "
-                    + "AND DataLancaMov<='" + pDATA_PESQUISA_FECHAMENTO + "'");
+            conecta.executaSQL("SELECT StatusLanc "
+                    + "FROM PREVISAOSAIDA "
+                    + "WHERE StatusLanc='" + pSTATUS_PREVISAO_SAIDA + "' "
+                    + "AND DataLanc<='" + pDATA_PESQUISA_FECHAMENTO + "'");
             while (conecta.rs.next()) {
-                FechamentoRegistros pEntradas = new FechamentoRegistros();
-                pEntradas.setStatusRegistro(conecta.rs.getString("StatusEnt"));
-                listaTodasEntradas.add(pEntradas);
-                pTOTAL_ENTRADAS = pTOTAL_ENTRADAS + 1;
+                FechamentoRegistros pPrevisaoSaida = new FechamentoRegistros();
+                pPrevisaoSaida.setStatusRegistro(conecta.rs.getString("StatusLanc"));
+                listaTodasPrevisaoSaida.add(pPrevisaoSaida);
+                pPREVISAO_SAIDA = pPREVISAO_SAIDA + 1;
             }
-            return listaTodasEntradas;
+            return listaTodasPrevisaoSaida;
         } catch (SQLException ex) {
-            Logger.getLogger(ListarEntradasInternos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListarPrevisaoSaida_Internos.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

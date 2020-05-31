@@ -62,6 +62,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
      * Creates new form TelaConfiguracoes
      */
     public static TelaFechamentoSistema pFECHAR_SISTEMA;
+    public static TelaAberturaRegistroSistema pABRIR_REGISTROS;
 
     public TelaModuloConfiguracoes() {
         initComponents();
@@ -72,6 +73,11 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     public void mostrarFechamento() {
         pFECHAR_SISTEMA = new TelaFechamentoSistema(this, true);
         pFECHAR_SISTEMA.setVisible(true);
+    }
+
+    public void mostrarAberturaFechamento() {
+        pABRIR_REGISTROS = new TelaAberturaRegistroSistema(this, true);
+        pABRIR_REGISTROS.setVisible(true);
     }
 
     /**
@@ -101,13 +107,14 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jMenuItemLog = new javax.swing.JMenuItem();
         UsuariosConectados = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        jAbrirMovimetacaoSistema = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         JMenuSQL = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jFechamentoSistema = new javax.swing.JMenuItem();
+        jAbrirMovimentacaoSistema = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jParametrosSistema = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -218,7 +225,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jMenu2.setText("Relatórios");
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Utilitários");
+        jAbrirMovimetacaoSistema.setText("Utilitários");
 
         jMenuItem3.setText("Calculadora de Pena");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +233,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jAbrirMovimetacaoSistema.add(jMenuItem3);
 
         jMenuItem4.setText("Calculadora do Windows");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -234,8 +241,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
-        jMenu3.add(jSeparator1);
+        jAbrirMovimetacaoSistema.add(jMenuItem4);
+        jAbrirMovimetacaoSistema.add(jSeparator1);
 
         JMenuSQL.setForeground(new java.awt.Color(204, 0, 0));
         JMenuSQL.setText("Consultas SQL");
@@ -244,8 +251,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 JMenuSQLActionPerformed(evt);
             }
         });
-        jMenu3.add(JMenuSQL);
-        jMenu3.add(jSeparator5);
+        jAbrirMovimetacaoSistema.add(JMenuSQL);
+        jAbrirMovimetacaoSistema.add(jSeparator5);
 
         jFechamentoSistema.setForeground(new java.awt.Color(0, 0, 204));
         jFechamentoSistema.setText("Fechamento dos Registros do Sistema");
@@ -254,9 +261,17 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 jFechamentoSistemaActionPerformed(evt);
             }
         });
-        jMenu3.add(jFechamentoSistema);
+        jAbrirMovimetacaoSistema.add(jFechamentoSistema);
 
-        jMenuBar1.add(jMenu3);
+        jAbrirMovimentacaoSistema.setText("Abrir Movimentos Fechado do Sistema");
+        jAbrirMovimentacaoSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAbrirMovimentacaoSistemaActionPerformed(evt);
+            }
+        });
+        jAbrirMovimetacaoSistema.add(jAbrirMovimentacaoSistema);
+
+        jMenuBar1.add(jAbrirMovimetacaoSistema);
 
         jMenu4.setText("Apoio");
 
@@ -560,17 +575,23 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         mostrarFechamento();
     }//GEN-LAST:event_jFechamentoSistemaActionPerformed
 
+    private void jAbrirMovimentacaoSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentacaoSistemaActionPerformed
+        // TODO add your handling code here:
+        mostrarAberturaFechamento();
+    }//GEN-LAST:event_jAbrirMovimentacaoSistemaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
     private javax.swing.JMenuItem Empresa;
     private javax.swing.JMenuItem JMenuSQL;
     private javax.swing.JMenuItem UsuariosConectados;
+    private javax.swing.JMenuItem jAbrirMovimentacaoSistema;
+    private javax.swing.JMenu jAbrirMovimetacaoSistema;
     private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;

@@ -40,7 +40,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharEntradas(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADALOTE SET StatusEnt=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusEnt='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADALOTE SET StatusEnt=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusEnt='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancaMov<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -57,7 +59,9 @@ public class ControleFechamentoDadosSistema {
         conecta.abrirConexao();
         try {
             PreparedStatement pst;
-            pst = conecta.con.prepareStatement("UPDATE SAIDACRC SET StatusSai=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusSai='" + pSTATUS_FINALIZADO + "'");
+            pst = conecta.con.prepareStatement("UPDATE SAIDACRC SET StatusSai=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusSai='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancaMov<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -74,7 +78,9 @@ public class ControleFechamentoDadosSistema {
         conecta.abrirConexao();
         try {
             PreparedStatement pst;
-            pst = conecta.con.prepareStatement("UPDATE TRANSFERENCIACRC SET StatusTran=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusTran='" + pSTATUS_FINALIZADO + "'");
+            pst = conecta.con.prepareStatement("UPDATE TRANSFERENCIACRC SET StatusTran=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusTran='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancTransf<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -90,7 +96,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharRetornoSaidaTemporaria(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOSCRC SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusRet='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOSCRC SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRet='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancRetorno<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -106,7 +114,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharRetornoEspontaneo(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOESPONTANEO SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusRet='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOESPONTANEO SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRet='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancRetorno<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -122,7 +132,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharRecaptura(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RECAPTURA SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusRet='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RECAPTURA SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRet='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancRetorno<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -138,7 +150,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharRetornoAudiencia(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOAUDIENCIA SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusRet='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOAUDIENCIA SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRet='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancRetorno<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -154,7 +168,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharRetornoMedico(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOMEDICO SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusRet='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOMEDICO SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRet='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancRetorno<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -170,7 +186,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharPrevisaoSaida(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PREVISAOSAIDA SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusLanc='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PREVISAOSAIDA SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -186,7 +204,9 @@ public class ControleFechamentoDadosSistema {
     public FechamentoRegistros fecharRetornoPorTransferencia(FechamentoRegistros objFecha) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOTRANSFERENCIA SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusRet='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOTRANSFERENCIA SET StatusRet=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRet='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLancRetorno<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
@@ -204,7 +224,9 @@ public class ControleFechamentoDadosSistema {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADANOVA SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE StatusLanc='" + pSTATUS_FINALIZADO + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADANOVA SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
             pst.setString(1, objFecha.getStatusRegistro());
             pst.setString(2, objFecha.getUsuarioUp());
             pst.setString(3, objFecha.getDataFechamento());
