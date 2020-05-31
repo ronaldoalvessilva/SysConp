@@ -7,12 +7,16 @@ package gestor.Visao;
 
 import gestor.Controle.ControleFechamentoDadosSistema;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ListarEntradasInternos;
+import gestor.Controle.ListarSaidasInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -24,6 +28,9 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
+    //
+    ListarEntradasInternos objListaEntradas = new ListarEntradasInternos();
+    ListarSaidasInternos objListaSaidas = new ListarSaidasInternos();
     ControleFechamentoDadosSistema control = new ControleFechamentoDadosSistema();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -33,9 +40,21 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     String horaMov;
     String dataModFinal;
     String pFECHAMENTO = "FINALIZADO";
-    int pCONTADOR = 0;
+    int pREGISTROS_PROCESSADOS = 0;
     String pBLOQUEIO_SISTEMA = "Sim"; // DEFAULT É "Não"
     String pDESBLOQUEAR_SISTEMA = "Não";
+    //
+    int pTOTAL_GERAL_REGISTROS = 0;
+    public static int pTOTAL_ENTRADAS = 0;
+    public static int pTOTAL_SAIDAS = 0;
+    public static int pTOTAL_TRANSFERENCIAS = 10;
+    public static int pRETORNO_SAIDAS_TMP = 15;
+    public static int pRETORNO_ESPONTANEO = 30;
+    public static int pRETORNO_AUDIENCIAS = 26;
+    public static int pRETORNO_MEDICO = 20;
+    public static int pRETORNO_TRANSFERENCIA = 10;
+    public static int pPREVISAO_SAIDA = 40;
+    public static int pNOVA_ENTRADA = 50;
 
     /**
      * Creates new form TelaFechamentoSistema
@@ -69,6 +88,11 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        lblProgresso = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jTOTAL_REGISTROS = new javax.swing.JTextField();
+        jREGISTROS_PROCESSADOS = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Fechamento do Sistema :::...");
@@ -166,8 +190,30 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jProgressBar1.setForeground(new java.awt.Color(204, 51, 0));
         jProgressBar1.setStringPainted(true);
+
+        lblProgresso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblProgresso.setForeground(new java.awt.Color(204, 0, 0));
+        lblProgresso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblProgresso.setText("Aguardando...");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Total Registros:");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Registros Processados:");
+
+        jTOTAL_REGISTROS.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTOTAL_REGISTROS.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTOTAL_REGISTROS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTOTAL_REGISTROS.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTOTAL_REGISTROS.setEnabled(false);
+
+        jREGISTROS_PROCESSADOS.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jREGISTROS_PROCESSADOS.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jREGISTROS_PROCESSADOS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jREGISTROS_PROCESSADOS.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jREGISTROS_PROCESSADOS.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -175,14 +221,36 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTOTAL_REGISTROS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jREGISTROS_PROCESSADOS, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                        .addComponent(lblProgresso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jREGISTROS_PROCESSADOS, jTOTAL_REGISTROS});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblProgresso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jTOTAL_REGISTROS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jREGISTROS_PROCESSADOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -230,65 +298,10 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
             statusMov = "Finalizou";
-            new Thread() {
-                public void run() {
-                    for (int i = 0; i < 100; i++) {
-                        try {
-                            sleep(100);
-                            jProgressBar1.setValue(i);
-                            if (jProgressBar1.getValue() <= 100) {
-                                //MÓDULO CRC
-                                objFecha.setStatusRegistro(pFECHAMENTO);
-                                objFecha.setDataFechamento(dataModFinal);
-                                objFecha.setHoraFechamento(horaMov);
-                                objFecha.setUsuarioUp(nameUser);
-                                control.fecharEntradas(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharSaidas(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharTransferencias(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharRetornoSaidaTemporaria(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharRetornoEspontaneo(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharRetornoAudiencia(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharRetornoMedico(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharPrevisaoSaida(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                control.fecharRetornoPorTransferencia(objFecha);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                //MÓDULO PORTARIA
-                                control.fecharNovaEntrada(objFecha);
-                                pCONTADOR = i + 1;
-                            }
-                            if (pCONTADOR == 100) {
-                                jProgressBar1.setValue(100);
-                                JOptionPane.showMessageDialog(rootPane, "Fechamento concluído com sucesso.");
-                                //DESBLOQUEAR SISTEMA PARA ACESSO.
-                                pDESBLOQUEAR_SISTEMA = "Não";
-                                objFecha.setOpcaoBloquear(pDESBLOQUEAR_SISTEMA);
-                                control.bloquearSistema(objFecha);
-                                jBtSair.setEnabled(true);
-                                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Impedir que a janela seja fechada pelo X 
-                            }
-                        } catch (InterruptedException e) {
-                        }
-                    }
-                }
-
-            }.start();
+            calculoTotal_ENTRADAS();
+            total_REGISTROS();
+//            jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS));
+            gravarDadosBanco();
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -346,11 +359,43 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JTextField jREGISTROS_PROCESSADOS;
+    private javax.swing.JTextField jTOTAL_REGISTROS;
+    private javax.swing.JLabel lblProgresso;
     // End of variables declaration//GEN-END:variables
+
+    public void total_REGISTROS() {
+        pTOTAL_GERAL_REGISTROS = pTOTAL_ENTRADAS
+                + pTOTAL_SAIDAS + pTOTAL_TRANSFERENCIAS
+                + pRETORNO_SAIDAS_TMP + pRETORNO_ESPONTANEO
+                + pRETORNO_AUDIENCIAS + pRETORNO_MEDICO
+                + pRETORNO_TRANSFERENCIA + pPREVISAO_SAIDA
+                + pNOVA_ENTRADA;
+    }
+
+    public void calculoTotal_ENTRADAS() {
+        try {
+            for (FechamentoRegistros pE : objListaEntradas.read()) {
+                pE.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            for (FechamentoRegistros pS : objListaSaidas.read()) {
+                pS.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
@@ -358,5 +403,104 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         objLogSys.setNomeModuloTela(nomeModuloTela);
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void gravarDadosBanco() {
+        jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS));
+        try {
+            Thread t0 = new Thread() {
+                public void run() {
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    for (int i = 0; i < pTOTAL_GERAL_REGISTROS; i++) {//  
+                        lblProgresso.setText("Processando Registros, Aguarde...");
+                        //MÓDULO CRC
+                        objFecha.setStatusRegistro(pFECHAMENTO);
+                        objFecha.setDataFechamento(dataModFinal);
+                        objFecha.setHoraFechamento(horaMov);
+                        objFecha.setUsuarioUp(nameUser);
+                        control.fecharEntradas(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        objFecha.setStatusRegistro(pFECHAMENTO);
+                        objFecha.setDataFechamento(dataModFinal);
+                        objFecha.setHoraFechamento(horaMov);
+                        objFecha.setUsuarioUp(nameUser);
+                        control.fecharSaidas(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        control.fecharTransferencias(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        control.fecharRetornoSaidaTemporaria(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        control.fecharRetornoEspontaneo(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                
+                        control.fecharRetornoAudiencia(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        control.fecharRetornoMedico(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        control.fecharPrevisaoSaida(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        control.fecharRetornoPorTransferencia(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //MÓDULO PORTARIA
+                        control.fecharNovaEntrada(objFecha);
+                        jProgressBar1.setValue(i);
+                    }
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                    }
+                }
+            };
+            t0.start();
+        } catch (Exception e) {
+        }
+        // THREAD DA BARRA DE EXECUÇÃO
+        try {
+            Thread t = new Thread() {
+                public void run() {
+                    jProgressBar1.setMaximum(pTOTAL_GERAL_REGISTROS);
+                    for (int i = 0; i < pTOTAL_GERAL_REGISTROS; i++) {
+                        if (i == 0) {
+                            jProgressBar1.setValue((i + 1));
+                        } else if (i > 0) {
+                            jProgressBar1.setValue((i + 1));
+                            pREGISTROS_PROCESSADOS = i + 1;
+                            jREGISTROS_PROCESSADOS.setText(Integer.toString(pREGISTROS_PROCESSADOS));
+                            jProgressBar1.setValue(i);
+                        }
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
+                    }
+                    if (pTOTAL_GERAL_REGISTROS == pREGISTROS_PROCESSADOS) {
+                        jProgressBar1.setValue(100);
+                        JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                        //DESBLOQUEAR SISTEMA PARA ACESSO.
+                        pDESBLOQUEAR_SISTEMA = "Não";
+                        objFecha.setOpcaoBloquear(pDESBLOQUEAR_SISTEMA);
+                        control.bloquearSistema(objFecha);
+                        jBtSair.setEnabled(true);
+                        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //Impedir que a janela seja fechada pelo X 
+                        dispose();
+                    }
+                    try {
+                    } catch (Exception e) {
+                    }
+                }
+            };
+            t.start();
+        } catch (Exception e) {
+        }
     }
 }
