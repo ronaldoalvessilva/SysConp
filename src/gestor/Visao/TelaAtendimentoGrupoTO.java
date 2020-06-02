@@ -3530,7 +3530,7 @@ public class TelaAtendimentoGrupoTO extends javax.swing.JInternalFrame {
                 if (jStatusAtend.getText().equals("FINALIZADO")) {
                     JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
                 } else {
-                    verificarLiberacao();
+//                    verificarLiberacao();
                     mostrarTelaAG();
                 }
             }

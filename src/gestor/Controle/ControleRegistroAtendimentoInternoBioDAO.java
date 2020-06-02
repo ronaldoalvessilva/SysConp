@@ -177,7 +177,7 @@ public class ControleRegistroAtendimentoInternoBioDAO {
         conecta.desconecta();
         return objRegAtend;
     }
-    
+
     //SERVIÇO SOCIAL
     public RegistroAtendimentoInternos finalizarAtendimentoGrupoSS(RegistroAtendimentoInternos objRegAtend) {
 
@@ -191,14 +191,13 @@ public class ControleRegistroAtendimentoInternoBioDAO {
         }
         conecta.desconecta();
         return objRegAtend;
-    }        
-    
+    }
 
     //------------------------ ATENDIMENTO EM GRUPO -------------------------------------------//
     public RegistroAtendimentoInternos incluirRegAtendGrupo(RegistroAtendimentoInternos objRegAtend) {
 
-        buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
-        buscarDepartamento(objRegAtend.getNomeDepartamento());
+//        buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
+//        buscarDepartamento(objRegAtend.getNomeDepartamento());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (IdAtend,DataAtendimento,DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,IdFunc,AssinaturaLiberador,DataAssinatura,HoraAssinatura,Atendido,Motivo,UsuarioInsert,DataInsert,HorarioInsert,Qtd,UsuarioAtendente,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -206,9 +205,9 @@ public class ControleRegistroAtendimentoInternoBioDAO {
             pst.setTimestamp(2, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
             pst.setTimestamp(3, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
             pst.setString(4, objRegAtend.getHorario());
-            pst.setInt(5, codInt);
+            pst.setInt(5, objRegAtend.getIdInternoCrc());
             pst.setString(6, objRegAtend.getTipoAtemdimento());
-            pst.setInt(7, codDpto);
+            pst.setInt(7, objRegAtend.getIdDepartamento());
             pst.setInt(8, objRegAtend.getCodigoFunc());
             pst.setBytes(9, objRegAtend.getAssinaturaLiberador());
             pst.setString(10, objRegAtend.getDataAssinatura());
@@ -232,7 +231,8 @@ public class ControleRegistroAtendimentoInternoBioDAO {
     public void buscarInternoCrc(String desc, int codigo) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+            conecta.executaSQL("SELECT IdInternoCrc,NomeInternoCrc "
+                    + "FROM PRONTUARIOSCRC "
                     + "WHERE NomeInternoCrc='" + desc + "' "
                     + "AND IdInternoCrc='" + codigo + "'");
             conecta.rs.first();
@@ -246,7 +246,9 @@ public class ControleRegistroAtendimentoInternoBioDAO {
     public void buscarDepartamento(String nome) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+            conecta.executaSQL("SELECT IdDepartamento, "
+                    + "NomeDepartamento "
+                    + "FROM DEPARTAMENTOS "
                     + "WHERE NomeDepartamento='" + nome + "'");
             conecta.rs.first();
             codDpto = conecta.rs.getInt("IdDepartamento");
@@ -259,7 +261,8 @@ public class ControleRegistroAtendimentoInternoBioDAO {
     public void buscarColaborador(String nomeFunc, int idFunc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR "
+            conecta.executaSQL("SELECT NomeFunc,IdFunc "
+                    + "FROM COLABORADOR "
                     + "WHERE NomeFunc='" + nomeFunc + "' "
                     + "AND IdFunc='" + idFunc + "'");
             conecta.rs.first();
@@ -274,7 +277,14 @@ public class ControleRegistroAtendimentoInternoBioDAO {
         conecta.abrirConexao();
         List<DigitalInternos> registroInternosAtend = new ArrayList<DigitalInternos>();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+            conecta.executaSQL("SELECT BIOMETRIA_INTERNOS.IdInternoCrc "
+                    + "PRONTUARIOSCRC.Cnc,PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "DADOSPENAISINTERNOS.Regime,PAVILHAO.DescricaoPav, "
+                    + "CELAS.EndCelaPav,BIOMETRIA_INTERNOS.BiometriaDedo1, "
+                    + "BIOMETRIA_INTERNOS.BiometriaDedo2, "
+                    + "BIOMETRIA_INTERNOS.BiometriaDedo3, "
+                    + "BIOMETRIA_INTERNOS.BiometriaDedo4 "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -294,7 +304,6 @@ public class ControleRegistroAtendimentoInternoBioDAO {
                 pDigital.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pDigital.setMatriculaPenal(conecta.rs.getString("Cnc"));
                 pDigital.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
-                pDigital.setCaminhoFotoInterno(conecta.rs.getString("FotoInternoCrc"));
                 pDigital.setRegime(conecta.rs.getString("Regime"));
                 pDigital.setPavilhao(conecta.rs.getString("DescricaoPav"));
                 pDigital.setCela(conecta.rs.getString("EndCelaPav"));
@@ -307,7 +316,7 @@ public class ControleRegistroAtendimentoInternoBioDAO {
             }
             return registroInternosAtend;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleRegistroAtendimentoInternoBioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleRegistroAtendimentoInternoBio_ENF.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

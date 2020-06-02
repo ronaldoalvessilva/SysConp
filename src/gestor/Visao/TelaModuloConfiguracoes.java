@@ -114,10 +114,11 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         JMenuSQL = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jFechamentoSistema = new javax.swing.JMenuItem();
-        jAbrirMovimentacaoSistema = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jParametrosSistema = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jAbrirTodosMovimentacaoSistema = new javax.swing.JMenuItem();
+        jAbrirMovimentoIndividual = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        jParamentosSistema = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -263,35 +264,37 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         });
         jAbrirMovimetacaoSistema.add(jFechamentoSistema);
 
-        jAbrirMovimentacaoSistema.setText("Abrir Movimentos Fechado do Sistema");
-        jAbrirMovimentacaoSistema.addActionListener(new java.awt.event.ActionListener() {
+        jMenu3.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu3.setText("Abrir Movimentos do Sistema");
+
+        jAbrirTodosMovimentacaoSistema.setText("Abrir Todos Movimentos Fechado do Sistema por Módulos");
+        jAbrirTodosMovimentacaoSistema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAbrirMovimentacaoSistemaActionPerformed(evt);
+                jAbrirTodosMovimentacaoSistemaActionPerformed(evt);
             }
         });
-        jAbrirMovimetacaoSistema.add(jAbrirMovimentacaoSistema);
+        jMenu3.add(jAbrirTodosMovimentacaoSistema);
+
+        jAbrirMovimentoIndividual.setText("Abrir Movimentos do Sistema Individual");
+        jAbrirMovimentoIndividual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAbrirMovimentoIndividualActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jAbrirMovimentoIndividual);
+
+        jAbrirMovimetacaoSistema.add(jMenu3);
+        jAbrirMovimetacaoSistema.add(jSeparator6);
+
+        jParamentosSistema.setText("Parâmetros do Sistema");
+        jParamentosSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jParamentosSistemaActionPerformed(evt);
+            }
+        });
+        jAbrirMovimetacaoSistema.add(jParamentosSistema);
 
         jMenuBar1.add(jAbrirMovimetacaoSistema);
-
-        jMenu4.setText("Apoio");
-
-        jParametrosSistema.setText("Parâmetros do Sistema");
-        jParametrosSistema.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jParametrosSistemaActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jParametrosSistema);
-
-        jMenuItem6.setText("Abrir Movimentos Finalizados");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem6);
-
-        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -441,13 +444,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jParametrosSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jParametrosSistemaActionPerformed
-        // TODO add your handling code here:
-        TelaParamentrosSistema objParSis = new TelaParamentrosSistema();
-        TelaModuloConfiguracoes.jPainelConfiguracoes.add(objParSis);
-        objParSis.show();
-    }//GEN-LAST:event_jParametrosSistemaActionPerformed
-
     private void UsuariosConectadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosConectadosActionPerformed
         // TODO add your handling code here:
         if (objUserConecta == null || objUserConecta.isClosed()) {
@@ -476,35 +472,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         } catch (java.beans.PropertyVetoException e) {
         }
     }//GEN-LAST:event_UsuariosConectadosActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-        if (objAbriMov == null || objAbriMov.isClosed()) {
-            objAbriMov = new TelaAbirMovimentoFinalizado();
-            jPainelConfiguracoes.add(objAbriMov);
-            objAbriMov.setVisible(true);
-        } else {
-            if (objAbriMov.isVisible()) {
-                if (objAbriMov.isIcon()) { // Se esta minimizado
-                    try {
-                        objAbriMov.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objAbriMov.toFront(); // traz para frente
-                    objAbriMov.pack();//volta frame 
-                }
-            } else {
-                objAbriMov = new TelaAbirMovimentoFinalizado();
-                TelaModuloConfiguracoes.jPainelConfiguracoes.add(objAbriMov);//adicona frame ao JDesktopPane  
-                objAbriMov.setVisible(true);
-            }
-        }
-        try {
-            objAbriMov.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void EmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpresaActionPerformed
         // TODO add your handling code here:
@@ -575,10 +542,46 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         mostrarFechamento();
     }//GEN-LAST:event_jFechamentoSistemaActionPerformed
 
-    private void jAbrirMovimentacaoSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentacaoSistemaActionPerformed
+    private void jAbrirTodosMovimentacaoSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirTodosMovimentacaoSistemaActionPerformed
         // TODO add your handling code here:
         mostrarAberturaFechamento();
-    }//GEN-LAST:event_jAbrirMovimentacaoSistemaActionPerformed
+    }//GEN-LAST:event_jAbrirTodosMovimentacaoSistemaActionPerformed
+
+    private void jAbrirMovimentoIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentoIndividualActionPerformed
+        // TODO add your handling code here:
+        if (objAbriMov == null || objAbriMov.isClosed()) {
+            objAbriMov = new TelaAbirMovimentoFinalizado();
+            jPainelConfiguracoes.add(objAbriMov);
+            objAbriMov.setVisible(true);
+        } else {
+            if (objAbriMov.isVisible()) {
+                if (objAbriMov.isIcon()) { // Se esta minimizado
+                    try {
+                        objAbriMov.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objAbriMov.toFront(); // traz para frente
+                    objAbriMov.pack();//volta frame 
+                }
+            } else {
+                objAbriMov = new TelaAbirMovimentoFinalizado();
+                TelaModuloConfiguracoes.jPainelConfiguracoes.add(objAbriMov);//adicona frame ao JDesktopPane  
+                objAbriMov.setVisible(true);
+            }
+        }
+        try {
+            objAbriMov.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jAbrirMovimentoIndividualActionPerformed
+
+    private void jParamentosSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jParamentosSistemaActionPerformed
+        // TODO add your handling code here:
+        TelaParamentrosSistema objParSis = new TelaParamentrosSistema();
+        TelaModuloConfiguracoes.jPainelConfiguracoes.add(objParSis);
+        objParSis.show();
+    }//GEN-LAST:event_jParamentosSistemaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -586,31 +589,32 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem Empresa;
     private javax.swing.JMenuItem JMenuSQL;
     private javax.swing.JMenuItem UsuariosConectados;
-    private javax.swing.JMenuItem jAbrirMovimentacaoSistema;
+    private javax.swing.JMenuItem jAbrirMovimentoIndividual;
     private javax.swing.JMenu jAbrirMovimetacaoSistema;
+    private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
     private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItemGrupos;
     private javax.swing.JMenuItem jMenuItemLog;
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemUsuarios;
     public static javax.swing.JDesktopPane jPainelConfiguracoes;
-    private javax.swing.JMenuItem jParametrosSistema;
+    private javax.swing.JMenuItem jParamentosSistema;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)

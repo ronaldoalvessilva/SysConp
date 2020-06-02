@@ -74,6 +74,8 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
     int qtdAtend = 1;
     //
     int pQUANTIDADE_REGISTRO = 0;
+    int STATUS_USUARIO = 1;
+    int pREGISTROS_PROCESSADOS = 0;
 
     /**
      * Creates new form TelaLiberacaoAtendimentoGruposPSI
@@ -526,6 +528,7 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
         buscarAcessoUsuario(telaIndAtendimentoGrupoPE_Manu);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAtendimentoGrupoPE_Manu) && codIncluirPEDA == 1) {
             Novo();
+            pesquisarModulo();
             pesquisarAtendente();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -543,17 +546,12 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
         } else if (jComboBoxAtendente.getSelectedItem().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do atendente.");
         } else {
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
             JOptionPane.showMessageDialog(rootPane, "Esse procedimento irá confirmar e contabilizar os atendimentos a produção do atendente.\nUma vez confirmado, não será mais possível reverter a liberação do registro.");
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente liberar o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // GRAVAR REGISTRO NA TABELA DE REGISTRO_ATENDIMENTO_PSP
                 gravarDadosBanco();
-                // FINALIZAR O ATENDIMENTO PARA NÃO SER MODIFICADO.
-                finalizarAtendimentoGrupo();
             }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
@@ -705,7 +703,9 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
     public void pesquisarModulo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+            conecta.executaSQL("SELECT IdDepartamento, "
+                    + "NomeDepartamento "
+                    + "FROM DEPARTAMENTOS "
                     + "WHERE NomeDepartamento='" + nomeModuloPEDA + "'");
             conecta.rs.first();
             codigoDepto = conecta.rs.getInt("IdDepartamento");
@@ -719,6 +719,7 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeDepartamento='" + nomeModuloPEDA + "' "
+                    + "AND StatusUsuario='" + STATUS_USUARIO + "' "
                     + "ORDER BY NomeUsuario");
             conecta.rs.first();
             do {
@@ -738,47 +739,65 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
         jTotalRegistrosProc.setVisible(true);
         atendido = "Sim";
         qtdAtend = 1;
+        // Para o log do registro
+        objRegAtend.setUsuarioInsert(nameUser);
+        objRegAtend.setDataInsert(dataModFinal);
+        objRegAtend.setHorarioInsert(horaMov);
+        //
+        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistro.getText()));
+        objRegAtend.setDataAtendimento(jDataAtend.getDate());
+        objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
+        objRegAtend.setDataReg(jDataRegistro.getDate());
+        objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
+        objRegAtend.setDataAssinatura(dataAssinatura);
+        objRegAtend.setHoraAssinatura(horaAssinatura);
+        objRegAtend.setCodigoFunc(codigoLiberador);
+        objRegAtend.setNomeFunc(nomeLiberador);
+        objRegAtend.setAssinaturaLiberador(pDigitalCapturadaColaborador);
+        objRegAtend.setDataAssinatura(dataAssinatura);
+        objRegAtend.setHoraAssinatura(horaAssinatura);
+        objRegAtend.setAtendido(atendido);
+        objRegAtend.setMotivoImpressao(jMotivo.getText());
+        objRegAtend.setImpressaoAuto(pImpressao);
+        objRegAtend.setQtdAtend(qtdAtend);
+        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
+        objRegAtend.setIdDepartamento(codigoDepto);
+        objLog();
         try {
             Thread t0 = new Thread() {
                 public void run() {
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
                     for (int i = 0; i < jTabelaInternosLiberados.getRowCount(); i++) {
-                        // Para o log do registro
-                        objRegAtend.setUsuarioInsert(nameUser);
-                        objRegAtend.setDataInsert(dataModFinal);
-                        objRegAtend.setHorarioInsert(horaMov);
-                        //
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistro.getText()));
-                        objRegAtend.setDataAtendimento(jDataAtend.getDate());
                         objRegAtend.setIdInternoCrc((int) jTabelaInternosLiberados.getValueAt(i, 1));
-                        objRegAtend.setNomeInternoCrc((String) jTabelaInternosLiberados.getValueAt(i, 3));
-                        objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
-                        objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
-                        objRegAtend.setDataReg(jDataRegistro.getDate());
-                        objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
-                        objRegAtend.setDataAssinatura(dataAssinatura);
-                        objRegAtend.setHoraAssinatura(horaAssinatura);
-                        objRegAtend.setCodigoFunc(codigoLiberador);
-                        objRegAtend.setNomeFunc(nomeLiberador);
-                        objRegAtend.setAssinaturaLiberador(pDigitalCapturadaColaborador);
-                        objRegAtend.setDataAssinatura(dataAssinatura);
-                        objRegAtend.setHoraAssinatura(horaAssinatura);
-                        objRegAtend.setAtendido(atendido);
-                        objRegAtend.setMotivoImpressao(jMotivo.getText());
-                        objRegAtend.setImpressaoAuto(pImpressao);
-                        objRegAtend.setQtdAtend(qtdAtend);
-                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
                         control.incluirRegAtendGrupo(objRegAtend);
-                        objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         pQUANTIDADE_REGISTRO = i + 1;
                         jRegistrosProcessados.setText(String.valueOf(pQUANTIDADE_REGISTRO));
+                        if (pQUANTIDADE_REGISTRO == count) {
+                            jProgressBar1.setValue(100);
+                            // FINALIZAR O ATENDIMENTO PARA NÃO SER MODIFICADO.
+                            statusMov = "Finalizou";
+                            horaMov = jHoraSistema.getText();
+                            dataModFinal = jDataSistema.getText();
+                            String statusLanc = "FINALIZADO";
+                            objRegAtend.setStatusAtendimento(statusLanc);
+                            objRegAtend.setIdAtend(Integer.valueOf(jCodigoAtend.getText()));
+                            control.finalizarAtendimentoGrupoPE(objRegAtend);
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            jStatusAtend.setText("FINALIZADO");
+                            //                 
+                            jBtNovo.setEnabled(true);
+                            jBtAuditoria.setEnabled(true);
+                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                            dispose();
+                        }
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
                     }
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException ex) {
-                    }
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    dispose();
                 }
             };
             t0.start();
@@ -802,14 +821,16 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
                         } else if (i > 0) {
                             jTabelaInternosLiberados.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
+                            pREGISTROS_PROCESSADOS = pREGISTROS_PROCESSADOS + 1;
+                            jProgressBar1.setValue(i);
                         }
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(10);
                         } catch (InterruptedException ex) {
                         }
-                        jProgressBar1.setValue(i);
+                        jProgressBar1.setValue(100);
+                        jMensagemAlerta.setText("Concluíndo, favor aguardar...");
                     }
-                    jMensagemAlerta.setText("Concluíndo, favor aguardar...");
                     try {
                     } catch (Exception e) {
                     }
@@ -818,22 +839,6 @@ public class TelaLiberacaoAtendimentoGruposPE extends javax.swing.JDialog {
             t.start();
         } catch (Exception e) {
         }
-    }
-
-    public void finalizarAtendimentoGrupo() {
-        statusMov = "Finalizou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        String statusLanc = "FINALIZADO";
-        objRegAtend.setStatusAtendimento(statusLanc);
-        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAtend.getText()));
-        control.finalizarAtendimentoGrupoPE(objRegAtend);
-        objLog();
-        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-        jStatusAtend.setText("FINALIZADO");
-        //                 
-        jBtNovo.setEnabled(true);
-        jBtAuditoria.setEnabled(true);
     }
 
     //ABA PARTICIPANTES

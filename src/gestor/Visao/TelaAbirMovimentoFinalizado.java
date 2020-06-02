@@ -90,21 +90,22 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Abertura de Movimentos Finalizados :::...");
+        setTitle("...::: Abertura de Movimentos Finalizados Individual :::...");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Controle de Acessos de Pessoas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle de Acessos de Pessoas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jComboBoxAcessosPessoas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxAcessosPessoas.setForeground(new java.awt.Color(153, 0, 102));
-        jComboBoxAcessosPessoas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "E/S Vistas Internos", "E/S Advogados Internos", "E/S Advogados Departamento", "E/S Visitas Diversas", "E/S Colaboradores" }));
+        jComboBoxAcessosPessoas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "E/S Vistas Internos", "E/S Advogados Internos", "E/S Advogados Departamento", "E/S Visitas Diversas", "E/S Colaboradores" }));
         jComboBoxAcessosPessoas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxAcessosPessoas.setEnabled(false);
 
+        jCodigoPessoa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoPessoa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoPessoa.setEnabled(false);
 
@@ -114,8 +115,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Controle Acessos Pessoas:");
 
-        jBtConfirmarAcessosPessoas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConfirmarAcessosPessoas.setForeground(new java.awt.Color(255, 0, 0));
+        jBtConfirmarAcessosPessoas.setForeground(new java.awt.Color(0, 102, 0));
         jBtConfirmarAcessosPessoas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtConfirmarAcessosPessoas.setText("Confirmar");
         jBtConfirmarAcessosPessoas.setEnabled(false);
@@ -125,8 +125,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterarPessoas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAlterarPessoas.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAlterarPessoas.setForeground(new java.awt.Color(204, 0, 0));
         jBtAlterarPessoas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarPessoas.setText("Alterar");
         jBtAlterarPessoas.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +160,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBoxAcessosPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxAcessosPessoas, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtConfirmarAcessosPessoas)
@@ -171,24 +170,24 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Controle de Acessos Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle de Acessos Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Controle Acessos Veiculos:");
 
         jComboBoxAcessosVeiculos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxAcessosVeiculos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Veiculo da Unidade", "Veiculos de Cargas e Outros", "Veiculos de Terceiros" }));
+        jComboBoxAcessosVeiculos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Veiculo da Unidade", "Veiculos de Cargas e Outros", "Veiculos de Terceiros" }));
         jComboBoxAcessosVeiculos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxAcessosVeiculos.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Código Registro:");
 
+        jCodigoVeiculo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoVeiculo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoVeiculo.setEnabled(false);
 
-        jBtConfirmarAcessosVeiculos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConfirmarAcessosVeiculos.setForeground(new java.awt.Color(255, 0, 0));
+        jBtConfirmarAcessosVeiculos.setForeground(new java.awt.Color(0, 102, 0));
         jBtConfirmarAcessosVeiculos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtConfirmarAcessosVeiculos.setText("Confirmar");
         jBtConfirmarAcessosVeiculos.setEnabled(false);
@@ -198,8 +197,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterarVeiculos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAlterarVeiculos.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAlterarVeiculos.setForeground(new java.awt.Color(204, 0, 0));
         jBtAlterarVeiculos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarVeiculos.setText("Alterar");
         jBtAlterarVeiculos.addActionListener(new java.awt.event.ActionListener() {
@@ -234,7 +232,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBoxAcessosVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxAcessosVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtConfirmarAcessosVeiculos)
@@ -244,24 +242,24 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Controle de Registro de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 0, 0))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle de Registro de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 0, 0))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Controle Registro Internos:");
 
         jComboBoxRegistroInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxRegistroInternos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Registro E/S Laborativa", "Retornos de Internos", "Entrada na Unidade", "Saídas Internos Portaria" }));
+        jComboBoxRegistroInternos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Registro E/S Laborativa", "Retornos de Internos", "Entrada na Unidade", "Saídas Internos Portaria" }));
         jComboBoxRegistroInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxRegistroInternos.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Código Registro:");
 
+        jCodigoRegInternos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoRegInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoRegInternos.setEnabled(false);
 
-        jBtConfirmarRegistroInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConfirmarRegistroInternos.setForeground(new java.awt.Color(255, 0, 0));
+        jBtConfirmarRegistroInternos.setForeground(new java.awt.Color(0, 102, 0));
         jBtConfirmarRegistroInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtConfirmarRegistroInternos.setText("Confirmar");
         jBtConfirmarRegistroInternos.setEnabled(false);
@@ -271,8 +269,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterarInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAlterarInternos.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAlterarInternos.setForeground(new java.awt.Color(204, 0, 0));
         jBtAlterarInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarInternos.setText("Alterar");
         jBtAlterarInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +304,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBoxRegistroInternos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxRegistroInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtConfirmarRegistroInternos)
@@ -317,16 +314,16 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Controle de Pertences", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle de Pertences", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Código Registro:");
 
+        jCodigoPertences.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoPertences.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoPertences.setEnabled(false);
 
-        jBtConfirmarPertences.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConfirmarPertences.setForeground(new java.awt.Color(255, 0, 0));
+        jBtConfirmarPertences.setForeground(new java.awt.Color(0, 102, 0));
         jBtConfirmarPertences.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtConfirmarPertences.setText("Confirmar");
         jBtConfirmarPertences.setEnabled(false);
@@ -336,8 +333,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterarPertences.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAlterarPertences.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAlterarPertences.setForeground(new java.awt.Color(204, 0, 0));
         jBtAlterarPertences.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarPertences.setText("Alterar");
         jBtAlterarPertences.addActionListener(new java.awt.event.ActionListener() {
@@ -375,16 +371,16 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Controle de Depósitos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle de Depósitos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Código Registro:");
 
+        jCodigoDeposito.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoDeposito.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoDeposito.setEnabled(false);
 
-        jBtConfirmarDepositos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConfirmarDepositos.setForeground(new java.awt.Color(255, 0, 0));
+        jBtConfirmarDepositos.setForeground(new java.awt.Color(0, 102, 0));
         jBtConfirmarDepositos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtConfirmarDepositos.setText("Confirmar");
         jBtConfirmarDepositos.setEnabled(false);
@@ -394,8 +390,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterarDepositos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAlterarDepositos.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAlterarDepositos.setForeground(new java.awt.Color(204, 0, 0));
         jBtAlterarDepositos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarDepositos.setText("Alterar");
         jBtAlterarDepositos.addActionListener(new java.awt.event.ActionListener() {
@@ -430,19 +425,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtAlterarDepositos)
                     .addComponent(jBtConfirmarDepositos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Livro de Ocorrências", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 153))); // NOI18N
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Livro de Ocorrências", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 153))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Código Registro:");
 
+        jCodigoOcorrencia.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoOcorrencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoOcorrencia.setEnabled(false);
 
-        jBtConfirmarOcorrencias.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConfirmarOcorrencias.setForeground(new java.awt.Color(255, 0, 0));
+        jBtConfirmarOcorrencias.setForeground(new java.awt.Color(0, 102, 0));
         jBtConfirmarOcorrencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtConfirmarOcorrencias.setText("Confirmar");
         jBtConfirmarOcorrencias.setEnabled(false);
@@ -452,8 +447,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterarOcorrencias.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAlterarOcorrencias.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAlterarOcorrencias.setForeground(new java.awt.Color(204, 0, 0));
         jBtAlterarOcorrencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarOcorrencias.setText("Alterar");
         jBtAlterarOcorrencias.addActionListener(new java.awt.event.ActionListener() {
@@ -518,14 +512,14 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jBtCancelar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtCancelar.setForeground(new java.awt.Color(204, 0, 0));
@@ -562,22 +556,30 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(259, 259, 259)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtCancelar)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(230, 230, 230)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelar, jBtSair});
+
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtCancelar)
-            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jBtAuditoria, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jBtSair))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jBtAuditoria)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtSair)
+                            .addComponent(jBtCancelar))))
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -589,7 +591,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 25, Short.MAX_VALUE))
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -598,8 +600,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Portaria", jPanel1);

@@ -1265,9 +1265,9 @@ public class TelaSelecaoLoteInternosAG_TO extends javax.swing.JDialog {
     public void buscarCodigoParticipantes() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA");
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO");
             conecta.rs.last();
-            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPart");
+            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartTO");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
