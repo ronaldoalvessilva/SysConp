@@ -38,6 +38,7 @@ import java.awt.Rectangle;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -550,6 +551,9 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente liberar o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
+                jBtSair.setEnabled(!true);
+                //BLOQUEAR A TELA NO X PARA NÃO FECHAR ANTES DE CONCLUIR A OPERAÇÃO
+                setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X 
                 // GRAVAR REGISTRO NA TABELA DE REGISTRO_ATENDIMENTO_PSP
                 gravarDadosBanco();
             }

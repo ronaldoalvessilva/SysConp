@@ -48,6 +48,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -105,6 +106,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         corCampos();
         preencherGaleria();
         preencherCelas();
+        bloquearHabilitarCamposTela(true);
     }
 
     /**
@@ -745,9 +747,12 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         int resposta = JOptionPane.showConfirmDialog(this, "Confirmar a gravação dos dados selecionados?", "Confirmação",
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
+            //BLOQUEAR CAMPOS E BOTÕES
+            bloquearHabilitarCamposTela(!true);
+            //BLOQUEAR A TELA NO X PARA NÃO FECHAR ANTES DE CONCLUIR A OPERAÇÃO
+            setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X 
             gravarDadosBanco();
         }
-        // dispose();
     }//GEN-LAST:event_jBtConfirmarOperacaoActionPerformed
 
     private void jBtAdicionarSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarSelecaoActionPerformed
@@ -1004,6 +1009,19 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
     public static javax.swing.JLabel jtotalInternosDestino;
     public static javax.swing.JLabel jtotalInternosOrigem;
     // End of variables declaration//GEN-END:variables
+
+    public void bloquearHabilitarCamposTela(boolean opcao) {
+        jComboBoxPGC.setEnabled(opcao);
+        jComboBoxGaleria.setEnabled(opcao);
+        jComboBoxCelas.setEnabled(opcao);
+        jBtConfirmarSelecao.setEnabled(opcao);
+        jBtConfirmarOperacao.setEnabled(opcao);
+        //
+        jBtAdicionarSelecao.setEnabled(opcao);
+        jBtAdicionarTodos.setEnabled(opcao);
+        jBtRetornarUm.setEnabled(opcao);
+        jBtRetornarTodos.setEnabled(opcao);
+    }
 
     public void preencherCelas() {
         jComboBoxCelas.removeAllItems();
