@@ -182,12 +182,17 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     byte[] persona_imagem2 = null;
     byte[] persona_imagem3 = null;
     byte[] persona_imagem4 = null;
+    //    
+    String pSAIDA_temporaria = "";
+    String pSAIDA_covid = "";
+    String pENTRADA_UNIDADE = "";
+    String pRETORNO_UNIDADE = "";
     //
     int pSAIDA_TEMP = 0;
     int pSAIDA_COVID = 0;
-    String pSAIDA_temporaria = "";
-    String pSAIDA_covid = "";
-    int pTOTAL_ATIVOS = 0;    
+    int pATIVOS_ENTRADA = 0;
+    int pATIVOS_RETORNO = 0;
+    int pTOTAL_ATIVOS = 0;
 
     /**
      * Creates new form TelaTriagem
@@ -4985,6 +4990,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pATIVOS_ENTRADA = 0;
+        pATIVOS_RETORNO = 0;
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqNome.getText().equals("")) {
@@ -5015,6 +5022,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pATIVOS_ENTRADA = 0;
+        pATIVOS_RETORNO = 0;
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqMatricula.getText().equals("")) {
@@ -5483,6 +5492,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pATIVOS_ENTRADA = 0;
+        pATIVOS_RETORNO = 0;
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
@@ -5992,6 +6003,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pATIVOS_ENTRADA = 0;
+        pATIVOS_RETORNO = 0;
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqAlcunha.getText().equals("")) {
@@ -6041,6 +6054,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pATIVOS_ENTRADA = 0;
+        pATIVOS_RETORNO = 0;
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesqCodigo.getText().equals("")) {
@@ -6071,6 +6086,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pATIVOS_ENTRADA = 0;
+        pATIVOS_RETORNO = 0;
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
@@ -6140,8 +6157,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtCNCPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCNCPesquisaActionPerformed
         // TODO add your handling code here:
         count = 0;
+        count = 0;
         pSAIDA_TEMP = 0;
         pSAIDA_COVID = 0;
+        pATIVOS_ENTRADA = 0;
+        pATIVOS_RETORNO = 0;
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jPesquisaCNC.getText().equals("")) {
@@ -8167,7 +8187,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 pSAIDA_covid = conecta.rs.getString("SituacaoCrc");
                 if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
                     pSAIDA_COVID = pSAIDA_COVID + 1;
-                }                
+                }
+                pENTRADA_UNIDADE = conecta.rs.getString("SituacaoCrc");
+                if (pENTRADA_UNIDADE.equals("ENTRADA NA UNIDADE")) {
+                    pATIVOS_ENTRADA = pATIVOS_ENTRADA + 1;
+                }
+                pRETORNO_UNIDADE = conecta.rs.getString("SituacaoCrc");
+                if (pRETORNO_UNIDADE.equals("RETORNO A UNIDADE")) {
+                    pATIVOS_RETORNO = pATIVOS_RETORNO + 1;
+                }
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8183,8 +8211,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(count));
                 jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
                 jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
-                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
-                jtotalInternos_ATIVOS.setText(Integer.toString(count - pTOTAL_ATIVOS));
+                pTOTAL_ATIVOS = pSAIDA_TEMP + pATIVOS_ENTRADA + pATIVOS_RETORNO;
+                jtotalInternos_ATIVOS.setText(Integer.toString(pTOTAL_ATIVOS));
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -8257,7 +8285,14 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
                     pSAIDA_COVID = pSAIDA_COVID + 1;
                 }
-                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
+                pENTRADA_UNIDADE = conecta.rs.getString("SituacaoCrc");
+                if (pENTRADA_UNIDADE.equals("ENTRADA NA UNIDADE")) {
+                    pATIVOS_ENTRADA = pATIVOS_ENTRADA + 1;
+                }
+                pRETORNO_UNIDADE = conecta.rs.getString("SituacaoCrc");
+                if (pRETORNO_UNIDADE.equals("RETORNO A UNIDADE")) {
+                    pATIVOS_RETORNO = pATIVOS_RETORNO + 1;
+                }
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8274,8 +8309,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
                 jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
                 jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
-                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
-                jtotalInternos_ATIVOS.setText(Integer.toString(count - pTOTAL_ATIVOS));
+                pTOTAL_ATIVOS = pSAIDA_TEMP + pATIVOS_ENTRADA + pATIVOS_RETORNO;
+                jtotalInternos_ATIVOS.setText(Integer.toString(pTOTAL_ATIVOS));
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -8324,7 +8359,14 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
                     pSAIDA_COVID = pSAIDA_COVID + 1;
                 }
-                pTOTAL_ATIVOS = pTOTAL_ATIVOS + pSAIDA_TEMP + pSAIDA_COVID;
+                pENTRADA_UNIDADE = conecta.rs.getString("SituacaoCrc");
+                if (pENTRADA_UNIDADE.equals("ENTRADA NA UNIDADE")) {
+                    pATIVOS_ENTRADA = pATIVOS_ENTRADA + 1;
+                }
+                pRETORNO_UNIDADE = conecta.rs.getString("SituacaoCrc");
+                if (pRETORNO_UNIDADE.equals("RETORNO A UNIDADE")) {
+                    pATIVOS_RETORNO = pATIVOS_RETORNO + 1;
+                }
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8340,8 +8382,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(count));
                 jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
                 jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
-                pTOTAL_ATIVOS = pSAIDA_TEMP + pSAIDA_COVID;
-                jtotalInternos_ATIVOS.setText(Integer.toString(count - pTOTAL_ATIVOS));
+                pTOTAL_ATIVOS = pSAIDA_TEMP + pATIVOS_ENTRADA + pATIVOS_RETORNO;
+                jtotalInternos_ATIVOS.setText(Integer.toString(pTOTAL_ATIVOS));
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
