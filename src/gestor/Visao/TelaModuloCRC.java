@@ -564,8 +564,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jCalculadoraWindows = new javax.swing.JMenuItem();
         jCalculadoraExecucaoPenal = new javax.swing.JMenuItem();
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jSeparator27 = new javax.swing.JPopupMenu.Separator();
         GerarPopulacaoInternosNominal = new javax.swing.JMenuItem();
 
         jMenuItem8.setText("jMenuItem8");
@@ -1454,15 +1452,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuUtilitarios.add(jCalculadoraExecucaoPenal);
         jMenuUtilitarios.add(jSeparator28);
 
-        jMenuItem3.setText("Fechamento de Movimentação de Internos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenuUtilitarios.add(jMenuItem3);
-        jMenuUtilitarios.add(jSeparator27);
-
         GerarPopulacaoInternosNominal.setText("Gerar População Nominal");
         GerarPopulacaoInternosNominal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2150,13 +2139,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         TelaModuloCRC.jPainelCRC.add((objRelTempPena));
         objRelTempPena.show();
     }//GEN-LAST:event_RelatorioArtigoActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        TelaFechamentoCrc objFechaCrc = new TelaFechamentoCrc();
-        TelaModuloCRC.jPainelCRC.add(objFechaCrc);
-        objFechaCrc.show();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void RelatorioRegimePenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioRegimePenalActionPerformed
         // TODO add your handling code here:
@@ -3691,7 +3673,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenu jMenuMovimentacao;
@@ -3730,7 +3711,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator25;
     private javax.swing.JPopupMenu.Separator jSeparator26;
-    private javax.swing.JPopupMenu.Separator jSeparator27;
     private javax.swing.JPopupMenu.Separator jSeparator28;
     private javax.swing.JPopupMenu.Separator jSeparator29;
     private javax.swing.JPopupMenu.Separator jSeparator3;

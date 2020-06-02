@@ -38,7 +38,7 @@ public class listarInternosPopulacaoNominal {
                     + "WHERE SituacaoCrc='" + situacaoENT + "' "
                     + "OR SituacaoCrc='" + situacaoRET + "' "
                     + "OR SituacaoCrc='" + situacaoTmp + "' "
-                    + "OR SituacaoCrc LIKE'%" + pPRISAO_DOMICILIAR_COVID + "%' "
+//                    + "OR SituacaoCrc LIKE'%" + pPRISAO_DOMICILIAR_COVID + "%' "
                     + "ORDER BY NomeInternoCrc");
             while (conecta.rs.next()) {
                 GerarPopNominal pDigi = new GerarPopNominal();
