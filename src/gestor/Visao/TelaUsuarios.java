@@ -1976,6 +1976,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         //
         jComboBoxDepartamento.removeAllItems();
         jComboBoxCargo.removeAllItems();
+//        jComboBoxAcessaTodasUnidades.removeAllItems();
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
@@ -1994,7 +1995,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jDescricaoModulo.setText("");
         //
         jBtCopiarPerfil.setEnabled(true);
-        //
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -2006,6 +2006,13 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             jComboBoxDepartamento.addItem(conecta.rs.getString("NomeDepartamento"));
             jComboBoxCargo.addItem(conecta.rs.getString("NomeCargo"));
             jComboBoxAcessaTodasUnidades.setSelectedItem(conecta.rs.getString("AcessoTodasUnidades"));
+            if (jComboBoxAcessaTodasUnidades.getSelectedItem() == null) {
+                jComboBoxAcessaTodasUnidades.setSelectedItem("Não");
+            } else if (jComboBoxAcessaTodasUnidades.getSelectedItem().equals("")) {
+                jComboBoxAcessaTodasUnidades.setSelectedItem("Não");
+            } else {
+                jComboBoxAcessaTodasUnidades.setSelectedItem(conecta.rs.getString("AcessoTodasUnidades"));
+            }
             jlogin.setText(conecta.rs.getString("LoginUsuario"));
             jSenha.setText(conecta.rs.getString("SenhaUsuario"));
             jSenhaConf.setText(conecta.rs.getString("ConfirmaSenhaUsuario"));
