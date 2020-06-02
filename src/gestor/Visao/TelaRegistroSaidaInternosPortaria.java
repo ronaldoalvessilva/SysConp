@@ -1385,9 +1385,9 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             jBtZoon.setEnabled(true);
             jBtNovoItem.setEnabled(!true);
             jBtAlterarItem.setEnabled(true);
-            if(nameUser.equals("ADMINISTRADOR DO SISTEMA")){
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
                 jBtExcluirItem.setEnabled(true);
-            }            
+            }
             jBtSalvarItem.setEnabled(!true);
             jBtCancelarItem.setEnabled(true);
             jBtItensAudiSaidaInternos.setEnabled(true);
@@ -1671,7 +1671,8 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                 // Se a saida não for para AUDIENCIA, SAIDA PARA MÉDICO E OUTRAS SAIDAS, excluir da cela CONSERTADO EM 07/08/2015
                                                                                 // SAIDA TEMPORARIA TAMBÉM NÃO RETIRAR DA CELA. SÓ RETIRAR APÓS O PRAZO DE VENCIDO, NA EVASÃO - 08/07/2016 
                                                                                 verificarInternoCela(); // 
-                                                                                if (!jTipoSaida.getText().equals(saidaAudiencia) && !jTipoSaida.getText().equals(saidaMedico) && !jTipoSaida.getText().equals(saidaOutras) && !jTipoSaida.getText().equals(saidaTemporaria) && !jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
+//                                                                                if (!jTipoSaida.getText().equals(saidaAudiencia) && !jTipoSaida.getText().equals(saidaMedico) && !jTipoSaida.getText().equals(saidaOutras) && !jTipoSaida.getText().equals(saidaTemporaria) && !jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
+                                                                                if (!jTipoSaida.getText().equals(saidaAudiencia) && !jTipoSaida.getText().equals(saidaMedico) && !jTipoSaida.getText().equals(saidaOutras) && !jTipoSaida.getText().equals(saidaTemporaria)) {
                                                                                     // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
                                                                                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
@@ -1683,6 +1684,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                     populacaoAlimentacao();
                                                                                 }
                                                                                 // SE FOR SAIDA TEMPORARIA, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
+                                                                                //MANTEM NA POPULAÇÃO DA UNIDADE, SOMENTE BLOQUEIA PARA NÃO RECEBER VISITAS
                                                                                 if (jTipoSaida.getText().equals(saidaTemporaria)) {
                                                                                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
@@ -1691,13 +1693,14 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                     populacaoAlimentacao();
                                                                                 }
                                                                                 // SE FOR SAIDA PRISAO DOMICILIAR HUMANITARIA COVID-19, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (23/03/2020)
-                                                                                if (jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
-                                                                                    objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                                                                    objProCrc.setSituacao(jTipoSaida.getText());
-                                                                                    mod.alterarSituacaoInterno(objProCrc);
-                                                                                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
-                                                                                    populacaoAlimentacao();
-                                                                                }
+                                                                                //FOI RETIRADO EM 02/06/2020 SEGUNDO MEDIDA DA SEAP, POIS, ESSES INTERNOS ESTARÃO EM PRISÃO DOMICILIAR.
+//                                                                                if (jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
+//                                                                                    objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+//                                                                                    objProCrc.setSituacao(jTipoSaida.getText());
+//                                                                                    mod.alterarSituacaoInterno(objProCrc);
+//                                                                                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+//                                                                                    populacaoAlimentacao();
+//                                                                                }
                                                                                 objLog2();
                                                                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                
                                                                                 preencherTabelaItens("SELECT * FROM ITENSREGSAIDA "
