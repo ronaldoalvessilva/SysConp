@@ -372,7 +372,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o do Produto: 5.9"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o do Produto: 6.1.1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
