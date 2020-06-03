@@ -261,7 +261,7 @@ public class ControleRegistroAtendimentoInternoBio {
         List<DigitalInternos> registroInternosAtend = new ArrayList<DigitalInternos>();
         try {
             conecta.executaSQL("SELECT BIOMETRIA_INTERNOS.IdInternoCrc "
-                    + "PRONTUARIOSCRC.Cnc,PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc,PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.FotoInternoCrc, "
                     + "DADOSPENAISINTERNOS.Regime,PAVILHAO.DescricaoPav, "
                     + "CELAS.EndCelaPav,BIOMETRIA_INTERNOS.BiometriaDedo1, "
                     + "BIOMETRIA_INTERNOS.BiometriaDedo2, "
@@ -287,6 +287,7 @@ public class ControleRegistroAtendimentoInternoBio {
                 pDigital.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pDigital.setMatriculaPenal(conecta.rs.getString("Cnc"));
                 pDigital.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pDigital.setCaminhoFotoInterno(conecta.rs.getString("FotoInternoCrc"));
                 pDigital.setRegime(conecta.rs.getString("Regime"));
                 pDigital.setPavilhao(conecta.rs.getString("DescricaoPav"));
                 pDigital.setCela(conecta.rs.getString("EndCelaPav"));

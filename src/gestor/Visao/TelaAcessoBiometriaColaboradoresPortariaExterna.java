@@ -1089,9 +1089,14 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
         horarioEntrada = "00:00";
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+            conecta.executaSQL("SELECT IdFunc,IdLanc, "
+                    + "IdItem,HorarioEntrada, "
+                    + "HorarioSaida,AssinaturaSaida "
+                    + "FROM ITENSENTRADASFUNC "
                     + "WHERE IdFunc='" + jIdColaborador.getText() + "' "
-                    + "AND IdLanc='" + jIDlanc.getText() + "' AND HorarioEntrada!='" + horarioEntrada + "' AND HorarioSaida='" + horarioEntrada + "'");
+                    + "AND IdLanc='" + jIDlanc.getText() + "' "
+                    + "AND HorarioEntrada!='" + horarioEntrada + "' "
+                    + "AND HorarioSaida='" + horarioEntrada + "'");
             conecta.rs.first();
             codigoFuncGrava = conecta.rs.getString("IdFunc");
             codigoRegistroGrava = conecta.rs.getString("IdLanc");
