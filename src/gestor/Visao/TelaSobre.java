@@ -232,7 +232,7 @@ public class TelaSobre extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 0, 0));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Versão do Produto: 6.1.1");
+        jLabel14.setText("Versão do Produto: 6.1.2");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 204));
@@ -241,7 +241,7 @@ public class TelaSobre extends javax.swing.JDialog {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Copyright© 2013-2019");
+        jLabel16.setText("Copyright© 2013-2020");
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/logoSocializa.png"))); // NOI18N
 

@@ -372,7 +372,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o do Produto: 6.1.1"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o do Produto: 6.1.2"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
@@ -393,7 +393,7 @@
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Copyright&#xa9; 2013-2019"/>
+            <Property name="text" type="java.lang.String" value="Copyright&#xa9; 2013-2020"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">

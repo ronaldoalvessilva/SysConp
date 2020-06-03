@@ -3047,6 +3047,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     controlEvolu.incluirEvolucaoPsi(evolu);
                     buscarCodEvolucao();
                     objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmPsi.setDataLanc(jDataEvolucao.getDate());
                     objAdmPsi.setNomeInterno(jNomeInterno.getText());
                     objAdmPsi.setDeptoPsicologico(deptoTecnico);
                     controleEvo.incluirMovTec(objAdmPsi);
@@ -3104,6 +3105,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     //
                     objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objAdmPsi.setNomeInterno(jNomeInterno.getText());
+                    objAdmPsi.setDataLanc(jDataEvolucao.getDate());
                     objAdmPsi.setDeptoPsicologico(deptoTecnico);
                     controleEvo.alterarMovTec(objAdmPsi);
                     //
@@ -5493,7 +5495,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "' "
-                    + "AND IdItem='" + jIdEvolucao.getText() + "'");
+                    + "AND IdEvolucao='" + jIdEvolucao.getText() + "'");
             conecta.rs.first();
             admEvolucao = conecta.rs.getString("AdmEvo");
         } catch (Exception e) {
