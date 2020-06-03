@@ -259,7 +259,7 @@ public class ControleRegistroAtendimentoInternoBio_ENF {
         conecta.abrirConexao();
         List<DigitalInternos> registroInternosAtend = new ArrayList<DigitalInternos>();
         try {
-            conecta.executaSQL("SELECT BIOMETRIA_INTERNOS.IdInternoCrc "
+            conecta.executaSQL("SELECT BIOMETRIA_INTERNOS.IdInternoCrc, "
                     + "PRONTUARIOSCRC.Cnc,PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.FotoInternoCrc, "
                     + "DADOSPENAISINTERNOS.Regime,PAVILHAO.DescricaoPav, "
                     + "CELAS.EndCelaPav,BIOMETRIA_INTERNOS.BiometriaDedo1, "
