@@ -45,7 +45,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -96,6 +98,11 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
     String pREGISTRO_CANCELADO = "REGISTRO CANCELADO PELO CRC";
+    //
+    String pCODIGO_INTERNO = "";
+    String pREGISTRO = "";
+    String pCONFIRMA_ENTRADA = "";
+    String pCANCELADO = "";
 
     /**
      * Creates new form TelaEntradaUnidadeInternoPortaria
@@ -443,7 +450,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 241, Short.MAX_VALUE))
                     .addComponent(jStatusLanc))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -762,7 +769,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -859,78 +866,69 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
                         .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
                         .addComponent(jBtLocalizarInterno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(jBtFinalizar)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtCancelar)
                     .addComponent(jBtSair)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtFinalizar)
-                        .addComponent(jBtLocalizarInterno))
-                    .addComponent(jBtAuditoria)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtExcluir, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtNovo)
-                            .addComponent(jBtAlterar)
-                            .addComponent(jBtSalvar)
-                            .addComponent(jBtCancelar))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jBtLocalizarInterno)
+                    .addComponent(jBtFinalizar)
+                    .addComponent(jBtAuditoria))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAuditoria, jBtCancelar, jBtFinalizar});
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
@@ -938,14 +936,16 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 10, 683, 521);
+        setBounds(250, 10, 693, 521);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1098,14 +1098,15 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntradaInternoUniPRIIntP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIIntP1) && codAlterarP1 == 1) {
+            verificarUtilizacaoCrc();
             objEntIntPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                if (entradaConfirmadaCrc.equals("Sim")) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo está sendo utilizado no CRC.");
-                }else if(jCanceladoCRC.getText().equals(pREGISTRO_CANCELADO)){
-                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo foi cancelado pelo CRC.");
+                if (pCONFIRMA_ENTRADA.equals("Sim")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo está sendo utilizado no CRC, ou foi CANCELADO.");
+                } else if (pCANCELADO != null && pCANCELADO.equals(pREGISTRO_CANCELADO)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo foi CANCELADO.");
                 } else {
                     acao = 4;
                     AlterarInterno();
@@ -1195,7 +1196,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
                     SalvarInterno();
                     preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");                    
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 4) {
                     objItensEntIntPort.setConfirmaEntrada(confirmaEntrada);
@@ -1210,7 +1211,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
                     preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     SalvarInterno();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");                    
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
         } else {
@@ -1323,7 +1324,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
     }//GEN-LAST:event_jBtPesqCodigoActionPerformed
 
     private void jTabelaEntradasUnidInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEntradasUnidInternosMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:  
         flag = 1;
         if (flag == 1) {
             String IdLanc = "" + jTabelaEntradasUnidInternos.getValueAt(jTabelaEntradasUnidInternos.getSelectedRow(), 0);
@@ -1501,6 +1502,22 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
     private javax.swing.JTable jTabelaItensEntradaInterno;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarUtilizacaoCrc() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
+                    + "WHERE IdItem='" + jIdInterno.getText() + "' "
+                    + "AND IdLanc='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO = conecta.rs.getString("IdItem");
+            pREGISTRO = conecta.rs.getString("IdLanc");
+            pCONFIRMA_ENTRADA = conecta.rs.getString("ConfirmaEntrada");
+            pCANCELADO = conecta.rs.getString("RegistroCancelado");
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
 
     public void populacaoAlimentacao() {
         //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS

@@ -12,11 +12,13 @@ import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
 import gestor.Controle.ControleItensEntradaPortaria_RETORNOS;
 import gestor.Controle.ControleItensRegistroCanceladoCrc_RETORNOS;
 import gestor.Controle.ControleRegCancelado_RETORNOS;
+import gestor.Controle.ControleRegistroItensRetornoInterno;
 import gestor.Controle.ListagemRegistroEntradaSaidaPopulcao;
 import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.ItensEntradaInternosPortaria;
 import gestor.Modelo.ItensRegistroCanceladoCrc;
+import gestor.Modelo.ItensRegistroRetornoInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroCanceladoCrc;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
@@ -57,6 +59,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -117,6 +120,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
     int pID_RETORNO = 0;
     public static int pRETORNO_PORTARIA = 0;
     int pID_ITEM = 0;
+    //
+    String pNR_DOCUMENTO = "";
+    Date pDATA_RETORNO = null;
+    String pCONFORMA_RETORNO_PORTARIA = "Não";
 
     /**
      * Creates new form TelaCancelRegistroPortaria
@@ -1442,91 +1449,138 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno de Prisão Domiciliar - COVID-19")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
-                                controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Transferência")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Recaptura")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno por Nova Condenação")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Espontâneo")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno por Nova Prisão")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Prisão Domiciliar")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             }
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1563,6 +1617,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                     }
                 }
             }
+            //PORTARIA INTERNA
         } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRetornosInte_P1) && codGravarP1 == 1) {
             confirmaUtilizacao = "Sim";
             if (jNomeInternoReg.getText().equals("")) {
@@ -1597,91 +1652,138 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno de Prisão Domiciliar - COVID-19")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
-                                controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Transferência")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Recaptura")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno por Nova Condenação")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Espontâneo")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno por Nova Prisão")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             } else if (pTIPO_RETORNO.equals("Retorno Prisão Domiciliar")) {
                                 populacaoAlimentacao();
                                 // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                 // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdRetorno(pID_RETORNO);
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                                objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                //VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS                                
                                 controleReg.confirmarEntradaPortariaCrcRE(objItensEntIntPort);
-                                //ITENSREGISTRO
+                                //ATIUALIZA COMO CANCELADO NA TABELA ITENSREGISTRO
                                 controleReg.confirmarEntradaPortariaCrcRET(objItensEntIntPort);
+                                //LIMPA OS CAMPOS DA TANBELA MOVISR PARA FAZER NOVO RETORNO
+                                objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
+                                objItensEntIntPort.setDataChegada(pDATA_RETORNO);
+                                controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
                             }
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1766,7 +1868,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                 conecta.executaSQL("SELECT * FROM ITENS_REGISTRO_CANCELADO_RETORNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENS_REGISTRO_CANCELADO_RETORNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENS_REGISTRO_CANCELADO_RETORNOS.IdInternoCrc='" + jIdInternoReg.getText() + "'" 
+                        + "WHERE ITENS_REGISTRO_CANCELADO_RETORNOS.IdInternoCrc='" + jIdInternoReg.getText() + "'"
                         + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 pID_ITEM = conecta.rs.getInt("IdItem");
@@ -1906,7 +2008,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
     public void verificarTipoRetornoInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdInternoCrc,OrigemRetorno "
+            conecta.executaSQL("SELECT IdRetorno,IdInternoCrc,OrigemRetorno "
                     + "FROM ITENSREGISTRO "
                     + "WHERE IdInternoCrc='" + jIdInternoReg.getText() + "' "
                     + "AND IdRetorno='" + pRETORNO_PORTARIA + "'");

@@ -79,15 +79,15 @@ public class ControleItensEntradaPortaria_RETORNOS {
         return objItensEntIntPort;
     }
 
-    
     //CANCELAMENTO DE RETORNO
     public ItensEntradaInternosPortaria confirmarEntradaPortariaCrcRE(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS SET RetCrc=,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc()+ "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS SET RetCrc=?,RetPort=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "'");
             pst.setString(1, objItensEntIntPort.getConfirmaEntrada());
-            pst.setString(2, objItensEntIntPort.getRegistroCancelado());
+            pst.setString(2, objItensEntIntPort.getConfirmaRetPort());
+            pst.setString(3, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\n\nERRO: " + ex);
@@ -95,12 +95,30 @@ public class ControleItensEntradaPortaria_RETORNOS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
+
     public ItensEntradaInternosPortaria confirmarEntradaPortariaCrcRET(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGISTRO SET RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc()+ "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGISTRO SET RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "'");
             pst.setString(1, objItensEntIntPort.getRegistroCancelado());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensEntIntPort;
+    }
+    
+    public ItensEntradaInternosPortaria confirmarMOVI_RETORNO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVISR SET IdRetorno=?,DataRetorno=?,NrDocRetorno=?,IdItemRetorno=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc()+ "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "'");
+            pst.setInt(1, objItensEntIntPort.getIdRetorno());
+            pst.setDate(2, null);
+            pst.setString(3, objItensEntIntPort.getNumeroOficio());
+            pst.setInt(4, objItensEntIntPort.getIdItem());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\n\nERRO: " + ex);

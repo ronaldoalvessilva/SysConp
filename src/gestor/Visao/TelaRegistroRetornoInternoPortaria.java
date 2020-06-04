@@ -116,6 +116,9 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
     String pREGISTRO_CANCELADO = "";
+    //
+    String pCODIGO_INTERNO_RETORNO = "";
+    String pCODIGO_REGISTRO = "";
 
     /**
      * Creates new form TelaRetornoInterno
@@ -1305,6 +1308,8 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                 // Se confirmado (Sim), siginifica que o CRC já fez o retorno do interno
                 if (confirma.equals("Sim")) {
                     confirmadoRetorno.setText(vconfirmado);
+                } else if (pREGISTRO_CANCELADO == null) {
+                    confirmadoRetorno.setText("");
                 } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
                     confirmadoRetorno.setText("Cancelado pelo CRC");
                 } else {
@@ -1354,7 +1359,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                 JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO.");
             } else if (confirma.equals("Sim")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo encontra-se efetuado pelo CRC.");
-            } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
+            } else if (pREGISTRO_CANCELADO != null && pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo foi cancelado pelo CRC.");
             } else {
                 acao = 4;
@@ -1450,60 +1455,67 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                         objItensRetorno.setDocumento(jNrDocumento.getText());
                         objItensRetorno.setHorarioRetorno(jHorarioRetorno.getText());
                         objItensRetorno.setConfirmaRetorno(confirma);
+                        //VERIFICAR SE O REGISTRO JÁ EXISTE, SE EXISTIR NÃO DEIXA GRAVAR.
+                        verificarRegistrosCadastrado();
                         if (acao == 3) {
-                            objItensRetorno.setUsuarioInsert(nameUser);
-                            objItensRetorno.setDataInsert(jDataSistema.getText());
-                            objItensRetorno.setHoraInsert(jHoraSistema.getText());
-                            //Inserir na tabela de movimentação (RETORNO) 
-                            objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
-                            controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens ITENSREGISTRO                                                                    
-                            buscarIdItem();
-                            //ADICIONAR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
-                            if (jOrigemOperacao.getSelectedItem().equals("Retorno Saída Temporaria")) {
-                                populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno de Prisão Domiciliar - COVID-19")) {
-                                populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Transferência")) {
-                                populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Recaptura")) {
-                                populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Condenação")) {
-                                populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Espontâneo")) {
-                                populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Prisão")) {
-                                populacaoAlimentacao();
-                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Prisão Domiciliar")) {
-                                populacaoAlimentacao();
-                            }
-                            verificarGravacaoRegistro();
-                            if (jIDLanc.getText().equals(codigoRetorno) && jIdInterno.getText().equals(codigoInternoRet)) {
-                                //Atualizar a tabela MOVISR pela portaria do retorno dos internos.
-                                objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                objItensRetorno.setDocumento(jNrDocumento.getText());
-                                objItensRetorno.setIdItemRetorno(codItem); // Item para alterar o documento na tabela MOVISR quando for excluir o interno
-                                controlMOVSR.incluirRegistroRetorno(objItensRetorno);
-                                // INCLUI REGISTRO NA TABELA VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
-                                objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
-                                objItensRetorno.setNomeInterno(jNomeInterno.getText());
-                                objItensRetorno.setDataRetorno(jDataRetorno.getDate());
-                                objItensRetorno.setDocumento(jNrDocumento.getText());
-                                objItensRetorno.setHorarioRetorno(jHorarioRetorno.getText());
-                                objItensRetorno.setConfirmaRetorno(confirmarRetornoPort); // CONFIRMA COMO "Sim" - PORTARIA
-                                objItensRetorno.setConfirmaRetornoCrc(confirmarRetornoCrc); // CONFIRMA COMO "Não" - CRC
-                                controleRetornoPortaria.incluirInternoRetorno(objItensRetorno);
+                            if (jIDLanc.getText().equals(pCODIGO_REGISTRO) && jIdInterno.getText().equals(pCODIGO_INTERNO_RETORNO)) {
+                                JOptionPane.showMessageDialog(rootPane, "Não é permitido gravar o mesmo interno nesse documento, abra outra ficha e insira o registro.");
                             } else {
-                                JOptionPane.showMessageDialog(rootPane, "Não foi possível fazer o retorno do interno, tente novamente!!!");
+                                objItensRetorno.setUsuarioInsert(nameUser);
+                                objItensRetorno.setDataInsert(jDataSistema.getText());
+                                objItensRetorno.setHoraInsert(jHoraSistema.getText());
+                                //Inserir na tabela de movimentação (RETORNO) 
+                                objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
+                                controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens ITENSREGISTRO                                                                    
+                                buscarIdItem();
+                                //ADICIONAR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                                if (jOrigemOperacao.getSelectedItem().equals("Retorno Saída Temporaria")) {
+                                    populacaoAlimentacao();
+                                } else if (jOrigemOperacao.getSelectedItem().equals("Retorno de Prisão Domiciliar - COVID-19")) {
+                                    populacaoAlimentacao();
+                                } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Transferência")) {
+                                    populacaoAlimentacao();
+                                } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Recaptura")) {
+                                    populacaoAlimentacao();
+                                } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Condenação")) {
+                                    populacaoAlimentacao();
+                                } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Espontâneo")) {
+                                    populacaoAlimentacao();
+                                } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Prisão")) {
+                                    populacaoAlimentacao();
+                                } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Prisão Domiciliar")) {
+                                    populacaoAlimentacao();
+                                }
+                                //VERIFICA SE FOI GRAVADO COM SUCESSO, SE GRAVOU ATUALIZA A TABELA MOVISR
+                                verificarGravacaoRegistro();
+                                if (jIDLanc.getText().equals(codigoRetorno) && jIdInterno.getText().equals(codigoInternoRet)) {
+                                    //Atualizar a tabela MOVISR pela portaria do retorno dos internos.
+                                    objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                    objItensRetorno.setDocumento(jNrDocumento.getText());
+                                    objItensRetorno.setIdItemRetorno(codItem); // Item para alterar o documento na tabela MOVISR quando for excluir o interno
+                                    controlMOVSR.incluirRegistroRetorno(objItensRetorno);
+                                    // INCLUI REGISTRO NA TABELA VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+                                    objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
+                                    objItensRetorno.setNomeInterno(jNomeInterno.getText());
+                                    objItensRetorno.setDataRetorno(jDataRetorno.getDate());
+                                    objItensRetorno.setDocumento(jNrDocumento.getText());
+                                    objItensRetorno.setHorarioRetorno(jHorarioRetorno.getText());
+                                    objItensRetorno.setConfirmaRetorno(confirmarRetornoPort); // CONFIRMA COMO "Sim" - PORTARIA
+                                    objItensRetorno.setConfirmaRetornoCrc(confirmarRetornoCrc); // CONFIRMA COMO "Não" - CRC
+                                    controleRetornoPortaria.incluirInternoRetorno(objItensRetorno);
+                                } else {
+                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível fazer o retorno do interno, tente novamente!!!");
+                                }
+                                //
+                                objLog2();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                preencherTabelaItens("SELECT * FROM ITENSREGISTRO "
+                                        + "INNER JOIN PRONTUARIOSCRC "
+                                        + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                        + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
+                                SalvarItem();
+                                JOptionPane.showMessageDialog(rootPane, "Registro incluido com sucesso");
                             }
-                            //
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            preencherTabelaItens("SELECT * FROM ITENSREGISTRO "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
-                            SalvarItem();
-                            JOptionPane.showMessageDialog(rootPane, "Registro incluido com sucesso");
                         }
                         if (acao == 4) {
                             objItensRetorno.setUsuarioUp(nameUser);
@@ -1718,6 +1730,21 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarRegistrosCadastrado() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdInternoCrc,IdRetorno "
+                    + "FROM ITENSREGISTRO "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND IdRetorno='" + jIDLanc.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO_RETORNO = conecta.rs.getString("IdInternoCrc");
+            pCODIGO_REGISTRO = conecta.rs.getString("IdRetorno");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void populacaoAlimentacao() {
         //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
@@ -2452,7 +2479,8 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     public void verificarGravacaoRegistro() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSREGISTRO "
+            conecta.executaSQL("SELECT IdRetorno,IdInternoCrc "
+                    + "FROM ITENSREGISTRO "
                     + "WHERE IdRetorno='" + jIDLanc.getText() + "' "
                     + "AND IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();

@@ -96,6 +96,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
     String pREGISTRO_CANCELADO = "REGISTRO CANCELADO - CRC";
+    String pCANCELADO = "";
 
     /**
      * Creates new form TelaNovaEntradaPortariaCrc
@@ -1209,11 +1210,14 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaNovaEntradaIntP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaIntP1) && codAlterarP1 == 1) {
+            verificarUtilizacaoCrc();
             objNovaEnt.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-            } else if (jCanceladoCRC.getText().equals(pREGISTRO_CANCELADO)) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo foi cancelado pelo CRC.");
+            } else if (utilizadoCrc.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo foi utilizado pelo CRC, ou CANCELADO.");
+            }else if(pCANCELADO != null && pCANCELADO.equals(pREGISTRO_CANCELADO)){
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo foi CANCELADO.");
             } else {
                 acao = 4;
                 flag = 1;
@@ -1782,6 +1786,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             codInterno = conecta.rs.getString("IdInternoCrc");
             codEntrada = conecta.rs.getString("IdEntrada");
             utilizadoCrc = conecta.rs.getString("UtilizadoCrc");
+            pCANCELADO = conecta.rs.getString("RegistroCancelado");
         } catch (SQLException ex) {
         }
         conecta.desconecta();

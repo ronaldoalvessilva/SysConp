@@ -8,6 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensRegistroRetornoInterno;
 import gestor.Modelo.RegistroRetornoInternos;
+import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.pRETORNO_PORTARIA;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class ControleRegistroItensRetornoInterno {
         conecta.desconecta();
         return objItensRetorno;
     }
-
+        
     //Método para excluir ITENS DE SAIDA
     public ItensRegistroRetornoInterno excluirItensRetorno(ItensRegistroRetornoInterno objItensRetorno) {
 

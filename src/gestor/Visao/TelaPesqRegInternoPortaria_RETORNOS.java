@@ -27,8 +27,11 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     int flag;
-    String confirmaEntrada = "Não";
+    String pRETORNO_CRC = "Não";
+    String pRETORNO_PORTARIA_RetPort = "Sim";
+    String pREGISTRO_CANCELADO = null;
     String nomeInterno;
+    
 
     // public static String idItemIntPor;
     /**
@@ -210,6 +213,9 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
             preencherTabelaInternos("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc, "
                     + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RegistroCancelado, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
                     + "ITENSREGISTRO.IdRetorno, "
                     + "ITENSREGISTRO.OrigemRetorno "
                     + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
@@ -217,8 +223,9 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
                     + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN ITENSREGISTRO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
-                    + "AND RetCrc='" + confirmaEntrada + "' "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc='" + pRETORNO_CRC + "' "
+                    + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort='" + pRETORNO_PORTARIA_RetPort + "' "
                     + "ORDER BY NomeInternoCrc");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
@@ -230,6 +237,9 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
             this.preencherTabelaInternos("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc, "
                     + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RegistroCancelado, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
                     + "ITENSREGISTRO.IdRetorno, "
                     + "ITENSREGISTRO.OrigemRetorno "
                     + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
@@ -237,7 +247,8 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
                     + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN ITENSREGISTRO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
-                    + "WHERE RetCrc='" + confirmaEntrada + "' "
+                    + "WHERE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc='" + pRETORNO_CRC + "' "
+                    + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort='" + pRETORNO_PORTARIA_RetPort + "' "
                     + "ORDER BY NomeInternoCrc");
         } else {
             limparTabela();

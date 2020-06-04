@@ -30,8 +30,12 @@ public class ItensRegistroRetornoInterno {
     private String horaInsert;
     private String horaUp;     
     private byte[] assinaturaDigital;
+    private String registroCancelado;
 
-    public ItensRegistroRetornoInterno(int idRetorno, Date dataRetorno, String nomerOrigem, int idItemRetorno, String documento, int idInternoCrc, String nomeInterno, String horarioRetorno, String confirmaRetorno, String confirmaRetornoCrc, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, byte[] assinaturaDigital) {
+    public ItensRegistroRetornoInterno() {
+    }
+
+    public ItensRegistroRetornoInterno(int idRetorno, Date dataRetorno, String nomerOrigem, int idItemRetorno, String documento, int idInternoCrc, String nomeInterno, String horarioRetorno, String confirmaRetorno, String confirmaRetornoCrc, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, byte[] assinaturaDigital, String registroCancelado) {
         this.idRetorno = idRetorno;
         this.dataRetorno = dataRetorno;
         this.nomerOrigem = nomerOrigem;
@@ -49,9 +53,7 @@ public class ItensRegistroRetornoInterno {
         this.horaInsert = horaInsert;
         this.horaUp = horaUp;
         this.assinaturaDigital = assinaturaDigital;
-    }
-
-    public ItensRegistroRetornoInterno() {
+        this.registroCancelado = registroCancelado;
     }
 
     /**
@@ -290,5 +292,19 @@ public class ItensRegistroRetornoInterno {
      */
     public void setAssinaturaDigital(byte[] assinaturaDigital) {
         this.assinaturaDigital = assinaturaDigital;
+    }
+
+    /**
+     * @return the registroCancelado
+     */
+    public String getRegistroCancelado() {
+        return registroCancelado;
+    }
+
+    /**
+     * @param registroCancelado the registroCancelado to set
+     */
+    public void setRegistroCancelado(String registroCancelado) {
+        this.registroCancelado = registroCancelado;
     }
 }
