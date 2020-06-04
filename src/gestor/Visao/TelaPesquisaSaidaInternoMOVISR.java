@@ -369,11 +369,11 @@ public class TelaPesquisaSaidaInternoMOVISR extends javax.swing.JInternalFrame {
   // Método de pesquisa pela Descrição
 
     public void preencherTabelaNome(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Saída", "Destino Saída", "Origem"};
+       ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno", "Data Saída", "Destino Saída", "Origem"};
         conecta.abrirConexao();
-        conecta.executaSQL(sql);
         try {
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 // Formatar a data no formato Brasil
@@ -385,9 +385,10 @@ public class TelaPesquisaSaidaInternoMOVISR extends javax.swing.JInternalFrame {
                 dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), pDATA_SAIDA, conecta.rs.getString("DestinoSaida"), conecta.rs.getString("IdSaidaTmp")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
+            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInterno.setModel(modelo);
         jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(70);

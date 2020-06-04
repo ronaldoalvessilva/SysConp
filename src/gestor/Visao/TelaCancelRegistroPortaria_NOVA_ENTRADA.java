@@ -1653,12 +1653,11 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtBuscarRegistroInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegistroInternoActionPerformed
         // TODO add your handling code here:
-        if (TelaModuloCRC.jPainelCRC != null) {
-            TelaPesqRegInternoPortaria_NOVA_ENTRADA objPesqRegInternoPor = new TelaPesqRegInternoPortaria_NOVA_ENTRADA();
+        TelaPesqRegInternoPortaria_NOVA_ENTRADA objPesqRegInternoPor = new TelaPesqRegInternoPortaria_NOVA_ENTRADA();
+        if (TelaModuloCRC.jPainelCRC != null) {            
             TelaModuloCRC.jPainelCRC.add(objPesqRegInternoPor);
             objPesqRegInternoPor.show();
         } else if (TelaModuloPortarias.jPainelPortarias != null) {
-            TelaPesqRegInternoPortaria_NOVA_ENTRADA objPesqRegInternoPor = new TelaPesqRegInternoPortaria_NOVA_ENTRADA();
             TelaModuloPortarias.jPainelPortarias.add(objPesqRegInternoPor);
             objPesqRegInternoPor.show();
         }

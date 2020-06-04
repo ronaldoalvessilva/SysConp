@@ -1630,16 +1630,14 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
 
     private void jBtBuscarRegistroInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegistroInternoActionPerformed
         // TODO add your handling code here:
-        if (TelaModuloCRC.jPainelCRC != null) {
-            TelaPesqRegInternoPortaria objPesqRegInternoPor = new TelaPesqRegInternoPortaria();
+        TelaPesqRegInternoPortaria objPesqRegInternoPor = new TelaPesqRegInternoPortaria();
+        if (TelaModuloCRC.jPainelCRC != null) {            
             TelaModuloCRC.jPainelCRC.add(objPesqRegInternoPor);
             objPesqRegInternoPor.show();
-        } else if (TelaModuloPortarias.jPainelPortarias != null) {
-            TelaPesqRegInternoPortaria objPesqRegInternoPor = new TelaPesqRegInternoPortaria();
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {           
             TelaModuloPortarias.jPainelPortarias.add(objPesqRegInternoPor);
             objPesqRegInternoPor.show();
         }
-
     }//GEN-LAST:event_jBtBuscarRegistroInternoActionPerformed
 
 
