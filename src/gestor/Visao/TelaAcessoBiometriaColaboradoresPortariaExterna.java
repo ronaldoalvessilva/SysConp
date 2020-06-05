@@ -1031,7 +1031,13 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
     public void verificarColaboradorBiometrica() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR "
+            conecta.executaSQL("SELECT COLABORADOR.IdFunc,COLABORADOR.MatriculaFunc,COLABORADOR.StatusFunc, "
+                    + "COLABORADOR.NomeFunc,COLABORADOR.ImagemFunc, "
+                    + "COLABORADOR.ImagemFrenteCO,CARGOS.NomeCargo, "
+                    + "DEPARTAMENTOS.NomeDepartamento, BIOMETRIA_COLABORADORES.BiometriaDedo1, "
+                    + "BIOMETRIA_COLABORADORES.BiometriaDedo2,BIOMETRIA_COLABORADORES.BiometriaDedo3, "
+                    + "BIOMETRIA_COLABORADORES.BiometriaDedo4 "
+                    + "FROM COLABORADOR "
                     + "INNER JOIN BIOMETRIA_COLABORADORES "
                     + "ON COLABORADOR.IdFunc=BIOMETRIA_COLABORADORES.IdFunc "
                     + "INNER JOIN DEPARTAMENTOS "

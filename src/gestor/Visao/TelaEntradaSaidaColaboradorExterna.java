@@ -1285,13 +1285,17 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                         objItensFunc.setIdItem(Integer.valueOf(idItem));
                         controle.excluirItensFunc(objItensFunc);
                         objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
                         ExcluirFunc();
-                        preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
+                        preencherTabelaItens("SELECT ITENSENTRADASFUNC.IdItem,ITENSENTRADASFUNC.IdLanc, "
+                                + "ITENSENTRADASFUNC.IdFunc,COLABORADOR.NomeFunc, "
+                                + "ITENSENTRADASFUNC.DataEntrada,ITENSENTRADASFUNC.HorarioEntrada, "
+                                + "ITENSENTRADASFUNC.DataSaida,ITENSENTRADASFUNC.HorarioSaida "
+                                + "FROM ITENSENTRADASFUNC "
                                 + "INNER JOIN COLABORADOR "
                                 + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                                 + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                     }
                 }
             }
@@ -1345,7 +1349,11 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                                     controle.incluirItensFunc(objItensFunc);
                                     objLog2();
                                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
+                                    preencherTabelaItens("SELECT ITENSENTRADASFUNC.IdItem,ITENSENTRADASFUNC.IdLanc, "
+                                            + "ITENSENTRADASFUNC.IdFunc,COLABORADOR.NomeFunc, "
+                                            + "ITENSENTRADASFUNC.DataEntrada,ITENSENTRADASFUNC.HorarioEntrada, "
+                                            + "ITENSENTRADASFUNC.DataSaida,ITENSENTRADASFUNC.HorarioSaida "
+                                            + "FROM ITENSENTRADASFUNC "
                                             + "INNER JOIN COLABORADOR "
                                             + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                                             + "WHERE IdLanc='" + jIDlanc.getText() + "'");
@@ -1364,13 +1372,17 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                                     controle.alterarItensFunc(objItensFunc);
                                     objLog2();
                                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                     SalvarFunc();
+                                    preencherTabelaItens("SELECT ITENSENTRADASFUNC.IdItem,ITENSENTRADASFUNC.IdLanc, "
+                                            + "ITENSENTRADASFUNC.IdFunc,COLABORADOR.NomeFunc, "
+                                            + "ITENSENTRADASFUNC.DataEntrada,ITENSENTRADASFUNC.HorarioEntrada, "
+                                            + "ITENSENTRADASFUNC.DataSaida,ITENSENTRADASFUNC.HorarioSaida "
+                                            + "FROM ITENSENTRADASFUNC "
+                                            + "INNER JOIN COLABORADOR "
+                                            + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
+                                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                 }
-                                preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
-                                        + "INNER JOIN COLABORADOR "
-                                        + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
-                                        + "WHERE IdLanc='" + jIDlanc.getText() + "'");
                             }
                         }
                     }
@@ -1477,7 +1489,13 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+                conecta.executaSQL("SELECT ITENSENTRADASFUNC.IdItem,ITENSENTRADASFUNC.IdLanc, "
+                        + "ITENSENTRADASFUNC.IdFunc,COLABORADOR.NomeFunc, "
+                        + "COLABORADOR.ImagemFunc,COLABORADOR.ImagemFrenteCO, "
+                        + "ITENSENTRADASFUNC.DataEntrada,ITENSENTRADASFUNC.HorarioEntrada, "
+                        + "ITENSENTRADASFUNC.DataSaida,ITENSENTRADASFUNC.HorarioSaida, "
+                        + "DEPARTAMENTOS.NomeDepartamento,CARGOS.NomeCargo "
+                        + "FROM ITENSENTRADASFUNC "
                         + "INNER JOIN COLABORADOR "
                         + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                         + "INNER JOIN DEPARTAMENTOS "
