@@ -100,7 +100,7 @@ public class ControleItensEntradaPortaria_RETORNOS {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGISTRO SET RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGISTRO SET RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "' AND OrigemRetorno='" + objItensEntIntPort.getOrigemInterno() + "'");
             pst.setString(1, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();
         } catch (SQLException ex) {

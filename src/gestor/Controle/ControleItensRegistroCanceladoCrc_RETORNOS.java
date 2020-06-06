@@ -23,7 +23,7 @@ public class ControleItensRegistroCanceladoCrc_RETORNOS {
     public ItensRegistroCanceladoCrc incluirRegCanceladoRE(ItensRegistroCanceladoCrc objItensRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_REGISTRO_CANCELADO_RETORNOS (IdRegCancel,DataSaida,IdInternoCrc,NrDocumento,HoraSaida,ConfirmacaoRegistro,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_REGISTRO_CANCELADO_RETORNOS (IdRegCancel,DataSaida,IdInternoCrc,NrDocumento,HoraSaida,ConfirmacaoRegistro,UsuarioInsert,DataInsert,HorarioInsert,TipoRetorno) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensRecCancel.getIdLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objItensRecCancel.getDataSaida().getTime()));
             pst.setInt(3, objItensRecCancel.getIdInternoCrc());
@@ -33,6 +33,7 @@ public class ControleItensRegistroCanceladoCrc_RETORNOS {
             pst.setString(7, objItensRecCancel.getUsuarioInsert());
             pst.setString(8, objItensRecCancel.getDataInsert());
             pst.setString(9, objItensRecCancel.getHorarioInsert());
+            pst.setString(10, objItensRecCancel.getTipoRetorno());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO" + ex);
@@ -44,7 +45,7 @@ public class ControleItensRegistroCanceladoCrc_RETORNOS {
     public ItensRegistroCanceladoCrc alterarRegCanceladoRE(ItensRegistroCanceladoCrc objItensRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_RETORNOS SET IdRegCancel=?,DataSaida=?,IdInternoCrc=?,NrDocumento=?,HoraSaida=?,ConfirmacaoRegistro=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensRecCancel.getIdItem() + "'AND NomeInternoCrc='" + objItensRecCancel.getNomeInternoCrc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_RETORNOS SET IdRegCancel=?,DataSaida=?,IdInternoCrc=?,NrDocumento=?,HoraSaida=?,ConfirmacaoRegistro=?,UsuarioUp=?,DataUp=?,HorarioUp=?,TipoRetorno=? WHERE IdItem='" + objItensRecCancel.getIdItem() + "'AND NomeInternoCrc='" + objItensRecCancel.getNomeInternoCrc() + "'");
             pst.setInt(1, objItensRecCancel.getIdLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objItensRecCancel.getDataSaida().getTime()));
             pst.setInt(3, objItensRecCancel.getIdInternoCrc());
@@ -54,6 +55,7 @@ public class ControleItensRegistroCanceladoCrc_RETORNOS {
             pst.setString(7, objItensRecCancel.getUsuarioUp());
             pst.setString(8, objItensRecCancel.getDataUp());
             pst.setString(9, objItensRecCancel.getHorarioUp());
+            pst.setString(10, objItensRecCancel.getTipoRetorno());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO" + ex);
