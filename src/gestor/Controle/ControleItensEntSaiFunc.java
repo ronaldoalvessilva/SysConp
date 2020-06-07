@@ -137,7 +137,13 @@ public class ControleItensEntSaiFunc {
         conecta.abrirConexao();
         List<DigitalColaborador> listaColaboradores = new ArrayList<DigitalColaborador>();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR "
+            conecta.executaSQL("SELECT COLABORADOR.IdFunc,COLABORADOR.MatriculaFunc,COLABORADOR.StatusFunc, "
+                    + "COLABORADOR.NomeFunc,COLABORADOR.ImagemFunc, "
+                    + "COLABORADOR.ImagemFrenteCO,CARGOS.NomeCargo, "
+                    + "DEPARTAMENTOS.NomeDepartamento,BIOMETRIA_COLABORADORES.BiometriaDedo1, "
+                    + "BIOMETRIA_COLABORADORES.BiometriaDedo2,BIOMETRIA_COLABORADORES.BiometriaDedo3, "
+                    + "BIOMETRIA_COLABORADORES.BiometriaDedo4 "
+                    + "FROM COLABORADOR "
                     + "INNER JOIN BIOMETRIA_COLABORADORES "
                     + "ON COLABORADOR.IdFunc=BIOMETRIA_COLABORADORES.IdFunc "
                     + "INNER JOIN DEPARTAMENTOS "
@@ -149,7 +155,7 @@ public class ControleItensEntSaiFunc {
             while (conecta.rs.next()) {
                 DigitalColaborador pDigi = new DigitalColaborador();
                 pDigi.setIdFunc(conecta.rs.getInt("IdFunc"));
-//                pDigi.setMatricula(conecta.rs.getString("NomeFunc"));
+                pDigi.setMatricula(conecta.rs.getString("MatriculaFunc"));
                 pDigi.setNomeFunc(conecta.rs.getString("NomeFunc"));
                 pDigi.setFuncao(conecta.rs.getString("NomeCargo"));
                 pDigi.setFotoColaborador(conecta.rs.getString("ImagemFunc"));

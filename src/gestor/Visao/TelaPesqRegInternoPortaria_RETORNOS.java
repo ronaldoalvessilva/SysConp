@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jComboBoxTipoRetorno;
 import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jIdInternoReg;
 import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jNomeInternoReg;
 import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jNrDocumento;
@@ -29,9 +30,9 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
     int flag;
     String pRETORNO_CRC = "Não";
     String pRETORNO_PORTARIA_RetPort = "Sim";
+    String pCONFIRMACAO_RETORNO = "Não";
     String pREGISTRO_CANCELADO = null;
     String nomeInterno;
-    
 
     // public static String idItemIntPor;
     /**
@@ -210,23 +211,20 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
-            preencherTabelaInternos("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
-                    + "PRONTUARIOSCRC.NomeInternoCrc, "
-                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
-                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RegistroCancelado, "
+            preencherTabelaInternos("SELECT ITENSREGISTRO.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "ITENSREGISTRO.IdRetorno,ITENSREGISTRO.OrigemRetorno,ITENSREGISTRO.ConfirmacaoRetorno, "
                     + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort, "
-                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
-                    + "ITENSREGISTRO.IdRetorno, "
-                    + "ITENSREGISTRO.OrigemRetorno "
-                    + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc "
+                    + "FROM ITENSREGISTRO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN ITENSREGISTRO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
+                    + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                    + "ON ITENSREGISTRO.IdInternoCrc=VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc "
                     + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND ITENSREGISTRO.ConfirmacaoRetorno='" + pCONFIRMACAO_RETORNO + "' "
                     + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc='" + pRETORNO_CRC + "' "
-                    + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort='" + pRETORNO_PORTARIA_RetPort + "' "
-                    + "ORDER BY NomeInternoCrc");
+                    + "AND ITENSREGISTRO.OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
+                    + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort='" + pRETORNO_PORTARIA_RetPort + "' ");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -234,20 +232,18 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInternos("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
-                    + "PRONTUARIOSCRC.NomeInternoCrc, "
-                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
-                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RegistroCancelado, "
+            this.preencherTabelaInternos("SELECT ITENSREGISTRO.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "ITENSREGISTRO.IdRetorno,ITENSREGISTRO.OrigemRetorno,ITENSREGISTRO.ConfirmacaoRetorno, "
                     + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort, "
-                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
-                    + "ITENSREGISTRO.IdRetorno, "
-                    + "ITENSREGISTRO.OrigemRetorno "
-                    + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc "
+                    + "FROM ITENSREGISTRO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN ITENSREGISTRO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
+                    + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                    + "ON ITENSREGISTRO.IdInternoCrc=VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc "
                     + "WHERE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc='" + pRETORNO_CRC + "' "
+                    + "AND ITENSREGISTRO.ConfirmacaoRetorno='" + pCONFIRMACAO_RETORNO + "' "
+                    + "AND ITENSREGISTRO.OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
                     + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort='" + pRETORNO_PORTARIA_RetPort + "' "
                     + "ORDER BY NomeInternoCrc");
         } else {
@@ -261,23 +257,23 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
         if (flag == 1) {
             nomeInterno = "" + jTabelaPesqInternos.getValueAt(jTabelaPesqInternos.getSelectedRow(), 1);
             jPesqNomeInterno.setText(nomeInterno);
-            String idItem = "" + jTabelaPesqInternos.getValueAt(jTabelaPesqInternos.getSelectedRow(), 0);
+            String idInterno = "" + jTabelaPesqInternos.getValueAt(jTabelaPesqInternos.getSelectedRow(), 0);
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
-                        + "PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
-                        + "ITENSREGISTRO.IdRetorno, "
-                        + "ITENSREGISTRO.OrigemRetorno, "
-                        + "ITENSREGISTRO.DocumentoRetorno "
-                        + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                conecta.executaSQL("SELECT ITENSREGISTRO.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "ITENSREGISTRO.IdRetorno,ITENSREGISTRO.OrigemRetorno,ITENSREGISTRO.ConfirmacaoRetorno, "
+                        + "ITENSREGISTRO.DocumentoRetorno, "
+                        + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetPort, "
+                        + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc "
+                        + "FROM ITENSREGISTRO "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN ITENSREGISTRO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
+                        + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                        + "ON ITENSREGISTRO.IdInternoCrc=VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc "
                         + "WHERE NomeInternoCrc='" + nomeInterno + "' "
-                        + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc='" + idItem + "'");
+                        + "AND ITENSREGISTRO.IdInternoCrc='" + idInterno + "' "
+                        + "AND ITENSREGISTRO.OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' ");
                 conecta.rs.first();
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));

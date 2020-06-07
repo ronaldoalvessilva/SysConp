@@ -1029,7 +1029,13 @@ public class TelaAcessoBiometriaColaboradores extends javax.swing.JDialog {
     public void verificarColaboradorBiometrica() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR "
+            conecta.executaSQL("SELECT COLABORADOR.IdFunc,COLABORADOR.MatriculaFunc,COLABORADOR.StatusFunc, "
+                    + "COLABORADOR.NomeFunc,COLABORADOR.ImagemFunc, "
+                    + "COLABORADOR.ImagemFrenteCO,CARGOS.NomeCargo, "
+                    + "DEPARTAMENTOS.NomeDepartamento, BIOMETRIA_COLABORADORES.BiometriaDedo1, "
+                    + "BIOMETRIA_COLABORADORES.BiometriaDedo2,BIOMETRIA_COLABORADORES.BiometriaDedo3, "
+                    + "BIOMETRIA_COLABORADORES.BiometriaDedo4 "
+                    + "FROM COLABORADOR "
                     + "INNER JOIN BIOMETRIA_COLABORADORES "
                     + "ON COLABORADOR.IdFunc=BIOMETRIA_COLABORADORES.IdFunc "
                     + "INNER JOIN DEPARTAMENTOS "
@@ -1052,7 +1058,9 @@ public class TelaAcessoBiometriaColaboradores extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
                     + "WHERE IdFunc='" + jIdColaborador.getText() + "' "
-                    + "AND IdLanc='" + jIDlanc.getText() + "' AND HorarioEntrada!='" + phorarioEntrada + "' AND HorarioSaida='" + phorarioSaida + "'");
+                    + "AND IdLanc='" + jIDlanc.getText() + "' "
+                    + "AND HorarioEntrada!='" + phorarioEntrada + "' "
+                    + "AND HorarioSaida='" + phorarioSaida + "'");
             conecta.rs.first();
             codigoFuncGrava = conecta.rs.getString("IdFunc");
             codigoRegistroGrava = conecta.rs.getString("IdLanc");
@@ -1071,7 +1079,9 @@ public class TelaAcessoBiometriaColaboradores extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
                     + "WHERE IdFunc='" + jIdColaborador.getText() + "' "
-                    + "AND IdLanc='" + jIDlanc.getText() + "' AND HorarioEntrada!='" + phorarioEntrada + "' AND HorarioSaida='" + phorarioSaida + "'");
+                    + "AND IdLanc='" + jIDlanc.getText() + "' "
+                    + "AND HorarioEntrada!='" + phorarioEntrada + "' "
+                    + "AND HorarioSaida='" + phorarioSaida + "'");
             conecta.rs.first();
             codigoFuncGrava = conecta.rs.getString("IdFunc");
             codigoRegistroGrava = conecta.rs.getString("IdLanc");

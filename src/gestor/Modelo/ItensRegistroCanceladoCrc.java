@@ -29,11 +29,13 @@ public class ItensRegistroCanceladoCrc {
     private String dataDelete;
     private String horarioInsert;
     private String horarioUp;   
+    private String tipoRetorno;
+    private String tipoSaida;
 
     public ItensRegistroCanceladoCrc() {
     }
 
-    public ItensRegistroCanceladoCrc(int idItem, int idLanc, Date dataSaida, int idInternoCrc, String nomeInternoCrc, String horaSaida, String nrDocumento, String confirmacaoRegistro, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public ItensRegistroCanceladoCrc(int idItem, int idLanc, Date dataSaida, int idInternoCrc, String nomeInternoCrc, String horaSaida, String nrDocumento, String confirmacaoRegistro, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String tipoRetorno, String tipoSaida) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.dataSaida = dataSaida;
@@ -50,6 +52,8 @@ public class ItensRegistroCanceladoCrc {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
+        this.tipoRetorno = tipoRetorno;
+        this.tipoSaida = tipoSaida;
     }
 
     /**
@@ -274,5 +278,33 @@ public class ItensRegistroCanceladoCrc {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the tipoRetorno
+     */
+    public String getTipoRetorno() {
+        return tipoRetorno;
+    }
+
+    /**
+     * @param tipoRetorno the tipoRetorno to set
+     */
+    public void setTipoRetorno(String tipoRetorno) {
+        this.tipoRetorno = tipoRetorno;
+    }
+
+    /**
+     * @return the tipoSaida
+     */
+    public String getTipoSaida() {
+        return tipoSaida;
+    }
+
+    /**
+     * @param tipoSaida the tipoSaida to set
+     */
+    public void setTipoSaida(String tipoSaida) {
+        this.tipoSaida = tipoSaida;
     }
 }

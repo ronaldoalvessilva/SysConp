@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioCancelamentoPrimeiraEntrada" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="938ac8d9-b9f6-4a91-af51-dc2e6f80d17e">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="72"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -20,18 +20,12 @@
 	<parameter name="pUNIDADE" class="java.lang.String"/>
 	<parameter name="pUSUARIO" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM REGISTRO_CANCELADO_RETORNOS WHERE IdRegCancel=$P{pCodigo}]]>
+		<![CDATA[SELECT IdRegCancel,DataLanc,StatusLanc,Motivo FROM REGISTRO_CANCELADO_RETORNOS WHERE IdRegCancel=$P{pCodigo}]]>
 	</queryString>
 	<field name="IdRegCancel" class="java.lang.Integer"/>
-	<field name="StatusLanc" class="java.lang.String"/>
 	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="StatusLanc" class="java.lang.String"/>
 	<field name="Motivo" class="java.lang.String"/>
-	<field name="UsuarioInsert" class="java.lang.String"/>
-	<field name="UsuarioUp" class="java.lang.String"/>
-	<field name="DataInsert" class="java.lang.String"/>
-	<field name="DataUp" class="java.lang.String"/>
-	<field name="HorarioInsert" class="java.lang.String"/>
-	<field name="HorarioUp" class="java.lang.String"/>
 	<title>
 		<band height="173" splitType="Stretch">
 			<rectangle>
