@@ -457,8 +457,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         RetornoSaidaTemporaria = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         PrevisaoSaida = new javax.swing.JMenuItem();
+        jSaidasTransferencias = new javax.swing.JMenu();
         jSaidaInternos = new javax.swing.JMenuItem();
         jTransferenciaInternos = new javax.swing.JMenuItem();
+        jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jProrrogacaoSaidaTemporaria = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         ListaPassagemInternosAlbergados = new javax.swing.JMenuItem();
@@ -804,13 +806,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         });
         jMenuMovimentacao.add(PrevisaoSaida);
 
-        jSaidaInternos.setText("Saida de Internos da Unidade");
+        jSaidasTransferencias.setText("Saídas e Transferências de Internos da Unidade");
+
+        jSaidaInternos.setText("Saída de Internos da Unidade");
         jSaidaInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSaidaInternosActionPerformed(evt);
             }
         });
-        jMenuMovimentacao.add(jSaidaInternos);
+        jSaidasTransferencias.add(jSaidaInternos);
 
         jTransferenciaInternos.setText("Transferência de Internos da Unidade");
         jTransferenciaInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -818,7 +822,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 jTransferenciaInternosActionPerformed(evt);
             }
         });
-        jMenuMovimentacao.add(jTransferenciaInternos);
+        jSaidasTransferencias.add(jTransferenciaInternos);
+
+        jMenuMovimentacao.add(jSaidasTransferencias);
+        jMenuMovimentacao.add(jSeparator27);
 
         jProrrogacaoSaidaTemporaria.setText("Prorrogação de Prazo para Saída Temporaria/Prisão Domiciliar");
         jProrrogacaoSaidaTemporaria.addActionListener(new java.awt.event.ActionListener() {
@@ -3691,6 +3698,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
     private javax.swing.JMenuItem jRevalidarAtestadoReclusao;
     private javax.swing.JMenuItem jSaidaInternos;
+    private javax.swing.JMenu jSaidasTransferencias;
     private javax.swing.JMenuItem jSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
@@ -3711,6 +3719,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator25;
     private javax.swing.JPopupMenu.Separator jSeparator26;
+    private javax.swing.JPopupMenu.Separator jSeparator27;
     private javax.swing.JPopupMenu.Separator jSeparator28;
     private javax.swing.JPopupMenu.Separator jSeparator29;
     private javax.swing.JPopupMenu.Separator jSeparator3;

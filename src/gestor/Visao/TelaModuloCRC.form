@@ -232,21 +232,30 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrevisaoSaidaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jSaidaInternos">
+            <Menu class="javax.swing.JMenu" name="jSaidasTransferencias">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Saida de Internos da Unidade"/>
+                <Property name="text" type="java.lang.String" value="Sa&#xed;das e Transfer&#xea;ncias de Internos da Unidade"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaidaInternosActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jTransferenciaInternos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Transfer&#xea;ncia de Internos da Unidade"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTransferenciaInternosActionPerformed"/>
-              </Events>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jSaidaInternos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Sa&#xed;da de Internos da Unidade"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaidaInternosActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jTransferenciaInternos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Transfer&#xea;ncia de Internos da Unidade"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTransferenciaInternosActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator27">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jProrrogacaoSaidaTemporaria">
               <Properties>

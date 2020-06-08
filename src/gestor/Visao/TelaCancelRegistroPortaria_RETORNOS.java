@@ -1482,6 +1482,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1500,6 +1501,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1518,6 +1520,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1536,6 +1539,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1554,6 +1558,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1590,6 +1595,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1608,6 +1614,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1707,6 +1714,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1725,6 +1733,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1743,6 +1752,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1761,6 +1771,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1779,6 +1790,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1797,6 +1809,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1815,6 +1828,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1833,6 +1847,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                     objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());

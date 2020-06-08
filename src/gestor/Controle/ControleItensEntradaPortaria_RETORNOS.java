@@ -85,9 +85,10 @@ public class ControleItensEntradaPortaria_RETORNOS {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS SET RetCrc=?,RetPort=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdRetorno='" + objItensEntIntPort.getIdRetorno() + "'");
-            pst.setString(1, objItensEntIntPort.getConfirmaEntrada());
-            pst.setString(2, objItensEntIntPort.getConfirmaRetPort());
-            pst.setString(3, objItensEntIntPort.getRegistroCancelado());
+            pst.setString(1, objItensEntIntPort.getConfirmaEntrada());            
+            pst.setString(2, objItensEntIntPort.getConfirmaRetCrc());
+            pst.setString(3, objItensEntIntPort.getConfirmaRetPort());
+            pst.setString(4, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\n\nERRO: " + ex);

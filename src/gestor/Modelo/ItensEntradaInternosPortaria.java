@@ -33,11 +33,12 @@ public class ItensEntradaInternosPortaria {
     private String registroCancelado;
     private int idRetorno;
     private String confirmaRetPort;
+    private String confirmaRetCrc;
 
     public ItensEntradaInternosPortaria() {
     }
 
-    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort) {
+    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -58,6 +59,7 @@ public class ItensEntradaInternosPortaria {
         this.registroCancelado = registroCancelado;
         this.idRetorno = idRetorno;
         this.confirmaRetPort = confirmaRetPort;
+        this.confirmaRetCrc = confirmaRetCrc;
     }
 
     /**
@@ -340,4 +342,17 @@ public class ItensEntradaInternosPortaria {
         this.confirmaRetPort = confirmaRetPort;
     }
 
+    /**
+     * @return the confirmaRetCrc
+     */
+    public String getConfirmaRetCrc() {
+        return confirmaRetCrc;
+    }
+
+    /**
+     * @param confirmaRetCrc the confirmaRetCrc to set
+     */
+    public void setConfirmaRetCrc(String confirmaRetCrc) {
+        this.confirmaRetCrc = confirmaRetCrc;
+    }
 }
