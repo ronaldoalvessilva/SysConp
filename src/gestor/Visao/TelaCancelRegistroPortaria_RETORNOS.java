@@ -102,6 +102,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
     int flag;
     String confirmadoEntrada = "Não";
     String confirmaUtilizacao = "Sim";
+    String pHORARIO_ENTRADA = "";
     String dataInicial, dataFinal, dataSaida;
     String idItem;
     String codCancel;
@@ -119,6 +120,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
     String pNR_DOCUMENTO = "";
     Date pDATA_RETORNO = null;
     String pCONFORMA_RETORNO_PORTARIA = "Não";
+    public static int pCODIGO_ENTRADA_SAIDA = 0;
 
     /**
      * Creates new form TelaCancelRegistroPortaria
@@ -1479,9 +1481,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1498,9 +1501,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
-                                    objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));                                    
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1513,13 +1517,14 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     objItensEntIntPort.setNumeroOficio(pNR_DOCUMENTO);
                                     objItensEntIntPort.setDataChegada(pDATA_RETORNO);
                                     controleReg.confirmarMOVI_RETORNO(objItensEntIntPort);
-                                } else if (jComboBoxTipoRetorno.getSelectedItem().equals("Retorno Transferência")) {
+                                } else if (jComboBoxTipoRetorno.getSelectedItem().equals("Retorno Transferência")) {                                    
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1536,9 +1541,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1555,9 +1561,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1574,9 +1581,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
                                     objItensEntIntPort.setOrigemInterno((String) jComboBoxTipoRetorno.getSelectedItem());
@@ -1592,9 +1600,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1611,9 +1620,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1711,9 +1721,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1730,9 +1741,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1749,9 +1761,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1768,9 +1781,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1787,9 +1801,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1806,9 +1821,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1825,9 +1841,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
@@ -1844,9 +1861,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                                     populacaoAlimentacao();
                                     // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
                                     // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                    objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                     objItensEntIntPort.setIdRetorno(pRETORNO_PORTARIA);
                                     objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
-                                    objItensEntIntPort.setConfirmaEntrada(confirmadoEntrada); //CONFIRMAR COMO "Não" PARA FAZER NOVAMENTE O RETORNO
+                                    objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                     objItensEntIntPort.setConfirmaRetCrc(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setConfirmaRetPort(pCONFORMA_RETORNO_PORTARIA);
                                     objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);

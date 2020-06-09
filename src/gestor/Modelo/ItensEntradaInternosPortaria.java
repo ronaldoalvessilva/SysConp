@@ -34,11 +34,12 @@ public class ItensEntradaInternosPortaria {
     private int idRetorno;
     private String confirmaRetPort;
     private String confirmaRetCrc;
+    private int idEntraSaida;
 
     public ItensEntradaInternosPortaria() {
     }
 
-    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc) {
+    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -60,6 +61,7 @@ public class ItensEntradaInternosPortaria {
         this.idRetorno = idRetorno;
         this.confirmaRetPort = confirmaRetPort;
         this.confirmaRetCrc = confirmaRetCrc;
+        this.idEntraSaida = idEntraSaida;
     }
 
     /**
@@ -354,5 +356,19 @@ public class ItensEntradaInternosPortaria {
      */
     public void setConfirmaRetCrc(String confirmaRetCrc) {
         this.confirmaRetCrc = confirmaRetCrc;
+    }
+
+    /**
+     * @return the idEntraSaida
+     */
+    public int getIdEntraSaida() {
+        return idEntraSaida;
+    }
+
+    /**
+     * @param idEntraSaida the idEntraSaida to set
+     */
+    public void setIdEntraSaida(int idEntraSaida) {
+        this.idEntraSaida = idEntraSaida;
     }
 }
