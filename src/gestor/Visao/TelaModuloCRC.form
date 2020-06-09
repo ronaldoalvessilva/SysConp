@@ -289,7 +289,7 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu12">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cancelamento de Entradas e Retornos na Portaria"/>
+                <Property name="text" type="java.lang.String" value="Cancelamento de Entradas e Retornos na Portaria/Sa&#xed;das CRC e Portaria"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jCancelarRegistro_PRIMEIRA_VEZ">
@@ -320,6 +320,19 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarRegistro_RETORNOSActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator33">
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelamentoSaida_CRC_PORTARIA">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Cancelamento Sa&#xed;das CRC e Portaria Interna"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelamentoSaida_CRC_PORTARIAActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

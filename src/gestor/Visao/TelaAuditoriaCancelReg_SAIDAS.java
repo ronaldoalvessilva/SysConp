@@ -6,22 +6,22 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jIdInternoReg;
-import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jIdLanc;
+import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jIdLanc;
 import java.sql.SQLException;
 
 /**
  *
  * @author Ronaldo
  */
-public class TelaAuditoriaItensRegCancel_RETORNOS extends javax.swing.JInternalFrame {
+public class TelaAuditoriaCancelReg_SAIDAS extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+   
 
     /**
      * Creates new form TelaAuditoriaRolInternas
      */
-    public TelaAuditoriaItensRegCancel_RETORNOS() {
+    public TelaAuditoriaCancelReg_SAIDAS() {
         initComponents();
         auditoria();
     }
@@ -250,9 +250,7 @@ public class TelaAuditoriaItensRegCancel_RETORNOS extends javax.swing.JInternalF
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM ITENS_REGISTRO_CANCELADO_RETORNOS "
-                    + "WHERE IdRegCancel='" + jIdLanc.getText() + "' "
-                    + "AND IdItem='" + jIdInternoReg.getText() + "'");
+            conecta.executaSQL("SELECT * FROM REGISTRO_CANCELADO_SAIDAS WHERE IdRegCancelSA='" + jIdLanc.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));
@@ -261,7 +259,7 @@ public class TelaAuditoriaItensRegCancel_RETORNOS extends javax.swing.JInternalF
             jDataUpdate.setText(conecta.rs.getString("DataUp"));
             jHoraUpdate.setText(conecta.rs.getString("HorarioUp"));
             conecta.desconecta();
-        } catch (SQLException e) {
+        } catch (SQLException e) {           
         }
     }
 }
