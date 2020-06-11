@@ -3606,37 +3606,37 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jCancelamentoSaida_CRC_PORTARIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelamentoSaida_CRC_PORTARIAActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Em Desenvolvimento...");
-//        buscarAcessoUsuario(telaCancelamentoSaidaManu_CRC);
-//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoSaidaManu_CRC) && codAbrirCRC == 1) {
-//            if (objCancel_SAIDAS == null || objCancel_SAIDAS.isClosed()) {
-//                objCancel_SAIDAS = new TelaCancelRegistroSaidas_PORTARIA_CRC();
-//                jPainelCRC.add(objCancel_SAIDAS);
-//                objCancel_SAIDAS.setVisible(true);
-//            } else {
-//                if (objCancel_SAIDAS.isVisible()) {
-//                    if (objCancel_SAIDAS.isIcon()) { // Se esta minimizado
-//                        try {
-//                            objCancel_SAIDAS.setIcon(false); // maximiniza
-//                        } catch (PropertyVetoException ex) {
-//                        }
-//                    } else {
-//                        objCancel_SAIDAS.toFront(); // traz para frente
-//                        objCancel_SAIDAS.pack();//volta frame 
-//                    }
-//                } else {
-//                    objCancel_SAIDAS = new TelaCancelRegistroSaidas_PORTARIA_CRC();
-//                    TelaModuloCRC.jPainelCRC.add(objCancel_SAIDAS);//adicona frame ao JDesktopPane  
-//                    objCancel_SAIDAS.setVisible(true);
-//                }
-//            }
-//            try {
-//                objCancel_SAIDAS.setSelected(true);
-//            } catch (java.beans.PropertyVetoException e) {
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-//        }
+//        JOptionPane.showMessageDialog(rootPane, "Em Desenvolvimento...");
+        buscarAcessoUsuario(telaCancelamentoSaidaManu_CRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoSaidaManu_CRC) && codAbrirCRC == 1) {
+            if (objCancel_SAIDAS == null || objCancel_SAIDAS.isClosed()) {
+                objCancel_SAIDAS = new TelaCancelRegistroSaidas_PORTARIA_CRC();
+                jPainelCRC.add(objCancel_SAIDAS);
+                objCancel_SAIDAS.setVisible(true);
+            } else {
+                if (objCancel_SAIDAS.isVisible()) {
+                    if (objCancel_SAIDAS.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancel_SAIDAS.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancel_SAIDAS.toFront(); // traz para frente
+                        objCancel_SAIDAS.pack();//volta frame 
+                    }
+                } else {
+                    objCancel_SAIDAS = new TelaCancelRegistroSaidas_PORTARIA_CRC();
+                    TelaModuloCRC.jPainelCRC.add(objCancel_SAIDAS);//adicona frame ao JDesktopPane  
+                    objCancel_SAIDAS.setVisible(true);
+                }
+            }
+            try {
+                objCancel_SAIDAS.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jCancelamentoSaida_CRC_PORTARIAActionPerformed
 
 

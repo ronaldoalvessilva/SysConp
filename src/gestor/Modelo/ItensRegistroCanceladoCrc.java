@@ -31,11 +31,12 @@ public class ItensRegistroCanceladoCrc {
     private String horarioUp;   
     private String tipoRetorno;
     private String tipoSaida;
+    private String setor;
 
     public ItensRegistroCanceladoCrc() {
     }
 
-    public ItensRegistroCanceladoCrc(int idItem, int idLanc, Date dataSaida, int idInternoCrc, String nomeInternoCrc, String horaSaida, String nrDocumento, String confirmacaoRegistro, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String tipoRetorno, String tipoSaida) {
+    public ItensRegistroCanceladoCrc(int idItem, int idLanc, Date dataSaida, int idInternoCrc, String nomeInternoCrc, String horaSaida, String nrDocumento, String confirmacaoRegistro, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String tipoRetorno, String tipoSaida, String setor) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.dataSaida = dataSaida;
@@ -54,6 +55,7 @@ public class ItensRegistroCanceladoCrc {
         this.horarioUp = horarioUp;
         this.tipoRetorno = tipoRetorno;
         this.tipoSaida = tipoSaida;
+        this.setor = setor;
     }
 
     /**
@@ -306,5 +308,19 @@ public class ItensRegistroCanceladoCrc {
      */
     public void setTipoSaida(String tipoSaida) {
         this.tipoSaida = tipoSaida;
+    }
+
+    /**
+     * @return the setor
+     */
+    public String getSetor() {
+        return setor;
+    }
+
+    /**
+     * @param setor the setor to set
+     */
+    public void setSetor(String setor) {
+        this.setor = setor;
     }
 }
