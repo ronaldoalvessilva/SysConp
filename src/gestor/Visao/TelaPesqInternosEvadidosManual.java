@@ -265,7 +265,7 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
                         + "INNER JOIN ITENSREGSAIDA "
                         + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                        + "AND DataEvasao='" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
                         + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             }
@@ -319,7 +319,7 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
                         + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataPrevRetorno <'" + dataSisConvert + "' "
-                        + "AND DataEvasao='" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
                         + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             } else {
                 limparTabela();

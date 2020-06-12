@@ -265,7 +265,7 @@ public class TelaPesqInternosEvadidosPrisaoDomiciliar extends javax.swing.JInter
                         + "INNER JOIN ITENSREGSAIDA "
                         + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                        + "AND DataEvasao='" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
                         + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
             }

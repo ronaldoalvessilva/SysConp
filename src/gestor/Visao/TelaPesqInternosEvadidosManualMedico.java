@@ -265,7 +265,7 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
                         + "INNER JOIN ITENSREGSAIDA "
                         + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                        + "AND DataEvasao='" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
                         + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             }
