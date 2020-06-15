@@ -35,11 +35,14 @@ public class ItensEntradaInternosPortaria {
     private String confirmaRetPort;
     private String confirmaRetCrc;
     private int idEntraSaida;
+    private String nomeDestino;
+    private Date dataSaida;
+    private String saidaConfirmada;
 
     public ItensEntradaInternosPortaria() {
     }
 
-    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida) {
+    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -62,6 +65,9 @@ public class ItensEntradaInternosPortaria {
         this.confirmaRetPort = confirmaRetPort;
         this.confirmaRetCrc = confirmaRetCrc;
         this.idEntraSaida = idEntraSaida;
+        this.nomeDestino = nomeDestino;
+        this.dataSaida = dataSaida;
+        this.saidaConfirmada = saidaConfirmada;
     }
 
     /**
@@ -370,5 +376,47 @@ public class ItensEntradaInternosPortaria {
      */
     public void setIdEntraSaida(int idEntraSaida) {
         this.idEntraSaida = idEntraSaida;
+    }
+
+    /**
+     * @return the nomeDestino
+     */
+    public String getNomeDestino() {
+        return nomeDestino;
+    }
+
+    /**
+     * @param nomeDestino the nomeDestino to set
+     */
+    public void setNomeDestino(String nomeDestino) {
+        this.nomeDestino = nomeDestino;
+    }
+
+    /**
+     * @return the dataSaida
+     */
+    public Date getDataSaida() {
+        return dataSaida;
+    }
+
+    /**
+     * @param dataSaida the dataSaida to set
+     */
+    public void setDataSaida(Date dataSaida) {
+        this.dataSaida = dataSaida;
+    }
+
+    /**
+     * @return the saidaConfirmada
+     */
+    public String getSaidaConfirmada() {
+        return saidaConfirmada;
+    }
+
+    /**
+     * @param saidaConfirmada the saidaConfirmada to set
+     */
+    public void setSaidaConfirmada(String saidaConfirmada) {
+        this.saidaConfirmada = saidaConfirmada;
     }
 }

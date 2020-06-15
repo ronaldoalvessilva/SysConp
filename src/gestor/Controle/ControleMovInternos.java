@@ -131,7 +131,7 @@ public class ControleMovInternos {
         conecta.desconecta();
         return objItemSaida;
     }
-
+    
     //Método para ALTERAR ITENS SAIDA
     public ItensSaidaInterno alterarMovSaida(ItensSaidaInterno objItemSaida) {
 
