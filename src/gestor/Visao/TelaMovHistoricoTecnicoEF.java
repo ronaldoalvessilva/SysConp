@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author user
  */
-public class TelaMovHistoricoTecnicoJuridico extends javax.swing.JInternalFrame {
+public class TelaMovHistoricoTecnicoEF extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -32,7 +32,7 @@ public class TelaMovHistoricoTecnicoJuridico extends javax.swing.JInternalFrame 
     /**
      * Creates new form TelaMovimentacaoCrc
      */
-    public TelaMovHistoricoTecnicoJuridico() {
+    public TelaMovHistoricoTecnicoEF() {
         initComponents();
         corCampos();
     }
@@ -318,8 +318,8 @@ public class TelaMovHistoricoTecnicoJuridico extends javax.swing.JInternalFrame 
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
         // Pesquisar Internos
-        TelaPesqMovIntTecnicoJuridico objMovIntTecJuri = new TelaPesqMovIntTecnicoJuridico();
-        TelaModuloJuridico.jPainelJuridico.add(objMovIntTecJuri);
+        TelaPesqMovIntTecnicoEF objMovIntTecJuri = new TelaPesqMovIntTecnicoEF();
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objMovIntTecJuri);
         objMovIntTecJuri.show();
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 

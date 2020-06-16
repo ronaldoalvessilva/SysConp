@@ -1444,7 +1444,10 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                         + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                         + "INNER JOIN ITENSSAIDA "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSSAIDA.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND IdSaida='" + jIDlanc.getText() + "'AND DocumentoSaida='" + nrDoc + "'AND IdItem='" + idItem + "'");
+                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
+                        + "AND IdSaida='" + jIDlanc.getText() + "' "
+                        + "AND DocumentoSaida='" + nrDoc + "' "
+                        + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIDInterno.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -1467,6 +1470,9 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                 jDestinoInterno.setText(conecta.rs.getString("DestinoSaida"));
                 jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                 jLabelEvadido.setText(conecta.rs.getString("Evadido"));
+                if (jLabelEvadido.getText().equals("")) {
+                    jLabelEvadido.setText(conecta.rs.getString("RegistroCancelado"));
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem alterado!!!\nERRO: " + ex);
@@ -1542,7 +1548,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaSaidaInternosInteCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaSaidaInternosInteCRC) && codExcluirCRC == 1) {
             //RETIRADO IMPEDINDO QUE O USUÁRIO EXCLUA O REGISTRO. PERMITE QUE SEJA CANCELADO. (11/06/2020)
-            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir nenhum registro após a saída do interno, pois, irá influênciar na população alimentícia.\nSolicite esclarecimento e ajuda do suporte técnico, para solução desse registro.");
+            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir nenhum registro de saída do interno, pois, irá influênciar na população alimentícia.\nSó é permitido cancelar a saída do (s) interno(s).");
 //            verificarSaidaPortaria();
 //            buscarItemInternoAgenda(); // BUSCAR ITEM DA TABELA ITENSAGENDA PARA MODIFICAR A RESPOSTA DE "Sim" PARA "Não"
 //            if (confirmacaoSaida.equals("Sim")) {

@@ -88,7 +88,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     //
     private TelaConsultaProntuarioInternoCrc objriIntJu = null;
     private TelaConsultaLocalInternoJuridico objLocalIntJu = null;
-    private TelaMovHistoricoTecnicoJuridico objMovJuri = null;
+    private TelaMovHistoricoTecnicoEF objMovJuri = null;
     private TelaRecadosJuridico objRecaJuri = null;
     private TelaOcorrenciaEducacaoFisica TelaOcorrenciaEducacaoFisica = null;
     private TelaAgendaCompromissos objAgEventos = null;
@@ -591,7 +591,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     private void HistoricoMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoMovimentacaoActionPerformed
         // TODO add your handling code here:
         if (objMovJuri == null || objMovJuri.isClosed()) {
-            objMovJuri = new TelaMovHistoricoTecnicoJuridico();
+            objMovJuri = new TelaMovHistoricoTecnicoEF();
             jPainelEducacaoFisica.add(objMovJuri);
             objMovJuri.setVisible(true);
         } else {
@@ -606,7 +606,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
                     objMovJuri.pack();//volta frame 
                 }
             } else {
-                objMovJuri = new TelaMovHistoricoTecnicoJuridico();
+                objMovJuri = new TelaMovHistoricoTecnicoEF();
                 TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objMovJuri);//adicona frame ao JDesktopPane  
                 objMovJuri.setVisible(true);
             }

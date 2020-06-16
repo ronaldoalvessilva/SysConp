@@ -330,7 +330,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
-        // Pesquisar Internos
+        // Pesquisar Internos        
         TelaPesquisaMovInterno objTelaMovInt = new TelaPesquisaMovInterno();
         TelaModuloCRC.jPainelCRC.add(objTelaMovInt);
         objTelaMovInt.show();

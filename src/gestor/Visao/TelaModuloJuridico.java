@@ -105,6 +105,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoImpressoJURI objAutoImp = null;
     private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
+    private TelaMovimentacaoCrc_JURIDICO objTelaMov = null;
     //
     public static String nomeModuloJURI = "JURIDICO";
     Calendar agenda = new GregorianCalendar();
@@ -282,6 +283,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         LocalizacaoInterno = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         HistoricoMovimentacao = new javax.swing.JMenuItem();
+        jHistoricoMovimentacaoExternaInterno = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         AtendimentoJuridico = new javax.swing.JMenuItem();
         jPai = new javax.swing.JMenuItem();
@@ -457,6 +459,14 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             }
         });
         Consultas.add(HistoricoMovimentacao);
+
+        jHistoricoMovimentacaoExternaInterno.setText("Histórico de Movimentação Externa de Internos");
+        jHistoricoMovimentacaoExternaInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jHistoricoMovimentacaoExternaInternoActionPerformed(evt);
+            }
+        });
+        Consultas.add(jHistoricoMovimentacaoExternaInterno);
 
         jMenuBar1.add(Consultas);
 
@@ -1455,6 +1465,35 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelarAtendimentoActionPerformed
 
+    private void jHistoricoMovimentacaoExternaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHistoricoMovimentacaoExternaInternoActionPerformed
+        // TODO add your handling code here:
+        if (objTelaMov == null || objTelaMov.isClosed()) {
+            objTelaMov = new TelaMovimentacaoCrc_JURIDICO();
+            jPainelJuridico.add(objTelaMov);
+            objTelaMov.setVisible(true);
+        } else {
+            if (objTelaMov.isVisible()) {
+                if (objTelaMov.isIcon()) { // Se esta minimizado
+                    try {
+                        objTelaMov.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objTelaMov.toFront(); // traz para frente
+                    objTelaMov.pack();//volta frame 
+                }
+            } else {
+                objTelaMov = new TelaMovimentacaoCrc_JURIDICO();
+                TelaModuloJuridico.jPainelJuridico.add(objTelaMov);//adicona frame ao JDesktopPane  
+                objTelaMov.setVisible(true);
+            }
+        }
+        try {
+            objTelaMov.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jHistoricoMovimentacaoExternaInternoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
@@ -1492,6 +1531,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCalculadoraExecucaoPenal;
     private javax.swing.JMenuItem jCalculadoraPena1;
     private javax.swing.JMenuItem jCancelarAtendimento;
+    private javax.swing.JMenuItem jHistoricoMovimentacaoExternaInterno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

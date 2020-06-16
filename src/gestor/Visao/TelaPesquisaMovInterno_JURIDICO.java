@@ -9,15 +9,15 @@ import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jDataNascimento;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jDataPena;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jFotoInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jIdInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jMatriculaPenalInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jNomeInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jRegime;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jTabelaMovimentacao;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jUnidadePenal;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jDataNascimento;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jDataPena;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jFotoInterno;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jIdInterno;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jMatriculaPenalInterno;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jNomeInterno;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jRegime;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jTabelaMovimentacao;
+import static gestor.Visao.TelaMovimentacaoCrc_JURIDICO.jUnidadePenal;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
+public class TelaPesquisaMovInterno_JURIDICO extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -42,13 +42,12 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
     String dataMovimento;
     String dataCadastro;
     String dataEntrada;
-    String situacaoEnt = "ENTRADA NA UNIDADE";
-    String situacaoRet = "RETORNO A UNIDADE";
+    public static String idInt;
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
-    public TelaPesqMovIntTecnicoJuridico() {
+    public TelaPesquisaMovInterno_JURIDICO() {
         initComponents();
     }
 
@@ -127,15 +126,15 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPesqNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPesqNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1)))
                 .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
@@ -178,8 +177,6 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
             jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(100);
             jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(80);
             jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(80);
-            jTabelaInterno.getColumnModel().getColumn(4).setMinWidth(80);
-            jTabelaInterno.getColumnModel().getColumn(4).setMaxWidth(80);
         }
 
         jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -227,12 +224,11 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
-                    .addComponent(jBtEnviar))
-                .addContainerGap())
+                    .addComponent(jBtEnviar)))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -246,11 +242,11 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
         );
 
-        setBounds(200, 10, 596, 317);
+        setBounds(200, 10, 608, 317);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -260,7 +256,6 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            //Pesquisando pelo nome utilizando banco de dados sql server 2008
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -287,13 +282,13 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais = PAISES.IdPais "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
                     + "INNER JOIN CIDADES "
-                    + "ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE MatriculaCrc LIKE'%" + jPesqMatricula.getText() + "%'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
@@ -302,9 +297,10 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
+            idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            //
             nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 1);
-            jPesqNome.setText(nomeInterno);
-            String idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            jPesqNome.setText(nomeInterno);            
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -315,17 +311,17 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
-        if (jPesqNome.getText().isEmpty()) {
+         if (jPesqNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
         } else {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN UNIDADE "
-                        + "ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid "
-                        + "WHERE NomeInternoCrc LIKE'" + nomeInterno + "%'");
+                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "'AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -343,7 +339,7 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
             }
-            preencherTabelaItens("SELECT * FROM MOVTECNICO WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "' ORDER BY DataMov");
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -352,10 +348,9 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaInterno.setVisible(true);
             this.preencherTodosInternos();
         } else {
-            jTabelaInterno.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -417,7 +412,7 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinhaCamposTabelaInternos();
+        alinhaCamposTabelaInterno();
         conecta.desconecta();
     }
 
@@ -437,8 +432,7 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE SituacaoCrc='" + situacaoEnt + "' OR SituacaoCrc='" + situacaoRet + "'");
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid");
             conecta.rs.first();
             do {
                 // Formatar a data no formato Brasil
@@ -473,29 +467,8 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinhaCamposTabelaInternos();
+        alinhaCamposTabelaInterno();
         conecta.desconecta();
-    }
-
-    public void limparTabela() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
-        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
-        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
-        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
-        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
     }
 
     // Método de pesquisa pela Matricula
@@ -539,11 +512,11 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinhaCamposTabelaInternos();
+        alinhaCamposTabelaInterno();
         conecta.desconecta();
     }
 
-    public void alinhaCamposTabelaInternos() {
+    public void alinhaCamposTabelaInterno() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -557,9 +530,30 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"     Data", " Atendimento", "     Status", "      Descrição da Operação", "         Departamento Técnico"};
+        String[] Colunas = new String[]{"Data Mov.", "Documento", "Descrição da Operação", "Origem/Destino do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -571,22 +565,20 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
                 String mes = dataMovimento.substring(5, 7);
                 String ano = dataMovimento.substring(0, 4);
                 dataMovimento = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{dataMovimento, conecta.rs.getInt("IdAtend"), conecta.rs.getString("StatusAtend"), conecta.rs.getString("NomeOpe"), conecta.rs.getString("DeptoMov")});
+                dados.add(new Object[]{dataMovimento, conecta.rs.getInt("IdDoc"), conecta.rs.getString("NomeOpe"), conecta.rs.getString("OrigemDestino")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaMovimentacao.setModel(modelo);
-        jTabelaMovimentacao.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaMovimentacao.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaMovimentacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaMovimentacao.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaMovimentacao.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaMovimentacao.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaMovimentacao.getColumnModel().getColumn(3).setPreferredWidth(360);
+        jTabelaMovimentacao.getColumnModel().getColumn(3).setPreferredWidth(260);
         jTabelaMovimentacao.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaMovimentacao.getColumnModel().getColumn(4).setPreferredWidth(200);
-        jTabelaMovimentacao.getColumnModel().getColumn(4).setResizable(false);
         jTabelaMovimentacao.getTableHeader().setReorderingAllowed(false);
         jTabelaMovimentacao.setAutoResizeMode(jTabelaMovimentacao.AUTO_RESIZE_OFF);
         jTabelaMovimentacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -595,7 +587,6 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
     }
 
     public void alinharCamposTabelaMovimentacao() {
-        //
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -605,6 +596,5 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         //
         jTabelaMovimentacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaMovimentacao.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }

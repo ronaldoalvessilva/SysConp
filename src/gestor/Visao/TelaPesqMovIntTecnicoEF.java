@@ -9,15 +9,15 @@ import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jDataNascimento;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jDataPena;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jFotoInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jIdInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jMatriculaPenalInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jNomeInterno;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jRegime;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jTabelaMovimentacao;
-import static gestor.Visao.TelaMovHistoricoTecnicoJuridico.jUnidadePenal;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jDataNascimento;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jDataPena;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jFotoInterno;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jIdInterno;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jMatriculaPenalInterno;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jNomeInterno;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jRegime;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jTabelaMovimentacao;
+import static gestor.Visao.TelaMovHistoricoTecnicoEF.jUnidadePenal;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
+public class TelaPesqMovIntTecnicoEF extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -48,7 +48,7 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
-    public TelaPesqMovIntTecnicoJuridico() {
+    public TelaPesqMovIntTecnicoEF() {
         initComponents();
     }
 
@@ -130,7 +130,7 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
                         .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                         .addComponent(jCheckBox1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqNome)
@@ -208,7 +208,7 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -227,8 +227,8 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
                     .addComponent(jBtEnviar))
@@ -246,11 +246,11 @@ public class TelaPesqMovIntTecnicoJuridico extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
         );
 
-        setBounds(200, 10, 596, 317);
+        setBounds(200, 10, 596, 325);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
