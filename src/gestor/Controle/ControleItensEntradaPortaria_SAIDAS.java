@@ -26,11 +26,11 @@ public class ControleItensEntradaPortaria_SAIDAS {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_REGISTRO_CANCELADO_SAIDAS (IdLanc,NomeInternoCrc,DataEntrada,HoraEntrada,OficioInternos,OrigemInterno,ConfirmaEntrada,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_REGISTRO_CANCELADO_SAIDAS (IdLanc,NomeInternoCrc,DataSaida,HoraSaida,OficioInternos,OrigemInterno,ConfirmaEntrada,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensEntIntPort.getIdLanc());
             pst.setString(2, objItensEntIntPort.getNomeInternoCrc());
-            pst.setTimestamp(3, new java.sql.Timestamp(objItensEntIntPort.getDataChegada().getTime()));
-            pst.setString(4, objItensEntIntPort.getHorarioChegada());
+            pst.setTimestamp(3, new java.sql.Timestamp(objItensEntIntPort.getDataSaida().getTime()));
+            pst.setString(4, objItensEntIntPort.getHoraSaida());
             pst.setString(5, objItensEntIntPort.getNumeroOficio());
             pst.setString(6, objItensEntIntPort.getOrigemInterno());
             pst.setString(7, objItensEntIntPort.getConfirmaEntrada());
@@ -49,11 +49,11 @@ public class ControleItensEntradaPortaria_SAIDAS {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_SAIDAS SET IdLanc=?,NomeInternoCrc=?,DataEntrada=?,HoraEntrada=?,OficioInternos=?,OrigemInterno=?,ConfirmaEntrada=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensEntIntPort.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_SAIDAS SET IdLanc=?,NomeInternoCrc=?,DataSaida=?,HoraSaida=?,OficioInternos=?,OrigemInterno=?,ConfirmaEntrada=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensEntIntPort.getIdItem() + "'");
             pst.setInt(1, objItensEntIntPort.getIdLanc());
             pst.setString(2, objItensEntIntPort.getNomeInternoCrc());
-            pst.setTimestamp(3, new java.sql.Timestamp(objItensEntIntPort.getDataChegada().getTime()));
-            pst.setString(4, objItensEntIntPort.getHorarioChegada());
+            pst.setTimestamp(3, new java.sql.Timestamp(objItensEntIntPort.getDataSaida().getTime()));
+            pst.setString(4, objItensEntIntPort.getHoraSaida());
             pst.setString(5, objItensEntIntPort.getNumeroOficio());
             pst.setString(6, objItensEntIntPort.getOrigemInterno());
             pst.setString(7, objItensEntIntPort.getConfirmaEntrada());
@@ -81,6 +81,7 @@ public class ControleItensEntradaPortaria_SAIDAS {
         return objItensEntIntPort;
     }
 
+    // PARTE DO CANCELAMENTO DAS SAÍDAS - CRC E PORTARIA
     //EXCLUIR DE SAIDA PELO CRC
     public ItensEntradaInternosPortaria excluir_SAIDA_PortariaCrc(ItensEntradaInternosPortaria objItensEntIntPort) {
 
@@ -156,12 +157,30 @@ public class ControleItensEntradaPortaria_SAIDAS {
         return objItensEntIntPort;
     }
      
-     public ItensEntradaInternosPortaria alterar_SAIDA_ITENSCRCPORTARIA(ItensEntradaInternosPortaria objItensEntIntPort) {
+     //CANCELA SAIDA NO CRC - TABELA ITENSSAIDA
+     public ItensEntradaInternosPortaria alterar_ITENSSAIDA_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSCRCPORTARIA SET SaidaConfirmada=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida()+ "'");
-            pst.setString(1, objItensEntIntPort.getSaidaConfirmada());            
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida()+ "'");
+            pst.setString(1, objItensEntIntPort.getSaidaConfirmada());
+            pst.setString(2, objItensEntIntPort.getRegistroCancelado());            
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensEntIntPort;
+    }
+     
+      //CANCELA SAIDA NO CRC - TABELA ITENSTRANSFERENCIA
+     public ItensEntradaInternosPortaria alterar_ITENTRANSFERENCIA_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida()+ "'");
+            pst.setString(1, objItensEntIntPort.getSaidaConfirmada());
+            pst.setString(2, objItensEntIntPort.getRegistroCancelado());            
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\n\nERRO: " + ex);

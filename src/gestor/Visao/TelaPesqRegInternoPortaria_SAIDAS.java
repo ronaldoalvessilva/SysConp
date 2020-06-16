@@ -20,6 +20,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jComboBoxTipoSaida;
+import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jDataSaida;
 
 /**
  *
@@ -585,9 +586,11 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                 //
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.IdSaida,ITENSCRCPORTARIA.IdInternoCrc, "
-                            + "PRONTUARIOSCRC.NomeInternoCrc,ITENSCRCPORTARIA.DestinoSaida,ITENSCRCPORTARIA.DocumentoSaida, "
-                            + "ITENSCRCPORTARIA.SaidaConfirmada,ITENSCRCPORTARIA.DocumentoSaida,ITENSCRCPORTARIA.RegistroCancelado "
+                    conecta.executaSQL("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.DataSaida, "
+                            + "ITENSCRCPORTARIA.IdSaida, ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSCRCPORTARIA.DestinoSaida,ITENSCRCPORTARIA.DocumentoSaida, "
+                            + "ITENSCRCPORTARIA.SaidaConfirmada,ITENSCRCPORTARIA.DocumentoSaida, "
+                            + "ITENSCRCPORTARIA.RegistroCancelado "
                             + "FROM ITENSCRCPORTARIA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENSCRCPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -601,6 +604,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                     jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                     jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
                     pRETORNO_PORTARIA = conecta.rs.getInt("IdSaida");
+                    jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                     jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                     conecta.desconecta();
                 } catch (SQLException ex) {
@@ -641,7 +645,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
                 }
                 dispose();
-            }           
+            }
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
@@ -675,7 +679,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
 
     public void preencherTabelaInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno", "Tipo Saída" , "Documento Saída"};
+        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno", "Tipo Saída", "Documento Saída"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);

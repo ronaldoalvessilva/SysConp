@@ -38,11 +38,12 @@ public class ItensEntradaInternosPortaria {
     private String nomeDestino;
     private Date dataSaida;
     private String saidaConfirmada;
+    private String horaSaida;
 
     public ItensEntradaInternosPortaria() {
     }
 
-    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada) {
+    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada, String horaSaida) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -68,6 +69,7 @@ public class ItensEntradaInternosPortaria {
         this.nomeDestino = nomeDestino;
         this.dataSaida = dataSaida;
         this.saidaConfirmada = saidaConfirmada;
+        this.horaSaida = horaSaida;
     }
 
     /**
@@ -418,5 +420,19 @@ public class ItensEntradaInternosPortaria {
      */
     public void setSaidaConfirmada(String saidaConfirmada) {
         this.saidaConfirmada = saidaConfirmada;
+    }
+
+    /**
+     * @return the horaSaida
+     */
+    public String getHoraSaida() {
+        return horaSaida;
+    }
+
+    /**
+     * @param horaSaida the horaSaida to set
+     */
+    public void setHoraSaida(String horaSaida) {
+        this.horaSaida = horaSaida;
     }
 }
