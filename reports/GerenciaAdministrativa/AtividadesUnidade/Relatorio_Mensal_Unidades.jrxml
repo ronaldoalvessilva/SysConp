@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatorio_Mensal_Unidades" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="92afd3b8-c185-4bb4-ae47-d7f1eeb4e196">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="205"/>
 	<style name="Cabecalho" forecolor="#000000" hAlign="Center" vAlign="Middle" fontName="Serif" fontSize="12" isBold="true"/>
 	<parameter name="pNOME_UNIDADE" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -252,22 +252,17 @@ WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="435" y="3" width="80" height="20" uuid="d269ecf9-621e-4a49-b821-ac2b2144d262"/>
+				<reportElement x="212" y="3" width="80" height="20" uuid="d269ecf9-621e-4a49-b821-ac2b2144d262"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="515" y="3" width="40" height="20" uuid="2d0d64e7-1367-4b9a-a413-13315bdc4af6"/>
+				<reportElement x="292" y="3" width="40" height="20" uuid="2d0d64e7-1367-4b9a-a413-13315bdc4af6"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="2" width="555" height="1" uuid="3d38e60f-61a4-42f0-84a3-a775e67224aa"/>
 			</line>
-			<textField>
-				<reportElement x="138" y="3" width="297" height="20" uuid="20d18cef-0df2-47da-b308-e236e0aba383"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$P{pUsuario}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>
