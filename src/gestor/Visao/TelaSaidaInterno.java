@@ -200,7 +200,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         totalRegistrosInternos = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabelEvadido = new javax.swing.JLabel();
+        jEVADIDO_cancelado = new javax.swing.JLabel();
         jNrDocumento = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -767,8 +767,8 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Total Reg.");
 
-        jLabelEvadido.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelEvadido.setForeground(new java.awt.Color(255, 0, 0));
+        jEVADIDO_cancelado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jEVADIDO_cancelado.setForeground(new java.awt.Color(255, 0, 0));
 
         jNrDocumento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jNrDocumento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -798,7 +798,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jEVADIDO_cancelado, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
@@ -835,7 +835,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13)
                     .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jEVADIDO_cancelado, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1469,9 +1469,11 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 jDestinoInterno.setText(conecta.rs.getString("DestinoSaida"));
                 jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
-                jLabelEvadido.setText(conecta.rs.getString("Evadido"));
-                if (jLabelEvadido.getText().equals("")) {
-                    jLabelEvadido.setText(conecta.rs.getString("RegistroCancelado"));
+                jEVADIDO_cancelado.setText(conecta.rs.getString("Evadido"));
+                if (jEVADIDO_cancelado.getText() == null) {
+                    jEVADIDO_cancelado.setText(conecta.rs.getString("RegistroCancelado"));
+                } else if (jEVADIDO_cancelado.getText().equals("")) {
+                    jEVADIDO_cancelado.setText(conecta.rs.getString("RegistroCancelado"));
                 }
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -1517,7 +1519,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
             verificarUtilizacaoPrevisaoSaida();
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-            } else if (jLabelEvadido.getText().equals("EVADIDO")) {
+            } else if (jEVADIDO_cancelado.getText().equals("EVADIDO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o interno está evadido.");
             } else if (confirmacaoSaida.equals("Sim")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse registro, o mesmo está\nfazendo parte de uma integração com a portaria.");
@@ -1883,6 +1885,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     public static com.toedter.calendar.JDateChooser jDataSaida;
     public static javax.swing.JTextField jDescricaoOp;
     private javax.swing.JTextField jDestinoInterno;
+    private javax.swing.JLabel jEVADIDO_cancelado;
     private javax.swing.JTextField jHoraSaida;
     public static javax.swing.JTextField jIDInterno;
     private javax.swing.JTextField jIDPesqLan;
@@ -1907,7 +1910,6 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelEvadido;
     public static javax.swing.JTextField jNomeInterno;
     public static javax.swing.JTextField jNrDocumento;
     private javax.swing.JPanel jPanel1;
@@ -2142,7 +2144,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     }
 
     public void NovoItem() {
-        jDataSaida.setCalendar(Calendar.getInstance());
+        jDataSaida.setDate(null);
         jHoraSaida.setText("");
         jIDInterno.setText("");
         jNomeInterno.setText("");

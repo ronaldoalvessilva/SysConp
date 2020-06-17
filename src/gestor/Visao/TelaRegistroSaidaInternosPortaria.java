@@ -285,7 +285,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         jNrDocumento = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabelEvadido = new javax.swing.JLabel();
+        jEVADIDO_Cancelado = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jComboBoxUnidadeDestino = new javax.swing.JComboBox<>();
         totalRegistrosInternos = new javax.swing.JLabel();
@@ -772,9 +772,9 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Situação");
 
-        jLabelEvadido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabelEvadido.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelEvadido.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jEVADIDO_Cancelado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jEVADIDO_Cancelado.setForeground(new java.awt.Color(255, 0, 0));
+        jEVADIDO_Cancelado.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Unidade de Destino");
@@ -846,7 +846,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                             .addComponent(jLabel5)
                                             .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jLabelEvadido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jEVADIDO_Cancelado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxUnidadeDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -875,7 +875,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jTipoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jEVADIDO_Cancelado, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
@@ -1433,6 +1433,12 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                 jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                 jHorarioSaida.setText(conecta.rs.getString("HoraSaida"));
                 assinaturaDigital = conecta.rs.getBytes("AssinaturaSaida");
+                jEVADIDO_Cancelado.setText(conecta.rs.getString("Evadido"));
+                if (jEVADIDO_Cancelado.getText() == null) {
+                    jEVADIDO_Cancelado.setText(conecta.rs.getString("RegistroCancelado"));
+                } else if (jEVADIDO_Cancelado.getText().equals("")) {
+                    jEVADIDO_Cancelado.setText(conecta.rs.getString("RegistroCancelado"));
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem alterado!!!" + ex);
@@ -1474,7 +1480,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                if (jLabelEvadido.getText().equals("EVADIDO")) {
+                if (jEVADIDO_Cancelado.getText().equals("EVADIDO")) {
                     JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o interno está evadido.");
                 } else {
                     AlterarItem();
@@ -1893,6 +1899,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static com.toedter.calendar.JDateChooser jDataSaida;
+    public static javax.swing.JLabel jEVADIDO_Cancelado;
     public static javax.swing.JFormattedTextField jHorarioSaida;
     public static javax.swing.JTextField jIDInterno;
     private javax.swing.JTextField jIDPesqLan;
@@ -1914,7 +1921,6 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    public static javax.swing.JLabel jLabelEvadido;
     public static javax.swing.JTextField jNomeInterno;
     public static javax.swing.JTextField jNrDocumento;
     public static javax.swing.JTextArea jObservacao;

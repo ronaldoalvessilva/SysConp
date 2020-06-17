@@ -194,7 +194,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         jScrollPane2 = new javax.swing.JScrollPane();
         jMotivo = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaEntradaInternosPortaria = new javax.swing.JTable();
+        jTabelaSaidaInternosCRCPortaria = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jBtNovoInterno = new javax.swing.JButton();
         jBtAlterarInterno = new javax.swing.JButton();
@@ -539,8 +539,8 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                 .addGap(3, 3, 3))
         );
 
-        jTabelaEntradaInternosPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaEntradaInternosPortaria.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaSaidaInternosCRCPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaSaidaInternosCRCPortaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -548,25 +548,25 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                 "Item", "Código", "Nome do Interno", "Data Entrada", "Horário", "Nr. Doc."
             }
         ));
-        jTabelaEntradaInternosPortaria.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaSaidaInternosCRCPortaria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaEntradaInternosPortariaMouseClicked(evt);
+                jTabelaSaidaInternosCRCPortariaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTabelaEntradaInternosPortaria);
-        if (jTabelaEntradaInternosPortaria.getColumnModel().getColumnCount() > 0) {
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setMinWidth(60);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setMinWidth(250);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setMaxWidth(250);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setMinWidth(80);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setMaxWidth(80);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setMinWidth(50);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setMaxWidth(50);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setMinWidth(80);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setMaxWidth(80);
+        jScrollPane1.setViewportView(jTabelaSaidaInternosCRCPortaria);
+        if (jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumnCount() > 0) {
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(4).setMinWidth(50);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(4).setMaxWidth(50);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
@@ -678,7 +678,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         jLabel5.setText("Nome do Interno");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Nr. Doc.");
+        jLabel7.setText("Nr. Documento");
 
         jIdInternoReg.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInternoReg.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -754,11 +754,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(28, 28, 28)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addGap(97, 97, 97)
-                                        .addComponent(jLabel7)))
+                                .addComponent(jLabel6)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -778,11 +776,13 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                         .addGap(2, 2, 2)
                         .addComponent(jNrDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtBuscarRegistroInterno)
+                        .addComponent(jBtBuscarRegistroInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jHorario, jIdInternoReg});
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel7, jNrDocumento});
 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1278,6 +1278,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        Integer row = jTabelaSaidaInternosCRCPortaria.getRowCount();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_CANCELADO_SAIDAS WHERE IdRegCancelSA='" + jIdLanc.getText() + "'");
@@ -1285,6 +1286,8 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else if (row == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar o registro com sem adicionar os internos.");
             } else {
                 Finalizar();
             }
@@ -1507,7 +1510,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                 JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é maior que a data do cancelamento, não é permitido realizar cancelamento futuro.");
             } else {
                 if (acao == 3) {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
                         // Para o log do registro
@@ -2444,12 +2447,12 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jTabelaEntradaInternosPortariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEntradaInternosPortariaMouseClicked
+    private void jTabelaSaidaInternosCRCPortariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaSaidaInternosCRCPortariaMouseClicked
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String idItem = "" + jTabelaEntradaInternosPortaria.getValueAt(jTabelaEntradaInternosPortaria.getSelectedRow(), 0);
-            String idInterno = "" + jTabelaEntradaInternosPortaria.getValueAt(jTabelaEntradaInternosPortaria.getSelectedRow(), 1);
+            String idItem = "" + jTabelaSaidaInternosCRCPortaria.getValueAt(jTabelaSaidaInternosCRCPortaria.getSelectedRow(), 0);
+            String idInterno = "" + jTabelaSaidaInternosCRCPortaria.getValueAt(jTabelaSaidaInternosCRCPortaria.getSelectedRow(), 1);
             jIdInternoReg.setText(idInterno);
             jBtNovoInterno.setEnabled(!true);
             jBtAlterarInterno.setEnabled(true);
@@ -2484,7 +2487,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
         }
-    }//GEN-LAST:event_jTabelaEntradaInternosPortariaMouseClicked
+    }//GEN-LAST:event_jTabelaSaidaInternosCRCPortariaMouseClicked
 
     private void jTabelaPesqusaInternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesqusaInternoMouseClicked
         // TODO add your handling code here:
@@ -2619,8 +2622,8 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaEntradaInternosPortaria;
     private javax.swing.JTable jTabelaPesqusaInterno;
+    private javax.swing.JTable jTabelaSaidaInternosCRCPortaria;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -2896,14 +2899,14 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         jIdInternoReg.setText("");
         jNomeInternoReg.setText("");
         jNrDocumento.setText("");
-        jDataSaida.setCalendar(Calendar.getInstance());
+        jDataSaida.setDate(null);
         jHorario.setText(jHoraSistema.getText());
         jComboBoxTipoSaida.setSelectedItem("Selecione...");
         jComboBoxSetor.setSelectedItem("Selecione...");
         //        
         jBtBuscarRegistroInterno.setEnabled(true);
-        jNrDocumento.setEnabled(true);
-        jDataSaida.setEnabled(true);
+        jNrDocumento.setEnabled(!true);
+        jDataSaida.setEnabled(!true);
         jHorario.setEnabled(true);
         jComboBoxTipoSaida.setEnabled(true);
         jComboBoxSetor.setEnabled(true);
@@ -3231,22 +3234,22 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaEntradaInternosPortaria.setModel(modelo);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(250);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(80);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(50);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaEntradaInternosPortaria.getTableHeader().setReorderingAllowed(false);
-        jTabelaEntradaInternosPortaria.setAutoResizeMode(jTabelaEntradaInternosPortaria.AUTO_RESIZE_OFF);
-        jTabelaEntradaInternosPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaSaidaInternosCRCPortaria.setModel(modelo);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(4).setPreferredWidth(50);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getTableHeader().setReorderingAllowed(false);
+        jTabelaSaidaInternosCRCPortaria.setAutoResizeMode(jTabelaSaidaInternosCRCPortaria.AUTO_RESIZE_OFF);
+        jTabelaSaidaInternosCRCPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaItens();
         conecta.desconecta();
     }
@@ -3255,22 +3258,22 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Data Entrada", "Horario", "Nr. Doc."};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaEntradaInternosPortaria.setModel(modelo);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(250);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(80);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(50);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaEntradaInternosPortaria.getTableHeader().setReorderingAllowed(false);
-        jTabelaEntradaInternosPortaria.setAutoResizeMode(jTabelaEntradaInternosPortaria.AUTO_RESIZE_OFF);
-        jTabelaEntradaInternosPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaSaidaInternosCRCPortaria.setModel(modelo);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(4).setPreferredWidth(50);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaSaidaInternosCRCPortaria.getTableHeader().setReorderingAllowed(false);
+        jTabelaSaidaInternosCRCPortaria.setAutoResizeMode(jTabelaSaidaInternosCRCPortaria.AUTO_RESIZE_OFF);
+        jTabelaSaidaInternosCRCPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
 
@@ -3282,11 +3285,11 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaSaidaInternosCRCPortaria.getColumnModel().getColumn(5).setCellRenderer(centralizado);
     }
 
     public void objLog() {
