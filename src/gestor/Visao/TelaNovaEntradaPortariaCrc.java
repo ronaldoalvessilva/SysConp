@@ -1799,10 +1799,10 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jNrOficio.setText("");
         jDataEntrada.setCalendar(Calendar.getInstance());
         jHorarioEntrada.setText(jHoraSistema.getText());
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
-            jDataEntrada.setEnabled(true);
+//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            jDataEntrada.setEnabled(!true);
             jHorarioEntrada.setEnabled(true);
-        }
+//        }
         //
         jBtPesquisarInternos.setEnabled(true);
         jComboBoxOrigem.setEnabled(true);
