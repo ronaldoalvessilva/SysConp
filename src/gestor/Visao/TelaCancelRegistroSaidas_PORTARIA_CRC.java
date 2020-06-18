@@ -61,7 +61,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -141,6 +144,8 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
     String pTIPO_SAIDA_PRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR - COVID-19";
     //
     String pUTILIZADO_portaria = "";
+    //
+    String pLIBERADOR_cancelamento;;
 
     /**
      * Creates new form TelaCancelRegistroPortaria
@@ -1487,6 +1492,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         buscarAcessoUsuario(telaCancelamentoSaidaInte_CRC);
         buscarAcessoUsuarioP1(telaCancelamentoRetornosInte_P1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoSaidaInte_CRC) && codGravarCRC == 1) {
+          
             confirmaUtilizacao = "Sim";
             if (jNomeInternoReg.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
@@ -3382,6 +3388,59 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             codConsultarP1 = conecta.rs.getInt("Consultar");
             nomeTelaP1 = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+    
+    //USAR SOMENTE SE PRECISAR FAZER O CANCELAMENTO POR AUTORIZAÇÃO DE SENHA.
+    //LIMPAR A VARIAVEL APOS FECHAR A TELA (18/06/2020)
+    //UTILIZAR QUANDO INCLUIR O REGISTRO OU NO MOMENTO DE GRAVAR O REGISTRO
+    //SE UTILIZAR, CRIAR PARAMENTRO NO TABELA PARAMETROCRC
+    public void verificarAutorizador() {
+        try {
+            conecta.abrirConexao();
+            conecta.executaSQL("SELECT NomeAprovadorCancelamento "
+                    + "FROM PARAMETROSCRC");
+//                    + "WHERE NomeAprovadorCancelamento='" + nameUser + "'");
+            conecta.rs.first();
+            pLIBERADOR_cancelamento = conecta.rs.getString("NomeAprovadorCancelamento");
+            if (nameUser.equals(pLIBERADOR_cancelamento)) {
+                APROVAR_cancelamento();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Usuário não tem permissão para liberar o registro.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem permissão para liberar o registro.");
+        }
+    }
+    
+    public void APROVAR_cancelamento() {
+        // Cria campo onde o usuario entra com a senha  
+        JPasswordField password = new JPasswordField(10);
+        password.setEchoChar('*');
+        // Cria um rótulo para o campo  
+        JLabel rotulo = new JLabel("Entre com a senha:");
+        // Coloca o rótulo e a caixa de entrada numa JPanel:  
+        JPanel entUsuario = new JPanel();
+        entUsuario.add(rotulo);
+        entUsuario.add(password);
+        // Colocar campo chanfrado manualmente.
+        password.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        JOptionPane.showMessageDialog(null, entUsuario, "Acesso restrito", JOptionPane.PLAIN_MESSAGE);
+        //  JOptionPane.showConfirmDialog(this, entUsuario, "Acesso restrito", JOptionPane.YES_NO_OPTION);       
+        try {
+            conecta.abrirConexao();
+            conecta.executaSQL("SELECT NomeUsuario "
+                    + "FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            if (password.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Digite a senha corretamente !!!");
+            } else if (password.getText().equals(conecta.rs.getString("SenhaUsuario"))) {
+//                Finalizar();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Senha Inválida...");
         }
         conecta.desconecta();
     }
