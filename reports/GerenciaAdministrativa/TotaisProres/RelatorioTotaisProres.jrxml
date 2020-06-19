@@ -10,7 +10,7 @@
 	<parameter name="pUnidade" class="java.lang.String"/>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\GerenciaAdministrativa\\TotaisProres\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT TOP 1 * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP

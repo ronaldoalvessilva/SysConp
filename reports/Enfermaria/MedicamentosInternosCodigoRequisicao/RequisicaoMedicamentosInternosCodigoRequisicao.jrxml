@@ -8,7 +8,7 @@
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\ronaldo\\Documents\\ProjetosNetBeans\\GestorPrisional\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\Enfermaria\\MedicamentosInternosCodigoRequisicao\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="codRequisicao" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>

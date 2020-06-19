@@ -16,7 +16,7 @@
 	<parameter name="nomeUsuario" class="java.lang.String"/>
 	<parameter name="descricaoUnidade" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\TerapiaOcupacional\\FrequenciaCursosTO\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="codigoRegistro" class="java.lang.String"/>
 	<queryString>
