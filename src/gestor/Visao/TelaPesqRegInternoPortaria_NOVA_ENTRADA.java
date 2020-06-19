@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jDataEntrada;
 import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jIdInternoReg;
 import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jNomeInternoReg;
 import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jNrDocumento;
@@ -206,7 +207,10 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
-            preencherTabelaInternos("SELECT * FROM ITENSNOVAENTRADA "
+            preencherTabelaInternos("SELECT ITENSNOVAENTRADA.IdInternoCrc,"
+                    + "ITENSNOVAENTRADA.DataEntrada,ITENSNOVAENTRADA.UtilizadoCrc "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,ITENSNOVAENTRADA.NrOficio "
+                    + "FROM ITENSNOVAENTRADA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
@@ -219,7 +223,10 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInternos("SELECT * FROM ITENSNOVAENTRADA "
+            this.preencherTabelaInternos("SELECT ITENSNOVAENTRADA.IdInternoCrc, "
+                    + "ITENSNOVAENTRADA.DataEntrada,ITENSNOVAENTRADA.UtilizadoCrc "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,ITENSNOVAENTRADA.NrOficio "
+                    + "FROM ITENSNOVAENTRADA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE UtilizadoCrc='" + confirmaEntrada + "' "
@@ -239,7 +246,9 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSNOVAENTRADA "
+                conecta.executaSQL("SELECT ITENSNOVAENTRADA.IdInternoCrc,ITENSNOVAENTRADA.DataEntrada "
+                        + "PRONTUARIOSCRC.NomeInternoCrc,ITENSNOVAENTRADA.NrOficio "
+                        + "FROM ITENSNOVAENTRADA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE NomeInternoCrc='" + nomeInterno + "' "
@@ -248,6 +257,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
                 jNrDocumento.setText(conecta.rs.getString("NrOficio"));
+                jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -291,7 +301,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"),conecta.rs.getString("NrOficio")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("NrOficio")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");

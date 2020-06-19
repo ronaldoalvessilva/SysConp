@@ -1406,64 +1406,66 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
             if (jNomeInternoReg.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
                 jNomeInternoReg.requestFocus();
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de Saida.");
+                jDataEntrada.requestFocus();
+                jDataEntrada.setBackground(Color.red);
+            } else if (jDataLanc.getDate().after(jDataEntrada.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é menor que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
+            } else if (jDataLanc.getDate().before(jDataEntrada.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é maior que a data do cancelamento, não é permitido realizar cancelamento futuro.");
             } else {
-                if (jDataEntrada.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Saida.");
-                    jDataEntrada.requestFocus();
-                    jDataEntrada.setBackground(Color.red);
-                } else {
-                    if (acao == 3) {
-                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta == JOptionPane.YES_OPTION) {
-                            // Para o log do registro
-                            objItensRecCancel.setUsuarioInsert(nameUser);
-                            objItensRecCancel.setDataInsert(dataModFinal);
-                            objItensRecCancel.setHorarioInsert(horaMov);
-                            //
-                            objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
-                            objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                            objItensRecCancel.setNrDocumento(jNrDocumento.getText());
-                            objItensRecCancel.setDataSaida(jDataEntrada.getDate());
-                            objItensRecCancel.setHoraSaida(jHorario.getText());
-                            objItensRecCancel.setConfirmacaoRegistro(confirmaUtilizacao);
-                            controle.incluirRegCancelado(objItensRecCancel);
-                            // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
-                            // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
-                            objItensEntIntPort.setNomeInternoCrc(jNomeInternoReg.getText());
-                            objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
-                            objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                            controleReg.confirmarEntradaPortariaCrc(objItensEntIntPort);
-                            //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
-                            populacaoAlimentacao();
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
-                                    + "WHERE Idlanc='" + jIdLanc.getText() + "'");
-                            SalvarInterno();
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Se necessário, solicite a portaria que faça o lançamento do registro corretamente.");
-                        }
-                    }
-                    if (acao == 4) {
+                if (acao == 3) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
                         // Para o log do registro
-                        objItensRecCancel.setUsuarioUp(nameUser);
-                        objItensRecCancel.setDataUp(dataModFinal);
-                        objItensRecCancel.setHorarioUp(horaMov);
+                        objItensRecCancel.setUsuarioInsert(nameUser);
+                        objItensRecCancel.setDataInsert(dataModFinal);
+                        objItensRecCancel.setHorarioInsert(horaMov);
                         //
                         objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
                         objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objItensRecCancel.setNrDocumento(jNrDocumento.getText());
                         objItensRecCancel.setDataSaida(jDataEntrada.getDate());
                         objItensRecCancel.setHoraSaida(jHorario.getText());
-                        objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
-                        controle.alterarRegCancelado(objItensRecCancel);
+                        objItensRecCancel.setConfirmacaoRegistro(confirmaUtilizacao);
+                        controle.incluirRegCancelado(objItensRecCancel);
+                        // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
+                        // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                        objItensEntIntPort.setNomeInternoCrc(jNomeInternoReg.getText());
+                        objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                        objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                        controleReg.confirmarEntradaPortariaCrc(objItensEntIntPort);
+                        //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                        populacaoAlimentacao();
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
                                 + "WHERE Idlanc='" + jIdLanc.getText() + "'");
                         SalvarInterno();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Se necessário, solicite a portaria que faça o lançamento do registro corretamente.");
                     }
+                }
+                if (acao == 4) {
+                    // Para o log do registro
+                    objItensRecCancel.setUsuarioUp(nameUser);
+                    objItensRecCancel.setDataUp(dataModFinal);
+                    objItensRecCancel.setHorarioUp(horaMov);
+                    //
+                    objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+                    objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objItensRecCancel.setNrDocumento(jNrDocumento.getText());
+                    objItensRecCancel.setDataSaida(jDataEntrada.getDate());
+                    objItensRecCancel.setHoraSaida(jHorario.getText());
+                    objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
+                    controle.alterarRegCancelado(objItensRecCancel);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
+                            + "WHERE Idlanc='" + jIdLanc.getText() + "'");
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
                 }
             }
         } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteP1) && codGravarP1 == 1) {
@@ -1471,64 +1473,66 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
             if (jNomeInternoReg.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
                 jNomeInternoReg.requestFocus();
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de Entrada.");
+                jDataEntrada.requestFocus();
+                jDataEntrada.setBackground(Color.red);
+            } else if (jDataLanc.getDate().after(jDataEntrada.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é menor que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
+            } else if (jDataLanc.getDate().before(jDataEntrada.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é maior que a data do cancelamento, não é permitido realizar cancelamento futuro.");
             } else {
-                if (jDataEntrada.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Saida.");
-                    jDataEntrada.requestFocus();
-                    jDataEntrada.setBackground(Color.red);
-                } else {
-                    if (acao == 3) {
-                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta == JOptionPane.YES_OPTION) {
-                            // Para o log do registro
-                            objItensRecCancel.setUsuarioInsert(nameUser);
-                            objItensRecCancel.setDataInsert(dataModFinal);
-                            objItensRecCancel.setHorarioInsert(horaMov);
-                            //
-                            objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
-                            objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                            objItensRecCancel.setNrDocumento(jNrDocumento.getText());
-                            objItensRecCancel.setDataSaida(jDataEntrada.getDate());
-                            objItensRecCancel.setHoraSaida(jHorario.getText());
-                            objItensRecCancel.setConfirmacaoRegistro(confirmaUtilizacao);
-                            controle.incluirRegCancelado(objItensRecCancel);
-                            // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
-                            // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
-                            objItensEntIntPort.setNomeInternoCrc(jNomeInternoReg.getText());
-                            objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
-                            objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                            controleReg.confirmarEntradaPortariaCrc(objItensEntIntPort);
-                            //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
-                            populacaoAlimentacao();
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
-                                    + "WHERE Idlanc='" + jIdLanc.getText() + "'");
-                            SalvarInterno();
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Se necessário, solicite a portaria que faça o lançamento do registro corretamente.");
-                        }
-                    }
-                    if (acao == 4) {
+                if (acao == 3) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
                         // Para o log do registro
-                        objItensRecCancel.setUsuarioUp(nameUser);
-                        objItensRecCancel.setDataUp(dataModFinal);
-                        objItensRecCancel.setHorarioUp(horaMov);
+                        objItensRecCancel.setUsuarioInsert(nameUser);
+                        objItensRecCancel.setDataInsert(dataModFinal);
+                        objItensRecCancel.setHorarioInsert(horaMov);
                         //
                         objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
                         objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objItensRecCancel.setNrDocumento(jNrDocumento.getText());
                         objItensRecCancel.setDataSaida(jDataEntrada.getDate());
                         objItensRecCancel.setHoraSaida(jHorario.getText());
-                        objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
-                        controle.alterarRegCancelado(objItensRecCancel);
+                        objItensRecCancel.setConfirmacaoRegistro(confirmaUtilizacao);
+                        controle.incluirRegCancelado(objItensRecCancel);
+                        // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
+                        // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                        objItensEntIntPort.setNomeInternoCrc(jNomeInternoReg.getText());
+                        objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                        objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                        controleReg.confirmarEntradaPortariaCrc(objItensEntIntPort);
+                        //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                        populacaoAlimentacao();
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
                                 + "WHERE Idlanc='" + jIdLanc.getText() + "'");
                         SalvarInterno();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Se necessário, solicite a portaria que faça o lançamento do registro corretamente.");
                     }
+                }
+                if (acao == 4) {
+                    // Para o log do registro
+                    objItensRecCancel.setUsuarioUp(nameUser);
+                    objItensRecCancel.setDataUp(dataModFinal);
+                    objItensRecCancel.setHorarioUp(horaMov);
+                    //
+                    objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+                    objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objItensRecCancel.setNrDocumento(jNrDocumento.getText());
+                    objItensRecCancel.setDataSaida(jDataEntrada.getDate());
+                    objItensRecCancel.setHoraSaida(jHorario.getText());
+                    objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
+                    controle.alterarRegCancelado(objItensRecCancel);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
+                            + "WHERE Idlanc='" + jIdLanc.getText() + "'");
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
                 }
             }
         } else {
@@ -1631,10 +1635,10 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtBuscarRegistroInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegistroInternoActionPerformed
         // TODO add your handling code here:
         TelaPesqRegInternoPortaria objPesqRegInternoPor = new TelaPesqRegInternoPortaria();
-        if (TelaModuloCRC.jPainelCRC != null) {            
+        if (TelaModuloCRC.jPainelCRC != null) {
             TelaModuloCRC.jPainelCRC.add(objPesqRegInternoPor);
             objPesqRegInternoPor.show();
-        } else if (TelaModuloPortarias.jPainelPortarias != null) {           
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {
             TelaModuloPortarias.jPainelPortarias.add(objPesqRegInternoPor);
             objPesqRegInternoPor.show();
         }
@@ -1663,7 +1667,7 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvarInterno;
     private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JTextField jCodigoPesq;
-    private com.toedter.calendar.JDateChooser jDataEntrada;
+    public static com.toedter.calendar.JDateChooser jDataEntrada;
     private com.toedter.calendar.JDateChooser jDataLanc;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;

@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import static gestor.Visao.TelaCancelRegistroPortaria.jDataEntrada;
 import static gestor.Visao.TelaCancelRegistroPortaria.jIdInternoReg;
 import static gestor.Visao.TelaCancelRegistroPortaria.jNomeInternoReg;
 import java.sql.SQLException;
@@ -203,7 +204,9 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
-            preencherTabelaInternos("SELECT * FROM ITENSENTRADAPORTARIA "
+            preencherTabelaInternos("SELECT IdItem,DataEntrada, "
+                    + "NomeInternoCrc,ConfirmaEntrada "
+                    + "FROM ITENSENTRADAPORTARIA "
                     + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
                     + "AND ConfirmaEntrada='" + confirmaEntrada + "' "
                     + "ORDER BY NomeInternoCrc");
@@ -214,7 +217,9 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInternos("SELECT * FROM ITENSENTRADAPORTARIA "
+            this.preencherTabelaInternos("SELECT IdItem,DataEntrada,NomeInternoCrc, "
+                    + "NomeInternoCrc,ConfirmaEntrada "
+                    + "FROM ITENSENTRADAPORTARIA "
                     + "WHERE ConfirmaEntrada='" + confirmaEntrada + "' "
                     + "ORDER BY NomeInternoCrc");
         } else {
@@ -232,12 +237,14 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
+                conecta.executaSQL("SELECT IdItem,DataEntrada,NomeInternoCrc "
+                        + "FROM ITENSENTRADAPORTARIA "
                         + "WHERE NomeInternoCrc='" + nomeInterno + "' "
                         + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdItem")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
+                jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);

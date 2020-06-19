@@ -32,9 +32,9 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
 
     int flag;
     String pRETORNO_CRC = "Não";
-    String pRETORNO_PORTARIA_RetPort = "Sim";
-    String pCONFIRMACAO_SAIDA_CRC = "Não";
-    String pCONFIRMACAO_SAIDA_PORTARIA = "Sim";
+    String pRETORNO_PORTARIA_RetPort = "Sim"; 
+    String pCONFIRMACAO_SAIDA_CRC = "Não"; // CANCELA SOMENTE NO CRC
+    String pCONFIRMACAO_SAIDA_PORTARIA = "Sim"; // CANCELA NO CRC E NA PORTARIA
     String pREGISTRO_CANCELADO = "";
     String nomeInterno;
     String pREGISTRO;
@@ -232,6 +232,8 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
         // TODO add your handling code here:
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+            //QUANDO O INTERNO JÁ FOI LANÇADO PELA PORTARIA - LANÇAMENTO ERRADO POR ALGUM MOTIVO.
+            //A VARIAVEL "pCONFIRMACAO_SAIDA_CRC = Não"
         } else if (jComboBoxSetor.getSelectedItem().equals("CRC")) {
             if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Temporaria")) {
                 preencherTabelaInternos("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
@@ -312,6 +314,8 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "AND ITENSCRCPORTARIA.RegistroCancelado IS NULL");
             }
             //PORTARIA INTERNA
+            //PESQUISAR OS INTERNOS QUE FORAM LANÇADOS NA PORTARIA, PARA CANCELAR CASO ESTEJA ERRADO
+            //POR ALGUM MOTIVO. A VARIAVÉL "pCONFIRMACAO_SAIDA_PORTARIA = Sim"
         } else if (jComboBoxSetor.getSelectedItem().equals("Portaria Interna")) {
             if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Temporaria")) {
                 preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
@@ -688,7 +692,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                 dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("DestinoSaida"), conecta.rs.getString("DocumentoSaida")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
+            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS, provavelmente não exite(m) registro(s) para atender essa solicitação.");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternos.setModel(modelo);
