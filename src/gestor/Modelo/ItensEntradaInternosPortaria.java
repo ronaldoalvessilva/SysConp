@@ -14,6 +14,8 @@ import java.util.Date;
 public class ItensEntradaInternosPortaria {
 
     private int idItem;
+    private int idItem_SAIDA;
+    private int idItem_MOVIMENTO;
     private int idLanc;
     private int idInternoCrc;
     private String nomeInternoCrc;
@@ -44,8 +46,10 @@ public class ItensEntradaInternosPortaria {
     public ItensEntradaInternosPortaria() {
     }
 
-    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada, String horaSaida, String observacaoInterno) {
+    public ItensEntradaInternosPortaria(int idItem, int idItem_SAIDA, int idItem_MOVIMENTO, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada, String horaSaida, String observacaoInterno) {
         this.idItem = idItem;
+        this.idItem_SAIDA = idItem_SAIDA;
+        this.idItem_MOVIMENTO = idItem_MOVIMENTO;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
@@ -86,6 +90,34 @@ public class ItensEntradaInternosPortaria {
      */
     public void setIdItem(int idItem) {
         this.idItem = idItem;
+    }
+
+    /**
+     * @return the idItem_SAIDA
+     */
+    public int getIdItem_SAIDA() {
+        return idItem_SAIDA;
+    }
+
+    /**
+     * @param idItem_SAIDA the idItem_SAIDA to set
+     */
+    public void setIdItem_SAIDA(int idItem_SAIDA) {
+        this.idItem_SAIDA = idItem_SAIDA;
+    }
+
+    /**
+     * @return the idItem_MOVIMENTO
+     */
+    public int getIdItem_MOVIMENTO() {
+        return idItem_MOVIMENTO;
+    }
+
+    /**
+     * @param idItem_MOVIMENTO the idItem_MOVIMENTO to set
+     */
+    public void setIdItem_MOVIMENTO(int idItem_MOVIMENTO) {
+        this.idItem_MOVIMENTO = idItem_MOVIMENTO;
     }
 
     /**

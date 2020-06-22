@@ -10,7 +10,6 @@ import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jIdInternoReg;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jNomeInternoReg;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jNrDocumento;
-import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.pRETORNO_PORTARIA;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.pCODIGO_ENTRADA_SAIDA;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jComboBoxSetor;
 import java.sql.SQLException;
@@ -21,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jComboBoxTipoSaida;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jDataSaida;
+import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.pCODIGO_SAIDA_crc;
 
 /**
  *
@@ -607,7 +607,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                     pCODIGO_ENTRADA_SAIDA = conecta.rs.getInt("IdItem");
                     jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                     jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
-                    pRETORNO_PORTARIA = conecta.rs.getInt("IdSaida");
+                    pCODIGO_SAIDA_crc = conecta.rs.getInt("IdSaida");
                     jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                     jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                     conecta.desconecta();
@@ -642,7 +642,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                     pCODIGO_ENTRADA_SAIDA = conecta.rs.getInt("IdItem");
                     jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                     jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
-                    pRETORNO_PORTARIA = conecta.rs.getInt("IdSaida");
+                    pCODIGO_SAIDA_crc = conecta.rs.getInt("IdSaida");
                     jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                     conecta.desconecta();
                 } catch (SQLException ex) {

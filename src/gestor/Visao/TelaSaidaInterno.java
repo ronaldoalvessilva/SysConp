@@ -34,8 +34,10 @@ import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
 import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
 import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
 import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.jPainelCRC;
 import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
 import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaCancelamentoSaidaManu_CRC;
 import static gestor.Visao.TelaModuloCRC.telaSaidaInternosAgenCRC;
 import static gestor.Visao.TelaModuloCRC.telaSaidaInternosInteCRC;
 import static gestor.Visao.TelaModuloCRC.telaSaidaInternosManuCRC;
@@ -46,6 +48,7 @@ import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,6 +85,8 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
+     private TelaCancelRegistroSaidas_PORTARIA_CRC objCancel_SAIDAS = null;
+    //
     String nomeModuloTela = "CRC:Saida de Internos:Manutenção";
     String nomeModuloTela2 = "CRC:Saida de Internos:Internos";
     String statusMov;
@@ -92,9 +97,9 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     int flag;
     int codSai;
     String tipo = "Saídas";
-    String situacao = "SAIDA TEMPORARIA"; // Máximo 19 caracteres
-    String pSITUACAO = "PRISAO DOMICILIAR - COVID-19";
-    String saidaAudiencia = "SAIDA PARA AUDIENCIA";
+    String pSAIDA_TEMPORARIA = "SAIDA TEMPORARIA"; // Máximo 19 caracteres
+    String pSITUACAO_PRISAO_domiciliar = "PRISAO DOMICILIAR - COVID-19";
+    String pSAIDA_Audiencia = "SAIDA PARA AUDIENCIA";
     int flagItem;
     int codItem = 0;
     public static String idItem;
@@ -122,6 +127,9 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     public static int codItemAgenda;
     String codInternoAnt; // CÓDIGO DO INTERNO PARA SER  ALTERADO A AGENDA DE ESCOLTA
     String codDocAnterior;
+    //CÓDIGOS PARA NÃO DEIXAR GRAVAR O MESMO INTERNO NO MESMO DOCUMENTO;
+    String pCODIGO_INTERNO_SAIDA = "";
+    String pCODIGO_REGISTRO = "";
 
     /**
      * Creates new form TelaSaidaInterno
@@ -229,6 +237,9 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         FotoInternoCrcSaida = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jBtCancelarRegistro = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1104,13 +1115,13 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addContainerGap()
                 .addComponent(jLabel17)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -1126,6 +1137,42 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
             .addComponent(FotoInternoCrcSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtCancelarRegistro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtCancelarRegistro.setForeground(new java.awt.Color(255, 0, 0));
+        jBtCancelarRegistro.setText("CANCELAR");
+        jBtCancelarRegistro.setToolTipText("Cancelar Registro de Interno");
+        jBtCancelarRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarRegistroActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_72.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtCancelarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtCancelarRegistro)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1136,7 +1183,9 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1152,9 +1201,11 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1168,6 +1219,8 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel3, jPanel8});
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
@@ -1491,8 +1544,8 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
                 acao = 3;
-                if (jDescricaoOp.getText().equals(situacao) || jDescricaoOp.getText().equals(pSITUACAO)) {
-                    jDataRetorno.setCalendar(Calendar.getInstance());
+                if (jDescricaoOp.getText().equals(pSAIDA_TEMPORARIA) || jDescricaoOp.getText().equals(pSITUACAO_PRISAO_domiciliar)) {
+                    jDataRetorno.setDate(null);
                     jDataRetorno.setEnabled(true);
                 }
                 NovoItem();
@@ -1519,8 +1572,10 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
             verificarUtilizacaoPrevisaoSaida();
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-            } else if (jEVADIDO_cancelado.getText().equals("EVADIDO")) {
+            } else if (jEVADIDO_cancelado.getText() != null && jEVADIDO_cancelado.getText().equals("EVADIDO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o interno está evadido.");
+            } else if (jEVADIDO_cancelado.getText() != null && jEVADIDO_cancelado.getText().equals("REGISTRO CANCELADO PELO CRC")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, REGISTRO CANCELADO.");
             } else if (confirmacaoSaida.equals("Sim")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse registro, o mesmo está\nfazendo parte de uma integração com a portaria.");
             } else if (utilizacaoPrevSaida == null) {
@@ -1628,7 +1683,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                         if (jNomeInterno.getText().equals("")) {
                             JOptionPane.showMessageDialog(rootPane, "Dados do interno não pode ser em branco, faça pesquisa\ne escolha o interno");
                         } else {
-                            if (jDescricaoOp.getText().equals(situacao) && jDataRetorno.getDate() == null) {
+                            if (jDescricaoOp.getText().equals(pSAIDA_TEMPORARIA) && jDataRetorno.getDate() == null) {
                                 JOptionPane.showMessageDialog(rootPane, "Informe a data de retorno para esse interno");
                             } else {
                                 objItemSaida.setIdInternoSaida(Integer.valueOf(jIDInterno.getText()));
@@ -1645,24 +1700,29 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                                 objItemSaida.setHoraInsert(horaMov);
                                 try {
                                     //Incluir itens (INTERNOS)
+                                    //VERIFICAR SE O REGISTRO JÁ EXISTE, SE EXISTIR NÃO DEIXA GRAVAR.
+                                    verificarRegistrosCadastrado();
                                     if (acao == 3) {
-                                        objItemSaida.setInternoEvadido(evadido);
-                                        objItemSaida.setIdSaida((Integer.parseInt(jIDlanc.getText())));
-                                        controle.incluirItensSaida(objItemSaida); // Gravar registro na tabela de itens  
-                                        objItemSaida.setIdSaida((Integer.parseInt(jIDlanc.getText())));
-                                        buscarIdItem();
-                                        objDadosSaidaRetornoInterno();
-                                        // TABELA MOVISR
-                                        controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva); // Grava registros para retorno de interno (Sinalizar evasão) MOVISR
-                                        // Incluir os itens na tabela para portaria registrar a saida.
-                                        objItemSaida.setIdItemSaida(codItem);
-                                        objItemSaida.setInternoEvadido(evadido);
-                                        controle.incluirItensSaidaPortaria(objItemSaida); // Registros para portaria na tabela ITENSCRCPORTARIA
-                                        //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC                                            
-                                        objItemSaida.setIdItemSaida(codItem);
-                                        controlMov.incluirMovSaida(objItemSaida);
-                                        objLog2();
-                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        if (jIDlanc.getText().equals(pCODIGO_REGISTRO) && jIDInterno.getText().equals(pCODIGO_INTERNO_SAIDA)) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não é permitido gravar o mesmo interno nesse documento, abra outra ficha e insira o registro.");
+                                        } else {
+                                            objItemSaida.setInternoEvadido(evadido);
+                                            objItemSaida.setIdSaida((Integer.parseInt(jIDlanc.getText())));
+                                            controle.incluirItensSaida(objItemSaida); // Gravar registro na tabela de itens  
+                                            objItemSaida.setIdSaida((Integer.parseInt(jIDlanc.getText())));
+                                            buscarIdItem();
+                                            objDadosSaidaRetornoInterno();
+                                            // TABELA MOVISR
+                                            controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva); // Grava registros para retorno de interno (Sinalizar evasão) MOVISR
+                                            // Incluir os itens na tabela para portaria registrar a saida.
+                                            objItemSaida.setIdItemSaida(codItem);
+                                            objItemSaida.setInternoEvadido(evadido);
+                                            controle.incluirItensSaidaPortaria(objItemSaida); // Registros para portaria na tabela ITENSCRCPORTARIA
+                                            //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC                                            
+                                            objItemSaida.setIdItemSaida(codItem);
+                                            controlMov.incluirMovSaida(objItemSaida);
+                                            objLog2();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
 //                                        if (jDescricaoOp.getText().equals(saidaAudiencia)) { // quando a saida for para audiencia
 //                                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja lançar histórico de movimentação do interno?", "Confirmação",
 //                                                    JOptionPane.YES_NO_OPTION);
@@ -1682,14 +1742,15 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
 //                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
 //                                            }
 //                                        }
-                                        buscarItemInternoAgenda(); // BUSCAR ITEM DA TABELA ITENSAGENDA PARA MODIFICAR A RESPOSTA DE "Sim" PARA "Não"
-                                        modificarAgendaEscolta();
-                                        SalvarItem();
-                                        preencherTabelaItens("SELECT * FROM ITENSSAIDA "
-                                                + "INNER JOIN PRONTUARIOSCRC "
-                                                + "ON ITENSSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                                + "WHERE IdSaida='" + jIDlanc.getText() + "'");
-                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                            buscarItemInternoAgenda(); // BUSCAR ITEM DA TABELA ITENSAGENDA PARA MODIFICAR A RESPOSTA DE "Sim" PARA "Não"
+                                            modificarAgendaEscolta();
+                                            SalvarItem();
+                                            preencherTabelaItens("SELECT * FROM ITENSSAIDA "
+                                                    + "INNER JOIN PRONTUARIOSCRC "
+                                                    + "ON ITENSSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                    + "WHERE IdSaida='" + jIDlanc.getText() + "'");
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        }
                                     }
                                     // Alterar os Itens (INTERNOS)
                                     if (acao == 4) {
@@ -1852,6 +1913,40 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtBuscarAgendaActionPerformed
 
+    private void jBtCancelarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarRegistroActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelamentoSaidaManu_CRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoSaidaManu_CRC) && codAbrirCRC == 1) {
+            if (objCancel_SAIDAS == null || objCancel_SAIDAS.isClosed()) {
+                objCancel_SAIDAS = new TelaCancelRegistroSaidas_PORTARIA_CRC();
+                jPainelCRC.add(objCancel_SAIDAS);
+                objCancel_SAIDAS.setVisible(true);
+            } else {
+                if (objCancel_SAIDAS.isVisible()) {
+                    if (objCancel_SAIDAS.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancel_SAIDAS.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancel_SAIDAS.toFront(); // traz para frente
+                        objCancel_SAIDAS.pack();//volta frame 
+                    }
+                } else {
+                    objCancel_SAIDAS = new TelaCancelRegistroSaidas_PORTARIA_CRC();
+                    TelaModuloCRC.jPainelCRC.add(objCancel_SAIDAS);//adicona frame ao JDesktopPane  
+                    objCancel_SAIDAS.setVisible(true);
+                }
+            }
+            try {
+                objCancel_SAIDAS.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtCancelarRegistroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel FotoInternoCrcSaida;
@@ -1861,6 +1956,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtBuscarAgenda;
     public static javax.swing.JButton jBtBuscarPrevisao;
     public static javax.swing.JButton jBtCancelarItem;
+    private javax.swing.JButton jBtCancelarRegistro;
     private javax.swing.JButton jBtCancelarlanc;
     private javax.swing.JButton jBtDataLanc;
     public static javax.swing.JButton jBtExcluirItem;
@@ -1900,6 +1996,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
@@ -1919,6 +2016,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
@@ -1943,6 +2041,21 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     public static javax.swing.JLabel totalRegistrosInternos;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarRegistrosCadastrado() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdInternoCrc,IdSaida "
+                    + "FROM ITENSSAIDA "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
+                    + "AND IdSaida='" + jIDlanc.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO_SAIDA = conecta.rs.getString("IdInternoCrc");
+            pCODIGO_REGISTRO = conecta.rs.getString("IdSaida");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void bloquearCamposPesquisa() {
         jIDlanc.setEnabled(!true);

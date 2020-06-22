@@ -98,6 +98,9 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
     String idInternoTrans;
     String confirmacaoSaida; // Verifica se a resposta da saida é sim, para impedir de alterar/excluir
     int count = 0;
+    //
+    String pCODIGO_INTERNO_SAIDA = "";
+    String pCODIGO_REGISTRO = "";
 
     /**
      * Creates new form TelaTransfInterno
@@ -1401,40 +1404,45 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
                             objItensTrans.setDataInsert(dataModFinal);
                             objItensTrans.setHoraInsert(horaMov);
                             try {
-                                //Incluir itens (INTERNOS) TRANSFERENCIA
+                                //VERIFICAR SE O REGISTRO JÁ EXISTE, SE EXISTIR NÃO DEIXA GRAVAR.
+                                verificarRegistrosCadastrado();
                                 if (acao == 3) {
-                                    objItensTrans.setIdTrans((Integer.parseInt(jIDlanc.getText())));
-                                    objItensTrans.setNomeUnidade(jDestinoInterno.getText());
-                                    controle.incluirItensTransf(objItensTrans); // Gravar registro na tabela de itens
-                                    //Inserir na tabela de movimentação (SAIDA)
-                                    objItensTrans.setIdTrans((Integer.parseInt(jIDlanc.getText())));
-                                    buscarIdItem();
-                                    objItensTrans.setIdItemTrans(codItem);
-                                    controlMov.incluirMovTransf(objItensTrans); // Tabela MOVIMENTOCRC HISTORICO do Interno no CRC
-                                    // Incluir os itens na tabela para portaria registrar a saida.  
-                                    objItensTrans.setNomeDestino(jDescricaoOp.getText());
-                                    objItensTrans.setInternoEvadido(evadido);
-                                    objItensTrans.setConfirmaSaida(Saidaconfirmada);
-                                    controle.incluirItensRegTransfPortaria(objItensTrans); //Tabela de ITENSCRCPORTARIA para portaria da saida definitiva.
-                                    // Grava registros para retorno de interno (Sinalizar evasão) MOVISR
-                                    objMovSaiRetornoEva.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                                    objMovSaiRetornoEva.setNomeInternoCrc(jNomeInterno.getText());
-                                    objMovSaiRetornoEva.setIdSaida(Integer.valueOf(jIDlanc.getText()));
-                                    objMovSaiRetornoEva.setDataSaida(jDataTransf.getDate());
-                                    objMovSaiRetornoEva.setNrDocSaida(jNrDocumento.getText());
-                                    objMovSaiRetornoEva.setNrDocRetorno(nrDoc);
-                                    controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva);
-                                    //
-                                    objLog2();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    preencherTabelaItens("SELECT * FROM ITENSTRANSFERENCIA "
-                                            + "INNER JOIN PRONTUARIOSCRC "
-                                            + "ON ITENSTRANSFERENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                            + "INNER JOIN UNIDADE "
-                                            + "ON ITENSTRANSFERENCIA.IdUnid=UNIDADE.IdUnid "
-                                            + "WHERE IdTransf='" + jIDlanc.getText() + "'");
-                                    SalvarItem();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    if (jIDlanc.getText().equals(pCODIGO_REGISTRO) && jIDInterno.getText().equals(pCODIGO_INTERNO_SAIDA)) {
+                                        JOptionPane.showMessageDialog(rootPane, "Não é permitido gravar o mesmo interno nesse documento, abra outra ficha e insira o registro.");
+                                    } else {
+                                        objItensTrans.setIdTrans((Integer.parseInt(jIDlanc.getText())));
+                                        objItensTrans.setNomeUnidade(jDestinoInterno.getText());
+                                        controle.incluirItensTransf(objItensTrans); // Gravar registro na tabela de itens
+                                        //Inserir na tabela de movimentação (SAIDA)
+                                        objItensTrans.setIdTrans((Integer.parseInt(jIDlanc.getText())));
+                                        buscarIdItem();
+                                        objItensTrans.setIdItemTrans(codItem);
+                                        controlMov.incluirMovTransf(objItensTrans); // Tabela MOVIMENTOCRC HISTORICO do Interno no CRC
+                                        // Incluir os itens na tabela para portaria registrar a saida.  
+                                        objItensTrans.setNomeDestino(jDescricaoOp.getText());
+                                        objItensTrans.setInternoEvadido(evadido);
+                                        objItensTrans.setConfirmaSaida(Saidaconfirmada);
+                                        controle.incluirItensRegTransfPortaria(objItensTrans); //Tabela de ITENSCRCPORTARIA para portaria da saida definitiva.
+                                        // Grava registros para retorno de interno (Sinalizar evasão) MOVISR
+                                        objMovSaiRetornoEva.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                        objMovSaiRetornoEva.setNomeInternoCrc(jNomeInterno.getText());
+                                        objMovSaiRetornoEva.setIdSaida(Integer.valueOf(jIDlanc.getText()));
+                                        objMovSaiRetornoEva.setDataSaida(jDataTransf.getDate());
+                                        objMovSaiRetornoEva.setNrDocSaida(jNrDocumento.getText());
+                                        objMovSaiRetornoEva.setNrDocRetorno(nrDoc);
+                                        controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva);
+                                        //
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        preencherTabelaItens("SELECT * FROM ITENSTRANSFERENCIA "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON ITENSTRANSFERENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "INNER JOIN UNIDADE "
+                                                + "ON ITENSTRANSFERENCIA.IdUnid=UNIDADE.IdUnid "
+                                                + "WHERE IdTransf='" + jIDlanc.getText() + "'");
+                                        SalvarItem();
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    }
                                 }
                                 // Alterar os Itens (INTERNOS)
                                 if (acao == 4) {
@@ -1655,6 +1663,21 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarRegistrosCadastrado() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdInternoCrc,IdTransf "
+                    + "FROM ITENSTRANSFERENCIA "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
+                    + "AND IdTransf='" + jIDlanc.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO_SAIDA = conecta.rs.getString("IdInternoCrc");
+            pCODIGO_REGISTRO = conecta.rs.getString("IdTransf");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void bloquearCamposPesquisa() {
         jIDlanc.setEnabled(!true);
