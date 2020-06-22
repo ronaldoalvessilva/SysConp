@@ -145,7 +145,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
     //
     String pUTILIZADO_portaria = "";
     //
-    String pLIBERADOR_cancelamento;;
+    String pLIBERADOR_cancelamento;
+
+    ;
 
     /**
      * Creates new form TelaCancelRegistroPortaria
@@ -1492,7 +1494,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         buscarAcessoUsuario(telaCancelamentoSaidaInte_CRC);
         buscarAcessoUsuarioP1(telaCancelamentoRetornosInte_P1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoSaidaInte_CRC) && codGravarCRC == 1) {
-          
+
             confirmaUtilizacao = "Sim";
             if (jNomeInternoReg.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
@@ -1566,6 +1568,10 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pTIPO_SAIDA_TEMPORARIA);
                                 objItensEntIntPort.setIdItem(pCODIGO_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //INCLUIR OBERVAÇÃO NO PRONTUÁRIO DO INTERNO
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setObservacaoInterno(jMotivo.getText());
+                                controleReg.incluir_OBSERVACAO_CANCELADO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Transferência")) {
                                 populacaoAlimentacao();
                                 //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
@@ -2033,6 +2039,10 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pTIPO_SAIDA_TEMPORARIA);
                                 objItensEntIntPort.setIdItem(pCODIGO_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //INCLUIR OBERVAÇÃO NO PRONTUÁRIO DO INTERNO
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setObservacaoInterno(jMotivo.getText());
+                                controleReg.incluir_OBSERVACAO_CANCELADO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Transferência")) {
                                 populacaoAlimentacao();
                                 //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
@@ -3391,7 +3401,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         }
         conecta.desconecta();
     }
-    
+
     //USAR SOMENTE SE PRECISAR FAZER O CANCELAMENTO POR AUTORIZAÇÃO DE SENHA.
     //LIMPAR A VARIAVEL APOS FECHAR A TELA (18/06/2020)
     //UTILIZAR QUANDO INCLUIR O REGISTRO OU NO MOMENTO DE GRAVAR O REGISTRO
@@ -3413,7 +3423,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem permissão para liberar o registro.");
         }
     }
-    
+
     public void APROVAR_cancelamento() {
         // Cria campo onde o usuario entra com a senha  
         JPasswordField password = new JPasswordField(10);

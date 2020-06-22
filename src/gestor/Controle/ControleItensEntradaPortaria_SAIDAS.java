@@ -188,4 +188,20 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
+    
+    //ATUALIZAR OBSERVAÇÃO DO USUÁRIO SOBRE A RECUSA DA SAÍDA TEMPORÁRIA
+      public ItensEntradaInternosPortaria incluir_OBSERVACAO_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGOBSERVACOES IdInternoCrc,Observacao VALUES(?,?)");
+            pst.setInt(1, objItensEntIntPort.getIdInternoCrc());
+            pst.setString(2, objItensEntIntPort.getObservacaoInterno());            
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensEntIntPort;
+    }
 }

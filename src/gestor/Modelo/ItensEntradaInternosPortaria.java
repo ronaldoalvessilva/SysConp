@@ -39,11 +39,12 @@ public class ItensEntradaInternosPortaria {
     private Date dataSaida;
     private String saidaConfirmada;
     private String horaSaida;
+    private String observacaoInterno;
 
     public ItensEntradaInternosPortaria() {
     }
 
-    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada, String horaSaida) {
+    public ItensEntradaInternosPortaria(int idItem, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada, String horaSaida, String observacaoInterno) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -70,6 +71,7 @@ public class ItensEntradaInternosPortaria {
         this.dataSaida = dataSaida;
         this.saidaConfirmada = saidaConfirmada;
         this.horaSaida = horaSaida;
+        this.observacaoInterno = observacaoInterno;
     }
 
     /**
@@ -434,5 +436,19 @@ public class ItensEntradaInternosPortaria {
      */
     public void setHoraSaida(String horaSaida) {
         this.horaSaida = horaSaida;
+    }
+
+    /**
+     * @return the observacaoInterno
+     */
+    public String getObservacaoInterno() {
+        return observacaoInterno;
+    }
+
+    /**
+     * @param observacaoInterno the observacaoInterno to set
+     */
+    public void setObservacaoInterno(String observacaoInterno) {
+        this.observacaoInterno = observacaoInterno;
     }
 }
