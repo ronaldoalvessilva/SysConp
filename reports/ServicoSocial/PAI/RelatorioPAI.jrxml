@@ -7,7 +7,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\ServicoSocial\\PAI\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="CodigoPAI" class="java.lang.String">
