@@ -154,7 +154,7 @@ public class TelaSobre extends javax.swing.JDialog {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Telefones:");
 
-        jLabel11.setText("(71) 98758-9114");
+        jLabel11.setText("(71) 99213-3522");
 
         jLabel12.setText("(71) 98877-2445");
 
@@ -232,7 +232,7 @@ public class TelaSobre extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 0, 0));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Versão do Produto: 6.1.2");
+        jLabel14.setText("Versão do Produto: 6.1.3");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 204));

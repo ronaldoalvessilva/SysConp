@@ -773,7 +773,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel7.setText("Versão: 6.1.2");
+        jLabel7.setText("Versão: 6.1.3");
 
         jNomeUnidade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jNomeUnidade.setForeground(new java.awt.Color(0, 153, 0));
