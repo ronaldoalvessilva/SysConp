@@ -818,6 +818,11 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         jComboBoxUnidadePrisional.setForeground(new java.awt.Color(204, 0, 0));
         jComboBoxUnidadePrisional.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "localhost", "Conjunto Penal de lauro de Freitas - CPLF", "Conjunto Penal Masculino de Salvador - CPMS", "Conjunto Penal de Itabuna - CPIT", "Conjunto Penal de Vitória da Conquista - CPVC", "Conjunto Penal de Barreiras - CPBA" }));
         jComboBoxUnidadePrisional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxUnidadePrisional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxUnidadePrisionalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -942,7 +947,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     }//GEN-LAST:event_jPasswordKeyPressed
 
     private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
-        // TODO add your handling code here:
+       jComboBoxUnidadePrisional.requestFocus();
     }//GEN-LAST:event_jPasswordActionPerformed
 
     private void jUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jUsuarioKeyPressed
@@ -954,6 +959,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     private void jUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jUsuarioActionPerformed
+
+    private void jComboBoxUnidadePrisionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUnidadePrisionalActionPerformed
+      jBtAcessar.requestFocus();
+    }//GEN-LAST:event_jComboBoxUnidadePrisionalActionPerformed
 
     /**
      * @param args the command line arguments
