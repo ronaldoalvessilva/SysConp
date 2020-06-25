@@ -44,16 +44,12 @@ public class ControleItensRegistroCanceladoCrc_NOVA_ENTRADA {
     public ItensRegistroCanceladoCrc alterarRegCanceladoNE(ItensRegistroCanceladoCrc objItensRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_NE SET IdRegCancel=?,DataSaida=?,IdInternoCrc=?,NrDocumento=?,HoraSaida=?,ConfirmacaoRegistro=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensRecCancel.getIdItem() + "'AND NomeInternoCrc='" + objItensRecCancel.getNomeInternoCrc() + "'");
-            pst.setInt(1, objItensRecCancel.getIdLanc());
-            pst.setTimestamp(2, new java.sql.Timestamp(objItensRecCancel.getDataSaida().getTime()));
-            pst.setInt(3, objItensRecCancel.getIdInternoCrc());
-            pst.setString(4, objItensRecCancel.getNrDocumento());
-            pst.setString(5, objItensRecCancel.getHoraSaida());
-            pst.setString(6, objItensRecCancel.getConfirmacaoRegistro());
-            pst.setString(7, objItensRecCancel.getUsuarioUp());
-            pst.setString(8, objItensRecCancel.getDataUp());
-            pst.setString(9, objItensRecCancel.getHorarioUp());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_NE SET NrDocumento=?,HoraSaida=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensRecCancel.getIdItem() + "'AND NomeInternoCrc='" + objItensRecCancel.getNomeInternoCrc() + "'");
+            pst.setString(1, objItensRecCancel.getNrDocumento());
+            pst.setString(2, objItensRecCancel.getHoraSaida());
+            pst.setString(3, objItensRecCancel.getUsuarioUp());
+            pst.setString(4, objItensRecCancel.getDataUp());
+            pst.setString(5, objItensRecCancel.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO" + ex);

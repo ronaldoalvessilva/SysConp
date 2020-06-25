@@ -191,4 +191,19 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
+      
+      //ATUALIZAR PRONTUARIO DO INTERNO APÓS CANCELAMENTO NA PORTARIA
+      public ItensEntradaInternosPortaria atualizar_PRONTUARIO_INTERNO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET SituacaoCrc=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'");
+            pst.setString(1, objItensEntIntPort.getSituacaoCrc());                     
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ATUALIZAR os Dados do (PRONTUARIO).\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensEntIntPort;
+    }
 }

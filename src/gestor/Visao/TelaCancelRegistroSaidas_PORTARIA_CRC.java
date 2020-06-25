@@ -149,6 +149,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
     String pUTILIZADO_portaria = "";
     //
     String pLIBERADOR_cancelamento;
+    String pSITUACAO_interno = "ENTRADA NA UNIDADE";
 
     /**
      * Creates new form TelaCancelRegistroPortaria
@@ -1574,6 +1575,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                 objItensEntIntPort.setObservacaoInterno(jMotivo.getText());
                                 controleReg.incluir_OBSERVACAO_CANCELADO(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Transferência")) {
                                 populacaoAlimentacao();
                                 //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
@@ -1605,6 +1609,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Prisão Domiciliar - COVID-19")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -1635,6 +1642,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Prisão Domiciliar")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -1665,6 +1675,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Alvará")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -1695,6 +1708,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Progressão Regime")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -1726,6 +1742,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Regressão de Regime")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -1756,6 +1775,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Livramento Condicional")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -1787,6 +1809,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             }
                             //CANCELAR A SAÍDA NA PORTARIA INTERNA PELO CRC
                             //O INTERNO FOI IMPEDIDO DE SAIR OU NÃO PODE SAIR
@@ -2078,6 +2103,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                 objItensEntIntPort.setObservacaoInterno(jMotivo.getText());
                                 controleReg.incluir_OBSERVACAO_CANCELADO(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Transferência")) {
                                 populacaoAlimentacao();
                                 //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
@@ -2107,6 +2135,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Prisão Domiciliar - COVID-19")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -2136,6 +2167,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Prisão Domiciliar")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -2165,6 +2199,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Alvará")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -2194,6 +2231,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Progressão Regime")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -2223,6 +2263,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Regressão de Regime")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -2252,6 +2295,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Livramento Condicional")) {
                                 //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -2281,6 +2327,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
                                 objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
                                 controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                                //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
+                                objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
+                                controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             }
                             //CANCELAR A SAÍDA NA PORTARIA INTERNA PELO CRC
                             //O INTERNO FOI IMPEDIDO DE SAIR OU NÃO PODE SAIR

@@ -19,6 +19,7 @@ public class ItensEntradaInternosPortaria {
     private int idLanc;
     private int idInternoCrc;
     private String nomeInternoCrc;
+    private String situacaoCrc;
     private String confirmaEntrada;
     private Date dataChegada;
     private String horarioChegada;
@@ -46,13 +47,14 @@ public class ItensEntradaInternosPortaria {
     public ItensEntradaInternosPortaria() {
     }
 
-    public ItensEntradaInternosPortaria(int idItem, int idItem_SAIDA, int idItem_MOVIMENTO, int idLanc, int idInternoCrc, String nomeInternoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada, String horaSaida, String observacaoInterno) {
+    public ItensEntradaInternosPortaria(int idItem, int idItem_SAIDA, int idItem_MOVIMENTO, int idLanc, int idInternoCrc, String nomeInternoCrc, String situacaoCrc, String confirmaEntrada, Date dataChegada, String horarioChegada, String numeroOficio, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String registroCancelado, int idRetorno, String confirmaRetPort, String confirmaRetCrc, int idEntraSaida, String nomeDestino, Date dataSaida, String saidaConfirmada, String horaSaida, String observacaoInterno) {
         this.idItem = idItem;
         this.idItem_SAIDA = idItem_SAIDA;
         this.idItem_MOVIMENTO = idItem_MOVIMENTO;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
+        this.situacaoCrc = situacaoCrc;
         this.confirmaEntrada = confirmaEntrada;
         this.dataChegada = dataChegada;
         this.horarioChegada = horarioChegada;
@@ -160,6 +162,20 @@ public class ItensEntradaInternosPortaria {
      */
     public void setNomeInternoCrc(String nomeInternoCrc) {
         this.nomeInternoCrc = nomeInternoCrc;
+    }
+
+    /**
+     * @return the situacaoCrc
+     */
+    public String getSituacaoCrc() {
+        return situacaoCrc;
+    }
+
+    /**
+     * @param situacaoCrc the situacaoCrc to set
+     */
+    public void setSituacaoCrc(String situacaoCrc) {
+        this.situacaoCrc = situacaoCrc;
     }
 
     /**

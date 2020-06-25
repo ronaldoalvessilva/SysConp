@@ -1334,30 +1334,30 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
         buscarAcessoUsuarioP1(telaCancelamentoRetornosInte_P1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRetornosInte_CRC) && codAlterarCRC == 1) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível alterar o registro selecionado.");
-//            objRecCancel.setStatusLanc(jStatusLanc.getText());
-//            if (jStatusLanc.getText().equals("FINALIZADO")) {
-//                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-//            } else {
-//                JOptionPane.showMessageDialog(rootPane, "Atenção, se exitir a necessidade de modificar o nome do interno,\n será necessário excluir o atual antes e lançar novamente o correto.\nDúvidas consulte o Administrador do sistema.");
-//                acao = 4;
-//                AlterarInterno();
-//                statusMov = "Alterou";
-//                horaMov = jHoraSistema.getText();
-//                dataModFinal = jDataSistema.getText();
-//            }
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Atenção, só é permitido alterar a hora e o número do documento.");
+                acao = 4;
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRetornosInte_P1) && codAlterarP1 == 1) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível alterar o registro selecionado.");
-//            objRecCancel.setStatusLanc(jStatusLanc.getText());
-//            if (jStatusLanc.getText().equals("FINALIZADO")) {
-//                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-//            } else {
-//                JOptionPane.showMessageDialog(rootPane, "Atenção, se exitir a necessidade de modificar o nome do interno,\n será necessário excluir o atual antes e lançar novamente o correto.\nDúvidas consulte o Administrador do sistema.");
-//                acao = 4;
-//                AlterarInterno();
-//                statusMov = "Alterou";
-//                horaMov = jHoraSistema.getText();
-//                dataModFinal = jDataSistema.getText();
-//            }
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Atenção, só é permitido alterar a hora e o número do documento.");
+                acao = 4;
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -1455,10 +1455,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                 jComboBoxTipoRetorno.requestFocus();
                 jComboBoxTipoRetorno.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "selecione o tipo de retorno.");
-            } else if (jDataLanc.getDate().after(jDataEntrada.getDate())) {
-                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é menor que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
-            } else if (jDataLanc.getDate().before(jDataEntrada.getDate())) {
-                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é maior que a data do cancelamento, não é permitido realizar cancelamento futuro.");
+            } else if (jDataEntrada.getDate().after(jDataLanc.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de entrada do interno é maior que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
+            } else if (jDataEntrada.getDate().before(jDataLanc.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de entrada do interno é menor que a data do cancelamento, não é permitido realizar cancelamento futuro.");
             } else {
                 if (acao == 3) {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
@@ -1695,10 +1695,10 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
                 jComboBoxTipoRetorno.requestFocus();
                 jComboBoxTipoRetorno.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "selecione o tipo de retorno.");
-            } else if (jDataLanc.getDate().after(jDataEntrada.getDate())) {
-                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é menor que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
-            } else if (jDataLanc.getDate().before(jDataEntrada.getDate())) {
-                JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é maior que a data do cancelamento, não é permitido realizar cancelamento futuro.");
+            } else if (jDataEntrada.getDate().after(jDataLanc.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de entrada do interno é maior que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
+            } else if (jDataEntrada.getDate().before(jDataLanc.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "A data de entrada do interno é menor que a data do cancelamento, não é permitido realizar cancelamento futuro.");
             } else {
                 if (acao == 3) {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
@@ -2390,7 +2390,7 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
         jIdInternoReg.setText("");
         jNomeInternoReg.setText("");
         jNrDocumento.setText("");
-        jDataEntrada.setCalendar(Calendar.getInstance());
+        jDataEntrada.setDate(null);
         jHorario.setText(jHoraSistema.getText());
         jComboBoxTipoRetorno.setSelectedItem("Selecione...");
         //        
@@ -2418,9 +2418,9 @@ public class TelaCancelRegistroPortaria_RETORNOS extends javax.swing.JInternalFr
     }
 
     public void AlterarInterno() {
-        jBtBuscarRegistroInterno.setEnabled(true);
+        jBtBuscarRegistroInterno.setEnabled(!true);
         jNrDocumento.setEnabled(true);
-        jDataEntrada.setEnabled(true);
+        jDataEntrada.setEnabled(!true);
         jHorario.setEnabled(true);
         //
         jBtNovoInterno.setEnabled(!true);
