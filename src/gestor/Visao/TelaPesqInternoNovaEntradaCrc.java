@@ -127,7 +127,7 @@ public class TelaPesqInternoNovaEntradaCrc extends javax.swing.JInternalFrame {
         jTabelaPesqInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Data Entrada"
@@ -140,10 +140,10 @@ public class TelaPesqInternoNovaEntradaCrc extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTabelaPesqInterno);
         if (jTabelaPesqInterno.getColumnModel().getColumnCount() > 0) {
-            jTabelaPesqInterno.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPesqInterno.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaPesqInterno.getColumnModel().getColumn(1).setMinWidth(280);
-            jTabelaPesqInterno.getColumnModel().getColumn(1).setMaxWidth(280);
+            jTabelaPesqInterno.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaPesqInterno.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaPesqInterno.getColumnModel().getColumn(1).setMinWidth(380);
+            jTabelaPesqInterno.getColumnModel().getColumn(1).setMaxWidth(380);
             jTabelaPesqInterno.getColumnModel().getColumn(2).setMinWidth(80);
             jTabelaPesqInterno.getColumnModel().getColumn(2).setMaxWidth(80);
         }
@@ -175,7 +175,7 @@ public class TelaPesqInternoNovaEntradaCrc extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,17 +184,20 @@ public class TelaPesqInternoNovaEntradaCrc extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(2, 2, 2))
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel1);
@@ -207,10 +210,10 @@ public class TelaPesqInternoNovaEntradaCrc extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(250, 20, 451, 286);
+        setBounds(250, 20, 574, 310);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -326,9 +329,9 @@ public class TelaPesqInternoNovaEntradaCrc extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInterno.setModel(modelo);
-        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(380);
         jTabelaPesqInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setResizable(false);
@@ -343,9 +346,9 @@ public class TelaPesqInternoNovaEntradaCrc extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Nome do Interno ", "Data Entrada"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInterno.setModel(modelo);
-        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(380);
         jTabelaPesqInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setResizable(false);

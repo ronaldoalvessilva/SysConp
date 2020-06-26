@@ -123,7 +123,7 @@ public class TelaPesqRegIntRecapturaPortaria extends javax.swing.JInternalFrame 
         jTabelaPesqInternosPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosPortaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Data Retorno"

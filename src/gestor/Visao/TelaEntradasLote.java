@@ -3235,13 +3235,13 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         //EDUCAÇÃO FÍSICA
-//        try {            
-//            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACA=O_FISICA "
-//                     + "WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
-//            conecta.rs.first();
-//            pID_INTERNO_EDUCACAO = conecta.rs.getString("IdInternoCrc");
-//        } catch (Exception e) {
-//        }
+        try {            
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
+                     + "WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_EDUCACAO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
         conecta.desconecta();
     }
 

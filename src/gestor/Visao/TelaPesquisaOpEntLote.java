@@ -115,8 +115,8 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
         if (jTabelaOperacao.getColumnModel().getColumnCount() > 0) {
             jTabelaOperacao.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaOperacao.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaOperacao.getColumnModel().getColumn(1).setMinWidth(270);
-            jTabelaOperacao.getColumnModel().getColumn(1).setMaxWidth(270);
+            jTabelaOperacao.getColumnModel().getColumn(1).setMinWidth(370);
+            jTabelaOperacao.getColumnModel().getColumn(1).setMaxWidth(370);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -151,21 +151,24 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addContainerGap(158, Short.MAX_VALUE))
+                        .addContainerGap(247, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -181,7 +184,7 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(350, 50, 362, 230);
+        setBounds(350, 50, 463, 260);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -262,7 +265,7 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
         jTabelaOperacao.setModel(modelo);
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(270);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(370);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
@@ -278,7 +281,7 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
         jTabelaOperacao.setModel(modelo);
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(270);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(370);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
@@ -303,7 +306,7 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
         jTabelaOperacao.setModel(modelo);
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(270);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(370);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);

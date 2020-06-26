@@ -42,6 +42,8 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaPesqRegIntRecapturaPortaria.idItemRetornoRecaptura;
+import gestor.Controle.ControlePortaEntrada;
+import gestor.Modelo.PortaEntrada;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -83,6 +85,9 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
     RolVisitas objRol = new RolVisitas();
     //
     ControleItensEntradasLote controleKit = new ControleItensEntradasLote();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     String statusRol = "ABERTO"; // Se o Rol estiver ABERTO, irá ser FINALIZADO para não ser mostrado na lista do Rol na portaria
     String statusRolFechado = "FINALIZADO"; // Se o Rol estiver fechado e o usuário excluir, o Rol volta a ser ABERTO
@@ -116,6 +121,30 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
     String confirmacaoCrc = "Não";
     String respostaCrc = "Sim";
     String pagtoKit = "Não";
+    //PARA PESQUISA DOS INTERNOS NAS ADMISSÕES DO PSP
+    String pID_INTERNO_MEDICO = "";
+    String pID_INTERNO_ENFERMEIRA = "";
+    String pID_INTERNO_JURIDICO = "";
+    String pID_INTERNO_PEDAGOGIA = "";
+    String pID_INTERNO_PSICOLOGIA = "";
+    String pID_INTERNO_SERVICO = "";
+    String pID_INTERNO_ODONTOLOGIA = "";
+    String pID_INTERNO_TERAPIA = "";
+    String pID_INTERNO_EDUCACAO = "";
+    //
+    String pCODIGO_INTERNO_PE = "";
+    //NOME DOS SETORES DO PSP PARA IMPLEMENTAR ADMISSÃO ADICIONAL
+    String pPSP_POSTO_MEDICO = "ENFERMARIA";
+    String pPSP_JURIDICO = "JURIDICO";
+    String pPSP_PEDAGOGIA = "PEDAGOGIA";
+    String pPSP_PSICOLOGIA = "PSICOLOGIA";
+    String pPSP_SERVICO = "SERVICO SOCIAL";
+    String pPSP_ODONTOLOGIA = "ODONTOLOGIA";
+    String pPSP_TERAPIA = "TERAPIA OCUPACIONAL";
+    String pPSP_EDUCACAO_FISICA = "EDUCACAO FISICA";
+    //
+    String pOPCAO_CONFIRMAR = "Sim";
+    String pOPCAO_NEGAR = "Não";
 
     /**
      * Creates new form TelaRetornoRecapitura
@@ -775,7 +804,7 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
         jTabelaItensInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Nome do Interno", "Data Retorno", "Origem", "Documento"
@@ -1421,6 +1450,171 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
                             objProCrc.setKitPago(pagtoKit);
                             objProCrc.setUtilizado(pagtoKit);
                             controleKit.informarkitHigiene(objProCrc);
+                            //PORTA DE ENTRADA, HABILITAR A NOVA ADMISSÃO PARA O INTERNO, CASO ELE JÁ TENHA.
+                            verificarAdmissoesPSP();
+                            verificarAdmissaoPortaEntrada(jIdInterno.getText());
+                            //SE EXISTIR NA TABELA ADMISSAOMEDICA
+                            if (jIdInterno.getText().equals(pID_INTERNO_MEDICO)) {
+                                //ALTERAR PORTA DE ENTRADA   
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                //SE EXISTIR NA TABELA ADMISSAOENFERMEIRA
+                            } else if (jIdInterno.getText().equals(pID_INTERNO_ENFERMEIRA)) {
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                //SE EXISTIR NA TABELA ATENDIMENTOJURIDICO
+                            } else if (jIdInterno.getText().equals(pID_INTERNO_JURIDICO)) {
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                //SE EXISTIR NA TABELA ADMISSAO_PEDAGOGICA
+                            } else if (jIdInterno.getText().equals(pID_INTERNO_PEDAGOGIA)) {
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                //SE EXISTIR NA TABELA ADMISSAOPSI
+                            } else if (jIdInterno.getText().equals(pID_INTERNO_PSICOLOGIA)) {
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                //SE EXISTIR NA TABELA ADMISSAOSOCIAL
+                            } else if (jIdInterno.getText().equals(pID_INTERNO_SERVICO)) {
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                //SE EXISTIR NA TABELA ADMISSAODONTOLOGICA
+                            } else if (jIdInterno.getText().equals(pID_INTERNO_ODONTOLOGIA)) {
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                //SE EXISTIR NA TABELA ADMISSA_TERAPIA
+                            } else if (jIdInterno.getText().equals(pID_INTERNO_TERAPIA)) {
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                            } else {
+                                //TABELA PORTA_ENTRADA
+                                if (jIdInterno.getText().equals(pCODIGO_INTERNO_PE)) {
+                                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                    objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                    objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                    objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                    control_PE.alterarPortaEntradaCRC(objPortaEntrada);
+                                } else {
+                                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                    objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                    objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                    objPortaEntrada.setpSPEnf(pPSP_POSTO_MEDICO);
+                                    objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPMed(pPSP_POSTO_MEDICO);
+                                    objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPJur(pPSP_JURIDICO);
+                                    objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPPed(pPSP_PEDAGOGIA);
+                                    objPortaEntrada.setHabPed(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPPsi(pPSP_PSICOLOGIA);
+                                    objPortaEntrada.setHabPsi(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPSso(pPSP_SERVICO);
+                                    objPortaEntrada.setHabSso(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPOdo(pPSP_ODONTOLOGIA);
+                                    objPortaEntrada.setHabOdo(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPTer(pPSP_TERAPIA);
+                                    objPortaEntrada.setHabTer(pOPCAO_CONFIRMAR);
+                                    objPortaEntrada.setpSPEdu(pPSP_EDUCACAO_FISICA);
+                                    objPortaEntrada.setHabEdu(pOPCAO_CONFIRMAR);
+                                    control_PE.incluirPortaEntrada(objPortaEntrada);
+                                }
+                            }
                             //
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys);
@@ -1646,6 +1840,96 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jTextAreaObs;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarAdmissoesPSP() {
+
+        conecta.abrirConexao();
+        //MÉDICO
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_MEDICO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //ENFERMEIRA
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_ENFERMEIRA = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //JURIDICO
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOJURIDICO "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_JURIDICO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //PEDAGOGIA
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_PEDAGOGIA = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //PSICOLOGIA
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAOPSI "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_PSICOLOGIA = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //SERVIÇO SOCIAL
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_SERVICO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //ODONTOLOGIA
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTODONTO "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_ODONTOLOGIA = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //TERAPIA OCUPACIONAL
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOTERAPIA "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_TERAPIA = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        //EDUCAÇÃO FÍSICA
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pID_INTERNO_EDUCACAO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarAdmissaoPortaEntrada(String interno) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PORTA_ENTRADA "
+                    + "WHERE IdInternoCrc='" + interno + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO_PE = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void bloquearCamposPesquisa() {
         jIDLanc.setEnabled(!true);

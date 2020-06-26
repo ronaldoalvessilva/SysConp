@@ -108,7 +108,7 @@ public class TelaPesquisaUnidadeRecaptura extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUnidadePenal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome da Unidade"
@@ -123,8 +123,8 @@ public class TelaPesquisaUnidadeRecaptura extends javax.swing.JInternalFrame {
         if (jTabelaUnidadePenal.getColumnModel().getColumnCount() > 0) {
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMinWidth(60);
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(300);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(350);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -153,14 +153,15 @@ public class TelaPesquisaUnidadeRecaptura extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBtSair)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -171,26 +172,28 @@ public class TelaPesquisaUnidadeRecaptura extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, Short.MAX_VALUE)
+                .addGap(3, 3, 3))
         );
 
-        setBounds(300, 150, 398, 234);
+        setBounds(300, 150, 442, 244);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -269,7 +272,7 @@ public class TelaPesquisaUnidadeRecaptura extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
@@ -295,7 +298,7 @@ public class TelaPesquisaUnidadeRecaptura extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
@@ -311,7 +314,7 @@ public class TelaPesquisaUnidadeRecaptura extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
