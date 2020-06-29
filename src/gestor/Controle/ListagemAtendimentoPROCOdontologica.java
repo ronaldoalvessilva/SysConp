@@ -51,27 +51,44 @@ public class ListagemAtendimentoPROCOdontologica {
         }
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, "
-                    + "REGISTRO_ATENDIMENTO_INTERNO_PSP.TipoAtendimento "
-                    + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "INNER JOIN ATENDIMENTODONTO "
-                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdAtend=ATENDIMENTODONTO.IdLanc "
-                    + "INNER JOIN ODONTOGRAMA_ADMISSAO "
-                    + "ON ATENDIMENTODONTO.IdLanc=ODONTOGRAMA_ADMISSAO.IdLanc "
-                    + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
-                    + "ON ODONTOGRAMA_ADMISSAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
-                    + "INNER JOIN ODONTOPROCEDIMENTO "
-                    + "ON ATENDIMENTODONTO.IdLanc=ODONTOPROCEDIMENTO.IdLanc "
-                    + "WHERE CONVERT(DATE, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+            conecta.executaSQL(
+                    //                    "SELECT REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, "
+                    //                    + "REGISTRO_ATENDIMENTO_INTERNO_PSP.TipoAtendimento "
+                    //                    + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    //                    + "INNER JOIN ATENDIMENTODONTO "
+                    //                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdAtend=ATENDIMENTODONTO.IdLanc "
+                    //                    + "INNER JOIN ODONTOGRAMA_ADMISSAO "
+                    //                    + "ON ATENDIMENTODONTO.IdLanc=ODONTOGRAMA_ADMISSAO.IdLanc "
+                    //                    + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
+                    //                    + "ON ODONTOGRAMA_ADMISSAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
+                    //                    + "INNER JOIN ODONTOPROCEDIMENTO "
+                    //                    + "ON ATENDIMENTODONTO.IdLanc=ODONTOPROCEDIMENTO.IdLanc "
+                    //                    + "WHERE CONVERT(DATE, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+                    //                    + "AND '" + pDATA_FINAL + "' "
+                    //                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.TipoAtendimento='" + pTIPO_ATENDIMENTO_ATE_ODONTOLOGICO + "' "
+                    //                    + "OR CONVERT(DATE, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+                    //                    + "AND '" + pDATA_FINAL + "' "
+                    //                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_ODONTOLOGICO + "' "
+                    "SELECT A.DataOdontograma "
+                    + "FROM ODONTOGRAMA_ADMISSAO  AS A  "
+                    + "INNER JOIN ATENDIMENTODONTO AS B ON B.IdLanc = A.IdLanc "
+                    + "INNER JOIN PRONTUARIOSCRC AS C ON C.IdInternoCrc = B.IdInternoCrc "
+                    + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO AS D ON D.IdProcOdonto = A.IdProcOdonto "
+                    + "WHERE  CONVERT(DATE, A.DataOdontograma) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
-                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.TipoAtendimento='" + pTIPO_ATENDIMENTO_ATE_ODONTOLOGICO + "' "
-                    + "OR CONVERT(DATE, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "UNION ALL "
+                    + "SELECT A.DataOdontograma "
+                    + "FROM ODONTOGRAMA_EVOLUCAO  AS A  "
+                    + "INNER JOIN ATENDIMENTODONTO AS B ON B.IdLanc = A.IdLanc "
+                    + "INNER JOIN PRONTUARIOSCRC AS C ON C.IdInternoCrc = B.IdInternoCrc "
+                    + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO AS D ON D.IdProcOdonto = A.IdProcOdonto "
+                    + "WHERE  CONVERT(DATE, A.DataOdontograma) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
-                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_ODONTOLOGICO + "' ");
+            );
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pAtivaPsico = new AtividadesMensalRealizadaUnidades();
-                pAtivaPsico.setDataAtendimento(conecta.rs.getDate("DataAtendimento"));
-                pAtivaPsico.setTipoAtendimento(conecta.rs.getString("TipoAtendimento"));
+                pAtivaPsico.setDataAtendimento(conecta.rs.getDate("DataOdontograma"));
+//                pAtivaPsico.setTipoAtendimento(conecta.rs.getString("TipoAtendimento"));
                 listaAtendPsicologia.add(pAtivaPsico);
                 pQUANTIDADE_PROC_ODONTOLOGICO = pQUANTIDADE_PROC_ODONTOLOGICO + 1;
             }

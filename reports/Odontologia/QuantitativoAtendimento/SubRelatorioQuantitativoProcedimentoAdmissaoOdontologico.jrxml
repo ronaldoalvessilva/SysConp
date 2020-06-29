@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioQuantitativoAtendimentoNovo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c391674-be87-4988-a9a5-c15244f43db5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioQuantitativoProcedimentoAdmissao" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c391674-be87-4988-a9a5-c15244f43db5">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -15,28 +15,26 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT A.DataOdontograma,
-       D.UsuarioInsert,
-       A.IdInternoCrc,
-       C.Cnc,
        C.NomeInternoCrc,
-       B.DescricaoProcedimento,
+       C.Cnc,
+       B.UsuarioInsert,
+       D.DescricaoProcedimento,
        A.NumeroDente
-FROM   ODONTOGRAMA_EVOLUCAO A
-       INNER JOIN PROCEDIMENTOS_ODONTOLOGICO B
-               ON A.IdProcOdonto = B.IdProcOdonto
+FROM   ODONTOGRAMA_ADMISSAO A
+       INNER JOIN ATENDIMENTODONTO B
+               ON B.IdLanc = A.IdLanc
        INNER JOIN PRONTUARIOSCRC C
-               ON A.IdInternoCrc = C.IdInternoCrc
-       INNER JOIN ODONTOPROCEDIMENTO D
-              ON A.IdProcOdonto = D.IdPro
+               ON C.IdInternoCrc = B.IdInternoCrc
+       INNER JOIN PROCEDIMENTOS_ODONTOLOGICO D
+               ON D.IdProcOdonto = A.IdProcOdonto
 WHERE  CONVERT(DATE, A.DataOdontograma) BETWEEN $P{dataInicial} AND $P{dataFinal}
-ORDER  BY D.UsuarioInsert,
-          A.DataOdontograma]]>
+ORDER  BY B.UsuarioInsert,
+          A.DataOdontograma ]]>
 	</queryString>
 	<field name="DataOdontograma" class="java.sql.Timestamp"/>
-	<field name="UsuarioInsert" class="java.lang.String"/>
-	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="Cnc" class="java.lang.String"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="DescricaoProcedimento" class="java.lang.String"/>
 	<field name="NumeroDente" class="java.lang.Integer"/>
 	<background>
@@ -49,7 +47,7 @@ ORDER  BY D.UsuarioInsert,
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PROCEDIMENTOS]]></text>
+				<text><![CDATA[PROCEDIMENTOS ADMISSÃO]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -137,11 +135,11 @@ ORDER  BY D.UsuarioInsert,
 				<reportElement x="1" y="2" width="552" height="20" uuid="cf7a51f3-c65b-4094-9df4-426fd6295783"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="6" y="2" width="205" height="20" uuid="21e912a8-233b-4c33-a1c2-fc5ade316c8e"/>
+				<reportElement x="6" y="2" width="350" height="20" uuid="21e912a8-233b-4c33-a1c2-fc5ade316c8e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Procedimentos do Setor: ]]></text>
+				<text><![CDATA[Total de Procedimentos em Admissão do Setor: ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="478" y="2" width="76" height="20" uuid="96b1d790-263d-43e2-b672-8f5ce7a2c007"/>
