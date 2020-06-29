@@ -383,7 +383,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
         jTabelaEntradaSaidaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaSaidaVisitasInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -591,7 +591,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
         jTabelaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Visitante", "Data Entrada", "Horário", "Data Saída", "Horário"
