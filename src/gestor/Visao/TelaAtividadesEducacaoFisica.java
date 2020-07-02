@@ -5,15 +5,35 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleListaAcessosPlanejamentoAtividadesGrupo;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePlanejamentoAtividades;
 import gestor.Controle.PesquisaPlanejamentoCodigo;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PlanejamentoAtividades;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloEducacaoFisica.codAbrirEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codUserAcessoEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codigoUserEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.nomeGrupoEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codigoUserGroupEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codigoGrupoEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codIncluirEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codAlterarEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codExcluirEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codGravarEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.codConsultarEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.nomeTelaEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.telaPlanejamentoAtividadesManu_EF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.telaPlanejamentoAtividadesManu_SS;
+import static gestor.Visao.TelaModuloPedagogia.telaPlanejamentoAtividadesManu_PEDA;
+import static gestor.Visao.TelaModuloPsicologia.telaPlanejamentoAtividadesManu_PS;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaPlanejamentoAtividadesManu_TO;
+import static gestor.Visao.TelaModuloEnfermaria.telaPlanejamentoAtividadesManu_EN;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +53,8 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
     PlanejamentoAtividades objPlan = new PlanejamentoAtividades();
     ControlePlanejamentoAtividades control = new ControlePlanejamentoAtividades();
     PesquisaPlanejamentoCodigo listaCodigo = new PesquisaPlanejamentoCodigo();
+    ControleListaAcessosPlanejamentoAtividadesGrupo pPESQUISAR_acessos = new ControleListaAcessosPlanejamentoAtividadesGrupo();
+    CamposAcessos objCampos = new CamposAcessos();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     //
@@ -220,12 +242,12 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
         jCodigo.setEnabled(false);
 
         jComboBoxSigla.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSigla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "EN", "SS", "PS", "TO", "PE", "EF" }));
+        jComboBoxSigla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", " " }));
         jComboBoxSigla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSigla.setEnabled(false);
 
         jComboBoxDescricaoPlanejamento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDescricaoPlanejamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Futebol", "Basquete", "Volêi", "Ginástica", "Pilates", "Judô", "Caratê", "Capoeira", "Palestra", " ", " " }));
+        jComboBoxDescricaoPlanejamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Futebol", "Basquete", "Volêi", "Ginástica", "Pilates", "Judô", "Caratê", "Capoeira", "Palestras", "Leituras", "Vacinas", "Oficinas", "Roda de Conversa", "Projetos", "Vermectina", "Exames do ENEN", "Exame de Vestibular", "Exames Diversos", "Cursos Diversos", "Outros", "Jogo Dominó", "Jogo Dama", "Jogo Baralho", "Jogos Diversos", " ", " ", " " }));
         jComboBoxDescricaoPlanejamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDescricaoPlanejamento.setEnabled(false);
 
@@ -233,6 +255,11 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
         jComboBoxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Enfermaria", "Serviço Social", "Psicologia", "Terapia Ocupacional", "Pedagogia", "Educação Física" }));
         jComboBoxDepartamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDepartamento.setEnabled(false);
+        jComboBoxDepartamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDepartamentoItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -451,9 +478,9 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
             try {
                 for (PlanejamentoAtividades dd : listaCodigo.read()) {
                     jCodigo.setText(String.valueOf(dd.getCodigo()));
-                    jComboBoxSigla.addItem((String)dd.getSigla());
-                    jComboBoxDescricaoPlanejamento.addItem((String)dd.getDescricaoPlanejamento());
-                    jComboBoxDepartamento.setSelectedItem((String)dd.getDepartamento());
+                    jComboBoxSigla.addItem((String) dd.getSigla());
+                    jComboBoxDescricaoPlanejamento.addItem((String) dd.getDescricaoPlanejamento());
+                    jComboBoxDepartamento.setSelectedItem((String) dd.getDepartamento());
                 }
             } catch (Exception ex) {
                 Logger.getLogger(TelaAtividadesEducacaoFisica.class.getName()).log(Level.SEVERE, null, ex);
@@ -463,22 +490,101 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EF);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EF) && objCampos.getCodigoIncluir() == 1) {
             acao = 1;
             limparCampos();
             bloquearBotoes();
             Novo();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+            objCampos.setNomeUsuario(nameUser);
+            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_SS);
+            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_SS) && objCampos.getCodigoIncluir() == 1) {
+                acao = 1;
+                limparCampos();
+                bloquearBotoes();
+                Novo();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+            } else {
+                objCampos.setNomeUsuario(nameUser);
+                objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PEDA);
+                pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PEDA) && objCampos.getCodigoIncluir() == 1) {
+                    acao = 1;
+                    limparCampos();
+                    bloquearBotoes();
+                    Novo();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                } else {
+                    objCampos.setNomeUsuario(nameUser);
+                    objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_TO);
+                    pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                    if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_TO) && objCampos.getCodigoIncluir() == 1) {
+                        acao = 1;
+                        limparCampos();
+                        bloquearBotoes();
+                        Novo();
+                        statusMov = "Incluiu";
+                        horaMov = jHoraSistema.getText();
+                    } else {
+                        objCampos.setNomeUsuario(nameUser);
+                        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PS);
+                        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PS) && objCampos.getCodigoIncluir() == 1) {
+                            acao = 1;
+                            limparCampos();
+                            bloquearBotoes();
+                            Novo();
+                            statusMov = "Incluiu";
+                            horaMov = jHoraSistema.getText();
+                        } else {
+                            objCampos.setNomeUsuario(nameUser);
+                            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EN);
+                            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EN) && objCampos.getCodigoIncluir() == 1) {
+                                acao = 1;
+                                limparCampos();
+                                bloquearBotoes();
+                                Novo();
+                                statusMov = "Incluiu";
+                                horaMov = jHoraSistema.getText();
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+                            }
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EF);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EF) && objCampos.getCodigoAlterar() == 1) {
             acao = 2;
             bloquearBotoes();
             Alterar();
@@ -486,13 +592,88 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+            objCampos.setNomeUsuario(nameUser);
+            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_SS);
+            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_SS) && objCampos.getCodigoAlterar() == 1) {
+                acao = 2;
+                bloquearBotoes();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            } else {
+                objCampos.setNomeUsuario(nameUser);
+                objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PEDA);
+                pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PEDA) && objCampos.getCodigoAlterar() == 1) {
+                    acao = 2;
+                    bloquearBotoes();
+                    Alterar();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    objCampos.setNomeUsuario(nameUser);
+                    objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_TO);
+                    pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                    if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_TO) && objCampos.getCodigoAlterar() == 1) {
+                        acao = 2;
+                        bloquearBotoes();
+                        Alterar();
+                        statusMov = "Alterou";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                    } else {
+                        objCampos.setNomeUsuario(nameUser);
+                        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PS);
+                        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PS) && objCampos.getCodigoAlterar() == 1) {
+                            acao = 2;
+                            bloquearBotoes();
+                            Alterar();
+                            statusMov = "Alterou";
+                            horaMov = jHoraSistema.getText();
+                            dataModFinal = jDataSistema.getText();
+                        } else {
+                            objCampos.setNomeUsuario(nameUser);
+                            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EN);
+                            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EN) && objCampos.getCodigoAlterar() == 1) {
+                                acao = 2;
+                                bloquearBotoes();
+                                Alterar();
+                                statusMov = "Alterou";
+                                horaMov = jHoraSistema.getText();
+                                dataModFinal = jDataSistema.getText();
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+                            }
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EF);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EF) && objCampos.getCodigoExcluir() == 1) {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -510,13 +691,138 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+            objCampos.setNomeUsuario(nameUser);
+            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_SS);
+            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_SS) && objCampos.getCodigoExcluir() == 1) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                    control.excluirPlanejamento(objPlan);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoes();
+                    bloquearCampos();
+                    limparCampos();
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
+            } else {
+                objCampos.setNomeUsuario(nameUser);
+                objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PEDA);
+                pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PEDA) && objCampos.getCodigoExcluir() == 1) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        statusMov = "Excluiu";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                        objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                        control.excluirPlanejamento(objPlan);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearBotoes();
+                        bloquearCampos();
+                        limparCampos();
+                        Excluir();
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    }
+                } else {
+                    objCampos.setNomeUsuario(nameUser);
+                    objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_TO);
+                    pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                    if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_TO) && objCampos.getCodigoExcluir() == 1) {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            statusMov = "Excluiu";
+                            horaMov = jHoraSistema.getText();
+                            dataModFinal = jDataSistema.getText();
+                            objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                            control.excluirPlanejamento(objPlan);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearBotoes();
+                            bloquearCampos();
+                            limparCampos();
+                            Excluir();
+                            JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                        }
+                    } else {
+                        objCampos.setNomeUsuario(nameUser);
+                        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PS);
+                        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PS) && objCampos.getCodigoExcluir() == 1) {
+                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
+                                statusMov = "Excluiu";
+                                horaMov = jHoraSistema.getText();
+                                dataModFinal = jDataSistema.getText();
+                                objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                                control.excluirPlanejamento(objPlan);
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                bloquearBotoes();
+                                bloquearCampos();
+                                limparCampos();
+                                Excluir();
+                                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                            }
+                        } else {
+                            objCampos.setNomeUsuario(nameUser);
+                            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EN);
+                            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EN) && objCampos.getCodigoExcluir() == 1) {
+                                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                                        JOptionPane.YES_NO_OPTION);
+                                if (resposta == JOptionPane.YES_OPTION) {
+                                    statusMov = "Excluiu";
+                                    horaMov = jHoraSistema.getText();
+                                    dataModFinal = jDataSistema.getText();
+                                    objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                                    control.excluirPlanejamento(objPlan);
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    bloquearBotoes();
+                                    bloquearCampos();
+                                    limparCampos();
+                                    Excluir();
+                                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+                            }
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EF);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EF) && objCampos.getCodigoGravar() == 1) {
             if (jComboBoxSigla.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
             } else if (jComboBoxSigla.getSelectedItem().equals("Selecione...")) {
@@ -555,7 +861,232 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+            objCampos.setNomeUsuario(nameUser);
+            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_SS);
+            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_SS) && objCampos.getCodigoGravar() == 1) {
+                if (jComboBoxSigla.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                } else if (jComboBoxSigla.getSelectedItem().equals("Selecione...")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                } else if (jComboBoxDescricaoPlanejamento.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                } else if (jComboBoxDescricaoPlanejamento.getSelectedItem().equals("Selecione...")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                } else if (jComboBoxDepartamento.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                } else if (jComboBoxDepartamento.getSelectedItem().equals("Selecione...")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                } else {
+                    objPlan.setSigla((String) jComboBoxSigla.getSelectedItem());
+                    objPlan.setDescricaoPlanejamento((String) jComboBoxDescricaoPlanejamento.getSelectedItem());
+                    objPlan.setDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                    if (acao == 1) {
+                        control.incluirPlanejamento(objPlan);
+                        buscarCodigo();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearBotoes();
+                        bloquearCampos();
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                    if (acao == 2) {
+                        objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                        control.alterarPlanejamento(objPlan);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearBotoes();
+                        bloquearCampos();
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+            } else {
+                objCampos.setNomeUsuario(nameUser);
+                objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PEDA);
+                pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PEDA) && objCampos.getCodigoGravar() == 1) {
+                    if (jComboBoxSigla.getSelectedItem() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                    } else if (jComboBoxSigla.getSelectedItem().equals("Selecione...")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                    } else if (jComboBoxDescricaoPlanejamento.getSelectedItem() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                    } else if (jComboBoxDescricaoPlanejamento.getSelectedItem().equals("Selecione...")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                    } else if (jComboBoxDepartamento.getSelectedItem() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                    } else if (jComboBoxDepartamento.getSelectedItem().equals("Selecione...")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                    } else {
+                        objPlan.setSigla((String) jComboBoxSigla.getSelectedItem());
+                        objPlan.setDescricaoPlanejamento((String) jComboBoxDescricaoPlanejamento.getSelectedItem());
+                        objPlan.setDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                        if (acao == 1) {
+                            control.incluirPlanejamento(objPlan);
+                            buscarCodigo();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearBotoes();
+                            bloquearCampos();
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        }
+                        if (acao == 2) {
+                            objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                            control.alterarPlanejamento(objPlan);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearBotoes();
+                            bloquearCampos();
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        }
+                    }
+                } else {
+                    objCampos.setNomeUsuario(nameUser);
+                    objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_TO);
+                    pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                    pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                    if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_TO) && objCampos.getCodigoGravar() == 1) {
+                        if (jComboBoxSigla.getSelectedItem() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                        } else if (jComboBoxSigla.getSelectedItem().equals("Selecione...")) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                        } else if (jComboBoxDescricaoPlanejamento.getSelectedItem() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                        } else if (jComboBoxDescricaoPlanejamento.getSelectedItem().equals("Selecione...")) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                        } else if (jComboBoxDepartamento.getSelectedItem() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                        } else if (jComboBoxDepartamento.getSelectedItem().equals("Selecione...")) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                        } else {
+                            objPlan.setSigla((String) jComboBoxSigla.getSelectedItem());
+                            objPlan.setDescricaoPlanejamento((String) jComboBoxDescricaoPlanejamento.getSelectedItem());
+                            objPlan.setDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                            if (acao == 1) {
+                                control.incluirPlanejamento(objPlan);
+                                buscarCodigo();
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                bloquearBotoes();
+                                bloquearCampos();
+                                Salvar();
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            }
+                            if (acao == 2) {
+                                objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                                control.alterarPlanejamento(objPlan);
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                bloquearBotoes();
+                                bloquearCampos();
+                                Salvar();
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            }
+                        }
+                    } else {
+                        objCampos.setNomeUsuario(nameUser);
+                        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_PS);
+                        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_PS) && objCampos.getCodigoGravar() == 1) {
+                            if (jComboBoxSigla.getSelectedItem() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                            } else if (jComboBoxSigla.getSelectedItem().equals("Selecione...")) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                            } else if (jComboBoxDescricaoPlanejamento.getSelectedItem() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                            } else if (jComboBoxDescricaoPlanejamento.getSelectedItem().equals("Selecione...")) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                            } else if (jComboBoxDepartamento.getSelectedItem() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                            } else if (jComboBoxDepartamento.getSelectedItem().equals("Selecione...")) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                            } else {
+                                objPlan.setSigla((String) jComboBoxSigla.getSelectedItem());
+                                objPlan.setDescricaoPlanejamento((String) jComboBoxDescricaoPlanejamento.getSelectedItem());
+                                objPlan.setDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                                if (acao == 1) {
+                                    control.incluirPlanejamento(objPlan);
+                                    buscarCodigo();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    bloquearBotoes();
+                                    bloquearCampos();
+                                    Salvar();
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                }
+                                if (acao == 2) {
+                                    objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                                    control.alterarPlanejamento(objPlan);
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    bloquearBotoes();
+                                    bloquearCampos();
+                                    Salvar();
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                }
+                            }
+                        } else {
+                            objCampos.setNomeUsuario(nameUser);
+                            objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EN);
+                            pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+                            pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+                            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EN) && objCampos.getCodigoGravar() == 1) {
+                                if (jComboBoxSigla.getSelectedItem() == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                                } else if (jComboBoxSigla.getSelectedItem().equals("Selecione...")) {
+                                    JOptionPane.showMessageDialog(rootPane, "Informe a sigla");
+                                } else if (jComboBoxDescricaoPlanejamento.getSelectedItem() == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                                } else if (jComboBoxDescricaoPlanejamento.getSelectedItem().equals("Selecione...")) {
+                                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição do planejamento.");
+                                } else if (jComboBoxDepartamento.getSelectedItem() == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                                } else if (jComboBoxDepartamento.getSelectedItem().equals("Selecione...")) {
+                                    JOptionPane.showMessageDialog(rootPane, "Informe o departamento.");
+                                } else {
+                                    objPlan.setSigla((String) jComboBoxSigla.getSelectedItem());
+                                    objPlan.setDescricaoPlanejamento((String) jComboBoxDescricaoPlanejamento.getSelectedItem());
+                                    objPlan.setDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                                    if (acao == 1) {
+                                        control.incluirPlanejamento(objPlan);
+                                        buscarCodigo();
+                                        objLog();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        bloquearBotoes();
+                                        bloquearCampos();
+                                        Salvar();
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    }
+                                    if (acao == 2) {
+                                        objPlan.setCodigo(Integer.valueOf(jCodigo.getText()));
+                                        control.alterarPlanejamento(objPlan);
+                                        objLog();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        bloquearBotoes();
+                                        bloquearCampos();
+                                        Salvar();
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    }
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+                            }
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -568,6 +1099,13 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
+
+    private void jComboBoxDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDepartamentoItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            pDEPARTAMENTO_modulo();
+        }
+    }//GEN-LAST:event_jComboBoxDepartamentoItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -627,17 +1165,33 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
         jComboBoxDepartamento.setEnabled(!true);
     }
 
+    public void pDEPARTAMENTO_modulo() {
+        jComboBoxSigla.removeAllItems();
+        if (jComboBoxDepartamento.getSelectedItem().equals("Educação Física")) {
+            jComboBoxSigla.addItem("EF");
+        } else if (jComboBoxDepartamento.getSelectedItem().equals("Serviço Social")) {
+            jComboBoxSigla.addItem("SS");
+        } else if (jComboBoxDepartamento.getSelectedItem().equals("Enfermaria")) {
+            jComboBoxSigla.addItem("EN");
+        } else if (jComboBoxDepartamento.getSelectedItem().equals("Psicologia")) {
+            jComboBoxSigla.addItem("PS");
+        } else if (jComboBoxDepartamento.getSelectedItem().equals("Pedagogia")) {
+            jComboBoxSigla.addItem("PE");
+        } else if (jComboBoxDepartamento.getSelectedItem().equals("Terapia Ocupacional")) {
+            jComboBoxSigla.addItem("TO");
+        }
+    }
+
     public void Novo() {
-        jComboBoxSigla.setEnabled(true);
+        jComboBoxSigla.setEnabled(!true);
         jComboBoxDescricaoPlanejamento.setEnabled(true);
         jComboBoxDepartamento.setEnabled(true);
-        //
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
 
     public void Alterar() {
-        jComboBoxSigla.setEnabled(true);
+        jComboBoxSigla.setEnabled(!true);
         jComboBoxDescricaoPlanejamento.setEnabled(true);
         jComboBoxDepartamento.setEnabled(true);
         //
@@ -729,5 +1283,43 @@ public class TelaAtividadesEducacaoFisica extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jCodigo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserEF = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserEF + "'");
+            conecta.rs.first();
+            codigoUserGroupEF = conecta.rs.getInt("IdUsuario");
+            codigoGrupoEF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoEF = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserEF + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoEF = conecta.rs.getInt("IdUsuario");
+            codAbrirEF = conecta.rs.getInt("Abrir");
+            codIncluirEF = conecta.rs.getInt("Incluir");
+            codAlterarEF = conecta.rs.getInt("Alterar");
+            codExcluirEF = conecta.rs.getInt("Excluir");
+            codGravarEF = conecta.rs.getInt("Gravar");
+            codConsultarEF = conecta.rs.getInt("Consultar");
+            nomeTelaEF = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

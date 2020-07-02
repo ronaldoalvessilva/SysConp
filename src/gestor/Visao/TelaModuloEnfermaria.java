@@ -118,6 +118,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     private TelaAtendimentoGrupoENF objAtendGrupo = null;
+    private TelaAtividadesEducacaoFisica objAtividadePlan = null;
     //    
     String dataLanc;
     int codUsuario;
@@ -163,6 +164,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaRegistroIntAtendENF = "Cadastro:Registro Interno para Atendimento:Manutenção";
     public static String telaRegistroIntAtendInciarLeitorENF = "Cadastro:Registro Interno para Atendimento:Iniciar Leitor";
     public static String telaCancelAtendInternoENF = "Cadastro:Cancelamento Assinatura Interno/Impressão - ENF:Manutenção";
+    //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+    public static String telaPlanejamentoAtividadesManu_EN = "Cadastro:Planejamento Atividades em Grupo - EN:Manutenção";
     // MENU CONTROLE DE MEDICAMENTOS
     public static String telaSolicitacaoMateriaisManuENF = "Controle Medicamentos:Solicitação de Materiais:Manutenção";
     public static String telaSolicitacaoMateriaisProdENF = "Controle Medicamentos:Solicitação de Materiais:Produtos";
@@ -260,6 +263,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     String pNomeRIA = "";
     String pNomeRIAIL = "";
     String pNomeCAII = "";
+    //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+    String pNomePAG_EN = "";
     // MENU CONTROLE DE MEDICAMENTOS
     String pNomeSMM = "";
     String pNomeSMP = "";
@@ -372,6 +377,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         jTiposExames = new javax.swing.JMenuItem();
         jTiposVacinas = new javax.swing.JMenuItem();
         jTiposTratameto = new javax.swing.JMenuItem();
+        jSeparator21 = new javax.swing.JPopupMenu.Separator();
+        jPlanejamentoAtividades = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         LocalEstoqueEnfermaria = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -504,6 +511,15 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             }
         });
         Cadastros.add(jTiposTratameto);
+        Cadastros.add(jSeparator21);
+
+        jPlanejamentoAtividades.setText("Planejamento de Atividades em Grupo");
+        jPlanejamentoAtividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPlanejamentoAtividadesActionPerformed(evt);
+            }
+        });
+        Cadastros.add(jPlanejamentoAtividades);
         Cadastros.add(jSeparator10);
 
         LocalEstoqueEnfermaria.setText("Local de Armazenamento");
@@ -2310,6 +2326,40 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAtendimentoEnfermagemGrupoActionPerformed
 
+    private void jPlanejamentoAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlanejamentoAtividadesActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaPlanejamentoAtividadesManu_EN);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPlanejamentoAtividadesManu_EN) && codAbrirENF == 1) {
+            if (objAtividadePlan == null || objAtividadePlan.isClosed()) {
+                objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                jPainelMedico.add(objAtividadePlan);
+                objAtividadePlan.setVisible(true);
+            } else {
+                if (objAtividadePlan.isVisible()) {
+                    if (objAtividadePlan.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtividadePlan.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtividadePlan.toFront(); // traz para frente
+                        objAtividadePlan.pack();//volta frame 
+                    }
+                } else {
+                    objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                    TelaModuloEnfermaria.jPainelMedico.add(objAtividadePlan);//adicona frame ao JDesktopPane  
+                    objAtividadePlan.setVisible(true);
+                }
+            }
+            try {
+                objAtividadePlan.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jPlanejamentoAtividadesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoMedicaPsiquiatrica;
@@ -2364,6 +2414,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMotivoDevolucaoProdutos;
     private javax.swing.JMenuItem jMovimentacaoExternaInterno;
     public static javax.swing.JDesktopPane jPainelMedico;
+    private javax.swing.JMenuItem jPlanejamentoAtividades;
     private javax.swing.JMenuItem jRelatorioEntradasInternosUnidade;
     private javax.swing.JMenuItem jRelatorioProdutividadeEnfermagem;
     private javax.swing.JMenuItem jRelatorioProdutividadeMedicos;
@@ -2382,6 +2433,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator20;
+    private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3299,6 +3351,14 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeBTL = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPlanejamentoAtividadesManu_EN + "'");
+            conecta.rs.first();
+            pNomePAG_EN = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeACD.equals(telaAcessoCadastroDoencasENF) || pNomeACD == null || pNomeACD.equals("")) {
             buscarCodigoModulo();
@@ -3358,6 +3418,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroIntAtendInciarLeitorENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+        if (!pNomePAG_EN.equals(telaPlanejamentoAtividadesManu_EN) || pNomePAG_EN == null || pNomePAG_EN.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPlanejamentoAtividadesManu_EN);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // CONTROLE DE MEDICAMENTOS

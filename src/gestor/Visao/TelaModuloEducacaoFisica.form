@@ -11,7 +11,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jPlanejamentoAtividades">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Planejamento de Atividades"/>
+                <Property name="text" type="java.lang.String" value="Planejamento de Atividades em Grupo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPlanejamentoAtividadesActionPerformed"/>
