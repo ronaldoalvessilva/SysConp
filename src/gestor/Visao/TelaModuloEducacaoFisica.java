@@ -7,10 +7,12 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleListaAcessosPlanejamentoAtividadesGrupo;
 import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.CamposAcessos;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -85,6 +87,9 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //CONTROLE DE ACESSO (02/07/2020)
+    ControleListaAcessosPlanejamentoAtividadesGrupo pPESQUISAR_acessos = new ControleListaAcessosPlanejamentoAtividadesGrupo();
+    CamposAcessos objCampos = new CamposAcessos();
     //
     private TelaConsultaProntuarioInternoCrc objriIntJu = null;
     private TelaConsultaLocalInternoJuridico objLocalIntJu = null;
@@ -142,7 +147,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     public static String nomeModuloEF = "EDUCACAO FISICA";
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // MENU CADASTRO   
-    public static String telaAtividadesEducaFisicaManu_EF = "Cadastro:Atividades Educação Física:Manutenção";
+    public static String telaPlanejamentoAtividadesManu_EF = "Cadastro:Planejamento Atividades em Grupo - EF:Manutenção";
     public static String telaRegistroAtendimentoBio_EF = "Cadastro:Registro de Atendimento Internos Biometria - EF:Manutenção";
     public static String telaRegistroAtendimentoInciarLeitor_EF = "Cadastro:Registro de Atendimento Internos Biometria - EF:Iniciar Leitor";
     public static String telaRegistroAtendimentoImpBio_EF = "Cadastro:Registro de Autorização Impressa - EF:Liberação";
@@ -163,7 +168,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     //OCORRÊNCIA
     public static String telaOcorrenciaManu_EF = "Movimentação:Ocorrência Educação Física:Manutenção";
     //CADASTROS
-    String pNomeAED_EF = "";
+    String pNomePAG_EF = "";
     //BIOMETRIA
     String pNomeAB = "";
     String pNomeAIL = "";
@@ -274,7 +279,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
         Cadastros.setText("Cadastros");
 
-        jPlanejamentoAtividades.setText("Planejamento de Atividades");
+        jPlanejamentoAtividades.setText("Planejamento de Atividades em Grupo");
         jPlanejamentoAtividades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPlanejamentoAtividadesActionPerformed(evt);
@@ -758,8 +763,12 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
     private void jPlanejamentoAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlanejamentoAtividadesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaOcorrenciaManu_EF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaOcorrenciaManu_EF) && codAbrirEF == 1) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaPlanejamentoAtividadesManu_EF);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaPlanejamentoAtividadesManu_EF) && objCampos.getCodigoAbrir() == 1) {
             if (objAtividadePlan == null || objAtividadePlan.isClosed()) {
                 objAtividadePlan = new TelaAtividadesEducacaoFisica();
                 jPainelEducacaoFisica.add(objAtividadePlan);
@@ -1556,9 +1565,9 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaAtividadesEducaFisicaManu_EF + "'");
+                    + "WHERE NomeTela='" + telaPlanejamentoAtividadesManu_EF + "'");
             conecta.rs.first();
-            pNomeAED_EF = conecta.rs.getString("NomeTela");
+            pNomePAG_EF = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
@@ -1670,10 +1679,10 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
             pNomeOcorr_EF = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        if (!pNomeAED_EF.equals(telaAtividadesEducaFisicaManu_EF) || pNomeAED_EF == null || pNomeAED_EF.equals("")) {
+        if (!pNomePAG_EF.equals(telaPlanejamentoAtividadesManu_EF) || pNomePAG_EF == null || pNomePAG_EF.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaAtividadesEducaFisicaManu_EF);
+            objCadastroTela.setNomeTela(telaPlanejamentoAtividadesManu_EF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //CADASTROS

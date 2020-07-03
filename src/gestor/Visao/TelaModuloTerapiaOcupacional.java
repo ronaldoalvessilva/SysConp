@@ -107,6 +107,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private TelaControleFrequenciaCursosOficina objControlFreq = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     private TelaAtendimentoGrupoTO objAtendGrupo = null;
+    private TelaAtividadesEducacaoFisica objAtividadePlan = null;
     //
     public static String nomeModuloTERA = "TERAPIA";
     String dataLanc;
@@ -165,6 +166,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     public static String telaRegistroAtenImpTO = "Cadastro:Registro Atendimento Impresso TO:Manutenção";
     public static String telaRegistroLibAtenImpTO = "Cadastro:Registro Atendimento Impresso Liberação TO:Liberação";
     public static String telaCancelAtendInternoTO = "Cadastro:Cancelamento Assinatura Interno/Impressão - TER:Manutenção";
+    //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+    public static String telaPlanejamentoAtividadesManu_TO = "Cadastro:Planejamento Atividades em Grupo - TO:Manutenção";
     // MENU MOVIMENTAÇÃO
     public static String telaTriagemOcupacionalManuTO = "Movimentação:Triagem Ocupacional Internos:Manutenção";
     // ATENDIMENTO TERAPIA OCUPACIONAL
@@ -242,6 +245,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     String pNomeRAIM_TO = "";
     String pNomeRAIL_TO = "";
     String pNomeCAII = "";
+    //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+    String pNomePAG_TO = "";
     // MOVIMENTAÇÃO
     // TRIAGEM
     String pNomeTOM_TO = "";
@@ -328,6 +333,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         RegistroAtendimentoPorImpressao = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         jCancelarRegistroAtendimentoInterno = new javax.swing.JMenuItem();
+        jSeparator16 = new javax.swing.JPopupMenu.Separator();
+        jPlanejamentoAtividades = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromisso = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -498,6 +505,15 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu9.add(jCancelarRegistroAtendimentoInterno);
 
         jMenu1.add(jMenu9);
+        jMenu1.add(jSeparator16);
+
+        jPlanejamentoAtividades.setText("Planejamento de Atividades em Grupo");
+        jPlanejamentoAtividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPlanejamentoAtividadesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jPlanejamentoAtividades);
         jMenu1.add(jSeparator11);
 
         AgendaCompromisso.setText("Agenda de Compromissos Pessoal");
@@ -1858,6 +1874,40 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAtendimentoTOGrupoActionPerformed
 
+    private void jPlanejamentoAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlanejamentoAtividadesActionPerformed
+        // TODO add your handling code here:
+         buscarAcessoUsuario(telaPlanejamentoAtividadesManu_TO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaPlanejamentoAtividadesManu_TO) && codAbrirTO == 1) {
+            if (objAtividadePlan == null || objAtividadePlan.isClosed()) {
+                objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                jPainelTerapia.add(objAtividadePlan);
+                objAtividadePlan.setVisible(true);
+            } else {
+                if (objAtividadePlan.isVisible()) {
+                    if (objAtividadePlan.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtividadePlan.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtividadePlan.toFront(); // traz para frente
+                        objAtividadePlan.pack();//volta frame 
+                    }
+                } else {
+                    objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAtividadePlan);//adicona frame ao JDesktopPane  
+                    objAtividadePlan.setVisible(true);
+                }
+            }
+            try {
+                objAtividadePlan.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jPlanejamentoAtividadesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1911,6 +1961,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem6;
     public static javax.swing.JDesktopPane jPainelTerapia;
     private javax.swing.JMenuItem jPerfilCarcerario;
+    private javax.swing.JMenuItem jPlanejamentoAtividades;
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JMenuItem jRelatorioInternosCursoAndamento;
     private javax.swing.JMenuItem jRelatorioInternosCursoConcluido;
@@ -1921,6 +1972,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
+    private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -2340,6 +2392,14 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             pNomeCAII = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+         try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPlanejamentoAtividadesManu_TO + "'");
+            conecta.rs.first();
+            pNomePAG_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2649,6 +2709,13 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCancelAtendInternoTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+         if (!pNomePAG_TO.equals(telaPlanejamentoAtividadesManu_TO) || pNomePAG_TO == null || pNomePAG_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPlanejamentoAtividadesManu_TO);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //MOVIMENTAÇÃO

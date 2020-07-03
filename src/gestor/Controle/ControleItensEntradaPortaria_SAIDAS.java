@@ -74,7 +74,7 @@ public class ControleItensEntradaPortaria_SAIDAS {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSCRCPORTARIA WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida()+ "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSCRCPORTARIA WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (ITENSCRCPORTARUA) os Dados.\n\nERRO: " + ex);
@@ -97,7 +97,7 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
-    
+
     //EXCLUIR REGISTRO NA PORTARIA QUANDO LANÇAMENTO ESTIVER ERRADO
     public ItensEntradaInternosPortaria excluir_SAIDA_portaria(ItensEntradaInternosPortaria objItensEntIntPort) {
 
@@ -111,12 +111,12 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
-    
+
     public ItensEntradaInternosPortaria excluirMOVI_SAIDA(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM MOVISR WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc()+ "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM MOVISR WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (MOVISR) os Dados.\n\nERRO: " + ex);
@@ -124,8 +124,8 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
-    
-     public ItensEntradaInternosPortaria incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+    public ItensEntradaInternosPortaria incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
@@ -143,15 +143,15 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
-     
-     //CANCELA SAIDA NO CRC - TABELA ITENSSAIDA
-     public ItensEntradaInternosPortaria alterar_ITENSSAIDA_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+    //CANCELA SAIDA NO CRC - TABELA ITENSSAIDA
+    public ItensEntradaInternosPortaria alterar_ITENSSAIDA_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdItem_SAIDA()+ "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdItem_SAIDA() + "'");
             pst.setString(1, objItensEntIntPort.getSaidaConfirmada());
-            pst.setString(2, objItensEntIntPort.getRegistroCancelado());            
+            pst.setString(2, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR (ITENSSAIDA) os Dados.\n\nERRO: " + ex);
@@ -159,15 +159,15 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
-     
-      //CANCELA SAIDA NO CRC - TABELA ITENSTRANSFERENCIA
-     public ItensEntradaInternosPortaria alterar_ITENTRANSFERENCIA_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+    //CANCELA SAIDA NO CRC - TABELA ITENSTRANSFERENCIA
+    public ItensEntradaInternosPortaria alterar_ITENTRANSFERENCIA_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida()+ "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida() + "'");
             pst.setString(1, objItensEntIntPort.getSaidaConfirmada());
-            pst.setString(2, objItensEntIntPort.getRegistroCancelado());            
+            pst.setString(2, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\n\nERRO: " + ex);
@@ -175,15 +175,15 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
-    
+
     //ATUALIZAR OBSERVAÇÃO DO USUÁRIO SOBRE A RECUSA DA SAÍDA TEMPORÁRIA
-      public ItensEntradaInternosPortaria incluir_OBSERVACAO_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
+    public ItensEntradaInternosPortaria incluir_OBSERVACAO_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGOBSERVACOES (IdInternoCrc,Observacao) VALUES(?,?)");
             pst.setInt(1, objItensEntIntPort.getIdInternoCrc());
-            pst.setString(2, objItensEntIntPort.getObservacaoInterno());            
+            pst.setString(2, objItensEntIntPort.getObservacaoInterno());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (REGOBSERVACOES)os Dados.\n\nERRO: " + ex);
@@ -191,14 +191,29 @@ public class ControleItensEntradaPortaria_SAIDAS {
         conecta.desconecta();
         return objItensEntIntPort;
     }
-      
-      //ATUALIZAR PRONTUARIO DO INTERNO APÓS CANCELAMENTO NA PORTARIA
-      public ItensEntradaInternosPortaria atualizar_PRONTUARIO_INTERNO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+    //ALTERAR A OBSERVAÇÃO CASO JÁ EXISTA ALGUM CONTEÚDO.
+    public ItensEntradaInternosPortaria alterar_OBSERVACAO_CANCELADO(ItensEntradaInternosPortaria objItensEntIntPort) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGOBSERVACOES SET Observacao=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'");
+            pst.setString(1, objItensEntIntPort.getObservacaoInterno());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (REGOBSERVACOES)os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensEntIntPort;
+    }
+
+    //ATUALIZAR PRONTUARIO DO INTERNO APÓS CANCELAMENTO NA PORTARIA
+    public ItensEntradaInternosPortaria atualizar_PRONTUARIO_INTERNO(ItensEntradaInternosPortaria objItensEntIntPort) {
 
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET SituacaoCrc=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'");
-            pst.setString(1, objItensEntIntPort.getSituacaoCrc());                     
+            pst.setString(1, objItensEntIntPort.getSituacaoCrc());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ATUALIZAR os Dados do (PRONTUARIO).\n\nERRO: " + ex);

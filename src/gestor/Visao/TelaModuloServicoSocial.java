@@ -110,6 +110,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     private TelaAtendimentoGrupoSS objAtenSS = null;
+    private TelaAtividadesEducacaoFisica objAtividadePlan = null;
     //
     public static String nomeModuloSERV = "SERVICO";
     String dataLanc;
@@ -164,6 +165,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria Serviços Social:Manutenção";
     public static String telaRegistroAtendimentoImpressaoBioSSocial = "Cadastro:Registro de Autorização Impressa Serviços Social:Liberação";
     public static String telaCancelAtendInternoSS = "Cadastro:Cancelamento Assinatura Interno/Impressão - SSO:Manutenção";
+    public static String telaPlanejamentoAtividadesManu_SS = "Cadastro:Planejamento Atividades em Grupo - SS:Manutenção";
     // MOVIMENTAÇÃO
     public static String telaAdmissaoInternosServicoSocial = "Movimentação:Admissão de Internos:Admissão";
     public static String telaEvolucaoServicoSocial = "Movimentação:Admissão de Internos:Evolução";
@@ -233,6 +235,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeRAB_SS = "";
     String pNomeRAIB_SS = "";
     String pNomeCAII = "";
+    //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+    String pNomePAG_SS = "";
     // MOVIMENTAÇÃO
     String pNomeAEI = "";
     String pNomeAEIE = "";
@@ -316,6 +320,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         InstituicaoReligiosa = new javax.swing.JMenuItem();
         VisitantesReligiosos = new javax.swing.JMenuItem();
         RolVisitasReligiosas = new javax.swing.JMenuItem();
+        jSeparator25 = new javax.swing.JPopupMenu.Separator();
+        jPlanejamentoAtividades = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         AprovadoresOcorrenciasVisitasPortaria = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
@@ -475,6 +481,15 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             }
         });
         jMenu1.add(RolVisitasReligiosas);
+        jMenu1.add(jSeparator25);
+
+        jPlanejamentoAtividades.setText("Planejamento das Atividades em Grupo");
+        jPlanejamentoAtividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPlanejamentoAtividadesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jPlanejamentoAtividades);
         jMenu1.add(jSeparator1);
 
         AprovadoresOcorrenciasVisitasPortaria.setForeground(new java.awt.Color(0, 0, 255));
@@ -2359,6 +2374,40 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAtendimentoGrupoSSActionPerformed
 
+    private void jPlanejamentoAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlanejamentoAtividadesActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaPlanejamentoAtividadesManu_SS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPlanejamentoAtividadesManu_SS) && codAbrirSS == 1) {
+            if (objAtividadePlan == null || objAtividadePlan.isClosed()) {
+                objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                jPainelServicoSocial.add(objAtividadePlan);
+                objAtividadePlan.setVisible(true);
+            } else {
+                if (objAtividadePlan.isVisible()) {
+                    if (objAtividadePlan.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtividadePlan.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtividadePlan.toFront(); // traz para frente
+                        objAtividadePlan.pack();//volta frame 
+                    }
+                } else {
+                    objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objAtividadePlan);//adicona frame ao JDesktopPane  
+                    objAtividadePlan.setVisible(true);
+                }
+            }
+            try {
+                objAtividadePlan.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jPlanejamentoAtividadesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoInternos;
@@ -2424,6 +2473,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jOcorrenciasServicoSocial;
     private javax.swing.JMenuItem jPaiNOVO;
     public static javax.swing.JDesktopPane jPainelServicoSocial;
+    private javax.swing.JMenuItem jPlanejamentoAtividades;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JMenuItem jRelatorioGeralQuantidadeAtendimentoFamiliar;
@@ -2447,6 +2497,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
+    private javax.swing.JPopupMenu.Separator jSeparator25;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -2851,6 +2902,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeCAII = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPlanejamentoAtividadesManu_SS + "'");
+            conecta.rs.first();
+            pNomePAG_SS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MANUTENÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -3242,6 +3301,12 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCancelAtendInternoSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+         if (!pNomePAG_SS.equals(telaPlanejamentoAtividadesManu_SS) || pNomePAG_SS == null || pNomePAG_SS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPlanejamentoAtividadesManu_SS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO

@@ -397,14 +397,9 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
+                      <StringArray count="2">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="EN"/>
-                        <StringItem index="2" value="SS"/>
-                        <StringItem index="3" value="PS"/>
-                        <StringItem index="4" value="TO"/>
-                        <StringItem index="5" value="PE"/>
-                        <StringItem index="6" value="EF"/>
+                        <StringItem index="1" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -424,7 +419,7 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="12">
+                      <StringArray count="28">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Futebol"/>
                         <StringItem index="2" value="Basquete"/>
@@ -434,9 +429,25 @@
                         <StringItem index="6" value="Jud&#xf4;"/>
                         <StringItem index="7" value="Carat&#xea;"/>
                         <StringItem index="8" value="Capoeira"/>
-                        <StringItem index="9" value="Palestra"/>
-                        <StringItem index="10" value=" "/>
-                        <StringItem index="11" value=" "/>
+                        <StringItem index="9" value="Palestras"/>
+                        <StringItem index="10" value="Leituras"/>
+                        <StringItem index="11" value="Vacinas"/>
+                        <StringItem index="12" value="Oficinas"/>
+                        <StringItem index="13" value="Roda de Conversa"/>
+                        <StringItem index="14" value="Projetos"/>
+                        <StringItem index="15" value="Vermectina"/>
+                        <StringItem index="16" value="Exames do ENEN"/>
+                        <StringItem index="17" value="Exame de Vestibular"/>
+                        <StringItem index="18" value="Exames Diversos"/>
+                        <StringItem index="19" value="Cursos Diversos"/>
+                        <StringItem index="20" value="Outros"/>
+                        <StringItem index="21" value="Jogo Domin&#xf3;"/>
+                        <StringItem index="22" value="Jogo Dama"/>
+                        <StringItem index="23" value="Jogo Baralho"/>
+                        <StringItem index="24" value="Jogos Diversos"/>
+                        <StringItem index="25" value=" "/>
+                        <StringItem index="26" value=" "/>
+                        <StringItem index="27" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -473,6 +484,9 @@
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxDepartamentoItemStateChanged"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>

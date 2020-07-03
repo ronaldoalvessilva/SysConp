@@ -99,6 +99,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     private TelaTiposTratamentoPsicologico objTipoTrata = null;
     private TelaAtendimentoGrupoPSI objAtendGrupo = null;
+    private TelaAtividadesEducacaoFisica objAtividadePlan = null;
     //
     String dataLanc;
     int codUsuario;
@@ -142,6 +143,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static String telaRegistroAtendimentoColLiberadorPSI = "Cadastro:Registro de Autorização Impressa:Colaborador Liberador";
     public static String telaCancelAtendInternoPSI = "Cadastro:Cancelamento Assinatura Interno/Impressão - PSI:Manutenção";
     public static String telaCadastroTipoTratamentoPSI = "Cadastro:Tipos de Tratamento:Manutenção";
+    //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+    public static String telaPlanejamentoAtividadesManu_PS = "Cadastro:Planejamento Atividades em Grupo - PS:Manutenção";
     // MENU CONSULTA    
     public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
     // MOVIMENTAÇÃO
@@ -196,6 +199,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomeRACL = "";
     String pNomeCAII = "";
     String pNomeTTP = "";
+    //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+    String pNomePAG_PS = "";
     // MENU CONSULTA
     String pNomeCPID = "";
     // MOVIMENTAÇÃO
@@ -268,6 +273,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jMenu1 = new javax.swing.JMenu();
         jTipoTratamentoPsicologico = new javax.swing.JMenuItem();
         AgendaAtendimentoInternos = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        jPlanejamentoAtividades = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -354,6 +361,15 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu1.add(AgendaAtendimentoInternos);
+        jMenu1.add(jSeparator11);
+
+        jPlanejamentoAtividades.setText("Planejamento de Atividades em Grupo");
+        jPlanejamentoAtividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPlanejamentoAtividadesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jPlanejamentoAtividades);
         jMenu1.add(jSeparator6);
 
         AgendaCompromissos.setText("Agenda de Compromissos Pessoal");
@@ -1332,6 +1348,40 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAtendimentoPsicologicoGrupoActionPerformed
 
+    private void jPlanejamentoAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlanejamentoAtividadesActionPerformed
+        // TODO add your handling code here:
+         buscarAcessoUsuario(telaPlanejamentoAtividadesManu_PS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPlanejamentoAtividadesManu_PS) && codAbrirPSI == 1) {
+            if (objAtividadePlan == null || objAtividadePlan.isClosed()) {
+                objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                jPainelPsicologia.add(objAtividadePlan);
+                objAtividadePlan.setVisible(true);
+            } else {
+                if (objAtividadePlan.isVisible()) {
+                    if (objAtividadePlan.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtividadePlan.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtividadePlan.toFront(); // traz para frente
+                        objAtividadePlan.pack();//volta frame 
+                    }
+                } else {
+                    objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objAtividadePlan);//adicona frame ao JDesktopPane  
+                    objAtividadePlan.setVisible(true);
+                }
+            }
+            try {
+                objAtividadePlan.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jPlanejamentoAtividadesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoPsicologica;
@@ -1368,11 +1418,13 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jPaiNovo;
     public static javax.swing.JDesktopPane jPainelPsicologia;
     private javax.swing.JMenuItem jPerfilCarcerario;
+    private javax.swing.JMenuItem jPlanejamentoAtividades;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JMenu jRelatorioAtendimentoInternos;
     private javax.swing.JMenuItem jRelatorioAtendimentoPsicologico;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -1736,6 +1788,14 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeTTP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPlanejamentoAtividadesManu_PS + "'");
+            conecta.rs.first();
+            pNomePAG_PS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2028,6 +2088,13 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCadastroTipoTratamentoPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PLANEJAMENTO DE ATIVIDADES EM GRUPO
+        if (!pNomePAG_PS.equals(telaPlanejamentoAtividadesManu_PS) || pNomePAG_PS == null || pNomePAG_PS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPlanejamentoAtividadesManu_PS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //CONSULTA
