@@ -21,7 +21,7 @@
 FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP R
        INNER JOIN PRONTUARIOSCRC P
                ON P.IdInternoCrc = R.IdInternoCrc
-WHERE  TipoAtendimento LIKE 'Admissão Médica/Psiquiatrica'
+WHERE  TipoAtendimento LIKE 'Admissão Médica'
        AND Atendido LIKE 'Sim'
        AND CONVERT(DATE, DataReg) BETWEEN $P{dataInicial} AND $P{dataFinal}
 ORDER  BY R.UsuarioUp, R.DataReg]]>

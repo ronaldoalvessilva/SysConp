@@ -249,9 +249,9 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                                         + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
                                         + "INNER JOIN VEICULOS "
                                         + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                                        + "WHERE DataSaida BETWEEN'" + dataInicial + "' "
+                                        + "WHERE CONVERT(DATE, DataSaida) BETWEEN'" + dataInicial + "' "
                                         + "AND'" + dataFinal + "' "
-                                        + "ORDER BY PlacaVeiculo,DataSaida,HorarioSaida");
+                                        + "ORDER BY PlacaVeiculo,CONVERT(DATE, DataSaida),HorarioSaida");
                                 HashMap parametros = new HashMap();
                                 parametros.put("dataInicial", dataInicial);
                                 parametros.put("dataFinal", dataFinal);
@@ -350,7 +350,7 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                             dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                             try {
                                 conecta.abrirConexao();
-                                String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenal.jasper";
+                               String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenal.jasper";
                                 conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
                                         + "INNER JOIN ITENSVEICULOSUNIDADE "
                                         + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
@@ -358,9 +358,9 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                                         + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
                                         + "INNER JOIN VEICULOS "
                                         + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                                        + "WHERE DataSaida BETWEEN'" + dataInicial + "' "
+                                        + "WHERE CONVERT(DATE, DataSaida) BETWEEN'" + dataInicial + "' "
                                         + "AND'" + dataFinal + "' "
-                                        + "ORDER BY PlacaVeiculo,DataSaida,HorarioSaida");
+                                        + "ORDER BY PlacaVeiculo,CONVERT(DATE, DataSaida),HorarioSaida");
                                 HashMap parametros = new HashMap();
                                 parametros.put("dataInicial", dataInicial);
                                 parametros.put("dataFinal", dataFinal);

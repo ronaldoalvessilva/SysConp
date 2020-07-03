@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioEntradaSaidaVeiculosUnidadePenal" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4fc9c731-d230-4734-96d7-7e17bfce50e7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="7"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -24,7 +24,18 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM ENTRADAVEICULOSUNIDADE INNER JOIN ITENSVEICULOSUNIDADE ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc INNER JOIN COLABORADOR ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc INNER JOIN VEICULOS ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo WHERE DataSaida BETWEEN $P{dataInicial} AND $P{dataFinal} ORDER BY PlacaVeiculo,DataSaida, HorarioSaida]]>
+		<![CDATA[SELECT *
+FROM   ENTRADAVEICULOSUNIDADE
+       INNER JOIN ITENSVEICULOSUNIDADE
+               ON ENTRADAVEICULOSUNIDADE.IdLanc = ITENSVEICULOSUNIDADE.Idlanc
+       INNER JOIN COLABORADOR
+               ON ITENSVEICULOSUNIDADE.IdFunc = COLABORADOR.IdFunc
+       INNER JOIN VEICULOS
+               ON ITENSVEICULOSUNIDADE.IdVeiculo = VEICULOS.IdVeiculo
+WHERE  CONVERT(DATE, DataSaida) BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER  BY PlacaVeiculo,
+          CONVERT(DATE, DataSaida),
+          HorarioSaida ]]>
 	</queryString>
 	<field name="IdLanc" class="java.lang.Integer"/>
 	<field name="DataLanc" class="java.sql.Timestamp"/>
@@ -45,18 +56,17 @@
 	<field name="HorarioEntrada" class="java.lang.String"/>
 	<field name="DataSaida" class="java.sql.Timestamp"/>
 	<field name="HorarioSaida" class="java.lang.String"/>
-	<field name="KmInicial" class="java.lang.Float"/>
-	<field name="KmFinal" class="java.lang.Float"/>
+	<field name="KmInicial" class="java.lang.String"/>
+	<field name="KmFinal" class="java.lang.String"/>
 	<field name="DestinoEntrada" class="java.lang.String"/>
 	<field name="DataCadFunc" class="java.sql.Timestamp"/>
 	<field name="ImagemFunc" class="java.lang.String"/>
 	<field name="NomeFunc" class="java.lang.String"/>
 	<field name="SexoFunc" class="java.lang.String"/>
 	<field name="EscolaFunc" class="java.lang.String"/>
+	<field name="MatriculaFunc" class="java.lang.String"/>
 	<field name="IdCargo" class="java.lang.Integer"/>
 	<field name="IdDepartamento" class="java.lang.Integer"/>
-	<field name="StatusFunc" class="java.lang.String"/>
-	<field name="MatriculaFunc" class="java.lang.String"/>
 	<field name="EstadoCivil" class="java.lang.String"/>
 	<field name="DataNascimento" class="java.sql.Timestamp"/>
 	<field name="NomeMae" class="java.lang.String"/>
@@ -72,6 +82,8 @@
 	<field name="Pais" class="java.lang.String"/>
 	<field name="Naturalidade" class="java.lang.String"/>
 	<field name="EstadoNaturalidade" class="java.lang.String"/>
+	<field name="StatusFunc" class="java.lang.String"/>
+	<field name="ImagemFrenteCO" class="java.sql.Blob"/>
 	<field name="DataCadastro" class="java.sql.Timestamp"/>
 	<field name="NomeVeiculo" class="java.lang.String"/>
 	<field name="PlacaVeiculo" class="java.lang.String"/>
@@ -84,6 +96,7 @@
 	<field name="FotoLadoEsquerdo" class="java.lang.String"/>
 	<field name="FotoFundo" class="java.lang.String"/>
 	<field name="StatusVei" class="java.lang.String"/>
+	<field name="ImagemFrenteVE" class="java.sql.Blob"/>
 	<variable name="KM_RODADO" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{KmFinal} == 0.0 ? 0.0 : $F{KmFinal} - $F{KmInicial}]]></variableExpression>
 	</variable>
