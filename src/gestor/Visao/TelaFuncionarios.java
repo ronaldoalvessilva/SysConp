@@ -235,6 +235,9 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jHorarioInicio = new javax.swing.JFormattedTextField();
         jLabel19 = new javax.swing.JLabel();
         jFuncao = new javax.swing.JTextField();
+        jLabel78 = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
         jComboBoxNacionalidade = new javax.swing.JComboBox();
@@ -245,6 +248,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel53 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
         jComboBoxEstadoNaturalidade = new javax.swing.JComboBox();
+        jLabel81 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
@@ -377,7 +381,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -489,7 +493,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(121, 121, 121)
-                .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -499,7 +503,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
@@ -521,7 +526,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqNome))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabelaFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -605,7 +610,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -617,7 +622,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -665,7 +670,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel14.setText("Escolaridade");
 
         jComboBoxEscolaridade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Analfabeto", "Alfabetizado", "Ensino Fundamental", "1º Grau Incompleto", "1º Grau Completo", "2º Grau Incompleto", "2º Grau Completo", "Superior Incompleto", "Superior Completo", "Mestrado", "Doutorado" }));
+        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Analfabeto", "Alfabetizado", "Ensino Fundamental", "1º Grau Incompleto", "1º Grau Completo", "2º Grau Incompleto", "2º Grau Completo", "Superior Incompleto", "Superior Completo", "Mestrado", "Doutorado" }));
         jComboBoxEscolaridade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscolaridade.setEnabled(false);
 
@@ -673,7 +678,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel12.setText("Sexo");
 
         jComboBoxSexo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Masculino", "Feminino" }));
+        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Masculino", "Feminino" }));
         jComboBoxSexo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSexo.setEnabled(false);
 
@@ -731,7 +736,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel10.setText("Estado Civil:");
 
         jComboBoxEstadoCivil.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Casado", "Casada", "Solteiro", "Solteira", "Outros" }));
+        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Casado", "Casada", "Solteiro", "Solteira", "Outros" }));
         jComboBoxEstadoCivil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEstadoCivil.setEnabled(false);
 
@@ -750,18 +755,18 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxStatusFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel70)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel70))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxStatusFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))))
+                        .addGap(4, 4, 4)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jDataAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -786,7 +791,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9)
                             .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -825,7 +830,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxStatusFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxStatusFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -842,22 +847,22 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(76, 76, 76))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDataAdmissao, jDataNascimento});
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
@@ -961,15 +966,15 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSair)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtBiometria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -993,7 +998,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jBtAuditoria, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBtBiometria, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
@@ -1142,7 +1147,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                        .addComponent(jDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
@@ -1181,7 +1186,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jComboBoxRegimeTrabalho.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxRegimeTrabalho.setForeground(new java.awt.Color(153, 0, 102));
-        jComboBoxRegimeTrabalho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "ADM", "A", "B", "C", "D", " " }));
+        jComboBoxRegimeTrabalho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "ADM", "A", "B", "C", "D", " " }));
         jComboBoxRegimeTrabalho.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxRegimeTrabalho.setEnabled(false);
 
@@ -1189,11 +1194,11 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel18.setText("Horário:");
 
         jHorarioFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHorarioFinal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHorarioFinal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jHorarioFinal.setEnabled(false);
 
         jHorarioInicio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHorarioInicio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHorarioInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jHorarioInicio.setEnabled(false);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1201,6 +1206,18 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jFuncao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFuncao.setEnabled(false);
+
+        jLabel78.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel78.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel78.setText("*");
+
+        jLabel79.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel79.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel79.setText("*");
+
+        jLabel80.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel80.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel80.setText("*");
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -1215,32 +1232,39 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel80)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxRegimeTrabalho, 0, 128, Short.MAX_VALUE)
+                        .addComponent(jComboBoxRegimeTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel78)
+                        .addGap(7, 7, 7)
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel79)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jFuncao))
                 .addContainerGap())
         );
-
-        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jHorarioFinal, jHorarioInicio});
-
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
-                    .addComponent(jComboBoxRegimeTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
+                    .addComponent(jComboBoxRegimeTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel78)
+                    .addComponent(jLabel18)
+                    .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel79)
+                    .addComponent(jLabel80)
                     .addComponent(jCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1250,13 +1274,15 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel16Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jHorarioFinal, jHorarioInicio});
+
         jTabbedPane2.addTab("Carga Horária", jPanel16);
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel42.setText("Nacionalidade");
 
         jComboBoxNacionalidade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxNacionalidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Brasileira", "Estrangeira" }));
+        jComboBoxNacionalidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Brasileira", "Estrangeira" }));
         jComboBoxNacionalidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxNacionalidade.setEnabled(false);
 
@@ -1279,7 +1305,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel52)
                     .addComponent(jPais, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1290,7 +1316,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jLabel52))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1307,7 +1333,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel68.setText("Estado");
 
         jComboBoxEstadoNaturalidade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEstadoNaturalidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "AC", "AL", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        jComboBoxEstadoNaturalidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "AC", "AL", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         jComboBoxEstadoNaturalidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEstadoNaturalidade.setEnabled(false);
 
@@ -1316,33 +1342,37 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel24Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel53)
+                    .addComponent(jNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel24Layout.createSequentialGroup()
-                        .addComponent(jLabel53)
-                        .addGap(0, 381, Short.MAX_VALUE))
-                    .addComponent(jNaturalidade))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel68)
-                    .addComponent(jComboBoxEstadoNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                        .addComponent(jLabel68)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jComboBoxEstadoNaturalidade, 0, 98, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel68)
-                    .addComponent(jLabel53))
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel53)
+                    .addComponent(jLabel68))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEstadoNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(jComboBoxEstadoNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Naturalidade", jPanel24);
+
+        jLabel81.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel81.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel81.setText("(*) - Campos obrigatórios");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1354,21 +1384,26 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(4, 4, 4)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel81)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(5, 5, 5))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -1461,7 +1496,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jLabel58)
                     .addComponent(jCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel59)
-                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel60)
                     .addComponent(jCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1571,10 +1606,10 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
         );
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtNovoLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoLogradouro.setText("Novo");
@@ -1678,19 +1713,19 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addComponent(jBtNovoLogradouro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterarLogradouro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluirLogradouro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvarLogradouro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelarLogradouro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSairLogradouro)
                 .addGap(18, 18, 18)
                 .addComponent(jBtImpressaoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1925,7 +1960,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel29)
                     .addComponent(jOrgaoEmissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEstadoOrgao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEstadoOrgao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataEmissaoRg, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28)
                     .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2084,7 +2119,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel20.setText("Tipo de Conjugue:");
 
         jComboBoxTipoConjugue.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoConjugue.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Companheiro", "Companheira", "Esposo", "Esposa", "União Estavél", "Outros" }));
+        jComboBoxTipoConjugue.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Companheiro", "Companheira", "Esposo", "Esposa", "União Estavél", "Outros" }));
         jComboBoxTipoConjugue.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoConjugue.setEnabled(false);
 
@@ -2116,7 +2151,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                             .addComponent(jLabel20)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jComboBoxTipoConjugue, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                             .addComponent(jLabel22)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jDataNasConjugue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -2128,7 +2163,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel20)
-                    .addComponent(jComboBoxTipoConjugue, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTipoConjugue, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22)
                     .addComponent(jDataNasConjugue, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -2138,7 +2173,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtNovoDocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoDocumentos.setText("Novo");
@@ -2242,15 +2277,15 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jBtNovoDocumentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterarDocumentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluirDocumentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvarDocumentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelarDocumentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSairDocumentos)
                 .addGap(18, 18, 18)
                 .addComponent(jBtImpressaoDocumentos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2330,7 +2365,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jDataNascimentoParentesco.setEnabled(false);
 
         jComboBoxParentesco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Avó", "Avô", "Companheira", "Companheiro", "Cunhada", "Cunhado", "Enteada", "Enteado", "Esposa", "Esposo", "Filha", "Filho", "Irmã", "Irmão", "Mãe", "Pai", "Sobrinha", "Sobrinho", "Tia", "Tio", "Outros" }));
+        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Avó", "Avô", "Companheira", "Companheiro", "Cunhada", "Cunhado", "Enteada", "Enteado", "Esposa", "Esposo", "Filha", "Filho", "Irmã", "Irmão", "Mãe", "Pai", "Sobrinha", "Sobrinho", "Tia", "Tio", "Outros" }));
         jComboBoxParentesco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxParentesco.setEnabled(false);
 
@@ -2378,7 +2413,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                             .addComponent(jNomeDependente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel77)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2396,7 +2431,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jCodigoDependente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataNascimentoParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
@@ -2507,13 +2542,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtNovoDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtAlterarDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtExcluirDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtSalvarDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtCancelarDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel71)
@@ -2564,8 +2599,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dependentes", jPanel20);
@@ -2583,7 +2617,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(250, 20, 577, 547);
+        setBounds(250, 20, 587, 547);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -2674,166 +2708,180 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Informe o nome do Colaborador.");
                 jNomeFuncionario.requestFocus();
                 jNomeFuncionario.setBackground(Color.red);
+            } else if (jDataAdmissao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
+                jDataAdmissao.requestFocus();
+                jDataAdmissao.setBackground(Color.red);
+            } else if (jNomeMae.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
+                jNomeMae.requestFocus();
+                jNomeMae.setBackground(Color.red);
+            } else if (jDepartamento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
+                jDepartamento.requestFocus();
+                jDepartamento.setBackground(Color.red);
+            } else if (jNomeCargo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
+                jNomeCargo.requestFocus();
+                jNomeCargo.setBackground(Color.red);
+            } else if (jComboBoxRegimeTrabalho.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a turma do colaborador.");
+                jComboBoxRegimeTrabalho.requestFocus();
+                jComboBoxRegimeTrabalho.setBackground(Color.red);
+            } else if (jComboBoxRegimeTrabalho.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a turma do colaborador.");
+                jComboBoxRegimeTrabalho.requestFocus();
+                jComboBoxRegimeTrabalho.setBackground(Color.red);
+            } else if (jComboBoxRegimeTrabalho.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a turma do colaborador.");
+                jComboBoxRegimeTrabalho.requestFocus();
+                jComboBoxRegimeTrabalho.setBackground(Color.red);
+            } else if (jHorarioInicio.getText().equals("") || jHorarioInicio.getText().equals("00:00") || jHorarioInicio.getText().equals(" : ")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o horário inicial do colaborador.");
+                jHorarioInicio.requestFocus();
+                jHorarioInicio.setBackground(Color.red);
+            } else if (jHorarioInicio.getText().equals("") || jHorarioFinal.getText().equals("00:00") || jHorarioFinal.getText().equals(" : ")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o horário inicial do colaborador.");
+                jHorarioInicio.requestFocus();
+                jHorarioInicio.setBackground(Color.red);
+            } else if (jCargaHoraria.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a carga horária do colaborador.");
+                jCargaHoraria.requestFocus();
+                jCargaHoraria.setBackground(Color.red);
+            } else if (caminhoFotoFunc == null) {
+                JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
+                jFotoColaborador.requestFocus();
             } else {
-                if (jDataAdmissao.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
-                    jDataAdmissao.requestFocus();
-                    jDataAdmissao.setBackground(Color.red);
+                // DADOS DO COLABORADOR (MANUTENÇÃO)
+                objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
+                objCola.setDataCadastro(jDataAdmissao.getDate());
+                objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
+                objCola.setMatricula(jMatricula.getText());
+                objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
+                objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                objCola.setDataNascimento(jDataNascimento.getDate());
+                objCola.setFoto(caminhoFotoFunc);
+                objCola.setNomeMae(jNomeMae.getText().trim());
+                objCola.setNomePai(jNomePai.getText());
+                objCola.setReligiao(jReligiao.getText());
+                objCola.setTipoSangue(jTipoSang.getText());
+                objCola.setNomeDepartamento(jDepartamento.getText());
+                objCola.setNomeCargo(jNomeCargo.getText());
+                objCola.setCargaHoraria(jCargaHoraria.getText());
+                objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
+                objCola.setHorarioInicio(jHorarioInicio.getText());
+                objCola.setHorarioFinal(jHorarioFinal.getText());
+                objCola.setFuncao(jFuncao.getText());
+                objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
+                objCola.setPais(jPais.getText());
+                objCola.setNaturalidade(jNaturalidade.getText());
+                objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                if (jFotoColaborador.getIcon() != null) {
+                    objCola.setImagemFrenteCO(persona_imagem);
+                }
+                // DADOS DO ENDEREÇO
+                objEnd.setEndereco(jEndereco.getText());
+                objEnd.setBairroEnd(jBairro.getText());
+                objEnd.setCompEnd(jComplemento.getText());
+                objEnd.setCidadeEnd(jCidade.getText());
+                objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
+                objEnd.setCepEnd(jCep.getText());
+                objEnd.setTelEnd(jTelefone.getText());
+                objEnd.setFoneEnd(jTelefoneEnd.getText());
+                objEnd.setCelEnd(jCelularEnd.getText());
+                objEnd.setEmalEnd(jEmail.getText());
+                objEnd.setUrl(jURL.getText());
+                objEnd.setObservacao(jObservacao.getText());
+                // DADOS DO DOCUMENTO        
+                objDoc.setRgDoc((jRG.getText()));
+                objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
+                objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
+                objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
+                objDoc.setCpfDoc((jCPF.getText()));
+                objDoc.setPisDoc((jPis.getText()));
+                objDoc.setDataCadPisDoc(jDataCadPis.getDate());
+                objDoc.setTituloDoc((jTitulo.getText()));
+                objDoc.setZonaDoc((jZona.getText()));
+                objDoc.setSecaoDoc((jSecao.getText()));
+                objDoc.setCtpsDoc((jCTPS.getText()));
+                objDoc.setSerieDoc(jSerie.getText());
+                objDoc.setHabiliDoc(jHabilita.getText());
+                objDoc.setReserVistaDoc((jReservista.getText()));
+                objDoc.setCateDoc(jCategoria.getText());
+                objDoc.setCartSaudeDoc(jCartaoSaude.getText());
+                objDoc.setProfDoc(jProfissao.getText());
+                objDoc.setAlturaDoc((jAltura.getText()));
+                objDoc.setCalcaDoc((jCalca.getText()));
+                objDoc.setSapatoDoc((jSapato.getText()));
+                objDoc.setPesoDoc((jPeso.getText()));
+                objDoc.setCamisaDoc((jCamisa.getText()));
+                objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
+                objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
+                objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
+                objDoc.setNomeConjugue(jNomeConjugue.getText());
+                //                                
+                verificarColaborador();
+                if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
                 } else {
-                    if (jNomeMae.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
-                        jNomeMae.requestFocus();
-                        jNomeMae.setBackground(Color.red);
-                    } else {
-                        if (jDepartamento.getText().equals("")) {
-                            JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
-                            jDepartamento.requestFocus();
-                            jDepartamento.setBackground(Color.red);
-                        } else {
-                            if (jNomeCargo.getText().equals("")) {
-                                JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
-                                jNomeCargo.requestFocus();
-                                jNomeCargo.setBackground(Color.red);
-                            } else {
-                                if (caminhoFotoFunc == null) {
-                                    JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
-                                    jFotoColaborador.requestFocus();
-                                } else {
-                                    // DADOS DO COLABORADOR (MANUTENÇÃO)
-                                    objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
-                                    objCola.setDataCadastro(jDataAdmissao.getDate());
-                                    objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
-                                    objCola.setMatricula(jMatricula.getText());
-                                    objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                    objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                    objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                    objCola.setDataNascimento(jDataNascimento.getDate());
-                                    objCola.setFoto(caminhoFotoFunc);
-                                    objCola.setNomeMae(jNomeMae.getText().trim());
-                                    objCola.setNomePai(jNomePai.getText());
-                                    objCola.setReligiao(jReligiao.getText());
-                                    objCola.setTipoSangue(jTipoSang.getText());
-                                    objCola.setNomeDepartamento(jDepartamento.getText());
-                                    objCola.setNomeCargo(jNomeCargo.getText());
-                                    objCola.setCargaHoraria(jCargaHoraria.getText());
-                                    objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
-                                    objCola.setHorarioInicio(jHorarioInicio.getText());
-                                    objCola.setHorarioFinal(jHorarioFinal.getText());
-                                    objCola.setFuncao(jFuncao.getText());
-                                    objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
-                                    objCola.setPais(jPais.getText());
-                                    objCola.setNaturalidade(jNaturalidade.getText());
-                                    objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
-                                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-                                    if (jFotoColaborador.getIcon() != null) {
-                                        objCola.setImagemFrenteCO(persona_imagem);
-                                    }
-                                    // DADOS DO ENDEREÇO
-                                    objEnd.setEndereco(jEndereco.getText());
-                                    objEnd.setBairroEnd(jBairro.getText());
-                                    objEnd.setCompEnd(jComplemento.getText());
-                                    objEnd.setCidadeEnd(jCidade.getText());
-                                    objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
-                                    objEnd.setCepEnd(jCep.getText());
-                                    objEnd.setTelEnd(jTelefone.getText());
-                                    objEnd.setFoneEnd(jTelefoneEnd.getText());
-                                    objEnd.setCelEnd(jCelularEnd.getText());
-                                    objEnd.setEmalEnd(jEmail.getText());
-                                    objEnd.setUrl(jURL.getText());
-                                    objEnd.setObservacao(jObservacao.getText());
-                                    // DADOS DO DOCUMENTO        
-                                    objDoc.setRgDoc((jRG.getText()));
-                                    objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
-                                    objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
-                                    objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
-                                    objDoc.setCpfDoc((jCPF.getText()));
-                                    objDoc.setPisDoc((jPis.getText()));
-                                    objDoc.setDataCadPisDoc(jDataCadPis.getDate());
-                                    objDoc.setTituloDoc((jTitulo.getText()));
-                                    objDoc.setZonaDoc((jZona.getText()));
-                                    objDoc.setSecaoDoc((jSecao.getText()));
-                                    objDoc.setCtpsDoc((jCTPS.getText()));
-                                    objDoc.setSerieDoc(jSerie.getText());
-                                    objDoc.setHabiliDoc(jHabilita.getText());
-                                    objDoc.setReserVistaDoc((jReservista.getText()));
-                                    objDoc.setCateDoc(jCategoria.getText());
-                                    objDoc.setCartSaudeDoc(jCartaoSaude.getText());
-                                    objDoc.setProfDoc(jProfissao.getText());
-                                    objDoc.setAlturaDoc((jAltura.getText()));
-                                    objDoc.setCalcaDoc((jCalca.getText()));
-                                    objDoc.setSapatoDoc((jSapato.getText()));
-                                    objDoc.setPesoDoc((jPeso.getText()));
-                                    objDoc.setCamisaDoc((jCamisa.getText()));
-                                    objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
-                                    objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
-                                    objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
-                                    objDoc.setNomeConjugue(jNomeConjugue.getText());
-                                    //                                
-                                    verificarColaborador();
-                                    if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
-                                        JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
-                                    } else {
-                                        if (acao == 1) {
-                                            objCola.setUsuarioInsert(nameUser);
-                                            objCola.setDataInsert(dataModFinal);
-                                            objCola.setHorarioInsert(horaMov);
-                                            // INCLUIR COLABORADOR
-                                            control.incluirColaborador(objCola);
-                                            buscarCodFunc();
-                                            // INCLUIR ENDEREÇO
-                                            objEnd.setUsuarioInsert(nameUser);
-                                            objEnd.setDataInsert(dataModFinal);
-                                            objEnd.setHorarioInsert(horaMov);
-                                            objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                            controle.incluirEnderecosColaborador(objEnd);
-                                            buscarCodEnd();
-                                            // INCLUIR DOCUMENTOS
-                                            objDoc.setUsuarioInsert(nameUser);
-                                            objDoc.setDataInsert(dataModFinal);
-                                            objDoc.setHorarioInsert(horaMov);
-                                            objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                            controleDoc.incluirDocumentosColaborador(objDoc);
-                                            buscarCodDoc();
-                                            //
-                                            objLog();
-                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                            Salvar();
-                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                        }
-                                    }
-                                    if (acao == 2) {
-                                        objCola.setUsuarioUp(nameUser);
-                                        objCola.setDataUp(dataModFinal);
-                                        objCola.setHorarioUp(horaMov);
-                                        // ALTERAR COLABORADOR
-                                        objCola.setNomeDepartamento(jDepartamento.getText());
-                                        objCola.setNomeCargo(jNomeCargo.getText());
-                                        objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        control.alterarColaborador(objCola);
-                                        // ALTERAR ENDEREÇO
-                                        objEnd.setUsuarioUp(nameUser);
-                                        objEnd.setDataUp(dataModFinal);
-                                        objEnd.setHorarioUp(horaMov);
-                                        objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        objEnd.setIdEnd(codEnd);
-                                        controle.alterarEnderecoColaborador(objEnd);
-                                        // ALTERAR DOCUMENTOS
-                                        objDoc.setUsuarioUp(nameUser);
-                                        objDoc.setDataUp(dataModFinal);
-                                        objDoc.setHorarioUp(horaMov);
-                                        objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        objDoc.setIdDoc(codDoc);
-                                        controleDoc.alterarDocumentosColaborador(objDoc);
-                                        //
-                                        objLog();
-                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                        Salvar();
-                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                    }
-                                }
-                            }
-                        }
+                    if (acao == 1) {
+                        objCola.setUsuarioInsert(nameUser);
+                        objCola.setDataInsert(dataModFinal);
+                        objCola.setHorarioInsert(horaMov);
+                        // INCLUIR COLABORADOR
+                        control.incluirColaborador(objCola);
+                        buscarCodFunc();
+                        // INCLUIR ENDEREÇO
+                        objEnd.setUsuarioInsert(nameUser);
+                        objEnd.setDataInsert(dataModFinal);
+                        objEnd.setHorarioInsert(horaMov);
+                        objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        controle.incluirEnderecosColaborador(objEnd);
+                        buscarCodEnd();
+                        // INCLUIR DOCUMENTOS
+                        objDoc.setUsuarioInsert(nameUser);
+                        objDoc.setDataInsert(dataModFinal);
+                        objDoc.setHorarioInsert(horaMov);
+                        objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        controleDoc.incluirDocumentosColaborador(objDoc);
+                        buscarCodDoc();
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     }
+                }
+                if (acao == 2) {
+                    objCola.setUsuarioUp(nameUser);
+                    objCola.setDataUp(dataModFinal);
+                    objCola.setHorarioUp(horaMov);
+                    // ALTERAR COLABORADOR
+                    objCola.setNomeDepartamento(jDepartamento.getText());
+                    objCola.setNomeCargo(jNomeCargo.getText());
+                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    control.alterarColaborador(objCola);
+                    // ALTERAR ENDEREÇO
+                    objEnd.setUsuarioUp(nameUser);
+                    objEnd.setDataUp(dataModFinal);
+                    objEnd.setHorarioUp(horaMov);
+                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objEnd.setIdEnd(codEnd);
+                    controle.alterarEnderecoColaborador(objEnd);
+                    // ALTERAR DOCUMENTOS
+                    objDoc.setUsuarioUp(nameUser);
+                    objDoc.setDataUp(dataModFinal);
+                    objDoc.setHorarioUp(horaMov);
+                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objDoc.setIdDoc(codDoc);
+                    controleDoc.alterarDocumentosColaborador(objDoc);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
         } else {
@@ -3075,7 +3123,9 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN CARGOS "
-                    + "ON COLABORADOR.IdCargo=CARGOS.IdCargo WHERE StatusFunc='" + jComboBoxPesqFunc.getSelectedItem() + "'ORDER BY NomeFunc");
+                    + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
+                    + "WHERE StatusFunc='" + jComboBoxPesqFunc.getSelectedItem() + "' "
+                    + "ORDER BY NomeFunc");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -4046,7 +4096,11 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jMatricula;
     private javax.swing.JTextField jNaturalidade;
@@ -4269,10 +4323,10 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jDataAdmissao.setCalendar(Calendar.getInstance());
         jNomeFuncionario.setText("");
         jMatricula.setText("");
-        jComboBoxSexo.setSelectedItem("Selecione");
-        jComboBoxEscolaridade.setSelectedItem("Selecione");
+        jComboBoxSexo.setSelectedItem("Selecione...");
+        jComboBoxEscolaridade.setSelectedItem("Selecione...");
         jFotoColaborador.setIcon(null);
-        jComboBoxEstadoCivil.setSelectedItem("Selecione");
+        jComboBoxEstadoCivil.setSelectedItem("Selecione...");
         jDataNascimento.setDate(null);
         jNomeMae.setText("");
         jNomePai.setText("");
@@ -4283,22 +4337,22 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jNomeCargo.setText("");
         // CARGA HORÁRIA
         jCargaHoraria.setText("");
-        jComboBoxRegimeTrabalho.setSelectedItem("Selecione");
+        jComboBoxRegimeTrabalho.setSelectedItem("Selecione...");
         jHorarioInicio.setText("");
         jHorarioFinal.setText("");
         jFuncao.setText("");
         // NACIONALIDADE
-        jComboBoxNacionalidade.setSelectedItem("Selecione");
+        jComboBoxNacionalidade.setSelectedItem("Selecione...");
         jPais.setText("");
         // NATURALIDADE
         jNaturalidade.setText("");
-        jComboBoxEstadoNaturalidade.setSelectedItem(null);
+        jComboBoxEstadoNaturalidade.setSelectedItem("Selecione...");
         // ENDEREÇO
         jEndereco.setText("");
         jBairro.setText("");
         jComplemento.setText("");
         jCidade.setText("");
-        jComboBoxEstado.setSelectedItem(null);
+        jComboBoxEstado.setSelectedItem("Selecione...");
         jCep.setText("");
         // CONTATO
         jEmail.setText("");
@@ -4332,12 +4386,12 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jCamisa.setText("");
         jCarteiraconselho.setText("");
         // CONJUGUE
-        jComboBoxTipoConjugue.setSelectedItem("Selecione");
+        jComboBoxTipoConjugue.setSelectedItem("Selecione...");
         jDataNasConjugue.setDate(null);
         jNomeConjugue.setText("");
         // DEPENDENTES
         jCodigoDependente.setText("");
-        jComboBoxParentesco.setSelectedItem("Selecione");
+        jComboBoxParentesco.setSelectedItem("Selecione...");
         jNomeConjugue.setText("");
         jDataNascimentoParentesco.setDate(null);
         jtotalItens.setText("");
@@ -4350,10 +4404,10 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jDataAdmissao.setCalendar(Calendar.getInstance());
         jNomeFuncionario.setText("");
         jMatricula.setText("");
-        jComboBoxSexo.setSelectedItem("Selecione");
-        jComboBoxEscolaridade.setSelectedItem("Selecione");
+        jComboBoxSexo.setSelectedItem("Selecione...");
+        jComboBoxEscolaridade.setSelectedItem("Selecione...");
         jFotoColaborador.setIcon(null);
-        jComboBoxEstadoCivil.setSelectedItem("Selecione");
+        jComboBoxEstadoCivil.setSelectedItem("Selecione...");
         jDataNascimento.setDate(null);
         jNomeMae.setText("");
         jNomePai.setText("");
@@ -4364,12 +4418,12 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jNomeCargo.setText("");
         // CARGA HORÁRIA
         jCargaHoraria.setText("");
-        jComboBoxRegimeTrabalho.setSelectedItem("Selecione");
+        jComboBoxRegimeTrabalho.setSelectedItem("Selecione...");
         jHorarioInicio.setText("");
         jHorarioFinal.setText("");
         jFuncao.setText("");
         // NACIONALIDADE
-        jComboBoxNacionalidade.setSelectedItem("Selecione");
+        jComboBoxNacionalidade.setSelectedItem("Selecione...");
         jPais.setText("");
         // NATURALIDADE
         jNaturalidade.setText("");
@@ -4413,12 +4467,12 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jCamisa.setText("");
         jCarteiraconselho.setText("");
         // CONJUGUE
-        jComboBoxTipoConjugue.setSelectedItem("Selecione");
+        jComboBoxTipoConjugue.setSelectedItem("Selecione...");
         jDataNasConjugue.setDate(null);
         jNomeConjugue.setText("");
         // DEPENDENTES
         jCodigoDependente.setText("");
-        jComboBoxParentesco.setSelectedItem("Selecione");
+        jComboBoxParentesco.setSelectedItem("Selecione...");
         jNomeConjugue.setText("");
         jDataNascimentoParentesco.setDate(null);
         jtotalItens.setText("");

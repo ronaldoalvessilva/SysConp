@@ -1347,6 +1347,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jRelatorioAtividadesMensalUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtividadesMensalUnidadeActionPerformed
