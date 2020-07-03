@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioVisitasInternos" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1740545b-d82c-4965-8fd9-d9fa9b11eaf7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<parameter name="pUnidade" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT B.MatriculaCrc,
+                B.NomeInternoCrc,
+                C.NomeVisita,
+                C.DataNasc,
+                C.TelefoneVisita,
+                C.CelularVisita,
+                C.ParentescoVisita
+FROM   ITENSFAMILIAR A
+       INNER JOIN PRONTUARIOSCRC B
+               ON A.IdInternoCrc = B.IdInternoCrc
+       INNER JOIN VISITASINTERNO C
+               ON A.IdVisita = C.IdVisita
+WHERE  ParentescoVisita LIKE '%COMP%'
+        OR ParentescoVisita LIKE '%MULHE%'
+        OR ParentescoVisita LIKE '%ESPOS%'
+ORDER  BY NomeInternoCrc]]>
+	</queryString>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="NomeVisita" class="java.lang.String"/>
+	<field name="DataNasc" class="java.sql.Timestamp"/>
+	<field name="TelefoneVisita" class="java.lang.String"/>
+	<field name="CelularVisita" class="java.lang.String"/>
+	<field name="ParentescoVisita" class="java.lang.String"/>
+	<variable name="IDADE" class="java.lang.String"/>
+	<group name="NomeInternoCrc">
+		<groupExpression><![CDATA[$F{NomeInternoCrc}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="1" width="801" height="24" forecolor="#B89F7D" backcolor="#CCCCFF" uuid="400a5b67-d570-42ff-8068-15b124197bc0"/>
+					<textField>
+						<reportElement style="SubTitle" x="104" y="0" width="697" height="24" forecolor="#000099" uuid="6381d855-234f-4b51-8068-2326cba0501a"/>
+						<textElement verticalAlignment="Middle">
+							<font size="16" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="1" width="105" height="24" forecolor="#000099" uuid="02af1195-4a3f-43a0-844a-3ff716fa39ff"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="76" y="71" width="596" height="20" uuid="62991434-228a-4108-a0cd-b283122af76f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Visitas aos Internos por Companheira(o)]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="27" width="74" height="55" uuid="a0966b05-b92b-420f-b37c-0bbda68c4d76">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\Brasão64x64.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="674" y="29" width="127" height="73" uuid="42938068-065f-4b46-9d08-72a999873fe5"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\LogoSocializa274X81.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="309" y="20" width="201" height="20" uuid="783af5f6-2066-4255-b807-02dd39bf23d0"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sistema de Controle Prisional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="20" width="74" height="20" uuid="2bf4fe49-598d-46e1-b1fc-d0984aa3d347"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="76" y="42" width="598" height="20" uuid="c1a91ca3-fc4b-4d2f-b3f6-bd01ff1f83b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pUnidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="cd089ce2-ab10-4384-8be1-e4d9e8519adf"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="133" y="1" width="212" height="15" forecolor="#000000" uuid="4a85ad9c-e6c0-4531-b0fa-e7c6c1d421f4"/>
+				<text><![CDATA[Nome da Visita do Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="672" y="1" width="130" height="15" forecolor="#000000" uuid="d7a801ac-75cb-4541-9e7b-6d6feace99af"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Grau de Parentesco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="520" y="0" width="152" height="15" forecolor="#000000" uuid="9c2f6ced-6dd5-459e-bc14-b531f750238c"/>
+				<text><![CDATA[Telefone(s) Visita]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="0" width="176" height="15" uuid="6e52cbcb-0dfe-4166-9019-8b9a4a945e97"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Nascimento Visita]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="ff30fea3-033d-4510-b93a-cf742bc9b2c2"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="133" y="0" width="255" height="15" uuid="5af9745d-209f-49cb-a437-8fded2203725"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{NomeVisita}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="672" y="0" width="130" height="15" uuid="c067b507-b73d-4e47-b2fb-b790fc36d18c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ParentescoVisita}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="388" y="0" width="132" height="15" uuid="b19dd264-145f-4a02-be4a-d5ccf04307ff"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DataNasc}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="86" height="15" uuid="4e6098e0-b973-4ecd-ad59-8ebf4867c555"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TelefoneVisita}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="606" y="1" width="66" height="14" uuid="64af5909-e231-498c-b9fd-363927f2f638"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CelularVisita}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="03f69959-acb3-4e3d-839d-b279a16f0101"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="c94cca9e-74bc-4b3f-a84b-e2d018910daf"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#000000" uuid="9dc73d7e-3577-409d-a876-635f5e972dad"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#000000" uuid="079800be-67f6-4e57-a8fd-8f1318790de4"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#000000" uuid="79a43469-fe9f-4b03-8b3b-2b1038830d97"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="219" y="4" width="484" height="20" uuid="60f77c13-d128-4d9b-88ee-e4f7bce4b408"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>
