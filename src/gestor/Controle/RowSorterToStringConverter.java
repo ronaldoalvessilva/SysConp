@@ -31,13 +31,11 @@ public class RowSorterToStringConverter extends Converter{
         this.table = table;
     }
 
-    @Override
     public Object convertForward(Object value) {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return value.toString();
     }
 
-    @Override
     public Object convertReverse(Object mask) {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         TableRowSorter sorter = new TableRowSorter(table.getModel());
