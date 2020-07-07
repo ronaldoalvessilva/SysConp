@@ -1357,7 +1357,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                         controle.incluirRegCanceladoRE(objItensRecCancel);
                         pBUSCAR_item();
                         pVERIFICAR_UTILIZA_registro(); // VERIFICAR SE O REGISTRO FOI UTILIZADO PELA PORTARIA - ITENSCRCPORTARIA
-                        if (jComboBoxSetor.getSelectedItem().equals("CRC") && pUTILIZADO_portaria.equals("Sim")) {
+                        if (jComboBoxSetor.getSelectedItem().equals("Portaria Interna") && pUTILIZADO_portaria.equals("Sim")) {
                             if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Temporaria")) {
                                 //DIMINUIR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                                 populacaoAlimentacao();
@@ -1640,7 +1640,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
                                 controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
                             }
-                            //CANCELAR A SAÍDA NA PORTARIA INTERNA PELO CRC
+                            //CANCELAR A SAÍDA NO CRC
                             //O INTERNO FOI IMPEDIDO DE SAIR OU NÃO PODE SAIR
                         } else if (jComboBoxSetor.getSelectedItem().equals("CRC") && pUTILIZADO_portaria.equals("Não")) {
                             if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Temporaria")) {

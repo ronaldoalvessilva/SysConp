@@ -627,7 +627,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                 //
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                    conecta.executaSQL("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdSaidaTmp,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                             + "PRONTUARIOSCRC.NomeInternoCrc,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.DocumentoSaida, "
                             + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
                             + "FROM ITENSREGSAIDA "
@@ -642,7 +642,8 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                     pCODIGO_ENTRADA_SAIDA = conecta.rs.getInt("IdItem");
                     jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                     jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
-                    pCODIGO_SAIDA_crc = conecta.rs.getInt("IdSaida");
+                    pCODIGO_SAIDA_crc = conecta.rs.getInt("IdSaidaTmp");
+                    jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                     jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                     conecta.desconecta();
                 } catch (SQLException ex) {

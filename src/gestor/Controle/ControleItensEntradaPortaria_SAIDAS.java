@@ -88,7 +88,7 @@ public class ControleItensEntradaPortaria_SAIDAS {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGSAIDA SET RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "' AND DestinoSaida='" + objItensEntIntPort.getOrigemInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGSAIDA SET RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaidaTmp='" + objItensEntIntPort.getIdRetorno() + "' AND DestinoSaida='" + objItensEntIntPort.getOrigemInterno() + "'");
             pst.setString(1, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -103,7 +103,7 @@ public class ControleItensEntradaPortaria_SAIDAS {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSREGSAIDA WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "' AND DestinoSaida='" + objItensEntIntPort.getOrigemInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSREGSAIDA WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaidaTmp='" + objItensEntIntPort.getIdRetorno() + "' AND DestinoSaida='" + objItensEntIntPort.getOrigemInterno() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (ITENSREGSAIDA) os Dados.\n\nERRO: " + ex);

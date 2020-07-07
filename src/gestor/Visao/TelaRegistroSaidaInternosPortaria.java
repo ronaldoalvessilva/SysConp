@@ -191,6 +191,9 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     int pPOPULCAO_ATUAL = 0;
     int pQUANTIDADE_SAIDA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
+    //
+    String pREGISTRO_cancelado = "";
+
     /**
      * Creates new form TelaSaidaInterno
      */
@@ -799,27 +802,21 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel10Layout.createSequentialGroup()
                                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel6)
-                                                    .addComponent(jLabel13))
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addGap(193, 193, 193))
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jNrDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(79, 79, 79))
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel13))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(272, 272, 272))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jNrDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -832,21 +829,17 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jNomeInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTipoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel10Layout.createSequentialGroup()
-                                            .addGap(2, 2, 2)
-                                            .addComponent(jLabel7))))
+                                .addGap(148, 148, 148)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jLabel7)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jEVADIDO_Cancelado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxUnidadeDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -854,7 +847,15 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(totalRegistrosInternos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))))))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jTipoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jEVADIDO_Cancelado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -1474,20 +1475,21 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroSaidaInternoIntP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroSaidaInternoIntP1) && codAlterarP1 == 1) {
+            VERIFICAR_registro();
             acao = 4;
             flag = 1;
             objSaida.setStatusSaida(jStatusSaida.getText());
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else if (jEVADIDO_Cancelado.getText() != null && jEVADIDO_Cancelado.getText().equals("EVADIDO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o interno está evadido.");
+            } else if (pREGISTRO_cancelado != null && pREGISTRO_cancelado.equals("REGISTRO CANCELADO PELO CRC")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, registro cancelado.");
             } else {
-                if (jEVADIDO_Cancelado.getText().equals("EVADIDO")) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o interno está evadido.");
-                } else {
-                    AlterarItem();
-                    statusMov = "Alterou";
-                    horaMov = jHoraSistema.getText();
-                    dataModFinal = jDataSistema.getText();
-                }
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1948,6 +1950,20 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     private javax.swing.JLabel jtotalRegistros;
     public static javax.swing.JLabel totalRegistrosInternos;
     // End of variables declaration//GEN-END:variables
+
+    public void VERIFICAR_registro() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdInternoCrc,IdSaida,RegistroCancelado "
+                    + "FROM ITENSREGSAIDA "
+                    + "WHERE IdSaida='" + jIDlanc.getText() + "' "
+                    + "AND IdInternoCrc='" + jIDInterno.getText() + "'");
+            conecta.rs.first();
+            pREGISTRO_cancelado = conecta.rs.getString("RegistroCancelado");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void populacaoAlimentacao() {
         objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
