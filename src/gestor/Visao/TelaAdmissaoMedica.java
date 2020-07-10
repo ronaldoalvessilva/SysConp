@@ -165,7 +165,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     String opcao = "Não";
     //
     public static int codigoDepartamentoENF = 0;
-    String tipoAtendimentoAdm = "Admissão Médica/Psiquiatrica";
+    String tipoAtendimentoAdmMED = "Admissão Médica";
+    String tipoAtendimentoAdmPSI = "Admissão Psiquiatrica";
     String tipoAtendimentoEvolME = "Evolução Médica";
     String tipoAtendimentoEvolPS = "Evolução Psiquiatrica";
     //
@@ -411,6 +412,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jDiagnosticoInicial = new javax.swing.JTextArea();
         jLabel78 = new javax.swing.JLabel();
         jComboBoxTipoDiagnostico = new javax.swing.JComboBox<>();
+        jComboBoxTipoAdmissao = new javax.swing.JComboBox<>();
+        jLabel79 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jFotoInternoAdm = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -1070,13 +1073,13 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxABD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ExamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jAR, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jEXT, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
                     .addComponent(jACV)
                     .addComponent(jCABPESC)
                     .addComponent(jABD)
-                    .addComponent(jAR, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAGU, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         ExamesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jABD, jACV, jAGU, jAR, jCABPESC, jEXT});
@@ -1606,43 +1609,42 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jQualDrogas))
                     .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(jComboBoxTabagismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel46)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(jComboBoxDrogasInjetavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel57)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jQualTipoDrograInjet))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(jComboBoxEtilismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jQualEtilismo))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jQuantoTempoTabagismo))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
                         .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxUsaPreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxSexualidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel59)
                             .addGroup(jPanel19Layout.createSequentialGroup()
-                                .addComponent(jComboBoxEtilismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel44)
+                                .addComponent(jLabel61)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jQualEtilismo, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel19Layout.createSequentialGroup()
-                                .addComponent(jComboBoxTabagismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel46))
-                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jQuantoTempoTabagismo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel19Layout.createSequentialGroup()
-                                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBoxUsaPreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jComboBoxSexualidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(32, 32, 32)
-                                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel59)
-                                        .addGroup(jPanel19Layout.createSequentialGroup()
-                                            .addComponent(jLabel61)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jComboBoxTipoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel62)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jComboBoxNumeroParceiro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboBoxFatorRH, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(jPanel19Layout.createSequentialGroup()
-                                .addComponent(jComboBoxDrogasInjetavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel57)
+                                .addComponent(jComboBoxTipoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jQualTipoDrograInjet, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel62)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxNumeroParceiro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxFatorRH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
@@ -1696,8 +1698,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             OutrasInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OutrasInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         OutrasInformacoesLayout.setVerticalGroup(
             OutrasInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1721,6 +1723,14 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jComboBoxTipoDiagnostico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoDiagnostico.setEnabled(false);
 
+        jComboBoxTipoAdmissao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoAdmissao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Médica", "Psiquiatrica" }));
+        jComboBoxTipoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoAdmissao.setEnabled(false);
+
+        jLabel79.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel79.setText("Tipo de Admissão:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1732,7 +1742,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel78)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxTipoDiagnostico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jComboBoxTipoDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel79)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxTipoAdmissao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1740,8 +1754,10 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel78)
-                    .addComponent(jComboBoxTipoDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTipoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel79)
+                    .addComponent(jComboBoxTipoDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel78))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1755,7 +1771,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+            .addComponent(jFotoInternoAdm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1927,25 +1943,22 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addGroup(ManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane2)
                     .addGroup(ManutencaoLayout.createSequentialGroup()
-                        .addGroup(ManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(ManutencaoLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jIdAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jStatusLanc)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ManutencaoLayout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jIdAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jStatusLanc)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(ManutencaoLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         ManutencaoLayout.setVerticalGroup(
@@ -3139,7 +3152,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRBPrescricaoMedica)
                     .addComponent(jRBPrescricaoPsiquiatrica))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jPanel23Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDataPM, jIdPrescricaoMedica, jNomeInternoCrcPM});
@@ -3165,7 +3178,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             PrescricaoMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PrescricaoMedicaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                 .addContainerGap())
@@ -3932,6 +3945,12 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de patologia.");
             } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de diagnóstico.");
+            } else if (jComboBoxTipoAdmissao.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de Admissão.");
+            } else if (jComboBoxTipoAdmissao.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de Admissão.");
+            } else if (jComboBoxTipoAdmissao.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de Admissão.");
             } else {
                 objAdmMedico.setStatusLanc(jStatusLanc.getText());
                 objAdmMedico.setDataLanc(jDataAdm.getDate());
@@ -3974,6 +3993,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 objAdmMedico.setQuaisOutrasAlergias(jQuaisOutrasAlergias.getText());
                 objAdmMedico.setDiagnostico(jDiagnosticoInicial.getText());
                 objAdmMedico.setAdmEvo(admEvolucao);
+                objAdmMedico.setTipoAdmissao((String) jComboBoxTipoAdmissao.getSelectedItem());
                 if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Clínico")) {
                     tipoDiagnosticoMed = 0;
                 } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Psiquiatrico")) {
@@ -4008,7 +4028,12 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoENF);
                         objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        //TIPO DE ATENDIMENTO
+                        if (jComboBoxTipoAdmissao.getSelectedItem().equals("Médica")) {
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdmMED);
+                        } else if (jComboBoxTipoAdmissao.getSelectedItem().equals("Psiquiatrica")) {
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdmPSI);
+                        }
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataAdm.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
@@ -4026,7 +4051,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                         objRegAtend.setHorarioUp(horaMov);
                         objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdmMED);
                         control_ATENDE.confirmarAtendimento(objRegAtend);
                         //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                         pHABILITA_MEDICO = "Não";
@@ -4069,7 +4094,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             buscarCodEvolPsiquiatrica();
                             preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                                     + "WHERE IdLanc='" + jIdAdm.getText() + "'");
-                        }                        
+                        }
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         Salvar();
                     }
@@ -4099,6 +4124,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         objRegAtend.setNomeInternoCrc(nomeInternoAnterior);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                        objRegAtend.setNomeDepartamento(deptoTecnico);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
@@ -4111,6 +4137,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setNomeDepartamento(deptoTecnico);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -4318,6 +4345,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 } else if (tipoDiagnosticoMed == 1) {
                     jComboBoxTipoDiagnostico.setSelectedItem("Diagnóstico Psiquiatrico");
                 }
+                jComboBoxTipoAdmissao.setSelectedItem(conecta.rs.getString("TipoAdmissao"));                
                 //           
                 conecta.desconecta();
             } catch (SQLException e) {
@@ -6075,6 +6103,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static javax.swing.JComboBox jComboBoxPatologiaAdquiridaMedica;
     private javax.swing.JComboBox jComboBoxSexualidade;
     private javax.swing.JComboBox jComboBoxTabagismo;
+    private javax.swing.JComboBox<String> jComboBoxTipoAdmissao;
     private javax.swing.JComboBox<String> jComboBoxTipoDiagnostico;
     private javax.swing.JComboBox jComboBoxTipoSanguineo;
     private javax.swing.JComboBox jComboBoxUsaMedicamento;
@@ -6182,6 +6211,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jMatriculaPenal;
@@ -6778,6 +6808,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jQuaisOutrasAlergias.setText("");
         jDiagnosticoInicial.setText("DIGITE AQUI A EVOLUÇAO DA ADMISSÃO");
         jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
+        jComboBoxTipoAdmissao.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -6826,6 +6857,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jQuaisOutrasAlergias.setEnabled(true);
         jDiagnosticoInicial.setEnabled(true);
         jComboBoxTipoDiagnostico.setEnabled(true);
+        jComboBoxTipoAdmissao.setEnabled(true);
         //
         jIdItem.setText("");
         jDescricaoPatologia.setText("");
@@ -6949,6 +6981,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jQuaisOutrasAlergias.setEnabled(true);
         jDiagnosticoInicial.setEnabled(true);
         jComboBoxTipoDiagnostico.setEnabled(true);
+        jComboBoxTipoAdmissao.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -7061,6 +7094,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jQuaisOutrasAlergias.setText("");
         jDiagnosticoInicial.setText("");
         jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
+        jComboBoxTipoAdmissao.setSelectedItem("Selecione...");
         //Habilitar/Desabilitar Campos
         jDataAdm.setEnabled(!true);
         jBtPesqInternoAdm.setEnabled(!true);
@@ -7229,6 +7263,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jQuaisOutrasAlergias.setEnabled(!true);
         jDiagnosticoInicial.setEnabled(!true);
         jComboBoxTipoDiagnostico.setEnabled(!true);
+        jComboBoxTipoAdmissao.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -7338,6 +7373,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             jQuaisOutrasAlergias.setText("");
             jDiagnosticoInicial.setText("");
             jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
+            jComboBoxTipoAdmissao.setSelectedItem("Selecione...");
             //
             jDataAdm.setEnabled(!true);
             jBtPesqInternoAdm.setEnabled(!true);
@@ -7378,6 +7414,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             jQuaisOutrasAlergias.setEnabled(!true);
             jDiagnosticoInicial.setEnabled(!true);
             jComboBoxTipoDiagnostico.setEnabled(!true);
+            jComboBoxTipoAdmissao.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -7447,6 +7484,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             jQuaisOutrasAlergias.setEnabled(!true);
             jDiagnosticoInicial.setEnabled(!true);
             jComboBoxTipoDiagnostico.setEnabled(!true);
+            jComboBoxTipoAdmissao.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);

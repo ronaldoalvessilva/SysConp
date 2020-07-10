@@ -119,7 +119,10 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
     String status_ATENDIMENTO = "Atendimento Concluido";
     //
     String pCODIGO_INTERNO = "";
-    String tipoAtendimentoAdm = "Admissão Médica/Psiquiatrica";
+    String tipoAtendimentoAdmMED = "Admissão Médica";
+    String tipoAtendimentoAdmPSI = "Admissão Psiquiatrica";
+    String tipoAtendimentoEvolME = "Evolução Médica";
+    String tipoAtendimentoEvolPS = "Evolução Psiquiatrica";
     String nomeInternoAnterior = "";
     String dataInicial, dataFinal, dataEntrada, dataEvolPsiquiatrica, dataEvolu, dataPrescricao, dataAtestado;
     String caminho;
@@ -310,6 +313,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jDiagnosticoInicial = new javax.swing.JTextArea();
         jLabel78 = new javax.swing.JLabel();
         jComboBoxTipoDiagnostico = new javax.swing.JComboBox<>();
+        jLabel79 = new javax.swing.JLabel();
+        jComboBoxTipoAdmissao = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jFotoInternoAdmAD = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -1464,6 +1469,14 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jComboBoxTipoDiagnostico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoDiagnostico.setEnabled(false);
 
+        jLabel79.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel79.setText("Tipo de Admissão:");
+
+        jComboBoxTipoAdmissao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoAdmissao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Médica", "Psiquiatrica" }));
+        jComboBoxTipoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoAdmissao.setEnabled(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1475,7 +1488,11 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel78)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxTipoDiagnostico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jComboBoxTipoDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel79)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxTipoAdmissao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1483,8 +1500,10 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel78)
-                    .addComponent(jComboBoxTipoDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTipoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel79)
+                    .addComponent(jComboBoxTipoDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel78))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -1899,6 +1918,12 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de patologia.");
             } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de diagnóstico.");
+            } else if (jComboBoxTipoAdmissao.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de Admissão.");
+            } else if (jComboBoxTipoAdmissao.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de Admissão.");
+            } else if (jComboBoxTipoAdmissao.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de Admissão.");
             } else {
                 objAdmMedico.setStatusLanc(jStatusLancAD.getText());
                 objAdmMedico.setDataLanc(jDataAdmAD.getDate());
@@ -1941,6 +1966,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                 objAdmMedico.setQuaisOutrasAlergias(jQuaisOutrasAlergias.getText());
                 objAdmMedico.setDiagnostico(jDiagnosticoInicial.getText());
                 objAdmMedico.setAdmEvo(admEvolucao);
+                objAdmMedico.setTipoAdmissao((String) jComboBoxTipoAdmissao.getSelectedItem());
                 if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Clínico")) {
                     tipoDiagnosticoMed = 0;
                 } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Psiquiatrico")) {
@@ -1968,7 +1994,12 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdmAD.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENF);
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    //TIPO DE ATENDIMENTO
+                    if (jComboBoxTipoAdmissao.getSelectedItem().equals("Médica")) {
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdmMED);
+                    } else if (jComboBoxTipoAdmissao.getSelectedItem().equals("Psiquiatrica")) {
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdmPSI);
+                    }
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAdmAD.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdmAdicional.getText()));
@@ -1986,7 +2017,12 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                     objRegAtend.setHorarioUp(horaMov);
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    //TIPO DE ATENDIMENTO
+                    if (jComboBoxTipoAdmissao.getSelectedItem().equals("Médica")) {
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdmMED);
+                    } else if (jComboBoxTipoAdmissao.getSelectedItem().equals("Psiquiatrica")) {
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdmPSI);
+                    }
                     control_ATENDE.confirmarAtendimento(objRegAtend);
                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_MEDICO = "Não";
@@ -2458,6 +2494,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
     private javax.swing.JComboBox jComboBoxOutrasAlergias;
     private javax.swing.JComboBox jComboBoxSexualidade;
     private javax.swing.JComboBox jComboBoxTabagismo;
+    private javax.swing.JComboBox<String> jComboBoxTipoAdmissao;
     private javax.swing.JComboBox<String> jComboBoxTipoDiagnostico;
     private javax.swing.JComboBox jComboBoxTipoSanguineo;
     private javax.swing.JComboBox jComboBoxUsaMedicamento;
@@ -2522,6 +2559,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jMatriculaPenal;
@@ -2882,6 +2920,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQuaisOutrasAlergias.setText("");
         jDiagnosticoInicial.setText("");
         jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
+        jComboBoxTipoAdmissao.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -2928,6 +2967,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQuaisOutrasAlergias.setEnabled(true);
         jDiagnosticoInicial.setEnabled(true);
         jComboBoxTipoDiagnostico.setEnabled(true);
+        jComboBoxTipoAdmissao.setEnabled(true);
         //
         jIdItem.setText("");
         jDescricaoPatologia.setText("");
@@ -2977,6 +3017,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQuaisOutrasAlergias.setEnabled(true);
         jDiagnosticoInicial.setEnabled(true);
         jComboBoxTipoDiagnostico.setEnabled(true);
+        jComboBoxTipoAdmissao.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -3041,6 +3082,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQuaisOutrasAlergias.setText("");
         jDiagnosticoInicial.setText("");
         jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
+        jComboBoxTipoAdmissao.setSelectedItem("Selecione...");
         //Habilitar/Desabilitar Campos
         jDataAdmAD.setEnabled(!true);
         jComboBoxAR.setEnabled(!true);
@@ -3080,6 +3122,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQuaisOutrasAlergias.setEnabled(!true);
         jDiagnosticoInicial.setEnabled(!true);
         jComboBoxTipoDiagnostico.setEnabled(!true);
+        jComboBoxTipoAdmissao.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(!true);
@@ -3134,6 +3177,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQuaisOutrasAlergias.setEnabled(!true);
         jDiagnosticoInicial.setEnabled(!true);
         jComboBoxTipoDiagnostico.setEnabled(!true);
+        jComboBoxTipoAdmissao.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -3197,6 +3241,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
             jQuaisOutrasAlergias.setText("");
             jDiagnosticoInicial.setText("");
             jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
+            jComboBoxTipoAdmissao.setSelectedItem("Selecione...");
             //
             jDataAdmAD.setEnabled(!true);
             jComboBoxAR.setEnabled(!true);
@@ -3236,6 +3281,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
             jQuaisOutrasAlergias.setEnabled(!true);
             jDiagnosticoInicial.setEnabled(!true);
             jComboBoxTipoDiagnostico.setEnabled(!true);
+            jComboBoxTipoAdmissao.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -3288,6 +3334,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
             jQuaisOutrasAlergias.setEnabled(!true);
             jDiagnosticoInicial.setEnabled(!true);
             jComboBoxTipoDiagnostico.setEnabled(!true);
+            jComboBoxTipoAdmissao.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
