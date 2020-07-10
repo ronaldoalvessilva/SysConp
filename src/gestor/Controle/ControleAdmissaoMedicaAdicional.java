@@ -30,7 +30,7 @@ public class ControleAdmissaoMedicaAdicional {
                     + "Drogas,Etilismo,Tabagismo,Vacinas,AtualizaIgnora,UsuarioInsert,DataInsert,HorarioInsert,CombBoxAR,CombBoxACV,"
                     + "CombBoxAGU,CombBoxCABPESC,CombBoxEXT,CombBoxABD,Alergia,QuaisAlergias,DrogaInjetavel,QualTipoDrogaInjet,"
                     + "Sexualidade,NumeroPareceiro,TipoSangue,FatorRh,UsaPreserva,UsaMedicamento,QualMedicamento,OutrasAlergias,"
-                    + "QuaisOutrasAlergias,DiagnosticoInicial,TipoDiag) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "QuaisOutrasAlergias,DiagnosticoInicial,TipoDiag,TipoAdmissao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objAdmMedico.getIdLanc());
             pst.setString(2, objAdmMedico.getStatusLanc());
             pst.setTimestamp(3, new java.sql.Timestamp(objAdmMedico.getDataLanc().getTime()));
@@ -75,6 +75,7 @@ public class ControleAdmissaoMedicaAdicional {
             pst.setString(42, objAdmMedico.getQuaisOutrasAlergias());
             pst.setString(43, objAdmMedico.getDiagnostico());
             pst.setInt(44, objAdmMedico.getTipoDiagnostico());
+            pst.setString(45, objAdmMedico.getTipoAdmissao());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\nERRO: " + ex);
@@ -94,7 +95,7 @@ public class ControleAdmissaoMedicaAdicional {
                     + "CombBoxCABPESC=?,CombBoxEXT=?,CombBoxABD=?,Alergia=?,QuaisAlergias=?,DrogaInjetavel=?,"
                     + "QualTipoDrogaInjet=?,Sexualidade=?,NumeroPareceiro=?,TipoSangue=?,FatorRh=?,UsaPreserva=?,"
                     + "UsaMedicamento=?,QualMedicamento=?,OutrasAlergias=?,QuaisOutrasAlergias=?,DiagnosticoInicial=?,"
-                    + "TipoDiag=? WHERE IdAdmADI='" + objAdmMedico.getIdLanc() + "'");
+                    + "TipoDiag=?,TipoAdmissao=? WHERE IdAdmADI='" + objAdmMedico.getIdLanc() + "'");
             pst.setInt(1, objAdmMedico.getIdLanc());
             pst.setString(2, objAdmMedico.getStatusLanc());
             pst.setTimestamp(3, new java.sql.Timestamp(objAdmMedico.getDataLanc().getTime()));
@@ -139,6 +140,7 @@ public class ControleAdmissaoMedicaAdicional {
             pst.setString(42, objAdmMedico.getQuaisOutrasAlergias());
             pst.setString(43, objAdmMedico.getDiagnostico());
             pst.setInt(44, objAdmMedico.getTipoDiagnostico());
+            pst.setString(45, objAdmMedico.getTipoAdmissao());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
