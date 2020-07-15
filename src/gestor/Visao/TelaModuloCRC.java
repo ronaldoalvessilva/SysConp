@@ -535,6 +535,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jRelatorioDocumentacaoCompleta = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         ListagemInternosUnidadeEntrada = new javax.swing.JMenuItem();
+        jRelatorioRetorno = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
         RelatorioPrevisaoSaida = new javax.swing.JMenuItem();
@@ -1249,6 +1250,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenuRelatorios.add(ListagemInternosUnidadeEntrada);
+
+        jRelatorioRetorno.setText("Relatório de Retornos a Unidade de Internos");
+        jRelatorioRetorno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioRetornoActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(jRelatorioRetorno);
         jMenuRelatorios.add(jSeparator12);
 
         jMenu2.setText("Relatórios de Previsão de Saidas de Internos");
@@ -3638,6 +3647,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelamentoSaida_CRC_PORTARIAActionPerformed
 
+    private void jRelatorioRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioRetornoActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioRetornoInternosPT objRelRetorno = new TelaRelatorioRetornoInternosPT();
+        TelaModuloPortarias.jPainelPortarias.add(objRelRetorno);
+        objRelRetorno.show();
+    }//GEN-LAST:event_jRelatorioRetornoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3747,6 +3763,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioDocumentacaoCompleta;
     private javax.swing.JMenuItem jRelatorioEvadidos;
     private javax.swing.JMenuItem jRelatorioInternosNominalNovo;
+    private javax.swing.JMenuItem jRelatorioRetorno;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
     private javax.swing.JMenuItem jRevalidarAtestadoReclusao;

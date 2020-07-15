@@ -1515,7 +1515,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                                 objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                objItensEntIntPort.setOrigemInterno(pTIPO_SAIDA_TEMPORARIA);
+                                objItensEntIntPort.setOrigemInterno(pTIPO_SAIDA_ALVARA);
                                 controleReg.confirmar_CANCELAMENTO_SaidaCRCPr(objItensEntIntPort);
                                 //UPDATE NA TABELA ITENSSAIDA COMO "Registro Cancelado CRC" PARA NÃO EXCLUIR MAIS
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));

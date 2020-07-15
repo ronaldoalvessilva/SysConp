@@ -32,7 +32,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
 
     int flag;
     String pRETORNO_CRC = "Não";
-    String pRETORNO_PORTARIA_RetPort = "Sim"; 
+    String pRETORNO_PORTARIA_RetPort = "Sim";
     String pCONFIRMACAO_SAIDA_CRC = "Não"; // CANCELA SOMENTE NO CRC
     String pCONFIRMACAO_SAIDA_PORTARIA = "Sim"; // CANCELA NO CRC E NA PORTARIA
     String pREGISTRO_CANCELADO = "";
@@ -348,7 +348,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
                         + "AND ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_PRISAO_DOMICILIAR + "' "
+                        + "AND ITENSREGSAIDA.DestinoSaida LIKE'%" + pTIPO_SAIDA_PRISAO_DOMICILIAR + "%' "
                         + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Alvará")) {
                 preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
@@ -439,7 +439,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENSCRCPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE ITENSCRCPORTARIA.SaidaConfirmada='" + pCONFIRMACAO_SAIDA_CRC + "' "
-                            + "AND ITENSCRCPORTARIA.DestinoSaida='" + pTIPO_SAIDA_PRISAO_DOMICILIAR + "' "
+                            + "AND ITENSCRCPORTARIA.DestinoSaida LIKE'%" + pTIPO_SAIDA_PRISAO_DOMICILIAR + "%' "
                             + "AND ITENSCRCPORTARIA.RegistroCancelado IS NULL");
                 } else {
                     limparTabela();
@@ -504,75 +504,103 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
             //PORTARIA INTERNA
         } else if (jComboBoxSetor.getSelectedItem().equals("Portaria Interna")) {
             if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Temporaria")) {
-                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
-                        + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
-                        + "FROM ITENSREGSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_TEMPORARIA + "' "
-                        + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                if (evt.getStateChange() == evt.SELECTED) {
+                    preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
+                            + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
+                            + "FROM ITENSREGSAIDA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
+                            + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_TEMPORARIA + "' "
+                            + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Transferência")) {
-                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
-                        + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
-                        + "FROM ITENSREGSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_TRANSFERENCIA + "' "
-                        + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                if (evt.getStateChange() == evt.SELECTED) {
+                    preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
+                            + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
+                            + "FROM ITENSREGSAIDA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
+                            + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_TRANSFERENCIA + "' "
+                            + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Prisão Domiciliar - COVID-19") || jComboBoxTipoSaida.getSelectedItem().equals("Saída Prisão Domiciliar")) {
-                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
-                        + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
-                        + "FROM ITENSREGSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_PRISAO_DOMICILIAR + "' "
-                        + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                if (evt.getStateChange() == evt.SELECTED) {
+                    preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
+                            + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
+                            + "FROM ITENSREGSAIDA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
+                            + "AND ITENSREGSAIDA.DestinoSaida LIKE'%" + pTIPO_SAIDA_PRISAO_DOMICILIAR + "%' "
+                            + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Alvará")) {
-                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
-                        + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
-                        + "FROM ITENSREGSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_ALVARA + "' "
-                        + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                if (evt.getStateChange() == evt.SELECTED) {
+                    preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
+                            + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
+                            + "FROM ITENSREGSAIDA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
+                            + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_ALVARA + "' "
+                            + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Progressão Regime")) {
-                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
-                        + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
-                        + "FROM ITENSREGSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_PROGRESSAO + "' "
-                        + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                if (evt.getStateChange() == evt.SELECTED) {
+                    preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
+                            + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
+                            + "FROM ITENSREGSAIDA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
+                            + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_PROGRESSAO + "' "
+                            + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Regressão de Regime")) {
-                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
-                        + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.RegistroCancelado "
-                        + "FROM ITENSREGSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_REGRESSAO + "' "
-                        + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                if (evt.getStateChange() == evt.SELECTED) {
+                    preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
+                            + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.RegistroCancelado "
+                            + "FROM ITENSREGSAIDA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
+                            + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_REGRESSAO + "' "
+                            + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Livramento Condicional")) {
-                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
-                        + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
-                        + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
-                        + "FROM ITENSREGSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
-                        + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_LIVRAMENTO + "' "
-                        + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                if (evt.getStateChange() == evt.SELECTED) {
+                    preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
+                            + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
+                            + "FROM ITENSREGSAIDA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
+                            + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_LIVRAMENTO + "' "
+                            + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             }
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
