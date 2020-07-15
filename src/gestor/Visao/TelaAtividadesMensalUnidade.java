@@ -225,6 +225,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static String pTIPO_ATENDIMENTO_EVO_ENFERMAGEM = "Evolução Enfermagem";
     public static String pTIPO_ATENDIMENTO_GRUPO_ENFERMAGEM = "Atendimento em Grupo/ENF";
     public static String pTIPO_ATENDIMENTO_ATE_TECNICO_ENF = "Atendimento Técnico Enfermagem";
+    public static String pTIPO_ATENDIMENTO_EVO_TECNICO_ENF = "Evolução Técnico Enfermagem";
     //AGRAVOS DIAGNOSTICADOS
     public static int pQUANTIDADE_VDRL = 0;
     public static int pQUANTIDADE_VACINADOS = 0;

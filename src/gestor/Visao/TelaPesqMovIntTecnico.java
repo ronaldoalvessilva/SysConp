@@ -38,6 +38,7 @@ public class TelaPesqMovIntTecnico extends javax.swing.JInternalFrame {
     DadosPenaisCrc objDadosPena = new DadosPenaisCrc();
     int flag;
     String caminho;
+    String idInt;
     String nomeInterno;
     String dataMovimento;
     String dataCadastro;
@@ -78,7 +79,7 @@ public class TelaPesqMovIntTecnico extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisa de Internos");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -158,7 +159,7 @@ public class TelaPesqMovIntTecnico extends javax.swing.JInternalFrame {
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
@@ -233,7 +234,7 @@ public class TelaPesqMovIntTecnico extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
                     .addComponent(jBtEnviar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -247,11 +248,11 @@ public class TelaPesqMovIntTecnico extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        setBounds(200, 10, 595, 346);
+        setBounds(200, 10, 595, 338);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -304,7 +305,7 @@ public class TelaPesqMovIntTecnico extends javax.swing.JInternalFrame {
         if (flag == 1) {
             nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 1);
             jPesqNome.setText(nomeInterno);
-            String idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -325,7 +326,7 @@ public class TelaPesqMovIntTecnico extends javax.swing.JInternalFrame {
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN UNIDADE "
                         + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE NomeInternoCrc LIKE'%" + nomeInterno + "%'");
+                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));

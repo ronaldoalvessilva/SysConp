@@ -12,8 +12,10 @@ import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ADM_SOCIAL;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ATE_ENFERMAGEM;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_ATE_ENFERMAGEM;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_ATE_TECNICO_ENF;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_EVO_ENFERMAGEM;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_GRUPO_ENFERMAGEM;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_EVO_TECNICO_ENF;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -60,6 +62,12 @@ public class ListagemAtendimentoADMEnfermeira {
                     + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
                     + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_ENFERMAGEM + "' "
+                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "AND '" + pDATA_FINAL + "' "
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_ATE_TECNICO_ENF + "' "
+                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "AND '" + pDATA_FINAL + "' "
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_TECNICO_ENF + "' "
                     + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
                     + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_GRUPO_ENFERMAGEM + "'");
