@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
@@ -193,6 +194,12 @@ public class TelaRelatorioRetornoInternosPT extends javax.swing.JInternalFrame {
                             + "FROM ITENSREGISTRO   "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ITENSLOCACAOINTERNO "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
                             + "WHERE CONVERT(DATE, DataRetorno,103) BETWEEN'" + pDATA_inicial + "' "
                             + "AND '" + pDATA_final + "' "
                             + "AND OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
@@ -200,7 +207,8 @@ public class TelaRelatorioRetornoInternosPT extends javax.swing.JInternalFrame {
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", pDATA_inicial);
                     parametros.put("dataFinal", pDATA_final);
-                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("pUNIDADE_penal", descricaoUnidade);
+                    parametros.put("pUSUARIO_logado", nameUser);
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -241,6 +249,12 @@ public class TelaRelatorioRetornoInternosPT extends javax.swing.JInternalFrame {
                             + "FROM ITENSREGISTRO "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ITENSLOCACAOINTERNO "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
                             + "WHERE CONVERT(DATE, DataRetorno,103) BETWEEN'" + pDATA_inicial + "' "
                             + "AND '" + pDATA_final + "' "
                             + "AND OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
@@ -248,7 +262,8 @@ public class TelaRelatorioRetornoInternosPT extends javax.swing.JInternalFrame {
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", pDATA_inicial);
                     parametros.put("dataFinal", pDATA_final);
-                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("pUNIDADE_penal", descricaoUnidade);
+                    parametros.put("pUSUARIO_logado", nameUser);
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
