@@ -3606,7 +3606,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jCancelamentoSaida_CRC_PORTARIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelamentoSaida_CRC_PORTARIAActionPerformed
         // TODO add your handling code here:
-//        JOptionPane.showMessageDialog(rootPane, "Em Desenvolvimento...");
         buscarAcessoUsuario(telaCancelamentoSaidaManu_CRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoSaidaManu_CRC) && codAbrirCRC == 1) {
             if (objCancel_SAIDAS == null || objCancel_SAIDAS.isClosed()) {

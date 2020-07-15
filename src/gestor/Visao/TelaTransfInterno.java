@@ -1337,36 +1337,37 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTransInternosInteCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaTransInternosInteCRC) && codExcluirCRC == 1) {
-            verificarSaidaPortaria();
-            if (confirmacaoSaida.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o mesmo está\nfazendo parte de uma integração com a portaria.");
-            } else {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                objTrans.setStatusTransf(jStatusTransf.getText());
-                if (jStatusTransf.getText().equals("FINALIZADO")) {
-                    JOptionPane.showMessageDialog(rootPane, "Essa transferência de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-                } else {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        objItensTrans.setIdItemTrans(Integer.valueOf(idItem));
-                        controle.excluirItensTransf(objItensTrans);
-                        objItensTrans.setIdTrans(Integer.valueOf(jIDlanc.getText()));
-                        controlMov.excluirMovTransf(objItensTrans);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                        ExcluirItem();
-                        preencherTabelaItens("SELECT * FROM ITENSTRANSFERENCIA "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSTRANSFERENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "INNER JOIN UNIDADE ON ITENSTRANSFERENCIA.IdUnid=UNIDADE.IdUnid "
-                                + "WHERE IdTransf='" + jIDlanc.getText() + "'");
-                    }
-                }
-            }
+            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir nenhum registro de saída do interno, pois, irá influênciar na população alimentícia.\nSó é permitido cancelar a saída do (s) interno(s).");
+//            verificarSaidaPortaria();
+//            if (confirmacaoSaida.equals("Sim")) {
+//                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o mesmo está\nfazendo parte de uma integração com a portaria.");
+//            } else {
+//                statusMov = "Excluiu";
+//                horaMov = jHoraSistema.getText();
+//                dataModFinal = jDataSistema.getText();
+//                objTrans.setStatusTransf(jStatusTransf.getText());
+//                if (jStatusTransf.getText().equals("FINALIZADO")) {
+//                    JOptionPane.showMessageDialog(rootPane, "Essa transferência de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+//                } else {
+//                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+//                            JOptionPane.YES_NO_OPTION);
+//                    if (resposta == JOptionPane.YES_OPTION) {
+//                        objItensTrans.setIdItemTrans(Integer.valueOf(idItem));
+//                        controle.excluirItensTransf(objItensTrans);
+//                        objItensTrans.setIdTrans(Integer.valueOf(jIDlanc.getText()));
+//                        controlMov.excluirMovTransf(objItensTrans);
+//                        objLog();
+//                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+//                        ExcluirItem();
+//                        preencherTabelaItens("SELECT * FROM ITENSTRANSFERENCIA "
+//                                + "INNER JOIN PRONTUARIOSCRC "
+//                                + "ON ITENSTRANSFERENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                                + "INNER JOIN UNIDADE ON ITENSTRANSFERENCIA.IdUnid=UNIDADE.IdUnid "
+//                                + "WHERE IdTransf='" + jIDlanc.getText() + "'");
+//                    }
+//                }
+//            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }

@@ -2220,8 +2220,10 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_RelatorioAtividadeLaborativaActionPerformed
 
     private void RelatorioRetornosInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioRetornosInternosUnidadeActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Em Construção");
+        // TODO add your handling code here
+        TelaRelatorioRetornoInternosPT objRelRetorno = new TelaRelatorioRetornoInternosPT();
+        TelaModuloPortarias.jPainelPortarias.add(objRelRetorno);
+        objRelRetorno.show();
     }//GEN-LAST:event_RelatorioRetornosInternosUnidadeActionPerformed
 
     private void RelatorioValoresPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioValoresPortariaActionPerformed

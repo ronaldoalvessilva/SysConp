@@ -100,7 +100,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
     String codCancel;
     int count = 0;
     //POPULAÇÃO ALIMENTICIA
-    String pTIPO_OPERCAO_ENTRADA = "Cancelado Retorno";
+    String pTIPO_OPERCAO_ENTRADA = "Cancelado Saída";
     public static String pREGISTRO_ENTRADA = "";
     int pPOPULCAO_ATUAL = 0;
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
