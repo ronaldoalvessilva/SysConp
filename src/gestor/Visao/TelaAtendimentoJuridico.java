@@ -2868,7 +2868,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     + "ON ATENDIMENTOJURIDICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE ATENDIMENTOJURIDICO.IdLanc='" + jIDInternoJuridico.getText() + "'");
+                    + "WHERE ATENDIMENTOJURIDICO.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
             conecta.rs.first();
             jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
             jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
