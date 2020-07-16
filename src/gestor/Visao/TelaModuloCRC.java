@@ -3650,7 +3650,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private void jRelatorioRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioRetornoActionPerformed
         // TODO add your handling code here:
         TelaRelatorioRetornoInternosPT objRelRetorno = new TelaRelatorioRetornoInternosPT();
-        TelaModuloPortarias.jPainelPortarias.add(objRelRetorno);
+        TelaModuloCRC.jPainelCRC.add(objRelRetorno);
         objRelRetorno.show();
     }//GEN-LAST:event_jRelatorioRetornoActionPerformed
 
