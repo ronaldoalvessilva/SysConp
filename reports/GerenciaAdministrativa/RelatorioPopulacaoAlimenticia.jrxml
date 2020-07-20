@@ -14,7 +14,7 @@
 	<queryString>
 		<![CDATA[SELECT IdRegistro, DataMovimento,HorarioMovimento,
      TipoOperacao,Quantidade, Populacao
-     FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS WHERE DataMovimento BETWEEN $P{pDATA_INICIAL} AND $P{pDATA_FINAL} ORDER BY DataMovimento,HorarioMovimento]]>
+     FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS WHERE DataMovimento BETWEEN $P{pDATA_INICIAL} AND $P{pDATA_FINAL} ORDER BY DataMovimento,CONVERT (DATE, HorarioMovimento)]]>
 	</queryString>
 	<field name="IdRegistro" class="java.lang.Integer"/>
 	<field name="DataMovimento" class="java.sql.Timestamp"/>

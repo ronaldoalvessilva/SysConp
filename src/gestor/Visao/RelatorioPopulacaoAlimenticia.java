@@ -182,7 +182,7 @@ public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
                                     + "FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS "
                                     + "WHERE DataMovimento BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
-                                    + "ORDER BY DataMovimento,HorarioMovimento");
+                                    + "ORDER BY DataMovimento,CONVERT (DATE,HorarioMovimento)");
                             HashMap parametros = new HashMap();
                             parametros.put("pUNIDADE", descricaoUnidade);
                             parametros.put("pDATA_INICIAL", dataInicial);
@@ -225,7 +225,7 @@ public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
                                     + "FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS "
                                     + "WHERE DataMovimento BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
-                                    + "ORDER BY DataMovimento,HorarioMovimento");
+                                     + "ORDER BY DataMovimento,CONVERT (DATE,HorarioMovimento)");
                             HashMap parametros = new HashMap();
                             parametros.put("pUNIDADE", descricaoUnidade);
                             parametros.put("pDATA_INICIAL", dataInicial);

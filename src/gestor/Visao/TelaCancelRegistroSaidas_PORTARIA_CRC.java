@@ -128,6 +128,9 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
     String pTIPO_SAIDA_LIVRAMENTO = "SAIDA LIVRAMENTO CONDICIONAL";
     String pTIPO_SAIDA_PRISAO_DOMICILIAR = "PRISAO DOMICILIAR";
     String pTIPO_SAIDA_PRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR - COVID-19";
+    String pTIPO_SAIDA_OUTRAS_SAIDAS = "OUTRAS SAIDAS";
+    String pTIPO_SAIDA_FUGA = "FUGA DA UNIDADE";
+    String pTIPO_SAIDA_OBITO = "OBITO";
     //
     String pORIGEM_DESTINO = "SAIDA CANCELADA";
     int pCODIGO_ITENSCRCPORTARIA_item = 0;
@@ -709,7 +712,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
         jLabel14.setText("Tipo de Saída");
 
         jComboBoxTipoSaida.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoSaida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Saída Temporaria", "Saída Transferência", "Saída Prisão Domiciliar - COVID-19", "Saída Prisão Domiciliar", "Saída Alvará", "Saída Progressão Regime", "Saída Regressão de Regime", "Saída Livramento Condicional", " " }));
+        jComboBoxTipoSaida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Saída Temporaria", "Saída Transferência", "Saída Prisão Domiciliar - COVID-19", "Saída Prisão Domiciliar", "Saída Alvará", "Saída Progressão Regime", "Saída Regressão de Regime", "Saída Livramento Condicional", "Outras Saídas", "Fuga da Unidade", "Óbito", " " }));
         jComboBoxTipoSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoSaida.setEnabled(false);
 
@@ -1303,7 +1306,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro. Existe outras operações que depende do cancelamento realizado.");  
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro. Existe outras operações que depende do cancelamento realizado.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -1405,6 +1408,99 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 //ATUALIZAR PRONTUÁRIO DO INTERNO - TABELA PRONTUARIOSCRC
                                 objItensEntIntPort.setSituacaoCrc(pSITUACAO_interno);
                                 controleReg.atualizar_PRONTUARIO_INTERNO(objItensEntIntPort);
+                            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")) {
+                                //DIMINUIR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                                populacaoAlimentacao();
+                                //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
+                                // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setOrigemInterno(pTIPO_SAIDA_TEMPORARIA);
+                                controleReg.confirmar_CANCELAMENTO_SaidaCRCPr(objItensEntIntPort);
+                                //UPDATE NA TABELA ITENSSAIDA COMO "Registro Cancelado CRC" PARA NÃO EXCLUIR MAIS
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
+                                //EXCLUIR NA TABELA ITENCRCPORTARIA PARA O CRC FAZER OUTRO LANÇAMENTO DE SAÍDA                             
+                                controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
+                                //EXCLUIR DA TABELA MOVISR PARA FAZER NOVA SAIDA
+                                controleReg.excluirMOVI_SAIDA(objItensEntIntPort);
+                                //INCLUIR REGISTRO NA TABELA DE MOVIMENTACAOCRC
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setDataSaida(jDataLanc.getDate());
+                                objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
+                                objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
+                                controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Fuga da Unidade")) {
+                                //DIMINUIR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                                populacaoAlimentacao();
+                                //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
+                                // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setOrigemInterno(pTIPO_SAIDA_TEMPORARIA);
+                                controleReg.confirmar_CANCELAMENTO_SaidaCRCPr(objItensEntIntPort);
+                                //UPDATE NA TABELA ITENSSAIDA COMO "Registro Cancelado CRC" PARA NÃO EXCLUIR MAIS
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
+                                //EXCLUIR NA TABELA ITENCRCPORTARIA PARA O CRC FAZER OUTRO LANÇAMENTO DE SAÍDA                             
+                                controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
+                                //EXCLUIR DA TABELA MOVISR PARA FAZER NOVA SAIDA
+                                controleReg.excluirMOVI_SAIDA(objItensEntIntPort);
+                                //INCLUIR REGISTRO NA TABELA DE MOVIMENTACAOCRC
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setDataSaida(jDataLanc.getDate());
+                                objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
+                                objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
+                                controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Óbito")) {
+                                //DIMINUIR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                                populacaoAlimentacao();
+                                //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
+                                // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setHorarioChegada(pHORARIO_ENTRADA); //LIMPAR O HORÁRIO PARA RETIRAR O ALERTA DO CRC
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setOrigemInterno(pTIPO_SAIDA_TEMPORARIA);
+                                controleReg.confirmar_CANCELAMENTO_SaidaCRCPr(objItensEntIntPort);
+                                //UPDATE NA TABELA ITENSSAIDA COMO "Registro Cancelado CRC" PARA NÃO EXCLUIR MAIS
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
+                                //EXCLUIR NA TABELA ITENCRCPORTARIA PARA O CRC FAZER OUTRO LANÇAMENTO DE SAÍDA                             
+                                controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
+                                //EXCLUIR DA TABELA MOVISR PARA FAZER NOVA SAIDA
+                                controleReg.excluirMOVI_SAIDA(objItensEntIntPort);
+                                //INCLUIR REGISTRO NA TABELA DE MOVIMENTACAOCRC
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setDataSaida(jDataLanc.getDate());
+                                objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
+                                objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
+                                controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Transferência")) {
                                 populacaoAlimentacao();
                                 //ATUALIZA NA PORTARIA COMO CANCELADO NA TABELA ITENSREGISTRO QUE O REGISTRO FOI CANCELADO
@@ -1677,6 +1773,69 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                     objItensEntIntPort.setObservacaoInterno(jMotivo.getText());
                                     controleReg.incluir_OBSERVACAO_CANCELADO(objItensEntIntPort);
                                 }
+                            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")) {
+                                //UPDATE NA TABELA ITENSSAIDA COMO "Registro Cancelado CRC" PARA NÃO EXCLUIR MAIS
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
+                                //EXCLUI DA TABELA ITENSCRCPORTARIA
+                                controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
+                                //EXCLUIR DA TABELA MOVISR PARA FAZER NOVA SAIDA
+                                controleReg.excluirMOVI_SAIDA(objItensEntIntPort);
+                                //INCLUIR REGISTRO NA TABELA DE MOVIMENTACAOCRC
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setDataSaida(jDataLanc.getDate());
+                                objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
+                                objItensEntIntPort.setSaidaConfirmada(pCONFIRMA_SAIDA_PORTARIA);
+                                objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
+                                controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Fuga da Uniadde")) {
+                                //UPDATE NA TABELA ITENSSAIDA COMO "Registro Cancelado CRC" PARA NÃO EXCLUIR MAIS
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
+                                //EXCLUI DA TABELA ITENSCRCPORTARIA
+                                controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
+                                //EXCLUIR DA TABELA MOVISR PARA FAZER NOVA SAIDA
+                                controleReg.excluirMOVI_SAIDA(objItensEntIntPort);
+                                //INCLUIR REGISTRO NA TABELA DE MOVIMENTACAOCRC
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setDataSaida(jDataLanc.getDate());
+                                objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
+                                objItensEntIntPort.setSaidaConfirmada(pCONFIRMA_SAIDA_PORTARIA);
+                                objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
+                                controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
+                            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Óbito")) {
+                                //UPDATE NA TABELA ITENSSAIDA COMO "Registro Cancelado CRC" PARA NÃO EXCLUIR MAIS
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
+                                //EXCLUI DA TABELA ITENSCRCPORTARIA
+                                controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
+                                //EXCLUIR DA TABELA MOVISR PARA FAZER NOVA SAIDA
+                                controleReg.excluirMOVI_SAIDA(objItensEntIntPort);
+                                //INCLUIR REGISTRO NA TABELA DE MOVIMENTACAOCRC
+                                objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                                objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
+                                objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
+                                objItensEntIntPort.setDataSaida(jDataLanc.getDate());
+                                objItensEntIntPort.setNomeDestino(pORIGEM_DESTINO);
+                                objItensEntIntPort.setSaidaConfirmada(pCONFIRMA_SAIDA_PORTARIA);
+                                objItensEntIntPort.setIdItem_MOVIMENTO(pCODIGO_MOV_item);
+                                controleReg.incluir_MOVIMENTO_CANCELAMENTOSaida_CRC_PROTARIA(objItensEntIntPort);
                             } else if (jComboBoxTipoSaida.getSelectedItem().equals("Saída Transferência")) {
                                 //SE FOR UM TRANSFERÊNCIA, FAZER UPDADE NA TABELA COMO "Registro Cancelado - CRC"
                                 objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
