@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AdvogadosFu" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d497dc3f-7ff9-4a87-b9b3-cdb7f6f25abe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Entrada" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Entrada2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *
+FROM   ENTRADASADVINTERNOS
+       INNER JOIN ITENSADVOGADOINTERNOS
+               ON ENTRADASADVINTERNOS.IdLanc = ITENSADVOGADOINTERNOS.Idlanc
+       INNER JOIN ADVOGADOS
+               ON ENTRADASADVINTERNOS.IdAdvogado = ADVOGADOS.IdAdvogado
+       INNER JOIN PRONTUARIOSCRC
+               ON ITENSADVOGADOINTERNOS.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc
+           WHERE CONVERT(DATE, DataEntrada) BETWEEN $P{Entrada} AND $P{Entrada2} ]]>
+	</queryString>
+	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="IdAdvogado" class="java.lang.Integer"/>
+	<field name="StatusLanc" class="java.lang.String"/>
+	<field name="ObsLanc" class="java.sql.Clob"/>
+	<field name="DataEntrada" class="java.sql.Timestamp"/>
+	<field name="HorarioEntrada" class="java.lang.String"/>
+	<field name="DataSaida" class="java.sql.Timestamp"/>
+	<field name="HorarioSaida" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="DataCadastro" class="java.sql.Timestamp"/>
+	<field name="FotoAdvogado" class="java.lang.String"/>
+	<field name="NomeAdvogado" class="java.lang.String"/>
+	<field name="RgAdvogado" class="java.lang.String"/>
+	<field name="CpfAdvogado" class="java.lang.String"/>
+	<field name="OabAdvogado" class="java.lang.String"/>
+	<field name="ObsAdvogado" class="java.lang.String"/>
+	<field name="StatusAdv" class="java.lang.String"/>
+	<field name="ImagemFrenteAD" class="java.sql.Blob"/>
+	<field name="NomeMae" class="java.lang.String"/>
+	<field name="NomePai" class="java.lang.String"/>
+	<field name="SituacaoCadastral" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.sql.Blob"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<field name="Tornozeleira" class="java.lang.String"/>
+	<field name="DataEntradaAnt" class="java.sql.Timestamp"/>
+	<group name="IdAdvogado">
+		<groupExpression><![CDATA[$F{IdAdvogado}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="52" height="20" uuid="60179d13-dba7-4dce-9128-dc4911b9e78e"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{OabAdvogado}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="52" y="0" width="380" height="20" uuid="db3273d9-3bbb-48df-bc80-068252116950"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeAdvogado}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="DataEntrada">
+		<groupExpression><![CDATA[$F{DataEntrada}]]></groupExpression>
+	</group>
+	<group name="IdInternoCrc">
+		<groupExpression><![CDATA[$F{IdInternoCrc}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="14" width="555" height="20" uuid="fa3167da-0609-46b7-9768-0777e71e7eb1"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[listagem de internos visitados por determinado advogado]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="52" height="20" uuid="731fa6a8-219d-479c-900a-ed532fe85d7c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OAB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="2" width="503" height="20" uuid="5cec2253-7a80-45cb-bb7d-8f82dbe0042c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Advogado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="152" y="0" width="357" height="20" uuid="822987a0-cf0f-4b3d-8984-e7ea74ac0e73"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="52" height="20" uuid="4853e1b1-a11d-4d6c-a930-fbeebc31b975"/>
+				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="ca11e4e4-9197-4d35-904e-f197be8994fe"/>
+				<textFieldExpression><![CDATA[$F{DataEntrada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

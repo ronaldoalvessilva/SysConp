@@ -18,7 +18,9 @@
 	<queryString>
 		<![CDATA[SELECT DISTINCT B.MatriculaCrc,
                 B.NomeInternoCrc,
+                B.SituacaoCrc,
                 C.NomeVisita,
+	      C.StatusVisita,
                 C.DataNasc,
                 C.TelefoneVisita,
                 C.CelularVisita,
@@ -28,14 +30,26 @@ FROM   ITENSFAMILIAR A
                ON A.IdInternoCrc = B.IdInternoCrc
        INNER JOIN VISITASINTERNO C
                ON A.IdVisita = C.IdVisita
-WHERE  ParentescoVisita LIKE '%COMP%'
-        OR ParentescoVisita LIKE '%MULHE%'
-        OR ParentescoVisita LIKE '%ESPOS%'
-ORDER  BY NomeInternoCrc]]>
+WHERE  ( B.SituacaoCrc LIKE 'RETORNO A UNIDADE'
+         AND ParentescoVisita LIKE '%NAMO%'
+          OR B.SituacaoCrc LIKE 'RETORNO A UNIDADE'
+             AND ParentescoVisita LIKE '%ESPOS%'
+          OR B.SituacaoCrc LIKE 'RETORNO A UNIDADE'
+             AND ParentescoVisita LIKE '%COMP%' ) AND StatusVisita = 'Ativo'
+        OR ( B.SituacaoCrc LIKE 'ENTRADA NA UNIDADE'
+             AND ParentescoVisita LIKE '%NAM%'
+              OR B.SituacaoCrc LIKE 'ENTRADA NA UNIDADE'
+                 AND ParentescoVisita LIKE '%ESPOS%'
+              OR B.SituacaoCrc LIKE 'ENTRADA NA UNIDADE'
+                 AND ParentescoVisita LIKE '%COMP%' ) AND StatusVisita = 'Ativo'
+ORDER  BY NomeInternoCrc;
+]]>
 	</queryString>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="NomeVisita" class="java.lang.String"/>
+	<field name="StatusVisita" class="java.lang.String"/>
 	<field name="DataNasc" class="java.sql.Timestamp"/>
 	<field name="TelefoneVisita" class="java.lang.String"/>
 	<field name="CelularVisita" class="java.lang.String"/>

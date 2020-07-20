@@ -15,7 +15,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT R.UsuarioUp,
-       R.DataReg,
+       R.DataAtendimento,
        P.NomeInternoCrc,
        P.Cnc
 FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP R
@@ -23,13 +23,12 @@ FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP R
                ON P.IdInternoCrc = R.IdInternoCrc
 WHERE  TipoAtendimento LIKE 'Admissão Enfermagem'
        AND Atendido LIKE 'Sim'
-       AND CONVERT(DATE, DataReg) BETWEEN $P{dataInicial} AND $P{dataFinal}
+       AND CONVERT(DATE, DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}
 ORDER  BY R.UsuarioUp,
-          R.DataReg
-]]>
+          R.DataAtendimento]]>
 	</queryString>
 	<field name="UsuarioUp" class="java.lang.String"/>
-	<field name="DataReg" class="java.sql.Timestamp"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<group name="Tecnicos que Atenderam">
@@ -146,7 +145,7 @@ ORDER  BY R.UsuarioUp,
 			<textField>
 				<reportElement x="1" y="0" width="96" height="15" uuid="f22cab24-ab9c-4cfa-850d-0477c22843f2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{DataReg}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

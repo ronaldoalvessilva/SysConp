@@ -14,15 +14,20 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT A.IdLanc, A.DataLanc, A.UsuarioInsert, A.UsuarioUp, P.NomeInternoCrc, P.Cnc FROM ADMISSAOMEDICA A
-INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc
-WHERE DataLanc BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by A.UsuarioInsert, A.DataLanc, P.NomeInternoCrc]]>
+		<![CDATA[SELECT R.UsuarioUp,
+       R.DataAtendimento,
+       P.NomeInternoCrc,
+       P.Cnc
+FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP R
+       INNER JOIN PRONTUARIOSCRC P
+               ON P.IdInternoCrc = R.IdInternoCrc
+WHERE  TipoAtendimento LIKE 'Admissão Psiquiatrica'
+       AND Atendido LIKE 'Sim'
+       AND CONVERT(DATE, DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER  BY R.UsuarioUp, R.DataAtendimento]]>
 	</queryString>
-	<field name="IdLanc" class="java.lang.Integer"/>
-	<field name="DataLanc" class="java.sql.Timestamp"/>
-	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<group name="TotalAtendimento">
@@ -139,7 +144,7 @@ order by A.UsuarioInsert, A.DataLanc, P.NomeInternoCrc]]>
 			<textField>
 				<reportElement x="1" y="0" width="89" height="15" uuid="5751c9b5-9819-4bc5-892e-b4726fe52331"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{DataReg}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
