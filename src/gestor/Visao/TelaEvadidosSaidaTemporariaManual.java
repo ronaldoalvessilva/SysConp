@@ -429,13 +429,13 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -859,13 +859,13 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                         .addComponent(jBtPesquisarInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jIdSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                            .addComponent(jIdSaida))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
                             .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
@@ -924,7 +924,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(2, 2, 2))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -937,7 +937,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         setBounds(350, 80, 483, 486);
@@ -974,7 +974,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                 objEvadidoInd.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
                 objEvadidoInd.setIdSaida(Integer.valueOf(jIdSaida.getText()));
                 objEvadidoInd.setDataLanc(jDataSaida.getDate());
-                objEvadidoInd.setNrDocSaida(Integer.valueOf(jDocumentoSaida.getText()));
+                objEvadidoInd.setNrDocSaida(jDocumentoSaida.getText());
                 objEvadidoInd.setObservacao(jObservacao.getText());
                 if (jRBtSaidaTemporaria.isSelected()) {
                     tipoEvasao = 0;
@@ -1805,7 +1805,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
     public void finalizarEvasao() {
         objEvadidoInd.setStatusLanc(statusEva);
         objEvadidoInd.setTipoOperacao(jOperacao.getText());
-        objEvadidoInd.setNrDocSaida(Integer.valueOf(jDocumentoSaida.getText()));
+        objEvadidoInd.setNrDocSaida(jDocumentoSaida.getText());
         objEvadidoInd.setDataLanc(jDataLanc.getDate());
         objEvadidoInd.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
         objEvadidoInd.setObservacao(jObservacao.getText());

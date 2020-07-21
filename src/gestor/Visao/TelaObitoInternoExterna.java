@@ -959,7 +959,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
                 objEvadidoInd.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
                 objEvadidoInd.setIdSaida(Integer.valueOf(jIdSaida.getText()));
                 objEvadidoInd.setDataLanc(jDataSaida.getDate());
-                objEvadidoInd.setNrDocSaida(Integer.valueOf(jDocumentoSaida.getText()));
+                objEvadidoInd.setNrDocSaida(jDocumentoSaida.getText());
                 objEvadidoInd.setObservacao(jObservacao.getText());
                 if (jRBtSaidaTemporaria.isSelected()) {
                     tipoObito = 0;
@@ -1817,7 +1817,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
     public void finalizarEvasao() {
         objEvadidoInd.setStatusLanc(statusEva);
         objEvadidoInd.setTipoOperacao(jOperacao.getText());
-        objEvadidoInd.setNrDocSaida(Integer.valueOf(jDocumentoSaida.getText()));
+        objEvadidoInd.setNrDocSaida(jDocumentoSaida.getText());
         objEvadidoInd.setDataLanc(jDataLanc.getDate());
         objEvadidoInd.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
         objEvadidoInd.setObservacao(jObservacao.getText());
