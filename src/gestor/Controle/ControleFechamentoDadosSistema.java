@@ -290,7 +290,79 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
+    public FechamentoRegistros fecharRegistroCanceladoNE(FechamentoRegistros objFecha) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_CANCELADO_NE SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    public FechamentoRegistros fecharRegistroCanceladoRetorno(FechamentoRegistros objFecha) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_CANCELADO_RETORNOS SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    public FechamentoRegistros fecharRegistroCancelado(FechamentoRegistros objFecha) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTROCANCELADO SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    public FechamentoRegistros fecharRegressaoRegime(FechamentoRegistros objFecha) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGRESSAOREGIME SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
     // MÓDULO PORTARIA
     public FechamentoRegistros fecharNovaEntrada(FechamentoRegistros objFecha) {
 
