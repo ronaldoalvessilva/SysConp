@@ -227,6 +227,29 @@ ORDER BY EVOLUCAOENFERMAGEM.DataEvol, EVOLUCAOENFERMAGEM.UsuarioInsert]]>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoEvolucaoEnfermagem.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
+		<band height="11">
+			<subreport>
+				<reportElement x="-20" y="-7" width="552" height="18" uuid="38c41744-f516-4eea-9fb7-1779dc490139"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataFinal">
+					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descricaoUnidade">
+					<subreportParameterExpression><![CDATA[$P{descricaoUnidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataInicial">
+					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pUsuario">
+					<subreportParameterExpression><![CDATA[$P{pUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAtendimentoEnfermagemGrupo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</detail>
 	<pageFooter>
 		<band height="24" splitType="Stretch">

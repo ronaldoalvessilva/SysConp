@@ -167,8 +167,9 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
             } else if (jDataInicial.getDate().after(jDataFinal.getDate())) {
                 JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
             } else {
-                try {
                     conecta.abrirConexao();
+                     
+                try {
                     String path = "reports/ServicoSocial/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoServicoSocialII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOSOCIAL "
                             + "INNER JOIN PRONTUARIOSCRC "
@@ -181,6 +182,7 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
                     parametros.put("dataFinal", dataFinal);
                     parametros.put("pUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
+                    
                     // Sub Relatório
                     try {
                         parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
@@ -192,11 +194,14 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
                     jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
                     jv.setTitle("Relatório de Quantidade de Atendimento Serviço Social por Período");
                     jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                     
                     jv.toFront(); // Traz o relatorio para frente da aplicação            
                     conecta.desconecta();
+                   
                 } catch (JRException e) {
                     JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
                 }
+                
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
@@ -211,7 +216,7 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
             } else if (jDataInicial.getDate().after(jDataFinal.getDate())) {
                 JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
             } else {
-                try {
+                try {                     
                     conecta.abrirConexao();
                     String path = "reports/ServicoSocial/QuantitativoAtendimento/RelatorioQuantitativoAtendimentoServicoSocialII.jasper";
                     conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOSOCIAL "
@@ -226,7 +231,7 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
                     parametros.put("pUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
                     // Sub Relatório
-                    try {
+                    try {                       
                         parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
                     } catch (SQLException ex) {
                     }
@@ -235,7 +240,8 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                     jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
                     jv.setTitle("Relatório de Quantidade de Atendimento Serviço Social por Período");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                   
+                  
                     jv.toFront(); // Traz o relatorio para frente da aplicação            
                     conecta.desconecta();
                 } catch (JRException e) {
