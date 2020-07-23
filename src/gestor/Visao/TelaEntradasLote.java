@@ -2872,9 +2872,20 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                 jComboBoxSexo.setSelectedItem(conecta.rs.getString("SexoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoCrc.setIcon(i);
-                FotoInternoCrc.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrc.getWidth(), FotoInternoCrc.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoCrc.setIcon(i);
+                    FotoInternoCrc.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrc.getWidth(), FotoInternoCrc.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoCrc.getWidth(), FotoInternoCrc.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoCrc.setIcon(icon);
+                }
                 //
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 jDataCrime.setDate(conecta.rs.getDate("DataCrime"));
@@ -3235,9 +3246,9 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         //EDUCAÇÃO FÍSICA
-        try {            
+        try {
             conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
-                     + "WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
             conecta.rs.first();
             pID_INTERNO_EDUCACAO = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {

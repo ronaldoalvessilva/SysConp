@@ -24,6 +24,7 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String tipo = "Retornos";
+    String pSTATUS_operacao = "Ativo";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -56,7 +57,7 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisar Tipo Operação :::...");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Tipo Operação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Tipo Operação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesDescOp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -89,12 +90,12 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPesDescOp, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPesDescOp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +109,7 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
         jTabelaOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOperacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Descrição"
@@ -123,8 +124,8 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
         if (jTabelaOperacao.getColumnModel().getColumnCount() > 0) {
             jTabelaOperacao.getColumnModel().getColumn(0).setMinWidth(50);
             jTabelaOperacao.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaOperacao.getColumnModel().getColumn(1).setMinWidth(280);
-            jTabelaOperacao.getColumnModel().getColumn(1).setMaxWidth(280);
+            jTabelaOperacao.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaOperacao.getColumnModel().getColumn(1).setMaxWidth(350);
         }
 
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
@@ -149,28 +150,33 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBtSair)
+                        .addGap(0, 229, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
-                    .addComponent(jBtSair))
-                .addContainerGap())
+                    .addComponent(jBtSair)))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,12 +188,10 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 371, 232);
+        setBounds(300, 150, 447, 277);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -199,7 +203,10 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
             jPesDescOp.requestFocus();
         } else {
             jTabelaOperacao.setVisible(true);
-            preencherTabelaNome("SELECT * FROM OPERACAO WHERE DescricaoOp LIKE'" + jPesDescOp.getText() + "%' AND TipoOp='" + tipo + "'");
+            preencherTabelaNome("SELECT * FROM OPERACAO "
+                    + "WHERE DescricaoOp LIKE'%" + jPesDescOp.getText() + "%' "
+                    + "AND TipoOp='" + tipo + "' "
+                    + "AND StatusOP='" + pSTATUS_operacao + "'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -230,7 +237,9 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabela();
+            this.preencherTabela("SELECT * FROM OPERACAO "
+                    + "WHERE TipoOp='" + tipo + "' "
+                    + "AND StatusOP='" + pSTATUS_operacao + "'");
         } else {
             limparTabela();
         }
@@ -250,12 +259,12 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaOperacao;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela() {
+    public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OPERACAO WHERE TipoOp='" + tipo + "'");
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 dados.add(new Object[]{conecta.rs.getInt("IdOp"), conecta.rs.getString("DescricaoOp")});
@@ -267,12 +276,29 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
         jTabelaOperacao.setModel(modelo);
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
         jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaItens();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição"};
+
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaOperacao.setModel(modelo);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
+        jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
+        jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 
     public void preencherTabelaNome(String sql) {
@@ -292,31 +318,16 @@ public class TelaPesquisaOpRetorno extends javax.swing.JInternalFrame {
         jTabelaOperacao.setModel(modelo);
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
         jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabela();
+        alinharCamposTabelaItens();
         conecta.desconecta();
     }
 
-    public void limparTabela() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(280);
-        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
-        jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
-        jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
-    }
-
-    public void alinharCamposTabela() {
+    public void alinharCamposTabelaItens() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();

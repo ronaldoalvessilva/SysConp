@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -22,6 +24,7 @@ public class TelaPesquisaOpRetornoPorTransf extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String tipo = "Retornos";
+    String pSTATUS_operacao = "Ativo";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -200,7 +203,10 @@ public class TelaPesquisaOpRetornoPorTransf extends javax.swing.JInternalFrame {
             jPesDescOp.requestFocus();
         } else {
             jTabelaOperacao.setVisible(true);
-            preencherTabelaNome("SELECT * FROM OPERACAO WHERE DescricaoOp LIKE'" + jPesDescOp.getText() + "%' AND TipoOp='" + tipo + "'");
+            preencherTabelaNome("SELECT * FROM OPERACAO "
+                    + "WHERE DescricaoOp LIKE'%" + jPesDescOp.getText() + "%' "
+                    + "AND TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_operacao + "'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -218,7 +224,7 @@ public class TelaPesquisaOpRetornoPorTransf extends javax.swing.JInternalFrame {
         if (jPesDescOp.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome da OPERAÇÃO e clique no botão ENVIAR");
         }
-        TelaRetornoPorTransferencia.jDescricaoOpe.setText(jPesDescOp.getText());        
+        TelaRetornoPorTransferencia.jDescricaoOpe.setText(jPesDescOp.getText());
         dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
@@ -231,10 +237,11 @@ public class TelaPesquisaOpRetornoPorTransf extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaOperacao.setVisible(true);
-            this.preencherTabela();
+            this.preencherTabela("SELECT * FROM OPERACAO "
+                    + "WHERE TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_operacao + "'");
         } else {
-            jTabelaOperacao.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -252,12 +259,12 @@ public class TelaPesquisaOpRetornoPorTransf extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaOperacao;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela() {
+    public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OPERACAO WHERE TipoOp='" + tipo + "'");
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 dados.add(new Object[]{conecta.rs.getInt("IdOp"), conecta.rs.getString("DescricaoOp")});
@@ -274,6 +281,7 @@ public class TelaPesquisaOpRetornoPorTransf extends javax.swing.JInternalFrame {
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
         jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaItens();
         conecta.desconecta();
     }
 
@@ -299,6 +307,29 @@ public class TelaPesquisaOpRetornoPorTransf extends javax.swing.JInternalFrame {
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
         jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaItens();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaOperacao.setModel(modelo);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
+        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
+        jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
+        jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaItens() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaOperacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }
