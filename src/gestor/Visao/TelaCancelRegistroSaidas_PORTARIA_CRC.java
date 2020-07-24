@@ -1279,6 +1279,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             } else {
                 acao = 3;
                 NovoInterno();
+                corCampos();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1335,8 +1336,12 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                 JOptionPane.showMessageDialog(rootPane, "selecione o setor para cancelar o registro, CRC ou portaria.");
                 //VERIFICAR SE O CANCELAMENTO É REFERENTE AO DIA DA SAÍDA
             } else if (jDataSaida.getDate().after(jDataLanc.getDate())) {
+                jDataSaida.requestFocus();
+                jDataSaida.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é maior que a data do cancelamento, não é permitido realizar cancelamento futuro.");
             } else if (jDataSaida.getDate().before(jDataLanc.getDate())) {
+                jDataSaida.requestFocus();
+                jDataSaida.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é menor que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
             } else {
                 if (acao == 3) {
@@ -2482,10 +2487,6 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             jBtFinalizar.setEnabled(!true);
             jBtNovoInterno.setEnabled(!true);
         }
-    }
-
-    public void Impressao() {
-
     }
 
     public void buscarCodigo() {
