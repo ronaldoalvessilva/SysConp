@@ -2262,7 +2262,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                     objRegAtend.setNomeInternoCrc(jNomeInternoEF.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoEF);
                     objRegAtend.setNomeDepartamento(nomeModuloEF);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataRegistroEF.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF.getText()));
@@ -2281,7 +2281,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                     objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                     objRegAtend.setHorarioUp(horaMov);
                     objRegAtend.setIdAtend(Integer.valueOf(jIdRegistroEF.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
                     bloquearTodosBotoes(!true);
                     bloquearTodosCampos(!true);

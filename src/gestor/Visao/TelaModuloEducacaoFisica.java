@@ -248,6 +248,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         RelatorioInternosRegimePenal = new javax.swing.JMenuItem();
         RelatorioInternosRegimePenalSexo = new javax.swing.JMenuItem();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         Utilitarios = new javax.swing.JMenu();
         CalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraPena1 = new javax.swing.JMenuItem();
@@ -473,6 +474,9 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(RelatorioEntradaInternosUnidade);
+
+        jMenuItem1.setText("Relatório de Produtividade");
+        Relatorios.add(jMenuItem1);
 
         jMenuBar1.add(Relatorios);
 
@@ -1077,6 +1081,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     public static javax.swing.JDesktopPane jPainelEducacaoFisica;
     private javax.swing.JMenuItem jPlanejamentoAtividades;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
