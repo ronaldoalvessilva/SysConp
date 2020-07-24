@@ -17,7 +17,7 @@
 		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\Pedagogia\\QuantitativoAtendimento\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM ADMISSAO_PEDAGOGIA A
+		<![CDATA[SELECT TOP 1 * FROM ADMISSAO_PEDAGOGIA A
 INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc
 WHERE DataAdm BETWEEN $P{dataInicial} AND $P{dataFinal}
 order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc]]>
@@ -68,6 +68,8 @@ order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc]]>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<field name="Tornozeleira" class="java.lang.String"/>
+	<field name="DataEntradaAnt" class="java.sql.Timestamp"/>
 	<variable name="SUBREPORT_COUNT" class="java.lang.Integer" calculation="System"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -221,6 +223,26 @@ order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoEvolucaoPedagogia.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="10">
+			<subreport>
+				<reportElement x="-20" y="-13" width="551" height="23" uuid="f67b9678-041a-4155-9dac-2fe3039384c0"/>
+				<subreportParameter name="dataFinal">
+					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descricaoUnidade">
+					<subreportParameterExpression><![CDATA[$P{descricaoUnidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataInicial">
+					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pUsuario">
+					<subreportParameterExpression><![CDATA[$P{pUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAtendimentoPedagogiaGrupo.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
