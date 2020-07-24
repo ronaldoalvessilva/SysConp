@@ -17,7 +17,7 @@ public class EvadidoIndividual {
     private String statusLanc;
     private Date dataLanc;
     private String tipoOperacao;
-    private int nrDocSaida;
+    private String nrDocSaida;
     private int tipoEvasao;
     private int idInternoCrc;
     private String nomeInternoCrc;
@@ -32,7 +32,10 @@ public class EvadidoIndividual {
     private Date dataEvasao;  
     private int idSaida;       
 
-    public EvadidoIndividual(int idLanc, String statusLanc, Date dataLanc, String tipoOperacao, int nrDocSaida, int tipoEvasao, int idInternoCrc, String nomeInternoCrc, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String internoEvadido, Date dataEvasao, int idSaida) {
+    public EvadidoIndividual() {
+    }
+
+    public EvadidoIndividual(int idLanc, String statusLanc, Date dataLanc, String tipoOperacao, String nrDocSaida, int tipoEvasao, int idInternoCrc, String nomeInternoCrc, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String internoEvadido, Date dataEvasao, int idSaida) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -51,9 +54,6 @@ public class EvadidoIndividual {
         this.internoEvadido = internoEvadido;
         this.dataEvasao = dataEvasao;
         this.idSaida = idSaida;
-    }
-
-    public EvadidoIndividual() {
     }
 
     /**
@@ -115,14 +115,14 @@ public class EvadidoIndividual {
     /**
      * @return the nrDocSaida
      */
-    public int getNrDocSaida() {
+    public String getNrDocSaida() {
         return nrDocSaida;
     }
 
     /**
      * @param nrDocSaida the nrDocSaida to set
      */
-    public void setNrDocSaida(int nrDocSaida) {
+    public void setNrDocSaida(String nrDocSaida) {
         this.nrDocSaida = nrDocSaida;
     }
 

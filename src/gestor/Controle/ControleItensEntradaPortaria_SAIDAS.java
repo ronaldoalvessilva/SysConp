@@ -165,7 +165,7 @@ public class ControleItensEntradaPortaria_SAIDAS {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdSaida='" + objItensEntIntPort.getIdRetorno() + "'AND IdItem='" + objItensEntIntPort.getIdEntraSaida() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSTRANSFERENCIA SET SaidaConfirmada=?,RegistroCancelado=? WHERE IdInternoCrc='" + objItensEntIntPort.getIdInternoCrc() + "'AND IdTransf='" + objItensEntIntPort.getIdRetorno() + "'");
             pst.setString(1, objItensEntIntPort.getSaidaConfirmada());
             pst.setString(2, objItensEntIntPort.getRegistroCancelado());
             pst.executeUpdate();

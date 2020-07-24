@@ -24,6 +24,7 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String tipo = "Retornos";
+    String pSTATUS_operacao = "Ativo";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -89,7 +90,7 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPesDescOp, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addComponent(jPesDescOp, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,7 +174,7 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,14 +183,14 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 150, 432, 243);
+        setBounds(300, 150, 432, 240);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -199,10 +200,11 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
         if (jPesDescOp.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesDescOp.requestFocus();
-        } else {            
+        } else {
             preencherTabelaNome("SELECT * FROM OPERACAO "
                     + "WHERE DescricaoOp LIKE'" + jPesDescOp.getText() + "%' "
-                    + "AND TipoOp='" + tipo + "'");
+                    + "AND TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_operacao + "'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -220,7 +222,7 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
         if (jPesDescOp.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome da OPERAÇÃO e clique no botão ENVIAR");
         }
-        TelaRetornoRecaptura.jDescricaoOpe.setText(jPesDescOp.getText());        
+        TelaRetornoRecaptura.jDescricaoOpe.setText(jPesDescOp.getText());
         dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
@@ -232,8 +234,10 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
-            this.preencherTabela();
+        if (evt.getStateChange() == evt.SELECTED) {
+            this.preencherTabela("SELECT * FROM OPERACAO "
+                    + "WHERE TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_operacao + "'");
         } else {
             limparTabela();
         }
@@ -253,13 +257,12 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaOperacao;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela() {
+    public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OPERACAO "
-                    + "WHERE TipoOp='" + tipo + "'");
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 dados.add(new Object[]{conecta.rs.getInt("IdOp"), conecta.rs.getString("DescricaoOp")});
@@ -304,9 +307,10 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
         alinhaCamposTabela();
         conecta.desconecta();
     }
-    public void limparTabela(){
+
+    public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição"};        
+        String[] Colunas = new String[]{"Código", "Descrição"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -316,7 +320,7 @@ public class TelaPesquisaOpRecaptura extends javax.swing.JInternalFrame {
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
         jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-       modelo.getLinhas().clear();
+        modelo.getLinhas().clear();
     }
 
     public void alinhaCamposTabela() {

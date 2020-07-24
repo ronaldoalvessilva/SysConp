@@ -369,16 +369,20 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
             do {
                 // Formatar a data Saida
                 dataSaidaTemp = conecta.rs.getString("DataSaida");
-                String diap = dataSaidaTemp.substring(8, 10);
-                String mesp = dataSaidaTemp.substring(5, 7);
-                String anop = dataSaidaTemp.substring(0, 4);
-                dataSaidaTemp = diap + "/" + mesp + "/" + anop;
+                if (dataSaidaTemp != null) {
+                    String diap = dataSaidaTemp.substring(8, 10);
+                    String mesp = dataSaidaTemp.substring(5, 7);
+                    String anop = dataSaidaTemp.substring(0, 4);
+                    dataSaidaTemp = diap + "/" + mesp + "/" + anop;
+                }
                 // Formatar a data Entrada
                 dataPrevRetorno = conecta.rs.getString("DataPrevRetorno");
-                String diar = dataPrevRetorno.substring(8, 10);
-                String mesr = dataPrevRetorno.substring(5, 7);
-                String anor = dataPrevRetorno.substring(0, 4);
-                dataPrevRetorno = diar + "/" + mesr + "/" + anor;
+                if (dataPrevRetorno != null) {
+                    String diar = dataPrevRetorno.substring(8, 10);
+                    String mesr = dataPrevRetorno.substring(5, 7);
+                    String anor = dataPrevRetorno.substring(0, 4);
+                    dataPrevRetorno = diar + "/" + mesr + "/" + anor;
+                }
                 dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataSaidaTemp, dataPrevRetorno, conecta.rs.getString("DestinoSaida")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {

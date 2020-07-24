@@ -34,7 +34,7 @@ public class ControleObitoInterno {
             pst.setTimestamp(3, new java.sql.Timestamp(objEvadidoInd.getDataEvasao().getTime()));
             pst.setInt(4, objEvadidoInd.getTipoEvasao());
             pst.setInt(5, objEvadidoInd.getIdInternoCrc());
-            pst.setInt(6, objEvadidoInd.getNrDocSaida());
+            pst.setString(6, objEvadidoInd.getNrDocSaida());
             pst.setString(7, objEvadidoInd.getObservacao());
             pst.setString(8, objEvadidoInd.getUsuarioInsert());
             pst.setString(9, objEvadidoInd.getDataInsert());
@@ -63,7 +63,7 @@ public class ControleObitoInterno {
             pst.setTimestamp(3, new java.sql.Timestamp(objEvadidoInd.getDataLanc().getTime()));
             pst.setInt(4, objEvadidoInd.getTipoEvasao());
             pst.setInt(5, objEvadidoInd.getIdInternoCrc());
-            pst.setInt(6, objEvadidoInd.getNrDocSaida());
+            pst.setString(6, objEvadidoInd.getNrDocSaida());
             pst.setString(7, objEvadidoInd.getObservacao());
             pst.setString(8, objEvadidoInd.getUsuarioUp());
             pst.setString(9, objEvadidoInd.getDataUp());

@@ -7,6 +7,14 @@ package gestor.Visao;
 
 import gestor.Controle.ControleFechamentoDadosSistema;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ListaAgendaEscoltaCrc;
+import gestor.Controle.ListagemCancelamentoNovaEntradada;
+import gestor.Controle.ListagemEvadidos;
+import gestor.Controle.ListagemProgressoaRegime;
+import gestor.Controle.ListagemProrrogacaoSaidaTemporaria;
+import gestor.Controle.ListagemRegistroCanceladoRetornos;
+import gestor.Controle.ListagemRegistrosCancelados;
+import gestor.Controle.ListagemRegressaoRegime;
 import gestor.Controle.ListarEntradasInternos;
 import gestor.Controle.ListarNovaEntrada_Internos;
 import gestor.Controle.ListarPrevisaoSaida_Internos;
@@ -51,6 +59,14 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     ListarRetornoMedico_Internos objListaRetMed = new ListarRetornoMedico_Internos();
     ListarRetornoTransferencia_Internos objListaRet_TRAN = new ListarRetornoTransferencia_Internos();
     ListarPrevisaoSaida_Internos objListaPrevSaida = new ListarPrevisaoSaida_Internos();
+    ListaAgendaEscoltaCrc objAgendaEscolta = new ListaAgendaEscoltaCrc();
+    ListagemEvadidos objEvadidos = new ListagemEvadidos();
+    ListagemProgressoaRegime objProgressaoRegime = new ListagemProgressoaRegime();
+    ListagemProrrogacaoSaidaTemporaria objProrroga = new ListagemProrrogacaoSaidaTemporaria();    
+    ListagemCancelamentoNovaEntradada objListagemRegCanceladoNE = new ListagemCancelamentoNovaEntradada();
+    ListagemRegistroCanceladoRetornos objRegistroCanceladoRetorno = new ListagemRegistroCanceladoRetornos();
+    ListagemRegistrosCancelados objRegCancelados = new ListagemRegistrosCancelados();
+    ListagemRegressaoRegime objListaRegressao = new ListagemRegressaoRegime();
     //PORTARIA INTERNA
     ListarNovaEntrada_Internos objListaNovaEnt = new ListarNovaEntrada_Internos();
     ControleFechamentoDadosSistema control = new ControleFechamentoDadosSistema();
@@ -79,12 +95,20 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     public static int pRETORNO_TRANSFERENCIA = 0;
     public static int pPREVISAO_SAIDA = 0;
     public static int pNOVA_ENTRADA = 0;
+    public static int pAGENDA_ESCOLTA = 0;
+    public static int pINTERNOS_EVADIDOS = 0;
+    public static int pPROGRESSAO_REGIME = 0;
+    public static int pPRORROGA = 0;
+    public static int pRECAPTURA = 0;
+    public static int pREGISTRO_CANCELADO_NE = 0;
+    public static int pREGISTRO_CANCELADO_RETORNOS = 0;
+    public static int pREGISTRO_CANCELADOS = 0;
+    public static int pREGRESSAO_REGIME = 0;
 
     /**
      * Creates new form TelaFechamentoSistema
      */
     public static TelaModuloConfiguracoes pCONFIGURACAO;
-   
 
     public TelaFechamentoSistema(TelaModuloConfiguracoes parent, boolean modal) {
         this.pCONFIGURACAO = parent;
@@ -472,7 +496,11 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 + pRETORNO_SAIDAS_TMP + pRETORNO_ESPONTANEO
                 + pRETORNO_RECAPTURA + pRETORNO_AUDIENCIAS
                 + pRETORNO_MEDICO + pRETORNO_TRANSFERENCIA
-                + pPREVISAO_SAIDA + pNOVA_ENTRADA;
+                + pPREVISAO_SAIDA + pNOVA_ENTRADA
+                + pAGENDA_ESCOLTA + pINTERNOS_EVADIDOS
+                + pPROGRESSAO_REGIME + pPRORROGA
+                + pREGISTRO_CANCELADO_NE + pREGISTRO_CANCELADO_RETORNOS 
+                + pREGISTRO_CANCELADOS + pREGRESSAO_REGIME;
     }
 
     public void calculoTotais_ENTRADAS_CRC() {
@@ -548,6 +576,70 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         } catch (Exception ex) {
             Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //AGENDA ESCOLTA       
+        try {
+            for (FechamentoRegistros pAGC : objAgendaEscolta.read()) {
+                pAGC.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //EVADIDOS 
+        try {
+            for (FechamentoRegistros pEVA : objEvadidos.read()) {
+                pEVA.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //PROGRESSAO REGIME
+        try {
+            for (FechamentoRegistros pPRR : objProgressaoRegime.read()) {
+                pPRR.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //PRORROGAÇÃO DE SAIDA TEMPORARIA E PRISAO DOMICILIAR         
+        try {
+            for (FechamentoRegistros pPRRO : objProrroga.read()) {
+                pPRRO.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        //REGISTRO CANCELADO NOVA ENTRADA
+        try {
+            for (FechamentoRegistros pREGCNE : objListagemRegCanceladoNE.read()) {
+                pREGCNE.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //REGISTRO CANCELADO RETORNOS
+        try {
+            for (FechamentoRegistros pRECR : objRegistroCanceladoRetorno.read()) {
+                pRECR.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //REGISTROS CANCELADOS
+        try {
+            for (FechamentoRegistros pREC : objRegCancelados.read()) {
+                pREC.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //REGRESSÃO
+        try {
+            for (FechamentoRegistros pREG : objListaRegressao.read()) {
+                pREG.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void calcularTotais_PORTARIA_INTERNA() {
@@ -592,38 +684,83 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                         objFecha.setDataFechamento(pDATA_FECHAMENTO);
                         objFecha.setHoraFechamento(horaMov);
                         objFecha.setUsuarioUp(nameUser);
+                        //ENTRADAS DE INTERNOS
                         control.fecharEntradas(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
+                        //SAIDAS DE INTERNOS
                         control.fecharSaidas(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //TRANSFERENCIA
                         control.fecharTransferencias(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //RETORNO SAIDA TEMPORARIA
                         control.fecharRetornoSaidaTemporaria(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //RETORNO ESPONTANEO
                         control.fecharRetornoEspontaneo(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                        //RECAPTURA
                         control.fecharRecaptura(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //RETORNO AUDIÊNCIA
                         control.fecharRetornoAudiencia(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //RETORNO MÉDICO
                         control.fecharRetornoMedico(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //PREVISÃO DE SAÍDA
                         control.fecharPrevisaoSaida(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //RETORNO POR TRANSFERENCIA
                         control.fecharRetornoPorTransferencia(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //AGENDAMENTO DE ESCOLTA
+                        control.fecharAgendaEscolta(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //EVADIDOS                        
+                        control.fecharEvadidos(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //PROGRESSÃO DE REGIME
+                        control.fecharProgressaoRegime(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //PRORROGAÇÃO DE SAIDA TEMPORÁRIA E PRISÃO DOMICILIAR
+                        control.fecharProrrogacao_SAIDA_tmp(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                 
+                        //REGISTRO CANCELADO NOVA ENTRADA
+                        control.fecharRegistroCanceladoNE(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                        //REGISTRO CANCELADO RETORNOS
+                        control.fecharRegistroCanceladoRetorno(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                        //REGISTRO CANCELADO
+                        control.fecharRegistroCancelado(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                        //REGRESSÃO
+                        control.fecharRegressaoRegime(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                         //MÓDULO PORTARIA INTERNA
+                        //NOVA ENTRADA
                         control.fecharNovaEntrada(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                         jProgressBar1.setValue(i);
                     }
                     try {

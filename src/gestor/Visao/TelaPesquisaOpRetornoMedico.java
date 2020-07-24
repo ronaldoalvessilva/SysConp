@@ -24,6 +24,7 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String tipo = "Retornos";
+    String pSTATUS_operacao = "Ativo";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -56,7 +57,7 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisar Tipo Operação :::...");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Tipo Operação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Tipo Operação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesDescOp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -88,7 +89,7 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPesDescOp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -108,7 +109,7 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
         jTabelaOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOperacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Descrição"
@@ -159,9 +160,12 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addContainerGap(225, Short.MAX_VALUE))
+                        .addContainerGap(221, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -176,6 +180,8 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,7 +195,7 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 429, 233);
+        setBounds(300, 150, 437, 233);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -201,7 +207,10 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
             jPesDescOp.requestFocus();
         } else {
             jTabelaOperacao.setVisible(true);
-            preencherTabelaNome("SELECT * FROM OPERACAO WHERE DescricaoOp LIKE'" + jPesDescOp.getText() + "%' AND TipoOp='" + tipo + "'");
+            preencherTabelaNome("SELECT * FROM OPERACAO "
+                    + "WHERE DescricaoOp LIKE'%" + jPesDescOp.getText() + "%' "
+                    + "AND TipoOp='" + tipo + "' "
+                    + "AND StatusOP='" + pSTATUS_operacao + "'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -232,10 +241,11 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaOperacao.setVisible(true);
-            this.preencherTabela();
+            this.preencherTabela("SELECT * FROM OPERACAO "
+                    + "WHERE TipoOp='" + tipo + "' "
+                    + "AND StatusOP='" + pSTATUS_operacao + "'");
         } else {
-            jTabelaOperacao.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -253,12 +263,12 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaOperacao;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela() {
+    public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OPERACAO WHERE TipoOp='" + tipo + "'");
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 dados.add(new Object[]{conecta.rs.getInt("IdOp"), conecta.rs.getString("DescricaoOp")});
@@ -329,6 +339,6 @@ public class TelaPesquisaOpRetornoMedico extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaOperacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);       
+        jTabelaOperacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }

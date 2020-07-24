@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import Utilitarios.LimiteDigitosAlfa;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -22,6 +24,7 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String tipo = "Transferências";
+    String pSTATUS_transferencia = "Ativo";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -139,18 +142,16 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBtEnviar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                .addComponent(jBtEnviar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -175,14 +176,14 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 445, 272);
+        setBounds(300, 150, 438, 272);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -194,7 +195,10 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
             jPesDescOp.requestFocus();
         } else {
             jTabelaOperacao.setVisible(true);
-            preencherTabelaNome("SELECT * FROM OPERACAO WHERE DescricaoOp LIKE'" + jPesDescOp.getText() + "%' AND TipoOp='" + tipo + "'");
+            preencherTabelaNome("SELECT * FROM OPERACAO "
+                    + "WHERE DescricaoOp LIKE'%" + jPesDescOp.getText() + "%' "
+                    + "AND TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_transferencia + "'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -224,12 +228,13 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-            if (evt.getStateChange() == evt.SELECTED) {
-                jTabelaOperacao.setVisible(true);
-                this.preencherTabela();
-            } else {
-                jTabelaOperacao.setVisible(!true);
-            }
+        if (evt.getStateChange() == evt.SELECTED) {
+            this.preencherTabela("SELECT * FROM OPERACAO "
+                    + "WHERE TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_transferencia + "'");
+        } else {
+            limparTabela();
+        }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
 
@@ -245,16 +250,16 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaOperacao;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela() {
+    public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição da Operação"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OPERACAO WHERE TipoOp='"+ tipo +"'");
-            conecta.rs.first();            
-                do {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
                 dados.add(new Object[]{conecta.rs.getInt("IdOp"), conecta.rs.getString("DescricaoOp")});
-            } while (conecta.rs.next());                        
+            } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
         }
@@ -263,10 +268,11 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
-        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);        
+        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
         jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaItens();
         conecta.desconecta();
     }
 
@@ -288,10 +294,37 @@ public class TelaPesquisaOpTransferencia extends javax.swing.JInternalFrame {
         jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
-        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);        
+        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
         jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaItens();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaOperacao.setModel(modelo);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
+        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
+        jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
+        jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaItens() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaOperacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }

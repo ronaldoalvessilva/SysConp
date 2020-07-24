@@ -85,7 +85,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-     private TelaCancelRegistroSaidas_PORTARIA_CRC objCancel_SAIDAS = null;
+    private TelaCancelRegistroSaidas_PORTARIA_CRC objCancel_SAIDAS = null;
     //
     String nomeModuloTela = "CRC:Saida de Internos:Manutenção";
     String nomeModuloTela2 = "CRC:Saida de Internos:Internos";
@@ -1509,9 +1509,20 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                 codDocAnterior = conecta.rs.getString("DocumentoSaida");
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoCrcSaida.setIcon(i);
-                FotoInternoCrcSaida.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrcSaida.getWidth(), FotoInternoCrcSaida.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoCrcSaida.setIcon(i);
+                    FotoInternoCrcSaida.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrcSaida.getWidth(), FotoInternoCrcSaida.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoCrcSaida.getWidth(), FotoInternoCrcSaida.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoCrcSaida.setIcon(icon);
+                }
                 //
                 idItem = conecta.rs.getString("IdItem");
                 codItem = conecta.rs.getInt("IdItem");

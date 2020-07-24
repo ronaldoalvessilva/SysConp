@@ -24,6 +24,7 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String tipo = "Entradas";
+    String pSTATUS_operacao = "Ativo";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -100,7 +101,7 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
         jTabelaOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOperacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Descrição"
@@ -194,10 +195,11 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
         if (jPesDescOp.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesDescOp.requestFocus();
-        } else {            
+        } else {
             preencherTabelaNome("SELECT * FROM OPERACAO "
                     + "WHERE DescricaoOp LIKE'%" + jPesDescOp.getText() + "%' "
-                    + "AND TipoOp='" + tipo + "'");
+                    + "AND TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_operacao + "'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -228,8 +230,10 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
-            this.preencherTabela();
+        if (evt.getStateChange() == evt.SELECTED) {
+            this.preencherTabela("SELECT * FROM OPERACAO "
+                    + "WHERE TipoOp='" + tipo + "' "
+                    + "AND StatusOp='" + pSTATUS_operacao + "'");
         } else {
             limparTabela();
         }
@@ -248,12 +252,12 @@ public class TelaPesquisaOpEntLote extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaOperacao;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela() {
+    public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OPERACAO WHERE TipoOp='" + tipo + "'");
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 dados.add(new Object[]{conecta.rs.getInt("IdOp"), conecta.rs.getString("DescricaoOp")});

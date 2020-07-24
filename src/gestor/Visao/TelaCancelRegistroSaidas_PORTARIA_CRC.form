@@ -1126,7 +1126,7 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="10">
+                      <StringArray count="13">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Sa&#xed;da Temporaria"/>
                         <StringItem index="2" value="Sa&#xed;da Transfer&#xea;ncia"/>
@@ -1136,7 +1136,10 @@
                         <StringItem index="6" value="Sa&#xed;da Progress&#xe3;o Regime"/>
                         <StringItem index="7" value="Sa&#xed;da Regress&#xe3;o de Regime"/>
                         <StringItem index="8" value="Sa&#xed;da Livramento Condicional"/>
-                        <StringItem index="9" value=" "/>
+                        <StringItem index="9" value="Outras Sa&#xed;das"/>
+                        <StringItem index="10" value="Fuga da Unidade"/>
+                        <StringItem index="11" value="&#xd3;bito"/>
+                        <StringItem index="12" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
