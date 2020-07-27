@@ -248,7 +248,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         RelatorioInternosRegimePenal = new javax.swing.JMenuItem();
         RelatorioInternosRegimePenalSexo = new javax.swing.JMenuItem();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jRelatorioProdutividadeEducacaoFisica = new javax.swing.JMenuItem();
         Utilitarios = new javax.swing.JMenu();
         CalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraPena1 = new javax.swing.JMenuItem();
@@ -475,8 +475,13 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         });
         Relatorios.add(RelatorioEntradaInternosUnidade);
 
-        jMenuItem1.setText("Relatório de Produtividade");
-        Relatorios.add(jMenuItem1);
+        jRelatorioProdutividadeEducacaoFisica.setText("Relatório de Produtividade");
+        jRelatorioProdutividadeEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioProdutividadeEducacaoFisicaActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioProdutividadeEducacaoFisica);
 
         jMenuBar1.add(Relatorios);
 
@@ -1049,6 +1054,13 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
 
+    private void jRelatorioProdutividadeEducacaoFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioProdutividadeEducacaoFisicaActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioProducaoEducacaoFisica objRelProdEF = new TelaRelatorioProducaoEducacaoFisica();
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRelProdEF);
+        objRelProdEF.show();
+    }//GEN-LAST:event_jRelatorioProdutividadeEducacaoFisicaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
@@ -1081,10 +1093,10 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     public static javax.swing.JDesktopPane jPainelEducacaoFisica;
     private javax.swing.JMenuItem jPlanejamentoAtividades;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
+    private javax.swing.JMenuItem jRelatorioProdutividadeEducacaoFisica;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
