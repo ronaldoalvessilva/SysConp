@@ -79,7 +79,7 @@ public class ControleEvolucaoEnfermagem {
        
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOENFERMAGEM SET DataEvol=?,IdLanc=?,IdInternoCrc=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE AdmEvo='" + objEvolEnferma.getAdmEvo()+ "'AND IdLanc='" + objEvolEnferma.getIdLanc());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOENFERMAGEM SET DataEvol=?,IdLanc=?,IdInternoCrc=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE AdmEvo='" + objEvolEnferma.getAdmEvo()+ "'AND IdLanc='" + objEvolEnferma.getIdLanc() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objEvolEnferma.getDataEvol().getTime()));
             pst.setInt(2, objEvolEnferma.getIdLanc());
             pst.setInt(3, objEvolEnferma.getIdInternoCrc());
