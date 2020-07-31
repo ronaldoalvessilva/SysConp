@@ -188,6 +188,8 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RequisicaoMateriaisInternosActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator13">
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="RequisicaoMateriaisAvulsa">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Requisi&#xe7;&#xe3;o Avulsa de Materiais"/>
@@ -202,6 +204,16 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EstornoRequisicaoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator14">
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelarPagamentoKit">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cancelar Pagamento Kit Higiene"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarPagamentoKitActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
