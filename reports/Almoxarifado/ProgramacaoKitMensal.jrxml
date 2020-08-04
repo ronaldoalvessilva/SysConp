@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProgramacaoKitDecendial" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1742de40-0ef5-4e5c-8b6f-9b01b48e341d">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -15,8 +15,23 @@
 	</style>
 	<parameter name="pUnidade" class="java.lang.String"/>
 	<parameter name="pUsuario" class="java.lang.String"/>
+	<parameter name="pDataInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pDataFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS INNER JOIN KITS_MENSAL_INTERNOS ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG INNER JOIN PAVILHAO ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav INNER JOIN PRONTUARIOSCRC ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc ORDER BY PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao]]>
+		<![CDATA[SELECT *
+FROM   PROGRAMACAO_PAGAMENTO_KITS_INTERNOS
+       INNER JOIN KITS_MENSAL_INTERNOS
+               ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG = KITS_MENSAL_INTERNOS.IDREG_PROG
+       INNER JOIN PAVILHAO
+               ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav = PAVILHAO.IdPav
+       INNER JOIN PRONTUARIOSCRC
+               ON KITS_MENSAL_INTERNOS.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc
+WHERE CONVERT(DATE,PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao) BETWEEN $P{pDataInicial} AND $P{pDataFinal}
+ORDER BY PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao]]>
 	</queryString>
 	<field name="IdPROG" class="java.lang.Integer"/>
 	<field name="DataPROG" class="java.sql.Timestamp"/>
@@ -143,31 +158,37 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="109" splitType="Stretch">
+		<band height="104" splitType="Stretch">
 			<staticText>
-				<reportElement x="9" y="15" width="241" height="20" uuid="7ab46bb7-b6c5-4b00-b3e8-f8924060ce6c"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+				<reportElement x="1" y="74" width="553" height="20" forecolor="#0000FF" backcolor="#FFFFFF" uuid="1e65f295-acbb-4144-9a90-5a4a2823e851"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[SISCONP - Sistema de Control Prisional]]></text>
+				<text><![CDATA[Relatório Geral de Programação de Kit Mensal]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="262" y="15" width="286" height="20" uuid="43477b64-fe49-4c06-ba4d-4d05cfdf079b"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+				<reportElement x="1" y="42" width="553" height="20" uuid="8f4aa52b-7b8c-4d7b-bf61-3b38ece6c03e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pUnidade}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="9" y="78" width="539" height="20" forecolor="#0000FF" uuid="cfa0108a-920c-4a44-9469-c1c6cef09737"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+				<reportElement x="1" y="11" width="553" height="20" uuid="0abcca38-c3c5-4d4e-b239-0bcc896f2b63"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório Geral de Programação de Kit Mensal]]></text>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
 			</staticText>
 			<image>
-				<reportElement x="462" y="47" width="86" height="57" uuid="3efd826f-7870-42f0-a1a0-df7d591b961c"/>
-				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\logo_socializa_novo.png"]]></imageExpression>
+				<reportElement x="9" y="2" width="74" height="55" uuid="2221c30d-050e-4ab1-88bf-f4af04a012c3">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\Brasão64x64.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="427" y="2" width="127" height="73" uuid="36c2bdf9-989e-4c1a-bf45-3873540a841d"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\LogoSocializa274X81.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
