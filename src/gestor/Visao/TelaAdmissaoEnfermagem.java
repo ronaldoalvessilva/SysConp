@@ -5389,6 +5389,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 HashMap parametros = new HashMap();
                 parametros.put("MatriculaCrc", jIdInternoEnfermeiro.getText());
                 parametros.put("nomeUsuario", nameUser);
+                parametros.put("pUnidade", descricaoUnidade);
                 JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                 JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          

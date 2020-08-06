@@ -25,9 +25,10 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    
+
     int flag;
     String dataInicial, dataFinal;
+
     /**
      * Creates new form TelaRelatorioProgramacaoKits
      */
@@ -263,87 +264,102 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
                             SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                             dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                            try {
-                                conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitDecendial.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_DECENDIAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Decendial");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                            } catch (JRException e) {
-                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                            }
-                        }
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitDecendial.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_DECENDIAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Decendial");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
+                        } //Teste tela aguarde
                     }
                 }
-            }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                if (jDataPesqInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataPesqInicial.requestFocus();
                 } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    if (jDataPesFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataPesFinal.requestFocus();
                     } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/Almoxarifado/ProgramacaoKitDecendial.jasper";
-                            conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                    + "INNER JOIN KITS_DECENDIAL_INTERNOS "
-                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' "
-                                    + "ORDER BY DataPrevisao");
-                            HashMap parametros = new HashMap();
-                            parametros.put("pDataInicial", dataInicial);
-                            parametros.put("pDataFinal", dataFinal);
-                            parametros.put("pUsuario", nameUser);
-                            parametros.put("pUnidade", descricaoUnidade);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Programação de Kit Decendial");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitDecendial.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_DECENDIAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Decendial");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
                         }
                     }
                 }
             }
-
         } else if (jRBt_QUINZENAL.isSelected() == true) {
             if (tipoServidor == null || tipoServidor.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
@@ -362,87 +378,103 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
                             SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                             dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                            try {
-                                conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitQuinzenal.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_QUINZENAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Quinzenal");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                            } catch (JRException e) {
-                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                            }
-                        }
-                    }
-                }
-            }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
-                } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                    } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitQuinzenal.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_QUINZENAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao");
-                            HashMap parametros = new HashMap();
-                            parametros.put("pDataInicial", dataInicial);
-                            parametros.put("pDataFinal", dataFinal);
-                            parametros.put("pUsuario", nameUser);
-                            parametros.put("pUnidade", descricaoUnidade);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Programação de Kit Quinzenal");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
-                    }
-                }
-            }
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
 
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitQuinzenal.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_QUINZENAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Quinzenal");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação   
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
+                        } //Teste tela aguarde
+                    }
+                }
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                if (jDataPesqInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataPesqInicial.requestFocus();
+                } else {
+                    if (jDataPesFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataPesFinal.requestFocus();
+                    } else {
+                        if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitQuinzenal.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_QUINZENAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Quinzenal");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação  
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
+                        }
+                    }
+                }
+            }
         } else if (jRBt_MENSAL.isSelected() == true) {
             if (tipoServidor == null || tipoServidor.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmetro para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
@@ -461,82 +493,98 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
                             SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                             dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                            try {
-                                conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitMensal.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_MENSAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Mensal");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                            } catch (JRException e) {
-                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                            }
-                        }
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde                            
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitMensal.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_MENSAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Mensal");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
+                        } //Teste tela aguarde
                     }
                 }
-            }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                if (jDataPesqInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataPesqInicial.requestFocus();
                 } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    if (jDataPesFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataPesFinal.requestFocus();
                     } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitMensal.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_MENSAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Mensal");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitMensal.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_MENSAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Mensal");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação       
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
                         }
                     }
                 }
@@ -559,88 +607,104 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
                             SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                             dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                            try {
-                                conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitSemestral.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Semestral");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                            } catch (JRException e) {
-                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                            }
-                        }
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitSemestral.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Semestral");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação   
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
+                        } //Teste tela aguarde
                     }
                 }
-            }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                if (jDataPesqInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataPesqInicial.requestFocus();
                 } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    if (jDataPesFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataPesFinal.requestFocus();
                     } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitSemestral.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Semestral");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitSemestral.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Semestral");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
                         }
                     }
                 }
             }
         } else if (jRBt_ANUAL.isSelected() == true) {
-           if (tipoServidor == null || tipoServidor.equals("")) {
+            if (tipoServidor == null || tipoServidor.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmetro para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
             } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
                 if (jDataPesqInicial.getDate() == null) {
@@ -657,82 +721,98 @@ public class TelaRelatorioProgramacaoKits extends javax.swing.JInternalFrame {
                             SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                             dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                             dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                            try {
-                                conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitAnual.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_ANUAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Anual");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                            } catch (JRException e) {
-                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                            }
-                        }
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitAnual.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_ANUAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Anual");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação   
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
+                        } //Teste tela aguarde
                     }
                 }
-            }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                if (jDataPesqInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataPesqInicial.requestFocus();
                 } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    if (jDataPesFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataPesFinal.requestFocus();
                     } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                                String path = "reports/Almoxarifado/ProgramacaoKitAnual.jasper";
-                                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                                        + "INNER JOIN KITS_ANUAL_INTERNOS "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
-                                        + "INNER JOIN PAVILHAO "
-                                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY DataPrevisao");
-                                HashMap parametros = new HashMap();
-                                parametros.put("pDataInicial", dataInicial);
-                                parametros.put("pDataFinal", dataFinal);
-                                parametros.put("pUsuario", nameUser);
-                                parametros.put("pUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Programação de Kit Anual");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste tela aguarde
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Almoxarifado/ProgramacaoKitAnual.jasper";
+                                        conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                                + "INNER JOIN KITS_ANUAL_INTERNOS "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
+                                                + "INNER JOIN PAVILHAO "
+                                                + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE CONVERT(DATE,DataPrevisao) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY DataPrevisao");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("pDataInicial", dataInicial);
+                                        parametros.put("pDataFinal", dataFinal);
+                                        parametros.put("pUsuario", nameUser);
+                                        parametros.put("pUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Programação de Kit Anual");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação   
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
                         }
                     }
                 }
