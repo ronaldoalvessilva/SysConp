@@ -10,12 +10,15 @@ import gestor.Controle.ControleCancelamentoPagoKit;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.PesquisaCancelamentoKitCodigo;
 import gestor.Controle.PesquisaCancelamentoKitData;
+import gestor.Controle.PesquisarProdutosCanceladosKits;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.CancelamentoPagamentoKitHigiene;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaCancelamentoPagamentoInt;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaCancelamentoPagamentoManu;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
@@ -40,6 +43,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     ControleCancelamentoPagoKit control = new ControleCancelamentoPagoKit();
     PesquisaCancelamentoKitCodigo listaCodigo = new PesquisaCancelamentoKitCodigo();
     PesquisaCancelamentoKitData listaData = new PesquisaCancelamentoKitData();
+    PesquisarProdutosCanceladosKits listaItens = new PesquisarProdutosCanceladosKits();
     //
     ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
     CamposAcessos objCampos = new CamposAcessos();
@@ -62,14 +66,36 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     String statusProd = "Ativo";
     int count;
     public static String idItem;
+    public static int idItemINT = 0;
+    public static int codItemINT = 0;
+    public static int pCODIGO_pav = 0;
+    public static int pCODIGO_cela = 0;
+    public static int pTOTAL_registros = 0;
+    //
+    String pDATA_Registros = "";
+    public static int pITEM_interno = 0;
+    public static int qtdProd = 0;
+    //
+    String caminho = "";
+    public static int codItem;
+    public static String idItemPagto;
+    public static int pCODIGO_colaborador = 0;
+    public static String pDESCRICAO_pavilhao = "";
 
     /**
      * Creates new form TelaCancelamentoPagamentoKits
      */
+    public static TelaCancelamentoKit pCANCELAR_kit;
+
     public TelaCancelamentoPagamentoKits() {
         initComponents();
         corCampos();
         formatarCampos();
+    }
+
+    public void mostrarCancelar() {
+        pCANCELAR_kit = new TelaCancelamentoKit(this, true);
+        pCANCELAR_kit.setVisible(true);
     }
 
     /**
@@ -117,22 +143,22 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jMotivoCancelamento = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
-        jRegistroKit = new javax.swing.JTextField();
+        jIdRegistroComp = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jDataComposicaoKit = new com.toedter.calendar.JDateChooser();
         jBtPesquisarKit = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jComboBoxPavilhao = new javax.swing.JComboBox<>();
-        jComboBoxCela = new javax.swing.JComboBox<>();
+        jIdKit = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jResponsavel = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
-        jBtFinalizar = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -149,13 +175,8 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jNomeInternoKit = new javax.swing.JTextField();
-        jBtPesquisarInterno = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jMatriculaInterno = new javax.swing.JTextField();
-        jRegimePenal = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTabelaInternosProdutos = new javax.swing.JTable();
+        jTabelaProdutosKitInterno = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jBtNovoInterno = new javax.swing.JButton();
         jBtAlterarInterno = new javax.swing.JButton();
@@ -163,11 +184,33 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jBtSalvarInterno = new javax.swing.JButton();
         jBtCancelarInterno = new javax.swing.JButton();
         jBtAuditoriaInterno = new javax.swing.JButton();
+        jPanel43 = new javax.swing.JPanel();
+        jtotaProdutosSelecionados = new javax.swing.JLabel();
+        jPanel44 = new javax.swing.JPanel();
+        jPanel42 = new javax.swing.JPanel();
+        jLabel71 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTabelaInternos = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        jFotoInternoKit = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jBtSelecionaProdutos = new javax.swing.JButton();
+        jPanel13 = new javax.swing.JPanel();
+        jBtFinalizar = new javax.swing.JButton();
+        jBtPesquisarInterno = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jDataEntrega = new com.toedter.calendar.JDateChooser();
+        jLabel17 = new javax.swing.JLabel();
+        jHorarioPagto = new javax.swing.JFormattedTextField();
+        jPanel9 = new javax.swing.JPanel();
+        jBtSair = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("...::: Cancelar Pagamento Kit Higiene :::...");
 
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -290,9 +333,17 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Dt. Registro", "Status Registro", "Tipo de Kit"
+                "Código", "Dt. Registro", "Status Registro", "Tipo de Kit", "Pavilhão"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaCancelamento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaCancelamentoMouseClicked(evt);
@@ -308,6 +359,8 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jTabelaCancelamento.getColumnModel().getColumn(2).setMaxWidth(90);
             jTabelaCancelamento.getColumnModel().getColumn(3).setMinWidth(250);
             jTabelaCancelamento.getColumnModel().getColumn(3).setMaxWidth(250);
+            jTabelaCancelamento.getColumnModel().getColumn(4).setMinWidth(250);
+            jTabelaCancelamento.getColumnModel().getColumn(4).setMaxWidth(250);
         }
 
         jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -433,9 +486,9 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Registro");
 
-        jRegistroKit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jRegistroKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jRegistroKit.setEnabled(false);
+        jIdRegistroComp.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdRegistroComp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdRegistroComp.setEnabled(false);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Data");
@@ -456,28 +509,26 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Pavilhão");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setText("Cela");
-
         jComboBoxPavilhao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPavilhao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jComboBoxPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPavilhao.setEnabled(false);
-        jComboBoxPavilhao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxPavilhaoMouseEntered(evt);
-            }
-        });
 
-        jComboBoxCela.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxCela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxCela.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxCela.setEnabled(false);
-        jComboBoxCela.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxCelaMouseEntered(evt);
-            }
-        });
+        jIdKit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jIdKit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdKit.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jIdKit.setEnabled(false);
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel18.setText("ID Kit");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setText("Responsável");
+
+        jResponsavel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jResponsavel.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -486,17 +537,36 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxTiposKits, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jComboBoxPavilhao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jIdKit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel13))
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel13)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jDataComposicaoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBtPesquisarKit))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel12)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -505,28 +575,14 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                                     .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)))
                             .addComponent(jLabel5)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel15))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxTiposKits, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jComboBoxPavilhao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxCela, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel15))
-                                .addGap(0, 320, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jRegistroKit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDataComposicaoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtPesquisarKit)))
-                        .addContainerGap())))
+                    .addComponent(jResponsavel))
+                .addContainerGap())
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdKit, jIdRegistroComp});
+
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -541,32 +597,36 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                     .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxCela, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(3, 3, 3)
                 .addComponent(jComboBoxTiposKits, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
+                    .addComponent(jLabel18)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesquisarKit)
+                    .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataComposicaoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRegistroKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesquisarKit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                .addGap(8, 8, 8))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jIdKit, jIdRegistroComp});
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -609,21 +669,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
-        jBtFinalizar.setEnabled(false);
-        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtFinalizarActionPerformed(evt);
-            }
-        });
-
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
-
         jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoria.setContentAreaFilled(false);
         jBtAuditoria.setEnabled(false);
@@ -648,16 +693,12 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSalvar});
 
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -669,13 +710,11 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                     .addComponent(jBtExcluir)
                     .addComponent(jBtSalvar)
                     .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAuditoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(4, 4, 4))
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSalvar});
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -694,7 +733,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 371, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -767,7 +806,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                     .addComponent(jDescricaoProdutoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jQuantidadeProdutoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jUnidadeProdutoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -785,23 +824,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jNomeInternoKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeInternoKit.setEnabled(false);
 
-        jBtPesquisarInterno.setForeground(new java.awt.Color(0, 0, 255));
-        jBtPesquisarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesquisarInterno.setText("Pesquisar");
-        jBtPesquisarInterno.setEnabled(false);
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Matricula");
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setText("Regime");
-
-        jMatriculaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jMatriculaInterno.setEnabled(false);
-
-        jRegimePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jRegimePenal.setEnabled(false);
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -809,28 +831,15 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNomeInternoKit)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jIdInternoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jMatriculaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRegimePenal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtPesquisarInterno))
+                        .addComponent(jNomeInternoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel17)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -838,42 +847,38 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesquisarInterno)
-                    .addComponent(jRegimePenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMatriculaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdInternoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeInternoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                    .addComponent(jLabel11))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jIdInternoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeInternoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5))
         );
 
-        jTabelaInternosProdutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaInternosProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaProdutosKitInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaProdutosKitInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Item", "Código", "Descrição", "Un", "Qtd."
+                "Código", "Descrição", "Un", "Qtd."
             }
         ));
-        jScrollPane2.setViewportView(jTabelaInternosProdutos);
-        if (jTabelaInternosProdutos.getColumnModel().getColumnCount() > 0) {
-            jTabelaInternosProdutos.getColumnModel().getColumn(0).setMinWidth(60);
-            jTabelaInternosProdutos.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaInternosProdutos.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaInternosProdutos.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaInternosProdutos.getColumnModel().getColumn(2).setMinWidth(250);
-            jTabelaInternosProdutos.getColumnModel().getColumn(2).setMaxWidth(250);
-            jTabelaInternosProdutos.getColumnModel().getColumn(3).setMinWidth(60);
-            jTabelaInternosProdutos.getColumnModel().getColumn(3).setMaxWidth(60);
-            jTabelaInternosProdutos.getColumnModel().getColumn(4).setMinWidth(60);
-            jTabelaInternosProdutos.getColumnModel().getColumn(4).setMaxWidth(60);
+        jTabelaProdutosKitInterno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaProdutosKitInternoMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTabelaProdutosKitInterno);
+        if (jTabelaProdutosKitInterno.getColumnModel().getColumnCount() > 0) {
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setMinWidth(60);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setMaxWidth(60);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setMinWidth(60);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -938,13 +943,13 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jBtAlterarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jBtExcluirInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtExcluirInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAuditoriaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -955,16 +960,86 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtNovoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(jBtAlterarInterno)
-                    .addComponent(jBtExcluirInterno)
-                    .addComponent(jBtSalvarInterno)
-                    .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtNovoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAlterarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtExcluirInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAuditoriaInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(4, 4, 4))
         );
 
         jPanel8Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
+
+        jPanel43.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotaProdutosSelecionados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
+        jPanel43.setLayout(jPanel43Layout);
+        jPanel43Layout.setHorizontalGroup(
+            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotaProdutosSelecionados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel43Layout.setVerticalGroup(
+            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotaProdutosSelecionados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel44.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
+        jPanel44.setLayout(jPanel44Layout);
+        jPanel44Layout.setHorizontalGroup(
+            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel44Layout.setVerticalGroup(
+            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel71.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
+        jPanel42.setLayout(jPanel42Layout);
+        jPanel42Layout.setHorizontalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel42Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel71))
+        );
+        jPanel42Layout.setVerticalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel71)
+        );
+
+        jTabelaInternos.setAutoCreateRowSorter(true);
+        jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item", "Código", "Nome do Interno"
+            }
+        ));
+        jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaInternosMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTabelaInternos);
+        if (jTabelaInternos.getColumnModel().getColumnCount() > 0) {
+            jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(350);
+            jTabelaInternos.getColumnModel().getColumn(2).setMaxWidth(350);
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -972,42 +1047,219 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTabbedPane1.addTab("Internos/Produtos", jPanel5);
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoKit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoKit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtSelecionaProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Almoxarifado18.png"))); // NOI18N
+        jBtSelecionaProdutos.setText("Cancelamento");
+        jBtSelecionaProdutos.setToolTipText("Pesquisar Produtos do Kit de higiene");
+        jBtSelecionaProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSelecionaProdutosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtSelecionaProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jBtSelecionaProdutos)
+                .addGap(4, 4, 4))
+        );
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtFinalizar.setForeground(new java.awt.Color(51, 153, 0));
+        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
+        jBtFinalizar.setText("Finalizar");
+        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFinalizarActionPerformed(evt);
+            }
+        });
+
+        jBtPesquisarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisarInterno.setText("Pesquisar");
+        jBtPesquisarInterno.setToolTipText("Pesquisar Interno");
+        jBtPesquisarInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarInternoActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jButton1.setText("Impressão");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setText("Data Entrega");
+
+        jDataEntrega.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataEntrega.setEnabled(false);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setText("Horário");
+
+        jHorarioPagto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHorarioPagto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jHorarioPagto.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtFinalizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(jHorarioPagto, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jBtPesquisarInterno)
+                .addGap(2, 2, 2)
+                .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jButton1)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel16)
+                .addGap(3, 3, 3)
+                .addComponent(jDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jHorarioPagto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
+        );
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setText("Sair");
+        jBtSair.setToolTipText("Sair da tela");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtSair, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        setBounds(300, 30, 433, 481);
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel12, jPanel13, jPanel9});
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        setBounds(330, 60, 619, 481);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqCodigoReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoReqActionPerformed
@@ -1104,6 +1356,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String IdLanc = "" + jTabelaCancelamento.getValueAt(jTabelaCancelamento.getSelectedRow(), 0);
             jCodigoReq.setText(IdLanc);
+            pDESCRICAO_pavilhao = "" + jTabelaCancelamento.getValueAt(jTabelaCancelamento.getSelectedRow(), 4);
             bloquearBotoes(!true);
             bloquearCampos(!true);
             jBtNovo.setEnabled(true);
@@ -1113,21 +1366,19 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             //
             jBtNovoInterno.setEnabled(true);
-            try {
-                for (CancelamentoPagamentoKitHigiene dd : listaCodigo.read()) {
-                    jIdRegistro.setText(String.valueOf(dd.getIdRegistro()));
-                    jStatusRegistro.setText(dd.getStatusRegistro());
-                    jDataRegistro.setDate(dd.getDataRegistro());
-                    jComboBoxPavilhao.setSelectedItem(dd.getDescricaoPav());
-                    jComboBoxCela.setSelectedItem(dd.getDescricaoCela());
-                    jComboBoxTiposKits.setSelectedItem(dd.getTipoKit());
-                    jRegistroKit.setText(String.valueOf(dd.getIdRegistroKit()));
-                    jDataComposicaoKit.setDate(dd.getDataRegistroKit());
-                    jMotivoCancelamento.setText(dd.getMotivoCancelamento());
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            jComboBoxPavilhao.removeAllItems();
+            //
+            control.MOSTRAR_interno(objCancelaKit);
+            jIdRegistro.setText(String.valueOf(objCancelaKit.getIdRegistro()));
+            jStatusRegistro.setText(objCancelaKit.getStatusRegistro());
+            jDataRegistro.setDate(objCancelaKit.getDataRegistro());
+            jResponsavel.setText(objCancelaKit.getNomeFunc());
+            jComboBoxPavilhao.addItem(objCancelaKit.getDescricaoPav().toString());
+            jComboBoxTiposKits.setSelectedItem(objCancelaKit.getTipoKit());
+            jIdRegistroComp.setText(String.valueOf(objCancelaKit.getIdRegistroKit()));
+            jIdKit.setText(String.valueOf(objCancelaKit.getIdKit()));
+            jDataComposicaoKit.setDate(objCancelaKit.getDataRegistroKit());
+            jMotivoCancelamento.setText(objCancelaKit.getMotivoCancelamento());
 //            mostrarItens();
         }
     }//GEN-LAST:event_jTabelaCancelamentoMouseClicked
@@ -1145,8 +1396,10 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             bloquearBotoes(!true);
             bloquearCampos(!true);
             Novo();
+            PREENCHER_COMBO_pavilhao();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1164,8 +1417,10 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             bloquearBotoes(!true);
             bloquearCampos(!true);
             Alterar();
+            PREENCHER_COMBO_pavilhao();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1190,7 +1445,9 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 objCancelaKit.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
                 control.excluirRegistroCancelamento(objCancelaKit);
                 objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
                 Excluir();
                 JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
             }
@@ -1209,21 +1466,20 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoPagamentoManu) && objCampos.getCodigoGravar() == 1) {
             if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão.");
-            } else if (jComboBoxCela.getSelectedItem().equals("Selecione...")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe qual a cela.");
             } else if (jComboBoxTiposKits.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de kit de higiene.");
-            } else if (jRegistroKit.getText().equals("")) {
+            } else if (jIdRegistroComp.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o código do registro da composição do kit.");
             } else if (jMotivoCancelamento.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o motivo do cancelamento do kit.");
             } else {
                 objCancelaKit.setStatusRegistro(jStatusRegistro.getText());
                 objCancelaKit.setDataRegistro(jDataRegistro.getDate());
+                objCancelaKit.setIdFunc(pCODIGO_colaborador);
                 objCancelaKit.setDescricaoPav((String) jComboBoxPavilhao.getSelectedItem());
-                objCancelaKit.setDescricaoCela((String) jComboBoxCela.getSelectedItem());
                 objCancelaKit.setTipoKit((String) jComboBoxTiposKits.getSelectedItem());
-                objCancelaKit.setIdRegistroKit(Integer.valueOf(jRegistroKit.getText()));
+                objCancelaKit.setIdRegistroKit(Integer.valueOf(jIdRegistroComp.getText()));
+                objCancelaKit.setIdKit(Integer.valueOf(jIdKit.getText()));
                 objCancelaKit.setDataRegistroKit(jDataComposicaoKit.getDate());
                 objCancelaKit.setMotivoCancelamento(jMotivoCancelamento.getText());
                 if (acao == 1) {
@@ -1236,6 +1492,8 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos(!true);
+                    bloquearBotoes(!true);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1248,6 +1506,8 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos(!true);
+                    bloquearBotoes(!true);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1281,18 +1541,85 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCancelamentoPagamentoInt);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoPagamentoInt) && objCampos.getCodigoIncluir() == 1) {
+            acao = 3;
+            limparCamposProdutosInternos();
+            bloquearBotoes(!true);
+            bloquearCampos(!true);
+            NovoInterno();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCancelamentoPagamentoInt);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoPagamentoInt) && objCampos.getCodigoAlterar() == 1) {
+            acao = 4;
+            bloquearBotoes(!true);
+            bloquearCampos(!true);
+            NovoInterno();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCancelamentoPagamentoInt);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoPagamentoInt) && objCampos.getCodigoExcluir() == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                objCancelaKit.setIdItemSA(pITEM_interno);
+                control.excluirInternoProdutoCancelamento(objCancelaKit);
+                ExcluirInterno();
+                //MOSTRAR OS DADOS DA TABELA
+                mostrarItens();
+                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCancelamentoPagamentoInt);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoPagamentoInt) && objCampos.getCodigoGravar() == 1) {
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
     private void jBtCancelarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarInternoActionPerformed
@@ -1306,47 +1633,63 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         objAudiItem.show();
     }//GEN-LAST:event_jBtAuditoriaInternoActionPerformed
 
-    private void jComboBoxPavilhaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxPavilhaoMouseEntered
-        // TODO add your handling code here:
-        PREENCHER_COMBO_pavilhao();
-    }//GEN-LAST:event_jComboBoxPavilhaoMouseEntered
-
-    private void jComboBoxCelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCelaMouseEntered
-        // TODO add your handling code here:        
-        PREENCHER_COMBO_cela();
-    }//GEN-LAST:event_jComboBoxCelaMouseEntered
-
     private void jBtPesquisarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarKitActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxTiposKits.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Infome o tipo de kit a ser cancelado.");
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Incial")) {            
-            TelaPesquisarComposicaoKit_CA objPesquisa_COMP = new TelaPesquisarComposicaoKit_CA();
-            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesquisa_COMP);
-            objPesquisa_COMP.show();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Decendial")) {
-            //PESQUISAR O CÓDIGO DO KIT ANTES
-            TelaPesquisarComposicaoKit_CA objPesquisa_COMP = new TelaPesquisarComposicaoKit_CA();
-            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesquisa_COMP);
-            objPesquisa_COMP.show();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Quinzenal")) {
-            TelaPesquisarComposicaoKit_CA objPesquisa_COMP = new TelaPesquisarComposicaoKit_CA();
-            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesquisa_COMP);
-            objPesquisa_COMP.show();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Mensal")) {
-            TelaPesquisarComposicaoKit_CA objPesquisa_COMP = new TelaPesquisarComposicaoKit_CA();
-            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesquisa_COMP);
-            objPesquisa_COMP.show();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Semestral")) {
-            TelaPesquisarComposicaoKit_CA objPesquisa_COMP = new TelaPesquisarComposicaoKit_CA();
-            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesquisa_COMP);
-            objPesquisa_COMP.show();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Anual")) {
-            TelaPesquisarComposicaoKit_CA objPesquisa_COMP = new TelaPesquisarComposicaoKit_CA();
-            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesquisa_COMP);
-            objPesquisa_COMP.show();
-        }
+        TelaPesquisarComposicaoKit_CA objPesquisa_COMP = new TelaPesquisarComposicaoKit_CA();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesquisa_COMP);
+        objPesquisa_COMP.show();
     }//GEN-LAST:event_jBtPesquisarKitActionPerformed
+
+    private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
+
+    private void jTabelaProdutosKitInternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosKitInternoMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String pQUANTIDADE = "" + jTabelaProdutosKitInterno.getValueAt(jTabelaProdutosKitInterno.getSelectedRow(), 4);
+            jQuantidadeProdutoKit.setText(pQUANTIDADE);
+            String pUNIDADE = "" + jTabelaProdutosKitInterno.getValueAt(jTabelaProdutosKitInterno.getSelectedRow(), 3);
+            jUnidadeProdutoKit.setText(pUNIDADE);
+            String nomeProduto = "" + jTabelaProdutosKitInterno.getValueAt(jTabelaProdutosKitInterno.getSelectedRow(), 2);
+            jDescricaoProdutoKit.setText(nomeProduto);
+            String idProduto = "" + jTabelaProdutosKitInterno.getValueAt(jTabelaProdutosKitInterno.getSelectedRow(), 1);
+            jIdProdutoKit.setText(idProduto);
+//            idItem = "" + jTabelaInternosProdutos.getValueAt(jTabelaInternosProdutos.getSelectedRow(), 0);
+        }
+    }//GEN-LAST:event_jTabelaProdutosKitInternoMouseClicked
+
+    private void jBtSelecionaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionaProdutosActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário informar o registro principal.");
+            jIdRegistro.requestFocus();
+            jIdRegistro.setBackground(Color.red);
+        } else {
+            mostrarCancelar();
+        }
+    }//GEN-LAST:event_jBtSelecionaProdutosActionPerformed
+
+    private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            idItemPagto = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0);
+            //
+            bloquearBotoes(!true);
+            bloquearCampos(!true);
+            jBtNovoInterno.setEnabled(true);        
+            jBtAuditoriaInterno.setEnabled(true);
+            //
+            listaItens.MOSTRAR_KIT_INTERNO_cancelado(objCancelaKit);
+            jIdInternoKit.setText(String.valueOf(objCancelaKit.getIdInternoKit()));
+            jNomeInternoKit.setText(objCancelaKit.getNomeInternoKit());
+            //MOSTRAR PRODUTOS CANCELADOS
+            mostrarItens();
+        }
+    }//GEN-LAST:event_jTabelaInternosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1369,19 +1712,25 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarInterno;
+    private javax.swing.JButton jBtSelecionaProdutos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBoxTodosReq;
     public static javax.swing.JTextField jCodigoReq;
-    public static javax.swing.JComboBox<String> jComboBoxCela;
     public static javax.swing.JComboBox<String> jComboBoxPavilhao;
     public static javax.swing.JComboBox<String> jComboBoxTiposKits;
     public static com.toedter.calendar.JDateChooser jDataComposicaoKit;
+    public static com.toedter.calendar.JDateChooser jDataEntrega;
     public static com.toedter.calendar.JDateChooser jDataPesFinal;
     public static com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataRegistro;
     private javax.swing.JTextField jDescricaoProdutoKit;
+    public static javax.swing.JLabel jFotoInternoKit;
+    public static javax.swing.JFormattedTextField jHorarioPagto;
     public static javax.swing.JTextField jIdInternoKit;
+    public static javax.swing.JTextField jIdKit;
     private javax.swing.JTextField jIdProdutoKit;
     public static javax.swing.JTextField jIdRegistro;
+    public static javax.swing.JTextField jIdRegistroComp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1391,6 +1740,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1399,38 +1749,47 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    public static javax.swing.JTextField jMatriculaInterno;
     private javax.swing.JTextArea jMotivoCancelamento;
     public static javax.swing.JTextField jNomeInterno;
     public static javax.swing.JTextField jNomeInternoKit;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel42;
+    private javax.swing.JPanel jPanel43;
+    private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jQuantidadeProdutoKit;
-    public static javax.swing.JTextField jRegimePenal;
-    public static javax.swing.JTextField jRegistroKit;
+    public static javax.swing.JTextField jResponsavel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jStatusRegistro;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaCancelamento;
-    private javax.swing.JTable jTabelaInternosProdutos;
+    public static javax.swing.JTable jTabelaInternos;
+    public static javax.swing.JTable jTabelaProdutosKitInterno;
     private javax.swing.JTextField jUnidadeProdutoKit;
+    public static javax.swing.JLabel jtotaProdutosSelecionados;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -1438,16 +1797,15 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jIdRegistro.setBackground(Color.white);
         jStatusRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
+        jResponsavel.setBackground(Color.white);
         jComboBoxPavilhao.setBackground(Color.white);
-        jComboBoxCela.setBackground(Color.white);
         jComboBoxTiposKits.setBackground(Color.white);
-        jRegistroKit.setBackground(Color.white);
+        jIdRegistroComp.setBackground(Color.white);
+        jIdKit.setBackground(Color.white);
         jDataComposicaoKit.setBackground(Color.white);
         jMotivoCancelamento.setBackground(Color.white);
         //INTERNO DO KIT
         jIdInternoKit.setBackground(Color.white);
-        jMatriculaInterno.setBackground(Color.white);
-        jRegimePenal.setBackground(Color.white);
         jNomeInternoKit.setBackground(Color.white);
         // PRODUTOS DO KIT DO INTERNO
         jIdProdutoKit.setBackground(Color.white);
@@ -1467,7 +1825,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jBtExcluir.setEnabled(opcao);
         jBtSalvar.setEnabled(opcao);
         jBtCancelar.setEnabled(opcao);
-        jBtFinalizar.setEnabled(opcao);
+//        jBtFinalizar.setEnabled(opcao);
         jBtAuditoria.setEnabled(opcao);
         jBtPesquisarKit.setEnabled(opcao);
         //
@@ -1477,7 +1835,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jBtSalvarInterno.setEnabled(opcao);
         jBtCancelarInterno.setEnabled(opcao);
         jBtAuditoriaInterno.setEnabled(opcao);
-        jBtPesquisarInterno.setEnabled(opcao);
+//        jBtPesquisarInterno.setEnabled(opcao);
     }
 
     public void bloquearCampos(boolean opcao) {
@@ -1485,15 +1843,12 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jStatusRegistro.setEnabled(opcao);
         jDataRegistro.setEnabled(opcao);
         jComboBoxPavilhao.setEnabled(opcao);
-        jComboBoxCela.setEnabled(opcao);
         jComboBoxTiposKits.setEnabled(opcao);
-        jRegistroKit.setEnabled(opcao);
+        jIdRegistroComp.setEnabled(opcao);
         jDataComposicaoKit.setEnabled(opcao);
         jMotivoCancelamento.setEnabled(opcao);
         //INTERNO DO KIT
         jIdInternoKit.setEnabled(opcao);
-        jMatriculaInterno.setEnabled(opcao);
-        jRegimePenal.setEnabled(opcao);
         jNomeInternoKit.setEnabled(opcao);
         // PRODUTOS DO KIT DO INTERNO
         jIdProdutoKit.setEnabled(opcao);
@@ -1503,19 +1858,19 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     }
 
     public void limparTodosCampos() {
+        jComboBoxPavilhao.removeAllItems();
+        //
         jIdRegistro.setText("");
         jStatusRegistro.setText("");
         jDataRegistro.setDate(null);
-        jComboBoxPavilhao.setSelectedItem("Selecione...");
-        jComboBoxCela.setSelectedItem("Selecione...");
+        jResponsavel.setText("");
+        jComboBoxPavilhao.addItem("Selecione...");
         jComboBoxTiposKits.setSelectedItem("Selecione...");
-        jRegistroKit.setText("");
+        jIdRegistroComp.setText("");
         jDataComposicaoKit.setDate(null);
         jMotivoCancelamento.setText("");
         //INTERNO DO KIT
         jIdInternoKit.setText("");
-        jMatriculaInterno.setText("");
-        jRegimePenal.setText("");
         jNomeInternoKit.setText("");
         // PRODUTOS DO KIT DO INTERNO
         jIdProdutoKit.setText("");
@@ -1527,8 +1882,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     public void limparCamposProdutosInternos() {
         //INTERNO DO KIT
         jIdInternoKit.setText("");
-        jMatriculaInterno.setText("");
-        jRegimePenal.setText("");
         jNomeInternoKit.setText("");
         // PRODUTOS DO KIT DO INTERNO
         jIdProdutoKit.setText("");
@@ -1542,8 +1895,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jDataRegistro.setCalendar(Calendar.getInstance());
         //
         jComboBoxPavilhao.setEnabled(true);
-        jComboBoxCela.setEnabled(true);
-        jComboBoxTiposKits.setEnabled(true);
         jMotivoCancelamento.setEnabled(true);
         jBtPesquisarKit.setEnabled(true);
         //
@@ -1554,8 +1905,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     public void Alterar() {
         jComboBoxPavilhao.setEnabled(true);
-        jComboBoxCela.setEnabled(true);
-        jComboBoxTiposKits.setEnabled(true);
         jMotivoCancelamento.setEnabled(true);
         jBtPesquisarKit.setEnabled(true);
         //
@@ -1597,15 +1946,38 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     public void buscarCodigo() {
         control.pesquisarCodigo(objCancelaKit);
-        jIdRegistro.getText().equals(objCancelaKit.getIdRegistro());
     }
 
     public void PREENCHER_COMBO_pavilhao() {
         control.pesquisarPavilhao(objCancelaKit);
     }
 
-    public void PREENCHER_COMBO_cela() {
-        control.pesquisarCela(objCancelaKit);
+    public void NovoInterno() {
+        jBtPesquisarInterno.setEnabled(true);
+        jBtSelecionaProdutos.setEnabled(true);
+        //
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
+    }
+
+    public void AlterarInterno() {
+        jBtPesquisarInterno.setEnabled(true);
+        jBtSelecionaProdutos.setEnabled(true);
+        //
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
+    }
+
+    public void ExcluirInterno() {
+
+    }
+
+    public void SalvarInterno() {
+
+    }
+
+    public void CancelarInterno() {
+
     }
 
     public void mostrarTodos() {
@@ -1613,7 +1985,13 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
         try {
             for (CancelamentoPagamentoKitHigiene dd : control.read()) {
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), dd.getDataRegistro(), dd.getStatusRegistro(), dd.getNomeInternoKit()});
+                pDATA_Registros = String.valueOf(dd.getDataRegistro());
+                String dia = pDATA_Registros.substring(8, 10);
+                String mes = pDATA_Registros.substring(5, 7);
+                String ano = pDATA_Registros.substring(0, 4);
+                pDATA_Registros = dia + "/" + mes + "/" + ano;
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_Registros, dd.getStatusRegistro(), dd.getTipoKit(), dd.getDescricaoPav()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCancelamento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -1621,6 +1999,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
                 jTabelaCancelamento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaCancelamento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 jTabelaCancelamento.getColumnModel().getColumn(2).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
@@ -1633,7 +2012,13 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
         try {
             for (CancelamentoPagamentoKitHigiene dd : listaCodigo.read()) {
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), dd.getDataRegistro(), dd.getStatusRegistro(), dd.getNomeInternoKit()});
+                pDATA_Registros = String.valueOf(dd.getDataRegistro());
+                String dia = pDATA_Registros.substring(8, 10);
+                String mes = pDATA_Registros.substring(5, 7);
+                String ano = pDATA_Registros.substring(0, 4);
+                pDATA_Registros = dia + "/" + mes + "/" + ano;
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_Registros, dd.getStatusRegistro(), dd.getTipoKit(), dd.getDescricaoPav()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCancelamento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -1641,6 +2026,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
                 jTabelaCancelamento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaCancelamento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 jTabelaCancelamento.getColumnModel().getColumn(2).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
@@ -1653,7 +2039,13 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
         try {
             for (CancelamentoPagamentoKitHigiene dd : listaData.read()) {
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), dd.getDataRegistro(), dd.getStatusRegistro(), dd.getNomeInternoKit()});
+                pDATA_Registros = String.valueOf(dd.getDataRegistro());
+                String dia = pDATA_Registros.substring(8, 10);
+                String mes = pDATA_Registros.substring(5, 7);
+                String ano = pDATA_Registros.substring(0, 4);
+                pDATA_Registros = dia + "/" + mes + "/" + ano;
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_Registros, dd.getStatusRegistro(), dd.getTipoKit(), dd.getDescricaoPav()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCancelamento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -1661,6 +2053,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
                 jTabelaCancelamento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaCancelamento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 jTabelaCancelamento.getColumnModel().getColumn(2).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
@@ -1669,21 +2062,21 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     }
 
     public void mostrarItens() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosProdutos.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutosKitInterno.getModel();
         CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
         try {
-            for (CancelamentoPagamentoKitHigiene dd : listaData.read()) {
-                dadosOrigem.addRow(new Object[]{dd.getItem(), dd.getCodigoProduto(), dd.getDescricaoProduto(), dd.getUnidadeProduto(), dd.getQuantidadeProduto()});
+            for (CancelamentoPagamentoKitHigiene dd : listaItens.read()) {
+                dadosOrigem.addRow(new Object[]{dd.getIdItemPRO(), dd.getCodigoProduto(), dd.getDescricaoProduto(), dd.getUnidadeProduto(), dd.getQuantidadeProduto()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaInternosProdutos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaProdutosKitInterno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaInternosProdutos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaInternosProdutos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                jTabelaInternosProdutos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-                jTabelaInternosProdutos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+                jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                jTabelaProdutosKitInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,51 +5,61 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.ConexaoBancoDados;
-import gestor.Controle.PesquisaComposicaoDescricaoKit;
-import gestor.Controle.PesquisaComposicaoTodosKit;
-import gestor.Modelo.ComposicaoKitPesquisa;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxTiposKits;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jDataComposicaoKit;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jRegistroKit;
+
+import Utilitarios.ModeloTabela;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
+import gestor.Dao.ConexaoBancoDados;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxPavilhao;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxTiposKits;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jDataComposicaoKit;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdKit;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistroComp;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.pCODIGO_colaborador;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jResponsavel;
 
 /**
  *
- * @author user
+ * @author Socializa TI 02
  */
 public class TelaPesquisarComposicaoKit_CA extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    ComposicaoKitPesquisa objCancelaKit = new ComposicaoKitPesquisa();
-    PesquisaComposicaoTodosKit listarTodos = new PesquisaComposicaoTodosKit();
-    PesquisaComposicaoDescricaoKit listarDescricao = new PesquisaComposicaoDescricaoKit();
+
+    //
     int flag;
+    int count = 0;
+    int count1 = 0;
+    String dataInicial;
+    String dataFinal;
     //
-    String pNOME_kit = "";
+    String nomeKit = "";
     // VARIÁVEIS PARA OS KITS INICIAL E 15 DIAS    
-    public static int pCODIGO_KIT_Inicial = 0;
-    public static int pCODIGO_KIT_Decendial = 0;
-    public static int pCODIGO_KIT_Quinzenal = 0;
-    public static int pCODIGO_KIT_Mensal = 0;
-    public static int pCODIGO_KIT_Semestral = 0;
-    public static int pCODIGO_KIT_Anual = 0;
-    //
-    int pKIT_ativo = 1;
+    int kitInicial = 0;
+    int kitAnual = 0;
+    int kitDecendial = 0;
+    int kitQuinzenal = 0;
+    int kitMensal = 0;
+    int kitSemestral = 0;
+    String dataEmissao;
+    String idLanc;
+    String idKit;
+    String caminhoFoto;
+    String tipoKit = "";
+    String pKitPago = "Não";
+    String pStatusComposicao = "FINALIZADO";
 
     /**
-     * Creates new form TelaPesqProdutoFarmacia
+     * Creates new form TelaPesquisaKitCpk
      */
     public TelaPesquisarComposicaoKit_CA() {
         initComponents();
-        PESQUISAR_CODIGO_Kit();
     }
 
     /**
@@ -61,126 +71,283 @@ public class TelaPesquisarComposicaoKit_CA extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoBotoes = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel4 = new javax.swing.JLabel();
+        jRBtKitInicialPesquisa = new javax.swing.JRadioButton();
+        jRBtKitQuinzenalPesquisa = new javax.swing.JRadioButton();
+        jRBtKitMensalPesquisa = new javax.swing.JRadioButton();
+        jRBtKitDecendialPesquisa = new javax.swing.JRadioButton();
+        jRBtKitSemestraPesquisa = new javax.swing.JRadioButton();
+        jRBtKitAnualPesquisa = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jDataPesqInicial = new com.toedter.calendar.JDateChooser();
+        jDataPesFinal = new com.toedter.calendar.JDateChooser();
+        jBtPesquisaData = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        RegistroPesquisa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPesqDescricaoPav = new javax.swing.JTextField();
-        jBtPesqDescricaoProd = new javax.swing.JButton();
-        jCheckBoxPesqTodosProd = new javax.swing.JCheckBox();
+        jCodigoKit = new javax.swing.JTextField();
+        jBtPesquisaCodigo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaPesquisaKits = new javax.swing.JTable();
-        jBtEnviar = new javax.swing.JButton();
+        TabelaRegistrosMontagemKits = new javax.swing.JTable();
+        jPanel38 = new javax.swing.JPanel();
+        jtotalRegistros = new javax.swing.JLabel();
+        jPanel36 = new javax.swing.JPanel();
+        jPanel37 = new javax.swing.JPanel();
+        jLabel69 = new javax.swing.JLabel();
+        jBtConfimar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setTitle("...::: Pesquisar Kit de Higiêne de Internos :::...");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBox1.setText("Todos");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Tipo de Kit:");
+
+        grupoBotoes.add(jRBtKitInicialPesquisa);
+        jRBtKitInicialPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitInicialPesquisa.setSelected(true);
+        jRBtKitInicialPesquisa.setText("Inicial");
+        jRBtKitInicialPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitQuinzenalPesquisa);
+        jRBtKitQuinzenalPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitQuinzenalPesquisa.setText("Quinzenal");
+        jRBtKitQuinzenalPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitMensalPesquisa);
+        jRBtKitMensalPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitMensalPesquisa.setText("Mensal");
+        jRBtKitMensalPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitDecendialPesquisa);
+        jRBtKitDecendialPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitDecendialPesquisa.setText("Decendial");
+        jRBtKitDecendialPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitSemestraPesquisa);
+        jRBtKitSemestraPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitSemestraPesquisa.setText("Semestral");
+        jRBtKitSemestraPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitAnualPesquisa);
+        jRBtKitAnualPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitAnualPesquisa.setText("Anual");
+        jRBtKitAnualPesquisa.setEnabled(false);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Data Inicial:");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Data Final:");
+
+        jDataPesqInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jDataPesFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jBtPesquisaData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisaData.setContentAreaFilled(false);
+        jBtPesquisaData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaDataActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Registro:");
+
+        RegistroPesquisa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        RegistroPesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("ID Kit:");
+
+        jCodigoKit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jBtPesquisaCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisaCodigo.setContentAreaFilled(false);
+        jBtPesquisaCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaCodigoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRBtKitInicialPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(RegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jRBtKitDecendialPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtKitQuinzenalPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtKitMensalPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRBtKitSemestraPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRBtKitAnualPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCodigoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("...::: Listagem de Composição de Kits de Higiene :::...");
-
-        jTabbedPane1.setForeground(new java.awt.Color(0, 0, 255));
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("Pavilhão:");
-
-        jPesqDescricaoPav.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jBtPesqDescricaoProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqDescricaoProd.setContentAreaFilled(false);
-        jBtPesqDescricaoProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqDescricaoProdActionPerformed(evt);
-            }
-        });
-
-        jCheckBoxPesqTodosProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxPesqTodosProd.setText("Todos");
-        jCheckBoxPesqTodosProd.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxPesqTodosProdItemStateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqDescricaoPav)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesqDescricaoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxPesqTodosProd)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel5)
+                    .addComponent(RegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jCodigoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisaCodigo)
+                    .addComponent(jLabel2)
+                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisaData))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4)
+                    .addComponent(jRBtKitInicialPesquisa)
+                    .addComponent(jRBtKitDecendialPesquisa)
+                    .addComponent(jRBtKitQuinzenalPesquisa)
+                    .addComponent(jRBtKitMensalPesquisa)
+                    .addComponent(jRBtKitSemestraPesquisa)
+                    .addComponent(jRBtKitAnualPesquisa)
+                    .addComponent(jCheckBox1))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCheckBoxPesqTodosProd)
-                    .addComponent(jBtPesqDescricaoProd)
-                    .addComponent(jPesqDescricaoPav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
-        jTabelaPesquisaKits.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaPesquisaKits.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaRegistrosMontagemKits.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        TabelaRegistrosMontagemKits.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Registro", "Data", "Tipo de Kit", "Pavilhão"
+                "Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador"
             }
         ));
-        jTabelaPesquisaKits.addMouseListener(new java.awt.event.MouseAdapter() {
+        TabelaRegistrosMontagemKits.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaPesquisaKitsMouseClicked(evt);
+                TabelaRegistrosMontagemKitsMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTabelaPesquisaKits);
-        if (jTabelaPesquisaKits.getColumnModel().getColumnCount() > 0) {
-            jTabelaPesquisaKits.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaPesquisaKits.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaPesquisaKits.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaPesquisaKits.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaPesquisaKits.getColumnModel().getColumn(2).setMinWidth(200);
-            jTabelaPesquisaKits.getColumnModel().getColumn(2).setMaxWidth(200);
-            jTabelaPesquisaKits.getColumnModel().getColumn(3).setMinWidth(200);
-            jTabelaPesquisaKits.getColumnModel().getColumn(3).setMaxWidth(200);
+        jScrollPane1.setViewportView(TabelaRegistrosMontagemKits);
+        if (TabelaRegistrosMontagemKits.getColumnModel().getColumnCount() > 0) {
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setMinWidth(70);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setMaxWidth(70);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setMinWidth(80);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setMaxWidth(80);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setMinWidth(60);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setMaxWidth(60);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setMinWidth(70);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setMaxWidth(70);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setMinWidth(60);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setMaxWidth(60);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setMinWidth(350);
+            TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setMaxWidth(350);
         }
 
-        jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
-        jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtEnviar.setText("Enviar");
-        jBtEnviar.addActionListener(new java.awt.event.ActionListener() {
+        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
+        jPanel38.setLayout(jPanel38Layout);
+        jPanel38Layout.setHorizontalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel38Layout.setVerticalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
+        jPanel36.setLayout(jPanel36Layout);
+        jPanel36Layout.setHorizontalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel36Layout.setVerticalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel69.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
+        jPanel37.setLayout(jPanel37Layout);
+        jPanel37Layout.setHorizontalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel37Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel69))
+        );
+        jPanel37Layout.setVerticalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel69)
+        );
+
+        jBtConfimar.setForeground(new java.awt.Color(0, 102, 51));
+        jBtConfimar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
+        jBtConfimar.setText("Confirmar");
+        jBtConfimar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtEnviarActionPerformed(evt);
+                jBtConfimarActionPerformed(evt);
             }
         });
 
-        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtSair.setForeground(new java.awt.Color(255, 0, 0));
+        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
         jBtSair.addActionListener(new java.awt.event.ActionListener() {
@@ -189,244 +356,401 @@ public class TelaPesquisarComposicaoKit_CA extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jBtEnviar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(0, 269, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
-
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtEnviar)
-                    .addComponent(jBtSair)))
-        );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
-
-        jTabbedPane1.addTab("Pesquisas", jPanel2);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtConfimar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfimar, jBtSair});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtConfimar)
+                    .addComponent(jBtSair))
+                .addGap(3, 3, 3))
         );
 
-        setBounds(300, 10, 490, 281);
+        setBounds(350, 30, 678, 334);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtPesqDescricaoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoProdActionPerformed
+    private void TabelaRegistrosMontagemKitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaRegistrosMontagemKitsMouseClicked
         // TODO add your handling code here:
         flag = 1;
-        if (jPesqDescricaoPav.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
-        } else {
-            mostrarDescricao();
-        }
-    }//GEN-LAST:event_jBtPesqDescricaoProdActionPerformed
-
-    private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
-        // TODO add your handling code here:
-        flag = 1;
-        if (jPesqDescricaoPav.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do pavilhão e clique no botão ENVIAR");
-        } else {
-            try {
-                for (ComposicaoKitPesquisa dd : listarDescricao.read()) {
-                    jRegistroKit.setText(String.valueOf(dd.getIdRegistroComp()));
-                    jDataComposicaoKit.setDate(dd.getDataComp());
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(TelaPesquisarComposicaoKit_CA.class.getName()).log(Level.SEVERE, null, ex);
+        if (flag == 1) {
+            idLanc = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 0);
+            RegistroPesquisa.setText(idLanc);
+            jIdRegistroComp.setText(idLanc);
+            idKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 2);
+            jCodigoKit.setText(idKit);
+            tipoKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 3);
+            jComboBoxTiposKits.getSelectedItem().equals(tipoKit);
+            //
+            if (tipoKit.equals("Kit Inicial")) {
+                jRBtKitInicialPesquisa.setSelected(true);
+            } else if (tipoKit.equals("Kit Decendial")) {
+                jRBtKitDecendialPesquisa.setSelected(true);
+            } else if (tipoKit.equals("Kit Quinzenal")) {
+                jRBtKitQuinzenalPesquisa.setSelected(true);
+            } else if (tipoKit.equals("Kit Mensal")) {
+                jRBtKitMensalPesquisa.setSelected(true);
+            } else if (tipoKit.equals("Kit Semestral")) {
+                jRBtKitSemestraPesquisa.setSelected(true);
+            } else if (tipoKit.equals("Kit Anual")) {
+                jRBtKitAnualPesquisa.setSelected(true);
             }
+        }
+    }//GEN-LAST:event_TabelaRegistrosMontagemKitsMouseClicked
+
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+        // TODO add your handling code here:
+        String pKitPago = "Não";
+        count = 0;
+        count1 = 0;
+        flag = 1;
+        if (evt.getStateChange() == evt.SELECTED) {
+            this.preencherTabelaRegistrosMontagemKits("SELECT DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp,COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit,COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.KitPago, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial,KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal,KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral,KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COLABORADOR.IdFunc,COLABORADOR.NomeFunc,PAVILHAO.IdPav, "
+                    + "PAVILHAO.DescricaoPav FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "AND COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp='" + pStatusComposicao + "' "
+                    + "AND COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.KitPago='" + pKitPago + "'");
+        } else {
+            limparTabela();
+            jtotalRegistros.setText("");
+        }
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
+
+    private void jBtPesquisaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaCodigoActionPerformed
+        // TODO add your handling code here:
+        count = 0;
+        if (jCodigoKit.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do Registro para pesquisa.");
+        } else {
+            preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + jCodigoKit.getText() + "' "
+                    + "AND COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp='" + pStatusComposicao + "' "
+                    + "AND COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.KitPago='" + pKitPago + "'");
+        }
+    }//GEN-LAST:event_jBtPesquisaCodigoActionPerformed
+
+    private void jBtPesquisaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaDataActionPerformed
+        // TODO add your handling code here:
+        count = 0;
+        flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                                + "INNER JOIN DEPARTAMENTOS "
+                                + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                + "INNER JOIN KITS_HIGIENE_INTERNO "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                                + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.KitPago='" + pKitPago + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                                + "INNER JOIN DEPARTAMENTOS "
+                                + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                + "INNER JOIN KITS_HIGIENE_INTERNO "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                                + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.KitPago='" + pKitPago + "'");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jBtPesquisaDataActionPerformed
+
+    private void jBtConfimarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfimarActionPerformed
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                        + "INNER JOIN COLABORADOR "
+                        + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                        + "INNER JOIN KITS_HIGIENE_INTERNO "
+                        + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN DEPARTAMENTOS "
+                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                        + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                        + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                        + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit='" + jCodigoKit.getText() + "' "
+                        + "AND COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + RegistroPesquisa.getText() + "'");
+                conecta.rs.first();
+                jIdKit.setText(String.valueOf(conecta.rs.getInt("IdKit")));
+                jIdRegistroComp.setText(String.valueOf(conecta.rs.getInt("IdRegistroComp")));
+                jDataComposicaoKit.setDate(conecta.rs.getDate("DataComp"));
+                jComboBoxPavilhao.setSelectedItem(conecta.rs.getString("DescricaoPav"));
+                pCODIGO_colaborador = conecta.rs.getInt("IdFunc");
+                jResponsavel.setText(conecta.rs.getString("NomeFunc"));
+                if (jRBtKitInicialPesquisa.isSelected() == true) {
+                    jComboBoxTiposKits.removeAllItems();
+                    jComboBoxTiposKits.addItem("Kit Inicial");
+                } else if (jRBtKitDecendialPesquisa.isSelected() == true) {
+                    jComboBoxTiposKits.removeAllItems();
+                    jComboBoxTiposKits.addItem("Kit Decendial");
+                } else if (jRBtKitQuinzenalPesquisa.isSelected() == true) {
+                    jComboBoxTiposKits.removeAllItems();
+                    jComboBoxTiposKits.addItem("Kit Quinzenal");
+                } else if (jRBtKitMensalPesquisa.isSelected() == true) {
+                    jComboBoxTiposKits.removeAllItems();
+                    jComboBoxTiposKits.addItem("Kit Mensal");
+                } else if (jRBtKitSemestraPesquisa.isSelected() == true) {
+                    jComboBoxTiposKits.removeAllItems();
+                    jComboBoxTiposKits.addItem("Kit Semestral");
+                } else if (jRBtKitAnualPesquisa.isSelected() == true) {
+                    jComboBoxTiposKits.removeAllItems();
+                    jComboBoxTiposKits.addItem("Kit Anual");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
+            }
+            conecta.desconecta();
             dispose();
         }
-    }//GEN-LAST:event_jBtEnviarActionPerformed
+    }//GEN-LAST:event_jBtConfimarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jTabelaPesquisaKitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesquisaKitsMouseClicked
-        // TODO add your handling code here:
-        flag = 1;
-        if (flag == 1) {
-            String nomeProduto = "" + jTabelaPesquisaKits.getValueAt(jTabelaPesquisaKits.getSelectedRow(), 1);
-            jPesqDescricaoPav.setText(nomeProduto);
-        }
-    }//GEN-LAST:event_jTabelaPesquisaKitsMouseClicked
-
-    private void jCheckBoxPesqTodosProdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxPesqTodosProdItemStateChanged
-        // TODO add your handling code here:
-        flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            mostrarTodos();
-        } else {
-            limparTabela();
-        }
-    }//GEN-LAST:event_jCheckBoxPesqTodosProdItemStateChanged
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtEnviar;
-    private javax.swing.JButton jBtPesqDescricaoProd;
+    private javax.swing.JTextField RegistroPesquisa;
+    private javax.swing.JTable TabelaRegistrosMontagemKits;
+    private javax.swing.ButtonGroup grupoBotoes;
+    private javax.swing.JButton jBtConfimar;
+    private javax.swing.JButton jBtPesquisaCodigo;
+    private javax.swing.JButton jBtPesquisaData;
     private javax.swing.JButton jBtSair;
-    private javax.swing.JCheckBox jCheckBoxPesqTodosProd;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JTextField jCodigoKit;
+    private com.toedter.calendar.JDateChooser jDataPesFinal;
+    private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    public static javax.swing.JTextField jPesqDescricaoPav;
+    private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
+    private javax.swing.JPanel jPanel38;
+    public static javax.swing.JRadioButton jRBtKitAnualPesquisa;
+    public static javax.swing.JRadioButton jRBtKitDecendialPesquisa;
+    public static javax.swing.JRadioButton jRBtKitInicialPesquisa;
+    public static javax.swing.JRadioButton jRBtKitMensalPesquisa;
+    public static javax.swing.JRadioButton jRBtKitQuinzenalPesquisa;
+    public static javax.swing.JRadioButton jRBtKitSemestraPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaPesquisaKits;
+    public static javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void PESQUISAR_CODIGO_Kit() {
-
-        if (jComboBoxTiposKits.getSelectedItem().equals("Kit Incial")) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                        + "WHERE KitInicial='" + pKIT_ativo + "'");
-                conecta.rs.first();
-                pCODIGO_KIT_Inicial = conecta.rs.getInt("IdKit");
-                pNOME_kit = "Kit Inicial";
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaPesquisarComposicaoKit_CA.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            conecta.desconecta();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Decendial")) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                        + "WHERE KitDecendial='" + pKIT_ativo + "'");
-                conecta.rs.first();
-                pCODIGO_KIT_Decendial = conecta.rs.getInt("IdKit");
-                pNOME_kit = "Kit Decendial";
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaPesquisarComposicaoKit_CA.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            conecta.desconecta();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Quinzenal")) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                        + "WHERE KitQuinzenal='" + pKIT_ativo + "'");
-                conecta.rs.first();
-                pCODIGO_KIT_Quinzenal = conecta.rs.getInt("IdKit");
-                pNOME_kit = "Kit Quinzenal";
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaPesquisarComposicaoKit_CA.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            conecta.desconecta();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Mensal")) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                        + "WHERE KitMensal='" + pKIT_ativo + "'");
-                conecta.rs.first();
-                pCODIGO_KIT_Mensal = conecta.rs.getInt("IdKit");
-                pNOME_kit = "Kit Mensal";
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaPesquisarComposicaoKit_CA.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            conecta.desconecta();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Semestral")) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                        + "WHERE KitSemestral='" + pKIT_ativo + "'");
-                conecta.rs.first();
-                pCODIGO_KIT_Semestral = conecta.rs.getInt("IdKit");
-                pNOME_kit = "Kit Semestral";
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaPesquisarComposicaoKit_CA.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            conecta.desconecta();
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Anual")) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                        + "WHERE KitAnual'" + pKIT_ativo + "'");
-                conecta.rs.first();
-                pCODIGO_KIT_Anual = conecta.rs.getInt("IdKit");
-                pNOME_kit = "Kit Anual";
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaPesquisarComposicaoKit_CA.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            conecta.desconecta();
-        }
-    }
-
-    public void mostrarTodos() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaPesquisaKits.getModel();
-        ComposicaoKitPesquisa d = new ComposicaoKitPesquisa();
+    public void preencherTabelaRegistrosMontagemKits(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador"};
+        conecta.abrirConexao();
         try {
-            for (ComposicaoKitPesquisa dd : listarTodos.read()) {
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistroComp(), dd.getDataComp(), dd.getDescricaoKit(), dd.getDescricaoPav()});
-                // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaPesquisaKits.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            count = 0;
+            do {
+                count = count + 1;
+                dataEmissao = conecta.rs.getString("DataComp");
+                String dia = dataEmissao.substring(8, 10);
+                String mes = dataEmissao.substring(5, 7);
+                String ano = dataEmissao.substring(0, 4);
+                dataEmissao = dia + "/" + mes + "/" + ano;
                 //
-                jTabelaPesquisaKits.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaPesquisaKits.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
+                kitInicial = conecta.rs.getInt("KitInicial");
+                kitDecendial = conecta.rs.getInt("KitDecendial");
+                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
+                kitMensal = conecta.rs.getInt("KitMensal");
+                kitSemestral = conecta.rs.getInt("KitSemestral");
+                kitAnual = conecta.rs.getInt("KitAnual");
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                }
+                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistroComp"), dataEmissao, conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getString("IdFunc"), conecta.rs.getString("NomeFunc")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
         }
-    }
-
-    public void mostrarDescricao() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaPesquisaKits.getModel();
-        ComposicaoKitPesquisa d = new ComposicaoKitPesquisa();
-        try {
-            for (ComposicaoKitPesquisa dd : listarDescricao.read()) {
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistroComp(), dd.getDataComp(), dd.getDescricaoKit(), dd.getDescricaoPav()});
-                // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaPesquisaKits.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                //
-                jTabelaPesquisaKits.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaPesquisaKits.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        TabelaRegistrosMontagemKits.setModel(modelo);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setPreferredWidth(70);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setPreferredWidth(80);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setPreferredWidth(60);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setPreferredWidth(70);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setPreferredWidth(60);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setPreferredWidth(350);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setResizable(false);
+        TabelaRegistrosMontagemKits.getTableHeader().setReorderingAllowed(false);
+        TabelaRegistrosMontagemKits.setAutoResizeMode(TabelaRegistrosMontagemKits.AUTO_RESIZE_OFF);
+        TabelaRegistrosMontagemKits.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaRegistrosMontagemKits();
+        conecta.desconecta();
     }
 
     public void limparTabela() {
-        // APAGAR DADOS DA TABELA
-        while (jTabelaPesquisaKits.getModel().getRowCount() > 0) {
-            ((DefaultTableModel) jTabelaPesquisaKits.getModel()).removeRow(0);
-        }
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        TabelaRegistrosMontagemKits.setModel(modelo);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setPreferredWidth(70);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setPreferredWidth(80);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setPreferredWidth(60);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setPreferredWidth(70);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setPreferredWidth(60);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setPreferredWidth(350);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setResizable(false);
+        TabelaRegistrosMontagemKits.getTableHeader().setReorderingAllowed(false);
+        TabelaRegistrosMontagemKits.setAutoResizeMode(TabelaRegistrosMontagemKits.AUTO_RESIZE_OFF);
+        TabelaRegistrosMontagemKits.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaRegistrosMontagemKits() {
+        //
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 }
