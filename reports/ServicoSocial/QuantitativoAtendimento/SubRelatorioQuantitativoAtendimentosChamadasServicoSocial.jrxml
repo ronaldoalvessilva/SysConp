@@ -33,7 +33,7 @@ ORDER  BY R.UsuarioUp, R.DataAtendimento]]>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="TelefoneControl" class="java.lang.String"/>
-	<field name="ObsControl" class="java.sql.Clob"/>
+	<field name="ObsControl" class="java.lang.String"/>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioUp}]]></groupExpression>
 		<groupFooter>
