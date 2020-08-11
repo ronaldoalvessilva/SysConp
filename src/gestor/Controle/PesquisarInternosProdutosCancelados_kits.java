@@ -7,7 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CancelamentoPagamentoKitHigiene;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistro;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jCodigoReq;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author ronal
  */
-public class PesquisarInternosProdutosCanceladosKits {
+public class PesquisarInternosProdutosCancelados_kits {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     CancelamentoPagamentoKitHigiene objCancelaKit = new CancelamentoPagamentoKitHigiene();
@@ -36,7 +36,7 @@ public class PesquisarInternosProdutosCanceladosKits {
                     + "FROM ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdRegistro='" + jIdRegistro.getText() + "' "
+                    + "WHERE ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdRegistro='" + jCodigoReq.getText() + "' "
                     + "ORDER BY IdItemINT");
             while (conecta.rs.next()) {
                 CancelamentoPagamentoKitHigiene pCancelamentos = new CancelamentoPagamentoKitHigiene();
@@ -47,7 +47,7 @@ public class PesquisarInternosProdutosCanceladosKits {
             }
             return listaCancelCodigo;
         } catch (SQLException ex) {
-            Logger.getLogger(PesquisarInternosProdutosCanceladosKits.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PesquisarInternosProdutosCancelados_kits.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

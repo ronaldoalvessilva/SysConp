@@ -44,7 +44,7 @@ public class ControleItensProdutosCancelamentoKitInterno {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS (IdRegistro,IdItemINT,IdProd,"
-                    + "QuantProd,DataEntrega,Horario,UsuarioInsert,DataInsert,"
+                    + "Quantidade,DataEntrega,Horario,UsuarioInsert,DataInsert,"
                     + "HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensPagtoProd.getIdPagto());
             pst.setInt(2, objItensPagtoProd.getIdItem());
@@ -116,8 +116,8 @@ public class ControleItensProdutosCancelamentoKitInterno {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT IdProd,SaldoAtual "
-                    + "FROM PRODUTOS_AC "
-                    + "PRODUTOS_AC.IdProd='" + objItensPagtoProd.getIdProd() + "'");
+                    + "FROM SALDO_ESTOQUE_AC "
+                    + "WHERE SALDO_ESTOQUE_AC.IdProd='" + objItensPagtoProd.getIdProd() + "'");
             conecta.rs.first();
             pCODIGO_PRODUTO = conecta.rs.getInt("IdProd");
             pQUANTIDADE_PRODUTO = conecta.rs.getInt("SaldoAtual");

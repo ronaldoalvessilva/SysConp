@@ -10,6 +10,8 @@ import gestor.Controle.ControleCancelamentoPagoKit;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.PesquisaCancelamentoKitCodigo;
 import gestor.Controle.PesquisaCancelamentoKitData;
+import gestor.Controle.PesquisarInternosProdutosCanceladosKits;
+import gestor.Controle.PesquisarInternosProdutosCancelados_kits;
 import gestor.Controle.PesquisarProdutosCanceladosKits;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CamposAcessos;
@@ -43,6 +45,9 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     ControleCancelamentoPagoKit control = new ControleCancelamentoPagoKit();
     PesquisaCancelamentoKitCodigo listaCodigo = new PesquisaCancelamentoKitCodigo();
     PesquisaCancelamentoKitData listaData = new PesquisaCancelamentoKitData();
+    //
+    PesquisarInternosProdutosCanceladosKits listaInternos = new PesquisarInternosProdutosCanceladosKits();
+    PesquisarInternosProdutosCancelados_kits LISTAR_internos = new PesquisarInternosProdutosCancelados_kits();
     PesquisarProdutosCanceladosKits listaItens = new PesquisarProdutosCanceladosKits();
     //
     ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
@@ -66,6 +71,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     String statusProd = "Ativo";
     int count;
     public static String idItem;
+    public static String pINTERNOS;
     public static int idItemINT = 0;
     public static int codItemINT = 0;
     public static int pCODIGO_pav = 0;
@@ -861,9 +867,17 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Un", "Qtd."
+                "Registro", "Código", "Descrição", "Un", "Qtd."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaProdutosKitInterno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaProdutosKitInternoMouseClicked(evt);
@@ -873,12 +887,14 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         if (jTabelaProdutosKitInterno.getColumnModel().getColumnCount() > 0) {
             jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setMinWidth(60);
-            jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setMaxWidth(60);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setMaxWidth(250);
             jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setMinWidth(60);
             jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setMaxWidth(60);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(4).setMinWidth(60);
+            jTabelaProdutosKitInterno.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -1025,7 +1041,15 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             new String [] {
                 "Item", "Código", "Nome do Interno"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaInternosMouseClicked(evt);
@@ -1379,7 +1403,12 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jIdKit.setText(String.valueOf(objCancelaKit.getIdKit()));
             jDataComposicaoKit.setDate(objCancelaKit.getDataRegistroKit());
             jMotivoCancelamento.setText(objCancelaKit.getMotivoCancelamento());
-//            mostrarItens();
+            //
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternos.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+            }
+            pPREENCHER_TABELA_Internos();
         }
     }//GEN-LAST:event_jTabelaCancelamentoMouseClicked
 
@@ -1677,15 +1706,20 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         flag = 1;
         if (flag == 1) {
             idItemPagto = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0);
+            pINTERNOS = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 1);
             //
             bloquearBotoes(!true);
             bloquearCampos(!true);
-            jBtNovoInterno.setEnabled(true);        
+            jBtNovoInterno.setEnabled(true);
             jBtAuditoriaInterno.setEnabled(true);
             //
             listaItens.MOSTRAR_KIT_INTERNO_cancelado(objCancelaKit);
             jIdInternoKit.setText(String.valueOf(objCancelaKit.getIdInternoKit()));
             jNomeInternoKit.setText(objCancelaKit.getNomeInternoKit());
+            // APAGAR DADOS DA TABELA
+            while (jTabelaProdutosKitInterno.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaProdutosKitInterno.getModel()).removeRow(0);
+            }
             //MOSTRAR PRODUTOS CANCELADOS
             mostrarItens();
         }
@@ -2061,12 +2095,33 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         }
     }
 
+    public void pPREENCHER_TABELA_Internos() {
+
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
+        CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
+        try {
+            for (CancelamentoPagamentoKitHigiene dd : LISTAR_internos.read()) {
+                dadosOrigem.addRow(new Object[]{dd.getIdItemINT(), dd.getIdInternoKit(), dd.getNomeInternoKit()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void mostrarItens() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutosKitInterno.getModel();
         CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
         try {
             for (CancelamentoPagamentoKitHigiene dd : listaItens.read()) {
-                dadosOrigem.addRow(new Object[]{dd.getIdItemPRO(), dd.getCodigoProduto(), dd.getDescricaoProduto(), dd.getUnidadeProduto(), dd.getQuantidadeProduto()});
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), dd.getCodigoProduto(), dd.getDescricaoProduto(), dd.getUnidadeProduto(), dd.getQuantidadeProduto()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaProdutosKitInterno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO

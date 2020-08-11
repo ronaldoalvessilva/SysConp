@@ -110,7 +110,7 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
     //
     public static float estoque = 0;
     public static String codigoInternoKit;
-    String kitPago = "Can";
+    String kitPago = "Can"; //OPÇOES: Sim, Não e Can
     public static int pRegistroComp = 0;
     public static int pCodigoInterno = 0;
     public static int pCodigoProd = 0;
@@ -756,7 +756,7 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                         objItensPagtoProd.setNomeInternoCrc(jNomeInternoKitBio1.getText());
                         objItensPagtoProd.setIdProd((int) jTabelaProdutosKit.getValueAt(i, 0));
                         objItensPagtoProd.setDescricaoProduto((String) jTabelaProdutosKit.getValueAt(i, 1));
-                        objItensPagtoProd.setQuatProd((float) jTabelaProdutosKit.getValueAt(i, 3));
+                        objItensPagtoProd.setQuatProd((int) jTabelaProdutosKit.getValueAt(i, 3));
                         objItensPagtoProd.setDataEntrega(jDataEntrega.getDate());
                         objItensPagtoProd.setHorario(jHorarioPagto.getText());
                         objItensPagtoProd.setAssinaturaDigitalInterno(pDigitalCapturada);
@@ -787,7 +787,7 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                         objItensPagtoProd.setDescricaoProduto((String) jTabelaProdutosKit.getValueAt(i, 1));
                         objItensPagtoProd.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio1.getText()));
                         objItensPagtoProd.setNomeInternoCrc(jNomeInternoKitBio1.getText());
-                        objItensPagtoProd.setQuatProd((float) jTabelaProdutosKit.getValueAt(i, 3));
+                        objItensPagtoProd.setQuatProd((int) jTabelaProdutosKit.getValueAt(i, 3));
                         pSaldo = (int) (pQuantidade - objItensPagtoProd.getQuatProd());
                         objItensPagtoProd.setQuatProd(pSaldo);
                         controleProd.alterarPagamentoProdutoKitInterno(objItensPagtoProd);
@@ -874,19 +874,19 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
     }
 
     public void preencherTabelaItensInterno() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutosKitInterno.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
         CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
         try {
             for (CancelamentoPagamentoKitHigiene dd : listaInternos.read()) {
                 dadosOrigem.addRow(new Object[]{dd.getIdItemINT(), dd.getIdInternoKit(), dd.getNomeInternoKit()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaProdutosKitInterno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
