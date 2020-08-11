@@ -1148,7 +1148,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jButton1.setText("Impressão");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Data Entrega");
+        jLabel16.setText("Data Operação");
 
         jDataEntrega.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataEntrega.setEnabled(false);

@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensPagamentoKitInterno;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.codItem;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.jComboBoxPavilhao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -105,6 +106,20 @@ public class CancelamentoPagamentoKitInternos {
             JOptionPane.showMessageDialog(null, "Não existe dados (INTERNO) a ser exibido !!!" + e);
         }
         conecta.desconecta();
+    }
+
+    //BUSCAR CÓDIGO DO REGISTRO
+    public ItensPagamentoKitInterno BUSCAR_CODIGO_registro(ItensPagamentoKitInterno objItensPagto) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT ITENS_PAGAMENTO_KIT_INTERNOS.IdItem "
+                    + "FROM ITENS_PAGAMENTO_KIT_INTERNOS ");
+            conecta.rs.last();
+            codItem = conecta.rs.getInt("IdItem");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objItensPagto;
     }
 
     public java.util.List<DigitalInternos> read() throws Exception {
