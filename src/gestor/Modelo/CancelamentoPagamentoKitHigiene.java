@@ -6,6 +6,7 @@
 package gestor.Modelo;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -20,31 +21,37 @@ public class CancelamentoPagamentoKitHigiene {
     private String descricaoPav;
     private Integer idCela;
     private String descricaoCela;
+    private Integer idFunc;
+    private String NomeFunc;
     private Integer idKit;
     private String tipoKit;
     private Integer idRegistroKit;
     private Date dataRegistroKit;
     private String motivoCancelamento;
+    private Integer idItemSA;
+    private Integer idItemINT;
     private Integer idInternoKit;
     private String matriculaInterno;
     private String regimeInterno;
     private String nomeInternoKit;
-    private Integer item;
+    private Integer idItemPRO;
     private Integer codigoProduto;
     private String descricaoProduto;
     private String unidadeProduto;
-    private String quantidadeProduto;
+    private int quantidadeProduto;
+    private Date dataEntrega;
+    private String horario;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
     private String dataUp;
     private String horarioInsert;      
-    private String horarioUp;        
+    private String horarioUp;            
 
     public CancelamentoPagamentoKitHigiene() {
     }
 
-    public CancelamentoPagamentoKitHigiene(Integer idRegistro, String statusRegistro, Date dataRegistro, Integer idPav, String descricaoPav, Integer idCela, String descricaoCela, Integer idKit, String tipoKit, Integer idRegistroKit, Date dataRegistroKit, String motivoCancelamento, Integer idInternoKit, String matriculaInterno, String regimeInterno, String nomeInternoKit, Integer item, Integer codigoProduto, String descricaoProduto, String unidadeProduto, String quantidadeProduto, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public CancelamentoPagamentoKitHigiene(Integer idRegistro, String statusRegistro, Date dataRegistro, Integer idPav, String descricaoPav, Integer idCela, String descricaoCela, Integer idFunc, String NomeFunc, Integer idKit, String tipoKit, Integer idRegistroKit, Date dataRegistroKit, String motivoCancelamento, Integer idItemSA, Integer idItemINT, Integer idInternoKit, String matriculaInterno, String regimeInterno, String nomeInternoKit, Integer idItemPRO, Integer codigoProduto, String descricaoProduto, String unidadeProduto, int quantidadeProduto, Date dataEntrega, String horario, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegistro = idRegistro;
         this.statusRegistro = statusRegistro;
         this.dataRegistro = dataRegistro;
@@ -52,20 +59,26 @@ public class CancelamentoPagamentoKitHigiene {
         this.descricaoPav = descricaoPav;
         this.idCela = idCela;
         this.descricaoCela = descricaoCela;
+        this.idFunc = idFunc;
+        this.NomeFunc = NomeFunc;
         this.idKit = idKit;
         this.tipoKit = tipoKit;
         this.idRegistroKit = idRegistroKit;
         this.dataRegistroKit = dataRegistroKit;
         this.motivoCancelamento = motivoCancelamento;
+        this.idItemSA = idItemSA;
+        this.idItemINT = idItemINT;
         this.idInternoKit = idInternoKit;
         this.matriculaInterno = matriculaInterno;
         this.regimeInterno = regimeInterno;
         this.nomeInternoKit = nomeInternoKit;
-        this.item = item;
+        this.idItemPRO = idItemPRO;
         this.codigoProduto = codigoProduto;
         this.descricaoProduto = descricaoProduto;
         this.unidadeProduto = unidadeProduto;
         this.quantidadeProduto = quantidadeProduto;
+        this.dataEntrega = dataEntrega;
+        this.horario = horario;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -173,6 +186,34 @@ public class CancelamentoPagamentoKitHigiene {
     }
 
     /**
+     * @return the idFunc
+     */
+    public Integer getIdFunc() {
+        return idFunc;
+    }
+
+    /**
+     * @param idFunc the idFunc to set
+     */
+    public void setIdFunc(Integer idFunc) {
+        this.idFunc = idFunc;
+    }
+
+    /**
+     * @return the NomeFunc
+     */
+    public String getNomeFunc() {
+        return NomeFunc;
+    }
+
+    /**
+     * @param NomeFunc the NomeFunc to set
+     */
+    public void setNomeFunc(String NomeFunc) {
+        this.NomeFunc = NomeFunc;
+    }
+
+    /**
      * @return the idKit
      */
     public Integer getIdKit() {
@@ -243,6 +284,34 @@ public class CancelamentoPagamentoKitHigiene {
     }
 
     /**
+     * @return the idItemSA
+     */
+    public Integer getIdItemSA() {
+        return idItemSA;
+    }
+
+    /**
+     * @param idItemSA the idItemSA to set
+     */
+    public void setIdItemSA(Integer idItemSA) {
+        this.idItemSA = idItemSA;
+    }
+
+    /**
+     * @return the idItemINT
+     */
+    public Integer getIdItemINT() {
+        return idItemINT;
+    }
+
+    /**
+     * @param idItemINT the idItemINT to set
+     */
+    public void setIdItemINT(Integer idItemINT) {
+        this.idItemINT = idItemINT;
+    }
+
+    /**
      * @return the idInternoKit
      */
     public Integer getIdInternoKit() {
@@ -299,17 +368,17 @@ public class CancelamentoPagamentoKitHigiene {
     }
 
     /**
-     * @return the item
+     * @return the idItemPRO
      */
-    public Integer getItem() {
-        return item;
+    public Integer getIdItemPRO() {
+        return idItemPRO;
     }
 
     /**
-     * @param item the item to set
+     * @param idItemPRO the idItemPRO to set
      */
-    public void setItem(Integer item) {
-        this.item = item;
+    public void setIdItemPRO(Integer idItemPRO) {
+        this.idItemPRO = idItemPRO;
     }
 
     /**
@@ -357,15 +426,43 @@ public class CancelamentoPagamentoKitHigiene {
     /**
      * @return the quantidadeProduto
      */
-    public String getQuantidadeProduto() {
+    public int getQuantidadeProduto() {
         return quantidadeProduto;
     }
 
     /**
      * @param quantidadeProduto the quantidadeProduto to set
      */
-    public void setQuantidadeProduto(String quantidadeProduto) {
+    public void setQuantidadeProduto(int quantidadeProduto) {
         this.quantidadeProduto = quantidadeProduto;
+    }
+
+    /**
+     * @return the dataEntrega
+     */
+    public Date getDataEntrega() {
+        return dataEntrega;
+    }
+
+    /**
+     * @param dataEntrega the dataEntrega to set
+     */
+    public void setDataEntrega(Date dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+
+    /**
+     * @return the horario
+     */
+    public String getHorario() {
+        return horario;
+    }
+
+    /**
+     * @param horario the horario to set
+     */
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 
     /**
@@ -450,5 +547,58 @@ public class CancelamentoPagamentoKitHigiene {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.idRegistro);
+        hash = 73 * hash + Objects.hashCode(this.idPav);
+        hash = 73 * hash + Objects.hashCode(this.idCela);
+        hash = 73 * hash + Objects.hashCode(this.idFunc);
+        hash = 73 * hash + Objects.hashCode(this.idRegistroKit);
+        hash = 73 * hash + Objects.hashCode(this.idItemINT);
+        hash = 73 * hash + Objects.hashCode(this.idInternoKit);
+        hash = 73 * hash + Objects.hashCode(this.idItemPRO);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CancelamentoPagamentoKitHigiene other = (CancelamentoPagamentoKitHigiene) obj;
+        if (!Objects.equals(this.idRegistro, other.idRegistro)) {
+            return false;
+        }
+        if (!Objects.equals(this.idPav, other.idPav)) {
+            return false;
+        }
+        if (!Objects.equals(this.idCela, other.idCela)) {
+            return false;
+        }
+        if (!Objects.equals(this.idFunc, other.idFunc)) {
+            return false;
+        }
+        if (!Objects.equals(this.idRegistroKit, other.idRegistroKit)) {
+            return false;
+        }
+        if (!Objects.equals(this.idItemINT, other.idItemINT)) {
+            return false;
+        }
+        if (!Objects.equals(this.idInternoKit, other.idInternoKit)) {
+            return false;
+        }
+        if (!Objects.equals(this.idItemPRO, other.idItemPRO)) {
+            return false;
+        }
+        return true;
     }
 }

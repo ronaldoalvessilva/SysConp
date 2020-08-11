@@ -7,8 +7,16 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CancelamentoPagamentoKitHigiene;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxCela;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jCodigoReq;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxPavilhao;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxTiposKits;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jDataComposicaoKit;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdKit;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistro;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistroComp;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jResponsavel;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.pDESCRICAO_pavilhao;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.pTOTAL_registros;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,26 +34,30 @@ public class ControleCancelamentoPagoKit {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     CancelamentoPagamentoKitHigiene objCancelaKit = new CancelamentoPagamentoKitHigiene();
 
-    public CancelamentoPagamentoKitHigiene incluirRegistroCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
+    int pCODIGO_pav = 0;
+    int pCODIGO_cela = 0;
 
+    public CancelamentoPagamentoKitHigiene incluirRegistroCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
+        PESQUISAR_pavilhao(objCancelaKit.getDescricaoPav());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO CANCELAR_PAGAMENTO_KIT_HIGIENE (StatusRegistro,DataRegistro,IdPav,IdCela,TipoKit,IdRegistroKit,DataRegistroKit,MotivoCancelamento,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO CANCELAR_PAGAMENTO_KIT_HIGIENE (StatusRegistro,DataRegistro,IdFunc,IdPav,TipoKit,IdRegistroComp,IdKit,DataRegistroKit,MotivoCancelamento,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objCancelaKit.getStatusRegistro());
             pst.setTimestamp(2, new java.sql.Timestamp(objCancelaKit.getDataRegistro().getTime()));
-            pst.setInt(3, objCancelaKit.getIdPav());
-            pst.setInt(4, objCancelaKit.getIdCela());
+            pst.setInt(3, objCancelaKit.getIdFunc());
+            pst.setInt(4, pCODIGO_pav);
             pst.setString(5, objCancelaKit.getTipoKit());
             pst.setInt(6, objCancelaKit.getIdRegistroKit());
+            pst.setInt(7, objCancelaKit.getIdKit());
             if (objCancelaKit.getDataRegistroKit() != null) {
-                pst.setTimestamp(7, new java.sql.Timestamp(objCancelaKit.getDataRegistroKit().getTime()));
+                pst.setTimestamp(8, new java.sql.Timestamp(objCancelaKit.getDataRegistroKit().getTime()));
             } else {
-                pst.setDate(7, null);
+                pst.setDate(8, null);
             }
-            pst.setString(8, objCancelaKit.getMotivoCancelamento());
-            pst.setString(9, objCancelaKit.getUsuarioInsert());
-            pst.setString(10, objCancelaKit.getDataInsert());
-            pst.setString(11, objCancelaKit.getHorarioInsert());
+            pst.setString(9, objCancelaKit.getMotivoCancelamento());
+            pst.setString(10, objCancelaKit.getUsuarioInsert());
+            pst.setString(11, objCancelaKit.getDataInsert());
+            pst.setString(12, objCancelaKit.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -55,25 +67,26 @@ public class ControleCancelamentoPagoKit {
     }
 
     public CancelamentoPagamentoKitHigiene altgerarRegistroCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
-
+        PESQUISAR_pavilhao(objCancelaKit.getDescricaoPav());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CANCELAR_PAGAMENTO_KIT_HIGIENE SET StatusRegistro=?,DataRegistro=?,IdPav=?,IdCela=?,TipoKit=?,IdRegistroKit=?,DataRegistroKit=?,MotivoCancelamento=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistro='" + objCancelaKit.getIdRegistro() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CANCELAR_PAGAMENTO_KIT_HIGIENE SET StatusRegistro=?,DataRegistro=?,IdFunc=?,IdPav=?,TipoKit=?,IdRegistroComp=?,IdKit=?,DataRegistroKit=?,MotivoCancelamento=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistro='" + objCancelaKit.getIdRegistro() + "'");
             pst.setString(1, objCancelaKit.getStatusRegistro());
             pst.setTimestamp(2, new java.sql.Timestamp(objCancelaKit.getDataRegistro().getTime()));
-            pst.setInt(3, objCancelaKit.getIdPav());
-            pst.setInt(4, objCancelaKit.getIdCela());
+            pst.setInt(3, objCancelaKit.getIdFunc());
+            pst.setInt(4, pCODIGO_pav);
             pst.setString(5, objCancelaKit.getTipoKit());
             pst.setInt(6, objCancelaKit.getIdRegistroKit());
+            pst.setInt(7, objCancelaKit.getIdKit());
             if (objCancelaKit.getDataRegistroKit() != null) {
-                pst.setTimestamp(7, new java.sql.Timestamp(objCancelaKit.getDataRegistroKit().getTime()));
+                pst.setTimestamp(8, new java.sql.Timestamp(objCancelaKit.getDataRegistroKit().getTime()));
             } else {
-                pst.setDate(7, null);
+                pst.setDate(8, null);
             }
-            pst.setString(8, objCancelaKit.getMotivoCancelamento());
-            pst.setString(9, objCancelaKit.getUsuarioUp());
-            pst.setString(10, objCancelaKit.getDataUp());
-            pst.setString(11, objCancelaKit.getHorarioUp());
+            pst.setString(9, objCancelaKit.getMotivoCancelamento());
+            pst.setString(10, objCancelaKit.getUsuarioUp());
+            pst.setString(11, objCancelaKit.getDataUp());
+            pst.setString(12, objCancelaKit.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
@@ -95,38 +108,80 @@ public class ControleCancelamentoPagoKit {
         return objCancelaKit;
     }
 
-    public List<CancelamentoPagamentoKitHigiene> read() throws Exception {
+    //------------------------------------------- INTERNOS E PRODUTOS DO CANCELAMENTO ---------------------------------------------
+    public CancelamentoPagamentoKitHigiene incluirInternoProdutoCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
 
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE (IdRegistro,IdInternoCrc,IdProd,Quantidade,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            pst.setInt(1, objCancelaKit.getIdRegistro());
+            pst.setInt(2, objCancelaKit.getIdInternoKit());
+            pst.setInt(3, objCancelaKit.getCodigoProduto());
+            pst.setInt(4, objCancelaKit.getQuantidadeProduto());
+            pst.setString(5, objCancelaKit.getUsuarioInsert());
+            pst.setString(6, objCancelaKit.getDataInsert());
+            pst.setString(7, objCancelaKit.getHorarioInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objCancelaKit;
+    }
+
+    public CancelamentoPagamentoKitHigiene alterarInternoProdutoCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE SET IdRegistro=?,IdInternoCrc=?,IdProd=?,Quantidade=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemSA='" + objCancelaKit.getIdItemSA() + "'");
+            pst.setInt(1, objCancelaKit.getIdRegistro());
+            pst.setInt(2, objCancelaKit.getIdInternoKit());
+            pst.setInt(3, objCancelaKit.getCodigoProduto());
+            pst.setInt(4, objCancelaKit.getQuantidadeProduto());
+            pst.setString(5, objCancelaKit.getUsuarioUp());
+            pst.setString(6, objCancelaKit.getDataUp());
+            pst.setString(7, objCancelaKit.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objCancelaKit;
+    }
+
+    public CancelamentoPagamentoKitHigiene excluirInternoProdutoCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE WHERE IdItemSA='" + objCancelaKit.getIdItemSA() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objCancelaKit;
+    }
+
+    public List<CancelamentoPagamentoKitHigiene> read() throws Exception {
+        pTOTAL_registros = 0;
         List<CancelamentoPagamentoKitHigiene> listaTodosCancelamentos = new ArrayList<CancelamentoPagamentoKitHigiene>();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdRegistro,StatusRegistro,"
-                    + "DataRegistro,DescricaoPav, "
-                    + "EndCelaPav,TipoKit,IdRegistroKit, "
-                    + "DataRegistroKit,MotivoCancelamento "
+            conecta.executaSQL("SELECT IdRegistro, "
+                    + "StatusRegistro,DataRegistro, "
+                    + "TipoKit, DescricaoPav "
                     + "FROM CANCELAR_PAGAMENTO_KIT_HIGIENE "
                     + "INNER JOIN PAVILHAO "
-                    + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdpAV=CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav "
-                    + "INNER JOIN CELAS "
-                    + "ON PAVILHAO.IdPav=CELAS.IdPav");
+                    + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav=PAVILHAO.IdPav");
             while (conecta.rs.next()) {
                 CancelamentoPagamentoKitHigiene pCancelamentos = new CancelamentoPagamentoKitHigiene();
                 pCancelamentos.setIdRegistro(conecta.rs.getInt("IdRegistro"));
                 pCancelamentos.setStatusRegistro(conecta.rs.getString("StatusRegistro"));
                 pCancelamentos.setDataRegistro(conecta.rs.getDate("DataRegistro"));
-                pCancelamentos.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
-                pCancelamentos.setDescricaoCela(conecta.rs.getString("EndCelaPav"));
                 pCancelamentos.setTipoKit(conecta.rs.getString("TipoKit"));
-                pCancelamentos.setIdRegistroKit(conecta.rs.getInt("IdRegistroKit"));
-                pCancelamentos.setDataRegistroKit(conecta.rs.getDate("DataRegistroKit"));
-                pCancelamentos.setMotivoCancelamento(conecta.rs.getString("MotivoCancelamento"));
-                pCancelamentos.setUsuarioInsert(conecta.rs.getString("UsuarioInsert"));
-                pCancelamentos.setUsuarioUp(conecta.rs.getString("UsuarioUp"));
-                pCancelamentos.setDataInsert(conecta.rs.getString("DataInsert"));
-                pCancelamentos.setDataUp(conecta.rs.getString("DataUp"));
-                pCancelamentos.setHorarioInsert(conecta.rs.getString("HorarioInsert"));
-                pCancelamentos.setHorarioUp(conecta.rs.getString("HorarioUp"));
+                pCancelamentos.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
                 listaTodosCancelamentos.add(pCancelamentos);
+                pTOTAL_registros = pTOTAL_registros + 1;
             }
             return listaTodosCancelamentos;
         } catch (SQLException ex) {
@@ -143,7 +198,7 @@ public class ControleCancelamentoPagoKit {
             conecta.executaSQL("SELECT IdRegistro "
                     + "FROM CANCELAR_PAGAMENTO_KIT_HIGIENE");
             conecta.rs.last();
-            objCancelaKit.setIdRegistro(conecta.rs.getInt("IdRegistro"));
+            jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
         } catch (Exception ERROR) {
             Logger.getLogger(ControleCancelamentoPagoKit.class.getName()).log(Level.SEVERE, null, ERROR);
         }
@@ -155,7 +210,10 @@ public class ControleCancelamentoPagoKit {
         jComboBoxPavilhao.removeAllItems();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PAVILHAO ORDER BY DescricaoPav");
+            conecta.executaSQL("SELECT IdPav,"
+                    + "DescricaoPav "
+                    + "FROM PAVILHAO "
+                    + "ORDER BY DescricaoPav");
             conecta.rs.first();
             do {
                 jComboBoxPavilhao.addItem(conecta.rs.getString("DescricaoPav"));
@@ -167,23 +225,69 @@ public class ControleCancelamentoPagoKit {
         return objCancelaKit;
     }
 
-    public CancelamentoPagamentoKitHigiene pesquisarCela(CancelamentoPagamentoKitHigiene objCancelaKit) {
-        jComboBoxCela.removeAllItems();
+    public void PESQUISAR_pavilhao(String nome) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT DescricaoPav, "
-                    + "EndCelaPav "
-                    + "FROM CELAS "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "'");
+            conecta.executaSQL("SELECT IdPav,DescricaoPav "
+                    + "FROM PAVILHAO "
+                    + "WHERE DescricaoPav='" + nome + "'");
             conecta.rs.first();
-            do {
-                jComboBoxCela.addItem(conecta.rs.getString("EndCelaPav"));
-            } while (conecta.rs.next());
-            jComboBoxCela.updateUI();
+            pCODIGO_pav = conecta.rs.getInt("IdPav");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void PESQUISAR_cela(String nome) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdCela,EndCelaPav "
+                    + "FROM CELAS "
+                    + "WHERE EndCelaPav='" + nome + "'");
+            conecta.rs.first();
+            pCODIGO_cela = conecta.rs.getInt("IdCela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public CancelamentoPagamentoKitHigiene MOSTRAR_interno(CancelamentoPagamentoKitHigiene objCancelaKit) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT CANCELAR_PAGAMENTO_KIT_HIGIENE.IdRegistro, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.StatusRegistro, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.DataRegistro, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav, "
+                    + "PAVILHAO.DescricaoPav, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.TipoKit,"
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.IdRegistroComp, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.IdKit, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.DataRegistroKit, "
+                    + "CANCELAR_PAGAMENTO_KIT_HIGIENE.MotivoCancelamento "
+                    + "FROM CANCELAR_PAGAMENTO_KIT_HIGIENE "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav=CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdFunc=COLABORADOR.IdFunc "
+                    + "WHERE CANCELAR_PAGAMENTO_KIT_HIGIENE.IdRegistro='" + jCodigoReq.getText() + "' "
+                    + "AND PAVILHAO.DescricaoPav='" + pDESCRICAO_pavilhao + "'");
+            conecta.rs.first();
+            objCancelaKit.setIdRegistro(conecta.rs.getInt("IdRegistro"));
+            objCancelaKit.setStatusRegistro(conecta.rs.getString("StatusRegistro"));
+            objCancelaKit.setDataRegistro(conecta.rs.getDate("DataRegistro"));
+            objCancelaKit.setIdFunc(conecta.rs.getInt("IdFunc"));
+            objCancelaKit.setNomeFunc(conecta.rs.getString("NomeFunc"));
+            objCancelaKit.setIdPav(conecta.rs.getInt("IdPav"));
+            objCancelaKit.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
+            objCancelaKit.setTipoKit(conecta.rs.getString("TipoKit"));
+            objCancelaKit.setIdRegistroKit(conecta.rs.getInt("IdRegistroComp"));
+            objCancelaKit.setIdKit(conecta.rs.getInt("IdKit"));
+            objCancelaKit.setDataRegistroKit(conecta.rs.getDate("DataRegistroKit"));
+            objCancelaKit.setMotivoCancelamento(conecta.rs.getString("MotivoCancelamento"));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
+            Logger.getLogger(PesquisaCancelamentoKitCodigo.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objCancelaKit;

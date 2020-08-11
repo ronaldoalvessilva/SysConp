@@ -9,7 +9,6 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CancelamentoPagamentoKitHigiene;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.dataFinal;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.dataInicial;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jCodigoReq;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +30,14 @@ public class PesquisaCancelamentoKitData {
         try {
             conecta.executaSQL("SELECT IdRegistro,StatusRegistro,"
                     + "DataRegistro,DescricaoPav, "
-                    + "EndCelaPav,TipoKit,IdRegistroKit, "
+                    + "IdKit,TipoKit,IdRegistroComp, "
                     + "DataRegistroKit,MotivoCancelamento "
                     + "FROM CANCELAR_PAGAMENTO_KIT_HIGIENE "
                     + "INNER JOIN PAVILHAO "
-                    + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdpAV=CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav "
+                    + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav=CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav "
                     + "INNER JOIN CELAS "
                     + "ON PAVILHAO.IdPav=CELAS.IdPav "
-                    + "WHERE DataRegistro BETEWWN '" + dataInicial + "' "
+                    + "WHERE DataRegistro BETWEEN '" + dataInicial + "' "
                     + "AND '" + dataFinal + "'");
             while (conecta.rs.next()) {
                 CancelamentoPagamentoKitHigiene pCancelamentos = new CancelamentoPagamentoKitHigiene();
@@ -46,9 +45,9 @@ public class PesquisaCancelamentoKitData {
                 pCancelamentos.setStatusRegistro(conecta.rs.getString("StatusRegistro"));
                 pCancelamentos.setDataRegistro(conecta.rs.getDate("DataRegistro"));
                 pCancelamentos.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
-                pCancelamentos.setDescricaoCela(conecta.rs.getString("EndCelaPav"));
                 pCancelamentos.setTipoKit(conecta.rs.getString("TipoKit"));
-                pCancelamentos.setIdRegistroKit(conecta.rs.getInt("IdRegistroKit"));
+                pCancelamentos.setIdRegistroKit(conecta.rs.getInt("IdRegistroComp"));
+                pCancelamentos.setIdKit(conecta.rs.getInt("IdKit"));
                 pCancelamentos.setDataRegistroKit(conecta.rs.getDate("DataRegistroKit"));
                 pCancelamentos.setMotivoCancelamento(conecta.rs.getString("MotivoCancelamento"));
                 pCancelamentos.setUsuarioInsert(conecta.rs.getString("UsuarioInsert"));
