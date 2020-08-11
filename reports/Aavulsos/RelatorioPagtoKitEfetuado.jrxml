@@ -15,7 +15,7 @@ PRONTUARIOSCRC AS P
 ON
 P.IdInternoCrc=K.IdInternoCrc
 WHERE
-CAST(FLOOR(CAST(K.DataEntrega AS float)) AS datetime)>=$P{dataInicial} AND CAST(FLOOR(CAST(K.DataEntrega AS float)) AS datetime)<=$P{dataFinal}
+CONVERT(DATE, K.DataEntrega) BETWEEN $P{dataInicial} AND $P{dataFinal}
 ORDER BY P.nomeInternoCrc]]>
 	</queryString>
 	<field name="IdItem" class="java.lang.Integer"/>
@@ -43,15 +43,15 @@ ORDER BY P.nomeInternoCrc]]>
 	<field name="KitInicial" class="java.lang.Integer"/>
 	<field name="KitQuinzenal" class="java.lang.Integer"/>
 	<field name="TipoEntrada" class="java.lang.Integer"/>
+	<field name="DataEntrega" class="java.sql.Timestamp"/>
+	<field name="Horario" class="java.lang.String"/>
+	<field name="AssinaturaDigital" class="java.sql.Blob"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="DataInsert" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="DataUp" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
-	<field name="DataEntrega" class="java.sql.Timestamp"/>
-	<field name="Horario" class="java.lang.String"/>
-	<field name="AssinaturaDigital" class="java.sql.Blob"/>
 	<field name="Cobertor" class="java.lang.Integer"/>
 	<field name="BolaFutSal" class="java.lang.Integer"/>
 	<field name="CalcaoJg" class="java.lang.Integer"/>
@@ -62,6 +62,9 @@ ORDER BY P.nomeInternoCrc]]>
 	<field name="KitDecimal" class="java.lang.Integer"/>
 	<field name="KitSemestral" class="java.lang.Integer"/>
 	<field name="KitMensal" class="java.lang.Integer"/>
+	<field name="Personalizado" class="java.lang.Integer"/>
+	<field name="KitPersonalizado" class="java.lang.Integer"/>
+	<field name="KitAnual" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -74,6 +77,7 @@ ORDER BY P.nomeInternoCrc]]>
 	<field name="CpfInternoCrc" class="java.lang.String"/>
 	<field name="EscolaridadeCrc" class="java.lang.String"/>
 	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="IdPais" class="java.lang.Integer"/>
@@ -89,8 +93,12 @@ ORDER BY P.nomeInternoCrc]]>
 	<field name="CelularCrc" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
 	<field name="DataDelete" class="java.lang.String"/>
-	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.sql.Blob"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<field name="Tornozeleira" class="java.lang.String"/>
+	<field name="DataEntradaAnt" class="java.sql.Timestamp"/>
 	<variable name="KitInicial_1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{KitInicial}]]></variableExpression>
 	</variable>
