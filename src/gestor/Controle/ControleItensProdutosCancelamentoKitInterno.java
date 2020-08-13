@@ -112,7 +112,7 @@ public class ControleItensProdutosCancelamentoKitInterno {
     }
 
     public ProdutosPagtoKitInterno BUSCAR_SALDO_estoque(ProdutosPagtoKitInterno objItensPagtoProd) {
-
+        pQUANTIDADE_PRODUTO = 0;
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT IdProd,SaldoAtual "
@@ -194,7 +194,7 @@ public class ControleItensProdutosCancelamentoKitInterno {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE SALDO_ESTOQUE_AC SET SaldoAtual=? "
                     + "WHERE IdProd='" + objItensPagtoProd.getIdProd() + "'");
-            pst.setFloat(1, objItensPagtoProd.getQuatProd());
+            pst.setInt(1, objItensPagtoProd.getSaldoAtual());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO:" + ex);

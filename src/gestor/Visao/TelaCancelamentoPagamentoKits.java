@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleAcessoGeral;
 import gestor.Controle.ControleCancelamentoPagoKit;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControlePagamentoKitFinalizacao;
 import gestor.Controle.PesquisaCancelamentoKitCodigo;
 import gestor.Controle.PesquisaCancelamentoKitData;
 import gestor.Controle.PesquisarInternosProdutosCanceladosKits;
@@ -16,7 +17,9 @@ import gestor.Controle.PesquisarProdutosCanceladosKits;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.CancelamentoPagamentoKitHigiene;
+import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.LogSistema;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaCancelamentoPagamentoInt;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaCancelamentoPagamentoManu;
@@ -24,8 +27,11 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -33,6 +39,11 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -52,7 +63,10 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     //
     ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
     CamposAcessos objCampos = new CamposAcessos();
-    //   
+    //       
+    ComposicaoKit objComp = new ComposicaoKit();
+    ControlePagamentoKitFinalizacao controlPagoKit = new ControlePagamentoKitFinalizacao();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -87,11 +101,14 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     public static String idItemPagto;
     public static int pCODIGO_colaborador = 0;
     public static String pDESCRICAO_pavilhao = "";
+    //FINALIZAÇÃO DO KIT
+    String pRespostaKit = "Sim";
 
     /**
      * Creates new form TelaCancelamentoPagamentoKits
      */
     public static TelaCancelamentoKit pCANCELAR_kit;
+    public static TelaPesquisaInternoKitPagoCancelado pPESQUISAR_internos;
 
     public TelaCancelamentoPagamentoKits() {
         initComponents();
@@ -102,6 +119,11 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     public void mostrarCancelar() {
         pCANCELAR_kit = new TelaCancelamentoKit(this, true);
         pCANCELAR_kit.setVisible(true);
+    }
+
+    public void mostrarInternoPesquisado() {
+        pPESQUISAR_internos = new TelaPesquisaInternoKitPagoCancelado(this, true);
+        pPESQUISAR_internos.setVisible(true);
     }
 
     /**
@@ -1170,6 +1192,11 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
         jButton1.setText("Impressão");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Data Operação");
@@ -1296,6 +1323,9 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
             }
             mostrarRegistroCodigo();
+            if (pTOTAL_registros == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem exibidos...");
+            }
         }
     }//GEN-LAST:event_jBtPesqCodigoReqActionPerformed
 
@@ -1319,7 +1349,14 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaCancelamento.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+                        }
                         mostraPesquisaData();
+                        if (pTOTAL_registros == 0) {
+                            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem exibidos...");
+                        }
                     }
                 }
             }
@@ -1338,7 +1375,14 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaCancelamento.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+                        }
                         mostraPesquisaData();
+                        if (pTOTAL_registros == 0) {
+                            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem exibidos...");
+                        }
                     }
                 }
             }
@@ -1350,7 +1394,14 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
+            // APAGAR DADOS DA TABELA
+            while (jTabelaCancelamento.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+            }
             mostrarTodos();
+            if (pTOTAL_registros == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem exibidos...");
+            }
         } else {
             // APAGAR DADOS DA TABELA
             while (jTabelaCancelamento.getModel().getRowCount() > 0) {
@@ -1365,12 +1416,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         if (jNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome para pesquisa.");
         } else {
-//            pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS "
-//                + "INNER JOIN PRONTUARIOSCRC "
-//                + "ON REQUISICAO_PRODUTOS_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-//                + "INNER JOIN COLABORADOR "
-//                + "ON REQUISICAO_PRODUTOS_INTERNOS.IdFunc=COLABORADOR.IdFunc "
-//                + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jNomeInterno.getText() + "%'");
+
         }
     }//GEN-LAST:event_jBtPesqInternoActionPerformed
 
@@ -1389,7 +1435,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //
-            jBtNovoInterno.setEnabled(true);
             jComboBoxPavilhao.removeAllItems();
             //
             control.MOSTRAR_interno(objCancelaKit);
@@ -1554,6 +1599,17 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        Integer rows = jTabelaInternos.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar esse registro, pois não existe(m) produto(s) lançado(s).");
+        } else {
+            control.PESQUISAR_status(objCancelaKit);
+            if (objCancelaKit.getStatusRegistro().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else {
+                Finalizar();
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1653,6 +1709,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     private void jBtCancelarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarInternoActionPerformed
         // TODO add your handling code here:
+        CancelarInterno();
     }//GEN-LAST:event_jBtCancelarInternoActionPerformed
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
@@ -1671,7 +1728,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
         // TODO add your handling code here:
-
+        mostrarInternoPesquisado();
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
     private void jTabelaProdutosKitInternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosKitInternoMouseClicked
@@ -1724,6 +1781,59 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             mostrarItens();
         }
     }//GEN-LAST:event_jTabelaInternosMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        // VERIFICAR SE A TABELA TEM PRODUTOS, SE ESTIVER VAZIA NÃO IMPRIMI
+        Integer rows = jTabelaInternos.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível imprimir esse registro, pois não existe(m) produto(s) lançado(s).");
+        } else if (jIdInternoKit.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o interno para imprimir o relatório.");
+        } else {
+            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/Almoxarifado/RelatorioCancelamentoKitInterno.jasper";
+                        conecta.executaSQL("SELECT * FROM CANCELAR_PAGAMENTO_KIT_HIGIENE "
+                                + "INNER JOIN PAVILHAO "
+                                + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdPav=PAVILHAO.IdPav "
+                                + "INNER JOIN ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS "
+                                + "ON CANCELAR_PAGAMENTO_KIT_HIGIENE.IdRegistro=ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdRegistro "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE CANCELAR_PAGAMENTO_KIT_HIGIENE.IdRegistro='" + jIdRegistro.getText() + "' "
+                                + "AND ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdInternoCrc='" + jIdInternoKit.getText() + "'");
+                        HashMap parametros = new HashMap();
+                        parametros.put("pUnidade", descricaoUnidade);
+                        parametros.put("pCodigo", jIdRegistro.getText());
+                        parametros.put("pCodigoInternoCrc", jIdInternoKit.getText());
+                        parametros.put("pUsuario", nameUser);
+                        // Sub Relatório
+                        try {
+                            parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                        } catch (SQLException ex) {
+                        }
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Relatório de Cancelamento de Kit de Interno.");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório...\n\nERROR :" + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1859,7 +1969,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jBtExcluir.setEnabled(opcao);
         jBtSalvar.setEnabled(opcao);
         jBtCancelar.setEnabled(opcao);
-//        jBtFinalizar.setEnabled(opcao);
         jBtAuditoria.setEnabled(opcao);
         jBtPesquisarKit.setEnabled(opcao);
         //
@@ -1869,7 +1978,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jBtSalvarInterno.setEnabled(opcao);
         jBtCancelarInterno.setEnabled(opcao);
         jBtAuditoriaInterno.setEnabled(opcao);
-//        jBtPesquisarInterno.setEnabled(opcao);
     }
 
     public void bloquearCampos(boolean opcao) {
@@ -1956,8 +2064,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
-        //
-        jBtNovoInterno.setEnabled(true);
     }
 
     public void Cancelar() {
@@ -1975,6 +2081,98 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             //
             jBtNovoInterno.setEnabled(true);
+        }
+    }
+
+    public void Finalizar() {
+        statusMov = "Finalizou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        String statusLanc = "FINALIZADO";
+        JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o lançamento selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            objCancelaKit.setStatusRegistro(statusLanc);
+            objCancelaKit.setIdRegistro(Integer.parseInt(jIdRegistro.getText()));
+            control.finalizarRegistroCancelamento(objCancelaKit);
+            jStatusRegistro.setText("FINALIZADO");
+            if (tipoServidor == null || tipoServidor.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                String dataConvert = formatoAmerica.format(jDataRegistro.getDate().getTime());
+                try {
+                    java.sql.Date data = new java.sql.Date(formatoAmerica.parse(dataConvert).getTime());
+                    objCancelaKit.setDataRegistroKit(data);
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaPagamentoKitInternoCPK.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //INFORMAR QUE O KIT FOI CANCELADO.
+                objComp.setIdRegistroComp(Integer.valueOf(jIdRegistro.getText()));
+                objComp.setKitPago(pRespostaKit);
+                controlPagoKit.confirmarPagamentoKit(objComp);
+                //CONFIRMAR O PAGAMENTO DO KIT TAMBÉM NA TABELA "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS" DA PROGRAMAÇÃO INDEPENDENTE.
+                objComp.setIdKit(Integer.valueOf(jIdKit.getText()));
+                objComp.setKitPago("Can");
+                controlPagoKit.confirmarPagamentoKitProgramacao(objComp);
+                //
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+                //
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                //
+                jBtNovo.setEnabled(true);
+                jBtAlterar.setEnabled(!true);
+                jBtExcluir.setEnabled(!true);
+                jBtSalvar.setEnabled(!true);
+                jBtCancelar.setEnabled(!true);
+                jBtFinalizar.setEnabled(!true);
+                //
+                jBtNovoInterno.setEnabled(!true);
+                jBtAlterarInterno.setEnabled(!true);
+                jBtExcluirInterno.setEnabled(!true);
+                jBtSalvarInterno.setEnabled(!true);
+                jBtCancelarInterno.setEnabled(!true);
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                //INFORMAR QUE O KIT FOI CANCELADO.
+                objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    java.sql.Date data = new java.sql.Date(format.parse(jDataSistema.getText()).getTime());
+                    objComp.setDataPagamentoKit(data);
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaPagamentoKitInternoCPK.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objComp.setKitPago(pRespostaKit);
+                controlPagoKit.confirmarPagamentoKit(objComp);
+                //CONFIRMAR O PAGAMENTO DO KIT TAMBÉM NA TABELA "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS" DA PROGRAMAÇÃO INDEPENDENTE.
+                objComp.setIdKit(Integer.valueOf(jIdKit.getText()));
+                objComp.setKitPago("Can");
+                controlPagoKit.confirmarPagamentoKitProgramacao(objComp);
+                //
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+                //
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                //
+                jBtNovo.setEnabled(true);
+                jBtAlterar.setEnabled(!true);
+                jBtExcluir.setEnabled(!true);
+                jBtSalvar.setEnabled(!true);
+                jBtCancelar.setEnabled(!true);
+                jBtFinalizar.setEnabled(!true);
+                //
+                jBtNovoInterno.setEnabled(!true);
+                jBtAlterarInterno.setEnabled(!true);
+                jBtExcluirInterno.setEnabled(!true);
+                jBtSalvarInterno.setEnabled(!true);
+                jBtCancelarInterno.setEnabled(!true);
+            }
         }
     }
 
