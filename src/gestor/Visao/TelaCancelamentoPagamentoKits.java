@@ -1743,7 +1743,6 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jDescricaoProdutoKit.setText(nomeProduto);
             String idProduto = "" + jTabelaProdutosKitInterno.getValueAt(jTabelaProdutosKitInterno.getSelectedRow(), 1);
             jIdProdutoKit.setText(idProduto);
-//            idItem = "" + jTabelaInternosProdutos.getValueAt(jTabelaInternosProdutos.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaProdutosKitInternoMouseClicked
 
@@ -1753,6 +1752,8 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar o registro principal.");
             jIdRegistro.requestFocus();
             jIdRegistro.setBackground(Color.red);
+        } else if (jStatusRegistro.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Registro já foi finalizado, não é permitido adicionar lançamentos.");
         } else {
             mostrarCancelar();
         }
