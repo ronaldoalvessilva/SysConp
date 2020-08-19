@@ -102,6 +102,21 @@ public class ControleSaidaSimbolica {
         return objSaida;
     }
 
+    public SaidaSimbolica PESQUISAR_status(SaidaSimbolica objSaida) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdRegSaida,StatusRegistro "
+                    + "FROM SAIDA_SIMBOLICA_CRC "
+                    + "WHERE IdRegSaida='" + jIdRegistro.getText() + "'");
+            conecta.rs.first();
+            objSaida.setStatusRegistro(conecta.rs.getString("StatusRegistro"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível verificar se lançamento foi finalizado.\nERROR: " + ex);
+        }
+        conecta.desconecta();
+        return objSaida;
+    }
+
 //------------------------------------------------- ITENS INTERNOS
     public SaidaSimbolica incluirItensRegistroSaida(SaidaSimbolica objSaida) {
 

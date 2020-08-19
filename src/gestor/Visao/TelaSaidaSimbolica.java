@@ -15,7 +15,9 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SaidaSimbolica;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistro;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.telaSaidaSimbolicaInt_CRC;
 import static gestor.Visao.TelaModuloCRC.telaSaidaSimbolicaManu_CRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -51,7 +53,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
     String nomeModuloTela = "CRC:Movimentação Saída Simbólica:Manutenção";
-    String nomeModuloTela2 = "CRC:Movimentação Saída Simbólica:Internos";
+    String nomeModuloTela1 = "CRC:Movimentação Saída Simbólica:Internos";
     //
     int flag;
     int acao;
@@ -65,14 +67,26 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     String dataModFinal;
     String pDATA_Registros = "";
     //
+    public static String pINTERNOS;
+    public static String idItemSS;
+    public static int idItem;
+    public static int codItem;
+    //
 
     /**
      * Creates new form TelaSaidaSimbolica
      */
+    public static TelaPesquisaInternoSaidaSimbolica pPESQUISA_INTERNO_saida;
+
     public TelaSaidaSimbolica() {
         initComponents();
         formatarCampos();
         corCampos();
+    }
+
+    public void mostrarPesquisa() {
+        pPESQUISA_INTERNO_saida = new TelaPesquisaInternoSaidaSimbolica(this, true);
+        pPESQUISA_INTERNO_saida.setVisible(true);
     }
 
     /**
@@ -100,7 +114,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         jPesquisarNomeInterno = new javax.swing.JTextField();
         jLabel74 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTabelaCancelamento = new javax.swing.JTable();
+        jTabelaSaidaSimbolica = new javax.swing.JTable();
         jPanel30 = new javax.swing.JPanel();
         jLabel67 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
@@ -297,8 +311,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                 .addGap(5, 5, 5))
         );
 
-        jTabelaCancelamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaCancelamento.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaSaidaSimbolica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaSaidaSimbolica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -314,21 +328,21 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTabelaCancelamento.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaSaidaSimbolica.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaCancelamentoMouseClicked(evt);
+                jTabelaSaidaSimbolicaMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(jTabelaCancelamento);
-        if (jTabelaCancelamento.getColumnModel().getColumnCount() > 0) {
-            jTabelaCancelamento.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaCancelamento.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaCancelamento.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaCancelamento.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaCancelamento.getColumnModel().getColumn(2).setMinWidth(90);
-            jTabelaCancelamento.getColumnModel().getColumn(2).setMaxWidth(90);
-            jTabelaCancelamento.getColumnModel().getColumn(3).setMinWidth(250);
-            jTabelaCancelamento.getColumnModel().getColumn(3).setMaxWidth(250);
+        jScrollPane3.setViewportView(jTabelaSaidaSimbolica);
+        if (jTabelaSaidaSimbolica.getColumnModel().getColumnCount() > 0) {
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(2).setMinWidth(90);
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(2).setMaxWidth(90);
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(3).setMinWidth(250);
+            jTabelaSaidaSimbolica.getColumnModel().getColumn(3).setMaxWidth(250);
         }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -459,6 +473,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         jVaraCrime.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jVaraCrime.setEnabled(false);
 
+        jDocumentoSB_Registro.setText("Documento");
         jDocumentoSB_Registro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDocumentoSB_Registro.setEnabled(false);
 
@@ -797,6 +812,11 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaInternosMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTabelaInternos);
@@ -1177,8 +1197,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe um código para pesquisa.");
         } else {
             // APAGAR DADOS DA TABELA
-            while (jTabelaCancelamento.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+            while (jTabelaSaidaSimbolica.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaSaidaSimbolica.getModel()).removeRow(0);
             }
             mostrarRegistroCodigo();
             if (pTOTAL_registros == 0) {
@@ -1208,8 +1228,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         // APAGAR DADOS DA TABELA
-                        while (jTabelaCancelamento.getModel().getRowCount() > 0) {
-                            ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+                        while (jTabelaSaidaSimbolica.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaSaidaSimbolica.getModel()).removeRow(0);
                         }
                         mostraPesquisaData();
                         if (pTOTAL_registros == 0) {
@@ -1234,8 +1254,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         // APAGAR DADOS DA TABELA
-                        while (jTabelaCancelamento.getModel().getRowCount() > 0) {
-                            ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+                        while (jTabelaSaidaSimbolica.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaSaidaSimbolica.getModel()).removeRow(0);
                         }
                         mostraPesquisaData();
                         if (pTOTAL_registros == 0) {
@@ -1253,8 +1273,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             // APAGAR DADOS DA TABELA
-            while (jTabelaCancelamento.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+            while (jTabelaSaidaSimbolica.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaSaidaSimbolica.getModel()).removeRow(0);
             }
             mostrarTodos();
             if (pTOTAL_registros == 0) {
@@ -1262,8 +1282,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
             }
         } else {
             // APAGAR DADOS DA TABELA
-            while (jTabelaCancelamento.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaCancelamento.getModel()).removeRow(0);
+            while (jTabelaSaidaSimbolica.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaSaidaSimbolica.getModel()).removeRow(0);
             }
             jtotalRegistros.setText("");
         }
@@ -1278,11 +1298,11 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtPesqInternoActionPerformed
 
-    private void jTabelaCancelamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCancelamentoMouseClicked
+    private void jTabelaSaidaSimbolicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaSaidaSimbolicaMouseClicked
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String IdLanc = "" + jTabelaCancelamento.getValueAt(jTabelaCancelamento.getSelectedRow(), 0);
+            String IdLanc = "" + jTabelaSaidaSimbolica.getValueAt(jTabelaSaidaSimbolica.getSelectedRow(), 0);
             jCodigoReq.setText(IdLanc);
             bloquearBotoes(!true);
             bloquearCampos(!true);
@@ -1308,7 +1328,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
             }
             pPREENCHER_TABELA_Internos();
         }
-    }//GEN-LAST:event_jTabelaCancelamentoMouseClicked
+    }//GEN-LAST:event_jTabelaSaidaSimbolicaMouseClicked
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
@@ -1457,18 +1477,130 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaSaidaSimbolicaInt_CRC);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaInt_CRC) && objCampos.getCodigoIncluir() == 1) {
+            acao = 3;
+            limparCamposInterno();
+            bloquearBotoes(!true);
+            bloquearCampos(!true);
+            NovoInterno();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaSaidaSimbolicaInt_CRC);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaInt_CRC) && objCampos.getCodigoAlterar() == 1) {
+            acao = 4;
+            bloquearBotoes(!true);
+            bloquearCampos(!true);
+            AlterarInterno();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaSaidaSimbolicaInt_CRC);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaInt_CRC) && objCampos.getCodigoExcluir() == 1) {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                objSaida.setIdItem(WIDTH);
+                control.excluirItensRegistroSaida(objSaida);
+                objLog1();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                limparCamposInterno();
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                ExcluirInterno();
+                pPREENCHER_TABELA_Internos();
+                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaSaidaSimbolicaInt_CRC);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaInt_CRC) && objCampos.getCodigoGravar() == 1) {
+            if (jIdInternoCrc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jDocumentoInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jComboBoxTipoBeneficioIndividual.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de benefício do interno.");
+            } else if (jDataBeneficio.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do benefício.");
+            } else {
+                objSaida.setIdInternoCrc(Integer.parseInt(jIdInternoCrc.getText()));
+                objSaida.setNomeInternoCrc(jNomeInterno.getText());
+                objSaida.setNrdocumentoSA(jDocumentoInterno.getText());
+                objSaida.setTipoBeneficioSA((String) jComboBoxTipoBeneficioIndividual.getSelectedItem());
+                objSaida.setDataRegistroSA(jDataBeneficio.getDate());
+                if (acao == 3) {
+                    objSaida.setUsuarioInsert(nameUser);
+                    objSaida.setDataInsert(dataModFinal);
+                    objSaida.setHorarioInsert(horaMov);
+                    control.incluirItensRegistroSaida(objSaida);
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    limparCamposInterno();
+                    bloquearBotoes(!true);
+                    bloquearCampos(!true);
+                    SalvarInterno();
+                    pPREENCHER_TABELA_Internos();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objSaida.setUsuarioUp(nameUser);
+                    objSaida.setDataUp(dataModFinal);
+                    objSaida.setHorarioUp(horaMov);
+                    objSaida.setIdItem(WIDTH);
+                    control.alterarItensRegistroSaida(objSaida);
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    limparCamposInterno();
+                    bloquearBotoes(!true);
+                    bloquearCampos(!true);
+                    SalvarInterno();
+                    pPREENCHER_TABELA_Internos();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
     private void jBtCancelarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarInternoActionPerformed
@@ -1483,24 +1615,62 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaInternosSaidaSimbolica objAudiInter = new TelaAuditoriaInternosSaidaSimbolica();
+        TelaModuloCRC.jPainelCRC.add(objAudiInter);
+        objAudiInter.show();
     }//GEN-LAST:event_jBtAuditoriaInternoActionPerformed
 
     private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
         // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(1);
         if (jIdRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não existe registro principal a ser associado a esse interno.");
         } else {
-
+            mostrarPesquisa();
         }
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        Integer rows = jTabelaInternos.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar esse registro, pois não existe(m) produto(s) lançado(s).");
+        } else {
+            control.PESQUISAR_status(objSaida);
+            if (objSaida.getStatusRegistro().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else {
+                Finalizar();
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtImpressaoActionPerformed
+
+    private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            idItemSS = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0);
+            pINTERNOS = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 1);
+            //
+            bloquearBotoes(!true);
+            bloquearCampos(!true);
+            jBtNovoInterno.setEnabled(true);
+            jBtAuditoriaInterno.setEnabled(true);
+            //
+            LISTAR_internos.MOSTRAR_SAIDA_SIMBOLICA_internos(objSaida);
+            jIdInternoCrc.setText(String.valueOf(objSaida.getIdInternoCrc()));
+            jNomeInterno.setText(objSaida.getNomeInternoCrc());
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternos.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+            }
+            pPREENCHER_TABELA_Internos();
+        }
+    }//GEN-LAST:event_jTabelaInternosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1527,14 +1697,14 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxTodosReq;
     public static javax.swing.JTextField jCodigoReq;
     private javax.swing.JComboBox<String> jComboBoxTipoBeneficio;
-    private javax.swing.JComboBox<String> jComboBoxTipoBeneficioIndividual;
-    private com.toedter.calendar.JDateChooser jDataBeneficio;
+    public static javax.swing.JComboBox<String> jComboBoxTipoBeneficioIndividual;
+    public static com.toedter.calendar.JDateChooser jDataBeneficio;
     public static com.toedter.calendar.JDateChooser jDataPesFinal;
     public static com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataRegistro;
-    private javax.swing.JTextField jDocumentoInterno;
+    public static javax.swing.JTextField jDocumentoInterno;
     private javax.swing.JTextField jDocumentoSB_Registro;
-    private javax.swing.JLabel jFotoInternoSB;
+    public static javax.swing.JLabel jFotoInternoSB;
     public static javax.swing.JTextField jIdInternoCrc;
     public static javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
@@ -1591,8 +1761,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jStatusRegistro;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaCancelamento;
     private javax.swing.JTable jTabelaInternos;
+    private javax.swing.JTable jTabelaSaidaSimbolica;
     private javax.swing.JTextField jVaraCrime;
     public static javax.swing.JLabel jtotaInternosSelecionados;
     private javax.swing.JLabel jtotalRegistros;
@@ -1635,6 +1805,17 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         jComboBoxTipoBeneficio.setSelectedItem("Selecione...");
         jMotivo.setText("");
         //
+        jIdInternoCrc.setText("");
+        jMatriculaPenal.setText("");
+        jRegime.setText("");
+        jNomeInterno.setText("");
+        jNomeMaeInterno.setText("");
+        jDocumentoInterno.setText("");
+        jComboBoxTipoBeneficioIndividual.setSelectedItem("Selecione...");
+        jDataBeneficio.setDate(null);
+    }
+
+    public void limparCamposInterno() {
         jIdInternoCrc.setText("");
         jMatriculaPenal.setText("");
         jRegime.setText("");
@@ -1746,28 +1927,77 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         control.PESQUISAR_codigo(objSaida);
     }
 
-    public void NovoInterno() {
+    public void Finalizar() {
+        statusMov = "Finalizou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        String statusLanc = "FINALIZADO";
+        JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o lançamento selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            objSaida.setStatusRegistro(statusLanc);
+            objSaida.setIdRegSaida(Integer.parseInt(jIdRegistro.getText()));
+            control.finalizarRegistroSaida(objSaida);
+            jStatusRegistro.setText("FINALIZADO");
+            //LANÇAR NA TABELA DE MOVIMENTAÇÃO
+            //RETIRAR DO ROL DE VISITAS
+            //RETIRAR DA CELA
+            //MODIFICAR SITUAÇÃO DO INTERNO NO PRONTUARIO
+            JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+        }
+    }
 
+    public void NovoInterno() {
+        jDocumentoInterno.setEnabled(true);
+        jComboBoxTipoBeneficioIndividual.setEnabled(true);
+        jDataBeneficio.setEnabled(true);
+        //
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
     }
 
     public void AlterarInterno() {
-
+        jDocumentoInterno.setEnabled(true);
+        jComboBoxTipoBeneficioIndividual.setEnabled(true);
+        jDataBeneficio.setEnabled(true);
+        //
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
     }
 
     public void ExcluirInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
     }
 
     public void SalvarInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
     }
 
     public void CancelarInterno() {
-
+        limparCamposInterno();
+        bloquearBotoes(!true);
+        bloquearCampos(!true);
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
     }
 
     public void mostrarTodos() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaCancelamento.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaSaidaSimbolica.getModel();
         try {
             for (SaidaSimbolica dd : control.read()) {
                 pDATA_Registros = String.valueOf(dd.getDataRegistro());
@@ -1778,14 +2008,14 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 dadosOrigem.addRow(new Object[]{dd.getIdRegSaida(), pDATA_Registros, dd.getStatusRegistro(), dd.getTipoBeneficio()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaCancelamento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaSaidaSimbolica.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaCancelamento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaCancelamento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                jTabelaCancelamento.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(2).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
@@ -1793,7 +2023,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     }
 
     public void mostrarRegistroCodigo() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaCancelamento.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaSaidaSimbolica.getModel();
 
         try {
             for (SaidaSimbolica dd : listaCodigo.read()) {
@@ -1805,14 +2035,14 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 dadosOrigem.addRow(new Object[]{dd.getIdRegSaida(), pDATA_Registros, dd.getStatusRegistro(), dd.getTipoBeneficio()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaCancelamento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaSaidaSimbolica.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaCancelamento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaCancelamento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                jTabelaCancelamento.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(2).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
@@ -1820,7 +2050,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     }
 
     public void mostraPesquisaData() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaCancelamento.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaSaidaSimbolica.getModel();
         try {
             for (SaidaSimbolica dd : listaData.read()) {
                 pDATA_Registros = String.valueOf(dd.getDataRegistro());
@@ -1831,14 +2061,14 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 dadosOrigem.addRow(new Object[]{dd.getIdRegSaida(), pDATA_Registros, dd.getStatusRegistro(), dd.getTipoBeneficio()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaCancelamento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaSaidaSimbolica.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaCancelamento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaCancelamento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                jTabelaCancelamento.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaSaidaSimbolica.getColumnModel().getColumn(2).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
@@ -1870,6 +2100,15 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistro.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog1() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela1);
         objLogSys.setIdLancMov(Integer.valueOf(jIdRegistro.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);

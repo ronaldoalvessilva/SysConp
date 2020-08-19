@@ -25,6 +25,9 @@ public class SaidaSimbolica {
     private String motivoSaida;
     private Integer idItem;
     private Integer idInternoCrc;
+    private String matriculaPenal;
+    private String regimePenal;
+    private String maeInterno;
     private String nomeInternoCrc;
     private String nrdocumentoSA;
     private Date dataRegistroSA;
@@ -39,7 +42,7 @@ public class SaidaSimbolica {
     public SaidaSimbolica() {
     }
 
-    public SaidaSimbolica(Integer idRegSaida, String statusRegistro, Date dataRegistro, String nrdocumento, String varaCrime, String nomeJuiz, String localAudiencia, String tipoBeneficio, String motivoSaida, Integer idItem, Integer idInternoCrc, String nomeInternoCrc, String nrdocumentoSA, Date dataRegistroSA, String tipoBeneficioSA, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public SaidaSimbolica(Integer idRegSaida, String statusRegistro, Date dataRegistro, String nrdocumento, String varaCrime, String nomeJuiz, String localAudiencia, String tipoBeneficio, String motivoSaida, Integer idItem, Integer idInternoCrc, String matriculaPenal, String regimePenal, String maeInterno, String nomeInternoCrc, String nrdocumentoSA, Date dataRegistroSA, String tipoBeneficioSA, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegSaida = idRegSaida;
         this.statusRegistro = statusRegistro;
         this.dataRegistro = dataRegistro;
@@ -51,6 +54,9 @@ public class SaidaSimbolica {
         this.motivoSaida = motivoSaida;
         this.idItem = idItem;
         this.idInternoCrc = idInternoCrc;
+        this.matriculaPenal = matriculaPenal;
+        this.regimePenal = regimePenal;
+        this.maeInterno = maeInterno;
         this.nomeInternoCrc = nomeInternoCrc;
         this.nrdocumentoSA = nrdocumentoSA;
         this.dataRegistroSA = dataRegistroSA;
@@ -218,6 +224,48 @@ public class SaidaSimbolica {
     }
 
     /**
+     * @return the matriculaPenal
+     */
+    public String getMatriculaPenal() {
+        return matriculaPenal;
+    }
+
+    /**
+     * @param matriculaPenal the matriculaPenal to set
+     */
+    public void setMatriculaPenal(String matriculaPenal) {
+        this.matriculaPenal = matriculaPenal;
+    }
+
+    /**
+     * @return the regimePenal
+     */
+    public String getRegimePenal() {
+        return regimePenal;
+    }
+
+    /**
+     * @param regimePenal the regimePenal to set
+     */
+    public void setRegimePenal(String regimePenal) {
+        this.regimePenal = regimePenal;
+    }
+
+    /**
+     * @return the maeInterno
+     */
+    public String getMaeInterno() {
+        return maeInterno;
+    }
+
+    /**
+     * @param maeInterno the maeInterno to set
+     */
+    public void setMaeInterno(String maeInterno) {
+        this.maeInterno = maeInterno;
+    }
+
+    /**
      * @return the nomeInternoCrc
      */
     public String getNomeInternoCrc() {
@@ -359,10 +407,10 @@ public class SaidaSimbolica {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.idRegSaida);
-        hash = 59 * hash + Objects.hashCode(this.idItem);
-        hash = 59 * hash + Objects.hashCode(this.idInternoCrc);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.idRegSaida);
+        hash = 97 * hash + Objects.hashCode(this.idItem);
+        hash = 97 * hash + Objects.hashCode(this.idInternoCrc);
         return hash;
     }
 
@@ -379,6 +427,9 @@ public class SaidaSimbolica {
         }
         final SaidaSimbolica other = (SaidaSimbolica) obj;
         if (!Objects.equals(this.idRegSaida, other.idRegSaida)) {
+            return false;
+        }
+        if (!Objects.equals(this.idItem, other.idItem)) {
             return false;
         }
         if (!Objects.equals(this.idInternoCrc, other.idInternoCrc)) {
