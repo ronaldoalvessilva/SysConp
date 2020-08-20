@@ -8,6 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.SaidaSimbolica;
 import static gestor.Visao.TelaPesquisaInternoSaidaSimbolica.jMatriculaPesquisa;
+import static gestor.Visao.TelaSaidaSimbolica.pTOTAL_registros;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class PesquisaInternoMatriculaPenal {
     String pRETORNO_unidade = "RETORNO A UNIDADE";
 
     public List<SaidaSimbolica> read() throws Exception {
+        pTOTAL_registros = 0;
         conecta.abrirConexao();
         List<SaidaSimbolica> listaInternosMatricula = new ArrayList<SaidaSimbolica>();
         try {
@@ -49,6 +51,7 @@ public class PesquisaInternoMatriculaPenal {
                 pPesquisarInternos.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
                 pPesquisarInternos.setMaeInterno(conecta.rs.getString("MaeInternoCrc"));
                 listaInternosMatricula.add(pPesquisarInternos);
+                pTOTAL_registros = pTOTAL_registros + 1;
             }
             return listaInternosMatricula;
         } catch (SQLException ex) {

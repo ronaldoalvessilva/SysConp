@@ -217,10 +217,10 @@ public class ControleSaidaSimbolica {
     public SaidaSimbolica PESQUISAR_codigo(SaidaSimbolica objSaida) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdRegistro "
-                    + "FROM CANCELAR_PAGAMENTO_KIT_HIGIENE");
+            conecta.executaSQL("SELECT IdRegSaida "
+                    + "FROM SAIDA_SIMBOLICA_CRC");
             conecta.rs.last();
-            jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
+            jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegSaida")));
         } catch (Exception ERROR) {
             Logger.getLogger(ControleCancelamentoPagoKit.class.getName()).log(Level.SEVERE, null, ERROR);
         }

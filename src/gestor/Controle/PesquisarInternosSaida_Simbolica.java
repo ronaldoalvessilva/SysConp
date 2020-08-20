@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.SaidaSimbolica;
+import static gestor.Visao.TelaPesquisaInternoSaidaSimbolica.pTOTAL_registros;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +28,14 @@ public class PesquisarInternosSaida_Simbolica {
     String pRETORNO_unidade = "RETORNO A UNIDADE";
 
     public List<SaidaSimbolica> read() throws Exception {
+        pTOTAL_registros = 0;
         conecta.abrirConexao();
         List<SaidaSimbolica> listaTodosInternos = new ArrayList<SaidaSimbolica>();
         try {
             conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.MatriculaCrc,DADOSPENAISINTERNOS.Regime,"
-                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MaeInternoCrc "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MaeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -46,6 +49,7 @@ public class PesquisarInternosSaida_Simbolica {
                 pPesquisarInternos.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
                 pPesquisarInternos.setMaeInterno(conecta.rs.getString("MaeInternoCrc"));
                 listaTodosInternos.add(pPesquisarInternos);
+                pTOTAL_registros = pTOTAL_registros + 1;
             }
             return listaTodosInternos;
         } catch (SQLException ex) {

@@ -12,12 +12,6 @@ import gestor.Controle.PesquisarInternosSaida_Simbolica;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensPagamentoKitInterno;
 import gestor.Modelo.SaidaSimbolica;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jDataEntrega;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jFotoInternoKit;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jHorarioPagto;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdInternoKit;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jNomeInternoKit;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jTabelaProdutosKitInterno;
 import static gestor.Visao.TelaSaidaSimbolica.jFotoInternoSB;
 import static gestor.Visao.TelaSaidaSimbolica.jIdInternoCrc;
 import static gestor.Visao.TelaSaidaSimbolica.jMatriculaPenal;
@@ -51,7 +45,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
     int flag = 0;
     String caminho = "";
     public static String pITEM_KIT = "";
-    int pTOTAL_registros = 0;
+    public static int pTOTAL_registros = 0;
 
     /**
      * Creates new form TelaPesquisaInternoKitPago
@@ -81,7 +75,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jMatriculaPesquisa = new javax.swing.JTextField();
         jBtPesquisaMatricula = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBoxTodos = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaPesquisaInternos = new javax.swing.JTable();
         jBtConfirmar = new javax.swing.JButton();
@@ -125,11 +119,11 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
             }
         });
 
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBox1.setText("Todos");
-        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+        jCheckBoxTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxTodos.setText("Todos");
+        jCheckBoxTodos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox1ItemStateChanged(evt);
+                jCheckBoxTodosItemStateChanged(evt);
             }
         });
 
@@ -154,7 +148,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesquisaMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1)
+                        .addComponent(jCheckBoxTodos)
                         .addGap(18, 18, 18))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -162,7 +156,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 9, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBoxTodos)
                     .addComponent(jBtPesquisaMatricula)
                     .addComponent(jMatriculaPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -184,7 +178,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -327,6 +321,10 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
         if (jMatriculaPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a matricula do interno para pesquisa.");
         } else {
+            // APAGAR DADOS DA TABELA
+            while (jTabelaPesquisaInternos.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaPesquisaInternos.getModel()).removeRow(0);
+            }
             PREENCHER_InternosMatricula();
         }
     }//GEN-LAST:event_jBtPesquisaMatriculaActionPerformed
@@ -337,6 +335,10 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
         if (jNomeInternoPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
+            // APAGAR DADOS DA TABELA
+            while (jTabelaPesquisaInternos.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaPesquisaInternos.getModel()).removeRow(0);
+            }
             PREENCHER_InternosNome();
         }
     }//GEN-LAST:event_jBtPesquisaNomeActionPerformed
@@ -345,9 +347,9 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String pID_MATRICULA = "" + jTabelaPesquisaInternos.getValueAt(jTabelaPesquisaInternos.getSelectedRow(), 3);
+            String pID_MATRICULA = "" + jTabelaPesquisaInternos.getValueAt(jTabelaPesquisaInternos.getSelectedRow(), 1);
             jMatriculaPesquisa.setText(pID_MATRICULA);
-            String pNOME_INTERNO = "" + jTabelaPesquisaInternos.getValueAt(jTabelaPesquisaInternos.getSelectedRow(), 4);
+            String pNOME_INTERNO = "" + jTabelaPesquisaInternos.getValueAt(jTabelaPesquisaInternos.getSelectedRow(), 3);
             jNomeInternoPesquisa.setText(pNOME_INTERNO);
         }
     }//GEN-LAST:event_jTabelaPesquisaInternosMouseClicked
@@ -362,8 +364,8 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
             try {
                 conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
-                        + "PRONTUARIOSCRC.FotoInternoCrc,PRONTUARIOSCRC.ImagemFrente, "
-                        + "DADOSPENAISiNTERNOS.Regime "
+                        + "PRONTUARIOSCRC.MaeInternoCrc,PRONTUARIOSCRC.FotoInternoCrc, "
+                        + "PRONTUARIOSCRC.ImagemFrente,DADOSPENAISiNTERNOS.Regime "
                         + "FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -371,6 +373,9 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
                 conecta.rs.first();
                 jIdInternoCrc.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
+                jRegime.setText(conecta.rs.getString("Regime"));
+                jNomeMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 if (caminho != null) {
@@ -386,10 +391,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
                     Image scaled = pic.getImage().getScaledInstance(jFotoInternoSB.getWidth(), jFotoInternoSB.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(scaled);
                     jFotoInternoSB.setIcon(icon);
-                }
-                jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
-                jRegime.setText(conecta.rs.getString("Regime"));
-                jNomeMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
+                }                
             } catch (SQLException ex) {
             }
         }
@@ -401,7 +403,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+    private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
@@ -420,8 +422,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
             }
             jtotalRegistros.setText("");
         }
-
-    }//GEN-LAST:event_jCheckBox1ItemStateChanged
+    }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -473,7 +474,7 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
     private javax.swing.JButton jBtPesquisaMatricula;
     private javax.swing.JButton jBtPesquisaNome;
     private javax.swing.JButton jBtSair;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel67;
@@ -489,59 +490,60 @@ public class TelaPesquisaInternoSaidaSimbolica extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void PREENCHER_TodosInternos() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutosKitInterno.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaPesquisaInternos.getModel();
         try {
             for (SaidaSimbolica dd : LISTAR_internos.read()) {
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getMatriculaPenal(), dd.getRegimePenal(), dd.getNomeInternoCrc(), dd.getMaeInterno()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaProdutosKitInterno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaPesquisaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaInternoSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void PREENCHER_InternosMatricula() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutosKitInterno.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaPesquisaInternos.getModel();
         try {
             for (SaidaSimbolica dd : LISTAR_INTERNOS_matricula.read()) {
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getMatriculaPenal(), dd.getRegimePenal(), dd.getNomeInternoCrc(), dd.getMaeInterno()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaProdutosKitInterno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaPesquisaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaInternoSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void PREENCHER_InternosNome() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutosKitInterno.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaPesquisaInternos.getModel();
         try {
             for (SaidaSimbolica dd : LISTAR_INTERNOS_nome.read()) {
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getMatriculaPenal(), dd.getRegimePenal(), dd.getNomeInternoCrc(), dd.getMaeInterno()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaProdutosKitInterno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaPesquisaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaInternoSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
