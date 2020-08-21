@@ -1487,14 +1487,19 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoPagamentoManu) && objCampos.getCodigoAlterar() == 1) {
-            acao = 2;
-            bloquearBotoes(!true);
-            bloquearCampos(!true);
-            Alterar();
-            PREENCHER_COMBO_pavilhao();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objCancelaKit.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                Alterar();
+                PREENCHER_COMBO_pavilhao();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1508,22 +1513,27 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoPagamentoManu) && objCampos.getCodigoExcluir() == 1) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                bloquearBotoes(!true);
-                bloquearCampos(!true);
-                limparTodosCampos();
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                objCancelaKit.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
-                control.excluirRegistroCancelamento(objCancelaKit);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
-                bloquearBotoes(!true);
-                bloquearCampos(!true);
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            objCancelaKit.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearBotoes(!true);
+                    bloquearCampos(!true);
+                    limparTodosCampos();
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    objCancelaKit.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                    control.excluirRegistroCancelamento(objCancelaKit);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
+                    bloquearBotoes(!true);
+                    bloquearCampos(!true);
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1748,14 +1758,19 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     private void jBtSelecionaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionaProdutosActionPerformed
         // TODO add your handling code here:
-        if (jIdRegistro.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário informar o registro principal.");
-            jIdRegistro.requestFocus();
-            jIdRegistro.setBackground(Color.red);
-        } else if (jStatusRegistro.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Registro já foi finalizado, não é permitido adicionar lançamentos.");
+        objCancelaKit.setStatusRegistro(jStatusRegistro.getText());
+        if (jStatusRegistro.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
         } else {
-            mostrarCancelar();
+            if (jIdRegistro.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o registro principal.");
+                jIdRegistro.requestFocus();
+                jIdRegistro.setBackground(Color.red);
+            } else if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Registro já foi finalizado, não é permitido adicionar lançamentos.");
+            } else {
+                mostrarCancelar();
+            }
         }
     }//GEN-LAST:event_jBtSelecionaProdutosActionPerformed
 
