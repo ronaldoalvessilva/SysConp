@@ -202,7 +202,14 @@ public class TelaRelatorioEntradas extends javax.swing.JInternalFrame {
                             conecta.abrirConexao();
                             // String path = "reports/ListagemGeralInternosLocal.jasper";
                             String path = "reports/CRC/RelatorioEntradaInternosUnidadePenal.jasper";
-                            conecta.executaSQL("SELECT * FROM MOVIMENTOCRC "
+                            conecta.executaSQL("SELECT  PRONTUARIOSCRC.MatriculaCrc,\n "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc,\n "
+                                    + "PRONTUARIOSCRC.DataCadastCrc,\n "
+                                    + "PRONTUARIOSCRC.DataNasciCrc,\n "
+                                    + "DADOSPENAISINTERNOS.Regime,\n "
+                                    + "DADOSPENAISINTERNOS.TerminoPena,\n "
+                                    + "MOVIMENTOCRC.DataMov "
+                                    + "FROM MOVIMENTOCRC "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON MOVIMENTOCRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN DADOSFISICOSINTERNOS "
@@ -210,8 +217,8 @@ public class TelaRelatorioEntradas extends javax.swing.JInternalFrame {
                                     + "INNER JOIN DADOSPENAISINTERNOS "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                                     + "WHERE NomeOpe LIKE '%" + tipoEntrada + "%' "
-                                    + "AND DataMov>='" + dataInicial + "' "
-                                    + "AND DataMov<='" + dataFinal + "' "
+                                    + "AND CONVERT(DATE, DataMov) BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "' "
                                     + "ORDER BY DataMov, PRONTUARIOSCRC.NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
@@ -257,7 +264,14 @@ public class TelaRelatorioEntradas extends javax.swing.JInternalFrame {
                             conecta.abrirConexao();
                             // String path = "reports/ListagemGeralInternosLocal.jasper";
                             String path = "reports/CRC/RelatorioEntradaInternosUnidadePenal.jasper";
-                            conecta.executaSQL("SELECT * FROM MOVIMENTOCRC "
+                            conecta.executaSQL("SELECT  PRONTUARIOSCRC.MatriculaCrc,\n "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc,\n "
+                                    + "PRONTUARIOSCRC.DataCadastCrc,\n "
+                                    + "PRONTUARIOSCRC.DataNasciCrc,\n "
+                                    + "DADOSPENAISINTERNOS.Regime,\n "
+                                    + "DADOSPENAISINTERNOS.TerminoPena,\n "
+                                    + "MOVIMENTOCRC.DataMov "
+                                    + "FROM MOVIMENTOCRC "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON MOVIMENTOCRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN DADOSFISICOSINTERNOS "
@@ -265,8 +279,8 @@ public class TelaRelatorioEntradas extends javax.swing.JInternalFrame {
                                     + "INNER JOIN DADOSPENAISINTERNOS "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                                     + "WHERE NomeOpe LIKE '%" + tipoEntrada + "%' "
-                                    + "AND DataMov>='" + dataInicial + "' "
-                                    + "AND DataMov<='" + dataFinal + "' "
+                                    + "AND CONVERT(DATE, DataMov) BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "' "
                                     + "ORDER BY DataMov, PRONTUARIOSCRC.NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
