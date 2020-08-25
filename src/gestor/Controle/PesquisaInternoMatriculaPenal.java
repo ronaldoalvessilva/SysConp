@@ -25,8 +25,10 @@ public class PesquisaInternoMatriculaPenal {
     SaidaSimbolica objSaida = new SaidaSimbolica();
 
     String caminho = "";
-    String pENTRADA_unidade = "ENTRADA NA UNIDADE";
-    String pRETORNO_unidade = "RETORNO A UNIDADE";
+    String pSAIDA_audiencia = "SAIDA PARA AUDIENCIA";
+    String pSAIDA_medico = "SAIDA PARA MEDICO";
+    String pSAIDA_temporaria = "SAIDA TEMPORARIA";
+    String pSAIDA_PRISAO_domiciliar = "PRISAO DOMICILIAR";
 
     public List<SaidaSimbolica> read() throws Exception {
         pTOTAL_registros = 0;
@@ -39,9 +41,13 @@ public class PesquisaInternoMatriculaPenal {
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.SituacaoCrc!='" + pENTRADA_unidade + "' "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + pSAIDA_audiencia + "' "
                     + "AND PRONTUARIOSCRC.MatriculaCrc='" + jMatriculaPesquisa.getText() + "' "
-                    + "OR SituacaoCrc!='" + pRETORNO_unidade + "' "
+                    + "OR SituacaoCrc='" + pSAIDA_medico + "' "
+                    + "AND PRONTUARIOSCRC.MatriculaCrc='" + jMatriculaPesquisa.getText() + "' "
+                    + "OR SituacaoCrc='" + pSAIDA_temporaria + "' "
+                    + "AND PRONTUARIOSCRC.MatriculaCrc='" + jMatriculaPesquisa.getText() + "' "
+                    + "OR SituacaoCrc LIKE'%" + pSAIDA_PRISAO_domiciliar + "%' "
                     + "AND PRONTUARIOSCRC.MatriculaCrc='" + jMatriculaPesquisa.getText() + "'");
             while (conecta.rs.next()) {
                 SaidaSimbolica pPesquisarInternos = new SaidaSimbolica();

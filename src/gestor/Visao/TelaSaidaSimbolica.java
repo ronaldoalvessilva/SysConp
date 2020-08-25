@@ -18,6 +18,7 @@ import gestor.Controle.ListagemRegistroSaidaPopulcaoPortaria;
 import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Controle.PesquisaSaidaSimbolicaCodigo;
 import gestor.Controle.PesquisaSaidaSimbolicaData;
+import gestor.Controle.PesquisarGravacaoInterno;
 import gestor.Controle.PesquisarInternosSaidasSimbolicas;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CamposAcessos;
@@ -69,6 +70,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     PesquisaSaidaSimbolicaCodigo listaCodigo = new PesquisaSaidaSimbolicaCodigo();
     PesquisaSaidaSimbolicaData listaData = new PesquisaSaidaSimbolicaData();
     PesquisarInternosSaidasSimbolicas LISTAR_internos = new PesquisarInternosSaidasSimbolicas();
+    PesquisarGravacaoInterno LISTAR_REGISTROS_internos = new PesquisarGravacaoInterno();
     //
     ItensMovSaidaRetorno objMovSaiRetornoEva = new ItensMovSaidaRetorno(); // Classe de saida com verificação de retorno
     ControleMovSaidaEvasao controlMovSaiRet = new ControleMovSaidaEvasao(); // Classe que grava os dados para retorno saida temporaria MOVISR
@@ -1417,6 +1419,10 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
             limparTodosCampos();
             bloquearBotoes(!true);
             bloquearCampos(!true);
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternos.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+            }
             Novo();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -1655,6 +1661,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
             } else if (jComboBoxTipoBeneficioIndividual.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de benefício do interno.");
+            } else if(!jComboBoxTipoBeneficioIndividual.getSelectedItem().equals(jComboBoxTipoBeneficio.getSelectedItem())){
+                JOptionPane.showMessageDialog(rootPane, "O tipo de beneficio selecionado na aba manutenção, é diferente da aba internos.");
             } else if (jDataBeneficio.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do benefício.");
             } else {
@@ -1680,7 +1688,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                         bloquearBotoes(!true);
                         bloquearCampos(!true);
                         SalvarInterno();
-                        pPREENCHER_TABELA_Internos();
+                        pPREENCHER_TABELA_REG_Internos();
                         acao = 0;
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     }
@@ -1698,7 +1706,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                     bloquearCampos(!true);
                     SalvarInterno();
                     acao = 0;
-                    pPREENCHER_TABELA_Internos();
+                    pPREENCHER_TABELA_REG_Internos();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -2267,7 +2275,6 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
 
     public void mostrarRegistroCodigo() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaSaidaSimbolica.getModel();
-
         try {
             for (SaidaSimbolica dd : listaCodigo.read()) {
                 pDATA_Registros = String.valueOf(dd.getDataRegistro());
@@ -2326,6 +2333,36 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
         try {
             for (SaidaSimbolica dd : LISTAR_internos.read()) {
+                pDATA_Registros = String.valueOf(dd.getDataRegistroSA());
+                String dia = pDATA_Registros.substring(8, 10);
+                String mes = pDATA_Registros.substring(5, 7);
+                String ano = pDATA_Registros.substring(0, 4);
+                pDATA_Registros = dia + "/" + mes + "/" + ano;
+                dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdInternoCrc(), dd.getNomeInternoCrc(), dd.getNrdocumentoSA(), dd.getTipoBeneficioSA(), pDATA_Registros});
+                jtotaInternosSelecionados.setText(Integer.toString(pTOTAL_registros));
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void pPREENCHER_TABELA_REG_Internos() {
+        // APAGAR DADOS DA TABELA
+        while (jTabelaInternos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+        }
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
+        try {
+            for (SaidaSimbolica dd : LISTAR_REGISTROS_internos.read()) {
                 pDATA_Registros = String.valueOf(dd.getDataRegistroSA());
                 String dia = pDATA_Registros.substring(8, 10);
                 String mes = pDATA_Registros.substring(5, 7);
