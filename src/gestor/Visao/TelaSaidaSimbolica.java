@@ -30,6 +30,7 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.RolVisitas;
 import gestor.Modelo.SaidaSimbolica;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloCRC.telaSaidaSimbolicaInt_CRC;
 import static gestor.Visao.TelaModuloCRC.telaSaidaSimbolicaManu_CRC;
@@ -37,11 +38,13 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -49,6 +52,11 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -491,7 +499,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         jLabel3.setText("Data");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Movito");
+        jLabel4.setText("Motivo");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Doc. Número");
@@ -1745,6 +1753,46 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
+        Integer rows = jTabelaInternos.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível imprimir esse registro, pois não existe(m) interno(s) lançado(s).");
+        } else if (jIdRegistro.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe registro a ser impresso no relatório.");
+        } else {
+            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/CRC/RelatorioSaidaSimbolicaInterno.jasper";
+                        conecta.executaSQL("SELECT * FROM SAIDA_SIMBOLICA_CRC "
+                                + "WHERE SAIDA_SIMBOLICA_CRC.IdRegSaida='" + jIdRegistro.getText() + "' ");
+                        HashMap parametros = new HashMap();
+                        parametros.put("pUnidade", descricaoUnidade);
+                        parametros.put("pCodigo", jIdRegistro.getText());
+                        parametros.put("pUsuario", nameUser);
+                        // Sub Relatório
+                        try {
+                            parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                        } catch (SQLException ex) {
+                        }
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Relatório de Saída Simbólica de internos.");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório...\n\nERROR :" + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
+        }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
     private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
