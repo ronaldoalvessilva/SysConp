@@ -9,6 +9,7 @@ import gestor.Controle.ControleAcessoGeral;
 import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
 import gestor.Controle.ControleItensLocacaoInternos;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleMovInternos;
 import gestor.Controle.ControleMovSaidaEvasao;
 import gestor.Controle.ControleRolVisitas;
 import gestor.Controle.ControleSaidaSimbolica;
@@ -24,6 +25,7 @@ import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.ItensLocacaoInternos;
 import gestor.Modelo.ItensMovSaidaRetorno;
 import gestor.Modelo.ItensRegSaidaInternos;
+import gestor.Modelo.ItensSaidaInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.RolVisitas;
@@ -35,6 +37,8 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,12 +65,15 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     ItensMovSaidaRetorno objMovSaiRetornoEva = new ItensMovSaidaRetorno(); // Classe de saida com verificação de retorno
     ControleMovSaidaEvasao controlMovSaiRet = new ControleMovSaidaEvasao(); // Classe que grava os dados para retorno saida temporaria MOVISR
     //
+    ItensSaidaInterno objItemSaida = new ItensSaidaInterno();
+    ControleMovInternos controlMov = new ControleMovInternos(); // HISTÓRICO DE MOVIMENTAÇÃO DE SAIDA NO CRC
+    //
     ControleRolVisitas controlRol = new ControleRolVisitas(); // Classe do Serviço social para FINALIZAR Rol quando interno sair da unidade
     RolVisitas objRol = new RolVisitas();
     // Excluir interno quando o mesmo sair da unidade, quando não for para saida audiência
     ControleItensLocacaoInternos excluirInternoCela = new ControleItensLocacaoInternos(); // Excluir Cela do Interno na saida
     ItensLocacaoInternos objItensLoca = new ItensLocacaoInternos();
-    ItensRegSaidaInternos objItemSaida = new ItensRegSaidaInternos();
+    ItensRegSaidaInternos objItemSaidaPort = new ItensRegSaidaInternos();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     ControleSituacao mod = new ControleSituacao(); // MODIFICA A SITUAÇAO DO INTERNO NO PRONTUARIO.    
     //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
@@ -116,6 +123,10 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
     String pSTATUS_ROL_finalizado = "FINALIZADO";
     public static String pCODIGO_INTERNO_rol = "";
     public static String pSTATUS_ROL_aberto = "ABERTO";
+    //
+    String pSITUACAO_interno = "";
+    public static String pCODIGO_registro = "";
+    public static String pCODIGO_interno = "";
 
     /**
      * Creates new form TelaSaidaSimbolica
@@ -1046,7 +1057,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         jLabel15.setText("Tipo de Benefício");
 
         jComboBoxTipoBeneficioIndividual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoBeneficioIndividual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Outros", "Saída Alvará", "Livramento Condicional", "Progressão de Regime", "Regressão de Regime", "Transferência", "Prisão Domiciliar" }));
+        jComboBoxTipoBeneficioIndividual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Outros", "Saída Alvará", "Livramento Condicional", "Progressão de Regime", "Regressão de Regime", "Transferência", "Prisão Domiciliar", "Prisão Domiciliar/COVID-19" }));
         jComboBoxTipoBeneficioIndividual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoBeneficioIndividual.setEnabled(false);
 
@@ -1415,13 +1426,18 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaManu_CRC) && objCampos.getCodigoAlterar() == 1) {
-            acao = 2;
-            bloquearBotoes(!true);
-            bloquearCampos(!true);
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objSaida.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1435,20 +1451,25 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaManu_CRC) && objCampos.getCodigoExcluir() == 1) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                objSaida.setIdRegSaida(Integer.valueOf(jIdRegistro.getText()));
-                control.excluirRegistroSaida(objSaida);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
-                bloquearBotoes(!true);
-                bloquearCampos(!true);
-                limparTodosCampos();
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            objSaida.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    objSaida.setIdRegSaida(Integer.valueOf(jIdRegistro.getText()));
+                    control.excluirRegistroSaida(objSaida);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
+                    bloquearBotoes(!true);
+                    bloquearCampos(!true);
+                    limparTodosCampos();
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1539,14 +1560,19 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaInt_CRC) && objCampos.getCodigoIncluir() == 1) {
-            acao = 3;
-            limparCamposInterno();
-            bloquearBotoes(!true);
-            bloquearCampos(!true);
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objSaida.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                limparCamposInterno();
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1560,13 +1586,18 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaSaidaSimbolicaInt_CRC) && objCampos.getCodigoAlterar() == 1) {
-            acao = 4;
-            bloquearBotoes(!true);
-            bloquearCampos(!true);
-            AlterarInterno();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objSaida.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                bloquearBotoes(!true);
+                bloquearCampos(!true);
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1619,25 +1650,32 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
             } else if (jDataBeneficio.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do benefício.");
             } else {
+                objSaida.setIdRegSaida(Integer.parseInt(jIdRegistro.getText()));
                 objSaida.setIdInternoCrc(Integer.parseInt(jIdInternoCrc.getText()));
                 objSaida.setNomeInternoCrc(jNomeInterno.getText());
                 objSaida.setNrdocumentoSA(jDocumentoInterno.getText());
                 objSaida.setTipoBeneficioSA((String) jComboBoxTipoBeneficioIndividual.getSelectedItem());
                 objSaida.setDataRegistroSA(jDataBeneficio.getDate());
                 if (acao == 3) {
-                    objSaida.setUsuarioInsert(nameUser);
-                    objSaida.setDataInsert(dataModFinal);
-                    objSaida.setHorarioInsert(horaMov);
-                    control.incluirItensRegistroSaida(objSaida);
-                    objLog1();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    limparCamposInterno();
-                    bloquearBotoes(!true);
-                    bloquearCampos(!true);
-                    SalvarInterno();
-                    pPREENCHER_TABELA_Internos();
-                    acao = 0;
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    //VERIFICAR A EXISTENCIA DE INTERNO
+                    control.PESQUISAR_EXISTENCIA_interno(objSaida);
+                    if (jIdRegistro.getText().equals(pCODIGO_registro) && jIdInternoCrc.getText().equals(pCODIGO_interno)) {
+                        JOptionPane.showMessageDialog(rootPane, "Interno já cadastrado, tente outro...");
+                    } else {
+                        objSaida.setUsuarioInsert(nameUser);
+                        objSaida.setDataInsert(dataModFinal);
+                        objSaida.setHorarioInsert(horaMov);
+                        control.incluirItensRegistroSaida(objSaida);
+                        objLog1();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        limparCamposInterno();
+                        bloquearBotoes(!true);
+                        bloquearCampos(!true);
+                        SalvarInterno();
+                        pPREENCHER_TABELA_Internos();
+                        acao = 0;
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
                 if (acao == 4) {
                     objSaida.setUsuarioUp(nameUser);
@@ -1685,6 +1723,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Não existe registro principal a ser associado a esse interno.");
         } else if (!jIdRegistro.getText().equals("") && acao == 3 || !jIdRegistro.getText().equals("") && acao == 4) {
             mostrarPesquisa();
+        } else if (!jIdRegistro.getText().equals("") && acao != 3 || !jIdRegistro.getText().equals("") && acao != 4) {
+            JOptionPane.showMessageDialog(rootPane, "Você não está no modo de edição do registro.");
         }
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
@@ -1995,7 +2035,6 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         statusMov = "Finalizou";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
-
         JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o lançamento selecionado?", "Confirmação",
                 JOptionPane.YES_NO_OPTION);
@@ -2003,6 +2042,9 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
             final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
             carregando.setVisible(true);//Teste tela aguarde
             Thread t = new Thread() { //Teste tela aguarde
+                Date date = null;
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
                 public void run() { //Teste
                     for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
                         //LANÇAR NA TABELA DE MOVIMENTAÇÃO   
@@ -2015,9 +2057,22 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                         objMovSaiRetornoEva.setNomeInternoCrc((String) jTabelaInternos.getValueAt(i, 2));
                         objMovSaiRetornoEva.setNrDocSaida((String) jTabelaInternos.getValueAt(i, 3));
                         objMovSaiRetornoEva.setTipoSaida((String) jTabelaInternos.getValueAt(i, 4));
-                        objMovSaiRetornoEva.setDataSaida((Date) jTabelaInternos.getValueAt(i, 5));
+                        try {
+                            // Converte a data de string para date, para ser inserido no banco de dados.
+                            date = (java.util.Date) formatter.parse((String) jTabelaInternos.getValueAt(i, 5));
+                        } catch (ParseException ex) {
+                        }
+                        objMovSaiRetornoEva.setDataSaida(date);
                         controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva); // Grava registros para retorno de interno (Sinalizar evasão) MOVISR
                         //TABELA MOVIMENTOCRC
+                        //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC    
+                        objItemSaidaPort.setIdItemSaida(jTabelaInternos.getValueAt(i, 0).toString());
+                        objItemSaida.setIdInternoSaida((int) jTabelaInternos.getValueAt(i, 1));
+                        objItemSaida.setNomeInterno((String) jTabelaInternos.getValueAt(i, 2));
+                        objItemSaida.setIdSaida(Integer.valueOf(jIdRegistro.getText()));
+                        objItemSaida.setNomeDestino((String) jTabelaInternos.getValueAt(i, 4));
+                        objItemSaida.setDataSaida(date);
+                        controlMov.incluirMovSaida(objItemSaida);
                         //RETIRAR DO ROL DE VISITAS
                         // Bloquear interno no Rol (FINALIZAR)
                         objRol.setIdInterno((int) jTabelaInternos.getValueAt(i, 1));
@@ -2032,23 +2087,43 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                         //MODIFICAR SITUAÇÃO DO INTERNO NO PRONTUARIO
                         objProCrc.setIdInterno((int) jTabelaInternos.getValueAt(i, 1));
                         objProCrc.setDescricaoDoc((String) jTabelaInternos.getValueAt(i, 4));
+                        if (objProCrc.getDescricaoDoc().equals("Saída Alvará")) {
+                            pSITUACAO_interno = "SAIDA ALVARA";
+                            objProCrc.setSituacao(pSITUACAO_interno);
+                        } else if (objProCrc.getDescricaoDoc().equals("Livramento Condicional")) {
+                            pSITUACAO_interno = "LIVRAMENTO CONDICIONAL";
+                            objProCrc.setSituacao(pSITUACAO_interno);
+                        } else if (objProCrc.getDescricaoDoc().equals("Progressão de Regime")) {
+                            pSITUACAO_interno = "PROGRESSAO DE REGIME";
+                            objProCrc.setSituacao(pSITUACAO_interno);
+                        } else if (objProCrc.getDescricaoDoc().equals("Regressão de Regime")) {
+                            pSITUACAO_interno = "REGRESSAO DE REGIME";
+                            objProCrc.setSituacao(pSITUACAO_interno);
+                        } else if (objProCrc.getDescricaoDoc().equals("Transferência")) {
+                            pSITUACAO_interno = "TRANSFERENCIA";
+                            objProCrc.setSituacao(pSITUACAO_interno);
+                        } else if (objProCrc.getDescricaoDoc().equals("Prisão Domiciliar")) {
+                            pSITUACAO_interno = "PRISAO DOMICILIAR";
+                            objProCrc.setSituacao(pSITUACAO_interno);
+                        } else if (objProCrc.getDescricaoDoc().equals("Prisão Domiciliar/COVID-19")) {
+                            pSITUACAO_interno = "PRISAO DOMICILIAR - COVID-19";
+                            objProCrc.setSituacao(pSITUACAO_interno);
+                        }
                         mod.alterarSituacaoInterno(objProCrc);
-                        // RETIRAR DA POPULAÇÃO
-                        //RETIRAR DA CELA
+                        // RETIRAR DA POPULAÇÃO - RETIRAR DA CELA
                         // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
                         objItensLoca.setIdInternoCrc((int) jTabelaInternos.getValueAt(i, 1));
                         excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
                         //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
-                        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
-                        objEntradaSaida.setDataMovimento((Date) jTabelaInternos.getValueAt(i, 5));
+                        objEntradaSaida.setIdDocumento(Integer.parseInt(jIdRegistro.getText()));
+                        objEntradaSaida.setDataMovimento(date);
                         objEntradaSaida.setHorarioMovimento(horaMov);
                         objEntradaSaida.setQuantidade(pQUANTIDADE_SAIDA_INTERNO);
                         objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_ENTRADA);
-
                         objEntradaSaida.setUsuarioInsert(nameUser);
                         objEntradaSaida.setDataInsert(jDataSistema.getText());
                         objEntradaSaida.setHorarioInsert(horaMov);
-                        //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
+                        //PEGAR ULTIMA POPULAÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
                         listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
                         pPOPULCAO_ATUAL = objEntradaSaida.getPopulacao() - pQUANTIDADE_SAIDA_INTERNO;
                         objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL);
@@ -2059,8 +2134,8 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
                     objSaida.setIdRegSaida(Integer.parseInt(jIdRegistro.getText()));
                     control.finalizarRegistroSaida(objSaida);
                     jStatusRegistro.setText("FINALIZADO");
-                    JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
                     carregando.dispose(); //Teste tela aguarde
+                    JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
                 }
             }; //Teste tela aguarde
             t.start(); //Teste tela aguarde
@@ -2242,43 +2317,4 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-
-    // ------------------------------------
-    // FINALIZA o Rol do interno quando o mesmo sair da unidade
-//    public void atualizarRolSaidaInterno() {
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL("SELECT * FROM ROLVISITAS "
-//                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
-//                    + "AND StatusRol='" + statusRol + "'");
-//            conecta.rs.first();
-//            idInternoRol = conecta.rs.getInt("IdInternoCrc");
-//        } catch (SQLException ex) {
-//        }
-//        statusRol = "FINALIZADO";
-//        objRol.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-//        objRol.setStatusRol(statusRol);
-//        objRol.setObsRol(jTipoSaida.getText());
-//        objRol.setUsuarioUp(nameUser);
-//        objRol.setDataUp(jDataSistema.getText());
-//        objRol.setHoraUp(horaMov);
-//        controlRol.finalizarRolVisitasPortaria(objRol);
-//        conecta.desconecta();
-//    }
-//    public void populacaoAlimentacao() {
-//        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
-//        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
-//        objEntradaSaida.setHorarioMovimento(jHorarioSaida.getText());
-//        objEntradaSaida.setQuantidade(pQUANTIDADE_SAIDA_INTERNO);
-//        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_ENTRADA);
-//
-//        objEntradaSaida.setUsuarioInsert(nameUser);
-//        objEntradaSaida.setDataInsert(jDataSistema.getText());
-//        objEntradaSaida.setHorarioInsert(horaMov);
-    //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
-//        listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
-//        pPOPULCAO_ATUAL = objEntradaSaida.getPopulacao() - pQUANTIDADE_SAIDA_INTERNO;
-//        objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL);
-//        populacao.incluirEntradaSaidaPortaria(objEntradaSaida);
-//    }
 }

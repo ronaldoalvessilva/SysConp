@@ -8,8 +8,11 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.SaidaSimbolica;
 import static gestor.Visao.TelaSaidaSimbolica.jCodigoReq;
+import static gestor.Visao.TelaSaidaSimbolica.jIdInternoCrc;
 import static gestor.Visao.TelaSaidaSimbolica.jIdRegistro;
 import static gestor.Visao.TelaSaidaSimbolica.pTOTAL_registros;
+import static gestor.Visao.TelaSaidaSimbolica.pCODIGO_registro;
+import static gestor.Visao.TelaSaidaSimbolica.pCODIGO_interno;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -250,6 +253,23 @@ public class ControleSaidaSimbolica {
             objSaida.setMotivoSaida(conecta.rs.getString("MotivoSaida"));
         } catch (SQLException ex) {
             Logger.getLogger(ControleSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+        return objSaida;
+    }
+
+    public SaidaSimbolica PESQUISAR_EXISTENCIA_interno(SaidaSimbolica objSaida) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdRegSaida, "
+                    + "IdInternoCrc "
+                    + "FROM ITENS_SAIDA_SIMBOLICA_CRC "
+                    + "WHERE IdRegSaida='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + jIdInternoCrc.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_registro = conecta.rs.getString("IdRegSaida");
+            pCODIGO_interno = conecta.rs.getString("IdInternoCrc");
+        } catch (SQLException ex) {
         }
         conecta.desconecta();
         return objSaida;

@@ -43,12 +43,12 @@ public class PesquisarInternosSaidasSimbolicas {
         List<SaidaSimbolica> listaInternosSaidaSimbolica = new ArrayList<SaidaSimbolica>();
         try {
             conecta.executaSQL("SELECT "
-                    + "ITENS_SAIDA_SIMBOLICA_CRC.IdItem "
+                    + "ITENS_SAIDA_SIMBOLICA_CRC.IdItem, "
                     + "ITENS_SAIDA_SIMBOLICA_CRC.IdRegSaida, "
                     + "ITENS_SAIDA_SIMBOLICA_CRC.IdInternoCrc, "
                     + "ITENS_SAIDA_SIMBOLICA_CRC.NrdocumentoSA, "
                     + "ITENS_SAIDA_SIMBOLICA_CRC.TipoBeneficioSA, "
-                    + "ITENS_SAIDA_SIMBOLICA_CRC.DataRegistroSA "
+                    + "ITENS_SAIDA_SIMBOLICA_CRC.DataRegistroSA, "
                     + "PRONTUARIOSCRC.NomeInternoCrc "
                     + "FROM ITENS_SAIDA_SIMBOLICA_CRC "
                     + "INNER JOIN PRONTUARIOSCRC "
