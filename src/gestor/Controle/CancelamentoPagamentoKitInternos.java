@@ -112,10 +112,10 @@ public class CancelamentoPagamentoKitInternos {
     public ItensPagamentoKitInterno BUSCAR_CODIGO_registro(ItensPagamentoKitInterno objItensPagto) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT ITENS_PAGAMENTO_KIT_INTERNOS.IdItem "
-                    + "FROM ITENS_PAGAMENTO_KIT_INTERNOS ");
+            conecta.executaSQL("SELECT ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdItemINT "
+                    + "FROM ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS ");
             conecta.rs.last();
-            codItem = conecta.rs.getInt("IdItem");
+            codItem = conecta.rs.getInt("IdItemINT");
         } catch (Exception e) {
         }
         conecta.desconecta();

@@ -1215,7 +1215,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
             } else if (row == 0) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar o registro com sem adicionar os internos.");
+                JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar o registro sem adicionar os internos.");
             } else {
                 Finalizar();
             }

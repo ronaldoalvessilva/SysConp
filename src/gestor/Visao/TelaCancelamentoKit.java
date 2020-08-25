@@ -5,21 +5,12 @@
  */
 package gestor.Visao;
 
-import Utilitarios.ModeloTabela;
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
-import com.sun.jna.ptr.IntByReference;
-import com.sun.jna.ptr.PointerByReference;
-import com.sun.jna.win32.StdCallLibrary;
 import gestor.Controle.CancelamentoPagamentoKitInternos;
 import gestor.Controle.ControleItensProdutosCancelamentoKitInterno;
-import gestor.Controle.ControleItensProdutosPagamentoKitInterno;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePesquisaKitInternoManualCancelamento;
 import gestor.Controle.ControleProdutosKitLote;
 import gestor.Controle.Controle_PESQUISAR_kits;
-import gestor.Controle.PagamentoKitInternos;
 import gestor.Controle.PesquisarInternosProdutosCanceladosKits;
 import gestor.Controle.PesquisarKitInternosProdutosCanceladosKits;
 import gestor.Dao.ConexaoBancoDados;
@@ -29,29 +20,21 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProdutoInternosKitLote;
 import gestor.Modelo.ProdutosPagtoKitInterno;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.Rectangle;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxPavilhao;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxTiposKits;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jDataEntrega;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jHorarioPagto;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.codItem;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdKit;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistro;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jTabelaInternos;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.jTabelaProdutosKitInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -110,7 +93,7 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
     //
     public static float estoque = 0;
     public static String codigoInternoKit;
-    String kitPago = "Can";
+    String kitPago = "Can"; //OPÇOES: Sim, Não e Can
     public static int pRegistroComp = 0;
     public static int pCodigoInterno = 0;
     public static int pCodigoProd = 0;
@@ -528,6 +511,7 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 //BUSCAR O CÓDIGO DO REGISTRO
                 controle.BUSCAR_CODIGO_registro(objItensPagto);
+                limparTabelaInternos();
                 preencherTabelaItensInterno();
                 Salvar();
                 bloquearCampos();
@@ -756,13 +740,13 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                         objItensPagtoProd.setNomeInternoCrc(jNomeInternoKitBio1.getText());
                         objItensPagtoProd.setIdProd((int) jTabelaProdutosKit.getValueAt(i, 0));
                         objItensPagtoProd.setDescricaoProduto((String) jTabelaProdutosKit.getValueAt(i, 1));
-                        objItensPagtoProd.setQuatProd((float) jTabelaProdutosKit.getValueAt(i, 3));
+                        objItensPagtoProd.setQuatProd((int) jTabelaProdutosKit.getValueAt(i, 3));
                         objItensPagtoProd.setDataEntrega(jDataEntrega.getDate());
                         objItensPagtoProd.setHorario(jHorarioPagto.getText());
                         objItensPagtoProd.setAssinaturaDigitalInterno(pDigitalCapturada);
                         controleProd.incluirPagamentoProdutoKitInterno(objItensPagtoProd);
                         //
-                        objProdKit.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio1.getText()));
+                        objProdKit.setIdInternoCrc(Integer.parseInt(jIdInternoKitBio1.getText()));
                         objProdKit.setNomeInternoCrc(jNomeInternoKitBio1.getText());
                         objProdKit.setDataPagto(jDataEntrega1.getDate());
                         objProdKit.setPago(kitPago);
@@ -785,17 +769,17 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                         objItensPagtoProd.setIdPagto(pRegistroComp);
                         objItensPagtoProd.setIdProd((int) jTabelaProdutosKit.getValueAt(i, 0));
                         objItensPagtoProd.setDescricaoProduto((String) jTabelaProdutosKit.getValueAt(i, 1));
-                        objItensPagtoProd.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio1.getText()));
+                        objItensPagtoProd.setIdInternoCrc(Integer.parseInt(jIdInternoKitBio1.getText()));
                         objItensPagtoProd.setNomeInternoCrc(jNomeInternoKitBio1.getText());
-                        objItensPagtoProd.setQuatProd((float) jTabelaProdutosKit.getValueAt(i, 3));
+                        objItensPagtoProd.setQuatProd((int) jTabelaProdutosKit.getValueAt(i, 3));
+                        objItensPagtoProd.setQuantidadeUnit((int) jTabelaProdutosKit.getValueAt(i, 3));
                         pSaldo = (int) (pQuantidade - objItensPagtoProd.getQuatProd());
                         objItensPagtoProd.setQuatProd(pSaldo);
                         controleProd.alterarPagamentoProdutoKitInterno(objItensPagtoProd);
                         //DEVOLVER A QUANTIDADE DO KIT PARA O ESTOQUE
-                        controleProd.BUSCAR_SALDO_estoque(objItensPagtoProd);
-                        objItensPagtoProd.setIdProd((int) jTabelaProdutosKit.getValueAt(i, 0));
-                        pSALDO_estoque = (int) (pQUANTIDADE_PRODUTO + pQuantidade);
-                        objItensPagtoProd.setQuatProd(pSALDO_estoque);
+                        controleProd.BUSCAR_SALDO_estoque(objItensPagtoProd);                                             
+                        pSALDO_estoque = (int) (pQUANTIDADE_PRODUTO + objItensPagtoProd.getQuantidadeUnit());
+                        objItensPagtoProd.setSaldoAtual(pSALDO_estoque);
                         controleProd.alterarSaldoEstoque(objItensPagtoProd);
                     }
                     try {
@@ -868,84 +852,33 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
         jRegimeKitBio1.setText("");
         jPavilhaoKitBio1.setText("");
         jCelaKitBio1.setText("");
+        jFotoInternoKitBio1.setIcon(null);
         //
         jDataEntrega1.setDate(null);
         jHorarioPagto1.setText("");
     }
 
     public void preencherTabelaItensInterno() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutosKitInterno.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
         CancelamentoPagamentoKitHigiene d = new CancelamentoPagamentoKitHigiene();
         try {
             for (CancelamentoPagamentoKitHigiene dd : listaInternos.read()) {
                 dadosOrigem.addRow(new Object[]{dd.getIdItemINT(), dd.getIdInternoKit(), dd.getNomeInternoKit()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaProdutosKitInterno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    public void preencherTabelaProdutosKitInterno(String sql) {
-//        ArrayList dados = new ArrayList();
-//        String[] Colunas = new String[]{"Código", "Descrição do Produto", "Un.", "Quant."};
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL(sql);
-//            conecta.rs.first();
-//            do {
-//                dados.add(new Object[]{conecta.rs.getString("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), conecta.rs.getString("QuantProd")});
-//            } while (conecta.rs.next());
-//        } catch (SQLException ex) {
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-//        jTabelaProdutosKitInterno.setModel(modelo);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setResizable(false);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setPreferredWidth(340);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(1).setResizable(false);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setPreferredWidth(60);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setResizable(false);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setPreferredWidth(60);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setResizable(false);
-//        jTabelaProdutosKitInterno.getTableHeader().setReorderingAllowed(false);
-//        jTabelaProdutosKitInterno.setAutoResizeMode(jTabelaProdutosKitInterno.AUTO_RESIZE_OFF);
-//        jTabelaProdutosKitInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        alinharCamposTabelaKitInternos();
-//        conecta.desconecta();
-//    }
-//
-//    public void alinharCamposTabelaKitInternos() {
-//        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-//        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-//        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-//        //
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-//        jTabelaProdutosKitInterno.getColumnModel().getColumn(3).setCellRenderer(direita);
-//    }
-//
-//    public void alinarCamposTabelaInternos() {
-//        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-//        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-//        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-//        //
-//        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//    }
+
 
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
@@ -982,6 +915,13 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
         // APAGAR DADOS DA TABELA PRODUTOS
         while (jTabelaProdutosKit.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTabelaProdutosKit.getModel()).removeRow(0);
+        }
+    }
+    
+    public void limparTabelaInternos(){
+        // APAGAR DADOS DA TABELA PRODUTOS
+        while (jTabelaInternos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
         }
     }
 }

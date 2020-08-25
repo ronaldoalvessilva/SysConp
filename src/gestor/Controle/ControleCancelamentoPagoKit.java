@@ -108,6 +108,35 @@ public class ControleCancelamentoPagoKit {
         return objCancelaKit;
     }
 
+    public CancelamentoPagamentoKitHigiene finalizarRegistroCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CANCELAR_PAGAMENTO_KIT_HIGIENE SET StatusRegistro=? WHERE IdRegistro='" + objCancelaKit.getIdRegistro() + "'");
+            pst.setString(1, objCancelaKit.getStatusRegistro());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objCancelaKit;
+    }
+
+    public CancelamentoPagamentoKitHigiene PESQUISAR_status(CancelamentoPagamentoKitHigiene objCancelaKit) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdRegistro,StatusRegistro "
+                    + "FROM CANCELAR_PAGAMENTO_KIT_HIGIENE "
+                    + "WHERE IdRegistro='" + jIdRegistro.getText() + "'");
+            conecta.rs.first();
+            objCancelaKit.setStatusRegistro(conecta.rs.getString("StatusRegistro"));                
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível verificar se lançamento foi finalizado.\nERROR: " + ex);
+        }
+        conecta.desconecta();
+        return objCancelaKit;
+    }
+
     //------------------------------------------- INTERNOS E PRODUTOS DO CANCELAMENTO ---------------------------------------------
     public CancelamentoPagamentoKitHigiene incluirInternoProdutoCancelamento(CancelamentoPagamentoKitHigiene objCancelaKit) {
 

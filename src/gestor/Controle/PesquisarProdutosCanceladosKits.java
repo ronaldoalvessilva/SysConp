@@ -7,12 +7,13 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CancelamentoPagamentoKitHigiene;
-import static gestor.Visao.TelaCancelamentoPagamentoKits.idItemPagto;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jFotoInternoKit;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdInternoKit;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistro;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.idItemINT;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.codItemINT;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.idItemPagto;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.pINTERNOS;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,21 +37,23 @@ public class PesquisarProdutosCanceladosKits {
         conecta.abrirConexao();
         List<CancelamentoPagamentoKitHigiene> listaCancelCodigo = new ArrayList<CancelamentoPagamentoKitHigiene>();
         try {
-            conecta.executaSQL("SELECT DISTINCT PRODUTOS_AC.IdProd,"
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS.IdProd,"
                     + "PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd, "
-                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS.QuantProd "
+                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS.IdRegistro, "
+                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS.Quantidade "
                     + "FROM ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_PRODUTOS.IdRegistro='" + jIdRegistro.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoKit.getText() + "'");
+                    + "AND IdItemINT='" + idItemPagto + "'");
             while (conecta.rs.next()) {
                 CancelamentoPagamentoKitHigiene pCancelamentos = new CancelamentoPagamentoKitHigiene();
                 pCancelamentos.setIdRegistro(conecta.rs.getInt("IdRegistro"));
-                pCancelamentos.setDataRegistro(conecta.rs.getDate("IdProd"));
-                pCancelamentos.setDescricaoPav(conecta.rs.getString("DescricaoProd"));
-                pCancelamentos.setTipoKit(conecta.rs.getString("UnidadeProd"));
-                pCancelamentos.setIdRegistroKit(conecta.rs.getInt("QuantProd"));
+                pCancelamentos.setCodigoProduto(conecta.rs.getInt("IdProd"));
+                pCancelamentos.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
+                pCancelamentos.setUnidadeProduto(conecta.rs.getString("UnidadeProd"));
+                pCancelamentos.setQuantidadeProduto(conecta.rs.getInt("Quantidade"));
                 listaCancelCodigo.add(pCancelamentos);
             }
             return listaCancelCodigo;
@@ -65,17 +68,21 @@ public class PesquisarProdutosCanceladosKits {
     public CancelamentoPagamentoKitHigiene MOSTRAR_KIT_INTERNO_cancelado(CancelamentoPagamentoKitHigiene objCancelaKit) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdItemINT,IdInternoCrc "
-                    + "NomeInternoCrc,FotoInternoCrc,ImagemFrente, "
-                    + "DataEntrega,Horario "
+            conecta.executaSQL("SELECT ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdItemINT, "
+                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdRegistro,"
+                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.FotoInternoCrc, "
+                    + "PRONTUARIOSCRC.ImagemFrente, "
+                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.DataEntrega, "
+                    + "ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.Horario "
                     + "FROM ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdItemINT='" + idItemPagto + "'");
+                    + "WHERE IdRegistro='" + jIdRegistro.getText() + "' "
+                    + "AND ITENS_CANCELAR_PAGAMENTO_KIT_HIGIENE_INTERNOS.IdInternoCrc='" + pINTERNOS + "'");
             conecta.rs.first();
             idItemINT = conecta.rs.getInt("IdItemINT");
             codItemINT = conecta.rs.getInt("IdItemINT");
-            jIdInternoKit.setText(conecta.rs.getString("IdInternoCrc"));
             objCancelaKit.setIdInternoKit(conecta.rs.getInt("IdInternoCrc"));
             objCancelaKit.setNomeInternoKit(conecta.rs.getString("NomeInternoCrc"));
             // Capturando foto

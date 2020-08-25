@@ -30,11 +30,13 @@ public class ProdutosPagtoKitInterno {
     private String usuarioUp;
     private String dataUp;
     private String horarioUp;    
+    private int quantidadeUnit;
+    private int saldoAtual;  
 
     public ProdutosPagtoKitInterno() {
     }
 
-    public ProdutosPagtoKitInterno(int idItemProd, int idPagto, int idItem, int idProd, String descricaoProduto, float quatProd, int idInternoCrc, String nomeInternoCrc, Date dataEntrega, String horario, byte[] assinaturaDigitalInterno, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public ProdutosPagtoKitInterno(int idItemProd, int idPagto, int idItem, int idProd, String descricaoProduto, float quatProd, int idInternoCrc, String nomeInternoCrc, Date dataEntrega, String horario, byte[] assinaturaDigitalInterno, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int quantidadeUnit, int saldoAtual) {
         this.idItemProd = idItemProd;
         this.idPagto = idPagto;
         this.idItem = idItem;
@@ -52,6 +54,8 @@ public class ProdutosPagtoKitInterno {
         this.usuarioUp = usuarioUp;
         this.dataUp = dataUp;
         this.horarioUp = horarioUp;
+        this.quantidadeUnit = quantidadeUnit;
+        this.saldoAtual = saldoAtual;
     }
 
     /**
@@ -290,5 +294,33 @@ public class ProdutosPagtoKitInterno {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the quantidadeUnit
+     */
+    public int getQuantidadeUnit() {
+        return quantidadeUnit;
+    }
+
+    /**
+     * @param quantidadeUnit the quantidadeUnit to set
+     */
+    public void setQuantidadeUnit(int quantidadeUnit) {
+        this.quantidadeUnit = quantidadeUnit;
+    }
+
+    /**
+     * @return the saldoAtual
+     */
+    public int getSaldoAtual() {
+        return saldoAtual;
+    }
+
+    /**
+     * @param saldoAtual the saldoAtual to set
+     */
+    public void setSaldoAtual(int saldoAtual) {
+        this.saldoAtual = saldoAtual;
     }
 }

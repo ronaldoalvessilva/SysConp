@@ -132,6 +132,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private TelaCancelRegistroPortaria_NOVA_ENTRADA objCancel_NOVA_ENTRA = null;
     private TelaCancelRegistroPortaria_RETORNOS objCancel_RETORNOS = null;
     private TelaCancelRegistroSaidas_PORTARIA_CRC objCancel_SAIDAS = null;
+    private TelaSaidaSimbolica objSaidaSimb = null;
     // 
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -301,7 +302,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     //
     public static String telaProrrogracaoSaidaTMPPDManu_CRC = "Movimentação:Prorrogação de Saída Temporária/Prisão Domiciliar:Manutenção";
     public static String telaProrrogracaoSaidaTMPPDInt_CRC = "Movimentação:Prorrogação de Saída Temporária/Prisão Domiciliar:Internos";
-
+    //
+    public static String telaSaidaSimbolicaManu_CRC = "Movimentação:Saída Simbólica:Manutenção";
+    public static String telaSaidaSimbolicaInt_CRC = "Movimentação:Saída Simbólica:Internos";
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -401,7 +404,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     //
     String pNomePSTPM = "";
     String pNomePSTPI = "";
+    //
+    String pNomeSSM = "";
+    String pNomeSSI = "";
 
+//    pNomeSSM
+//      pNomeSSI
+//    telaSaidaSimbolicaManu_CRC
+//    telaSaidaSimbolicaInt_CRC
     /**
      * Creates new form TelaCRC
      */
@@ -466,6 +476,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jSaidasTransferencias = new javax.swing.JMenu();
         jSaidaInternos = new javax.swing.JMenuItem();
         jTransferenciaInternos = new javax.swing.JMenuItem();
+        jSeparator34 = new javax.swing.JPopupMenu.Separator();
+        jSaidaSimbolica = new javax.swing.JMenuItem();
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jProrrogacaoSaidaTemporaria = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
@@ -832,6 +844,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jSaidasTransferencias.add(jTransferenciaInternos);
+        jSaidasTransferencias.add(jSeparator34);
+
+        jSaidaSimbolica.setText("Saída Simbólica");
+        jSaidaSimbolica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSaidaSimbolicaActionPerformed(evt);
+            }
+        });
+        jSaidasTransferencias.add(jSaidaSimbolica);
 
         jMenuMovimentacao.add(jSaidasTransferencias);
         jMenuMovimentacao.add(jSeparator27);
@@ -1955,32 +1976,40 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 //        TelaGerarRelatorio gr = new TelaGerarRelatorio();
 //        TelaModuloCRC.jPainelCRC.add(gr);
 //        gr.show();
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/ProntuariosInternosCRC.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSFISICOSINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                    + "INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmho do relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Prontuário de Internos"); // Titulo do relatório
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO :" + e);
-        }
+        final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/ProntuariosInternosCRC.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSFISICOSINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                            + "INNER JOIN PAISES "
+                            + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                            + "INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN UNIDADE "
+                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmho do relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Prontuário de Internos"); // Titulo do relatório
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_ListagemGeralProntuariosActionPerformed
 
     private void ListagemInternosUnidadeEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListagemInternosUnidadeEntradaActionPerformed
@@ -2294,32 +2323,40 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jProntuarioInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProntuarioInternosUnidadeActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/ProntuariosInternosUnidadePenalCRC.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                    + "INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
-                    + "OR SituacaoCrc='" + situacaoRet + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", situacaoEnt);
-            parametros.put("situacaoRetorno", situacaoRet);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Prontuário de Internos na Unidade"); // Titulo do relatório
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/ProntuariosInternosUnidadePenalCRC.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                            + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                            + "INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                            + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                            + "OR SituacaoCrc='" + situacaoRet + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", situacaoEnt);
+                    parametros.put("situacaoRetorno", situacaoRet);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Prontuário de Internos na Unidade"); // Titulo do relatório
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação    
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_jProntuarioInternosUnidadeActionPerformed
 
     private void RetornoSaidaTemporariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetornoSaidaTemporariaActionPerformed
@@ -3654,6 +3691,40 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         objRelRetorno.show();
     }//GEN-LAST:event_jRelatorioRetornoActionPerformed
 
+    private void jSaidaSimbolicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaidaSimbolicaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaSaidaSimbolicaManu_CRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaSaidaSimbolicaManu_CRC) && codAbrirCRC == 1) {
+            if (objSaidaSimb == null || objSaidaSimb.isClosed()) {
+                objSaidaSimb = new TelaSaidaSimbolica();
+                jPainelCRC.add(objSaidaSimb);
+                objSaidaSimb.setVisible(true);
+            } else {
+                if (objSaidaSimb.isVisible()) {
+                    if (objSaidaSimb.isIcon()) { // Se esta minimizado
+                        try {
+                            objSaidaSimb.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objSaidaSimb.toFront(); // traz para frente
+                        objSaidaSimb.pack();//volta frame 
+                    }
+                } else {
+                    objSaidaSimb = new TelaSaidaSimbolica();
+                    TelaModuloCRC.jPainelCRC.add(objSaidaSimb);//adicona frame ao JDesktopPane  
+                    objCancel_SAIDAS.setVisible(true);
+                }
+            }
+            try {
+                objSaidaSimb.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jSaidaSimbolicaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3768,6 +3839,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
     private javax.swing.JMenuItem jRevalidarAtestadoReclusao;
     private javax.swing.JMenuItem jSaidaInternos;
+    private javax.swing.JMenuItem jSaidaSimbolica;
     private javax.swing.JMenu jSaidasTransferencias;
     private javax.swing.JMenuItem jSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -3797,6 +3869,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator31;
     private javax.swing.JPopupMenu.Separator jSeparator32;
     private javax.swing.JPopupMenu.Separator jSeparator33;
+    private javax.swing.JPopupMenu.Separator jSeparator34;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
@@ -5075,6 +5148,20 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomePSTPI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaidaSimbolicaManu_CRC + "'");
+            conecta.rs.first();
+            pNomeSSM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaidaSimbolicaInt_CRC + "'");
+            conecta.rs.first();
+            pNomeSSI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         // TIPO DE OPERAÇÃO
         if (!pNomeOP.equals(telaTipoOPCRC) || pNomeOP == null || pNomeOP.equals("")) {
@@ -5512,6 +5599,18 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaProrrogracaoSaidaTMPPDInt_CRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSSM.equals(telaSaidaSimbolicaManu_CRC) || pNomeSSM == null || pNomeSSM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaidaSimbolicaManu_CRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSSI.equals(telaSaidaSimbolicaInt_CRC) || pNomeSSI == null || pNomeSSI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaidaSimbolicaInt_CRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

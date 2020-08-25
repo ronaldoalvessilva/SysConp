@@ -24,9 +24,13 @@ public class ItensMovSaidaRetorno {
     private Date dataRetorno;
     private String nrDocRetorno;
     private String dataEvasao;
-    private String confirmaEvasao;     
+    private String confirmaEvasao;
+    private String tipoSaida;
 
-    public ItensMovSaidaRetorno(int idItem, int idInternoCrc, String nomeInternoCrc, int idSaida, Date dataSaida, Date DataPrevRetorno, String nrDocSaida, int idRetorno, Date dataRetorno, String nrDocRetorno, String dataEvasao, String confirmaEvasao) {
+    public ItensMovSaidaRetorno() {
+    }
+
+    public ItensMovSaidaRetorno(int idItem, int idInternoCrc, String nomeInternoCrc, int idSaida, Date dataSaida, Date DataPrevRetorno, String nrDocSaida, int idRetorno, Date dataRetorno, String nrDocRetorno, String dataEvasao, String confirmaEvasao, String tipoSaida) {
         this.idItem = idItem;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
@@ -39,9 +43,7 @@ public class ItensMovSaidaRetorno {
         this.nrDocRetorno = nrDocRetorno;
         this.dataEvasao = dataEvasao;
         this.confirmaEvasao = confirmaEvasao;
-    }
-
-    public ItensMovSaidaRetorno() {
+        this.tipoSaida = tipoSaida;
     }
 
     /**
@@ -210,5 +212,19 @@ public class ItensMovSaidaRetorno {
      */
     public void setConfirmaEvasao(String confirmaEvasao) {
         this.confirmaEvasao = confirmaEvasao;
+    }
+
+    /**
+     * @return the tipoSaida
+     */
+    public String getTipoSaida() {
+        return tipoSaida;
+    }
+
+    /**
+     * @param tipoSaida the tipoSaida to set
+     */
+    public void setTipoSaida(String tipoSaida) {
+        this.tipoSaida = tipoSaida;
     }
 }
