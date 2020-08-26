@@ -11,8 +11,10 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePesquisaKitInternoManualCancelamento;
 import gestor.Controle.ControleProdutosKitLote;
 import gestor.Controle.Controle_PESQUISAR_kits;
+import gestor.Controle.Controle_PESQUISAR_kits_internosFU;
 import gestor.Controle.PesquisarInternosProdutosCanceladosKits;
 import gestor.Controle.PesquisarKitInternosProdutosCanceladosKits;
+import gestor.Controle.PesquisarKitInternosProdutosCanceladosKitsFU;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CancelamentoPagamentoKitHigiene;
 import gestor.Modelo.ItensPagamentoKitInterno;
@@ -33,6 +35,7 @@ import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxTiposKits;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jDataEntrega;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jHorarioPagto;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.codItem;
+import static gestor.Visao.TelaCancelamentoPagamentoKits.jComboBoxSituacaoInterno;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jIdRegistro;
 import static gestor.Visao.TelaCancelamentoPagamentoKits.jTabelaInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -57,9 +60,11 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
     //
     PesquisarInternosProdutosCanceladosKits listaInternos = new PesquisarInternosProdutosCanceladosKits();
     PesquisarKitInternosProdutosCanceladosKits pPESQUISAR_kits = new PesquisarKitInternosProdutosCanceladosKits();
+    PesquisarKitInternosProdutosCanceladosKitsFU pPESQUISAR_kitsFU = new PesquisarKitInternosProdutosCanceladosKitsFU();
     CancelamentoPagamentoKitHigiene objCancelaKit = new CancelamentoPagamentoKitHigiene();
     //PESQUISAR OS TIPOS DE KITS
     Controle_PESQUISAR_kits pPESQUISAR_KITS_internos = new Controle_PESQUISAR_kits();
+    Controle_PESQUISAR_kits_internosFU pPESQUISAR_KITS_internosFU = new Controle_PESQUISAR_kits_internosFU();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -120,18 +125,36 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
         setLocationRelativeTo(pCANCELAR_kit);
         initComponents();
         corCampos();
-        if (jComboBoxTiposKits.getSelectedItem().equals("Kit Inicial")) {
-            pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_inicial(objItensPagtoProd);
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Decendial")) {
-            pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_decendial(objItensPagtoProd);
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Quinzenal")) {
-            pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_quinzenal(objItensPagtoProd);
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Mensal")) {
-            pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_mensal(objItensPagtoProd);
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Semestral")) {
-            pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_semetral(objItensPagtoProd);
-        } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Anual")) {
-            pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_anual(objItensPagtoProd);
+        if (jComboBoxSituacaoInterno.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(null, "Você não selecionou a situação do interno na unidade.");
+        } else if (jComboBoxSituacaoInterno.getSelectedItem().equals("Dentro da Unidade")) {
+            if (jComboBoxTiposKits.getSelectedItem().equals("Kit Inicial")) {
+                pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_inicial(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Decendial")) {
+                pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_decendial(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Quinzenal")) {
+                pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_quinzenal(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Mensal")) {
+                pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_mensal(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Semestral")) {
+                pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_semetral(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Anual")) {
+                pPESQUISAR_KITS_internos.pPAGAMENTO_KIT_anual(objItensPagtoProd);
+            }
+        } else if (jComboBoxSituacaoInterno.getSelectedItem().equals("Fora da Unidade")) {
+            if (jComboBoxTiposKits.getSelectedItem().equals("Kit Inicial")) {
+                pPESQUISAR_KITS_internosFU.pPAGAMENTO_KIT_FUinicial(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Decendial")) {
+                pPESQUISAR_KITS_internosFU.pPAGAMENTO_KIT_FUdecendial(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Quinzenal")) {
+                pPESQUISAR_KITS_internosFU.pPAGAMENTO_KIT_FUquinzenal(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Mensal")) {
+                pPESQUISAR_KITS_internosFU.pPAGAMENTO_KIT_FUmensal(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Semestral")) {
+                pPESQUISAR_KITS_internosFU.pPAGAMENTO_KIT_FUsemetral(objItensPagtoProd);
+            } else if (jComboBoxTiposKits.getSelectedItem().equals("Kit Anual")) {
+                pPESQUISAR_KITS_internosFU.pPAGAMENTO_KIT_FUanual(objItensPagtoProd);
+            }
         }
     }
 
@@ -296,17 +319,6 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCelaKitBio1)
-                    .addComponent(jNomeInternoKitBio1)
-                    .addComponent(jPavilhaoKitBio1)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jDataEntrega1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(119, 119, 119)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jHorarioPagto1)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -326,7 +338,20 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                                     .addComponent(jLabel14)
                                     .addComponent(jRegimeKitBio1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel15))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jDataEntrega1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jHorarioPagto1)))
+                    .addComponent(jCelaKitBio1)
+                    .addComponent(jNomeInternoKitBio1)
+                    .addComponent(jPavilhaoKitBio1))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -355,15 +380,13 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCelaKitBio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDataEntrega1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jHorarioPagto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jDataEntrega1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHorarioPagto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -404,34 +427,32 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jBtVerificarKit)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel18)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxOperacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxPesquisarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(0, 3, Short.MAX_VALUE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxPesquisarInterno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 15, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtVerificarKit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxOperacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtSair, jBtSalvar});
@@ -468,7 +489,7 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
 
-        setSize(new java.awt.Dimension(555, 544));
+        setSize(new java.awt.Dimension(570, 544));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -542,13 +563,22 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
         } else {
             Novo();
             abrirCampos();
-            //PESQUISAR OS DADOS DO INTERNO SELECIONADO
-            pPESQUISAR_kits.PESQUISAR_INTERNO_KIT_selecionado(objCancelaKit);
-            jIdInternoKitBio1.setText(String.valueOf(objCancelaKit.getIdInternoKit()));
-            jNomeInternoKitBio1.setText(objCancelaKit.getNomeInternoKit());
-            jRegimeKitBio1.setText(objCancelaKit.getRegimeInterno());
-            jPavilhaoKitBio1.setText(objCancelaKit.getDescricaoPav());
-            jCelaKitBio1.setText(objCancelaKit.getDescricaoCela());
+            if (jComboBoxSituacaoInterno.getSelectedItem().equals("Dentro da Unidade")) {
+                //PESQUISAR OS DADOS DO INTERNO SELECIONADO
+                pPESQUISAR_kits.PESQUISAR_INTERNO_KIT_selecionado(objCancelaKit);
+                jIdInternoKitBio1.setText(String.valueOf(objCancelaKit.getIdInternoKit()));
+                jNomeInternoKitBio1.setText(objCancelaKit.getNomeInternoKit());
+                jRegimeKitBio1.setText(objCancelaKit.getRegimeInterno());
+                jPavilhaoKitBio1.setText(objCancelaKit.getDescricaoPav());
+                jCelaKitBio1.setText(objCancelaKit.getDescricaoCela());
+            } else if (jComboBoxSituacaoInterno.getSelectedItem().equals("Fora da Unidade")) {
+                pPESQUISAR_kitsFU.PESQUISAR_INTERNO_KIT_FUselecionado(objCancelaKit);
+                jIdInternoKitBio1.setText(String.valueOf(objCancelaKit.getIdInternoKit()));
+                jNomeInternoKitBio1.setText(objCancelaKit.getNomeInternoKit());
+                jRegimeKitBio1.setText(objCancelaKit.getRegimeInterno());
+                jPavilhaoKitBio1.setText(objCancelaKit.getDescricaoPav());
+                jCelaKitBio1.setText(objCancelaKit.getDescricaoCela());
+            }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -777,7 +807,7 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
                         objItensPagtoProd.setQuatProd(pSaldo);
                         controleProd.alterarPagamentoProdutoKitInterno(objItensPagtoProd);
                         //DEVOLVER A QUANTIDADE DO KIT PARA O ESTOQUE
-                        controleProd.BUSCAR_SALDO_estoque(objItensPagtoProd);                                             
+                        controleProd.BUSCAR_SALDO_estoque(objItensPagtoProd);
                         pSALDO_estoque = (int) (pQUANTIDADE_PRODUTO + objItensPagtoProd.getQuantidadeUnit());
                         objItensPagtoProd.setSaldoAtual(pSALDO_estoque);
                         controleProd.alterarSaldoEstoque(objItensPagtoProd);
@@ -878,8 +908,6 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
         }
     }
 
-
-
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -917,8 +945,8 @@ public class TelaCancelamentoKit extends javax.swing.JDialog {
             ((DefaultTableModel) jTabelaProdutosKit.getModel()).removeRow(0);
         }
     }
-    
-    public void limparTabelaInternos(){
+
+    public void limparTabelaInternos() {
         // APAGAR DADOS DA TABELA PRODUTOS
         while (jTabelaInternos.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
