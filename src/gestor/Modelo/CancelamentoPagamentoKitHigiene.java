@@ -25,6 +25,7 @@ public class CancelamentoPagamentoKitHigiene {
     private String NomeFunc;
     private Integer idKit;
     private String tipoKit;
+    private String situacaoInterno;
     private Integer idRegistroKit;
     private Date dataRegistroKit;
     private String motivoCancelamento;
@@ -51,7 +52,7 @@ public class CancelamentoPagamentoKitHigiene {
     public CancelamentoPagamentoKitHigiene() {
     }
 
-    public CancelamentoPagamentoKitHigiene(Integer idRegistro, String statusRegistro, Date dataRegistro, Integer idPav, String descricaoPav, Integer idCela, String descricaoCela, Integer idFunc, String NomeFunc, Integer idKit, String tipoKit, Integer idRegistroKit, Date dataRegistroKit, String motivoCancelamento, Integer idItemSA, Integer idItemINT, Integer idInternoKit, String matriculaInterno, String regimeInterno, String nomeInternoKit, Integer idItemPRO, Integer codigoProduto, String descricaoProduto, String unidadeProduto, int quantidadeProduto, Date dataEntrega, String horario, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public CancelamentoPagamentoKitHigiene(Integer idRegistro, String statusRegistro, Date dataRegistro, Integer idPav, String descricaoPav, Integer idCela, String descricaoCela, Integer idFunc, String NomeFunc, Integer idKit, String tipoKit, String situacaoInterno, Integer idRegistroKit, Date dataRegistroKit, String motivoCancelamento, Integer idItemSA, Integer idItemINT, Integer idInternoKit, String matriculaInterno, String regimeInterno, String nomeInternoKit, Integer idItemPRO, Integer codigoProduto, String descricaoProduto, String unidadeProduto, int quantidadeProduto, Date dataEntrega, String horario, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegistro = idRegistro;
         this.statusRegistro = statusRegistro;
         this.dataRegistro = dataRegistro;
@@ -63,6 +64,7 @@ public class CancelamentoPagamentoKitHigiene {
         this.NomeFunc = NomeFunc;
         this.idKit = idKit;
         this.tipoKit = tipoKit;
+        this.situacaoInterno = situacaoInterno;
         this.idRegistroKit = idRegistroKit;
         this.dataRegistroKit = dataRegistroKit;
         this.motivoCancelamento = motivoCancelamento;
@@ -85,6 +87,144 @@ public class CancelamentoPagamentoKitHigiene {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
+    }
+
+
+    /**
+     * @return the usuarioInsert
+     */
+    public String getUsuarioInsert() {
+        return usuarioInsert;
+    }
+
+    /**
+     * @param usuarioInsert the usuarioInsert to set
+     */
+    public void setUsuarioInsert(String usuarioInsert) {
+        this.usuarioInsert = usuarioInsert;
+    }
+
+    /**
+     * @return the usuarioUp
+     */
+    public String getUsuarioUp() {
+        return usuarioUp;
+    }
+
+    /**
+     * @param usuarioUp the usuarioUp to set
+     */
+    public void setUsuarioUp(String usuarioUp) {
+        this.usuarioUp = usuarioUp;
+    }
+
+    /**
+     * @return the dataInsert
+     */
+    public String getDataInsert() {
+        return dataInsert;
+    }
+
+    /**
+     * @param dataInsert the dataInsert to set
+     */
+    public void setDataInsert(String dataInsert) {
+        this.dataInsert = dataInsert;
+    }
+
+    /**
+     * @return the dataUp
+     */
+    public String getDataUp() {
+        return dataUp;
+    }
+
+    /**
+     * @param dataUp the dataUp to set
+     */
+    public void setDataUp(String dataUp) {
+        this.dataUp = dataUp;
+    }
+
+    /**
+     * @return the horarioInsert
+     */
+    public String getHorarioInsert() {
+        return horarioInsert;
+    }
+
+    /**
+     * @param horarioInsert the horarioInsert to set
+     */
+    public void setHorarioInsert(String horarioInsert) {
+        this.horarioInsert = horarioInsert;
+    }
+
+    /**
+     * @return the horarioUp
+     */
+    public String getHorarioUp() {
+        return horarioUp;
+    }
+
+    /**
+     * @param horarioUp the horarioUp to set
+     */
+    public void setHorarioUp(String horarioUp) {
+        this.horarioUp = horarioUp;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.getIdRegistro());
+        hash = 73 * hash + Objects.hashCode(this.getIdPav());
+        hash = 73 * hash + Objects.hashCode(this.getIdCela());
+        hash = 73 * hash + Objects.hashCode(this.getIdFunc());
+        hash = 73 * hash + Objects.hashCode(this.getIdRegistroKit());
+        hash = 73 * hash + Objects.hashCode(this.getIdItemINT());
+        hash = 73 * hash + Objects.hashCode(this.getIdInternoKit());
+        hash = 73 * hash + Objects.hashCode(this.getIdItemPRO());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CancelamentoPagamentoKitHigiene other = (CancelamentoPagamentoKitHigiene) obj;
+        if (!Objects.equals(this.idRegistro, other.idRegistro)) {
+            return false;
+        }
+        if (!Objects.equals(this.idPav, other.idPav)) {
+            return false;
+        }
+        if (!Objects.equals(this.idCela, other.idCela)) {
+            return false;
+        }
+        if (!Objects.equals(this.idFunc, other.idFunc)) {
+            return false;
+        }
+        if (!Objects.equals(this.idRegistroKit, other.idRegistroKit)) {
+            return false;
+        }
+        if (!Objects.equals(this.idItemINT, other.idItemINT)) {
+            return false;
+        }
+        if (!Objects.equals(this.idInternoKit, other.idInternoKit)) {
+            return false;
+        }
+        if (!Objects.equals(this.idItemPRO, other.idItemPRO)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -239,6 +379,20 @@ public class CancelamentoPagamentoKitHigiene {
      */
     public void setTipoKit(String tipoKit) {
         this.tipoKit = tipoKit;
+    }
+
+    /**
+     * @return the situacaoInterno
+     */
+    public String getSituacaoInterno() {
+        return situacaoInterno;
+    }
+
+    /**
+     * @param situacaoInterno the situacaoInterno to set
+     */
+    public void setSituacaoInterno(String situacaoInterno) {
+        this.situacaoInterno = situacaoInterno;
     }
 
     /**
@@ -463,142 +617,5 @@ public class CancelamentoPagamentoKitHigiene {
      */
     public void setHorario(String horario) {
         this.horario = horario;
-    }
-
-    /**
-     * @return the usuarioInsert
-     */
-    public String getUsuarioInsert() {
-        return usuarioInsert;
-    }
-
-    /**
-     * @param usuarioInsert the usuarioInsert to set
-     */
-    public void setUsuarioInsert(String usuarioInsert) {
-        this.usuarioInsert = usuarioInsert;
-    }
-
-    /**
-     * @return the usuarioUp
-     */
-    public String getUsuarioUp() {
-        return usuarioUp;
-    }
-
-    /**
-     * @param usuarioUp the usuarioUp to set
-     */
-    public void setUsuarioUp(String usuarioUp) {
-        this.usuarioUp = usuarioUp;
-    }
-
-    /**
-     * @return the dataInsert
-     */
-    public String getDataInsert() {
-        return dataInsert;
-    }
-
-    /**
-     * @param dataInsert the dataInsert to set
-     */
-    public void setDataInsert(String dataInsert) {
-        this.dataInsert = dataInsert;
-    }
-
-    /**
-     * @return the dataUp
-     */
-    public String getDataUp() {
-        return dataUp;
-    }
-
-    /**
-     * @param dataUp the dataUp to set
-     */
-    public void setDataUp(String dataUp) {
-        this.dataUp = dataUp;
-    }
-
-    /**
-     * @return the horarioInsert
-     */
-    public String getHorarioInsert() {
-        return horarioInsert;
-    }
-
-    /**
-     * @param horarioInsert the horarioInsert to set
-     */
-    public void setHorarioInsert(String horarioInsert) {
-        this.horarioInsert = horarioInsert;
-    }
-
-    /**
-     * @return the horarioUp
-     */
-    public String getHorarioUp() {
-        return horarioUp;
-    }
-
-    /**
-     * @param horarioUp the horarioUp to set
-     */
-    public void setHorarioUp(String horarioUp) {
-        this.horarioUp = horarioUp;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + Objects.hashCode(this.idRegistro);
-        hash = 73 * hash + Objects.hashCode(this.idPav);
-        hash = 73 * hash + Objects.hashCode(this.idCela);
-        hash = 73 * hash + Objects.hashCode(this.idFunc);
-        hash = 73 * hash + Objects.hashCode(this.idRegistroKit);
-        hash = 73 * hash + Objects.hashCode(this.idItemINT);
-        hash = 73 * hash + Objects.hashCode(this.idInternoKit);
-        hash = 73 * hash + Objects.hashCode(this.idItemPRO);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CancelamentoPagamentoKitHigiene other = (CancelamentoPagamentoKitHigiene) obj;
-        if (!Objects.equals(this.idRegistro, other.idRegistro)) {
-            return false;
-        }
-        if (!Objects.equals(this.idPav, other.idPav)) {
-            return false;
-        }
-        if (!Objects.equals(this.idCela, other.idCela)) {
-            return false;
-        }
-        if (!Objects.equals(this.idFunc, other.idFunc)) {
-            return false;
-        }
-        if (!Objects.equals(this.idRegistroKit, other.idRegistroKit)) {
-            return false;
-        }
-        if (!Objects.equals(this.idItemINT, other.idItemINT)) {
-            return false;
-        }
-        if (!Objects.equals(this.idInternoKit, other.idInternoKit)) {
-            return false;
-        }
-        if (!Objects.equals(this.idItemPRO, other.idItemPRO)) {
-            return false;
-        }
-        return true;
     }
 }

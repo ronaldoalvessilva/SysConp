@@ -181,6 +181,8 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jResponsavel = new javax.swing.JTextField();
+        jComboBoxSituacaoInterno = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -558,6 +560,14 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jResponsavel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jResponsavel.setEnabled(false);
 
+        jComboBoxSituacaoInterno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxSituacaoInterno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Dentro da Unidade", "Fora da Unidade" }));
+        jComboBoxSituacaoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxSituacaoInterno.setEnabled(false);
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setText("Situação Interno");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -565,31 +575,19 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxTiposKits, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jComboBoxPavilhao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdKit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel13)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jDataComposicaoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtPesquisarKit))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel12)
+                            .addComponent(jComboBoxTiposKits, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxSituacaoInterno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel14)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -603,8 +601,28 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                                     .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)))
                             .addComponent(jLabel5)
-                            .addComponent(jLabel15))
+                            .addComponent(jLabel15)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel18)
+                                            .addComponent(jIdKit, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jLabel13))
+                                    .addComponent(jDataComposicaoKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtPesquisarKit)))
                         .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jComboBoxPavilhao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jResponsavel))
                 .addContainerGap())
         );
@@ -628,14 +646,18 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(3, 3, 3)
-                .addComponent(jComboBoxTiposKits, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxTiposKits, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxSituacaoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
@@ -650,7 +672,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1291,7 +1313,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel12, jPanel13, jPanel9});
@@ -1310,7 +1332,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setBounds(330, 60, 619, 481);
+        setBounds(330, 60, 617, 481);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqCodigoReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoReqActionPerformed
@@ -1444,6 +1466,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
             jResponsavel.setText(objCancelaKit.getNomeFunc());
             jComboBoxPavilhao.addItem(objCancelaKit.getDescricaoPav().toString());
             jComboBoxTiposKits.setSelectedItem(objCancelaKit.getTipoKit());
+            jComboBoxSituacaoInterno.setSelectedItem(objCancelaKit.getSituacaoInterno());
             jIdRegistroComp.setText(String.valueOf(objCancelaKit.getIdRegistroKit()));
             jIdKit.setText(String.valueOf(objCancelaKit.getIdKit()));
             jDataComposicaoKit.setDate(objCancelaKit.getDataRegistroKit());
@@ -1556,12 +1579,15 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o código do registro da composição do kit.");
             } else if (jMotivoCancelamento.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o motivo do cancelamento do kit.");
+            } else if (jComboBoxSituacaoInterno.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a situação do interno na unidade.");
             } else {
                 objCancelaKit.setStatusRegistro(jStatusRegistro.getText());
                 objCancelaKit.setDataRegistro(jDataRegistro.getDate());
                 objCancelaKit.setIdFunc(pCODIGO_colaborador);
                 objCancelaKit.setDescricaoPav((String) jComboBoxPavilhao.getSelectedItem());
                 objCancelaKit.setTipoKit((String) jComboBoxTiposKits.getSelectedItem());
+                objCancelaKit.setSituacaoInterno((String) jComboBoxSituacaoInterno.getSelectedItem());
                 objCancelaKit.setIdRegistroKit(Integer.valueOf(jIdRegistroComp.getText()));
                 objCancelaKit.setIdKit(Integer.valueOf(jIdKit.getText()));
                 objCancelaKit.setDataRegistroKit(jDataComposicaoKit.getDate());
@@ -1877,6 +1903,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxTodosReq;
     public static javax.swing.JTextField jCodigoReq;
     public static javax.swing.JComboBox<String> jComboBoxPavilhao;
+    public static javax.swing.JComboBox<String> jComboBoxSituacaoInterno;
     public static javax.swing.JComboBox<String> jComboBoxTiposKits;
     public static com.toedter.calendar.JDateChooser jDataComposicaoKit;
     public static com.toedter.calendar.JDateChooser jDataEntrega;
@@ -1901,6 +1928,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1960,6 +1988,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jResponsavel.setBackground(Color.white);
         jComboBoxPavilhao.setBackground(Color.white);
         jComboBoxTiposKits.setBackground(Color.white);
+        jComboBoxSituacaoInterno.setBackground(Color.white);
         jIdRegistroComp.setBackground(Color.white);
         jIdKit.setBackground(Color.white);
         jDataComposicaoKit.setBackground(Color.white);
@@ -2002,6 +2031,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jDataRegistro.setEnabled(opcao);
         jComboBoxPavilhao.setEnabled(opcao);
         jComboBoxTiposKits.setEnabled(opcao);
+        jComboBoxSituacaoInterno.setEnabled(opcao);
         jIdRegistroComp.setEnabled(opcao);
         jDataComposicaoKit.setEnabled(opcao);
         jMotivoCancelamento.setEnabled(opcao);
@@ -2024,6 +2054,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jResponsavel.setText("");
         jComboBoxPavilhao.addItem("Selecione...");
         jComboBoxTiposKits.setSelectedItem("Selecione...");
+        jComboBoxSituacaoInterno.setSelectedItem("Selecione...");
         jIdRegistroComp.setText("");
         jDataComposicaoKit.setDate(null);
         jMotivoCancelamento.setText("");
@@ -2053,6 +2084,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
         jDataRegistro.setCalendar(Calendar.getInstance());
         //
         jComboBoxPavilhao.setEnabled(true);
+        jComboBoxSituacaoInterno.setEnabled(true);
         jMotivoCancelamento.setEnabled(true);
         jBtPesquisarKit.setEnabled(true);
         //
@@ -2063,6 +2095,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
 
     public void Alterar() {
         jComboBoxPavilhao.setEnabled(true);
+        jComboBoxSituacaoInterno.setEnabled(true);
         jMotivoCancelamento.setEnabled(true);
         jBtPesquisarKit.setEnabled(true);
         //
