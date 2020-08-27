@@ -819,9 +819,11 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         if (rows != 0) {
             DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaOrigemInternos.getModel();
             GerarPopNominal p = new GerarPopNominal();
+            int qtdeNaOrigem = Integer.parseInt(jtotalRegistrosOrigem.getText());
+            int qtdeNoDestino = Integer.parseInt(jtotalRegistrosDestino.getText());
             try {
                 for (GerarPopNominal pp : listaDAO.read()) {
-                    jtotalRegistrosOrigem.setText(jtotalRegistrosDestino.getText()); // Converter inteiro em string para exibir na tela                                     
+                    jtotalRegistrosOrigem.setText(String.valueOf(qtdeNoDestino + qtdeNaOrigem)); // Converter inteiro em string para exibir na tela                                     
                     dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -854,7 +856,8 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 if (row0 == 0) {
                     qtdInternosPop = 0;
                     qtdInternosPop++;
-                    count2 = 0;
+                    // count2 = qtdTotal;
+                    qtdTotal = (Integer.parseInt(jtotalRegistrosDestino.getText()));
                     count2 = qtdTotal - 1;
                     jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
                     jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop));
