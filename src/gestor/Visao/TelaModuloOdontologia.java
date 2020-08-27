@@ -84,7 +84,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     private TelaConsultaProntuarioInternoCrc objProntInt = null;
     private TelaMovHistoricoTecOdontologia objConHistMov = null;
     private TelaAtendimentoOdontologico objAtendOdon = null;
-//    private TelaAtendimentoOdontologicoTESTE objAtendOdon = null;
+    private TelaAtendimentoOdontologicoTESTE objAtendOdonT = null;
     private TelaRecadosOdontologia objRecOdontologia = null;
     private TelaOcorrenciaOdontologia objCorr = null;
     private TelaAgendaCompromissos objAgEventos = null;
@@ -202,6 +202,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         ConsultaMedicamentos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         AtendimentoOdontologico = new javax.swing.JMenuItem();
+        AtendimentoOdontologicoTeste = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         Ocorrencias = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -353,6 +354,14 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(AtendimentoOdontologico);
+
+        AtendimentoOdontologicoTeste.setText("Em Construção - Admissão/Evolução");
+        AtendimentoOdontologicoTeste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtendimentoOdontologicoTesteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(AtendimentoOdontologicoTeste);
         jMenu2.add(jSeparator3);
 
         Ocorrencias.setText("Livro de Ocorrências");
@@ -858,11 +867,49 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         }        
     }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
 
+    private void AtendimentoOdontologicoTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoOdontologicoTesteActionPerformed
+ buscarAcessoUsuario(telaAtendimentoInternoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || 
+                //codigoUserODON == codUserAcessoODON && 
+                nomeTelaODON.equals(telaAtendimentoInternoManu_ODON) && codAbrirODON == 1) {
+            if (objAtendOdonT == null || objAtendOdonT.isClosed()) {
+//                objAtendOdon = new TelaAtendimentoOdontologico();
+            objAtendOdonT = new TelaAtendimentoOdontologicoTESTE(); // EM CONSTRUÇÃO, PARADO PARA IMPLANTAÇÃO SDR BAR (27/09/2017)
+                jPainelOdontologia.add(objAtendOdonT);
+                objAtendOdonT.setVisible(true);
+            } else {
+                if (objAtendOdonT.isVisible()) {
+                    if (objAtendOdonT.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtendOdonT.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtendOdonT.toFront(); // traz para frente
+                        objAtendOdonT.pack();//volta frame 
+                    }
+                } else {
+//                    objAtendOdon = new TelaAtendimentoOdontologico();
+                objAtendOdonT = new TelaAtendimentoOdontologicoTESTE();
+                    TelaModuloOdontologia.jPainelOdontologia.add(objAtendOdonT);//adicona frame ao JDesktopPane  
+                    objAtendOdonT.setVisible(true);
+                }
+            }
+            try {
+                objAtendOdonT.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_AtendimentoOdontologicoTesteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgenaRecados;
     private javax.swing.JMenuItem AgendaCompromissos;
     private javax.swing.JMenuItem AtendimentoOdontologico;
+    private javax.swing.JMenuItem AtendimentoOdontologicoTeste;
     private javax.swing.JMenuItem ConsultaInternos;
     private javax.swing.JMenuItem ConsultaMedicamentos;
     private javax.swing.JMenuItem HistoricoMovimentacao;
