@@ -19,6 +19,7 @@ import gestor.Dao.ConexaoBancoDadosVC;
 import Utilitarios.LimiteDigitos;
 import Utilitarios.LimiteDigitosMin;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.SenhaCriptografadaDao;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TelaAcessos;
 import gestor.Modelo.Usuarios;
@@ -49,6 +50,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Usuarios objUser = new Usuarios();
     ControleUsuarios control = new ControleUsuarios();
+    SenhaCriptografadaDao CRIPTOGRAFAR_senhas = new SenhaCriptografadaDao();
     ControleGrupoUsuarios controle = new ControleGrupoUsuarios();
     ControleModulosUsuariosGrupos controleMod = new ControleModulosUsuariosGrupos();
     //
@@ -1897,6 +1899,9 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                             objUser.setLogin(jlogin.getText());
                             objUser.setSenha1(jSenha.getText());
                             objUser.setSenha2(jSenhaConf.getText());
+//                            objUser.setPasswordCriptogradaUm(jSenha.getText());
+//                            objUser.setPasswordCriptogradaDois(jSenhaConf.getText());
+//                            CRIPTOGRAFAR_senhas.gravarSenhaCriptoggrafada(objUser);
                             if (acao == 1) {
                                 pesquisarNomeUsuario();
                                 pesquisarLoginUsuario();
@@ -2851,8 +2856,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     public void formatarCampos() {
         jNomeUsuarioCompleto.setDocument(new LimiteDigitos(67));
         jlogin.setDocument(new LimiteDigitosMin(25));
-        jSenha.setDocument(new LimiteDigitosMin(21));
-        jSenhaConf.setDocument(new LimiteDigitosMin(21));
+        jSenha.setDocument(new LimiteDigitosMin(100));
+        jSenhaConf.setDocument(new LimiteDigitosMin(100));
     }
 
     public void corCampos() {

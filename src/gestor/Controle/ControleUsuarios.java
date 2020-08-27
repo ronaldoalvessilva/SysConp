@@ -5,6 +5,7 @@
  */
 package gestor.Controle;
 
+import Utilitarios.Criptografia;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ConexaoBancoDadosBAR;
 import gestor.Dao.ConexaoBancoDadosITB;
@@ -47,8 +48,8 @@ public class ControleUsuarios {
             pst.setString(4, objUser.getNomeDepartamento());
             pst.setString(5, objUser.getNomeCargo());
             pst.setString(6, objUser.getLogin());
-            pst.setString(7, objUser.getSenha1());
-            pst.setString(8, objUser.getSenha2());
+            pst.setString(7, Criptografia.criptografar(objUser.getSenha1()));
+            pst.setString(8, Criptografia.criptografar(objUser.getSenha2()));
             pst.setString(9, objUser.getAcessoTodasUnidades());
             pst.execute(); // Executa a inserção
         } catch (SQLException ex) {
@@ -73,8 +74,8 @@ public class ControleUsuarios {
             pst.setString(4, objUser.getNomeDepartamento());
             pst.setString(5, objUser.getNomeCargo());
             pst.setString(6, objUser.getLogin());
-            pst.setString(7, objUser.getSenha1());
-            pst.setString(8, objUser.getSenha2());
+            pst.setString(7, Criptografia.criptografar(objUser.getSenha1()));
+            pst.setString(8, Criptografia.criptografar(objUser.getSenha2()));
             pst.setString(9, objUser.getAcessoTodasUnidades());
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
