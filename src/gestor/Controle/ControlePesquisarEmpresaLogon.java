@@ -9,7 +9,9 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ControleVersao;
 import gestor.Modelo.EmpresaUnidade;
 import gestor.Modelo.ParametrosCrc;
+import gestor.Modelo.Usuarios;
 import static gestor.Visao.TelaLoginSenha.codigoEmpresa;
+import static gestor.Visao.TelaLoginSenha.jUsuario;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ public class ControlePesquisarEmpresaLogon {
     EmpresaUnidade objEmpresa = new EmpresaUnidade();
     ParametrosCrc objParametros = new ParametrosCrc();
     ControleVersao versao = new ControleVersao();
+    Usuarios objUsuario = new Usuarios();
 
     public ControleVersao alterarVersao(ControleVersao versao) {
         conecta.abrirConexao();
@@ -90,5 +93,20 @@ public class ControlePesquisarEmpresaLogon {
         }
         conecta.desconecta();
         return objParametros;
+    }
+
+    public Usuarios PESQUISAR_data(Usuarios objUsuarios) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE LoginUsuario='" + jUsuario.getText() + "'");
+            conecta.rs.first();
+            objUsuarios.setDataCadastro(conecta.rs.getDate("DataSenha"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível LOCALIZAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objUsuarios;
     }
 }
