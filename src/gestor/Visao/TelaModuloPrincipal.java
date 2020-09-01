@@ -494,7 +494,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtPedagogia2);
 
         jBtTerapeuta2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtTerapeuta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Terapia.png"))); // NOI18N
+        jBtTerapeuta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/TO482.png"))); // NOI18N
         jBtTerapeuta2.setToolTipText("Terapia Ocupacional");
         jBtTerapeuta2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtTerapeuta2.setMaximumSize(new java.awt.Dimension(53, 53));
