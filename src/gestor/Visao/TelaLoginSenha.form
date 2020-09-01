@@ -204,7 +204,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="6.1.3"/>
+                <Property name="text" type="java.lang.String" value="6.2-8.2020"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -314,7 +314,7 @@
             </Component>
             <Component class="javax.swing.JPasswordField" name="jPassword">
               <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Informe Senha"/>
+                <Property name="toolTipText" type="java.lang.String" value="Informe Senha de no m&#xe1;ximo 21 caracteres"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                     <BevelBorder bevelType="1"/>
@@ -431,6 +431,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
             </Component>
           </SubComponents>

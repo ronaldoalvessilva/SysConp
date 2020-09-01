@@ -9,6 +9,7 @@ import gestor.Controle.ControleUsuarios;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.Usuarios;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,6 +37,7 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(telaModuloPrincipal);
         initComponents();
+        jDataCadastro.setCalendar(Calendar.getInstance());
     }
 
     public void mostrarAviso() {
@@ -64,6 +66,8 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jSenhaAtual = new javax.swing.JPasswordField();
         jBtSair = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jDataCadastro = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -123,6 +127,12 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Data Cadastro:");
+
+        jDataCadastro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataCadastro.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -134,14 +144,18 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jConfirmaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(jNovaSenha)
-                            .addComponent(jSenhaAtual))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jConfirmaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                    .addComponent(jNovaSenha)
+                                    .addComponent(jSenhaAtual))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -161,7 +175,11 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -242,7 +260,7 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,6 +294,7 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
         } else if (jConfirmaSenha.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a confirmação da senha do usuário.");
         } else {
+            objUser.setDataCadastro(jDataCadastro.getDate());
             objUser.setSenha1(jNovaSenha.getText());
             objUser.setSenha2(jConfirmaSenha.getText());
             if (!jSenhaAtual.getText().equals(senhaAnterior)) {
@@ -356,12 +375,14 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     public static javax.swing.JPasswordField jConfirmaSenha;
+    private com.toedter.calendar.JDateChooser jDataCadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     public static javax.swing.JPasswordField jNovaSenha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

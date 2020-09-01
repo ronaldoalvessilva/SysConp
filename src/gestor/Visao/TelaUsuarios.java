@@ -19,6 +19,7 @@ import gestor.Dao.ConexaoBancoDadosVC;
 import Utilitarios.LimiteDigitos;
 import Utilitarios.LimiteDigitosMin;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.SenhaCriptografadaDao;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TelaAcessos;
 import gestor.Modelo.Usuarios;
@@ -49,6 +50,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Usuarios objUser = new Usuarios();
     ControleUsuarios control = new ControleUsuarios();
+    SenhaCriptografadaDao CRIPTOGRAFAR_senhas = new SenhaCriptografadaDao();
     ControleGrupoUsuarios controle = new ControleGrupoUsuarios();
     ControleModulosUsuariosGrupos controleMod = new ControleModulosUsuariosGrupos();
     //
@@ -1925,19 +1927,23 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                                 }
                             }
                             if (acao == 2) {
-                                objUser.setNomeGrupo(jDescricaoGrupo.getText());
-                                objUser.setIdUsuario(Integer.valueOf(IdUsuario.getText()));
-                                control.alterarUsuarios(objUser);
-                                //GRAVAR OS DADOS DO USUÁRIO EM TODAS AS BASES DE DADOS DA SOCIALIZA.
-                                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jComboBoxAcessaTodasUnidades.getSelectedItem().equals("Sim")) {
-                                    mostrarMensagem();
+                                if (jSenhaConf.getText() == null ? jSenha.getText() == null : jSenhaConf.getText().equals(jSenha.getText())) {
+                                    objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                                    objUser.setIdUsuario(Integer.valueOf(IdUsuario.getText()));
+                                    control.alterarUsuarios(objUser);
+                                    //GRAVAR OS DADOS DO USUÁRIO EM TODAS AS BASES DE DADOS DA SOCIALIZA.
+                                    if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jComboBoxAcessaTodasUnidades.getSelectedItem().equals("Sim")) {
+                                        mostrarMensagem();
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Usuario Alterado com sucesso!!");
+                                    }
+                                    //
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    Salvar();
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "Usuario Alterado com sucesso!!");
+                                    JOptionPane.showMessageDialog(rootPane, "Senhas não conferem !!!");
                                 }
-                                //
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                Salvar();
                             }
                         }
                     }
@@ -2851,8 +2857,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     public void formatarCampos() {
         jNomeUsuarioCompleto.setDocument(new LimiteDigitos(67));
         jlogin.setDocument(new LimiteDigitosMin(25));
-        jSenha.setDocument(new LimiteDigitosMin(21));
-        jSenhaConf.setDocument(new LimiteDigitosMin(21));
+        jSenha.setDocument(new LimiteDigitosMin(100));
+        jSenhaConf.setDocument(new LimiteDigitosMin(100));
     }
 
     public void corCampos() {

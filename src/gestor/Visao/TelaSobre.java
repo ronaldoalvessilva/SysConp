@@ -146,7 +146,7 @@ public class TelaSobre extends javax.swing.JDialog {
 
         jLabel7.setText("sandro.lirio@seap.ba.gov.br");
 
-        jLabel8.setText("geibatista@hotmail.com");
+        jLabel8.setText("gei.ti@socializabrasil.com.br");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("E-mail´s:");
@@ -178,7 +178,7 @@ public class TelaSobre extends javax.swing.JDialog {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel12)
@@ -232,7 +232,7 @@ public class TelaSobre extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 0, 0));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Versão do Produto: 6.1.3");
+        jLabel14.setText("Versão do Produto: 6.2-8.2020");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 204));

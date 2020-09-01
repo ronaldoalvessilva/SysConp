@@ -207,7 +207,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             preencherTabelaInternos("SELECT IdItem,DataEntrada, "
                     + "NomeInternoCrc,ConfirmaEntrada "
                     + "FROM ITENSENTRADAPORTARIA "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
                     + "AND ConfirmaEntrada='" + confirmaEntrada + "' "
                     + "ORDER BY NomeInternoCrc");
         }

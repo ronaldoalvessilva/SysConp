@@ -23,6 +23,7 @@ public class EmpresaUnidade {
 	private int capacidadeTotal;
         private int idEmpresa;
         private String descricaoEmpresa;
+        private Double versaoAtual;
 	private String usuarioInsert;
 	private String usuarioUp;	
 	private String dataInsert;
@@ -30,7 +31,10 @@ public class EmpresaUnidade {
 	private String horarioInsert;
 	private String horarioUp;   
 
-    public EmpresaUnidade(int idUnidEmp, String descricaoUnidade, String endereco, String bairro, String cidade, String estado, String regime, int capacidadeMas, int capacidadeFen, int capacidadeTotal, int idEmpresa, String descricaoEmpresa, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public EmpresaUnidade() {
+    }
+
+    public EmpresaUnidade(int idUnidEmp, String descricaoUnidade, String endereco, String bairro, String cidade, String estado, String regime, int capacidadeMas, int capacidadeFen, int capacidadeTotal, int idEmpresa, String descricaoEmpresa, Double versaoAtual, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idUnidEmp = idUnidEmp;
         this.descricaoUnidade = descricaoUnidade;
         this.endereco = endereco;
@@ -43,15 +47,13 @@ public class EmpresaUnidade {
         this.capacidadeTotal = capacidadeTotal;
         this.idEmpresa = idEmpresa;
         this.descricaoEmpresa = descricaoEmpresa;
+        this.versaoAtual = versaoAtual;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public EmpresaUnidade() {
     }
 
     /**
@@ -220,6 +222,20 @@ public class EmpresaUnidade {
      */
     public void setDescricaoEmpresa(String descricaoEmpresa) {
         this.descricaoEmpresa = descricaoEmpresa;
+    }
+
+    /**
+     * @return the versaoAtual
+     */
+    public Double getVersaoAtual() {
+        return versaoAtual;
+    }
+
+    /**
+     * @param versaoAtual the versaoAtual to set
+     */
+    public void setVersaoAtual(Double versaoAtual) {
+        this.versaoAtual = versaoAtual;
     }
 
     /**

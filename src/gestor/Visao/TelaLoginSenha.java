@@ -5,10 +5,13 @@
  */
 package gestor.Visao;
 
+import Utilitarios.Criptografia;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosMin;
+import gestor.Controle.ControlePesquisarEmpresaLogon;
+import gestor.Controle.ControleVerificacaoAcessos;
 import gestor.Modelo.ControleVersao;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -24,6 +27,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import static gestor.Dao.ConexaoBancoDados.caminhoConecta;
+import gestor.Modelo.EmpresaUnidade;
+import gestor.Modelo.ParametrosCrc;
+import gestor.Modelo.Usuarios;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -32,7 +40,10 @@ import static gestor.Dao.ConexaoBancoDados.caminhoConecta;
 // Inicio do desenvolvimento 20/03/2014
 public class TelaLoginSenha extends javax.swing.JDialog {
 
+    Usuarios objUsuarios = new Usuarios();
     ControleVersao versao = new ControleVersao();
+    EmpresaUnidade objEmpresa = new EmpresaUnidade();
+    ParametrosCrc objParametros = new ParametrosCrc();
 
     public static int Codstatus;
     public static String idUserAcesso; // CÓDIGO DO USUÁRIO PERMISSÕES DE ACESSO (24/04/2016)
@@ -47,7 +58,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     String bairroUnidade;
     String cidadeUnidade;
     String estadoUnidade;
-    int codigoEmpresa = 0;
+    public static int codigoEmpresa = 0;
     //
     String caminhoExecutavel = "";
     String caminhoExecutavelAntigo = "";
@@ -56,6 +67,16 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     //
     public static String hostNameSRV;
     public static String ipHostSRV;
+    //
+    String pUSUARIO_banco;
+    String pSENHA_banco;
+    String pSENHA1_CRIPTOGRAFA;
+    //
+    public static int pID_usuario = 0;
+    String pLOGIN_usuario = "";
+    String pNOME_usuario = "";
+    String pSENHA_usuario = "";
+    Date pDATA_cadastro;
 
     /**
      * Creates new form TelaLoginSenha
@@ -63,6 +84,8 @@ public class TelaLoginSenha extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
+    public static TelaTrocaSenha_MD5 pSENHA_md5;
+
     public TelaLoginSenha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         // Modelo de resolução de tela no Windows
@@ -84,27 +107,29 @@ public class TelaLoginSenha extends javax.swing.JDialog {
 //        this.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conj);
     }
 
+    public void mostrarTrocaSenha() {
+        pSENHA_md5 = new TelaTrocaSenha_MD5(this, true);
+        pSENHA_md5.setVisible(true);
+    }
+
     public void acessarSistema() {
         if (jComboBoxUnidadePrisional.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Selecione uma unidade prisional para acessar.");
         } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("localhost")) {
             caminhoConecta = "C:\\SysConp\\Conecta.properties";
-            try {
-                ConexaoBancoDados conecta = new ConexaoBancoDados();
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
-                conecta.rs.first();
-                // Verifica se o usuario e a senha são iguais ao banco de dados            
-                Codstatus = conecta.rs.getInt("StatusUsuario");
-                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+            BUSCAR_usuarios();
+            BUSCAR_data();
+            if (pDATA_cadastro == null) {
+                mostrarTrocaSenha();
+            } else {
+                pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
+                if (jUsuario.getText().equals(pLOGIN_usuario)
+                        && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                         && Codstatus == 0) {
                     JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
                 } else {
-                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                    if (jUsuario.getText().equals(pLOGIN_usuario)
+                            && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                             && (Codstatus == 1)) {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
@@ -129,31 +154,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         versao.setDataVersao(dataVersao);
-                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                        pst.setDouble(1, versao.getVersao());
-                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                        pst.execute();
+                                        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+                                        control.alterarVersao(versao);
                                         System.exit(0);
                                     } else {
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         if (versaoAtualSistema > versao.getVersao()) {
                                             JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                         } else {
-                                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            idUserAcesso = String.valueOf(pID_usuario);
+                                            nameUser = pNOME_usuario;
                                             TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                             tp.setVisible(true);
-                                            conecta.desconecta();
                                             this.dispose();
                                         }
                                     }
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    idUserAcesso = String.valueOf(pID_usuario);
+                                    nameUser = pNOME_usuario;
                                     TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                     tp.setVisible(true);
-                                    conecta.desconecta();
                                     this.dispose();
                                 }
                             }
@@ -164,34 +184,27 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         jPassword.setText("");
                     }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                jUsuario.setText("");
-                jPassword.setText("");
             }
         } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de lauro de Freitas - CPLF")) {
             caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
-            try {
-                ConexaoBancoDados conecta = new ConexaoBancoDados();
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
-                conecta.rs.first();
-                // Verifica se o usuario e a senha são iguais ao banco de dados            
-                Codstatus = conecta.rs.getInt("StatusUsuario");
-                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+            BUSCAR_usuarios();
+            BUSCAR_data();
+            if (pDATA_cadastro == null) {
+                mostrarTrocaSenha();
+            } else {
+                pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
+                if (jUsuario.getText().equals(pLOGIN_usuario)
+                        && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                         && Codstatus == 0) {
                     JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
                 } else {
-                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                    if (jUsuario.getText().equals(pLOGIN_usuario)
+                            && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                             && (Codstatus == 1)) {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
-                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executável antigo não existe, solicite ajuda ao Administrador do Sistema.");
                         } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
                             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
@@ -211,31 +224,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         versao.setDataVersao(dataVersao);
-                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                        pst.setDouble(1, versao.getVersao());
-                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                        pst.execute();
+                                        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+                                        control.alterarVersao(versao);
                                         System.exit(0);
                                     } else {
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         if (versaoAtualSistema > versao.getVersao()) {
                                             JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                         } else {
-                                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            idUserAcesso = String.valueOf(pID_usuario);
+                                            nameUser = pNOME_usuario;
                                             TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                             tp.setVisible(true);
-                                            conecta.desconecta();
                                             this.dispose();
                                         }
                                     }
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    idUserAcesso = String.valueOf(pID_usuario);
+                                    nameUser = pNOME_usuario;
                                     TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                     tp.setVisible(true);
-                                    conecta.desconecta();
                                     this.dispose();
                                 }
                             }
@@ -246,34 +254,27 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         jPassword.setText("");
                     }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                jUsuario.setText("");
-                jPassword.setText("");
             }
         } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")) {
             caminhoConecta = "C:\\SysConp\\ConectaSSA.properties";
-            try {
-                ConexaoBancoDados conecta = new ConexaoBancoDados();
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
-                conecta.rs.first();
-                // Verifica se o usuario e a senha são iguais ao banco de dados            
-                Codstatus = conecta.rs.getInt("StatusUsuario");
-                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+            BUSCAR_usuarios();
+            BUSCAR_data();
+            if (pDATA_cadastro == null) {
+                mostrarTrocaSenha();
+            } else {
+                pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
+                if (jUsuario.getText().equals(pLOGIN_usuario)
+                        && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                         && Codstatus == 0) {
                     JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
                 } else {
-                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                    if (jUsuario.getText().equals(pLOGIN_usuario)
+                            && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                             && (Codstatus == 1)) {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
-                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executável antigo não existe, solicite ajuda ao Administrador do Sistema.");
                         } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
                             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
@@ -293,31 +294,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         versao.setDataVersao(dataVersao);
-                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                        pst.setDouble(1, versao.getVersao());
-                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                        pst.execute();
+                                        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+                                        control.alterarVersao(versao);
                                         System.exit(0);
                                     } else {
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         if (versaoAtualSistema > versao.getVersao()) {
                                             JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                         } else {
-                                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            idUserAcesso = String.valueOf(pID_usuario);
+                                            nameUser = pNOME_usuario;
                                             TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                             tp.setVisible(true);
-                                            conecta.desconecta();
                                             this.dispose();
                                         }
                                     }
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    idUserAcesso = String.valueOf(pID_usuario);
+                                    nameUser = pNOME_usuario;
                                     TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                     tp.setVisible(true);
-                                    conecta.desconecta();
                                     this.dispose();
                                 }
                             }
@@ -328,34 +324,27 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         jPassword.setText("");
                     }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                jUsuario.setText("");
-                jPassword.setText("");
             }
         } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")) {
             caminhoConecta = "C:\\SysConp\\ConectaITB.properties";
-            try {
-                ConexaoBancoDados conecta = new ConexaoBancoDados();
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
-                conecta.rs.first();
-                // Verifica se o usuario e a senha são iguais ao banco de dados            
-                Codstatus = conecta.rs.getInt("StatusUsuario");
-                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+            BUSCAR_usuarios();
+            BUSCAR_data();
+            if (pDATA_cadastro == null) {
+                mostrarTrocaSenha();
+            } else {
+                pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
+                if (jUsuario.getText().equals(pLOGIN_usuario)
+                        && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                         && Codstatus == 0) {
                     JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
                 } else {
-                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                    if (jUsuario.getText().equals(pLOGIN_usuario)
+                            && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                             && (Codstatus == 1)) {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
-                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executável antigo não existe, solicite ajuda ao Administrador do Sistema.");
                         } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
                             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
@@ -375,31 +364,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         versao.setDataVersao(dataVersao);
-                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                        pst.setDouble(1, versao.getVersao());
-                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                        pst.execute();
+                                        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+                                        control.alterarVersao(versao);
                                         System.exit(0);
                                     } else {
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         if (versaoAtualSistema > versao.getVersao()) {
                                             JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                         } else {
-                                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            idUserAcesso = String.valueOf(pID_usuario);
+                                            nameUser = pNOME_usuario;
                                             TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                             tp.setVisible(true);
-                                            conecta.desconecta();
                                             this.dispose();
                                         }
                                     }
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    idUserAcesso = String.valueOf(pID_usuario);
+                                    nameUser = pNOME_usuario;
                                     TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                     tp.setVisible(true);
-                                    conecta.desconecta();
                                     this.dispose();
                                 }
                             }
@@ -410,34 +394,27 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         jPassword.setText("");
                     }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                jUsuario.setText("");
-                jPassword.setText("");
             }
         } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")) {
             caminhoConecta = "C:\\SysConp\\ConectaVC.properties";
-            try {
-                ConexaoBancoDados conecta = new ConexaoBancoDados();
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
-                conecta.rs.first();
-                // Verifica se o usuario e a senha são iguais ao banco de dados            
-                Codstatus = conecta.rs.getInt("StatusUsuario");
-                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+            BUSCAR_usuarios();
+            BUSCAR_data();
+            if (pDATA_cadastro == null) {
+                mostrarTrocaSenha();
+            } else {
+                pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
+                if (jUsuario.getText().equals(pLOGIN_usuario)
+                        && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                         && Codstatus == 0) {
                     JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
                 } else {
-                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                    if (jUsuario.getText().equals(pLOGIN_usuario)
+                            && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                             && (Codstatus == 1)) {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
-                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executável antigo não existe, solicite ajuda ao Administrador do Sistema.");
                         } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
                             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
@@ -457,31 +434,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         versao.setDataVersao(dataVersao);
-                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                        pst.setDouble(1, versao.getVersao());
-                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                        pst.execute();
+                                        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+                                        control.alterarVersao(versao);
                                         System.exit(0);
                                     } else {
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         if (versaoAtualSistema > versao.getVersao()) {
                                             JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                         } else {
-                                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            idUserAcesso = String.valueOf(pID_usuario);
+                                            nameUser = pNOME_usuario;
                                             TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                             tp.setVisible(true);
-                                            conecta.desconecta();
                                             this.dispose();
                                         }
                                     }
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    idUserAcesso = String.valueOf(pID_usuario);
+                                    nameUser = pNOME_usuario;
                                     TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                     tp.setVisible(true);
-                                    conecta.desconecta();
                                     this.dispose();
                                 }
                             }
@@ -492,34 +464,27 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         jPassword.setText("");
                     }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                jUsuario.setText("");
-                jPassword.setText("");
             }
         } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")) {
             caminhoConecta = "C:\\SysConp\\ConectaBAR.properties";
-            try {
-                ConexaoBancoDados conecta = new ConexaoBancoDados();
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
-                conecta.rs.first();
-                // Verifica se o usuario e a senha são iguais ao banco de dados            
-                Codstatus = conecta.rs.getInt("StatusUsuario");
-                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+            BUSCAR_usuarios();
+            BUSCAR_data();
+            if (pDATA_cadastro == null) {
+                mostrarTrocaSenha();
+            } else {
+                pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
+                if (jUsuario.getText().equals(pLOGIN_usuario)
+                        && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                         && Codstatus == 0) {
                     JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
                 } else {
-                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                    if (jUsuario.getText().equals(pLOGIN_usuario)
+                            && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                             && (Codstatus == 1)) {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
-                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executável antigo não existe, solicite ajuda ao Administrador do Sistema.");
                         } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
                             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
@@ -539,31 +504,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         versao.setDataVersao(dataVersao);
-                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                        pst.setDouble(1, versao.getVersao());
-                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                        pst.execute();
+                                        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+                                        control.alterarVersao(versao);
                                         System.exit(0);
                                     } else {
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         if (versaoAtualSistema > versao.getVersao()) {
                                             JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                         } else {
-                                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            idUserAcesso = String.valueOf(pID_usuario);
+                                            nameUser = pNOME_usuario;
                                             TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                             tp.setVisible(true);
-                                            conecta.desconecta();
                                             this.dispose();
                                         }
                                     }
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    idUserAcesso = String.valueOf(pID_usuario);
+                                    nameUser = pNOME_usuario;
                                     TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                     tp.setVisible(true);
-                                    conecta.desconecta();
                                     this.dispose();
                                 }
                             }
@@ -574,34 +534,27 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         jPassword.setText("");
                     }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                jUsuario.setText("");
-                jPassword.setText("");
             }
         } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de lauro de Freitas - CPLF")) {
             caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
-            try {
-                ConexaoBancoDados conecta = new ConexaoBancoDados();
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
-                conecta.rs.first();
-                // Verifica se o usuario e a senha são iguais ao banco de dados            
-                Codstatus = conecta.rs.getInt("StatusUsuario");
-                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+            BUSCAR_usuarios();
+            BUSCAR_data();
+            if (pDATA_cadastro == null) {
+                mostrarTrocaSenha();
+            } else {
+                pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
+                if (jUsuario.getText().equals(pLOGIN_usuario)
+                        && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                         && Codstatus == 0) {
                     JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
                 } else {
-                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                    if (jUsuario.getText().equals(pLOGIN_usuario)
+                            && (pSENHA_usuario).equals(pSENHA1_CRIPTOGRAFA)
                             && (Codstatus == 1)) {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
-                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executável antigo não existe, solicite ajuda ao Administrador do Sistema.");
                         } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
                             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
@@ -621,31 +574,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         versao.setDataVersao(dataVersao);
-                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                        pst.setDouble(1, versao.getVersao());
-                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                        pst.execute();
+                                        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+                                        control.alterarVersao(versao);
                                         System.exit(0);
                                     } else {
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                         if (versaoAtualSistema > versao.getVersao()) {
                                             JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                         } else {
-                                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            idUserAcesso = String.valueOf(pID_usuario);
+                                            nameUser = pNOME_usuario;
                                             TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                             tp.setVisible(true);
-                                            conecta.desconecta();
                                             this.dispose();
                                         }
                                     }
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    idUserAcesso = String.valueOf(pID_usuario);
+                                    nameUser = pNOME_usuario;
                                     TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                     tp.setVisible(true);
-                                    conecta.desconecta();
                                     this.dispose();
                                 }
                             }
@@ -656,10 +604,6 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         jPassword.setText("");
                     }
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                jUsuario.setText("");
-                jPassword.setText("");
             }
         }
     }
@@ -716,7 +660,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
 
         jNumeroVersao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNumeroVersao.setForeground(new java.awt.Color(255, 0, 0));
-        jNumeroVersao.setText("6.1.3");
+        jNumeroVersao.setText("6.2-8.2020");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -757,7 +701,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Usuário:");
 
-        jPassword.setToolTipText("Informe Senha");
+        jPassword.setToolTipText("Informe Senha de no máximo 21 caracteres");
         jPassword.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -947,7 +891,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     }//GEN-LAST:event_jPasswordKeyPressed
 
     private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
-       jComboBoxUnidadePrisional.requestFocus();
+        jComboBoxUnidadePrisional.requestFocus();
     }//GEN-LAST:event_jPasswordActionPerformed
 
     private void jUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jUsuarioKeyPressed
@@ -961,7 +905,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     }//GEN-LAST:event_jUsuarioActionPerformed
 
     private void jComboBoxUnidadePrisionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUnidadePrisionalActionPerformed
-      jBtAcessar.requestFocus();
+        jBtAcessar.requestFocus();
     }//GEN-LAST:event_jComboBoxUnidadePrisionalActionPerformed
 
     /**
@@ -981,13 +925,17 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLoginSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLoginSenha.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLoginSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLoginSenha.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLoginSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLoginSenha.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLoginSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLoginSenha.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1009,7 +957,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton jBtAcessar;
     public static javax.swing.JButton jBtCancelar;
-    private javax.swing.JComboBox<String> jComboBoxUnidadePrisional;
+    public static javax.swing.JComboBox<String> jComboBoxUnidadePrisional;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1028,6 +976,26 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     public void formatarCampos() {
         jUsuario.setDocument(new LimiteDigitosMin(21));
         jPassword.setDocument(new LimiteDigitosMin(21));
+    }
+
+    public void BUSCAR_data() {
+        ControlePesquisarEmpresaLogon p = new ControlePesquisarEmpresaLogon();
+        p.PESQUISAR_data(objUsuarios);
+        pDATA_cadastro = objUsuarios.getDataCadastro();
+    }
+
+    public void BUSCAR_usuarios() {
+        ControleVerificacaoAcessos VERIFICAR_usuario = new ControleVerificacaoAcessos();
+        try {
+            for (Usuarios dd : VERIFICAR_usuario.read()) {
+                pID_usuario = dd.getIdUsuario();
+                pLOGIN_usuario = dd.getLogin();
+                pNOME_usuario = dd.getNomeUsuario();
+                pSENHA_usuario = dd.getSenha1();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaLoginSenha.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void atualizarSistema() throws FileNotFoundException, IOException {
@@ -1051,41 +1019,27 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     }
 
     public void buscarEmpresa() {
-        ConexaoBancoDados conecta = new ConexaoBancoDados();
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM EMPRESA "
-                    + "INNER JOIN UNIDADE_PENAL_EMPRESA "
-                    + "ON EMPRESA.IdEmpresa=UNIDADE_PENAL_EMPRESA.IdEmpresa");
-            conecta.rs.first();
-            codigoEmpresa = conecta.rs.getInt("IdEmpresa");
-            razaoSocial = conecta.rs.getString("RazaoSocial");
-            descricaoUnidade = conecta.rs.getString("DescricaoUnidade");
-            versaoAtualSistema = conecta.rs.getDouble("VersaoAtual");
-        } catch (Exception e) {
-        }
-        // ENDEREÇO PARA O RELATÓRIO DE CUMPRIMENTO E NÃO CUMPRIMENTO DE ALVARÁ. (02/03/2018) - BARREIRAS.
-        try {
-            conecta.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
-            conecta.rs.first();
-            enderecoUnidadePrisional = conecta.rs.getString("Endereco");
-            bairroUnidade = conecta.rs.getString("Bairro");
-            cidadeUnidade = conecta.rs.getString("Cidade");
-            estadoUnidade = conecta.rs.getString("Estado");
-            enderecoUnidadePrisional = enderecoUnidadePrisional + " " + cidadeUnidade + " " + estadoUnidade;
-        } catch (Exception e) {
-        }
-        // CAMINHO PARA TRAZER O LOCAL DE INSTALAÇÃO DA ATUALIZAÇÃO.
-        try {
-            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
-            conecta.rs.first();
-            caminhoExecutavel = conecta.rs.getString("CaminhoExecutavel");
-            caminhoExecutavelAntigo = conecta.rs.getString("CaminhoExecutavelAntigo");
-            dataVersao = conecta.rs.getString("DataVersao");
-            pSISTEMA_MANUTENCAO = conecta.rs.getString("SistemaManutencao");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        //PESQUISAR DADOS DA EMPRESA
+        ControlePesquisarEmpresaLogon pPESQUISAS_empresa = new ControlePesquisarEmpresaLogon();
+        pPESQUISAS_empresa.PESQUISAR_empresa(objEmpresa);
+        codigoEmpresa = objEmpresa.getIdEmpresa();
+        razaoSocial = objEmpresa.getDescricaoEmpresa();
+        descricaoUnidade = objEmpresa.getDescricaoUnidade();
+        versaoAtualSistema = objEmpresa.getVersaoAtual();
+        //ENDEREÇO PARA O RELATÓRIO DE CUMPRIMENTO E NÃO CUMPRIMENTO DE ALVARÁ. (02/03/2018) - BARREIRAS.
+        pPESQUISAS_empresa.PESQUISAR_unidade(objEmpresa);
+        enderecoUnidadePrisional = objEmpresa.getEndereco();
+        bairroUnidade = objEmpresa.getBairro();
+        cidadeUnidade = objEmpresa.getCidade();
+        estadoUnidade = objEmpresa.getEstado();
+        enderecoUnidadePrisional = enderecoUnidadePrisional + " " + cidadeUnidade + " " + estadoUnidade;
+        //PESQUISAR DADOS DO PARAMÊTRO
+        pPESQUISAS_empresa.PESQUISAR_parametros(objParametros);
+        caminhoExecutavel = objParametros.getCaminhoAtualizaSis();
+        caminhoExecutavelAntigo = objParametros.getCaminhoExecAntigo();
+        dataVersao = formatoAmerica.format(objParametros.getDataVersao().getTime());
+        pSISTEMA_MANUTENCAO = objParametros.getSistemaManutencao();
     }
 
     public void Install_Sisconp() {

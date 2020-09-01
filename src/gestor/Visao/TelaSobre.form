@@ -164,7 +164,7 @@
                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -254,7 +254,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="geibatista@hotmail.com"/>
+            <Property name="text" type="java.lang.String" value="gei.ti@socializabrasil.com.br"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
@@ -372,7 +372,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o do Produto: 6.1.3"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o do Produto: 6.2-8.2020"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">

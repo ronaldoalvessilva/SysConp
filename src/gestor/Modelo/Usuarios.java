@@ -35,11 +35,14 @@ public class Usuarios {
     private String nomeModulo;
     private String permissaoModulo;        
     private String acessoTodasUnidades;
+    private String passwordCriptogradaUm;
+    private String passwordCriptogradaDois;
+    private String chaveHexadecinal;
 
     public Usuarios() {
     }
 
-    public Usuarios(int IdUsuario, Boolean Status, Date dataCadastro, String NomeUsuario, String Login, String Senha1, String Senha2, int idUserGroup, int IdGrupo, String NomeGrupo, int idDepartamento, String NomeDepartamento, int idCargo, String nomeCargo, int idEmpresa, String descricaoEmpresa, int idModulo, int idMod, String nomeModulo, String permissaoModulo, String acessoTodasUnidades) {
+    public Usuarios(int IdUsuario, Boolean Status, Date dataCadastro, String NomeUsuario, String Login, String Senha1, String Senha2, int idUserGroup, int IdGrupo, String NomeGrupo, int idDepartamento, String NomeDepartamento, int idCargo, String nomeCargo, int idEmpresa, String descricaoEmpresa, int idModulo, int idMod, String nomeModulo, String permissaoModulo, String acessoTodasUnidades, String passwordCriptogradaUm, String passwordCriptogradaDois, String chaveHexadecinal) {
         this.IdUsuario = IdUsuario;
         this.Status = Status;
         this.dataCadastro = dataCadastro;
@@ -61,6 +64,9 @@ public class Usuarios {
         this.nomeModulo = nomeModulo;
         this.permissaoModulo = permissaoModulo;
         this.acessoTodasUnidades = acessoTodasUnidades;
+        this.passwordCriptogradaUm = passwordCriptogradaUm;
+        this.passwordCriptogradaDois = passwordCriptogradaDois;
+        this.chaveHexadecinal = chaveHexadecinal;
     }
 
     /**
@@ -355,5 +361,96 @@ public class Usuarios {
      */
     public void setAcessoTodasUnidades(String acessoTodasUnidades) {
         this.acessoTodasUnidades = acessoTodasUnidades;
+    }
+
+    /**
+     * @return the passwordCriptogradaUm
+     */
+    public String getPasswordCriptogradaUm() {
+        return passwordCriptogradaUm;
+    }
+
+    /**
+     * @param passwordCriptogradaUm the passwordCriptogradaUm to set
+     */
+    public void setPasswordCriptogradaUm(String passwordCriptogradaUm) {
+        this.passwordCriptogradaUm = passwordCriptogradaUm;
+    }
+
+    /**
+     * @return the passwordCriptogradaDois
+     */
+    public String getPasswordCriptogradaDois() {
+        return passwordCriptogradaDois;
+    }
+
+    /**
+     * @param passwordCriptogradaDois the passwordCriptogradaDois to set
+     */
+    public void setPasswordCriptogradaDois(String passwordCriptogradaDois) {
+        this.passwordCriptogradaDois = passwordCriptogradaDois;
+    }
+
+    /**
+     * @return the chaveHexadecinal
+     */
+    public String getChaveHexadecinal() {
+        return chaveHexadecinal;
+    }
+
+    /**
+     * @param chaveHexadecinal the chaveHexadecinal to set
+     */
+    public void setChaveHexadecinal(String chaveHexadecinal) {
+        this.chaveHexadecinal = chaveHexadecinal;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + this.IdUsuario;
+        hash = 79 * hash + this.IdGrupo;
+        hash = 79 * hash + this.idDepartamento;
+        hash = 79 * hash + this.idCargo;
+        hash = 79 * hash + this.idEmpresa;
+        hash = 79 * hash + this.idModulo;
+        hash = 79 * hash + this.idMod;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuarios other = (Usuarios) obj;
+        if (this.IdUsuario != other.IdUsuario) {
+            return false;
+        }
+        if (this.IdGrupo != other.IdGrupo) {
+            return false;
+        }
+        if (this.idDepartamento != other.idDepartamento) {
+            return false;
+        }
+        if (this.idCargo != other.idCargo) {
+            return false;
+        }
+        if (this.idEmpresa != other.idEmpresa) {
+            return false;
+        }
+        if (this.idModulo != other.idModulo) {
+            return false;
+        }
+        if (this.idMod != other.idMod) {
+            return false;
+        }
+        return true;
     }
 }

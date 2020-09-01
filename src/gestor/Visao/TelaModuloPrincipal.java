@@ -773,7 +773,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel7.setText("Versão: 6.1.3");
+        jLabel7.setText("Versão: 6.2-8.2020");
 
         jNomeUnidade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jNomeUnidade.setForeground(new java.awt.Color(0, 153, 0));
@@ -786,11 +786,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addGroup(jPanelNomeSistemaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addGap(24, 24, 24))
+                .addGap(20, 20, 20))
         );
         jPanelNomeSistemaLayout.setVerticalGroup(
             jPanelNomeSistemaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
