@@ -147,7 +147,14 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AtendimentoOdontologicoTeste">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="99" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Em Constru&#xe7;&#xe3;o - Admiss&#xe3;o/Evolu&#xe7;&#xe3;o"/>
+                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtendimentoOdontologicoTesteActionPerformed"/>

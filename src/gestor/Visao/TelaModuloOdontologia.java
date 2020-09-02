@@ -355,7 +355,10 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         });
         jMenu2.add(AtendimentoOdontologico);
 
+        AtendimentoOdontologicoTeste.setBackground(new java.awt.Color(255, 255, 0));
+        AtendimentoOdontologicoTeste.setForeground(new java.awt.Color(153, 0, 0));
         AtendimentoOdontologicoTeste.setText("Em Construção - Admissão/Evolução");
+        AtendimentoOdontologicoTeste.setOpaque(true);
         AtendimentoOdontologicoTeste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AtendimentoOdontologicoTesteActionPerformed(evt);
