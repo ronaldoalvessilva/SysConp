@@ -480,7 +480,7 @@ public class ControleUsuarios {
 
         conectaSSA.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            PreparedStatement pst = conectaSSA.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
             pst.setString(2, Criptografia.criptografar(objUser.getSenha1()));
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
