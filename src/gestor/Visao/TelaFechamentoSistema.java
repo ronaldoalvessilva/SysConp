@@ -8,13 +8,45 @@ package gestor.Visao;
 import gestor.Controle.ControleFechamentoDadosSistema;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ListaAgendaEscoltaCrc;
+import gestor.Controle.ListagemAdmissaoEnfermagem;
+import gestor.Controle.ListagemAdmissaoEnfermagemComplementar;
+import gestor.Controle.ListagemAdmissaoMedica;
+import gestor.Controle.ListagemAdmissaoMedicaComplementar;
+import gestor.Controle.ListagemAprazamentoMedicacao;
 import gestor.Controle.ListagemCancelamentoNovaEntradada;
+import gestor.Controle.ListagemComposicaoKitHigiene;
+import gestor.Controle.ListagemEntradaAdvogadoInternos;
+import gestor.Controle.ListagemEntradaAdvogados;
+import gestor.Controle.ListagemEntradaColaboradores;
+import gestor.Controle.ListagemEntradaInternosPortaria;
+import gestor.Controle.ListagemEntradaOficialJusticaInterno;
+import gestor.Controle.ListagemEntradaPertences;
+import gestor.Controle.ListagemEntradaSaidaVisitasReligiosas;
+import gestor.Controle.ListagemEntradaVeiculosUnidade;
+import gestor.Controle.ListagemEntradaVisitasDiversas;
+import gestor.Controle.ListagemEntradasFamiliar;
+import gestor.Controle.ListagemEntradasOficialJustica;
+import gestor.Controle.ListagemEstornoProdutos;
 import gestor.Controle.ListagemEvadidos;
+import gestor.Controle.ListagemLocacaoInternos;
+import gestor.Controle.ListagemNotasFiscaisCompras;
+import gestor.Controle.ListagemOcorrenciaBaseSeguranca;
+import gestor.Controle.ListagemOcorrenciaBaseSegurancaAux;
+import gestor.Controle.ListagemOcorrenciaP1E;
+import gestor.Controle.ListagemOcorrenciasP1;
+import gestor.Controle.ListagemPernoiteInternos;
 import gestor.Controle.ListagemProgressoaRegime;
 import gestor.Controle.ListagemProrrogacaoSaidaTemporaria;
 import gestor.Controle.ListagemRegistroCanceladoRetornos;
+import gestor.Controle.ListagemRegistroRetorno;
+import gestor.Controle.ListagemRegistroSaidaCrc;
 import gestor.Controle.ListagemRegistrosCancelados;
 import gestor.Controle.ListagemRegressaoRegime;
+import gestor.Controle.ListagemRequiscaoAvulsaProdutos;
+import gestor.Controle.ListagemRequisicaoProdutosInterno;
+import gestor.Controle.ListagemTransientes;
+import gestor.Controle.ListagemVeiculosCargas;
+import gestor.Controle.ListagemVeiculosTerceiros;
 import gestor.Controle.ListarEntradasInternos;
 import gestor.Controle.ListarNovaEntrada_Internos;
 import gestor.Controle.ListarPrevisaoSaida_Internos;
@@ -62,13 +94,50 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     ListaAgendaEscoltaCrc objAgendaEscolta = new ListaAgendaEscoltaCrc();
     ListagemEvadidos objEvadidos = new ListagemEvadidos();
     ListagemProgressoaRegime objProgressaoRegime = new ListagemProgressoaRegime();
-    ListagemProrrogacaoSaidaTemporaria objProrroga = new ListagemProrrogacaoSaidaTemporaria();    
+    ListagemProrrogacaoSaidaTemporaria objProrroga = new ListagemProrrogacaoSaidaTemporaria();
     ListagemCancelamentoNovaEntradada objListagemRegCanceladoNE = new ListagemCancelamentoNovaEntradada();
     ListagemRegistroCanceladoRetornos objRegistroCanceladoRetorno = new ListagemRegistroCanceladoRetornos();
     ListagemRegistrosCancelados objRegCancelados = new ListagemRegistrosCancelados();
     ListagemRegressaoRegime objListaRegressao = new ListagemRegressaoRegime();
     //PORTARIA INTERNA
-    ListarNovaEntrada_Internos objListaNovaEnt = new ListarNovaEntrada_Internos();
+    ListagemEntradaSaidaVisitasReligiosas LISTAGEM_VISITAS_religiosas = new ListagemEntradaSaidaVisitasReligiosas();
+    ListagemEntradaInternosPortaria LISTAGEM_ENTRADA_internos = new ListagemEntradaInternosPortaria();
+    ListarNovaEntrada_Internos LISTAGEM_NOVA_entrada = new ListarNovaEntrada_Internos();
+    ListagemEntradaPertences LISTAGEM_pertences = new ListagemEntradaPertences();
+    ListagemEntradaOficialJusticaInterno LISTAGEM_OFICIAL_justica = new ListagemEntradaOficialJusticaInterno();
+    ListagemEntradaAdvogadoInternos LISTAGEM_ADV_internos = new ListagemEntradaAdvogadoInternos();
+    ListagemEntradasFamiliar LISTAGEM_ENT_familiar = new ListagemEntradasFamiliar();
+    ListagemOcorrenciasP1 LISTAGEM_OCORRENCIA_p1 = new ListagemOcorrenciasP1();
+    ListagemPernoiteInternos LISTAGEM_pernoite = new ListagemPernoiteInternos();
+    ListagemRegistroRetorno LISTAGEM_retorno = new ListagemRegistroRetorno();
+    ListagemRegistroSaidaCrc LISTAGEM_saida = new ListagemRegistroSaidaCrc();
+    ListagemTransientes LISTAGEM_transientes = new ListagemTransientes();
+    //PORTARIA EXTERNA
+    ListagemEntradasOficialJustica LISTAGEM_oficial = new ListagemEntradasOficialJustica();
+    ListagemEntradaAdvogados LISTAGEM_advogado = new ListagemEntradaAdvogados();
+    ListagemEntradaColaboradores LISTAGEM__colaborador = new ListagemEntradaColaboradores();
+    ListagemEntradaVisitasDiversas LISTAGEM_VISITAS_diversas = new ListagemEntradaVisitasDiversas();
+    ListagemVeiculosCargas LISTAGEM_VEICULOS_carga = new ListagemVeiculosCargas();
+    ListagemVeiculosTerceiros LISTAGEM_VEICULOS_terceiros = new ListagemVeiculosTerceiros();
+    ListagemEntradaVeiculosUnidade LISTAGEM_VEICULOS_unidade = new ListagemEntradaVeiculosUnidade();
+    ListagemOcorrenciaP1E LISTAGEM_OCR_p1e = new ListagemOcorrenciaP1E();
+    //ALMOXARIFADO
+    ListagemComposicaoKitHigiene LISTAGEM_compoKit = new ListagemComposicaoKitHigiene();
+    ListagemEstornoProdutos LISTAGEM_estorno = new ListagemEstornoProdutos();
+    ListagemNotasFiscaisCompras LISTAGEM_nf = new ListagemNotasFiscaisCompras();
+    ListagemRequiscaoAvulsaProdutos LISTAGEM_REQUISISCAO_avulsa = new ListagemRequiscaoAvulsaProdutos();
+    ListagemRequisicaoProdutosInterno LISTAGEM_REQUISICAO_interno = new ListagemRequisicaoProdutosInterno();
+    //BASES
+    ListagemLocacaoInternos LISTAGEM_locacao = new ListagemLocacaoInternos();
+    ListagemOcorrenciaBaseSeguranca LISTAGEM_OCR_seg = new ListagemOcorrenciaBaseSeguranca();
+    ListagemOcorrenciaBaseSegurancaAux LISTAGEM_OCR_sega = new ListagemOcorrenciaBaseSegurancaAux();
+    // ENFERMAGEM
+    ListagemAdmissaoEnfermagem LISTAGEM_ADM_enfermagem = new ListagemAdmissaoEnfermagem();
+    ListagemAdmissaoEnfermagemComplementar LISTAGEM_ADM_enfermagemAux = new ListagemAdmissaoEnfermagemComplementar();
+    ListagemAdmissaoMedica LISTAGEM_ADM_medico = new ListagemAdmissaoMedica();
+    ListagemAdmissaoMedicaComplementar LISTAGEM_ADM_medicoAux = new ListagemAdmissaoMedicaComplementar();
+    ListagemAprazamentoMedicacao LISTAGEM_aprazamento = new ListagemAprazamentoMedicacao();
+    //
     ControleFechamentoDadosSistema control = new ControleFechamentoDadosSistema();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -82,7 +151,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     int pREGISTROS_PROCESSADOS = 0;
     String pSISTEMA_BLOQUEADO = "Sim"; // DEFAULT É "Não"
     String pSISTEMA_DESBLOQUEADO = "Não";
-    //
+    //CRC
     int pTOTAL_GERAL_REGISTROS = 0;
     public static int pTOTAL_ENTRADAS = 0;
     public static int pTOTAL_SAIDAS = 0;
@@ -94,7 +163,6 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     public static int pRETORNO_MEDICO = 0;
     public static int pRETORNO_TRANSFERENCIA = 0;
     public static int pPREVISAO_SAIDA = 0;
-    public static int pNOVA_ENTRADA = 0;
     public static int pAGENDA_ESCOLTA = 0;
     public static int pINTERNOS_EVADIDOS = 0;
     public static int pPROGRESSAO_REGIME = 0;
@@ -104,6 +172,44 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     public static int pREGISTRO_CANCELADO_RETORNOS = 0;
     public static int pREGISTRO_CANCELADOS = 0;
     public static int pREGRESSAO_REGIME = 0;
+    //PORTARIA INTERNA
+    public static int pTOTAL_ENTRADAS_SAIDAS_VISITAS_religiosas = 0;
+    public static int pENTRADAS_INTERNOS_portaria = 0;
+    public static int pNOVA_ENTRADA = 0;
+    public static int pENTRADA_PERTENCES = 0;
+    public static int pENTRADA_OFJI = 0;
+    public static int pENTRADA_ADV_INTERNOS = 0;
+    public static int pENTRADA_FAMILIAR = 0;
+    public static int pOCORRENCIAS_P1 = 0;
+    public static int pPERNOITE = 0;
+    public static int pRETORNO = 0;
+    public static int pSAIDAS_CRC = 0;
+    public static int pTRANSIENTES = 0;
+    //PORTARIA EXTERNA
+    public static int pENTRADA_oficial = 0;
+    public static int pENTRADA_advogado = 0;
+    public static int pENTRADA_colaborador = 0;
+    public static int pENTRADA_VISITAS_diversas = 0;
+    public static int pENTRADA_VEICULOS_carga = 0;
+    public static int pENTRADA_VEICULOS_terceiros = 0;
+    public static int pENTRADA_VEICULOS_unidade = 0;
+    public static int pOCORRENCIAS_p1e = 0;
+    //ALMOXARIFADO
+    public static int pCOMPOSICAO = 0;
+    public static int pESTORNO = 0;
+    public static int pNFC = 0;
+    public static int pREQUISICAO_avulsa = 0;
+    public static int pREQUISICAO_interno = 0;
+    //BASE
+    public static int pLOCACAO_interno = 0;
+    public static int pOCR_seg = 0;
+    public static int pOCR_sega = 0;
+    //ENFERMAGEM
+    public static int pADM_enfermagem = 0;
+    public static int pADM_enfermagemAux = 0;
+    public static int pADM_medica = 0;
+    public static int pADM_medicaAux = 0;
+    public static int pAPRAZAMENTO = 0;
 
     /**
      * Creates new form TelaFechamentoSistema
@@ -499,8 +605,18 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 + pPREVISAO_SAIDA + pNOVA_ENTRADA
                 + pAGENDA_ESCOLTA + pINTERNOS_EVADIDOS
                 + pPROGRESSAO_REGIME + pPRORROGA
-                + pREGISTRO_CANCELADO_NE + pREGISTRO_CANCELADO_RETORNOS 
-                + pREGISTRO_CANCELADOS + pREGRESSAO_REGIME;
+                + pREGISTRO_CANCELADO_NE + pREGISTRO_CANCELADO_RETORNOS
+                + pREGISTRO_CANCELADOS + pREGRESSAO_REGIME
+                + pTOTAL_ENTRADAS_SAIDAS_VISITAS_religiosas
+                + pENTRADAS_INTERNOS_portaria + pENTRADA_PERTENCES
+                + pENTRADA_OFJI + pENTRADA_ADV_INTERNOS + pENTRADA_ADV_INTERNOS
+                + pENTRADA_FAMILIAR + pOCORRENCIAS_P1 + pPERNOITE + pRETORNO
+                + pSAIDAS_CRC + pTRANSIENTES + pENTRADA_oficial + pENTRADA_advogado
+                + pENTRADA_colaborador + pENTRADA_VISITAS_diversas + pENTRADA_VEICULOS_carga
+                + pENTRADA_VEICULOS_terceiros + pENTRADA_VEICULOS_unidade + pOCORRENCIAS_p1e
+                + pCOMPOSICAO + pESTORNO + pNFC + pREQUISICAO_avulsa + pREQUISICAO_interno
+                + pOCR_seg + pOCR_sega + pADM_enfermagem + pADM_enfermagemAux + pADM_medica
+                + pADM_medicaAux + pAPRAZAMENTO;
     }
 
     public void calculoTotais_ENTRADAS_CRC() {
@@ -607,7 +723,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         //REGISTRO CANCELADO NOVA ENTRADA
         try {
             for (FechamentoRegistros pREGCNE : objListagemRegCanceladoNE.read()) {
@@ -642,15 +758,289 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         }
     }
 
+    //PORTARIA
     public void calcularTotais_PORTARIA_INTERNA() {
         //NOVA ENTRADA
         try {
-            for (FechamentoRegistros pNV : objListaNovaEnt.read()) {
+            for (FechamentoRegistros pNV : LISTAGEM_NOVA_entrada.read()) {
                 pNV.getStatusRegistro();
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //VISITAS RELIGIOSAS
+        try {
+            for (FechamentoRegistros pVR : LISTAGEM_VISITAS_religiosas.read()) {
+                pVR.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADA PRIMEIRA VEZ
+        try {
+            for (FechamentoRegistros pEP : LISTAGEM_ENTRADA_internos.read()) {
+                pEP.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADA DE PERTENCES
+        try {
+            for (FechamentoRegistros pEPE : LISTAGEM_pertences.read()) {
+                pEPE.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADA OFICIAL JUSTIÇA INTERNOS
+        try {
+            for (FechamentoRegistros pOFI : LISTAGEM_OFICIAL_justica.read()) {
+                pOFI.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADA DE ADVIGADOS AOS INTENOS
+        try {
+            for (FechamentoRegistros pADV : LISTAGEM_ADV_internos.read()) {
+                pADV.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADAS FAMILIARES
+        try {
+            for (FechamentoRegistros pEFI : LISTAGEM_ENT_familiar.read()) {
+                pEFI.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        try {
+            for (FechamentoRegistros pOP1 : LISTAGEM_OCORRENCIA_p1.read()) {
+                pOP1.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //PERNOITE 
+        try {
+            for (FechamentoRegistros pPER : LISTAGEM_pernoite.read()) {
+                pPER.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //REGISTRO DE RETORNO        
+        try {
+            for (FechamentoRegistros pRET : LISTAGEM_retorno.read()) {
+                pRET.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SAÍDA NA PORTARIA
+        try {
+            for (FechamentoRegistros pSAI : LISTAGEM_saida.read()) {
+                pSAI.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //TRANSIENTES
+        try {
+            for (FechamentoRegistros pTRANS : LISTAGEM_transientes.read()) {
+                pTRANS.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADA OFICIAL DE JUSTIÇA
+        try {
+            for (FechamentoRegistros pOFF : LISTAGEM_oficial.read()) {
+                pOFF.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADAS ADVOGADOS 
+        try {
+            for (FechamentoRegistros pADV : LISTAGEM_advogado.read()) {
+                pADV.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADAS COLABORADORES        
+        try {
+            for (FechamentoRegistros pCOL : LISTAGEM__colaborador.read()) {
+                pCOL.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADAS VISITAS DIVERSAS 
+        try {
+            for (FechamentoRegistros pVD : LISTAGEM_VISITAS_diversas.read()) {
+                pVD.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADA VEICULOS CARGAS 
+        try {
+            for (FechamentoRegistros pEVC : LISTAGEM_VEICULOS_carga.read()) {
+                pEVC.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADAS VEICULOS TERCEIROS 
+        try {
+            for (FechamentoRegistros pEVCt : LISTAGEM_VEICULOS_terceiros.read()) {
+                pEVCt.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ENTRADA VEICULOS UNIDADE 
+        try {
+            for (FechamentoRegistros pEVCu : LISTAGEM_VEICULOS_unidade.read()) {
+                pEVCu.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //OCORRÊNCIAS P1 EXTERNA 
+        try {
+            for (FechamentoRegistros pOCRP1e : LISTAGEM_OCR_p1e.read()) {
+                pOCRP1e.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //ALMOXARIFADO
+    public void calcularTotais_ALMOXARIFADO() {
+        //COMPOSIÇÃO DO KIT DE HIGIENE
+        try {
+            for (FechamentoRegistros pCOMP : LISTAGEM_compoKit.read()) {
+                pCOMP.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ESTORNO DE PRODUTO 
+        try {
+            for (FechamentoRegistros pESTOR : LISTAGEM_estorno.read()) {
+                pESTOR.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //NOTA FISCAL DE COMPRAS 
+        try {
+            for (FechamentoRegistros pNF : LISTAGEM_nf.read()) {
+                pNF.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //REQUISIÇÃO AVULSA DE PRODUTOS 
+        try {
+            for (FechamentoRegistros pRAP : LISTAGEM_REQUISISCAO_avulsa.read()) {
+                pRAP.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //REQUISIÇÃO DE INTERNOS 
+        try {
+            for (FechamentoRegistros pRPI : LISTAGEM_REQUISICAO_interno.read()) {
+                pRPI.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //BASES DOS PAVILHÕES
+    public void calcularTotais_BASE_PAVILHAO() {
+        //LOCAÇÃO DOS INTERNOS NA CELA
+        try {
+            for (FechamentoRegistros pLOCA : LISTAGEM_locacao.read()) {
+                pLOCA.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //OCORRÊNCIAS BASE SEGURANÇA 
+        try {
+            for (FechamentoRegistros pOCR_seg : LISTAGEM_OCR_seg.read()) {
+                pOCR_seg.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //OCORRÊNCIAS BASE SEGURANÇA AUXILIAR LISTAGEM_OCR_sega
+        try {
+            for (FechamentoRegistros pOCR_sega : LISTAGEM_OCR_sega.read()) {
+                pOCR_sega.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //ENFERMAGEM
+    public void calcularTotais_ENFERMARIA() {
+        //ADMISSÃO ENFERMEIRA 
+        try {
+            for (FechamentoRegistros pADM_enfermagem : LISTAGEM_ADM_enfermagem.read()) {
+                pADM_enfermagem.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ADMISSÃO ENFERMEIRA COMPLEMENTAR 
+        try {
+            for (FechamentoRegistros pADM_enfermagemAux : LISTAGEM_ADM_enfermagemAux.read()) {
+                pADM_enfermagemAux.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ADMISSAÕ MEDICA LISTAGEM_ADM_medico
+        try {
+            for (FechamentoRegistros pADM_medico : LISTAGEM_ADM_medico.read()) {
+                pADM_medico.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ADMISSÃO MEDICA ADICIONAL 
+        try {
+            for (FechamentoRegistros pADM_medicoAux : LISTAGEM_ADM_medicoAux.read()) {
+                pADM_medicoAux.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //APRAZAMENTO MEDICAÇÃO LISTAGEM_aprazamento
+        try {
+            for (FechamentoRegistros pAPRAZA : LISTAGEM_aprazamento.read()) {
+                pAPRAZA.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ATENDIMENTO EM GRUPO ENFERMAGEM
+        //ATENDDIMENTO TÉCNICO ENFERMAGEM
+        //AVALIAÇÃO MÉDICA PSIQUIATRA
+        //OCORRÊNCIAS
+        //SOLICITAÇÃO EXAMES MEDICO E PSIQUIATRICO
     }
 
     public void objLog() {
@@ -757,8 +1147,156 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                         //MÓDULO PORTARIA INTERNA
+                        //
+                        //VISITAS RELIGIOSAS
+                        control.fecharVisitasReligiosas(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                         //NOVA ENTRADA
                         control.fecharNovaEntrada(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADA DE PERTENCES
+                        control.fecharEntradaPertences(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADA DE OFICIAL DE JUSTIÇA INTERNOS
+                        control.fecharEntradaOFJI(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADAS DE ADVOGADOS INTERNOS
+                        control.fecharEntradaADVI(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADAS FAMILIARES AOS INTERNOS
+                        control.fecharEntradaFamiliar(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS P1
+                        control.fecharOcorrenciasP1(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //PERNOITE DE INTERNOS
+                        control.fecharPernoiteInternos(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //RETORNO DE INTERNO
+                        control.fecharRegistroRetorno(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //SAIDA NA PORTARIA
+                        control.fecharSaidaPortaria(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //TRANSIENTES
+                        control.fecharTransientes(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //PORTARIA EXTERNA
+                        //ENTRADAS OFICIAL DE JUSTIÇA
+                        control.fecharOFF(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADAS ADVOGADOS
+                        control.fecharADV(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADA COLABORADORES
+                        control.fecharCOL(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADA VISITAS DIVERSAS
+                        control.fecharVD(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRAVA VEICULOS DE CARGAS
+                        control.fecharEVC(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADA VEICULOS TERCEIROS
+                        control.fecharEVCt(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENTRADA VEICULOS DA UNIDADE
+                        control.fecharEVCu(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS P1E
+                        control.fecharOCRP1e(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ALMOXARIFADO
+                        //COMPOSIÇÃO DE KIT DE HIGIÊNE
+                        control.fecharALMOX(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ESTORNO DE PRODUTO
+                        control.fecharESTORNO(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //NOTA FISCAL DE COMPRAS
+                        control.fecharNFC(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //REQUISIÇÃO AVULSA DE PRODUTOS
+                        control.fecharRAP(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //REQUISIÇÃO DE INTERNOS
+                        control.fecharRPI(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //LOCAÇÃO DE INTERNOS
+                        control.fecharLOCA(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS BASE SEGURANÇA
+                        control.fecharOCRbs(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS BASE SEGURANÇA AUXILIAR
+                        control.fecharOCRbsa(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ENFERMAGEM                        
+                        //ADMISSÃO ENFERMEIRA
+                        control.fecharADMEnfermagem(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ADMISSÃO ENFERMEIRA COMPLEMENTAR
+                        control.fecharADMEnfermagemAux(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ADMISSAÕ MEDICA
+                        control.fecharADMmedica(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ADMISSÃO MEDICA ADICIONAL
+                        control.fecharADMmedicaAux(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //APRAZAMENTO MEDICAÇÃO
+                        control.fecharAPRAZAMENTO(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ATENDIMENTO EM GRUPO ENFERMAGEM
+
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ATENDDIMENTO TÉCNICO ENFERMAGEM
+
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //AVALIAÇÃO MÉDICA PSIQUIATRA
+
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS
+
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //SOLICITAÇÃO EXAMES MEDICO E PSIQUIATRICO
+
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                         jProgressBar1.setValue(i);

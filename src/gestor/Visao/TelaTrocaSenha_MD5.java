@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitosMin;
 import gestor.Controle.ControleUsuarios;
 import gestor.Modelo.Usuarios;
 import static gestor.Visao.TelaLoginSenha.jComboBoxUnidadePrisional;
@@ -36,7 +37,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(pTELA_senha);
         initComponents();
-        jDataTroca.setCalendar(Calendar.getInstance());
+        formatarCampos();        
     }
 
     /**
@@ -338,4 +339,11 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
     private javax.swing.JPasswordField jPasswordConfirmaSenha;
     private javax.swing.JPasswordField jPasswordNovaSenha;
     // End of variables declaration//GEN-END:variables
+
+    public void formatarCampos(){
+        jDataTroca.setCalendar(Calendar.getInstance());
+        //
+        jPasswordNovaSenha.setDocument(new LimiteDigitosMin(21));
+        jPasswordConfirmaSenha.setDocument(new LimiteDigitosMin(21));
+    }
 }
