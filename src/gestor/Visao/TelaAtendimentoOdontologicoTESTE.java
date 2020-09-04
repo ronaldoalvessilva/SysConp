@@ -376,6 +376,8 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jLabel212 = new javax.swing.JLabel();
         jLabel213 = new javax.swing.JLabel();
         jLabel214 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
+        jRBFaceTodas1 = new javax.swing.JCheckBox();
         Continuacao = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
@@ -894,12 +896,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBtAuditoriaOdonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovo)
                     .addComponent(jBtAlterar)
@@ -908,6 +904,12 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     .addComponent(jBtCancelar)
                     .addComponent(jBtSair))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBtAuditoriaOdonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
@@ -1637,10 +1639,15 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jRBFaceDois.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBFaceDois.setForeground(new java.awt.Color(0, 0, 204));
         jRBFaceDois.setText("Distal");
+        jRBFaceDois.setMaximumSize(new java.awt.Dimension(57, 20));
+        jRBFaceDois.setMinimumSize(new java.awt.Dimension(57, 20));
+        jRBFaceDois.setPreferredSize(new java.awt.Dimension(57, 20));
 
         jRBFaceUm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBFaceUm.setForeground(new java.awt.Color(0, 102, 51));
         jRBFaceUm.setText("Palatal");
+        jRBFaceUm.setMargin(new java.awt.Insets(2, 2, 5, 2));
+        jRBFaceUm.setPreferredSize(new java.awt.Dimension(65, 23));
 
         jRBFaceTres.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBFaceTres.setForeground(new java.awt.Color(153, 0, 0));
@@ -1664,27 +1671,28 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jRBFaceQuatro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jRBFaceTres, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
                         .addComponent(jRBFaceDois, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jRBFaceUm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jRBFaceTodas)))
+                    .addComponent(jRBFaceTodas))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jRBFaceUm)
+                .addComponent(jRBFaceUm, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBFaceDois)
+                .addComponent(jRBFaceDois, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRBFaceTres, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBFaceTres)
+                .addComponent(jRBFaceQuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBFaceQuatro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
-                .addComponent(jRBFaceTodas))
+                .addComponent(jRBFaceTodas, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Nº Dente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
@@ -2608,6 +2616,34 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addContainerGap())
         );
 
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)))));
+
+        jRBFaceTodas1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBFaceTodas1.setForeground(new java.awt.Color(255, 51, 204));
+        jRBFaceTodas1.setText("Extração");
+        jRBFaceTodas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBFaceTodas1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRBFaceTodas1)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jRBFaceTodas1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
         javax.swing.GroupLayout OdontogramaLayout = new javax.swing.GroupLayout(Odontograma);
         Odontograma.setLayout(OdontogramaLayout);
         OdontogramaLayout.setHorizontalGroup(
@@ -2623,8 +2659,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(OdontogramaLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(OdontogramaLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -2632,13 +2673,18 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OdontogramaLayout.createSequentialGroup()
                 .addComponent(Odontograma2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(OdontogramaLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(OdontogramaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -7163,6 +7209,10 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jBtFaceCentral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralTransparente.png")));
     }//GEN-LAST:event_jRBFaceTresActionPerformed
 
+    private void jRBFaceTodas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceTodas1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRBFaceTodas1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Admissao;
@@ -7526,6 +7576,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
@@ -7547,6 +7598,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JCheckBox jRBFaceDois;
     private javax.swing.JCheckBox jRBFaceQuatro;
     private javax.swing.JCheckBox jRBFaceTodas;
+    private javax.swing.JCheckBox jRBFaceTodas1;
     private javax.swing.JCheckBox jRBFaceTres;
     private javax.swing.JCheckBox jRBFaceUm;
     private javax.swing.JScrollPane jScrollPane1;
