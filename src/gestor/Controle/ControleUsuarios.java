@@ -124,7 +124,9 @@ public class ControleUsuarios {
         return objUser;
     }
 
-    //-------------- MANTER USUARIOS DO SISTEMA PARA OUTRAS UNIDADES ---------------------------------------
+    //------------------------------------------ MANTER USUARIOS DO SISTEMA PARA OUTRAS UNIDADES ---------------------------------------
+    
+    //------------------------------------------    LAURO DE FREITAS ---------------------------------------------------------------
     public Usuarios incluirUsuariosLF(Usuarios objUser) {
 
         conectaLF.abrirConexao();
@@ -189,14 +191,14 @@ public class ControleUsuarios {
 
     public Usuarios excluirUsuariosLF(Usuarios objUser) {
 
-        conectaVC.abrirConexao();
+        conectaLF.abrirConexao();
         try {
-            PreparedStatement pst = conectaVC.con.prepareStatement("DELETE FROM USUARIOS WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            PreparedStatement pst = conectaLF.con.prepareStatement("DELETE FROM USUARIOS WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
         }
-        conectaVC.desconecta();
+        conectaLF.desconecta();
         return objUser;
     }
 
@@ -204,7 +206,7 @@ public class ControleUsuarios {
 
         conectaLF.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            PreparedStatement pst = conectaLF.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
             pst.setString(2, Criptografia.criptografar(objUser.getSenha1()));
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
@@ -215,7 +217,7 @@ public class ControleUsuarios {
         conectaLF.desconecta();
         return objUser;
     }
-    //------------------------------- VITÓRIA DA CONQUISTA -------------------------------------------------
+    //-------------------------------------------- VITÓRIA DA CONQUISTA -------------------------------------------------
 
     public Usuarios incluirUsuariosVC(Usuarios objUser) {
 
@@ -296,7 +298,7 @@ public class ControleUsuarios {
 
         conectaVC.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            PreparedStatement pst = conectaVC.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
             pst.setString(2, Criptografia.criptografar(objUser.getSenha1()));
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
@@ -308,7 +310,7 @@ public class ControleUsuarios {
         return objUser;
     }
 
-    //-------------------------------- ITABUNA --------------------------------------
+    //----------------------------------------------------- ITABUNA --------------------------------------
     public Usuarios incluirUsuariosITB(Usuarios objUser) {
 
         conectaITB.abrirConexao();
@@ -388,7 +390,7 @@ public class ControleUsuarios {
 
         conectaITB.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            PreparedStatement pst = conectaITB.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
             pst.setString(2, Criptografia.criptografar(objUser.getSenha1()));
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
@@ -400,7 +402,7 @@ public class ControleUsuarios {
         return objUser;
     }
 
-    //SALVADOR
+    //------------------------------------------------- SALVADOR ----------------------------------------------------------------------------------
     public Usuarios incluirUsuariosSSA(Usuarios objUser) {
 
         conectaSSA.abrirConexao();
@@ -492,7 +494,7 @@ public class ControleUsuarios {
         return objUser;
     }
 
-    //BARREIRAS
+    //----------------------------------------------- BARREIRAS ------------------------------------------------------------------------
     public Usuarios incluirUsuariosBAR(Usuarios objUser) {
 
         conectaBAR.abrirConexao();
@@ -572,7 +574,7 @@ public class ControleUsuarios {
 
         conectaBAR.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            PreparedStatement pst = conectaBAR.con.prepareStatement("UPDATE USUARIOS SET DataSenha=?,SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
             pst.setString(2, Criptografia.criptografar(objUser.getSenha1()));
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
