@@ -1224,7 +1224,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //ATENDIMENTO ODONTOLOGICO
     public FechamentoRegistros fecharATEND_odonto(FechamentoRegistros objFecha) {
 
@@ -1244,7 +1244,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //OCORRÊNCIA ODONTOLOGICO
     public FechamentoRegistros fecharOCORRE_odonto(FechamentoRegistros objFecha) {
 
@@ -1264,7 +1264,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //ADMISSAO PEDAGOGICA
     public FechamentoRegistros fecharADM_peda(FechamentoRegistros objFecha) {
 
@@ -1284,8 +1284,8 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-     
-     //ADMISSAO PEDAGOGICA NOVA
+
+    //ADMISSAO PEDAGOGICA NOVA
     public FechamentoRegistros fecharADM_pedaNova(FechamentoRegistros objFecha) {
 
         conecta.abrirConexao();
@@ -1304,7 +1304,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //ATENDIMENTO EM GRUPO PEDAGOGIA
     public FechamentoRegistros fecharATM_GRUPO_peda(FechamentoRegistros objFecha) {
 
@@ -1324,7 +1324,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //ATIVIDADES COMPLEMENTARES
     public FechamentoRegistros fecharATV_complementar(FechamentoRegistros objFecha) {
 
@@ -1344,7 +1344,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //CONTROLE DE FREQUENCIA EXTERNA
     public FechamentoRegistros fecharFrequencia(FechamentoRegistros objFecha) {
 
@@ -1364,7 +1364,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //ADMISSÃO PSICOLOGICA
     public FechamentoRegistros fecharADM_psi(FechamentoRegistros objFecha) {
 
@@ -1384,7 +1384,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //ATENDIMENTO EM GRUPO PSICOLOGICA
     public FechamentoRegistros fecharATG_psi(FechamentoRegistros objFecha) {
 
@@ -1404,7 +1404,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //AVALIAÇÃO PSICOLOGICA
     public FechamentoRegistros fecharAVA_psi(FechamentoRegistros objFecha) {
 
@@ -1424,7 +1424,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //OCORRÊNCIA PSICOLOGICA
     public FechamentoRegistros fecharOCO_psi(FechamentoRegistros objFecha) {
 
@@ -1444,7 +1444,7 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
-    
+
     //PORTA DE ENTRADA PSICOLOGICA
     public FechamentoRegistros fecharPORTA_psi(FechamentoRegistros objFecha) {
 
@@ -1460,6 +1460,408 @@ public class ControleFechamentoDadosSistema {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (PORTA_ENTRADA_PSICOLOGIA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //MOVIMENTO POPULAÇÃO
+    public FechamentoRegistros fecharMOVPOP_seg(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVPOPULACAO SET StatusPop=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusPop='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataPopMov<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (MOVPOPULACAO) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //OCORRÊNCIAS SEGURANÇA
+    public FechamentoRegistros fecharOCORR_seg(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OCORRENCIASEGURANCA SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (OCORRENCIASEGURANCA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //SERVIÇO SOCIAL
+    //ATENDIMENTO EM GRUPO
+    public FechamentoRegistros fecharATEND_grupoSS(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_SS SET StatusAtendGrupo=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusAtendGrupo='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataAtend<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATENDIMENTO_GRUPO_SS) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //ATENDIMENTO FAMILIAR
+    public FechamentoRegistros fecharATEND_famSS(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOFAMILIAR SET StatusAtendf=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusAtendf='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataAtendf<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATENDIMENTOFAMILIAR) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //ATENDIMENTOSOCIAL
+    public FechamentoRegistros fecharATEND_social(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOSOCIAL SET StatusAtend=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusAtend='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataAtend<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATENDIMENTOSOCIAL) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //ATUALIZAÇÃO DOCUMENTOS DE INTERNOS
+    public FechamentoRegistros fecharATUALIZACAO_documentos(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATUALIZACAO_DOCUMENTOS_INTERNOS SET StatusDoc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusDoc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATUALIZACAO_DOCUMENTOS_INTERNOS) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //CANCELAMENTO DE VISITAS EXTERNA AOS INTERNOS
+    public FechamentoRegistros fecharCANCELA_visita(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL SET StatusCan=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusCan='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataCan<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //CONTROLE DE LIGAÇÕES
+    public FechamentoRegistros fecharCONTROLE_ligacoes(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL SET StatusCan=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusCan='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataCan<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //OCORRÊNCIAS SERVIÇO SOCIAL
+    public FechamentoRegistros fecharOCORR(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OCORRENCIAS_SERVICO_SOCIAL SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (OCORRENCIAS_SERVICO_SOCIAL) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //PERFIL CARCERÁRIO
+    public FechamentoRegistros fecharPERFIL(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PERFIL_CARCERARIO_INTERNO SET StatusPerfil=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusPerfil='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataPerfil<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (PERFIL_CARCERARIO_INTERNO) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //PORTA DE ENTRADA
+    public FechamentoRegistros fecharPORTA(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PORTA_ENTRADA_SERVICO_SOCIAL SET StatusAtend=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusAtend='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataAtend<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (PORTA_ENTRADA_SERVICO_SOCIAL) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //TERAPIA OCUPACIONAL
+    //ADMISSÃO TERAPIA 
+    public FechamentoRegistros fecharADM_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAO_TERAPIA_PE SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ADMISSAO_TERAPIA_PE) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //AGENDA LABORATIVA
+    public FechamentoRegistros fecharAGENDA_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AGENDALABORATIVA SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataCadastro<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (AGENDALABORATIVA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //ATENDIMENTO EM GRUPO
+    public FechamentoRegistros fecharATENDE_GRU_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_TO SET StatusAtendGrupo=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusAtendGrupo='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataAtend<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATENDIMENTO_GRUPO_TO) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //ATENDIMENTO TERAPIA
+    public FechamentoRegistros fecharATENDE_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOTERAPIA SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATENDIMENTOTERAPIA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //CAPACITAÇÃO INTERNO
+    public FechamentoRegistros fecharCAPACITA_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CAPACITACAO_INTERNO_TO SET StatusRegistro=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRegistro='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataRegistro<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (CAPACITACAO_INTERNO_TO) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //FREQUENCIA CAPACITAÇÃO DE INTERNO
+    public FechamentoRegistros fecharFREQUENTA_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_CAPACITACAO_INTERNO_TO SET StatusRegistro=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusRegistro='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataRegistro<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (FREQUENCIA_CAPACITACAO_INTERNO_TO) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //FREQUENCIA LABORATIVA DE INTERNO
+    public FechamentoRegistros fecharFREQUENTA_labor_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_LABORATIVA_EXTERNA SET StatusFreqLab=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusFreqLab='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataFreqLab<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (FREQUENCIA_LABORATIVA_EXTERNA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //OCORRÊNCIAS
+    public FechamentoRegistros fecharOCORR_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OCORRENCIAS_TO SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (OCORRENCIAS_TO) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+
+    //TRIAGEM OCUPACIONAL
+    public FechamentoRegistros fecharTRIAGEM_to(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TRIAGEM_OCUPACIONAL SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (TRIAGEM_OCUPACIONAL) os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objFecha;

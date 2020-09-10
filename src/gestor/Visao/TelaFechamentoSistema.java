@@ -16,20 +16,31 @@ import gestor.Controle.ListagemAdmissaoMedicaComplementar;
 import gestor.Controle.ListagemAdmissaoPedagogica;
 import gestor.Controle.ListagemAdmissaoPedagogicaNova;
 import gestor.Controle.ListagemAdmissaoPsicologica;
+import gestor.Controle.ListagemAdmissaoTerapia;
+import gestor.Controle.ListagemAgendaLaborativa;
 import gestor.Controle.ListagemAprazamentoMedicacao;
+import gestor.Controle.ListagemAtendimentoFamiliar;
 import gestor.Controle.ListagemAtendimentoFamiliarJuridico;
 import gestor.Controle.ListagemAtendimentoGrupoEnfermaria;
 import gestor.Controle.ListagemAtendimentoGrupoPedagogia;
 import gestor.Controle.ListagemAtendimentoGrupoPsi;
+import gestor.Controle.ListagemAtendimentoGrupoSS;
+import gestor.Controle.ListagemAtendimentoGrupoTO;
 import gestor.Controle.ListagemAtendimentoJuridico;
 import gestor.Controle.ListagemAtendimentoOdontologico;
+import gestor.Controle.ListagemAtendimentoSocial;
 import gestor.Controle.ListagemAtendimentoTecnicoEnfermagem;
+import gestor.Controle.ListagemAtendimentoTerapia;
 import gestor.Controle.ListagemAtividadesComplementaresPeda;
 import gestor.Controle.ListagemAtividadesUnidades;
+import gestor.Controle.ListagemAtualizacaoDocumentosInternos;
 import gestor.Controle.ListagemAvaliacaoMedicaPsiquiatrica;
 import gestor.Controle.ListagemAvaliacaoPsicologica;
 import gestor.Controle.ListagemCancelamentoNovaEntradada;
+import gestor.Controle.ListagemCancelamentoVisitasExternaInteraRol;
+import gestor.Controle.ListagemCapacitacaoInternoTO;
 import gestor.Controle.ListagemComposicaoKitHigiene;
+import gestor.Controle.ListagemControleLigacoes;
 import gestor.Controle.ListagemEntradaAdvogadoInternos;
 import gestor.Controle.ListagemEntradaAdvogados;
 import gestor.Controle.ListagemEntradaColaboradores;
@@ -45,18 +56,26 @@ import gestor.Controle.ListagemEstornoProdutos;
 import gestor.Controle.ListagemEvadidos;
 import gestor.Controle.ListagemFichaJuridica;
 import gestor.Controle.ListagemFrequanciaPedagogicaExterna;
+import gestor.Controle.ListagemFrequenciaCapacitaTO;
+import gestor.Controle.ListagemFrequenciaLaborTO;
 import gestor.Controle.ListagemLocacaoInternos;
+import gestor.Controle.ListagemMovimentoPopulcao;
 import gestor.Controle.ListagemNotasFiscaisCompras;
 import gestor.Controle.ListagemOcorrenciaBaseSeguranca;
 import gestor.Controle.ListagemOcorrenciaBaseSegurancaAux;
 import gestor.Controle.ListagemOcorrenciaP1E;
 import gestor.Controle.ListagemOcorrenciaPsicologia;
+import gestor.Controle.ListagemOcorrenciaSeguranca;
+import gestor.Controle.ListagemOcorrenciaServicoSocial;
+import gestor.Controle.ListagemOcorrenciaTO;
 import gestor.Controle.ListagemOcorrenciasEnferemaria;
 import gestor.Controle.ListagemOcorrenciasOdontologica;
 import gestor.Controle.ListagemOcorrenciasP1;
 import gestor.Controle.ListagemPagamentoKitHigiene;
+import gestor.Controle.ListagemPerfilCarcerarioSS;
 import gestor.Controle.ListagemPernoiteInternos;
 import gestor.Controle.ListagemPortaEntradaPsicologia;
+import gestor.Controle.ListagemPortaEntradaSS;
 import gestor.Controle.ListagemProgressoaRegime;
 import gestor.Controle.ListagemProrrogacaoSaidaTemporaria;
 import gestor.Controle.ListagemRegistroCanceladoRetornos;
@@ -68,6 +87,7 @@ import gestor.Controle.ListagemRequiscaoAvulsaProdutos;
 import gestor.Controle.ListagemRequisicaoProdutosInterno;
 import gestor.Controle.ListagemSolicitacaoExamesMedicos;
 import gestor.Controle.ListagemTransientes;
+import gestor.Controle.ListagemTriagemOcupacional;
 import gestor.Controle.ListagemVeiculosCargas;
 import gestor.Controle.ListagemVeiculosTerceiros;
 import gestor.Controle.ListarEntradasInternos;
@@ -188,6 +208,31 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     ListagemAvaliacaoPsicologica LISTAGEM_avalia = new ListagemAvaliacaoPsicologica();
     ListagemOcorrenciaPsicologia LISTAGEM_OCOR_psi = new ListagemOcorrenciaPsicologia();
     ListagemPortaEntradaPsicologia LISTAGEM_porta = new ListagemPortaEntradaPsicologia();
+    //SEGURANÇA
+    ListagemMovimentoPopulcao LISTAGEM_populcao = new ListagemMovimentoPopulcao();
+    ListagemOcorrenciaSeguranca LISTAGEM_OCORR_seg = new ListagemOcorrenciaSeguranca();
+    //SERVIÇO SOCIAL
+    ListagemAtendimentoGrupoSS LISTAGEM_ATEND_grupoSS = new ListagemAtendimentoGrupoSS();
+    ListagemAtendimentoFamiliar LISTAGEM_ATEND_famSS = new ListagemAtendimentoFamiliar();
+    ListagemAtendimentoSocial LISTAGEM_ATEND_social = new ListagemAtendimentoSocial();
+    ListagemAtualizacaoDocumentosInternos LISTAGEM_atualizacao = new ListagemAtualizacaoDocumentosInternos();
+    ListagemCancelamentoVisitasExternaInteraRol LISTAGEM_cancelaVisista = new ListagemCancelamentoVisitasExternaInteraRol();
+    ListagemControleLigacoes LISTAGEM_CONTROLE_ligacoes = new ListagemControleLigacoes();
+    ListagemOcorrenciaServicoSocial LISTAGEM_ocorrencia_ss = new ListagemOcorrenciaServicoSocial();
+    ListagemPerfilCarcerarioSS LISTAGEM_perfil = new ListagemPerfilCarcerarioSS();
+    ListagemPortaEntradaSS LISTAGEM_portaEE = new ListagemPortaEntradaSS();
+    //TERAPIA OCUPACIONAL
+    ListagemAdmissaoTerapia LISTAGEM_terapia = new ListagemAdmissaoTerapia();
+    ListagemAgendaLaborativa LISTAGEM_agenda = new ListagemAgendaLaborativa();
+    ListagemAtendimentoGrupoTO LISTAGEM_atendeGR = new ListagemAtendimentoGrupoTO();
+    ListagemAtendimentoTerapia LISTAGEM_atendimentoTO = new ListagemAtendimentoTerapia();
+    ListagemCapacitacaoInternoTO LISTAGEM_capacitacaoTO = new ListagemCapacitacaoInternoTO();
+    ListagemFrequenciaCapacitaTO LISTAGEM_freqCapaTo = new ListagemFrequenciaCapacitaTO();
+    ListagemFrequenciaLaborTO LISTAGEM_freqLabor = new ListagemFrequenciaLaborTO();
+    ListagemOcorrenciaTO LISTAGEM_OCORR_to = new ListagemOcorrenciaTO();
+    ListagemTriagemOcupacional LISTAGEM_triagemTO = new ListagemTriagemOcupacional();
+    //EDUCAÇÃO FISICA
+    
     //
     ControleFechamentoDadosSistema control = new ControleFechamentoDadosSistema();
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -291,6 +336,29 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     public static int pAVALIACAO_psicologica = 0;
     public static int pOCORRENCIA_psiologica = 0;
     public static int pPORTA_entrada = 0;
+    //SEGURANÇA
+    public static int pMOVIMENTO_populcao = 0;
+    public static int pOCORRE_seguranca = 0;
+    //SERVIÇO SOCIAL
+    public static int pATEND_GRUPO_ss = 0;
+    public static int pATEND_FAM_ss = 0;
+    public static int pATEND_social = 0;
+    public static int pATUALIZA_documento = 0;
+    public static int pCANCELA_visitas = 0;
+    public static int pCONTROLE_ligacoes = 0;
+    public static int pOCORRENCIAS_servico = 0;
+    public static int pPERFIL_carcerario = 0;
+    public static int pPORTA_ENTRADA_ss = 0;
+    //TERAPIA OCUPACIONAL
+    public static int pADM_terapia = 0;
+    public static int pAGENDA_laborativa = 0;
+    public static int pATENDIMENTO_grupoTO = 0;
+    public static int pATENDIMENTO_TO = 0;
+    public static int pCAPACITACAO_INTERO_to = 0;
+    public static int pFREQUENCIA_capa = 0;
+    public static int pFREQUENCIA_labora = 0;
+    public static int pOCORRE_to = 0;
+    public static int pTRIAGEM_to = 0;
 
     /**
      * Creates new form TelaFechamentoSistema
@@ -702,7 +770,12 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 + pADMISSAO_JURI + pATEND_FAMILIA_juri + pFICHA_juridica + pATEND_ODONTO
                 + pOCR_ODONTO + pADMISSAO_pedagogica + pADMISSAO_pedagogicaNova + pATEND_GRUPO_pedagogia
                 + pATIVIDADES_COMPLEMENTARES + pFREQUENCIA_pedagogica + pADMISSAO_psicologica
-                + pATENDIMENTO_GRUPO_psi + pAVALIACAO_psicologica + pOCORRENCIA_psiologica + pPORTA_entrada;
+                + pATENDIMENTO_GRUPO_psi + pAVALIACAO_psicologica + pOCORRENCIA_psiologica + pPORTA_entrada
+                + pMOVIMENTO_populcao + pOCORRE_seguranca + pATEND_GRUPO_ss + pATEND_FAM_ss + pATEND_social
+                + pATUALIZA_documento + pCANCELA_visitas + pCONTROLE_ligacoes + pOCORRENCIAS_servico
+                + pPERFIL_carcerario + pPORTA_ENTRADA_ss + pADM_terapia + pAGENDA_laborativa
+                + pATENDIMENTO_grupoTO + pATENDIMENTO_TO + pCAPACITACAO_INTERO_to + pFREQUENCIA_capa
+                + pFREQUENCIA_labora + pOCORRE_to + pTRIAGEM_to;
     }
 
     public void calculoTotais_ENTRADAS_CRC() {
@@ -1328,6 +1401,177 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         }
     }
 
+    //SEGURANÇA
+    public void calcularTotais_SEGURANCA() {
+        //MOVIMENTO POPULÇÃO 
+        try {
+            for (FechamentoRegistros pMOV_pop : LISTAGEM_populcao.read()) {
+                pMOV_pop.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //OCORRÊNCIA SEGURANÇA 
+        try {
+            for (FechamentoRegistros pOCORR_seg : LISTAGEM_OCORR_seg.read()) {
+                pOCORR_seg.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void calcularTotais_SERVICO_SOCIAL() {
+        //ATENDIMENTO EM GRUPO LISTAGEM_ATEND_grupoSS
+        try {
+            for (FechamentoRegistros pATEND_GRU_ss : LISTAGEM_ATEND_grupoSS.read()) {
+                pATEND_GRU_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ATENDIMENTO FAMILIAR
+        try {
+            for (FechamentoRegistros pATEND_FAN_ss : LISTAGEM_ATEND_famSS.read()) {
+                pATEND_FAN_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ATENDIMENTOSOCIAL 
+        try {
+            for (FechamentoRegistros pATEND_SOS_ss : LISTAGEM_ATEND_social.read()) {
+                pATEND_SOS_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ATUALIZAÇÃO DOCUMENTOS DE INTERNOS 
+        try {
+            for (FechamentoRegistros pATUALiza_DOC_ss : LISTAGEM_atualizacao.read()) {
+                pATUALiza_DOC_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //CANCELAMENTO DE VISITAS EXTERNA AOS INTERNOS 
+        try {
+            for (FechamentoRegistros pCANCELA_VISITA_ss : LISTAGEM_cancelaVisista.read()) {
+                pCANCELA_VISITA_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //CONTROLE DE LIGAÇÕES 
+        try {
+            for (FechamentoRegistros pCONTROLE_ligacoes_ss : LISTAGEM_CONTROLE_ligacoes.read()) {
+                pCONTROLE_ligacoes_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //OCORRÊNCIAS SERVIÇO SOCIAL 
+        try {
+            for (FechamentoRegistros pOCORR_ss : LISTAGEM_ocorrencia_ss.read()) {
+                pOCORR_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //PERFIL CARCERÁRIO 
+        try {
+            for (FechamentoRegistros pPERFIL_ss : LISTAGEM_perfil.read()) {
+                pPERFIL_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //PORTA DE ENTRADA         
+        try {
+            for (FechamentoRegistros pPORTA_ss : LISTAGEM_portaEE.read()) {
+                pPORTA_ss.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //TERAPIA OCUPACIONAL
+    public void calculosTotaisTO() {
+        //ADMISSÃO TERAPIA 
+        try {
+            for (FechamentoRegistros pADM_to : LISTAGEM_terapia.read()) {
+                pADM_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //AGENDA LABORATIVA 
+        try {
+            for (FechamentoRegistros pAGENDA_to : LISTAGEM_agenda.read()) {
+                pAGENDA_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ATENDIMENTO EM GRUPO 
+        try {
+            for (FechamentoRegistros pATENDE_GRU_to : LISTAGEM_atendeGR.read()) {
+                pATENDE_GRU_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ATENDIMENTO TERAPIA 
+        try {
+            for (FechamentoRegistros pATENDE_to : LISTAGEM_atendimentoTO.read()) {
+                pATENDE_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //CAPACITAÇÃO INTERNO 
+        try {
+            for (FechamentoRegistros pCAPACITA_to : LISTAGEM_capacitacaoTO.read()) {
+                pCAPACITA_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //FREQUENCIA CAPACITAÇÃO DE INTERNO 
+        try {
+            for (FechamentoRegistros pFREQUENTA_to : LISTAGEM_freqCapaTo.read()) {
+                pFREQUENTA_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //FREQUENCIA LABORATIVA DE INTERNO 
+        try {
+            for (FechamentoRegistros pFREQUENTA_labor_to : LISTAGEM_freqLabor.read()) {
+                pFREQUENTA_labor_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //OCORRÊNCIAS 
+        try {
+            for (FechamentoRegistros pOCORRE_to : LISTAGEM_OCORR_to.read()) {
+                pOCORRE_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //TRIAGEM OCUPACIONAL 
+        try {
+            for (FechamentoRegistros pTRIAGEM_to : LISTAGEM_triagemTO.read()) {
+                pTRIAGEM_to.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -1652,6 +1896,89 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                         //PORTA ENTRADA PSICOLOGICA
                         control.fecharPORTA_psi(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //SEGURANÇA
+                        //MOVIMENTO POPULAÇÃO
+                        control.fecharMOVPOP_seg(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS SEGURANÇA
+                        control.fecharOCORR_seg(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //SERVIÇO SOCIAL
+                        //ATENDIMENTO EM GRUPO
+                        control.fecharATEND_grupoSS(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ATENDIMENTO FAMILIAR
+                        control.fecharATEND_famSS(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ATENDIMENTOSOCIAL
+                        control.fecharATEND_social(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ATUALIZAÇÃO DOCUMENTOS DE INTERNOS
+                        control.fecharATUALIZACAO_documentos(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //CANCELAMENTO DE VISITAS EXTERNA AOS INTERNOS
+                        control.fecharCANCELA_visita(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //CONTROLE DE LIGAÇÕES
+                        control.fecharCONTROLE_ligacoes(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS SERVIÇO SOCIAL
+                        control.fecharOCORR(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //PERFIL CARCERÁRIO
+                        control.fecharPERFIL(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //PORTA DE ENTRADA
+                        control.fecharPORTA(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //TERAPIA OCUPACIONAL
+                        //ADMISSÃO TERAPIA
+                        control.fecharADM_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //AGENDA LABORATIVA
+                        control.fecharAGENDA_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ATENDIMENTO EM GRUPO
+                        control.fecharATENDE_GRU_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ATENDIMENTO TERAPIA
+                        control.fecharATENDE_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //CAPACITAÇÃO INTERNO
+                        control.fecharCAPACITA_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //FREQUENCIA CAPACITAÇÃO DE INTERNO
+                        control.fecharFREQUENTA_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //FREQUENCIA LABORATIVA DE INTERNO
+                        control.fecharFREQUENTA_labor_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //OCORRÊNCIAS
+                        control.fecharOCORR_to(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //TRIAGEM OCUPACIONAL
+                        control.fecharTRIAGEM_to(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                         //
