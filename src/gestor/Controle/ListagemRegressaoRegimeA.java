@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 package gestor.Controle;
+
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pENTRADA_colaborador;
+import static gestor.Visao.TelaFechamentoSistema.pREGRESSAO_REGIME;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -21,11 +22,11 @@ import javax.swing.JOptionPane;
  *
  * @author ronaldo.silva7
  */
-public class ListagemEntradaColaboradores {
+public class ListagemRegressaoRegimeA {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
-    String pSTATUS_NOVA_ENTRADA = "ABERTO";
+    String pSTATUS_REGRESSAO = "FINALIZADO";
     String pDATA_PESQUISA_FECHAMENTO = "";
 
     public List<FechamentoRegistros> read() throws Exception {
@@ -38,19 +39,19 @@ public class ListagemEntradaColaboradores {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             pDATA_PESQUISA_FECHAMENTO = formatoAmerica.format(jDataFechamento.getDate().getTime());
         }
-        pENTRADA_colaborador = 0;
+        pREGRESSAO_REGIME = 0;
         List<FechamentoRegistros> listaTodasNovaEntrada = new ArrayList<FechamentoRegistros>();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT StatusLanc "
-                    + "FROM ENTRADASFUNC "
-                    + "WHERE StatusLanc='" + pSTATUS_NOVA_ENTRADA + "' "
+                    + "FROM REGRESSAOREGIME "
+                    + "WHERE StatusLanc='" + pSTATUS_REGRESSAO + "' "
                     + "AND DataLanc<='" + pDATA_PESQUISA_FECHAMENTO + "'");
             while (conecta.rs.next()) {
                 FechamentoRegistros pNovaEntrada = new FechamentoRegistros();
                 pNovaEntrada.setStatusRegistro(conecta.rs.getString("StatusLanc"));
                 listaTodasNovaEntrada.add(pNovaEntrada);
-                pENTRADA_colaborador = pENTRADA_colaborador + 1;
+                pREGRESSAO_REGIME = pREGRESSAO_REGIME + 1;
             }
             return listaTodasNovaEntrada;
         } catch (SQLException ex) {

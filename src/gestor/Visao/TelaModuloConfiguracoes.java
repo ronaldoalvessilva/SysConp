@@ -63,6 +63,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
      */
     public static TelaFechamentoSistema pFECHAR_SISTEMA;
     public static TelaAberturaRegistroSistema pABRIR_REGISTROS;
+    public static TelaAberturaTotalSistema pABRIR_GERAL;
 
     public TelaModuloConfiguracoes() {
         initComponents();
@@ -80,6 +81,10 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         pABRIR_REGISTROS.setVisible(true);
     }
 
+    public void mostrarAberturaGeral(){
+        pABRIR_GERAL = new TelaAberturaTotalSistema(this, true);
+        pABRIR_GERAL.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,7 +121,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jFechamentoSistema = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jAbrirTodosMovimentacaoSistema = new javax.swing.JMenuItem();
-        jAbrirMovimentoIndividual = new javax.swing.JMenuItem();
+        jAbrirMovimentoTotal = new javax.swing.JMenuItem();
+        jAbrirTodosMovimentosData = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jParamentosSistema = new javax.swing.JMenuItem();
 
@@ -275,13 +281,21 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         });
         jMenu3.add(jAbrirTodosMovimentacaoSistema);
 
-        jAbrirMovimentoIndividual.setText("Abrir Movimentos do Sistema Individual");
-        jAbrirMovimentoIndividual.addActionListener(new java.awt.event.ActionListener() {
+        jAbrirMovimentoTotal.setText("Abrir Movimentos do Sistema Individual");
+        jAbrirMovimentoTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAbrirMovimentoIndividualActionPerformed(evt);
+                jAbrirMovimentoTotalActionPerformed(evt);
             }
         });
-        jMenu3.add(jAbrirMovimentoIndividual);
+        jMenu3.add(jAbrirMovimentoTotal);
+
+        jAbrirTodosMovimentosData.setText("Abrir Todos os Movimentos Por Data");
+        jAbrirTodosMovimentosData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAbrirTodosMovimentosDataActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jAbrirTodosMovimentosData);
 
         jAbrirMovimetacaoSistema.add(jMenu3);
         jAbrirMovimetacaoSistema.add(jSeparator6);
@@ -547,7 +561,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         mostrarAberturaFechamento();
     }//GEN-LAST:event_jAbrirTodosMovimentacaoSistemaActionPerformed
 
-    private void jAbrirMovimentoIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentoIndividualActionPerformed
+    private void jAbrirMovimentoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentoTotalActionPerformed
         // TODO add your handling code here:
         if (objAbriMov == null || objAbriMov.isClosed()) {
             objAbriMov = new TelaAbirMovimentoFinalizado();
@@ -574,7 +588,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             objAbriMov.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_jAbrirMovimentoIndividualActionPerformed
+    }//GEN-LAST:event_jAbrirMovimentoTotalActionPerformed
 
     private void jParamentosSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jParamentosSistemaActionPerformed
         // TODO add your handling code here:
@@ -583,15 +597,20 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         objParSis.show();
     }//GEN-LAST:event_jParamentosSistemaActionPerformed
 
+    private void jAbrirTodosMovimentosDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirTodosMovimentosDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAbrirTodosMovimentosDataActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
     private javax.swing.JMenuItem Empresa;
     private javax.swing.JMenuItem JMenuSQL;
     private javax.swing.JMenuItem UsuariosConectados;
-    private javax.swing.JMenuItem jAbrirMovimentoIndividual;
+    private javax.swing.JMenuItem jAbrirMovimentoTotal;
     private javax.swing.JMenu jAbrirMovimetacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
+    private javax.swing.JMenuItem jAbrirTodosMovimentosData;
     private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

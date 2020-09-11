@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package gestor.Controle;
+
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pENTRADA_colaborador;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -16,16 +16,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaFechamentoSistema.pREGISTRO_CANCELADO_RETORNOS;
 
 /**
  *
  * @author ronaldo.silva7
  */
-public class ListagemEntradaColaboradores {
+public class ListagemRegistroCanceladoRetornosA {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
-    String pSTATUS_NOVA_ENTRADA = "ABERTO";
+    String pSTATUS_REGISTRO_CANCELADO = "FINALIZADO";
     String pDATA_PESQUISA_FECHAMENTO = "";
 
     public List<FechamentoRegistros> read() throws Exception {
@@ -38,19 +39,19 @@ public class ListagemEntradaColaboradores {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             pDATA_PESQUISA_FECHAMENTO = formatoAmerica.format(jDataFechamento.getDate().getTime());
         }
-        pENTRADA_colaborador = 0;
+        pREGISTRO_CANCELADO_RETORNOS = 0;
         List<FechamentoRegistros> listaTodasNovaEntrada = new ArrayList<FechamentoRegistros>();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT StatusLanc "
-                    + "FROM ENTRADASFUNC "
-                    + "WHERE StatusLanc='" + pSTATUS_NOVA_ENTRADA + "' "
+                    + "FROM REGISTRO_CANCELADO_RETORNOS "
+                    + "WHERE StatusLanc='" + pSTATUS_REGISTRO_CANCELADO + "' "
                     + "AND DataLanc<='" + pDATA_PESQUISA_FECHAMENTO + "'");
             while (conecta.rs.next()) {
                 FechamentoRegistros pNovaEntrada = new FechamentoRegistros();
                 pNovaEntrada.setStatusRegistro(conecta.rs.getString("StatusLanc"));
                 listaTodasNovaEntrada.add(pNovaEntrada);
-                pENTRADA_colaborador = pENTRADA_colaborador + 1;
+                pREGISTRO_CANCELADO_RETORNOS = pREGISTRO_CANCELADO_RETORNOS + 1;
             }
             return listaTodasNovaEntrada;
         } catch (SQLException ex) {

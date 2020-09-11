@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
  *
  * @author ronaldo.silva7
  */
-public class ListagemEntradaColaboradores {
+public class ListagemEntradaColaboradoresA {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
-    String pSTATUS_NOVA_ENTRADA = "ABERTO";
+    String pSTATUS_NOVA_ENTRADA = "FINALIZADO";
     String pDATA_PESQUISA_FECHAMENTO = "";
 
     public List<FechamentoRegistros> read() throws Exception {

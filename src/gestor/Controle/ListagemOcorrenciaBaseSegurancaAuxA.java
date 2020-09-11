@@ -7,7 +7,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pENTRADA_colaborador;
+import static gestor.Visao.TelaFechamentoSistema.pOCR_sega;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author ronaldo.silva7
  */
-public class ListagemEntradaColaboradores {
+public class ListagemOcorrenciaBaseSegurancaAuxA {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
@@ -38,23 +38,23 @@ public class ListagemEntradaColaboradores {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             pDATA_PESQUISA_FECHAMENTO = formatoAmerica.format(jDataFechamento.getDate().getTime());
         }
-        pENTRADA_colaborador = 0;
+        pOCR_sega = 0;
         List<FechamentoRegistros> listaTodasNovaEntrada = new ArrayList<FechamentoRegistros>();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT StatusLanc "
-                    + "FROM ENTRADASFUNC "
+                    + "FROM OCORRENCIAS_BASE_SEGURANCA_AUXILIAR "
                     + "WHERE StatusLanc='" + pSTATUS_NOVA_ENTRADA + "' "
                     + "AND DataLanc<='" + pDATA_PESQUISA_FECHAMENTO + "'");
             while (conecta.rs.next()) {
                 FechamentoRegistros pNovaEntrada = new FechamentoRegistros();
                 pNovaEntrada.setStatusRegistro(conecta.rs.getString("StatusLanc"));
                 listaTodasNovaEntrada.add(pNovaEntrada);
-                pENTRADA_colaborador = pENTRADA_colaborador + 1;
+                pOCR_sega = pOCR_sega + 1;
             }
             return listaTodasNovaEntrada;
         } catch (SQLException ex) {
-            Logger.getLogger(ListarNovaEntrada_Internos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListagemOcorrenciaBaseSegurancaAuxA.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

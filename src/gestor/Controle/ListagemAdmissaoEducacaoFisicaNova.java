@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 package gestor.Controle;
+
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pENTRADA_colaborador;
+import static gestor.Visao.TelaFechamentoSistema.pADMISSAO_EF_nova;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -21,7 +22,8 @@ import javax.swing.JOptionPane;
  *
  * @author ronaldo.silva7
  */
-public class ListagemEntradaColaboradores {
+public class ListagemAdmissaoEducacaoFisicaNova {
+
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
@@ -38,23 +40,23 @@ public class ListagemEntradaColaboradores {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             pDATA_PESQUISA_FECHAMENTO = formatoAmerica.format(jDataFechamento.getDate().getTime());
         }
-        pENTRADA_colaborador = 0;
+        pADMISSAO_EF_nova = 0;
         List<FechamentoRegistros> listaTodasNovaEntrada = new ArrayList<FechamentoRegistros>();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT StatusLanc "
-                    + "FROM ENTRADASFUNC "
-                    + "WHERE StatusLanc='" + pSTATUS_NOVA_ENTRADA + "' "
-                    + "AND DataLanc<='" + pDATA_PESQUISA_FECHAMENTO + "'");
+            conecta.executaSQL("SELECT StatusEF "
+                    + "FROM ADMISSAO_EDUCACAO_FISICA_NOVA "
+                    + "WHERE StatusEF='" + pSTATUS_NOVA_ENTRADA + "' "
+                    + "AND DataRegistroEF<='" + pDATA_PESQUISA_FECHAMENTO + "'");
             while (conecta.rs.next()) {
                 FechamentoRegistros pNovaEntrada = new FechamentoRegistros();
-                pNovaEntrada.setStatusRegistro(conecta.rs.getString("StatusLanc"));
+                pNovaEntrada.setStatusRegistro(conecta.rs.getString("StatusEF"));
                 listaTodasNovaEntrada.add(pNovaEntrada);
-                pENTRADA_colaborador = pENTRADA_colaborador + 1;
+                pADMISSAO_EF_nova = pADMISSAO_EF_nova + 1;
             }
             return listaTodasNovaEntrada;
         } catch (SQLException ex) {
-            Logger.getLogger(ListarNovaEntrada_Internos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListagemAdmissaoEducacaoFisicaNova.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

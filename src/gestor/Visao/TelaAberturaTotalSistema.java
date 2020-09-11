@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleFechamentoDadosSistema;
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ListaAgendaEscoltaCrc;
+import gestor.Controle.ListaAgendaEscoltaCrcA;
 import gestor.Controle.ListagemAdmissaoEducacaoFisica;
 import gestor.Controle.ListagemAdmissaoEducacaoFisicaNova;
 import gestor.Controle.ListagemAdmissaoEnfermagem;
@@ -38,72 +38,72 @@ import gestor.Controle.ListagemAtividadesUnidades;
 import gestor.Controle.ListagemAtualizacaoDocumentosInternos;
 import gestor.Controle.ListagemAvaliacaoMedicaPsiquiatrica;
 import gestor.Controle.ListagemAvaliacaoPsicologica;
-import gestor.Controle.ListagemCancelamentoNovaEntradada;
+import gestor.Controle.ListagemCancelamentoNovaEntradadaA;
 import gestor.Controle.ListagemCancelamentoVisitasExternaInteraRol;
 import gestor.Controle.ListagemCapacitacaoInternoTO;
-import gestor.Controle.ListagemComposicaoKitHigiene;
+import gestor.Controle.ListagemComposicaoKitHigieneA;
 import gestor.Controle.ListagemControleLigacoes;
-import gestor.Controle.ListagemEntradaAdvogadoInternos;
-import gestor.Controle.ListagemEntradaAdvogados;
-import gestor.Controle.ListagemEntradaColaboradores;
-import gestor.Controle.ListagemEntradaInternosPortaria;
-import gestor.Controle.ListagemEntradaOficialJusticaInterno;
-import gestor.Controle.ListagemEntradaPertences;
-import gestor.Controle.ListagemEntradaSaidaVisitasReligiosas;
-import gestor.Controle.ListagemEntradaVeiculosUnidade;
-import gestor.Controle.ListagemEntradaVisitasDiversas;
-import gestor.Controle.ListagemEntradasFamiliar;
-import gestor.Controle.ListagemEntradasOficialJustica;
-import gestor.Controle.ListagemEstornoProdutos;
-import gestor.Controle.ListagemEvadidos;
+import gestor.Controle.ListagemEntradaAdvogadoInternosA;
+import gestor.Controle.ListagemEntradaAdvogadosA;
+import gestor.Controle.ListagemEntradaColaboradoresA;
+import gestor.Controle.ListagemEntradaInternosPortariaA;
+import gestor.Controle.ListagemEntradaOficialJusticaInternoA;
+import gestor.Controle.ListagemEntradaPertencesA;
+import gestor.Controle.ListagemEntradaSaidaVisitasReligiosasA;
+import gestor.Controle.ListagemEntradaVeiculosUnidadeA;
+import gestor.Controle.ListagemEntradaVisitasDiversasA;
+import gestor.Controle.ListagemEntradasFamiliarA;
+import gestor.Controle.ListagemEntradasOficialJusticaA;
+import gestor.Controle.ListagemEstornoProdutosA;
+import gestor.Controle.ListagemEvadidosA;
 import gestor.Controle.ListagemFichaJuridica;
 import gestor.Controle.ListagemFrequanciaPedagogicaExterna;
 import gestor.Controle.ListagemFrequenciaCapacitaTO;
 import gestor.Controle.ListagemFrequenciaLaborTO;
-import gestor.Controle.ListagemLocacaoInternos;
+import gestor.Controle.ListagemLocacaoInternosA;
 import gestor.Controle.ListagemMovimentoPopulcao;
-import gestor.Controle.ListagemNotasFiscaisCompras;
-import gestor.Controle.ListagemOcorrenciaBaseSeguranca;
-import gestor.Controle.ListagemOcorrenciaBaseSegurancaAux;
+import gestor.Controle.ListagemNotasFiscaisComprasA;
+import gestor.Controle.ListagemOcorrenciaBaseSegurancaA;
+import gestor.Controle.ListagemOcorrenciaBaseSegurancaAuxA;
 import gestor.Controle.ListagemOcorrenciaEF;
-import gestor.Controle.ListagemOcorrenciaP1E;
+import gestor.Controle.ListagemOcorrenciaP1EA;
 import gestor.Controle.ListagemOcorrenciaPsicologia;
 import gestor.Controle.ListagemOcorrenciaSeguranca;
 import gestor.Controle.ListagemOcorrenciaServicoSocial;
 import gestor.Controle.ListagemOcorrenciaTO;
 import gestor.Controle.ListagemOcorrenciasEnferemaria;
 import gestor.Controle.ListagemOcorrenciasOdontologica;
-import gestor.Controle.ListagemOcorrenciasP1;
-import gestor.Controle.ListagemPagamentoKitHigiene;
+import gestor.Controle.ListagemOcorrenciasP1A;
+import gestor.Controle.ListagemPagamentoKitHigieneA;
 import gestor.Controle.ListagemPerfilCarcerarioSS;
-import gestor.Controle.ListagemPernoiteInternos;
+import gestor.Controle.ListagemPernoiteInternosA;
 import gestor.Controle.ListagemPortaEntradaPsicologia;
 import gestor.Controle.ListagemPortaEntradaSS;
-import gestor.Controle.ListagemProgressoaRegime;
-import gestor.Controle.ListagemProrrogacaoSaidaTemporaria;
-import gestor.Controle.ListagemRegistroCanceladoRetornos;
-import gestor.Controle.ListagemRegistroRetorno;
-import gestor.Controle.ListagemRegistroSaidaCrc;
-import gestor.Controle.ListagemRegistrosCancelados;
-import gestor.Controle.ListagemRegressaoRegime;
-import gestor.Controle.ListagemRequiscaoAvulsaProdutos;
-import gestor.Controle.ListagemRequisicaoProdutosInterno;
+import gestor.Controle.ListagemProgressoaRegimeA;
+import gestor.Controle.ListagemProrrogacaoSaidaTemporariaA;
+import gestor.Controle.ListagemRegistroCanceladoRetornosA;
+import gestor.Controle.ListagemRegistroRetornoA;
+import gestor.Controle.ListagemRegistroSaidaCrcA;
+import gestor.Controle.ListagemRegistrosCanceladosA;
+import gestor.Controle.ListagemRegressaoRegimeA;
+import gestor.Controle.ListagemRequiscaoAvulsaProdutosA;
+import gestor.Controle.ListagemRequisicaoProdutosInternoA;
 import gestor.Controle.ListagemSolicitacaoExamesMedicos;
-import gestor.Controle.ListagemTransientes;
+import gestor.Controle.ListagemTransientesA;
 import gestor.Controle.ListagemTriagemOcupacional;
-import gestor.Controle.ListagemVeiculosCargas;
-import gestor.Controle.ListagemVeiculosTerceiros;
-import gestor.Controle.ListarEntradasInternos;
-import gestor.Controle.ListarNovaEntrada_Internos;
-import gestor.Controle.ListarPrevisaoSaida_Internos;
-import gestor.Controle.ListarRetornoAudiencia_Internos;
-import gestor.Controle.ListarRetornoEspontaneo_Internos;
-import gestor.Controle.ListarRetornoMedico_Internos;
-import gestor.Controle.ListarRetornoRecaptura_Internos;
-import gestor.Controle.ListarSaidasInternos;
-import gestor.Controle.ListarRetornoSaidasTMP_Internos;
-import gestor.Controle.ListarRetornoTransferencia_Internos;
-import gestor.Controle.ListarTransferenciasInternos;
+import gestor.Controle.ListagemVeiculosCargasA;
+import gestor.Controle.ListagemVeiculosTerceirosA;
+import gestor.Controle.ListarEntradasInternosA;
+import gestor.Controle.ListarNovaEntrada_InternosA;
+import gestor.Controle.ListarPrevisaoSaida_InternosA;
+import gestor.Controle.ListarRetornoAudiencia_InternosA;
+import gestor.Controle.ListarRetornoEspontaneo_InternosA;
+import gestor.Controle.ListarRetornoMedico_InternosA;
+import gestor.Controle.ListarRetornoRecaptura_InternosA;
+import gestor.Controle.ListarSaidasInternosA;
+import gestor.Controle.ListarRetornoSaidasTMP_InternosA;
+import gestor.Controle.ListarRetornoTransferencia_InternosA;
+import gestor.Controle.ListarTransferenciasInternosA;
 import gestor.Controle.ListgagemAtendimentoGrupoEF;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
@@ -123,62 +123,62 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class TelaFechamentoSistema extends javax.swing.JDialog {
+public class TelaAberturaTotalSistema extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //LISTAS CRC
-    ListarEntradasInternos objListaEntradas = new ListarEntradasInternos();
-    ListarSaidasInternos objListaSaidas = new ListarSaidasInternos();
-    ListarTransferenciasInternos objListaTrans = new ListarTransferenciasInternos();
-    ListarRetornoSaidasTMP_Internos objListaST = new ListarRetornoSaidasTMP_Internos();
-    ListarRetornoEspontaneo_Internos objListaRetEsp = new ListarRetornoEspontaneo_Internos();
-    ListarRetornoRecaptura_Internos objListaRecap = new ListarRetornoRecaptura_Internos();
-    ListarRetornoAudiencia_Internos objListaRetAudi = new ListarRetornoAudiencia_Internos();
-    ListarRetornoMedico_Internos objListaRetMed = new ListarRetornoMedico_Internos();
-    ListarRetornoTransferencia_Internos objListaRet_TRAN = new ListarRetornoTransferencia_Internos();
-    ListarPrevisaoSaida_Internos objListaPrevSaida = new ListarPrevisaoSaida_Internos();
-    ListaAgendaEscoltaCrc objAgendaEscolta = new ListaAgendaEscoltaCrc();
-    ListagemEvadidos objEvadidos = new ListagemEvadidos();
-    ListagemProgressoaRegime objProgressaoRegime = new ListagemProgressoaRegime();
-    ListagemProrrogacaoSaidaTemporaria objProrroga = new ListagemProrrogacaoSaidaTemporaria();
-    ListagemCancelamentoNovaEntradada objListagemRegCanceladoNE = new ListagemCancelamentoNovaEntradada();
-    ListagemRegistroCanceladoRetornos objRegistroCanceladoRetorno = new ListagemRegistroCanceladoRetornos();
-    ListagemRegistrosCancelados objRegCancelados = new ListagemRegistrosCancelados();
-    ListagemRegressaoRegime objListaRegressao = new ListagemRegressaoRegime();
+    ListarEntradasInternosA objListaEntradas = new ListarEntradasInternosA();
+    ListarSaidasInternosA objListaSaidas = new ListarSaidasInternosA();
+    ListarTransferenciasInternosA objListaTrans = new ListarTransferenciasInternosA();
+    ListarRetornoSaidasTMP_InternosA objListaST = new ListarRetornoSaidasTMP_InternosA();
+    ListarRetornoEspontaneo_InternosA objListaRetEsp = new ListarRetornoEspontaneo_InternosA();
+    ListarRetornoRecaptura_InternosA objListaRecap = new ListarRetornoRecaptura_InternosA();
+    ListarRetornoAudiencia_InternosA objListaRetAudi = new ListarRetornoAudiencia_InternosA();
+    ListarRetornoMedico_InternosA objListaRetMed = new ListarRetornoMedico_InternosA();
+    ListarRetornoTransferencia_InternosA objListaRet_TRAN = new ListarRetornoTransferencia_InternosA();
+    ListarPrevisaoSaida_InternosA objListaPrevSaida = new ListarPrevisaoSaida_InternosA();
+    ListaAgendaEscoltaCrcA objAgendaEscolta = new ListaAgendaEscoltaCrcA();
+    ListagemEvadidosA objEvadidos = new ListagemEvadidosA();    
+    ListagemProgressoaRegimeA objProgressaoRegime = new ListagemProgressoaRegimeA();
+    ListagemProrrogacaoSaidaTemporariaA objProrroga = new ListagemProrrogacaoSaidaTemporariaA();
+    ListagemCancelamentoNovaEntradadaA objListagemRegCanceladoNE = new ListagemCancelamentoNovaEntradadaA();
+    ListagemRegistroCanceladoRetornosA objRegistroCanceladoRetorno = new ListagemRegistroCanceladoRetornosA();
+    ListagemRegistrosCanceladosA objRegCancelados = new ListagemRegistrosCanceladosA();
+    ListagemRegressaoRegimeA objListaRegressao = new ListagemRegressaoRegimeA();
     //PORTARIA INTERNA
-    ListagemEntradaSaidaVisitasReligiosas LISTAGEM_VISITAS_religiosas = new ListagemEntradaSaidaVisitasReligiosas();
-    ListagemEntradaInternosPortaria LISTAGEM_ENTRADA_internos = new ListagemEntradaInternosPortaria();
-    ListarNovaEntrada_Internos LISTAGEM_NOVA_entrada = new ListarNovaEntrada_Internos();
-    ListagemEntradaPertences LISTAGEM_pertences = new ListagemEntradaPertences();
-    ListagemEntradaOficialJusticaInterno LISTAGEM_OFICIAL_justica = new ListagemEntradaOficialJusticaInterno();
-    ListagemEntradaAdvogadoInternos LISTAGEM_ADV_internos = new ListagemEntradaAdvogadoInternos();
-    ListagemEntradasFamiliar LISTAGEM_ENT_familiar = new ListagemEntradasFamiliar();
-    ListagemOcorrenciasP1 LISTAGEM_OCORRENCIA_p1 = new ListagemOcorrenciasP1();
-    ListagemPernoiteInternos LISTAGEM_pernoite = new ListagemPernoiteInternos();
-    ListagemRegistroRetorno LISTAGEM_retorno = new ListagemRegistroRetorno();
-    ListagemRegistroSaidaCrc LISTAGEM_saida = new ListagemRegistroSaidaCrc();
-    ListagemTransientes LISTAGEM_transientes = new ListagemTransientes();
+    ListagemEntradaSaidaVisitasReligiosasA LISTAGEM_VISITAS_religiosas = new ListagemEntradaSaidaVisitasReligiosasA();
+    ListagemEntradaInternosPortariaA LISTAGEM_ENTRADA_internos = new ListagemEntradaInternosPortariaA();
+    ListarNovaEntrada_InternosA LISTAGEM_NOVA_entrada = new ListarNovaEntrada_InternosA();
+    ListagemEntradaPertencesA LISTAGEM_pertences = new ListagemEntradaPertencesA();
+    ListagemEntradaOficialJusticaInternoA LISTAGEM_OFICIAL_justica = new ListagemEntradaOficialJusticaInternoA();
+    ListagemEntradaAdvogadoInternosA LISTAGEM_ADV_internos = new ListagemEntradaAdvogadoInternosA();
+    ListagemEntradasFamiliarA LISTAGEM_ENT_familiar = new ListagemEntradasFamiliarA();
+    ListagemOcorrenciasP1A LISTAGEM_OCORRENCIA_p1 = new ListagemOcorrenciasP1A();
+    ListagemPernoiteInternosA LISTAGEM_pernoite = new ListagemPernoiteInternosA();
+    ListagemRegistroRetornoA LISTAGEM_retorno = new ListagemRegistroRetornoA();
+    ListagemRegistroSaidaCrcA LISTAGEM_saida = new ListagemRegistroSaidaCrcA();
+    ListagemTransientesA LISTAGEM_transientes = new ListagemTransientesA();
     //PORTARIA EXTERNA
-    ListagemEntradasOficialJustica LISTAGEM_oficial = new ListagemEntradasOficialJustica();
-    ListagemEntradaAdvogados LISTAGEM_advogado = new ListagemEntradaAdvogados();
-    ListagemEntradaColaboradores LISTAGEM__colaborador = new ListagemEntradaColaboradores();
-    ListagemEntradaVisitasDiversas LISTAGEM_VISITAS_diversas = new ListagemEntradaVisitasDiversas();
-    ListagemVeiculosCargas LISTAGEM_VEICULOS_carga = new ListagemVeiculosCargas();
-    ListagemVeiculosTerceiros LISTAGEM_VEICULOS_terceiros = new ListagemVeiculosTerceiros();
-    ListagemEntradaVeiculosUnidade LISTAGEM_VEICULOS_unidade = new ListagemEntradaVeiculosUnidade();
-    ListagemOcorrenciaP1E LISTAGEM_OCR_p1e = new ListagemOcorrenciaP1E();
+    ListagemEntradasOficialJusticaA LISTAGEM_oficial = new ListagemEntradasOficialJusticaA();
+    ListagemEntradaAdvogadosA LISTAGEM_advogado = new ListagemEntradaAdvogadosA();
+    ListagemEntradaColaboradoresA LISTAGEM__colaborador = new ListagemEntradaColaboradoresA();
+    ListagemEntradaVisitasDiversasA LISTAGEM_VISITAS_diversas = new ListagemEntradaVisitasDiversasA();
+    ListagemVeiculosCargasA LISTAGEM_VEICULOS_carga = new ListagemVeiculosCargasA();
+    ListagemVeiculosTerceirosA LISTAGEM_VEICULOS_terceiros = new ListagemVeiculosTerceirosA();
+    ListagemEntradaVeiculosUnidadeA LISTAGEM_VEICULOS_unidade = new ListagemEntradaVeiculosUnidadeA();
+    ListagemOcorrenciaP1EA LISTAGEM_OCR_p1e = new ListagemOcorrenciaP1EA();
     //ALMOXARIFADO
-    ListagemComposicaoKitHigiene LISTAGEM_compoKit = new ListagemComposicaoKitHigiene();
-    ListagemEstornoProdutos LISTAGEM_estorno = new ListagemEstornoProdutos();
-    ListagemNotasFiscaisCompras LISTAGEM_nf = new ListagemNotasFiscaisCompras();
-    ListagemRequiscaoAvulsaProdutos LISTAGEM_REQUISISCAO_avulsa = new ListagemRequiscaoAvulsaProdutos();
-    ListagemRequisicaoProdutosInterno LISTAGEM_REQUISICAO_interno = new ListagemRequisicaoProdutosInterno();
-    ListagemPagamentoKitHigiene LISTAGEM_pagoKit = new ListagemPagamentoKitHigiene();
+    ListagemComposicaoKitHigieneA LISTAGEM_compoKit = new ListagemComposicaoKitHigieneA();
+    ListagemEstornoProdutosA LISTAGEM_estorno = new ListagemEstornoProdutosA();
+    ListagemNotasFiscaisComprasA LISTAGEM_nf = new ListagemNotasFiscaisComprasA();
+    ListagemRequiscaoAvulsaProdutosA LISTAGEM_REQUISISCAO_avulsa = new ListagemRequiscaoAvulsaProdutosA();
+    ListagemRequisicaoProdutosInternoA LISTAGEM_REQUISICAO_interno = new ListagemRequisicaoProdutosInternoA();
+    ListagemPagamentoKitHigieneA LISTAGEM_pagoKit = new ListagemPagamentoKitHigieneA();
     //BASES
-    ListagemLocacaoInternos LISTAGEM_locacao = new ListagemLocacaoInternos();
-    ListagemOcorrenciaBaseSeguranca LISTAGEM_OCR_seg = new ListagemOcorrenciaBaseSeguranca();
-    ListagemOcorrenciaBaseSegurancaAux LISTAGEM_OCR_sega = new ListagemOcorrenciaBaseSegurancaAux();
+    ListagemLocacaoInternosA LISTAGEM_locacao = new ListagemLocacaoInternosA();
+    ListagemOcorrenciaBaseSegurancaA LISTAGEM_OCR_seg = new ListagemOcorrenciaBaseSegurancaA();
+    ListagemOcorrenciaBaseSegurancaAuxA LISTAGEM_OCR_sega = new ListagemOcorrenciaBaseSegurancaAuxA();
     // ENFERMAGEM
     ListagemAdmissaoEnfermagem LISTAGEM_ADM_enfermagem = new ListagemAdmissaoEnfermagem();
     ListagemAdmissaoEnfermagemComplementar LISTAGEM_ADM_enfermagemAux = new ListagemAdmissaoEnfermagemComplementar();
@@ -245,7 +245,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     //
-    String nomeModuloTela = "Configurações:Utilitários:Finalização de Movimentos do Sistema";
+    String nomeModuloTela = "Configurações:Utilitários:Abertura de Movimentos do Sistema";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -377,7 +377,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
      */
     public static TelaModuloConfiguracoes pCONFIGURACAO;
 
-    public TelaFechamentoSistema(TelaModuloConfiguracoes parent, boolean modal) {
+    public TelaAberturaTotalSistema(TelaModuloConfiguracoes parent, boolean modal) {
         this.pCONFIGURACAO = parent;
         this.setModal(modal);
         setLocationRelativeTo(pCONFIGURACAO);
@@ -416,7 +416,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         jBtPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("...::: Fechamento do Sistema :::...");
+        setTitle("...::: Abertura do Sistema :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -469,15 +469,19 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("ATENÇÃO: Antes de realizar esse procedimento,  é necessário que todos os usuários");
+        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel1.setText("ATENÇÃO:  Antes  de realizar esse procedimento,  é necessário  que  todos os  usuários");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText(" saiam do sistema.  Todos os registros que estiverem com status  \"ABERTO\",  serão ");
+        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel2.setText(" saiam do sistema. Todos os registros que estiverem com status \"FINALIZADO\", serão ");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("FINALIZADOS, e não poderão ser modificados ou excluídos.");
+        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel3.setText("ABERTO, e  poderão ser modificados ou excluídos.");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 0, 0));
         jLabel4.setText("O sistema será bloqueado e somente liberado após o termino dessa operação.");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -514,16 +518,13 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         jProgressBar1.setStringPainted(true);
 
         lblProgresso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblProgresso.setForeground(new java.awt.Color(204, 0, 0));
         lblProgresso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblProgresso.setText("Aguardando...");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 0, 0));
         jLabel5.setText("Total Registros:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 102, 0));
         jLabel6.setText("Registros Processados:");
 
         jTOTAL_REGISTROS.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -580,7 +581,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Data de Fechamento:");
+        jLabel7.setText("Data de Abertura:");
 
         jDataFechamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -624,7 +625,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 499, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -737,20 +738,21 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaFechamentoSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaFechamentoSistema dialog = new TelaFechamentoSistema(pCONFIGURACAO, true);
+                TelaAberturaTotalSistema dialog = new TelaAberturaTotalSistema(pCONFIGURACAO, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -825,7 +827,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pE.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //SAIDAS CRC
         try {
@@ -833,7 +835,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pS.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //TRANSFERÊNCIAS
         try {
@@ -841,7 +843,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pT.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //RETORNO ESPONTANEO
         try {
@@ -849,7 +851,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pRE.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //RETORNO RECAPTURA
         try {
@@ -857,7 +859,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pREC.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //RETORNO AUDIÊNCIA objListaRetAudi
         try {
@@ -865,7 +867,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pRA.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //RETORNO MÉDICO 
         try {
@@ -873,7 +875,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pM.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //RETORNO TRANSFERENCIA
         try {
@@ -881,7 +883,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pRT.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PREVISÃO SAIDA
         try {
@@ -889,7 +891,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPS.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //AGENDA ESCOLTA       
         try {
@@ -897,7 +899,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAGC.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //EVADIDOS 
         try {
@@ -905,7 +907,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEVA.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PROGRESSAO REGIME
         try {
@@ -913,7 +915,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPRR.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PRORROGAÇÃO DE SAIDA TEMPORARIA E PRISAO DOMICILIAR         
         try {
@@ -921,7 +923,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPRRO.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //REGISTRO CANCELADO NOVA ENTRADA
         try {
@@ -929,7 +931,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pREGCNE.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //REGISTRO CANCELADO RETORNOS
         try {
@@ -937,7 +939,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pRECR.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //REGISTROS CANCELADOS
         try {
@@ -945,7 +947,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pREC.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //REGRESSÃO
         try {
@@ -953,7 +955,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pREG.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -965,7 +967,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pNV.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //VISITAS RELIGIOSAS
         try {
@@ -973,7 +975,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pVR.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADA PRIMEIRA VEZ
         try {
@@ -981,7 +983,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEP.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADA DE PERTENCES
         try {
@@ -989,7 +991,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEPE.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADA OFICIAL JUSTIÇA INTERNOS
         try {
@@ -997,7 +999,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOFI.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADA DE ADVIGADOS AOS INTENOS
         try {
@@ -1005,7 +1007,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADV.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADAS FAMILIARES
         try {
@@ -1013,7 +1015,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEFI.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //
         try {
@@ -1021,7 +1023,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOP1.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PERNOITE 
         try {
@@ -1029,7 +1031,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPER.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //REGISTRO DE RETORNO        
         try {
@@ -1037,7 +1039,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pRET.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //SAÍDA NA PORTARIA
         try {
@@ -1045,7 +1047,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pSAI.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //TRANSIENTES
         try {
@@ -1053,7 +1055,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pTRANS.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADA OFICIAL DE JUSTIÇA
         try {
@@ -1061,7 +1063,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOFF.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADAS ADVOGADOS 
         try {
@@ -1069,7 +1071,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADV.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADAS COLABORADORES        
         try {
@@ -1077,7 +1079,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pCOL.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADAS VISITAS DIVERSAS 
         try {
@@ -1085,7 +1087,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pVD.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADA VEICULOS CARGAS 
         try {
@@ -1093,7 +1095,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEVC.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADAS VEICULOS TERCEIROS 
         try {
@@ -1101,7 +1103,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEVCt.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ENTRADA VEICULOS UNIDADE 
         try {
@@ -1109,7 +1111,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEVCu.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS P1 EXTERNA 
         try {
@@ -1117,7 +1119,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCRP1e.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1129,7 +1131,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pCOMP.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ESTORNO DE PRODUTO 
         try {
@@ -1137,7 +1139,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pESTOR.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //NOTA FISCAL DE COMPRAS 
         try {
@@ -1145,7 +1147,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pNF.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //REQUISIÇÃO AVULSA DE PRODUTOS 
         try {
@@ -1153,7 +1155,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pRAP.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //REQUISIÇÃO DE INTERNOS 
         try {
@@ -1161,7 +1163,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pRPI.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PAGAMENTO DE KIT 
         try {
@@ -1169,7 +1171,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPAGTO_kit.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1181,7 +1183,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pLOCA.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS BASE SEGURANÇA 
         try {
@@ -1189,7 +1191,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCR_seg.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS BASE SEGURANÇA AUXILIAR LISTAGEM_OCR_sega
         try {
@@ -1197,7 +1199,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCR_sega.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1209,7 +1211,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_enfermagem.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ADMISSÃO ENFERMEIRA COMPLEMENTAR 
         try {
@@ -1217,7 +1219,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_enfermagemAux.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ADMISSAÕ MEDICA LISTAGEM_ADM_medico
         try {
@@ -1225,7 +1227,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_medico.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ADMISSÃO MEDICA ADICIONAL 
         try {
@@ -1233,7 +1235,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_medicoAux.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //APRAZAMENTO MEDICAÇÃO LISTAGEM_aprazamento
         try {
@@ -1241,7 +1243,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAPRAZA.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO EM GRUPO ENFERMAGEM 
         try {
@@ -1249,7 +1251,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATGRU.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDDIMENTO TÉCNICO ENFERMAGEM 
         try {
@@ -1257,7 +1259,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATTENF.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //AVALIAÇÃO MÉDICA PSIQUIATRA 
         try {
@@ -1265,7 +1267,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAVAMP.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS
         try {
@@ -1273,7 +1275,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCREN.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //SOLICITAÇÃO EXAMES MEDICO E PSIQUIATRICO 
         try {
@@ -1281,7 +1283,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEXAME.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1293,7 +1295,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pEXAME.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1305,7 +1307,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATJ.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ADMISSAO JURIDICO ADICIONAL 
         try {
@@ -1313,7 +1315,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAJ.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO FAMILIAR JURIDICO 
         try {
@@ -1321,7 +1323,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAFJ.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //FICHA JURÍDICA 
         try {
@@ -1329,7 +1331,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pFJ.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1341,7 +1343,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATEN_ODON.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS
         try {
@@ -1349,7 +1351,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCR_ODON.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1361,7 +1363,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_peda.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ADMISSAO PEDAGOGICA NOVA 
         try {
@@ -1369,7 +1371,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_pedaNova.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO EM GRUPO 
         try {
@@ -1377,7 +1379,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_grupo.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATIVIDADES COMPLEMENTARES 
         try {
@@ -1385,7 +1387,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_compl.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //FREQUENCIA PEDAGOGICA 
         try {
@@ -1393,7 +1395,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pFreq.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1405,7 +1407,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_psi.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO GRUPO 
         try {
@@ -1413,7 +1415,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATD_psi.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //AVALIAÇÃO PSICOLOGICA 
         try {
@@ -1421,7 +1423,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAVA_psi.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS LISTAGGEM_OCOR_psi
         try {
@@ -1429,7 +1431,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCO_psi.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PORTA ENTRADA PSICOLOGICA 
         try {
@@ -1437,7 +1439,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPORTA_ENT_psi.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1449,7 +1451,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pMOV_pop.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIA SEGURANÇA 
         try {
@@ -1457,7 +1459,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCORR_seg.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1468,7 +1470,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATEND_GRU_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO FAMILIAR
         try {
@@ -1476,7 +1478,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATEND_FAN_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTOSOCIAL 
         try {
@@ -1484,7 +1486,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATEND_SOS_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATUALIZAÇÃO DOCUMENTOS DE INTERNOS 
         try {
@@ -1492,7 +1494,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATUALiza_DOC_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //CANCELAMENTO DE VISITAS EXTERNA AOS INTERNOS 
         try {
@@ -1500,7 +1502,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pCANCELA_VISITA_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //CONTROLE DE LIGAÇÕES 
         try {
@@ -1508,7 +1510,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pCONTROLE_ligacoes_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS SERVIÇO SOCIAL 
         try {
@@ -1516,7 +1518,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCORR_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PERFIL CARCERÁRIO 
         try {
@@ -1524,7 +1526,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPERFIL_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //PORTA DE ENTRADA         
         try {
@@ -1532,7 +1534,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pPORTA_ss.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1544,7 +1546,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //AGENDA LABORATIVA 
         try {
@@ -1552,7 +1554,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAGENDA_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO EM GRUPO 
         try {
@@ -1560,7 +1562,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATENDE_GRU_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO TERAPIA 
         try {
@@ -1568,7 +1570,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pATENDE_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //CAPACITAÇÃO INTERNO 
         try {
@@ -1576,7 +1578,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pCAPACITA_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //FREQUENCIA CAPACITAÇÃO DE INTERNO 
         try {
@@ -1584,7 +1586,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pFREQUENTA_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //FREQUENCIA LABORATIVA DE INTERNO 
         try {
@@ -1592,7 +1594,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pFREQUENTA_labor_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIAS 
         try {
@@ -1600,7 +1602,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCORRE_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //TRIAGEM OCUPACIONAL 
         try {
@@ -1608,7 +1610,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pTRIAGEM_to.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1620,7 +1622,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_ef.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ADMISSAO FISICA NOVA LISTAGEM_EF_nova
         try {
@@ -1628,7 +1630,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pADM_EF_nova.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //ATENDIMENTO EM GRUPO 
         try {
@@ -1636,7 +1638,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pAT_GR.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
         //OCORRÊNCIA 
         try {
@@ -1644,7 +1646,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 pOCORRE_ef.getStatusRegistro();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
