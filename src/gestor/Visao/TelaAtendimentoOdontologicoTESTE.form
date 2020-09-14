@@ -2986,23 +2986,23 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jLabel167" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                                                              <Component id="jLNumDente22" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                                                               <Group type="102" alignment="0" attributes="0">
                                                                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel120" min="-2" pref="18" max="-2" attributes="0"/>
+                                                                  <Component id="jLDente22" min="-2" pref="18" max="-2" attributes="0"/>
                                                               </Group>
                                                           </Group>
                                                           <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                               <Group type="102" alignment="0" attributes="0">
                                                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel166" min="-2" pref="17" max="-2" attributes="0"/>
+                                                                  <Component id="jLNumDente23" min="-2" pref="17" max="-2" attributes="0"/>
                                                                   <EmptySpace max="32767" attributes="0"/>
                                                                   <Component id="jLabel165" min="-2" pref="28" max="-2" attributes="0"/>
                                                                   <EmptySpace max="-2" attributes="0"/>
                                                               </Group>
                                                               <Group type="102" alignment="1" attributes="0">
-                                                                  <Component id="jLabel185" pref="20" max="32767" attributes="0"/>
+                                                                  <Component id="jLDente23" pref="20" max="32767" attributes="0"/>
                                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                                   <Component id="jLabel186" min="-2" pref="28" max="-2" attributes="0"/>
                                                                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
@@ -3031,19 +3031,19 @@
                                                           </Group>
                                                       </Group>
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jBt22" min="-2" pref="30" max="-2" attributes="0"/>
+                                                          <Component id="jBtDente22" min="-2" pref="30" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jBt23" min="-2" pref="30" max="-2" attributes="0"/>
+                                                          <Component id="jBtDente23" min="-2" pref="30" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                                          <Component id="jBt24" min="-2" pref="30" max="-2" attributes="0"/>
+                                                          <Component id="jBtDente24" min="-2" pref="30" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jBt25" min="-2" pref="30" max="-2" attributes="0"/>
+                                                          <Component id="jBtDente25" min="-2" pref="30" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jBt26" min="-2" pref="30" max="-2" attributes="0"/>
+                                                          <Component id="jBtDente26" min="-2" pref="30" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jBt27" min="-2" pref="30" max="-2" attributes="0"/>
+                                                          <Component id="jBtDente27" min="-2" pref="30" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="jBt28" min="-2" pref="30" max="-2" attributes="0"/>
+                                                          <Component id="jBtDente28" min="-2" pref="30" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -3152,8 +3152,8 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                           <Component id="jLabel168" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel167" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel166" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLNumDente22" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLNumDente23" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel165" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel164" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLDente26" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -3178,17 +3178,17 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel119" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel120" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLDente22" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jBt21" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
-                                              <Component id="jBt22" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtDente22" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel185" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLDente23" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel186" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel187" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel188" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -3197,12 +3197,12 @@
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jBt23" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="jBt24" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="jBt25" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="jBt26" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="jBt27" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="jBt28" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtDente23" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtDente24" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtDente25" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtDente26" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtDente27" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtDente28" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -3315,7 +3315,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JToggleButton" name="jBt26">
+                        <Component class="javax.swing.JToggleButton" name="jBtDente26">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
@@ -3324,7 +3324,8 @@
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBt26MouseClicked"/>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtDente26MouseClicked"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDente26ActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JToggleButton" name="jBt45">
@@ -3345,7 +3346,7 @@
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JToggleButton" name="jBt25">
+                        <Component class="javax.swing.JToggleButton" name="jBtDente25">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
@@ -3354,7 +3355,7 @@
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JToggleButton" name="jBt24">
+                        <Component class="javax.swing.JToggleButton" name="jBtDente24">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
@@ -3363,7 +3364,31 @@
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JToggleButton" name="jBt23">
+                        <Component class="javax.swing.JToggleButton" name="jBtDente23">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
+                            </Property>
+                            <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtDente23MouseClicked"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="jBtDente22">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
+                            </Property>
+                            <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtDente22MouseClicked"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JToggleButton" name="jBtDente27">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
@@ -3372,25 +3397,7 @@
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JToggleButton" name="jBt22">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
-                            </Property>
-                            <Property name="contentAreaFilled" type="boolean" value="false"/>
-                            <Property name="horizontalTextPosition" type="int" value="0"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JToggleButton" name="jBt27">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
-                            </Property>
-                            <Property name="contentAreaFilled" type="boolean" value="false"/>
-                            <Property name="horizontalTextPosition" type="int" value="0"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JToggleButton" name="jBt28">
+                        <Component class="javax.swing.JToggleButton" name="jBtDente28">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/gestor/Imagens/ModeloDente2.jpg"/>
@@ -3643,7 +3650,7 @@
                             <Property name="text" type="java.lang.String" value="24"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel166">
+                        <Component class="javax.swing.JLabel" name="jLNumDente23">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -3652,7 +3659,7 @@
                             <Property name="text" type="java.lang.String" value="23"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel167">
+                        <Component class="javax.swing.JLabel" name="jLNumDente22">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -3920,7 +3927,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel120">
+                        <Component class="javax.swing.JLabel" name="jLDente22">
                           <Properties>
                             <Property name="horizontalAlignment" type="int" value="0"/>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -3928,7 +3935,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel185">
+                        <Component class="javax.swing.JLabel" name="jLDente23">
                           <Properties>
                             <Property name="horizontalAlignment" type="int" value="0"/>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -3950,6 +3957,9 @@
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBt21MouseClicked"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel186">
                           <Properties>
@@ -4868,7 +4878,7 @@
                                                   <Component id="jLabel143" min="-2" pref="59" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="8" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
@@ -4912,7 +4922,7 @@
                                                       <Group type="102" attributes="0">
                                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                                           <Component id="jLabel132" min="-2" pref="18" max="-2" attributes="0"/>
-                                                          <EmptySpace pref="13" max="32767" attributes="0"/>
+                                                          <EmptySpace max="32767" attributes="0"/>
                                                           <Component id="jLabel130" min="-2" pref="28" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="jLabel131" min="-2" pref="28" max="-2" attributes="0"/>

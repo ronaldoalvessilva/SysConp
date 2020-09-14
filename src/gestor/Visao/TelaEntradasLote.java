@@ -988,6 +988,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
 
         jTabbedPane2.addTab("Artigos/Parágrafos", jPanel11);
 
+        jTabelaItensIterno.setAutoCreateRowSorter(true);
         jTabelaItensIterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensIterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensIterno.setModel(new javax.swing.table.DefaultTableModel(
