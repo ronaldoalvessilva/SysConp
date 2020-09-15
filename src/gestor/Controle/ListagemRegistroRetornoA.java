@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 package gestor.Controle;
+
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
-import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pRETORNO;
+import static gestor.Visao.TelaAberturaTotalSistema.jDataFechamento;
+import static gestor.Visao.TelaAberturaTotalSistema.pRETORNO;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
  * @author ronaldo.silva7
  */
 public class ListagemRegistroRetornoA {
+
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //

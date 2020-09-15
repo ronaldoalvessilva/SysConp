@@ -1929,8 +1929,9 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                         //FICHA JURÍDICA
                         control.fecharFICHA_juri(objFecha);
-                        objLog();
+                        objLog();                        
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ODONTOLOGIA
                         //ATENDIMENTO ODONTOLOGICO
                         control.fecharATEND_odonto(objFecha);
                         objLog();

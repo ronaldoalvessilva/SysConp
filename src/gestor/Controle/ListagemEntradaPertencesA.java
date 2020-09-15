@@ -6,8 +6,8 @@
 package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
-import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pENTRADA_PERTENCES;
+import static gestor.Visao.TelaAberturaTotalSistema.jDataFechamento;
+import static gestor.Visao.TelaAberturaTotalSistema.pENTRADA_PERTENCES;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;

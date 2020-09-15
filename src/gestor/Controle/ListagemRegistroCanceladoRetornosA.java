@@ -7,7 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
-import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
+import static gestor.Visao.TelaAberturaTotalSistema.jDataFechamento;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static gestor.Visao.TelaFechamentoSistema.pREGISTRO_CANCELADO_RETORNOS;
+import static gestor.Visao.TelaAberturaTotalSistema.pREGISTRO_CANCELADO_RETORNOS;
 
 /**
  *

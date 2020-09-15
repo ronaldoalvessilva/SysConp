@@ -8,41 +8,41 @@ package gestor.Visao;
 import gestor.Controle.ControleFechamentoDadosSistema;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ListaAgendaEscoltaCrcA;
-import gestor.Controle.ListagemAdmissaoEducacaoFisica;
-import gestor.Controle.ListagemAdmissaoEducacaoFisicaNova;
-import gestor.Controle.ListagemAdmissaoEnfermagem;
-import gestor.Controle.ListagemAdmissaoEnfermagemComplementar;
-import gestor.Controle.ListagemAdmissaoJuridicoAdicional;
-import gestor.Controle.ListagemAdmissaoMedica;
-import gestor.Controle.ListagemAdmissaoMedicaComplementar;
-import gestor.Controle.ListagemAdmissaoPedagogica;
-import gestor.Controle.ListagemAdmissaoPedagogicaNova;
-import gestor.Controle.ListagemAdmissaoPsicologica;
-import gestor.Controle.ListagemAdmissaoTerapia;
-import gestor.Controle.ListagemAgendaLaborativa;
-import gestor.Controle.ListagemAprazamentoMedicacao;
-import gestor.Controle.ListagemAtendimentoFamiliar;
-import gestor.Controle.ListagemAtendimentoFamiliarJuridico;
-import gestor.Controle.ListagemAtendimentoGrupoEnfermaria;
-import gestor.Controle.ListagemAtendimentoGrupoPedagogia;
-import gestor.Controle.ListagemAtendimentoGrupoPsi;
-import gestor.Controle.ListagemAtendimentoGrupoSS;
-import gestor.Controle.ListagemAtendimentoGrupoTO;
-import gestor.Controle.ListagemAtendimentoJuridico;
-import gestor.Controle.ListagemAtendimentoOdontologico;
-import gestor.Controle.ListagemAtendimentoSocial;
-import gestor.Controle.ListagemAtendimentoTecnicoEnfermagem;
-import gestor.Controle.ListagemAtendimentoTerapia;
-import gestor.Controle.ListagemAtividadesComplementaresPeda;
-import gestor.Controle.ListagemAtividadesUnidades;
-import gestor.Controle.ListagemAtualizacaoDocumentosInternos;
-import gestor.Controle.ListagemAvaliacaoMedicaPsiquiatrica;
-import gestor.Controle.ListagemAvaliacaoPsicologica;
+import gestor.Controle.ListagemAdmissaoEducacaoFisicaA;
+import gestor.Controle.ListagemAdmissaoEducacaoFisicaNovaA;
+import gestor.Controle.ListagemAdmissaoEnfermagemA;
+import gestor.Controle.ListagemAdmissaoEnfermagemComplementarA;
+import gestor.Controle.ListagemAdmissaoJuridicoAdicionaA;
+import gestor.Controle.ListagemAdmissaoMedicaA;
+import gestor.Controle.ListagemAdmissaoMedicaComplementarA;
+import gestor.Controle.ListagemAdmissaoPedagogicaA;
+import gestor.Controle.ListagemAdmissaoPedagogicaNovaA;
+import gestor.Controle.ListagemAdmissaoPsicologicaA;
+import gestor.Controle.ListagemAdmissaoTerapiaA;
+import gestor.Controle.ListagemAgendaLaborativaA;
+import gestor.Controle.ListagemAprazamentoMedicacaoA;
+import gestor.Controle.ListagemAtendimentoFamiliarA;
+import gestor.Controle.ListagemAtendimentoFamiliarJuridicoA;
+import gestor.Controle.ListagemAtendimentoGrupoEnfermariaA;
+import gestor.Controle.ListagemAtendimentoGrupoPedagogiaA;
+import gestor.Controle.ListagemAtendimentoGrupoPsiA;
+import gestor.Controle.ListagemAtendimentoGrupoSSA;
+import gestor.Controle.ListagemAtendimentoGrupoTOA;
+import gestor.Controle.ListagemAtendimentoJuridicoA;
+import gestor.Controle.ListagemAtendimentoOdontologicoA;
+import gestor.Controle.ListagemAtendimentoSocialA;
+import gestor.Controle.ListagemAtendimentoTecnicoEnfermagemA;
+import gestor.Controle.ListagemAtendimentoTerapiaA;
+import gestor.Controle.ListagemAtividadesComplementaresPedaA;
+import gestor.Controle.ListagemAtividadesUnidadesA;
+import gestor.Controle.ListagemAtualizacaoDocumentosInternosA;
+import gestor.Controle.ListagemAvaliacaoMedicaPsiquiatricaA;
+import gestor.Controle.ListagemAvaliacaoPsicologicaA;
 import gestor.Controle.ListagemCancelamentoNovaEntradadaA;
-import gestor.Controle.ListagemCancelamentoVisitasExternaInteraRol;
-import gestor.Controle.ListagemCapacitacaoInternoTO;
+import gestor.Controle.ListagemCancelamentoVisitasExternaInteraRolA;
+import gestor.Controle.ListagemCapacitacaoInternoTOA;
 import gestor.Controle.ListagemComposicaoKitHigieneA;
-import gestor.Controle.ListagemControleLigacoes;
+import gestor.Controle.ListagemControleLigacoesA;
 import gestor.Controle.ListagemEntradaAdvogadoInternosA;
 import gestor.Controle.ListagemEntradaAdvogadosA;
 import gestor.Controle.ListagemEntradaColaboradoresA;
@@ -56,29 +56,29 @@ import gestor.Controle.ListagemEntradasFamiliarA;
 import gestor.Controle.ListagemEntradasOficialJusticaA;
 import gestor.Controle.ListagemEstornoProdutosA;
 import gestor.Controle.ListagemEvadidosA;
-import gestor.Controle.ListagemFichaJuridica;
-import gestor.Controle.ListagemFrequanciaPedagogicaExterna;
-import gestor.Controle.ListagemFrequenciaCapacitaTO;
-import gestor.Controle.ListagemFrequenciaLaborTO;
+import gestor.Controle.ListagemFichaJuridicaA;
+import gestor.Controle.ListagemFrequanciaPedagogicaExternaA;
+import gestor.Controle.ListagemFrequenciaCapacitaTOA;
+import gestor.Controle.ListagemFrequenciaLaborTOA;
 import gestor.Controle.ListagemLocacaoInternosA;
-import gestor.Controle.ListagemMovimentoPopulcao;
+import gestor.Controle.ListagemMovimentoPopulcaoA;
 import gestor.Controle.ListagemNotasFiscaisComprasA;
 import gestor.Controle.ListagemOcorrenciaBaseSegurancaA;
 import gestor.Controle.ListagemOcorrenciaBaseSegurancaAuxA;
-import gestor.Controle.ListagemOcorrenciaEF;
+import gestor.Controle.ListagemOcorrenciaEFA;
 import gestor.Controle.ListagemOcorrenciaP1EA;
-import gestor.Controle.ListagemOcorrenciaPsicologia;
-import gestor.Controle.ListagemOcorrenciaSeguranca;
-import gestor.Controle.ListagemOcorrenciaServicoSocial;
-import gestor.Controle.ListagemOcorrenciaTO;
-import gestor.Controle.ListagemOcorrenciasEnferemaria;
-import gestor.Controle.ListagemOcorrenciasOdontologica;
+import gestor.Controle.ListagemOcorrenciaPsicologiaA;
+import gestor.Controle.ListagemOcorrenciaSegurancaA;
+import gestor.Controle.ListagemOcorrenciaServicoSocialA;
+import gestor.Controle.ListagemOcorrenciaTOA;
+import gestor.Controle.ListagemOcorrenciasEnferemariaA;
+import gestor.Controle.ListagemOcorrenciasOdontologicaA;
 import gestor.Controle.ListagemOcorrenciasP1A;
 import gestor.Controle.ListagemPagamentoKitHigieneA;
-import gestor.Controle.ListagemPerfilCarcerarioSS;
+import gestor.Controle.ListagemPerfilCarcerarioSSA;
 import gestor.Controle.ListagemPernoiteInternosA;
-import gestor.Controle.ListagemPortaEntradaPsicologia;
-import gestor.Controle.ListagemPortaEntradaSS;
+import gestor.Controle.ListagemPortaEntradaPsicologiaA;
+import gestor.Controle.ListagemPortaEntradaSSA;
 import gestor.Controle.ListagemProgressoaRegimeA;
 import gestor.Controle.ListagemProrrogacaoSaidaTemporariaA;
 import gestor.Controle.ListagemRegistroCanceladoRetornosA;
@@ -88,9 +88,9 @@ import gestor.Controle.ListagemRegistrosCanceladosA;
 import gestor.Controle.ListagemRegressaoRegimeA;
 import gestor.Controle.ListagemRequiscaoAvulsaProdutosA;
 import gestor.Controle.ListagemRequisicaoProdutosInternoA;
-import gestor.Controle.ListagemSolicitacaoExamesMedicos;
+import gestor.Controle.ListagemSolicitacaoExamesMedicosA;
 import gestor.Controle.ListagemTransientesA;
-import gestor.Controle.ListagemTriagemOcupacional;
+import gestor.Controle.ListagemTriagemOcupacionalA;
 import gestor.Controle.ListagemVeiculosCargasA;
 import gestor.Controle.ListagemVeiculosTerceirosA;
 import gestor.Controle.ListarEntradasInternosA;
@@ -104,7 +104,7 @@ import gestor.Controle.ListarSaidasInternosA;
 import gestor.Controle.ListarRetornoSaidasTMP_InternosA;
 import gestor.Controle.ListarRetornoTransferencia_InternosA;
 import gestor.Controle.ListarTransferenciasInternosA;
-import gestor.Controle.ListgagemAtendimentoGrupoEF;
+import gestor.Controle.ListgagemAtendimentoGrupoEFA;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import gestor.Modelo.LogSistema;
@@ -180,66 +180,66 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
     ListagemOcorrenciaBaseSegurancaA LISTAGEM_OCR_seg = new ListagemOcorrenciaBaseSegurancaA();
     ListagemOcorrenciaBaseSegurancaAuxA LISTAGEM_OCR_sega = new ListagemOcorrenciaBaseSegurancaAuxA();
     // ENFERMAGEM
-    ListagemAdmissaoEnfermagem LISTAGEM_ADM_enfermagem = new ListagemAdmissaoEnfermagem();
-    ListagemAdmissaoEnfermagemComplementar LISTAGEM_ADM_enfermagemAux = new ListagemAdmissaoEnfermagemComplementar();
-    ListagemAdmissaoMedica LISTAGEM_ADM_medico = new ListagemAdmissaoMedica();
-    ListagemAdmissaoMedicaComplementar LISTAGEM_ADM_medicoAux = new ListagemAdmissaoMedicaComplementar();
-    ListagemAprazamentoMedicacao LISTAGEM_aprazamento = new ListagemAprazamentoMedicacao();
-    ListagemAtendimentoGrupoEnfermaria LISTAGEM_atentimentoGRU = new ListagemAtendimentoGrupoEnfermaria();
-    ListagemAtendimentoTecnicoEnfermagem LISTAGEM_atentimentoTECE = new ListagemAtendimentoTecnicoEnfermagem();
-    ListagemAvaliacaoMedicaPsiquiatrica LISTAGEM_avalicaoMedPsi = new ListagemAvaliacaoMedicaPsiquiatrica();
-    ListagemOcorrenciasEnferemaria LISTAGEM_ocr = new ListagemOcorrenciasEnferemaria();
-    ListagemSolicitacaoExamesMedicos LISTAGEM_exames = new ListagemSolicitacaoExamesMedicos();
+    ListagemAdmissaoEnfermagemA LISTAGEM_ADM_enfermagem = new ListagemAdmissaoEnfermagemA();
+    ListagemAdmissaoEnfermagemComplementarA LISTAGEM_ADM_enfermagemAux = new ListagemAdmissaoEnfermagemComplementarA();
+    ListagemAdmissaoMedicaA LISTAGEM_ADM_medico = new ListagemAdmissaoMedicaA();
+    ListagemAdmissaoMedicaComplementarA LISTAGEM_ADM_medicoAux = new ListagemAdmissaoMedicaComplementarA();
+    ListagemAprazamentoMedicacaoA LISTAGEM_aprazamento = new ListagemAprazamentoMedicacaoA();
+    ListagemAtendimentoGrupoEnfermariaA LISTAGEM_atentimentoGRU = new ListagemAtendimentoGrupoEnfermariaA();
+    ListagemAtendimentoTecnicoEnfermagemA LISTAGEM_atentimentoTECE = new ListagemAtendimentoTecnicoEnfermagemA();
+    ListagemAvaliacaoMedicaPsiquiatricaA LISTAGEM_avalicaoMedPsi = new ListagemAvaliacaoMedicaPsiquiatricaA();
+    ListagemOcorrenciasEnferemariaA LISTAGEM_ocr = new ListagemOcorrenciasEnferemariaA();
+    ListagemSolicitacaoExamesMedicosA LISTAGEM_exames = new ListagemSolicitacaoExamesMedicosA();
     //GERENCIA ADMINISTRATIVA
-    ListagemAtividadesUnidades LISTAGEM_atividade = new ListagemAtividadesUnidades();
+    ListagemAtividadesUnidadesA LISTAGEM_atividade = new ListagemAtividadesUnidadesA();
     //JURIDICO
-    ListagemAtendimentoJuridico LISTAGEM_atendeJuri = new ListagemAtendimentoJuridico();
-    ListagemAdmissaoJuridicoAdicional LISTAGEM_admJuri = new ListagemAdmissaoJuridicoAdicional();
-    ListagemAtendimentoFamiliarJuridico LISTAGEM_atendFamJur = new ListagemAtendimentoFamiliarJuridico();
-    ListagemFichaJuridica LISTAGEM_fichaJU = new ListagemFichaJuridica();
+    ListagemAtendimentoJuridicoA LISTAGEM_atendeJuri = new ListagemAtendimentoJuridicoA();
+    ListagemAdmissaoJuridicoAdicionaA LISTAGEM_admJuri = new ListagemAdmissaoJuridicoAdicionaA();
+    ListagemAtendimentoFamiliarJuridicoA LISTAGEM_atendFamJur = new ListagemAtendimentoFamiliarJuridicoA();
+    ListagemFichaJuridicaA LISTAGEM_fichaJU = new ListagemFichaJuridicaA();
     //ODONTOLOGIA
-    ListagemAtendimentoOdontologico LISTAGEM_odonto = new ListagemAtendimentoOdontologico();
-    ListagemOcorrenciasOdontologica LISTAGEM_OCOR_ODONTO = new ListagemOcorrenciasOdontologica();
+    ListagemAtendimentoOdontologicoA LISTAGEM_odonto = new ListagemAtendimentoOdontologicoA();
+    ListagemOcorrenciasOdontologicaA LISTAGEM_OCOR_ODONTO = new ListagemOcorrenciasOdontologicaA();
     //PEDAGOGIA
-    ListagemAdmissaoPedagogica LISTAGEM_ADM_peda = new ListagemAdmissaoPedagogica();
-    ListagemAdmissaoPedagogicaNova LISTAGEM_ADM_pedaNova = new ListagemAdmissaoPedagogicaNova();
-    ListagemAtendimentoGrupoPedagogia LISTAGEM_ATEND_grupoP = new ListagemAtendimentoGrupoPedagogia();
-    ListagemAtividadesComplementaresPeda LISTAGEM_atividadeC = new ListagemAtividadesComplementaresPeda();
-    ListagemFrequanciaPedagogicaExterna LISTAGEM_frequencia = new ListagemFrequanciaPedagogicaExterna();
+    ListagemAdmissaoPedagogicaA LISTAGEM_ADM_peda = new ListagemAdmissaoPedagogicaA();
+    ListagemAdmissaoPedagogicaNovaA LISTAGEM_ADM_pedaNova = new ListagemAdmissaoPedagogicaNovaA();
+    ListagemAtendimentoGrupoPedagogiaA LISTAGEM_ATEND_grupoP = new ListagemAtendimentoGrupoPedagogiaA();
+    ListagemAtividadesComplementaresPedaA LISTAGEM_atividadeC = new ListagemAtividadesComplementaresPedaA();
+    ListagemFrequanciaPedagogicaExternaA LISTAGEM_frequencia = new ListagemFrequanciaPedagogicaExternaA();
     //PSICOLOGIA
-    ListagemAdmissaoPsicologica LISTAGEM_adm_psi = new ListagemAdmissaoPsicologica();
-    ListagemAtendimentoGrupoPsi LISTAGEM_atd_psi = new ListagemAtendimentoGrupoPsi();
-    ListagemAvaliacaoPsicologica LISTAGEM_avalia = new ListagemAvaliacaoPsicologica();
-    ListagemOcorrenciaPsicologia LISTAGEM_OCOR_psi = new ListagemOcorrenciaPsicologia();
-    ListagemPortaEntradaPsicologia LISTAGEM_porta = new ListagemPortaEntradaPsicologia();
+    ListagemAdmissaoPsicologicaA LISTAGEM_adm_psi = new ListagemAdmissaoPsicologicaA();
+    ListagemAtendimentoGrupoPsiA LISTAGEM_atd_psi = new ListagemAtendimentoGrupoPsiA();
+    ListagemAvaliacaoPsicologicaA LISTAGEM_avalia = new ListagemAvaliacaoPsicologicaA();
+    ListagemOcorrenciaPsicologiaA LISTAGEM_OCOR_psi = new ListagemOcorrenciaPsicologiaA();
+    ListagemPortaEntradaPsicologiaA LISTAGEM_porta = new ListagemPortaEntradaPsicologiaA();
     //SEGURANÇA
-    ListagemMovimentoPopulcao LISTAGEM_populcao = new ListagemMovimentoPopulcao();
-    ListagemOcorrenciaSeguranca LISTAGEM_OCORR_seg = new ListagemOcorrenciaSeguranca();
+    ListagemMovimentoPopulcaoA LISTAGEM_populcao = new ListagemMovimentoPopulcaoA();
+    ListagemOcorrenciaSegurancaA LISTAGEM_OCORR_seg = new ListagemOcorrenciaSegurancaA();
     //SERVIÇO SOCIAL
-    ListagemAtendimentoGrupoSS LISTAGEM_ATEND_grupoSS = new ListagemAtendimentoGrupoSS();
-    ListagemAtendimentoFamiliar LISTAGEM_ATEND_famSS = new ListagemAtendimentoFamiliar();
-    ListagemAtendimentoSocial LISTAGEM_ATEND_social = new ListagemAtendimentoSocial();
-    ListagemAtualizacaoDocumentosInternos LISTAGEM_atualizacao = new ListagemAtualizacaoDocumentosInternos();
-    ListagemCancelamentoVisitasExternaInteraRol LISTAGEM_cancelaVisista = new ListagemCancelamentoVisitasExternaInteraRol();
-    ListagemControleLigacoes LISTAGEM_CONTROLE_ligacoes = new ListagemControleLigacoes();
-    ListagemOcorrenciaServicoSocial LISTAGEM_ocorrencia_ss = new ListagemOcorrenciaServicoSocial();
-    ListagemPerfilCarcerarioSS LISTAGEM_perfil = new ListagemPerfilCarcerarioSS();
-    ListagemPortaEntradaSS LISTAGEM_portaEE = new ListagemPortaEntradaSS();
+    ListagemAtendimentoGrupoSSA LISTAGEM_ATEND_grupoSS = new ListagemAtendimentoGrupoSSA();
+    ListagemAtendimentoFamiliarA LISTAGEM_ATEND_famSS = new ListagemAtendimentoFamiliarA();
+    ListagemAtendimentoSocialA LISTAGEM_ATEND_social = new ListagemAtendimentoSocialA();
+    ListagemAtualizacaoDocumentosInternosA LISTAGEM_atualizacao = new ListagemAtualizacaoDocumentosInternosA();
+    ListagemCancelamentoVisitasExternaInteraRolA LISTAGEM_cancelaVisista = new ListagemCancelamentoVisitasExternaInteraRolA();
+    ListagemControleLigacoesA LISTAGEM_CONTROLE_ligacoes = new ListagemControleLigacoesA();
+    ListagemOcorrenciaServicoSocialA LISTAGEM_ocorrencia_ss = new ListagemOcorrenciaServicoSocialA();
+    ListagemPerfilCarcerarioSSA LISTAGEM_perfil = new ListagemPerfilCarcerarioSSA();
+    ListagemPortaEntradaSSA LISTAGEM_portaEE = new ListagemPortaEntradaSSA();
     //TERAPIA OCUPACIONAL
-    ListagemAdmissaoTerapia LISTAGEM_terapia = new ListagemAdmissaoTerapia();
-    ListagemAgendaLaborativa LISTAGEM_agenda = new ListagemAgendaLaborativa();
-    ListagemAtendimentoGrupoTO LISTAGEM_atendeGR = new ListagemAtendimentoGrupoTO();
-    ListagemAtendimentoTerapia LISTAGEM_atendimentoTO = new ListagemAtendimentoTerapia();
-    ListagemCapacitacaoInternoTO LISTAGEM_capacitacaoTO = new ListagemCapacitacaoInternoTO();
-    ListagemFrequenciaCapacitaTO LISTAGEM_freqCapaTo = new ListagemFrequenciaCapacitaTO();
-    ListagemFrequenciaLaborTO LISTAGEM_freqLabor = new ListagemFrequenciaLaborTO();
-    ListagemOcorrenciaTO LISTAGEM_OCORR_to = new ListagemOcorrenciaTO();
-    ListagemTriagemOcupacional LISTAGEM_triagemTO = new ListagemTriagemOcupacional();
+    ListagemAdmissaoTerapiaA LISTAGEM_terapia = new ListagemAdmissaoTerapiaA();
+    ListagemAgendaLaborativaA LISTAGEM_agenda = new ListagemAgendaLaborativaA();
+    ListagemAtendimentoGrupoTOA LISTAGEM_atendeGR = new ListagemAtendimentoGrupoTOA();
+    ListagemAtendimentoTerapiaA LISTAGEM_atendimentoTO = new ListagemAtendimentoTerapiaA();
+    ListagemCapacitacaoInternoTOA LISTAGEM_capacitacaoTO = new ListagemCapacitacaoInternoTOA();
+    ListagemFrequenciaCapacitaTOA LISTAGEM_freqCapaTo = new ListagemFrequenciaCapacitaTOA();
+    ListagemFrequenciaLaborTOA LISTAGEM_freqLabor = new ListagemFrequenciaLaborTOA();
+    ListagemOcorrenciaTOA LISTAGEM_OCORR_to = new ListagemOcorrenciaTOA();
+    ListagemTriagemOcupacionalA LISTAGEM_triagemTO = new ListagemTriagemOcupacionalA();
     //EDUCAÇÃO FISICA
-    ListagemAdmissaoEducacaoFisica LISTAGEM_ADM_ef = new ListagemAdmissaoEducacaoFisica();
-    ListagemAdmissaoEducacaoFisicaNova LISTAGEM_EF_nova = new ListagemAdmissaoEducacaoFisicaNova();
-    ListgagemAtendimentoGrupoEF LISTAGEM_ATEND_GRUPO_ef = new ListgagemAtendimentoGrupoEF();
-    ListagemOcorrenciaEF LISTAGEM_OCORR_ef = new ListagemOcorrenciaEF();
+    ListagemAdmissaoEducacaoFisicaA LISTAGEM_ADM_ef = new ListagemAdmissaoEducacaoFisicaA();
+    ListagemAdmissaoEducacaoFisicaNovaA LISTAGEM_EF_nova = new ListagemAdmissaoEducacaoFisicaNovaA();
+    ListgagemAtendimentoGrupoEFA LISTAGEM_ATEND_GRUPO_ef = new ListgagemAtendimentoGrupoEFA();
+    ListagemOcorrenciaEFA LISTAGEM_OCORR_ef = new ListagemOcorrenciaEFA();
     //
     ControleFechamentoDadosSistema control = new ControleFechamentoDadosSistema();
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -249,7 +249,7 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
     String statusMov;
     String horaMov;
     String dataModFinal;
-    String pFECHAMENTO = "FINALIZADO";
+    String pFECHAMENTO = "ABERTO";
     String pDATA_FECHAMENTO = "";
     int pREGISTROS_PROCESSADOS = 0;
     String pSISTEMA_BLOQUEADO = "Sim"; // DEFAULT É "Não"
@@ -546,6 +546,7 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -554,9 +555,7 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jREGISTROS_PROCESSADOS, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                        .addComponent(lblProgresso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblProgresso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1917,6 +1916,7 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
                         //GERENCIA ADMINISTRATIVA
                         //ATIVIDADES MENSAL REALIZADAS NA UNIDADE
                         control.fecharATIVI_realizadas(objFecha);
+                        //JURIDICO
                         //ATENCIMENTO JURIDICO
                         control.fecharATEND_JURI(objFecha);
                         objLog();
@@ -1933,6 +1933,7 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
                         control.fecharFICHA_juri(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ODONTOLOGIA
                         //ATENDIMENTO ODONTOLOGICO
                         control.fecharATEND_odonto(objFecha);
                         objLog();

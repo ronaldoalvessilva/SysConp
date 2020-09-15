@@ -599,6 +599,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
 
     private void jAbrirTodosMovimentosDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirTodosMovimentosDataActionPerformed
         // TODO add your handling code here:
+        mostrarAberturaGeral();
     }//GEN-LAST:event_jAbrirTodosMovimentosDataActionPerformed
 
 

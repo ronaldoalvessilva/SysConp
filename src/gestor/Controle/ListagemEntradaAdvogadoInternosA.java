@@ -6,8 +6,8 @@
 package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
-import static gestor.Visao.TelaFechamentoSistema.jDataFechamento;
-import static gestor.Visao.TelaFechamentoSistema.pENTRADA_ADV_INTERNOS;
+import static gestor.Visao.TelaAberturaTotalSistema.jDataFechamento;
+import static gestor.Visao.TelaAberturaTotalSistema.pENTRADA_ADV_INTERNOS;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -25,7 +25,7 @@ public class ListagemEntradaAdvogadoInternosA {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     FechamentoRegistros objFecha = new FechamentoRegistros();
     //
-    String pSTATUS_NOVA_ENTRADA = "ABERTO";
+    String pSTATUS_NOVA_ENTRADA = "FINALIZADO";
     String pDATA_PESQUISA_FECHAMENTO = "";
 
     public List<FechamentoRegistros> read() throws Exception {

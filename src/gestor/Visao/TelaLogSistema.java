@@ -307,6 +307,11 @@ public class TelaLogSistema extends javax.swing.JInternalFrame {
         jBtExcluir.setForeground(new java.awt.Color(51, 0, 255));
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
 
         jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSair.setForeground(new java.awt.Color(255, 0, 0));
@@ -482,6 +487,10 @@ public class TelaLogSistema extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jTabelaLogMouseClicked
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
