@@ -5,7 +5,7 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleFechamentoDadosSistema;
+import gestor.Controle.ControleAberturaDadosSistemaPorModulo;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ListaAgendaEscoltaCrcM;
 import gestor.Controle.ListagemAdmissaoEducacaoFisicaM;
@@ -109,7 +109,9 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -236,7 +238,7 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     ListgagemAtendimentoGrupoEFM LISTAGEM_ATEND_GRUPO_ef = new ListgagemAtendimentoGrupoEFM();
     ListagemOcorrenciaEFM LISTAGEM_OCORR_ef = new ListagemOcorrenciaEFM();
     //
-    ControleFechamentoDadosSistema control = new ControleFechamentoDadosSistema();
+    ControleAberturaDadosSistemaPorModulo control = new ControleAberturaDadosSistemaPorModulo();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     //
@@ -249,8 +251,25 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     int pREGISTROS_PROCESSADOS = 0;
     String pSISTEMA_BLOQUEADO = "Sim"; // DEFAULT É "Não"
     String pSISTEMA_DESBLOQUEADO = "Não";
-    //CRC
-    int pTOTAL_GERAL_REGISTROS = 0;
+    //TOTALIZADORES DOS MÓDULOS
+    int pTOTAL_GERAL_REGISTROS_CRC = 0;
+    int pTOTAL_GERAL_REGISTROS_PORTARIA_INT = 0;
+    int pTOTAL_GERAL_REGISTROS_PORTARIA_EXT = 0;
+    int pTOTAL_GERAL_REGISTROS_GTE_ADM = 0;
+    int pTOTAL_GERAL_REGISTROS_GTE_OPE = 0;
+    int pTOTAL_GERAL_REGISTROS_PSICOLOGIA = 0;
+    int pTOTAL_GERAL_REGISTROS_SERVICO_SOCIAL = 0;
+    int pTOTAL_GERAL_REGISTROS_PEDAGOGIA = 0;
+    int pTOTAL_GERAL_REGISTROS_TERAPIA = 0;
+    int pTOTAL_GERAL_REGISTROS_JURIDICO = 0;
+    int pTOTAL_GERAL_REGISTROS_EDUCACAO_FISICA = 0;
+    int pTOTAL_GERAL_REGISTROS_ENFERMARIA = 0;
+    int pTOTAL_GERAL_REGISTROS_BASE_I = 0;
+    int pTOTAL_GERAL_REGISTROS_BASE_II = 0;
+    int pTOTAL_GERAL_REGISTROS_NUTRICAO = 0;
+    int pTOTAL_GERAL_REGISTROS_ALMOXARIFADO = 0;
+    int pTOTAL_GERAL_REGISTROS_ODONTOLOGIA = 0;
+
     public static int pTOTAL_ENTRADAS = 0;
     public static int pTOTAL_SAIDAS = 0;
     public static int pTOTAL_TRANSFERENCIAS = 0;
@@ -380,6 +399,7 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(pABRIR_REGISTROS);
         initComponents();
+        corCampos();
     }
 
     /**
@@ -644,79 +664,349 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
         } else {
             if (jComboBoxModulo.getSelectedItem().equals("Módulo Crc")) {
+                pTOTAL_GERAL_REGISTROS_CRC = 0;
                 calculoTotais_ENTRADAS_CRC();
+                total_GERAL_REGISTROS_CRC();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_CRC));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Portaria Interna")) {
+                pTOTAL_GERAL_REGISTROS_PORTARIA_INT = 0;
                 calcularTotais_PORTARIA_INTERNA();
+                total_GERAL_REGISTROS_PORTARIA_INTERNA();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_PORTARIA_INT));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Almoxarifado")) {
+                pTOTAL_GERAL_REGISTROS_ALMOXARIFADO = 0;
                 calcularTotais_ALMOXARIFADO();
+                total_GERAL_REGISTROS_ALMOXARIFADO();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_ALMOXARIFADO));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Base I")) {
+                pTOTAL_GERAL_REGISTROS_BASE_I = 0;
                 calcularTotais_BASE_PAVILHAO();
+                total_GERAL_REGISTROS_BASE_I();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_BASE_I));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Enfermaria")) {
+                pTOTAL_GERAL_REGISTROS_ENFERMARIA = 0;
                 calcularTotais_ENFERMARIA();
+                total_GERAL_REGISTROS_ENFERMARIA();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_ENFERMARIA));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Gerência Adminstrativa")) {
+                pTOTAL_GERAL_REGISTROS_GTE_ADM = 0;
                 calcularTotais_ADMINISTRACAO();
+                total_GERAL_REGISTROS_GTE_ADM();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_GTE_ADM));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Jurídico")) {
+                pTOTAL_GERAL_REGISTROS_JURIDICO = 0;
                 calcularTotais_JURIDICO();
+                total_GERAL_REGISTROS_JURIDICO();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_JURIDICO));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Odontologia")) {
+                pTOTAL_GERAL_REGISTROS_ODONTOLOGIA = 0;
                 calcularTotais_ODONTOLOGICO();
+                total_GERAL_REGISTROS_ODONTOLOGIA();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_PORTARIA_INT));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Pedagogia")) {
+                pTOTAL_GERAL_REGISTROS_PEDAGOGIA = 0;
                 calcularTotais_PEDAGOGIA();
+                total_GERAL_REGISTROS_PEDAGOGIA();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_PEDAGOGIA));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Psicologia")) {
                 calcularTotais_PSICOLOGIA();
+                total_GERAL_REGISTROS_PSICOLOGIA();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_PORTARIA_INT));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Gerência Operacional")) {
+                pTOTAL_GERAL_REGISTROS_GTE_OPE = 0;
                 calcularTotais_SEGURANCA();
+                total_GERAL_REGISTROS_GTE_OP();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_GTE_OPE));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Serviço Social")) {
+                pTOTAL_GERAL_REGISTROS_SERVICO_SOCIAL = 0;
                 calcularTotais_SERVICO_SOCIAL();
+                total_GERAL_REGISTROS_SERVICO_SOCIAL();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_SERVICO_SOCIAL));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Terapia Ocupacional")) {
+                pTOTAL_GERAL_REGISTROS_TERAPIA = 0;
                 calculosTotaisTO();
+                total_GERAL_REGISTROS_TERAPAIA();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_TERAPIA));
             } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Educação Física")) {
+                pTOTAL_GERAL_REGISTROS_EDUCACAO_FISICA = 0;
                 calcularTotais_EDUCACAO_FISICA();
+                total_GERAL_REGISTROS_EDUCACAO_FISICA();
+                jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS_EDUCACAO_FISICA));
             }
-            total_REGISTROS();
-            jTOTAL_REGISTROS.setText(Integer.toString(pTOTAL_GERAL_REGISTROS));
         }
     }//GEN-LAST:event_jBtPesquisarRegistrosActionPerformed
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
         if (jComboBoxModulo.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o módulo para ser reaberto...");
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Crc")) {
-            ModuloCrc();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Gerência Adminstrativa")) {
-            ModuloGerenciaAdminstrativa();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Almoxarifado")) {
-            ModuloAlmoxarifado();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Pedagogia")) {
-            ModuloPedagogia();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Psicologia")) {
-            ModuloPsicologia();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Enfermaria")) {
-            ModuloEnfermaria();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Serviço Social")) {
-            ModuloServicoSocial();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Jurídico")) {
-            ModuloJurídico();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Odontologia")) {
-            ModuloOdontologia();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Terapia Ocupacional")) {
-            ModuloTerapiaOcupacional();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Financeiro")) {
-            ModuloFinanceiro();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Gerência Operacional")) {
-            ModuloGerenciaOperacional();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Base I")) {
-            ModuloBaseI();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Base II")) {
-            ModuloBaseII();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Portaria Interna")) {
-            ModuloPortariaInterna();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Portaria Externa")) {
-            ModuloPortariaExterna();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Educação Física")) {
-            ModuloEducacaoFisica();
-        } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Nutrição")) {
-            ModuloNutrição();
+            JOptionPane.showMessageDialog(rootPane, "Selecione um módulo a ser aberto.");
+        } else if (jTOTAL_REGISTROS.getText().equals("0")) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível executar essa operação com o total de registros zerado...");
+        } else if (jTOTAL_REGISTROS.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível executar essa operação com o campo total de registros vazio...");
+        } else if (jDataInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataInicial.requestFocus();
+        } else if (jDataFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+            jDataFinal.requestFocus();
+        } else if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir os lançamentos do módulo selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                if (tipoServidor == null || tipoServidor.equals("")) {
+                    JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+                } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    pDATA_INICIAL = formatoAmerica.format(jDataInicial.getDate().getTime());
+                    pDATA_FINAL = formatoAmerica.format(jDataFinal.getDate().getTime());
+                } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                    pDATA_INICIAL = formatoAmerica.format(jDataInicial.getDate().getTime());
+                    pDATA_FINAL = formatoAmerica.format(jDataFinal.getDate().getTime());
+                }
+                objFecha.setStatusRegistro(pFECHAMENTO);
+                objFecha.setDataInicial(pDATA_INICIAL);
+                objFecha.setDataFinal(pDATA_FINAL);
+                objFecha.setHoraFechamento(horaMov);
+                objFecha.setUsuarioUp(nameUser);
+                if (jComboBoxModulo.getSelectedItem().equals("Selecione...")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o módulo para ser reaberto...");
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Crc")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloCrc();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde                     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Gerência Adminstrativa")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloGerenciaAdminstrativa();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde    
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Almoxarifado")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloAlmoxarifado();
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde  
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Pedagogia")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloPedagogia();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Psicologia")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloPsicologia();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Enfermaria")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloEnfermaria();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Serviço Social")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloServicoSocial();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Jurídico")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloJurídico();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Odontologia")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloOdontologia();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Terapia Ocupacional")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloTerapiaOcupacional();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Financeiro")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloFinanceiro();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Gerência Operacional")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloGerenciaOperacional();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Base I")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloBaseI();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Base II")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloBaseII();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Portaria Interna")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloPortariaInterna();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Portaria Externa")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloPortariaExterna();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Educação Física")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloEducacaoFisica();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Nutrição")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloNutrição();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde     
+                }
+            }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -796,10 +1086,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloCrc() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ENTRADAS DE INTERNOS
         control.fecharEntradas(objFecha);
         objLog();
@@ -875,19 +1161,11 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloGerenciaAdminstrativa() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ATIVIDADES MENSAL REALIZADAS NA UNIDADE
         control.fecharATIVI_realizadas(objFecha);
     }
 
     public void ModuloAlmoxarifado() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //COMPOSIÇÃO DE KIT DE HIGIÊNE
         control.fecharALMOX(objFecha);
         objLog();
@@ -915,10 +1193,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloPedagogia() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ADMISSAO PEDAGOGIA
         control.fecharADM_peda(objFecha);
         objLog();
@@ -942,10 +1216,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloPsicologia() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ADMISSAO PSICOLOGICA
         control.fecharADM_psi(objFecha);
         objLog();
@@ -969,10 +1239,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloEnfermaria() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ADMISSÃO ENFERMEIRA
         control.fecharADMEnfermagem(objFecha);
         objLog();
@@ -1016,10 +1282,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloServicoSocial() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ATENDIMENTO EM GRUPO
         control.fecharATEND_grupoSS(objFecha);
         objLog();
@@ -1059,10 +1321,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloJurídico() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ATENCIMENTO JURIDICO
         control.fecharATEND_JURI(objFecha);
         objLog();
@@ -1082,10 +1340,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloOdontologia() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ATENDIMENTO ODONTOLOGICO
         control.fecharATEND_odonto(objFecha);
         objLog();
@@ -1097,10 +1351,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloTerapiaOcupacional() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ADMISSÃO TERAPIA
         control.fecharADM_to(objFecha);
         objLog();
@@ -1148,10 +1398,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloGerenciaOperacional() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //LOCAÇÃO DE INTERNOS
         control.fecharLOCA(objFecha);
         objLog();
@@ -1175,26 +1421,14 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloBaseI() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ESTÁ FALTANDO IMPLEMENTAR
     }
 
     public void ModuloBaseII() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ESTÁ FALTANDO IMPLEMENTAR
     }
 
     public void ModuloPortariaInterna() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //VISITAS RELIGIOSAS
         control.fecharVisitasReligiosas(objFecha);
         objLog();
@@ -1246,10 +1480,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloPortariaExterna() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ENTRADAS OFICIAL DE JUSTIÇA
         control.fecharOFF(objFecha);
         objLog();
@@ -1285,10 +1515,6 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloEducacaoFisica() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ADMISSÃO EDUCAÇÃO FÍSICA
         control.fecharADM_ef(objFecha);
         objLog();
@@ -1310,45 +1536,114 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloNutrição() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
         //ESTÁ FALTANDO IMPLEMENTAR
     }
 
-    public void total_REGISTROS() {
-        pTOTAL_GERAL_REGISTROS = pTOTAL_ENTRADAS
+    public void total_GERAL_REGISTROS_CRC() {
+        pTOTAL_GERAL_REGISTROS_CRC = pTOTAL_ENTRADAS
                 + pTOTAL_SAIDAS + pTOTAL_TRANSFERENCIAS
                 + pRETORNO_SAIDAS_TMP + pRETORNO_ESPONTANEO
                 + pRETORNO_RECAPTURA + pRETORNO_AUDIENCIAS
                 + pRETORNO_MEDICO + pRETORNO_TRANSFERENCIA
                 + pPREVISAO_SAIDA + pNOVA_ENTRADA
                 + pAGENDA_ESCOLTA + pINTERNOS_EVADIDOS
-                + pPROGRESSAO_REGIME + pPRORROGA
-                + pREGISTRO_CANCELADO_NE + pREGISTRO_CANCELADO_RETORNOS
+                + pPROGRESSAO_REGIME + pPRORROGA;
+    }
+
+    public void total_GERAL_REGISTROS_PORTARIA_INTERNA() {
+        pTOTAL_GERAL_REGISTROS_PORTARIA_INT = pREGISTRO_CANCELADO_NE + pREGISTRO_CANCELADO_RETORNOS
                 + pREGISTRO_CANCELADOS + pREGRESSAO_REGIME
                 + pTOTAL_ENTRADAS_SAIDAS_VISITAS_religiosas
                 + pENTRADAS_INTERNOS_portaria + pENTRADA_PERTENCES
                 + pENTRADA_OFJI + pENTRADA_ADV_INTERNOS + pENTRADA_ADV_INTERNOS
                 + pENTRADA_FAMILIAR + pOCORRENCIAS_P1 + pPERNOITE + pRETORNO
-                + pSAIDAS_CRC + pTRANSIENTES + pENTRADA_oficial + pENTRADA_advogado
+                + pSAIDAS_CRC + pTRANSIENTES;
+    }
+
+    public void total_GERAL_REGISTROS_PORTARIA_EXTERNA() {
+        pTOTAL_GERAL_REGISTROS_PORTARIA_EXT = pENTRADA_oficial + pENTRADA_advogado
                 + pENTRADA_colaborador + pENTRADA_VISITAS_diversas + pENTRADA_VEICULOS_carga
-                + pENTRADA_VEICULOS_terceiros + pENTRADA_VEICULOS_unidade + pOCORRENCIAS_p1e
-                + pCOMPOSICAO + pESTORNO + pNFC + pREQUISICAO_avulsa + pREQUISICAO_interno
-                + pOCR_seg + pOCR_sega + pADM_enfermagem + pADM_enfermagemAux + pADM_medica
-                + pADM_medicaAux + pAPRAZAMENTO + pATENDIMENTO_GRUPO_ENF + pATENDIMENTO_TEC_ENFERMAGEM
-                + pAVALIACAO_MED_PSI + pOCORRENCIA_ENF + pSOLICITACAO + pATIVIDADE_UNIDADE + pATENDE_JURI
-                + pADMISSAO_JURI + pATEND_FAMILIA_juri + pFICHA_juridica + pATEND_ODONTO
-                + pOCR_ODONTO + pADMISSAO_pedagogica + pADMISSAO_pedagogicaNova + pATEND_GRUPO_pedagogia
-                + pATIVIDADES_COMPLEMENTARES + pFREQUENCIA_pedagogica + pADMISSAO_psicologica
-                + pATENDIMENTO_GRUPO_psi + pAVALIACAO_psicologica + pOCORRENCIA_psiologica + pPORTA_entrada
-                + pMOVIMENTO_populcao + pOCORRE_seguranca + pATEND_GRUPO_ss + pATEND_FAM_ss + pATEND_social
-                + pATUALIZA_documento + pCANCELA_visitas + pCONTROLE_ligacoes + pOCORRENCIAS_servico
-                + pPERFIL_carcerario + pPORTA_ENTRADA_ss + pADM_terapia + pAGENDA_laborativa
-                + pATENDIMENTO_grupoTO + pATENDIMENTO_TO + pCAPACITACAO_INTERO_to + pFREQUENCIA_capa
-                + pFREQUENCIA_labora + pOCORRE_to + pTRIAGEM_to + pADMISSAO_ef + pADMISSAO_EF_nova
-                + pATEND_GRUPO_ef + pOCORRE_ef;
+                + pENTRADA_VEICULOS_terceiros + pENTRADA_VEICULOS_unidade + pOCORRENCIAS_p1e;
+    }
+
+    public void total_GERAL_REGISTROS_ALMOXARIFADO() {
+        pTOTAL_GERAL_REGISTROS_ALMOXARIFADO = pCOMPOSICAO
+                + pESTORNO + pNFC + pREQUISICAO_avulsa
+                + pREQUISICAO_interno;
+    }
+
+    public void total_GERAL_REGISTROS_BASE_I() {
+        pTOTAL_GERAL_REGISTROS_BASE_I = pOCR_seg;
+    }
+
+    public void total_GERAL_REGISTROS_BASE_II() {
+        pTOTAL_GERAL_REGISTROS_BASE_II = pOCR_sega;
+    }
+
+    public void total_GERAL_REGISTROS_ENFERMARIA() {
+        pTOTAL_GERAL_REGISTROS_ENFERMARIA = pADM_enfermagem
+                + pADM_enfermagemAux + pADM_medica
+                + pADM_medicaAux + pAPRAZAMENTO
+                + pATENDIMENTO_GRUPO_ENF
+                + pATENDIMENTO_TEC_ENFERMAGEM
+                + pAVALIACAO_MED_PSI + pOCORRENCIA_ENF
+                + pSOLICITACAO;
+    }
+
+    public void total_GERAL_REGISTROS_GTE_ADM() {
+        pTOTAL_GERAL_REGISTROS_GTE_ADM = pATIVIDADE_UNIDADE;
+    }
+
+    public void total_GERAL_REGISTROS_JURIDICO() {
+        pTOTAL_GERAL_REGISTROS_JURIDICO = pATENDE_JURI
+                + pADMISSAO_JURI + pATEND_FAMILIA_juri + pFICHA_juridica;
+    }
+
+    public void total_GERAL_REGISTROS_ODONTOLOGIA() {
+        pTOTAL_GERAL_REGISTROS_ODONTOLOGIA = pATEND_ODONTO
+                + pOCR_ODONTO;
+    }
+
+    public void total_GERAL_REGISTROS_PEDAGOGIA() {
+        pTOTAL_GERAL_REGISTROS_PEDAGOGIA = pADMISSAO_pedagogica
+                + pADMISSAO_pedagogicaNova + pATEND_GRUPO_pedagogia
+                + pATIVIDADES_COMPLEMENTARES + pFREQUENCIA_pedagogica;
+    }
+
+    public void total_GERAL_REGISTROS_PSICOLOGIA() {
+        pTOTAL_GERAL_REGISTROS_PSICOLOGIA = pADMISSAO_psicologica
+                + pATENDIMENTO_GRUPO_psi + pAVALIACAO_psicologica
+                + pOCORRENCIA_psiologica + pPORTA_entrada;
+    }
+
+    public void total_GERAL_REGISTROS_SERVICO_SOCIAL() {
+        pTOTAL_GERAL_REGISTROS_SERVICO_SOCIAL = pATEND_GRUPO_ss
+                + pATEND_FAM_ss + pATEND_social
+                + pATUALIZA_documento + pCANCELA_visitas
+                + pCONTROLE_ligacoes + pOCORRENCIAS_servico
+                + pPERFIL_carcerario + pPORTA_ENTRADA_ss;
+    }
+
+    public void total_GERAL_REGISTROS_TERAPAIA() {
+        pTOTAL_GERAL_REGISTROS_TERAPIA = pADM_terapia
+                + pAGENDA_laborativa
+                + pATENDIMENTO_grupoTO + pATENDIMENTO_TO
+                + pCAPACITACAO_INTERO_to + pFREQUENCIA_capa
+                + pFREQUENCIA_labora + pOCORRE_to + pTRIAGEM_to;
+    }
+
+    public void total_GERAL_REGISTROS_GTE_OP() {
+        pTOTAL_GERAL_REGISTROS_GTE_OPE = pMOVIMENTO_populcao
+                + pOCORRE_seguranca;
+    }
+
+    public void total_GERAL_REGISTROS_EDUCACAO_FISICA() {
+        pTOTAL_GERAL_REGISTROS_EDUCACAO_FISICA = pADMISSAO_ef
+                + pADMISSAO_EF_nova + pATEND_GRUPO_ef + pOCORRE_ef;
+    }
+
+    public void total_GERAL_REGISTROS_NUTRICAO() {
+//    int pTOTAL_GERAL_REGISTROS_NUTRICAO = 0;
     }
 
     public void calculoTotais_ENTRADAS_CRC() {

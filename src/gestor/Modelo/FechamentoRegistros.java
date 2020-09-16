@@ -18,11 +18,13 @@ public class FechamentoRegistros {
     private String sistemaManutencao;
     private String opcaoBloquear;
     private String opcaoDesbloquear;
+    private String dataInicial;
+    private String dataFinal;
 
     public FechamentoRegistros() {
     }
 
-    public FechamentoRegistros(String statusRegistro, String usuarioUp, String dataFechamento, String horaFechamento, String sistemaManutencao, String opcaoBloquear, String opcaoDesbloquear) {
+    public FechamentoRegistros(String statusRegistro, String usuarioUp, String dataFechamento, String horaFechamento, String sistemaManutencao, String opcaoBloquear, String opcaoDesbloquear, String dataInicial, String dataFinal) {
         this.statusRegistro = statusRegistro;
         this.usuarioUp = usuarioUp;
         this.dataFechamento = dataFechamento;
@@ -30,6 +32,8 @@ public class FechamentoRegistros {
         this.sistemaManutencao = sistemaManutencao;
         this.opcaoBloquear = opcaoBloquear;
         this.opcaoDesbloquear = opcaoDesbloquear;
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
     }
 
     /**
@@ -128,5 +132,33 @@ public class FechamentoRegistros {
      */
     public void setOpcaoDesbloquear(String opcaoDesbloquear) {
         this.opcaoDesbloquear = opcaoDesbloquear;
+    }
+
+    /**
+     * @return the dataInicial
+     */
+    public String getDataInicial() {
+        return dataInicial;
+    }
+
+    /**
+     * @param dataInicial the dataInicial to set
+     */
+    public void setDataInicial(String dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    /**
+     * @return the dataFinal
+     */
+    public String getDataFinal() {
+        return dataFinal;
+    }
+
+    /**
+     * @param dataFinal the dataFinal to set
+     */
+    public void setDataFinal(String dataFinal) {
+        this.dataFinal = dataFinal;
     }
 }
