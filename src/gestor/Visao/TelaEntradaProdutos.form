@@ -409,7 +409,7 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="1">
+                      <Table columnCount="6" rowCount="0">
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Dt.Emiss&#xe3;o" type="java.lang.Object"/>
                         <Column editable="true" title="Status NFE" type="java.lang.Object"/>
@@ -2236,7 +2236,7 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="1">
+                      <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="Item" type="java.lang.Object"/>
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Descri&#xe7;&#xe3;o Produto" type="java.lang.Object"/>
@@ -2703,7 +2703,7 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="1">
+                      <Table columnCount="4" rowCount="0">
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Vencimento" type="java.lang.Object"/>
                         <Column editable="true" title="Valor Parcela" type="java.lang.Object"/>

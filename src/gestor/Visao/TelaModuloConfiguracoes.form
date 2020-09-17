@@ -163,12 +163,20 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirTodosMovimentacaoSistemaActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jAbrirMovimentoIndividual">
+                <MenuItem class="javax.swing.JMenuItem" name="jAbrirMovimentoTotal">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Abrir Movimentos do Sistema Individual"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirMovimentoIndividualActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirMovimentoTotalActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jAbrirTodosMovimentosData">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Abrir Todos os Movimentos Por Data"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirTodosMovimentosDataActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
