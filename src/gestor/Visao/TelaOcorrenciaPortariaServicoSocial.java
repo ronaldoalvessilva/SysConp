@@ -414,7 +414,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
         jTabelaOcorrenciaVisitasInternosPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOcorrenciaVisitasInternosPortaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -1124,7 +1124,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
         jTabelaVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisita.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Visitante", "Data Validade"
@@ -1320,7 +1320,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
         jTabelaOcorrencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOcorrencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome da Visita do Interno"
@@ -1612,7 +1612,8 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                     dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA WHERE DataReg BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
+                            + "WHERE DataReg BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
                 }
             }
         }
@@ -1625,7 +1626,8 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
         if (jIDPesqLanc.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um ID para pesquisa.");
         } else {
-            preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA WHERE IdReg='" + jIDPesqLanc.getText() + "'");
+            preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
+                    + "WHERE IdReg='" + jIDPesqLanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqIDActionPerformed
 
