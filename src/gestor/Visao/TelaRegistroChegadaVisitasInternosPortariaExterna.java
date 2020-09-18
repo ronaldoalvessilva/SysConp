@@ -361,7 +361,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         jTabelaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Nome da Visita do Interno", "Grau Parentesco"

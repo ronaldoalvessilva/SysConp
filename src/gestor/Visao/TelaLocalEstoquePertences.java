@@ -193,7 +193,7 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
         jTabelaLocalPertences.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLocalPertences.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Descrição do Local"
