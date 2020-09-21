@@ -227,7 +227,59 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jBtConfirmarCompras = new javax.swing.JButton();
         jCodigoRegistroCompras = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
+        jPanel62 = new javax.swing.JPanel();
+        jPanel63 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jBtAlterarLocacaoB1 = new javax.swing.JButton();
+        jBtConfirmarLocacaoB1 = new javax.swing.JButton();
+        jCodigoRegistroLocacaoB1 = new javax.swing.JTextField();
+        jPanel64 = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
+        jBtAlterarTransferenciaB1 = new javax.swing.JButton();
+        jBtConfirmarTransferenciaB1 = new javax.swing.JButton();
+        jCodigoRegistroTransferenciaB1 = new javax.swing.JTextField();
+        jPanel65 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jBtAlterarEntragaKitB1 = new javax.swing.JButton();
+        jBtConfirmarEntragaKitB1 = new javax.swing.JButton();
+        jCodigoRegistroEntragaKitB1 = new javax.swing.JTextField();
+        jPanel66 = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
+        jBtAlterarEscoltaB1 = new javax.swing.JButton();
+        jBtConfirmarEscoltaB1 = new javax.swing.JButton();
+        jCodigoRegistroEscoltaB1 = new javax.swing.JTextField();
+        jPanel67 = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jBtAlterarOcorrenciaB1 = new javax.swing.JButton();
+        jBtConfirmarOcorrenciaB1 = new javax.swing.JButton();
+        jCodigoRegistroOcorrenciaB1 = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
+        jPanel68 = new javax.swing.JPanel();
+        jPanel69 = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        jBtAlterarLocacaoB2 = new javax.swing.JButton();
+        jBtConfirmarLocacaoB2 = new javax.swing.JButton();
+        jCodigoRegistroLocacaoB2 = new javax.swing.JTextField();
+        jPanel70 = new javax.swing.JPanel();
+        jLabel45 = new javax.swing.JLabel();
+        jBtAlterarTransferenciaB2 = new javax.swing.JButton();
+        jBtConfirmarTransferenciaB2 = new javax.swing.JButton();
+        jCodigoRegistroTransferenciaB2 = new javax.swing.JTextField();
+        jPanel71 = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        jBtAlterarEntragaKitB2 = new javax.swing.JButton();
+        jBtConfirmarEntragaKitB2 = new javax.swing.JButton();
+        jCodigoRegistroEntragaKitB2 = new javax.swing.JTextField();
+        jPanel72 = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        jBtAlterarEscoltaB2 = new javax.swing.JButton();
+        jBtConfirmarEscoltaB2 = new javax.swing.JButton();
+        jCodigoRegistroEscoltaB2 = new javax.swing.JTextField();
+        jPanel73 = new javax.swing.JPanel();
+        jLabel48 = new javax.swing.JLabel();
+        jBtAlterarOcorrenciaB2 = new javax.swing.JButton();
+        jBtConfirmarOcorrenciaB2 = new javax.swing.JButton();
+        jCodigoRegistroOcorrenciaB2 = new javax.swing.JTextField();
         jPanel17 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
@@ -2531,9 +2583,9 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                             .addComponent(jPanel56, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel55, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel59, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel61, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel59, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel61, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(263, Short.MAX_VALUE))
         );
 
@@ -2583,28 +2635,706 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Almoxarifado", jPanel14);
 
+        jPanel62.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jPanel63.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locação de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel39.setText("Código Registro:");
+
+        jBtAlterarLocacaoB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarLocacaoB1.setText("Alterar");
+        jBtAlterarLocacaoB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarLocacaoB1ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarLocacaoB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarLocacaoB1.setText("Confirmar");
+        jBtConfirmarLocacaoB1.setEnabled(false);
+        jBtConfirmarLocacaoB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarLocacaoB1ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroLocacaoB1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroLocacaoB1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroLocacaoB1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel63Layout = new javax.swing.GroupLayout(jPanel63);
+        jPanel63.setLayout(jPanel63Layout);
+        jPanel63Layout.setHorizontalGroup(
+            jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel63Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel63Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarLocacaoB1)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel63Layout.createSequentialGroup()
+                        .addComponent(jLabel39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroLocacaoB1)
+                    .addComponent(jBtConfirmarLocacaoB1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel63Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarLocacaoB1, jBtConfirmarLocacaoB1});
+
+        jPanel63Layout.setVerticalGroup(
+            jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel63Layout.createSequentialGroup()
+                .addGroup(jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroLocacaoB1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel39))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarLocacaoB1)
+                    .addComponent(jBtConfirmarLocacaoB1))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel64.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Transferência de Pavilhão/Cela", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel40.setText("Código Registro:");
+
+        jBtAlterarTransferenciaB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarTransferenciaB1.setText("Alterar");
+        jBtAlterarTransferenciaB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarTransferenciaB1ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarTransferenciaB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarTransferenciaB1.setText("Confirmar");
+        jBtConfirmarTransferenciaB1.setEnabled(false);
+        jBtConfirmarTransferenciaB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarTransferenciaB1ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroTransferenciaB1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroTransferenciaB1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroTransferenciaB1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel64Layout = new javax.swing.GroupLayout(jPanel64);
+        jPanel64.setLayout(jPanel64Layout);
+        jPanel64Layout.setHorizontalGroup(
+            jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel64Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel64Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarTransferenciaB1)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel64Layout.createSequentialGroup()
+                        .addComponent(jLabel40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroTransferenciaB1)
+                    .addComponent(jBtConfirmarTransferenciaB1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel64Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarTransferenciaB1, jBtConfirmarTransferenciaB1});
+
+        jPanel64Layout.setVerticalGroup(
+            jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel64Layout.createSequentialGroup()
+                .addGroup(jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroTransferenciaB1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel64Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtAlterarTransferenciaB1)
+                    .addComponent(jBtConfirmarTransferenciaB1))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel65.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Entrega de Material - Kit Higiene", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel41.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel41.setText("Código Registro:");
+
+        jBtAlterarEntragaKitB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEntragaKitB1.setText("Alterar");
+        jBtAlterarEntragaKitB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEntragaKitB1ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarEntragaKitB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarEntragaKitB1.setText("Confirmar");
+        jBtConfirmarEntragaKitB1.setEnabled(false);
+        jBtConfirmarEntragaKitB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarEntragaKitB1ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroEntragaKitB1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroEntragaKitB1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroEntragaKitB1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel65Layout = new javax.swing.GroupLayout(jPanel65);
+        jPanel65.setLayout(jPanel65Layout);
+        jPanel65Layout.setHorizontalGroup(
+            jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel65Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel65Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarEntragaKitB1)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel65Layout.createSequentialGroup()
+                        .addComponent(jLabel41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroEntragaKitB1)
+                    .addComponent(jBtConfirmarEntragaKitB1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel65Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEntragaKitB1, jBtConfirmarEntragaKitB1});
+
+        jPanel65Layout.setVerticalGroup(
+            jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel65Layout.createSequentialGroup()
+                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroEntragaKitB1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarEntragaKitB1)
+                    .addComponent(jBtConfirmarEntragaKitB1))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel66.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Escolta de Interno - PSP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel42.setText("Código Registro:");
+
+        jBtAlterarEscoltaB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEscoltaB1.setText("Alterar");
+        jBtAlterarEscoltaB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEscoltaB1ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarEscoltaB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarEscoltaB1.setText("Confirmar");
+        jBtConfirmarEscoltaB1.setEnabled(false);
+        jBtConfirmarEscoltaB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarEscoltaB1ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroEscoltaB1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroEscoltaB1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroEscoltaB1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel66Layout = new javax.swing.GroupLayout(jPanel66);
+        jPanel66.setLayout(jPanel66Layout);
+        jPanel66Layout.setHorizontalGroup(
+            jPanel66Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel66Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel66Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel66Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarEscoltaB1)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel66Layout.createSequentialGroup()
+                        .addComponent(jLabel42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel66Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroEscoltaB1)
+                    .addComponent(jBtConfirmarEscoltaB1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel66Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEscoltaB1, jBtConfirmarEscoltaB1});
+
+        jPanel66Layout.setVerticalGroup(
+            jPanel66Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel66Layout.createSequentialGroup()
+                .addGroup(jPanel66Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroEscoltaB1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel42))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel66Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarEscoltaB1)
+                    .addComponent(jBtConfirmarEscoltaB1))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel67.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Livro Ocorrência", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel43.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel43.setText("Código Registro:");
+
+        jBtAlterarOcorrenciaB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarOcorrenciaB1.setText("Alterar");
+        jBtAlterarOcorrenciaB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarOcorrenciaB1ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarOcorrenciaB1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarOcorrenciaB1.setText("Confirmar");
+        jBtConfirmarOcorrenciaB1.setEnabled(false);
+        jBtConfirmarOcorrenciaB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarOcorrenciaB1ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroOcorrenciaB1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroOcorrenciaB1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroOcorrenciaB1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel67Layout = new javax.swing.GroupLayout(jPanel67);
+        jPanel67.setLayout(jPanel67Layout);
+        jPanel67Layout.setHorizontalGroup(
+            jPanel67Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel67Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel67Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel67Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarOcorrenciaB1)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel67Layout.createSequentialGroup()
+                        .addComponent(jLabel43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel67Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroOcorrenciaB1)
+                    .addComponent(jBtConfirmarOcorrenciaB1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel67Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarOcorrenciaB1, jBtConfirmarOcorrenciaB1});
+
+        jPanel67Layout.setVerticalGroup(
+            jPanel67Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel67Layout.createSequentialGroup()
+                .addGroup(jPanel67Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroOcorrenciaB1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel67Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarOcorrenciaB1)
+                    .addComponent(jBtConfirmarOcorrenciaB1))
+                .addGap(4, 4, 4))
+        );
+
+        javax.swing.GroupLayout jPanel62Layout = new javax.swing.GroupLayout(jPanel62);
+        jPanel62.setLayout(jPanel62Layout);
+        jPanel62Layout.setHorizontalGroup(
+            jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel62Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel63, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel66, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel67, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel65, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(493, Short.MAX_VALUE))
+        );
+        jPanel62Layout.setVerticalGroup(
+            jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel62Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel63, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel65, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel66, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel67, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel62, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel62, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Base I", jPanel15);
+
+        jPanel68.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jPanel69.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locação de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel44.setText("Código Registro:");
+
+        jBtAlterarLocacaoB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarLocacaoB2.setText("Alterar");
+        jBtAlterarLocacaoB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarLocacaoB2ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarLocacaoB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarLocacaoB2.setText("Confirmar");
+        jBtConfirmarLocacaoB2.setEnabled(false);
+        jBtConfirmarLocacaoB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarLocacaoB2ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroLocacaoB2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroLocacaoB2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroLocacaoB2.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel69Layout = new javax.swing.GroupLayout(jPanel69);
+        jPanel69.setLayout(jPanel69Layout);
+        jPanel69Layout.setHorizontalGroup(
+            jPanel69Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel69Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel69Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel69Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarLocacaoB2)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel69Layout.createSequentialGroup()
+                        .addComponent(jLabel44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel69Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroLocacaoB2)
+                    .addComponent(jBtConfirmarLocacaoB2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel69Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarLocacaoB2, jBtConfirmarLocacaoB2});
+
+        jPanel69Layout.setVerticalGroup(
+            jPanel69Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel69Layout.createSequentialGroup()
+                .addGroup(jPanel69Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroLocacaoB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel44))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel69Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarLocacaoB2)
+                    .addComponent(jBtConfirmarLocacaoB2))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel70.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Transferência de Pavilhão/Cela", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel45.setText("Código Registro:");
+
+        jBtAlterarTransferenciaB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarTransferenciaB2.setText("Alterar");
+        jBtAlterarTransferenciaB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarTransferenciaB2ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarTransferenciaB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarTransferenciaB2.setText("Confirmar");
+        jBtConfirmarTransferenciaB2.setEnabled(false);
+        jBtConfirmarTransferenciaB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarTransferenciaB2ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroTransferenciaB2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroTransferenciaB2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroTransferenciaB2.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel70Layout = new javax.swing.GroupLayout(jPanel70);
+        jPanel70.setLayout(jPanel70Layout);
+        jPanel70Layout.setHorizontalGroup(
+            jPanel70Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel70Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel70Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel70Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarTransferenciaB2)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel70Layout.createSequentialGroup()
+                        .addComponent(jLabel45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel70Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroTransferenciaB2)
+                    .addComponent(jBtConfirmarTransferenciaB2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel70Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarTransferenciaB2, jBtConfirmarTransferenciaB2});
+
+        jPanel70Layout.setVerticalGroup(
+            jPanel70Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel70Layout.createSequentialGroup()
+                .addGroup(jPanel70Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroTransferenciaB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel45))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel70Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtAlterarTransferenciaB2)
+                    .addComponent(jBtConfirmarTransferenciaB2))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel71.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Entrega de Material - Kit Higiene", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel46.setText("Código Registro:");
+
+        jBtAlterarEntragaKitB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEntragaKitB2.setText("Alterar");
+        jBtAlterarEntragaKitB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEntragaKitB2ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarEntragaKitB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarEntragaKitB2.setText("Confirmar");
+        jBtConfirmarEntragaKitB2.setEnabled(false);
+        jBtConfirmarEntragaKitB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarEntragaKitB2ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroEntragaKitB2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroEntragaKitB2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroEntragaKitB2.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel71Layout = new javax.swing.GroupLayout(jPanel71);
+        jPanel71.setLayout(jPanel71Layout);
+        jPanel71Layout.setHorizontalGroup(
+            jPanel71Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel71Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel71Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel71Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarEntragaKitB2)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel71Layout.createSequentialGroup()
+                        .addComponent(jLabel46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel71Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroEntragaKitB2)
+                    .addComponent(jBtConfirmarEntragaKitB2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel71Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEntragaKitB2, jBtConfirmarEntragaKitB2});
+
+        jPanel71Layout.setVerticalGroup(
+            jPanel71Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel71Layout.createSequentialGroup()
+                .addGroup(jPanel71Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroEntragaKitB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel46))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel71Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarEntragaKitB2)
+                    .addComponent(jBtConfirmarEntragaKitB2))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel72.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Escolta de Interno - PSP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel47.setText("Código Registro:");
+
+        jBtAlterarEscoltaB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEscoltaB2.setText("Alterar");
+        jBtAlterarEscoltaB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEscoltaB2ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarEscoltaB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarEscoltaB2.setText("Confirmar");
+        jBtConfirmarEscoltaB2.setEnabled(false);
+        jBtConfirmarEscoltaB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarEscoltaB2ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroEscoltaB2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroEscoltaB2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroEscoltaB2.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel72Layout = new javax.swing.GroupLayout(jPanel72);
+        jPanel72.setLayout(jPanel72Layout);
+        jPanel72Layout.setHorizontalGroup(
+            jPanel72Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel72Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel72Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel72Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarEscoltaB2)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel72Layout.createSequentialGroup()
+                        .addComponent(jLabel47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel72Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroEscoltaB2)
+                    .addComponent(jBtConfirmarEscoltaB2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel72Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEscoltaB2, jBtConfirmarEscoltaB2});
+
+        jPanel72Layout.setVerticalGroup(
+            jPanel72Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel72Layout.createSequentialGroup()
+                .addGroup(jPanel72Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroEscoltaB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel47))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel72Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarEscoltaB2)
+                    .addComponent(jBtConfirmarEscoltaB2))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel73.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Livro Ocorrência", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel48.setText("Código Registro:");
+
+        jBtAlterarOcorrenciaB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarOcorrenciaB2.setText("Alterar");
+        jBtAlterarOcorrenciaB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarOcorrenciaB2ActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarOcorrenciaB2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarOcorrenciaB2.setText("Confirmar");
+        jBtConfirmarOcorrenciaB2.setEnabled(false);
+        jBtConfirmarOcorrenciaB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarOcorrenciaB2ActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroOcorrenciaB2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroOcorrenciaB2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroOcorrenciaB2.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel73Layout = new javax.swing.GroupLayout(jPanel73);
+        jPanel73.setLayout(jPanel73Layout);
+        jPanel73Layout.setHorizontalGroup(
+            jPanel73Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel73Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel73Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel73Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarOcorrenciaB2)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel73Layout.createSequentialGroup()
+                        .addComponent(jLabel48)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel73Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroOcorrenciaB2)
+                    .addComponent(jBtConfirmarOcorrenciaB2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel73Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarOcorrenciaB2, jBtConfirmarOcorrenciaB2});
+
+        jPanel73Layout.setVerticalGroup(
+            jPanel73Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel73Layout.createSequentialGroup()
+                .addGroup(jPanel73Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroOcorrenciaB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel48))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel73Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarOcorrenciaB2)
+                    .addComponent(jBtConfirmarOcorrenciaB2))
+                .addGap(4, 4, 4))
+        );
+
+        javax.swing.GroupLayout jPanel68Layout = new javax.swing.GroupLayout(jPanel68);
+        jPanel68.setLayout(jPanel68Layout);
+        jPanel68Layout.setHorizontalGroup(
+            jPanel68Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel68Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel68Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel69, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel72, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel73, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel68Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel71, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel70, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(493, Short.MAX_VALUE))
+        );
+        jPanel68Layout.setVerticalGroup(
+            jPanel68Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel68Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel69, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel70, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel71, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel72, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel73, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel68, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel68, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Base II", jPanel16);
@@ -3831,6 +4561,171 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtConfirmarComprasActionPerformed
 
+    private void jBtAlterarLocacaoB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarLocacaoB1ActionPerformed
+        // TODO add your handling code here:
+        jBtAlterarLocacao.setEnabled(!true);
+        jCodigoRegistroLocacao.setEnabled(true);
+        jBtConfirmarLocacao.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }//GEN-LAST:event_jBtAlterarLocacaoB1ActionPerformed
+
+    private void jBtConfirmarLocacaoB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarLocacaoB1ActionPerformed
+        // TODO add your handling code here:
+        if (jCodigoRegistroLocacao.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroLocacao.getText()));
+                control.alterar_LOCACAO(objAbriNov);
+                confirmarLOCACAO();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarLocacaoB1ActionPerformed
+
+    private void jBtAlterarTransferenciaB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarTransferenciaB1ActionPerformed
+        // TODO add your handling code here:
+        jBtAlterarTransferencia.setEnabled(!true);
+        jCodigoRegistroTransferencia.setEnabled(true);
+        jBtConfirmarTransferencia.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }//GEN-LAST:event_jBtAlterarTransferenciaB1ActionPerformed
+
+    private void jBtConfirmarTransferenciaB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarTransferenciaB1ActionPerformed
+        // TODO add your handling code here:
+        if (jCodigoRegistroTransferencia.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroTransferencia.getText()));
+                control.alterar_TRANSFERENCIA(objAbriNov);
+                confirmarTRANSFERENCIA();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarTransferenciaB1ActionPerformed
+
+    private void jBtAlterarEntragaKitB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEntragaKitB1ActionPerformed
+        // TODO add your handling code here:
+        jBtAlterarEntragaKitB1.setEnabled(!true);
+        jCodigoRegistroEntragaKitB1.setEnabled(true);
+        jBtConfirmarEntragaKitB1.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }//GEN-LAST:event_jBtAlterarEntragaKitB1ActionPerformed
+
+    private void jBtConfirmarEntragaKitB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarEntragaKitB1ActionPerformed
+        // TODO add your handling code here:
+        if (jCodigoRegistroEntragaKitB1.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroEntragaKitB1.getText()));
+                control.alterar_ENTREGA_KIT_B1(objAbriNov);
+                confirmarENTREGA_KIT();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarEntragaKitB1ActionPerformed
+
+    private void jBtAlterarEscoltaB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEscoltaB1ActionPerformed
+        // TODO add your handling code here:
+        jBtAlterarEscoltaB1.setEnabled(!true);
+        jCodigoRegistroEscoltaB1.setEnabled(true);
+        jBtConfirmarEscoltaB1.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }//GEN-LAST:event_jBtAlterarEscoltaB1ActionPerformed
+
+    private void jBtConfirmarEscoltaB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarEscoltaB1ActionPerformed
+        // TODO add your handling code here:
+        if (jCodigoRegistroEscoltaB1.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroEscoltaB1.getText()));
+                control.alterar_ESCOLTA_B1(objAbriNov);
+                confirmarESCOLTA_INTERNO_PSP();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarEscoltaB1ActionPerformed
+
+    private void jBtAlterarOcorrenciaB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarOcorrenciaB1ActionPerformed
+        // TODO add your handling code here:
+        jBtAlterarOcorrenciaB1.setEnabled(!true);
+        jCodigoRegistroOcorrenciaB1.setEnabled(true);
+        jBtConfirmarOcorrenciaB1.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }//GEN-LAST:event_jBtAlterarOcorrenciaB1ActionPerformed
+
+    private void jBtConfirmarOcorrenciaB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarOcorrenciaB1ActionPerformed
+        // TODO add your handling code here:
+        if (jCodigoRegistroOcorrenciaB1.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroOcorrenciaB1.getText()));
+                control.alterarLIVRO_OCORRENCIA_B1(objAbriNov);
+                livroOCORRENCIA_B1();                
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarOcorrenciaB1ActionPerformed
+
+    private void jBtAlterarLocacaoB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarLocacaoB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAlterarLocacaoB2ActionPerformed
+
+    private void jBtConfirmarLocacaoB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarLocacaoB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtConfirmarLocacaoB2ActionPerformed
+
+    private void jBtAlterarTransferenciaB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarTransferenciaB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAlterarTransferenciaB2ActionPerformed
+
+    private void jBtConfirmarTransferenciaB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarTransferenciaB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtConfirmarTransferenciaB2ActionPerformed
+
+    private void jBtAlterarEntragaKitB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEntragaKitB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAlterarEntragaKitB2ActionPerformed
+
+    private void jBtConfirmarEntragaKitB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarEntragaKitB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtConfirmarEntragaKitB2ActionPerformed
+
+    private void jBtAlterarEscoltaB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEscoltaB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAlterarEscoltaB2ActionPerformed
+
+    private void jBtConfirmarEscoltaB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarEscoltaB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtConfirmarEscoltaB2ActionPerformed
+
+    private void jBtAlterarOcorrenciaB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarOcorrenciaB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAlterarOcorrenciaB2ActionPerformed
+
+    private void jBtConfirmarOcorrenciaB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarOcorrenciaB2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtConfirmarOcorrenciaB2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterarBloqueio;
@@ -3838,15 +4733,23 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterarCompras;
     private javax.swing.JButton jBtAlterarDepositos;
     private javax.swing.JButton jBtAlterarEntradaPertences;
+    private javax.swing.JButton jBtAlterarEntragaKitB1;
+    private javax.swing.JButton jBtAlterarEntragaKitB2;
+    private javax.swing.JButton jBtAlterarEscoltaB1;
+    private javax.swing.JButton jBtAlterarEscoltaB2;
     private javax.swing.JButton jBtAlterarEstorno;
     private javax.swing.JButton jBtAlterarInternos;
     private javax.swing.JButton jBtAlterarInventario;
     private javax.swing.JButton jBtAlterarKitInd;
     private javax.swing.JButton jBtAlterarLivroOcorre;
     private javax.swing.JButton jBtAlterarLocacao;
+    private javax.swing.JButton jBtAlterarLocacaoB1;
+    private javax.swing.JButton jBtAlterarLocacaoB2;
     private javax.swing.JButton jBtAlterarMontagem;
     private javax.swing.JButton jBtAlterarNF;
     private javax.swing.JButton jBtAlterarNIN;
+    private javax.swing.JButton jBtAlterarOcorrenciaB1;
+    private javax.swing.JButton jBtAlterarOcorrenciaB2;
     private javax.swing.JButton jBtAlterarOcorrenciaInd;
     private javax.swing.JButton jBtAlterarOcorrencias;
     private javax.swing.JButton jBtAlterarOcorrenciasPE;
@@ -3861,6 +4764,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterarRevista;
     private javax.swing.JButton jBtAlterarSaidaPertences;
     private javax.swing.JButton jBtAlterarTransferencia;
+    private javax.swing.JButton jBtAlterarTransferenciaB1;
+    private javax.swing.JButton jBtAlterarTransferenciaB2;
     private javax.swing.JButton jBtAlterarValores;
     private javax.swing.JButton jBtAlterarVeiculos;
     private javax.swing.JButton jBtAlterarVeiculosPE;
@@ -3875,14 +4780,22 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtConfirmarCompras;
     private javax.swing.JButton jBtConfirmarDepositos;
     private javax.swing.JButton jBtConfirmarEntradaPertences;
+    private javax.swing.JButton jBtConfirmarEntragaKitB1;
+    private javax.swing.JButton jBtConfirmarEntragaKitB2;
+    private javax.swing.JButton jBtConfirmarEscoltaB1;
+    private javax.swing.JButton jBtConfirmarEscoltaB2;
     private javax.swing.JButton jBtConfirmarEstorno;
     private javax.swing.JButton jBtConfirmarInventario;
     private javax.swing.JButton jBtConfirmarKitInd;
     private javax.swing.JButton jBtConfirmarLivroOcorre;
     private javax.swing.JButton jBtConfirmarLocacao;
+    private javax.swing.JButton jBtConfirmarLocacaoB1;
+    private javax.swing.JButton jBtConfirmarLocacaoB2;
     private javax.swing.JButton jBtConfirmarMontagem;
     private javax.swing.JButton jBtConfirmarNF;
     private javax.swing.JButton jBtConfirmarNIN;
+    private javax.swing.JButton jBtConfirmarOcorrenciaB1;
+    private javax.swing.JButton jBtConfirmarOcorrenciaB2;
     private javax.swing.JButton jBtConfirmarOcorrenciaInd;
     private javax.swing.JButton jBtConfirmarOcorrencias;
     private javax.swing.JButton jBtConfirmarOcorrenciasPE;
@@ -3896,6 +4809,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtConfirmarRevista;
     private javax.swing.JButton jBtConfirmarSaidaPertences;
     private javax.swing.JButton jBtConfirmarTransferencia;
+    private javax.swing.JButton jBtConfirmarTransferenciaB1;
+    private javax.swing.JButton jBtConfirmarTransferenciaB2;
     private javax.swing.JButton jBtConfirmarValores;
     private javax.swing.JButton jBtSair;
     private javax.swing.JTextField jCodigoDeposito;
@@ -3912,20 +4827,30 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jCodigoRegistroChegada;
     private javax.swing.JTextField jCodigoRegistroCompras;
     private javax.swing.JTextField jCodigoRegistroEntradaPertences;
+    private javax.swing.JTextField jCodigoRegistroEntragaKitB1;
+    private javax.swing.JTextField jCodigoRegistroEntragaKitB2;
+    private javax.swing.JTextField jCodigoRegistroEscoltaB1;
+    private javax.swing.JTextField jCodigoRegistroEscoltaB2;
     private javax.swing.JTextField jCodigoRegistroEstorno;
     private javax.swing.JTextField jCodigoRegistroInventario;
     private javax.swing.JTextField jCodigoRegistroKitInd;
     private javax.swing.JTextField jCodigoRegistroLivroOcorre;
     private javax.swing.JTextField jCodigoRegistroLocacao;
+    private javax.swing.JTextField jCodigoRegistroLocacaoB1;
+    private javax.swing.JTextField jCodigoRegistroLocacaoB2;
     private javax.swing.JTextField jCodigoRegistroMontagem;
     private javax.swing.JTextField jCodigoRegistroNF;
     private javax.swing.JTextField jCodigoRegistroNIN;
+    private javax.swing.JTextField jCodigoRegistroOcorrenciaB1;
+    private javax.swing.JTextField jCodigoRegistroOcorrenciaB2;
     private javax.swing.JTextField jCodigoRegistroPenalidade;
     private javax.swing.JTextField jCodigoRegistroPertencesGTE;
     private javax.swing.JTextField jCodigoRegistroRequisicao;
     private javax.swing.JTextField jCodigoRegistroRevista;
     private javax.swing.JTextField jCodigoRegistroSaidaPertences;
     private javax.swing.JTextField jCodigoRegistroTransferencia;
+    private javax.swing.JTextField jCodigoRegistroTransferenciaB1;
+    private javax.swing.JTextField jCodigoRegistroTransferenciaB2;
     private javax.swing.JTextField jCodigoRegistroValores;
     private javax.swing.JTextField jCodigoVeiculo;
     private javax.swing.JTextField jCodigoVeiculoPE;
@@ -3967,7 +4892,17 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -4031,7 +4966,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel60;
     private javax.swing.JPanel jPanel61;
+    private javax.swing.JPanel jPanel62;
+    private javax.swing.JPanel jPanel63;
+    private javax.swing.JPanel jPanel64;
+    private javax.swing.JPanel jPanel65;
+    private javax.swing.JPanel jPanel66;
+    private javax.swing.JPanel jPanel67;
+    private javax.swing.JPanel jPanel68;
+    private javax.swing.JPanel jPanel69;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel70;
+    private javax.swing.JPanel jPanel71;
+    private javax.swing.JPanel jPanel72;
+    private javax.swing.JPanel jPanel73;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -4274,11 +5221,33 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jBtConfirmarCancelaPK.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
     }
-    
-    public void confirmarSOL_COMPRAS(){
+
+    public void confirmarSOL_COMPRAS() {
         jCodigoRegistroCompras.setEnabled(!true);
         jBtAlterarCompras.setEnabled(true);
         jBtConfirmarCompras.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    //------------------------------------------ BASE I ---------------------------------------------------------
+    public void confirmarENTREGA_KIT() {
+        jCodigoRegistroEntragaKitB1.setEnabled(!true);
+        jBtAlterarEntragaKitB1.setEnabled(true);
+        jBtConfirmarEntragaKitB1.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarESCOLTA_INTERNO_PSP() {
+        jCodigoRegistroEscoltaB1.setEnabled(!true);
+        jBtAlterarEscoltaB1.setEnabled(true);
+        jBtConfirmarEscoltaB1.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void livroOCORRENCIA_B1() {
+        jCodigoRegistroOcorrenciaB1.setEnabled(!true);
+        jBtAlterarOcorrenciaB1.setEnabled(true);
+        jBtConfirmarOcorrenciaB1.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
     }
 }
