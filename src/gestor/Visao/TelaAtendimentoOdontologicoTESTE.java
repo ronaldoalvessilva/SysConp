@@ -259,7 +259,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jRBFaceTres = new javax.swing.JCheckBox();
         jRBFaceQuatro = new javax.swing.JCheckBox();
         jRBFaceCinco = new javax.swing.JCheckBox();
-        jRBFaceCinco1 = new javax.swing.JCheckBox();
+        jRBFaceTodas = new javax.swing.JCheckBox();
         jPanel12 = new javax.swing.JPanel();
         jNumeroDente = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
@@ -1691,12 +1691,12 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             }
         });
 
-        jRBFaceCinco1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFaceCinco1.setForeground(new java.awt.Color(0, 0, 0));
-        jRBFaceCinco1.setText("Todas");
-        jRBFaceCinco1.addActionListener(new java.awt.event.ActionListener() {
+        jRBFaceTodas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBFaceTodas.setForeground(new java.awt.Color(0, 0, 0));
+        jRBFaceTodas.setText("Todas");
+        jRBFaceTodas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRBFaceCinco1ActionPerformed(evt);
+                jRBFaceTodasActionPerformed(evt);
             }
         });
 
@@ -1713,7 +1713,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                         .addComponent(jRBFaceDois, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jRBFaceUm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jRBFaceCinco)
-                    .addComponent(jRBFaceCinco1))
+                    .addComponent(jRBFaceTodas))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -1729,7 +1729,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRBFaceCinco, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jRBFaceCinco1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jRBFaceTodas, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
         );
 
@@ -7830,12 +7830,28 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     }//GEN-LAST:event_jRBFaceCincoActionPerformed
 
     private void jBtFaceInferior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFaceInferior1ActionPerformed
-        
+        if (jRBFaceCinco.isSelected()){           
+            jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorAmarela.png")));           
+        }else{
+            jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorTransparente.png")));
+        }
     }//GEN-LAST:event_jBtFaceInferior1ActionPerformed
 
-    private void jRBFaceCinco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceCinco1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRBFaceCinco1ActionPerformed
+    private void jRBFaceTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceTodasActionPerformed
+        if (jRBFaceTodas.isSelected()) {
+            jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorVerde.png")));
+            jBtFaceEsquerda1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaAzul.png")));
+            jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorAmarela.png")));
+            jBTFaceDireita1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaCinza.png")));
+            jBtFaceCentral1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralVermelha.png")));
+        } else {
+            jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorTransparente.png")));
+            jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorTransparente.png")));
+            jBTFaceDireita1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaTransparente.png")));
+            jBtFaceEsquerda1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaTransparente.png")));
+            jBtFaceCentral1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralTransparente.png")));
+        }
+    }//GEN-LAST:event_jRBFaceTodasActionPerformed
 
     private Icon denteUm(String pDente){
       Icon dentes = new ImageIcon(getClass().getResource(pDente));
@@ -8224,9 +8240,9 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JTextField jQualOutraDoenca;
     private javax.swing.JTextField jQueixaPrincipal;
     private javax.swing.JCheckBox jRBFaceCinco;
-    private javax.swing.JCheckBox jRBFaceCinco1;
     private javax.swing.JCheckBox jRBFaceDois;
     private javax.swing.JCheckBox jRBFaceQuatro;
+    private javax.swing.JCheckBox jRBFaceTodas;
     private javax.swing.JCheckBox jRBFaceTodas1;
     private javax.swing.JCheckBox jRBFaceTres;
     private javax.swing.JCheckBox jRBFaceUm;
