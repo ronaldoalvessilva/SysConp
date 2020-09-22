@@ -187,7 +187,6 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         jRBtUmaUm = new javax.swing.JRadioButton();
         jRBtVarios = new javax.swing.JRadioButton();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
         setClosable(true);
         setIconifiable(true);
         setTitle("...::: Pré-Locação de Internos :::...");
@@ -862,7 +861,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -942,7 +941,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
 
-        setBounds(250, 30, 955, 454);
+        setBounds(250, 30, 959, 454);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
