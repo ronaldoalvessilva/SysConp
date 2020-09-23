@@ -981,4 +981,7 @@ public class ControleAbrirMovimentacao {
         conecta.desconecta();
         return objAbriNov;
     }
+    
+    //----------------------------------------------------- SERVIÇO SOCIAL -----------------------------------------------------------------------
+    
 }

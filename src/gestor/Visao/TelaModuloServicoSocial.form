@@ -307,7 +307,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jOcorrenciasServicoSocial">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ocorr&#xea;ncias do Servi&#xe7;o Social"/>
+                <Property name="text" type="java.lang.String" value="Livro de Ocorr&#xea;ncias"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jOcorrenciasServicoSocialActionPerformed"/>

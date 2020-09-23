@@ -686,7 +686,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jMenu2.add(ControleLigacoes);
         jMenu2.add(jSeparator12);
 
-        jOcorrenciasServicoSocial.setText("Ocorrências do Serviço Social");
+        jOcorrenciasServicoSocial.setText("Livro de Ocorrências");
         jOcorrenciasServicoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jOcorrenciasServicoSocialActionPerformed(evt);
