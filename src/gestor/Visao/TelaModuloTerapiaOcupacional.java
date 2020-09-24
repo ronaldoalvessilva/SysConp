@@ -607,7 +607,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu2.add(ControleDiasTrabalhados);
 
-        jAtendimentoTOGrupo.setText("Atendimento TO em Grupo");
+        jAtendimentoTOGrupo.setText("Atendimento em Grupo");
         jAtendimentoTOGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAtendimentoTOGrupoActionPerformed(evt);

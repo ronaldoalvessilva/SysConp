@@ -1150,4 +1150,469 @@ public class ControleAbrirMovimentacao {
         conecta.desconecta();
         return objAbriNov;
     }
+
+    //----------------------------------------------------- PEDAGOGIA -------------------------------------------------------------------
+    public AbrirMovimentos alterarRESERVA_acervo(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RESERVA_ACERVO SET StatusLanc=? WHERE IdReserva='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarEMPRESTIMO_acervo(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RESERVA_ACERVO SET StatusLanc=? WHERE IdReserva='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarDEVOLUCAO_acervo(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE DEVOLUCAO_ACERVO SET StatusLanc=? WHERE IdDevolucao='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarCOMPRAS_livros(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPRAS_ACERVO SET StatusLanc=? WHERE IdCompra='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarINVENTARIO(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INVENTARIO_LIVROS SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarADM_pedagogia(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAO_PEDAGOGIA SET StatusAdm=? WHERE IdAdm='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarADM_pedagogia_comp(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAO_PEDAGOGIA_NOVA SET StatusAdmNova=? WHERE IdAdm='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarMATRICULAS(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MATRICULAESCOLAR SET StatusMat=? WHERE IdMat='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarCONCLUIR_matricula(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATUALIZAR_MATRICULA_INTERNO SET StatusAtual=? WHERE IdAtual='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarCONTROLE_frequencia(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA SET StatusFreq=? WHERE IdFreq='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarBAIXA_internos(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE BAIXAINTERNOS SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarATIVIDADES_comp(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_COMPLEMENTARES_PEDAGOGICA SET StatusAC=? WHERE IdAC='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarATENDIMENTO_grupo_peda(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_PE SET StatusAtendGrupo=? WHERE IdAtGrupoPE='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarCONTROLE_FREQ_cursos(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA SET StatusFAC=? WHERE IdFAC='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarREMISSAO_leitura(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RESENHA_REMICAO_INTERNO SET StatusResenha=? WHERE IdResenha='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarATUALIZACAO_escolaridade(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATUALIZACAO_DOCUMENTOS_INTERNOS SET StatusDoc=? WHERE CodigoDoc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarCONTROLE_DIAS_horas(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_PEDAGOGIA_EXTERNA SET StatusFreqLab=? WHERE IdFreqLab='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarASSISTENCIA_educacao(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ASSISTENCIA_EDUCACAO_EXTERNA SET StatusLanc=? WHERE IdEduca='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarOCORR_peda(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OCORRENCIAS_PE SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    //------------------------------------------------------- TERAPIA OCUPACIONAL -------------------------------------------------------------------
+    public AbrirMovimentos alterarADMISSAO_to(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOTERAPIA SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarADMISSAO_COMP_to(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAO_TERAPIA_PE SET StatusLanc=? WHERE IdATN='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarTRIAGEM_to(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TRIAGEM_OCUPACIONAL SET StatusLanc=? WHERE IdTriagem='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarCONTROLE_DIAS_to(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_LABORATIVA_EXTERNA SET StatusFreqLab=? WHERE IdFreqLab='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarATENDIMENTO_grupo_to(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_TO SET StatusAtendGrupo=? WHERE IdAtGrupoTO='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarOCORR_to(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OCORRENCIAS_TO SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarCAPACITACAO_oficinas(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CAPACITACAO_INTERNO_TO SET StatusRegistro=? WHERE IdCap='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarFREQUENCIA_cursos(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_CAPACITACAO_INTERNO_TO SET StatusRegistro=? WHERE IdFreqCap='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    //------------------------------------------------------ JURÍDICO --------------------------------------------------------------------
+    public AbrirMovimentos alterarADMISSAO_jur(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOJURIDICO SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterarADMISSAO_COMP_jur(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAO_JURIDICO_ADICIONAL SET StatusLanc=? WHERE IdADM_JURI='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+    
+    public AbrirMovimentos alterarFICHA_juridica(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FICHA_JURIDICA SET StatusFicha=? WHERE IdFicha='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+    
+    public AbrirMovimentos alterarATENDIMENTO_familiar(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOFAMILIARJURIDICO SET StatusAtendf=? WHERE IdAtendf='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+    
+    public AbrirMovimentos alterarAUDIENCIA_justificativa(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AUDIENCIAS SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+    
+    public AbrirMovimentos alterarOCORR_jur(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OCORRENCIAS_JU SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
 }
