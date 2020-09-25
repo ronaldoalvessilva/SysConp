@@ -500,7 +500,7 @@ public class TelaEntradaProdutosNUTRI extends javax.swing.JInternalFrame {
         jTabelaNFeCompras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaNFeCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Dt. Emissão", "Status NFE", "Dt.  Entrada", "Fornecedor", "Valor NFE"
@@ -1482,7 +1482,7 @@ public class TelaEntradaProdutosNUTRI extends javax.swing.JInternalFrame {
         jTabelaItensNFeCompras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensNFeCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição Produto", "Qtd.", "Valor UN", "Data Vl.", "Lote"
@@ -1767,7 +1767,7 @@ public class TelaEntradaProdutosNUTRI extends javax.swing.JInternalFrame {
         jTabelaParcelas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaParcelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Códgo", "Vencimento", "Valor Parcela", "Valor Doc."

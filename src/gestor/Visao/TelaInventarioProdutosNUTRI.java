@@ -302,7 +302,7 @@ public class TelaInventarioProdutosNUTRI extends javax.swing.JInternalFrame {
         jTabelaInventarioEstoque.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInventarioEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -820,7 +820,7 @@ public class TelaInventarioProdutosNUTRI extends javax.swing.JInternalFrame {
         jTabelaItensProdutoInvent.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensProdutoInvent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Lote", "Data Validade"
