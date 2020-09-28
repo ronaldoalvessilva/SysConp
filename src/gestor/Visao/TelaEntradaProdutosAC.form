@@ -1041,8 +1041,9 @@
                 <Component class="javax.swing.JFormattedTextField" name="jNrNFe">
                   <Properties>
                     <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                      <Format format="##########" subtype="-1" type="5"/>
+                      <Format format="#########" subtype="-1" type="5"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
                   </Properties>
                 </Component>
               </SubComponents>
