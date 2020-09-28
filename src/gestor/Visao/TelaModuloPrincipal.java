@@ -320,7 +320,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemPortariaExterna = new javax.swing.JMenuItem();
         jMenuItemTriagem = new javax.swing.JMenuItem();
         jMenuConfiguracoes = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jConfiguracoesF2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jPRORES = new javax.swing.JMenuItem();
         jMenuSobre = new javax.swing.JMenu();
@@ -1268,16 +1268,16 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Configuração18.png"))); // NOI18N
-        jMenuItem2.setMnemonic('C');
-        jMenuItem2.setText("Configurações");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jConfiguracoesF2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jConfiguracoesF2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Configuração18.png"))); // NOI18N
+        jConfiguracoesF2.setMnemonic('C');
+        jConfiguracoesF2.setText("Configurações");
+        jConfiguracoesF2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jConfiguracoesF2ActionPerformed(evt);
             }
         });
-        jMenuConfiguracoes.add(jMenuItem2);
+        jMenuConfiguracoes.add(jConfiguracoesF2);
 
         jMenuBar1.add(jMenuConfiguracoes);
 
@@ -7245,7 +7245,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuSobreMenuKeyPressed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jConfiguracoesF2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfiguracoesF2ActionPerformed
         // TODO add your handling code here:
         String grupoAdm = "ADMINISTRADORES";
         String permissaoGrupoAdm = "Sim";
@@ -7327,7 +7327,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jConfiguracoesF2ActionPerformed
 
     private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
         Produtividade pPSP = new Produtividade();
@@ -7548,6 +7548,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBtTerapeuta2;
     private javax.swing.JButton jBtTriagem;
     private javax.swing.JButton jBtTrocarSenha;
+    private javax.swing.JMenuItem jConfiguracoesF2;
     public static javax.swing.JTextField jDataSistema;
     public static javax.swing.JTextField jHoraSistema;
     private javax.swing.JLabel jLabel1;
@@ -7572,7 +7573,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenu jMenuConfiguracoes;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemAlmoxarifado;
     private javax.swing.JMenuItem jMenuItemBancoVirtual;
     private javax.swing.JMenuItem jMenuItemBase1;

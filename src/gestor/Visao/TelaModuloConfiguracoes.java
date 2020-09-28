@@ -56,7 +56,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     //
     int tempo = (1000 * 60) * 5;   // 5 min.  
     int periodo = 1;  // quantidade de vezes a ser executado.  
-    //
 
     /**
      * Creates new form TelaConfiguracoes
@@ -648,8 +647,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         }, periodo, tempo);
     }
-// Chama a calculadora de pena para o java
-
+    
+    // Chama a calculadora de pena para o java
     public void calcPena() {
         try {
             Runtime.getRuntime().exec("cmd.exe /c start calcpena.exe");
@@ -657,8 +656,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             iOException.printStackTrace();
         }
     }
-// Calculadora do Windows
-
+    
+    // Calculadora do Windows
     public void CalcWindows() {
         try {
             Runtime.getRuntime().exec("cmd.exe /c start calc.exe");

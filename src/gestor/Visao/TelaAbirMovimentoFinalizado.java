@@ -14369,6 +14369,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
+        //PORTARIA INTERNA
         jComboBoxAcessosPessoas.setBackground(Color.white);
         jCodigoPessoa.setBackground(Color.white);
         //
@@ -14392,6 +14393,139 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroATM.setBackground(Color.white);
         //GERENCIA OPERACIONAL
         jCodigoRegistroLocacao.setBackground(Color.white);
+        jCodigoRegistroTransferencia.setBackground(Color.white);
+        jCodigoRegistroPertencesGTE.setBackground(Color.white);
+        jCodigoRegistroValores.setBackground(Color.white);
+        jCodigoRegistroRevista.setBackground(Color.white);
+        jCodigoRegistroEntradaPertences.setBackground(Color.white);
+        jCodigoRegistroPenalidade.setBackground(Color.white);
+        jCodigoRegistroSaidaPertences.setBackground(Color.white);
+        jCodigoRegistroLivroOcorre.setBackground(Color.white);
+        jCodigoRegistroBloqueio.setBackground(Color.white);
+        jCodigoRegistroNIN.setBackground(Color.white);
+        //ALMOXARIFADO
+        jCodigoRegistroNF.setBackground(Color.white);
+        jCodigoRegistroEstorno.setBackground(Color.white);
+        jCodigoRegistroInventario.setBackground(Color.white);
+        jCodigoRegistroCancelaPK.setBackground(Color.white);
+        jCodigoRegistroMontagem.setBackground(Color.white);
+        jCodigoRegistroCompras.setBackground(Color.white);
+        jCodigoRegistroKitInd.setBackground(Color.white);
+        jCodigoRegistroRequisicao.setBackground(Color.white);
+        //BASE I
+        jCodigoRegistroLocacaoB1.setBackground(Color.white);
+        jCodigoRegistroTransferenciaB1.setBackground(Color.white);
+        jCodigoRegistroEntragaKitB1.setBackground(Color.white);
+        jCodigoRegistroEscoltaB1.setBackground(Color.white);
+        jCodigoRegistroOcorrenciaB1.setBackground(Color.white);
+        //BASE II
+        jCodigoRegistroLocacaoB2.setBackground(Color.white);
+        jCodigoRegistroTransferenciaB2.setBackground(Color.white);
+        jCodigoRegistroEntragaKitB2.setBackground(Color.white);
+        jCodigoRegistroEscoltaB2.setBackground(Color.white);
+        jCodigoRegistroOcorrenciaB2.setBackground(Color.white);
+        //TRIAGEM
+        jCodigoRegistroLocacaoTRI.setBackground(Color.white);
+        //ENFERMAGEM
+        jCodigoRegistroADM_medica.setBackground(Color.white);
+        jCodigoRegistroADM_medica_comp.setBackground(Color.white);
+        jCodigoRegistroADM_enfermagem.setBackground(Color.white);
+        jCodigoRegistroAVA_medica.setBackground(Color.white);
+        jCodigoRegistroSOLI_exames.setBackground(Color.white);
+        jCodigoRegistroADM_enfermagem_comp.setBackground(Color.white);
+        jCodigoRegistroENCA_cirurgias.setBackground(Color.white);
+        jCodigoRegistroCALENDARIO_vacinas.setBackground(Color.white);
+        jCodigoRegistroATEND_tec_enfermagem.setBackground(Color.white);
+        jCodigoRegistroHISTORICO_doe.setBackground(Color.white);
+        jCodigoRegistroATENDIMENTO_grupo.setBackground(Color.white);
+        jCodigoRegistroOCORRE_tec_enfermagem.setBackground(Color.white);
+        jCodigoRegistroAPRAZA_medico.setBackground(Color.white);
+        jCodigoRegistroPERFIL_carcerario.setBackground(Color.white);
+        //ODONTOLOGIA
+        jCodigoRegistroADM_odonto.setBackground(Color.white);
+        jCodigoRegistroOCORRE_odonto.setBackground(Color.white);
+        //PSICOLOGIA
+        jCodigoRegistroADM_psicologico.setBackground(Color.white);
+        jCodigoRegistroADM_psicologica_comp.setBackground(Color.white);
+        jCodigoRegistroAVA_psicologica.setBackground(Color.white);
+        jCodigoRegistroATEND_grupo_psi.setBackground(Color.white);
+        jCodigoRegistroOCORRE_psicologica.setBackground(Color.white);
+        //SERVIÇO SOCIAL
+        jCodigoRegistroADM_social.setBackground(Color.white);
+        jCodigoRegistroADM_social_comp.setBackground(Color.white);
+        jCodigoRegistroHISTORICO_AVALIA_emp_SS.setBackground(Color.white);
+        jCodigoRegistroPERFIL_carcerario_SS.setBackground(Color.white);
+        jCodigoRegistroATUALIZA_doc.setBackground(Color.white);
+        jCodigoRegistroATESTADO_reclusao.setBackground(Color.white);
+        jCodigoRegistroATENDE_familia.setBackground(Color.white);
+        jCodigoRegistroCANCELAR_visitas.setBackground(Color.white);
+        jCodigoRegistroATENDIMENTO_grupo_SS.setBackground(Color.white);
+        jCodigoRegistroCONTROLE_ligacoes.setBackground(Color.white);
+        jCodigoRegistroOCORRE_social.setBackground(Color.white);
+        jCodigoRegistroHISTORICO_avalia_SS.setBackground(Color.white);
+        //PEDAGOGIA
+        jCodigoRegistroRESERVA_acervo.setBackground(Color.white);
+        jCodigoRegistroEMPRESTIMO_acervo.setBackground(Color.white);
+        jCodigoRegistroDEVOLUCAO_acervo.setBackground(Color.white);
+        jCodigoRegistroCOMPRAS_livros.setBackground(Color.white);
+        jCodigoRegistroINVENTARIO.setBackground(Color.white);
+        jCodigoRegistroADM_pedagogia.setBackground(Color.white);
+        jCodigoRegistroADM_pedagogia_comp.setBackground(Color.white);
+        jCodigoRegistroATENDIMENTO_grupo_peda.setBackground(Color.white);
+        jCodigoRegistroMATRICULAS.setBackground(Color.white);
+        jCodigoRegistroCONCLUIR_matricula.setBackground(Color.white);
+        jCodigoRegistroCONTROLE_frequencia.setBackground(Color.white);
+        jCodigoRegistroBAIXA_internos.setBackground(Color.white);
+        jCodigoRegistroATIVIDADES_comp.setBackground(Color.white);
+        jCodigoRegistroCONTROLE_FREQ_cursos.setBackground(Color.white);
+        jCodigoRegistroREMISSAO_leitura.setBackground(Color.white);
+        jCodigoRegistroATUALIZACAO_escolaridade.setBackground(Color.white);
+        jCodigoRegistroCONTROLE_DIAS_horas.setBackground(Color.white);
+        jCodigoRegistroASSISTENCIA_educacao.setBackground(Color.white);
+        jCodigoRegistroOCORR_peda.setBackground(Color.white);
+        //TERAPIA OCUPACIONAL
+        jCodigoRegistroADMISSAO_to.setBackground(Color.white);
+        jCodigoRegistroOCORR_to.setBackground(Color.white);
+        jCodigoRegistroADMISSAO_COMP_to.setBackground(Color.white);
+        jCodigoRegistroCAPACITACAO_oficinas.setBackground(Color.white);
+        jCodigoRegistroTRIAGEM_to.setBackground(Color.white);
+        jCodigoRegistroFREQUENCIA_cursos.setBackground(Color.white);
+        jCodigoRegistroCONTROLE_DIAS_to.setBackground(Color.white);
+        jCodigoRegistroATENDIMENTO_grupo_to.setBackground(Color.white);
+        //JURIDICO
+        jCodigoRegistroADMISSAO_jur.setBackground(Color.white);
+        jCodigoRegistroOCORR_jur.setBackground(Color.white);
+        jCodigoRegistroADMISSAO_COMP_jur.setBackground(Color.white);
+        jCodigoRegistroFICHA_juridica.setBackground(Color.white);
+        jCodigoRegistroATENDIMENTO_familiar.setBackground(Color.white);
+        jCodigoRegistroAUDIENCIA_justificativa.setBackground(Color.white);
+        //FINANCEIRO
+        jCodigoRegistroDEPOSITO_ativos.setBackground(Color.white);
+        jCodigoRegistroESTORNO_VALORES.setBackground(Color.white);
+        jCodigoRegistroSAQUES_ativos.setBackground(Color.white);
+        jCodigoRegistroTRANSFERENCIAS.setBackground(Color.white);
+        jCodigoRegistroDEPOSITO_inativo.setBackground(Color.white);
+        jCodigoRegistroSAQUE_inativo.setBackground(Color.white);
+        //EDUCACAO FISICA
+        jCodigoRegistroADMISSAO_prin.setBackground(Color.white);
+        jCodigoRegistroADMISSAO_comp.setBackground(Color.white);
+        jCodigoRegistroATENDIMENTO_grupo_ef.setBackground(Color.white);
+        jCodigoRegistroOCORR_ef.setBackground(Color.white);
+        //NUTRIÇÃO
+        jCodigoRegistroENTRADA_materiais.setBackground(Color.white);
+        jCodigoRegistroESTORNO_requisicao.setBackground(Color.white);
+        jCodigoRegistroINVENTARIO_nutri.setBackground(Color.white);
+        jCodigoRegistroSOLICITACAO_compras.setBackground(Color.white);
+        jCodigoRegistroREQUISICAO_material.setBackground(Color.white);
+        jCodigoRegistroREQUISICAO_cardapio.setBackground(Color.white);
+        jCodigoRegistroREQUISICAO_avulsa.setBackground(Color.white);
+        //FARMÁCIA
+        jCodigoRegistroENTRADA_materiais_far.setBackground(Color.white);
+        jCodigoRegistroSOLICITACAO_compras_far.setBackground(Color.white);
+        jCodigoRegistroINVENTARIO_far.setBackground(Color.white);
+        jCodigoRegistroTRANSFERENCIAS_far.setBackground(Color.white);
+        jCodigoRegistroREQUISICAO_avulsa_far.setBackground(Color.white);
+        jCodigoRegistroESTORNO_far.setBackground(Color.white);        
     }
 
     //----------------------------- PORTARIA INTERNA ---------------------------------------------------------
