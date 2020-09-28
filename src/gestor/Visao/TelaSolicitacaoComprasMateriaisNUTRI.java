@@ -367,7 +367,7 @@ public class TelaSolicitacaoComprasMateriaisNUTRI extends javax.swing.JInternalF
         jTabelaSolicitacoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaSolicitacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Dt. Sol.", "Status Sol.", "Solicitante", "Aprovador", "Observação"
@@ -1234,7 +1234,7 @@ public class TelaSolicitacaoComprasMateriaisNUTRI extends javax.swing.JInternalF
         jTabelaItensSolicitacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensSolicitacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição Produto", "Qtd.", "Vl. Item", "Vl. Total"

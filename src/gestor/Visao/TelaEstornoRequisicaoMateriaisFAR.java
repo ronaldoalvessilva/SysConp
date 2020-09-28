@@ -296,7 +296,7 @@ public class TelaEstornoRequisicaoMateriaisFAR extends javax.swing.JInternalFram
         jTabelaRequisicoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRequisicoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Dt. Req.", "Status Req.", "Observação"
@@ -968,7 +968,7 @@ public class TelaEstornoRequisicaoMateriaisFAR extends javax.swing.JInternalFram
         jTabelaItensRequisicao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensRequisicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição do Produto", "Qtd", "Vl. Item"
