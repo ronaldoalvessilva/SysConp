@@ -163,14 +163,29 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirTodosMovimentacaoSistemaActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jAbrirMovimentoTotal">
+                <Menu class="javax.swing.JMenu" name="jMenu4">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Abrir Movimentos do Sistema Individual"/>
+                    <Property name="text" type="java.lang.String" value="Abrir Movimentos Individual"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirMovimentoTotalActionPerformed"/>
-                  </Events>
-                </MenuItem>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="jAbrirMovimentoTotal">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Abrir Movimentos do Sistema Individual - ADM/SEG."/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirMovimentoTotalActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="jAbrirMovimentoIndPSP">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Abrir Movimentos do Sistema Individual - PSP"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAbrirMovimentoIndPSPActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
                 <MenuItem class="javax.swing.JMenuItem" name="jAbrirTodosMovimentosData">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Abrir Todos os Movimentos Por Data"/>

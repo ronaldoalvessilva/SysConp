@@ -47,6 +47,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private TelaLogSistema objLogSys = null;
     private TelaUsuariosConectados objUserConecta = null;
     private TelaAbirMovimentoFinalizado objAbriMov = null;
+    private TelaAbrirMovimentoFinalizadoIndividual objAbriMovPSP = null;
     private TelaEmpresa objEmpresa = null;
     private TelaConsultaUsuariosGrupo objConsuGrupo = null;
     //
@@ -120,7 +121,9 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jFechamentoSistema = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jAbrirTodosMovimentacaoSistema = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
         jAbrirMovimentoTotal = new javax.swing.JMenuItem();
+        jAbrirMovimentoIndPSP = new javax.swing.JMenuItem();
         jAbrirTodosMovimentosData = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jParamentosSistema = new javax.swing.JMenuItem();
@@ -280,13 +283,25 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         });
         jMenu3.add(jAbrirTodosMovimentacaoSistema);
 
-        jAbrirMovimentoTotal.setText("Abrir Movimentos do Sistema Individual");
+        jMenu4.setText("Abrir Movimentos Individual");
+
+        jAbrirMovimentoTotal.setText("Abrir Movimentos do Sistema Individual - ADM/SEG.");
         jAbrirMovimentoTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAbrirMovimentoTotalActionPerformed(evt);
             }
         });
-        jMenu3.add(jAbrirMovimentoTotal);
+        jMenu4.add(jAbrirMovimentoTotal);
+
+        jAbrirMovimentoIndPSP.setText("Abrir Movimentos do Sistema Individual - PSP");
+        jAbrirMovimentoIndPSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAbrirMovimentoIndPSPActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jAbrirMovimentoIndPSP);
+
+        jMenu3.add(jMenu4);
 
         jAbrirTodosMovimentosData.setText("Abrir Todos os Movimentos Por Data");
         jAbrirTodosMovimentosData.addActionListener(new java.awt.event.ActionListener() {
@@ -561,7 +576,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jAbrirTodosMovimentacaoSistemaActionPerformed
 
     private void jAbrirMovimentoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentoTotalActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:TelaAbrirMovimentoFinalizadoIndividual
         if (objAbriMov == null || objAbriMov.isClosed()) {
             objAbriMov = new TelaAbirMovimentoFinalizado();
             jPainelConfiguracoes.add(objAbriMov);
@@ -580,7 +595,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             } else {
                 objAbriMov = new TelaAbirMovimentoFinalizado();
                 TelaModuloConfiguracoes.jPainelConfiguracoes.add(objAbriMov);//adicona frame ao JDesktopPane  
-                objAbriMov.setVisible(true);
+                objAbriMov.setVisible(true);                
             }
         }
         try {
@@ -601,12 +616,42 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         mostrarAberturaGeral();
     }//GEN-LAST:event_jAbrirTodosMovimentosDataActionPerformed
 
+    private void jAbrirMovimentoIndPSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentoIndPSPActionPerformed
+        // TODO add your handling code here:
+         if (objAbriMovPSP == null || objAbriMovPSP.isClosed()) {
+            objAbriMovPSP = new TelaAbrirMovimentoFinalizadoIndividual();
+            jPainelConfiguracoes.add(objAbriMovPSP);
+            objAbriMovPSP.setVisible(true);
+        } else {
+            if (objAbriMovPSP.isVisible()) {
+                if (objAbriMovPSP.isIcon()) { // Se esta minimizado
+                    try {
+                        objAbriMovPSP.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objAbriMovPSP.toFront(); // traz para frente
+                    objAbriMovPSP.pack();//volta frame 
+                }
+            } else {
+                objAbriMovPSP = new TelaAbrirMovimentoFinalizadoIndividual();
+                TelaModuloConfiguracoes.jPainelConfiguracoes.add(objAbriMovPSP);//adicona frame ao JDesktopPane  
+                objAbriMovPSP.setVisible(true);                
+            }
+        }
+        try {
+           objAbriMovPSP.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jAbrirMovimentoIndPSPActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
     private javax.swing.JMenuItem Empresa;
     private javax.swing.JMenuItem JMenuSQL;
     private javax.swing.JMenuItem UsuariosConectados;
+    private javax.swing.JMenuItem jAbrirMovimentoIndPSP;
     private javax.swing.JMenuItem jAbrirMovimentoTotal;
     private javax.swing.JMenu jAbrirMovimetacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
@@ -616,6 +661,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
