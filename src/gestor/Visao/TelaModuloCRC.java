@@ -3018,7 +3018,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.RgInternoCrc='" + cartaoRG + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.RgInternoCrc='" + cartaoSUS + "' "
+                    + "OR PRONTUARIOSCRC.RgInternoCrc='" + cartaoRG + "' "
                     + "AND SituacaoCrc='" + statusRetorno + "' "
                     + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
@@ -3045,9 +3045,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             String path = "reports/CRC/RelatorioInternosSemCartaoCPF.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
+                    + "WHERE PRONTUARIOSCRC.CpfInternoCrc='" + cartaoCPF + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
+                    + "OR PRONTUARIOSCRC.CpfInternoCrc='" + cartaoCPF + "' "
                     + "AND SituacaoCrc='" + statusRetorno + "' "
                     + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
@@ -3105,7 +3105,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.RgInternoCrc!='" + cartaoSUS + "' "
+                    + "OR PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
                     + "AND SituacaoCrc='" + statusRetorno + "' "
                     + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
@@ -3132,9 +3132,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             String path = "reports/CRC/RelatorioInternosComCartaoCPF.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                    + "WHERE PRONTUARIOSCRC.CpfInternoCrc!='" + cartaoCPF + "' "
                     + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                    + "OR PRONTUARIOSCRC.CpfInternoCrc!='" + cartaoCPF + "' "
                     + "AND SituacaoCrc='" + statusRetorno + "' "
                     + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
