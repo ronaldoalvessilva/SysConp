@@ -6893,8 +6893,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     }
 
     public void apagarRegistroInterno() {
-        objDadosFis.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+        DadosFisicosInternos objDafis = new DadosFisicosInternos();
         objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+        objDafis.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
         try {
             controlFisicos.excluirDadosFisicos(objDadosFis);
             control.excluirInternoCrc(objProCrc);
