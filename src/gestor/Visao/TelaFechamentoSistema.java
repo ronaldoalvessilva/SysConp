@@ -43,6 +43,8 @@ import gestor.Controle.ListagemCancelamentoVisitasExternaInteraRol;
 import gestor.Controle.ListagemCapacitacaoInternoTO;
 import gestor.Controle.ListagemComposicaoKitHigiene;
 import gestor.Controle.ListagemControleLigacoes;
+import gestor.Controle.ListagemDepositoAtivos;
+import gestor.Controle.ListagemDepositoInativo;
 import gestor.Controle.ListagemEntradaAdvogadoInternos;
 import gestor.Controle.ListagemEntradaAdvogados;
 import gestor.Controle.ListagemEntradaColaboradores;
@@ -55,6 +57,7 @@ import gestor.Controle.ListagemEntradaVisitasDiversas;
 import gestor.Controle.ListagemEntradasFamiliar;
 import gestor.Controle.ListagemEntradasOficialJustica;
 import gestor.Controle.ListagemEstornoProdutos;
+import gestor.Controle.ListagemEstornoValores;
 import gestor.Controle.ListagemEvadidos;
 import gestor.Controle.ListagemFichaJuridica;
 import gestor.Controle.ListagemFrequanciaPedagogicaExterna;
@@ -88,6 +91,8 @@ import gestor.Controle.ListagemRegistrosCancelados;
 import gestor.Controle.ListagemRegressaoRegime;
 import gestor.Controle.ListagemRequiscaoAvulsaProdutos;
 import gestor.Controle.ListagemRequisicaoProdutosInterno;
+import gestor.Controle.ListagemSaqueAtivos;
+import gestor.Controle.ListagemSaqueInativo;
 import gestor.Controle.ListagemSolicitacaoExamesMedicos;
 import gestor.Controle.ListagemTransientes;
 import gestor.Controle.ListagemTriagemOcupacional;
@@ -235,6 +240,12 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     ListagemFrequenciaLaborTO LISTAGEM_freqLabor = new ListagemFrequenciaLaborTO();
     ListagemOcorrenciaTO LISTAGEM_OCORR_to = new ListagemOcorrenciaTO();
     ListagemTriagemOcupacional LISTAGEM_triagemTO = new ListagemTriagemOcupacional();
+    //FINANCEIRO
+    ListagemDepositoAtivos LISTAGEM_deposito_At = new ListagemDepositoAtivos();
+    ListagemSaqueAtivos LISTAGEM_saque_At = new ListagemSaqueAtivos();
+    ListagemDepositoInativo LISTAGEM_deposito_Inat = new ListagemDepositoInativo();
+    ListagemSaqueInativo LISTAGEM_saque_Inat = new ListagemSaqueInativo();
+    ListagemEstornoValores LISTAGEM_estorno_va = new ListagemEstornoValores();
     //EDUCAÇÃO FISICA
     ListagemAdmissaoEducacaoFisica LISTAGEM_ADM_ef = new ListagemAdmissaoEducacaoFisica();
     ListagemAdmissaoEducacaoFisicaNova LISTAGEM_EF_nova = new ListagemAdmissaoEducacaoFisicaNova();
@@ -366,6 +377,12 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
     public static int pFREQUENCIA_labora = 0;
     public static int pOCORRE_to = 0;
     public static int pTRIAGEM_to = 0;
+    //FINANCEIRO
+    public static int pDEPOSITO_ativo = 0;
+    public static int pSAQUE_ativo = 0;
+    public static int pDEPOSITO_inativo = 0;
+    public static int pSAQUE_inativo = 0;
+    public static int pESTORNO_valores = 0;
     //EDUCAÇÃO FISICA
     public static int pADMISSAO_ef = 0;
     public static int pADMISSAO_EF_nova = 0;
@@ -714,6 +731,8 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         calcularTotais_SERVICO_SOCIAL();
         //TERAPIA OCUPACIONAL
         calculosTotaisTO();
+        //FINANCEIRO
+        calcularTotais_FINANCEIRO();
         //EDUCAÇÃO FÍSICA
         calcularTotais_EDUCACAO_FISICA();
         total_REGISTROS();
@@ -815,7 +834,8 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                 + pPERFIL_carcerario + pPORTA_ENTRADA_ss + pADM_terapia + pAGENDA_laborativa
                 + pATENDIMENTO_grupoTO + pATENDIMENTO_TO + pCAPACITACAO_INTERO_to + pFREQUENCIA_capa
                 + pFREQUENCIA_labora + pOCORRE_to + pTRIAGEM_to + pADMISSAO_ef + pADMISSAO_EF_nova
-                + pATEND_GRUPO_ef + pOCORRE_ef;
+                + pATEND_GRUPO_ef + pOCORRE_ef + pDEPOSITO_ativo + pSAQUE_ativo + pDEPOSITO_inativo
+                + pSAQUE_inativo + pESTORNO_valores;
     }
 
     public void calculoTotais_ENTRADAS_CRC() {
@@ -1612,6 +1632,49 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
         }
     }
 
+    public void calcularTotais_FINANCEIRO() {
+        //DEPOSITO
+        try {
+            for (FechamentoRegistros pDEPOSITO_av : LISTAGEM_deposito_At.read()) {
+                pDEPOSITO_av.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SAQUE 
+        try {
+            for (FechamentoRegistros pSAQUE_av : LISTAGEM_saque_At.read()) {
+                pSAQUE_av.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //DEPOSITO INATIVO LISTAGEM_saque_Inat
+        try {
+            for (FechamentoRegistros pDEPOSITO_inav : LISTAGEM_deposito_Inat.read()) {
+                pDEPOSITO_inav.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SAQUE INATIVO
+        try {
+            for (FechamentoRegistros pSAQUE_inav : LISTAGEM_saque_Inat.read()) {
+                pSAQUE_inav.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ESTORNO DE VALORES
+        try {
+            for (FechamentoRegistros pESTORNO_va : LISTAGEM_estorno_va.read()) {
+                pESTORNO_va.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFechamentoSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     //EDUCAÇÃO FÍSICA
     public void calcularTotais_EDUCACAO_FISICA() {
         //ADMISSÃO FISICA LISTAGEM_ADM_ef
@@ -1929,7 +1992,7 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                         //FICHA JURÍDICA
                         control.fecharFICHA_juri(objFecha);
-                        objLog();                        
+                        objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                         //ODONTOLOGIA
                         //ATENDIMENTO ODONTOLOGICO
@@ -2065,7 +2128,28 @@ public class TelaFechamentoSistema extends javax.swing.JDialog {
                         control.fecharTRIAGEM_to(objFecha);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                        //EDUICAÇÃO FÍSICA                        
+                        //FINANCEIRO
+                        //DEPOSITO
+                        control.fecharDEPOSITO_at(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //SAQUE
+                        control.fecharSAQUE_at(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //ESTORNO
+                        control.fecharESTORNO_valores(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //DEPOSITO INATIVO
+                        control.fecharDEPOSITO_inat(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //SAQUE INATIVO
+                        control.fecharSAQUE_inat(objFecha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        //EDUCAÇÃO FÍSICA                        
                         //ADMISSÃO EDUCAÇÃO FÍSICA
                         control.fecharADM_ef(objFecha);
                         objLog();

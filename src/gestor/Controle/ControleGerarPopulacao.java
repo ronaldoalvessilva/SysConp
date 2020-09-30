@@ -10,6 +10,8 @@ import gestor.Modelo.GerarPopNominal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaApagarPopulacaoCRC.pRESPOSTA;
+import static gestor.Visao.TelaApagarPopulacaoCRC.pREPSOSTA_existencia;
 
 /**
  *
@@ -19,7 +21,6 @@ public class ControleGerarPopulacao {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     GerarPopNominal objPopNom = new GerarPopNominal();
-   
 
     //Método para SALVAR POPULAÇÃO NOMINAL
     public GerarPopNominal incluirPopulacaoNominal(GerarPopNominal objPopNom) {
@@ -34,5 +35,33 @@ public class ControleGerarPopulacao {
         }
         conecta.desconecta();
         return objPopNom;
-    }  
+    }
+
+    //EXCLUIR POPULAÇÃO CRC
+    public GerarPopNominal excluirPopulacaoNominal(GerarPopNominal objPopNom) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM POPULACAOINTERNOS_CRC WHERE DataPop='" + objPopNom.getDataExclusaoPop() + "'");
+            pst.executeUpdate();
+            pRESPOSTA = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
+        }
+        conecta.desconecta();
+        return objPopNom;
+    }
+    
+    // VERIFICAR POPULAÇÃO NO LINUX
+    public GerarPopNominal verificarPopulacaoLINUX_WINDOWS(GerarPopNominal objPopNom) {
+        conecta.abrirConexao();
+        try {            
+            conecta.executaSQL("SELECT DataPop FROM POPULACAOINTERNOS_CRC WHERE DataPop='" + objPopNom.getDataExclusaoPop() + "'");
+            conecta.rs.first();            
+            pREPSOSTA_existencia = conecta.rs.getString("DataPop");
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objPopNom;
+    }
 }

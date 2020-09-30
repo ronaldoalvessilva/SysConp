@@ -18,18 +18,20 @@ public class GerarPopNominal {
     private String cnc;
     private String nomeInterno;
     private String situacaoEntrada;
-    private String situacaoRetorno;       
+    private String situacaoRetorno;  
+    private String dataExclusaoPop;
 
     public GerarPopNominal() {
     }
 
-    public GerarPopNominal(Date dataLanc, int IdInternoCrc, String cnc, String nomeInterno, String situacaoEntrada, String situacaoRetorno) {
+    public GerarPopNominal(Date dataLanc, int IdInternoCrc, String cnc, String nomeInterno, String situacaoEntrada, String situacaoRetorno, String dataExclusaoPop) {
         this.dataLanc = dataLanc;
         this.IdInternoCrc = IdInternoCrc;
         this.cnc = cnc;
         this.nomeInterno = nomeInterno;
         this.situacaoEntrada = situacaoEntrada;
         this.situacaoRetorno = situacaoRetorno;
+        this.dataExclusaoPop = dataExclusaoPop;
     }
 
     /**
@@ -114,5 +116,19 @@ public class GerarPopNominal {
      */
     public void setSituacaoRetorno(String situacaoRetorno) {
         this.situacaoRetorno = situacaoRetorno;
+    }
+
+    /**
+     * @return the dataExclusaoPop
+     */
+    public String getDataExclusaoPop() {
+        return dataExclusaoPop;
+    }
+
+    /**
+     * @param dataExclusaoPop the dataExclusaoPop to set
+     */
+    public void setDataExclusaoPop(String dataExclusaoPop) {
+        this.dataExclusaoPop = dataExclusaoPop;
     }
 }

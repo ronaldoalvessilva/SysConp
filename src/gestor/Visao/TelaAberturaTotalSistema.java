@@ -43,6 +43,8 @@ import gestor.Controle.ListagemCancelamentoVisitasExternaInteraRolA;
 import gestor.Controle.ListagemCapacitacaoInternoTOA;
 import gestor.Controle.ListagemComposicaoKitHigieneA;
 import gestor.Controle.ListagemControleLigacoesA;
+import gestor.Controle.ListagemDepositoAtivosA;
+import gestor.Controle.ListagemDepositoInativoA;
 import gestor.Controle.ListagemEntradaAdvogadoInternosA;
 import gestor.Controle.ListagemEntradaAdvogadosA;
 import gestor.Controle.ListagemEntradaColaboradoresA;
@@ -55,6 +57,7 @@ import gestor.Controle.ListagemEntradaVisitasDiversasA;
 import gestor.Controle.ListagemEntradasFamiliarA;
 import gestor.Controle.ListagemEntradasOficialJusticaA;
 import gestor.Controle.ListagemEstornoProdutosA;
+import gestor.Controle.ListagemEstornoValoresA;
 import gestor.Controle.ListagemEvadidosA;
 import gestor.Controle.ListagemFichaJuridicaA;
 import gestor.Controle.ListagemFrequanciaPedagogicaExternaA;
@@ -88,6 +91,8 @@ import gestor.Controle.ListagemRegistrosCanceladosA;
 import gestor.Controle.ListagemRegressaoRegimeA;
 import gestor.Controle.ListagemRequiscaoAvulsaProdutosA;
 import gestor.Controle.ListagemRequisicaoProdutosInternoA;
+import gestor.Controle.ListagemSaqueAtivosA;
+import gestor.Controle.ListagemSaqueInativoA;
 import gestor.Controle.ListagemSolicitacaoExamesMedicosA;
 import gestor.Controle.ListagemTransientesA;
 import gestor.Controle.ListagemTriagemOcupacionalA;
@@ -139,7 +144,7 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
     ListarRetornoTransferencia_InternosA objListaRet_TRAN = new ListarRetornoTransferencia_InternosA();
     ListarPrevisaoSaida_InternosA objListaPrevSaida = new ListarPrevisaoSaida_InternosA();
     ListaAgendaEscoltaCrcA objAgendaEscolta = new ListaAgendaEscoltaCrcA();
-    ListagemEvadidosA objEvadidos = new ListagemEvadidosA();    
+    ListagemEvadidosA objEvadidos = new ListagemEvadidosA();
     ListagemProgressoaRegimeA objProgressaoRegime = new ListagemProgressoaRegimeA();
     ListagemProrrogacaoSaidaTemporariaA objProrroga = new ListagemProrrogacaoSaidaTemporariaA();
     ListagemCancelamentoNovaEntradadaA objListagemRegCanceladoNE = new ListagemCancelamentoNovaEntradadaA();
@@ -235,6 +240,12 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
     ListagemFrequenciaLaborTOA LISTAGEM_freqLabor = new ListagemFrequenciaLaborTOA();
     ListagemOcorrenciaTOA LISTAGEM_OCORR_to = new ListagemOcorrenciaTOA();
     ListagemTriagemOcupacionalA LISTAGEM_triagemTO = new ListagemTriagemOcupacionalA();
+    //FINANCEIRO
+    ListagemDepositoAtivosA LISTAGEM_deposito_At = new ListagemDepositoAtivosA();
+    ListagemSaqueAtivosA LISTAGEM_saque_At = new ListagemSaqueAtivosA();
+    ListagemDepositoInativoA LISTAGEM_deposito_Inat = new ListagemDepositoInativoA();
+    ListagemSaqueInativoA LISTAGEM_saque_Inat = new ListagemSaqueInativoA();
+    ListagemEstornoValoresA LISTAGEM_estorno_va = new ListagemEstornoValoresA();
     //EDUCAÇÃO FISICA
     ListagemAdmissaoEducacaoFisicaA LISTAGEM_ADM_ef = new ListagemAdmissaoEducacaoFisicaA();
     ListagemAdmissaoEducacaoFisicaNovaA LISTAGEM_EF_nova = new ListagemAdmissaoEducacaoFisicaNovaA();
@@ -366,6 +377,12 @@ public class TelaAberturaTotalSistema extends javax.swing.JDialog {
     public static int pFREQUENCIA_labora = 0;
     public static int pOCORRE_to = 0;
     public static int pTRIAGEM_to = 0;
+    //FINANCEIRO
+    public static int pDEPOSITO_ativo = 0;
+    public static int pSAQUE_ativo = 0;
+    public static int pDEPOSITO_inativo = 0;
+    public static int pSAQUE_inativo = 0;
+    public static int pESTORNO_valores = 0;
     //EDUCAÇÃO FISICA
     public static int pADMISSAO_ef = 0;
     public static int pADMISSAO_EF_nova = 0;

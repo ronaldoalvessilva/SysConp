@@ -64,6 +64,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     public static TelaFechamentoSistema pFECHAR_SISTEMA;
     public static TelaAberturaRegistroSistema pABRIR_REGISTROS;
     public static TelaAberturaTotalSistema pABRIR_GERAL;
+    public static TelaApagarPopulacaoCRC pAPAGAR_populcao;
 
     public TelaModuloConfiguracoes() {
         initComponents();
@@ -85,6 +86,12 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         pABRIR_GERAL = new TelaAberturaTotalSistema(this, true);
         pABRIR_GERAL.setVisible(true);
     }
+    
+    public void mostrarApagar(){
+        pAPAGAR_populcao = new TelaApagarPopulacaoCRC(this, true);
+        pAPAGAR_populcao.setVisible(true);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,6 +134,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jAbrirTodosMovimentosData = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jParamentosSistema = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jApagarPopulacaoCRC = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -253,7 +262,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jAbrirMovimetacaoSistema.add(jMenuItem4);
         jAbrirMovimetacaoSistema.add(jSeparator1);
 
-        JMenuSQL.setForeground(new java.awt.Color(204, 0, 0));
         JMenuSQL.setText("Consultas SQL");
         JMenuSQL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,6 +329,17 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jAbrirMovimetacaoSistema.add(jParamentosSistema);
+        jAbrirMovimetacaoSistema.add(jSeparator7);
+
+        jApagarPopulacaoCRC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jApagarPopulacaoCRC.setForeground(new java.awt.Color(204, 0, 0));
+        jApagarPopulacaoCRC.setText("Apagar População CRC");
+        jApagarPopulacaoCRC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jApagarPopulacaoCRCActionPerformed(evt);
+            }
+        });
+        jAbrirMovimetacaoSistema.add(jApagarPopulacaoCRC);
 
         jMenuBar1.add(jAbrirMovimetacaoSistema);
 
@@ -645,6 +664,11 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAbrirMovimentoIndPSPActionPerformed
 
+    private void jApagarPopulacaoCRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jApagarPopulacaoCRCActionPerformed
+        // TODO add your handling code here:
+        mostrarApagar();
+    }//GEN-LAST:event_jApagarPopulacaoCRCActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
@@ -656,6 +680,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jAbrirMovimetacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentosData;
+    private javax.swing.JMenuItem jApagarPopulacaoCRC;
     private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -680,6 +705,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
