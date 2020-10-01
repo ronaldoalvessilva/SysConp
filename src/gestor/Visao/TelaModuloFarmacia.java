@@ -9,6 +9,8 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -76,6 +78,9 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
+    //
     private TelaRecadosFarmacia objRecadoFar = null;
     private TelaFornecedor objForMed = null;
     private TelaMedicamentos objProdMed = null;
@@ -92,6 +97,49 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaConsultasPrescricao objConspes = null;
     private TelaConsultaLocalInterno objConsInt = null;
+    //
+    //
+    public static int codigoUserFAR = 0;
+    public static int codUserAcessoFAR = 0;
+    public static int codigoUserGroupFAR = 0;
+    public static int codAbrirFAR = 0;
+    public static int codIncluirFAR = 0;
+    public static int codAlterarFAR = 0;
+    public static int codExcluirFAR = 0;
+    public static int codGravarFAR = 0;
+    public static int codConsultarFAR = 0;
+    public static int codigoGrupoFAR = 0;
+    public static String nomeGrupoFAR = "";
+    public static String nomeTelaFAR = "";
+    // TELAS DE ACESSOS AO MÓDULO PEDAGOGIA
+    public static String nomeModuloFAR = "FARMACIA";
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // MENU CADASTRO   
+    public static String telaCadastroFornecedores_FAR = "Cadastro:Fornecedores - FAR:Manutenção";
+    public static String telaCadastroLocalArmazenamento_FAR = "Cadastro:Local Armazenamento - FAR:Manutenção";
+    public static String telaCadastroGrupoProdutos_FAR = "Cadastro:Grupo Produtos - FAR:Manutenção";
+    public static String telaCadastroProdutos_FAR = "Cadastro:Produtos - FAR:Manutenção";
+    public static String telaCadastroMotivoSaida_FAR = "Cadastro:Motivo Saída - FAR:Manutenção";
+    //MOVIMENTAÇÃO
+    public static String telaMovimentacaoComprasProdutos_FAR = "Movimentação:";
+    public static String telaMovimentacaoInventario_FAR = "Movimentação:";
+    public static String telaMovimentacaoTransferencias_FAR = "Movimentação:";
+    public static String telaMovimentacaoRequisicao_FAR = "Movimentação:";
+    public static String telaMovimentacaoEstorno_FAR = "Movimentação:";
+    public static String telaMovimentacaoSolicitacaoCompras_FAR = "Movimentação:";
+    //CADASTROS
+    String pNomeCF_FAR = "";
+    String pNomeLA_FAR = "";
+    String pNomeGP_FAR = "";
+    String pNomePR_FAR = "";
+    String pNomeMT_FAR = "";
+    //MOVIMENTAÇÃO
+    String pNomeCP_FAR = "";
+    String pNomeIE_FAR = "";
+    String pNomeTR_FAR = "";
+    String pNomeRE_FAR = "";
+    String pNomeES_FAR = "";
+    String pNomeSC_FAR = "";
     //
     String dataLanc;
     int codUsuario;
@@ -431,117 +479,153 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
 
     private void GrupoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrupoProdutosActionPerformed
         // TODO add your handling code here:
-        if (objGrupoMed == null || objGrupoMed.isClosed()) {
-            objGrupoMed = new TelaGrupoMedicamentos();
-            jPainelFarmacia.add(objGrupoMed);
-            objGrupoMed.setVisible(true);
-        } else {
-            if (objGrupoMed.isVisible()) {
-                if (objGrupoMed.isIcon()) { // Se esta minimizado
-                    try {
-                        objGrupoMed.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroGrupoProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroGrupoProdutos_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objGrupoMed == null || objGrupoMed.isClosed()) {
+                objGrupoMed = new TelaGrupoMedicamentos();
+                jPainelFarmacia.add(objGrupoMed);
+                objGrupoMed.setVisible(true);
+            } else {
+                if (objGrupoMed.isVisible()) {
+                    if (objGrupoMed.isIcon()) { // Se esta minimizado
+                        try {
+                            objGrupoMed.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objGrupoMed.toFront(); // traz para frente
+                        objGrupoMed.pack();//volta frame 
                     }
                 } else {
-                    objGrupoMed.toFront(); // traz para frente
-                    objGrupoMed.pack();//volta frame 
+                    objGrupoMed = new TelaGrupoMedicamentos();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objGrupoMed);//adicona frame ao JDesktopPane  
+                    objGrupoMed.setVisible(true);
                 }
-            } else {
-                objGrupoMed = new TelaGrupoMedicamentos();
-                TelaModuloFarmacia.jPainelFarmacia.add(objGrupoMed);//adicona frame ao JDesktopPane  
-                objGrupoMed.setVisible(true);
             }
-        }
-        try {
-            objGrupoMed.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objGrupoMed.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_GrupoProdutosActionPerformed
 
     private void ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutosActionPerformed
         // TODO add your handling code here:
-        if (objProdMed == null || objProdMed.isClosed()) {
-            objProdMed = new TelaMedicamentos();
-            jPainelFarmacia.add(objProdMed);
-            objProdMed.setVisible(true);
-        } else {
-            if (objProdMed.isVisible()) {
-                if (objProdMed.isIcon()) { // Se esta minimizado
-                    try {
-                        objProdMed.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroProdutos_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objProdMed == null || objProdMed.isClosed()) {
+                objProdMed = new TelaMedicamentos();
+                jPainelFarmacia.add(objProdMed);
+                objProdMed.setVisible(true);
+            } else {
+                if (objProdMed.isVisible()) {
+                    if (objProdMed.isIcon()) { // Se esta minimizado
+                        try {
+                            objProdMed.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objProdMed.toFront(); // traz para frente
+                        objProdMed.pack();//volta frame 
                     }
                 } else {
-                    objProdMed.toFront(); // traz para frente
-                    objProdMed.pack();//volta frame 
+                    objProdMed = new TelaMedicamentos();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objProdMed);//adicona frame ao JDesktopPane  
+                    objProdMed.setVisible(true);
                 }
-            } else {
-                objProdMed = new TelaMedicamentos();
-                TelaModuloFarmacia.jPainelFarmacia.add(objProdMed);//adicona frame ao JDesktopPane  
-                objProdMed.setVisible(true);
             }
-        }
-        try {
-            objProdMed.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objProdMed.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_ProdutosActionPerformed
 
     private void FornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FornecedoresActionPerformed
         // TODO add your handling code here:
-        if (objForMed == null || objForMed.isClosed()) {
-            objForMed = new TelaFornecedor();
-            jPainelFarmacia.add(objForMed);
-            objForMed.setVisible(true);
-        } else {
-            if (objForMed.isVisible()) {
-                if (objForMed.isIcon()) { // Se esta minimizado
-                    try {
-                        objForMed.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroFornecedores_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroFornecedores_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objForMed == null || objForMed.isClosed()) {
+                objForMed = new TelaFornecedor();
+                jPainelFarmacia.add(objForMed);
+                objForMed.setVisible(true);
+            } else {
+                if (objForMed.isVisible()) {
+                    if (objForMed.isIcon()) { // Se esta minimizado
+                        try {
+                            objForMed.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objForMed.toFront(); // traz para frente
+                        objForMed.pack();//volta frame 
                     }
                 } else {
-                    objForMed.toFront(); // traz para frente
-                    objForMed.pack();//volta frame 
+                    objForMed = new TelaFornecedor();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objForMed);//adicona frame ao JDesktopPane  
+                    objForMed.setVisible(true);
                 }
-            } else {
-                objForMed = new TelaFornecedor();
-                TelaModuloFarmacia.jPainelFarmacia.add(objForMed);//adicona frame ao JDesktopPane  
-                objForMed.setVisible(true);
             }
-        }
-        try {
-            objForMed.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objForMed.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_FornecedoresActionPerformed
 
     private void LocalArmazenamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocalArmazenamentoActionPerformed
         // TODO add your handling code here:
-        if (objLocalMaster == null || objLocalMaster.isClosed()) {
-            objLocalMaster = new TelaLocalMaster();
-            jPainelFarmacia.add(objLocalMaster);
-            objLocalMaster.setVisible(true);
-        } else {
-            if (objLocalMaster.isVisible()) {
-                if (objLocalMaster.isIcon()) { // Se esta minimizado
-                    try {
-                        objLocalMaster.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroLocalArmazenamento_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroLocalArmazenamento_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objLocalMaster == null || objLocalMaster.isClosed()) {
+                objLocalMaster = new TelaLocalMaster();
+                jPainelFarmacia.add(objLocalMaster);
+                objLocalMaster.setVisible(true);
+            } else {
+                if (objLocalMaster.isVisible()) {
+                    if (objLocalMaster.isIcon()) { // Se esta minimizado
+                        try {
+                            objLocalMaster.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objLocalMaster.toFront(); // traz para frente
+                        objLocalMaster.pack();//volta frame 
                     }
                 } else {
-                    objLocalMaster.toFront(); // traz para frente
-                    objLocalMaster.pack();//volta frame 
+                    objLocalMaster = new TelaLocalMaster();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objLocalMaster);//adicona frame ao JDesktopPane  
+                    objLocalMaster.setVisible(true);
                 }
-            } else {
-                objLocalMaster = new TelaLocalMaster();
-                TelaModuloFarmacia.jPainelFarmacia.add(objLocalMaster);//adicona frame ao JDesktopPane  
-                objLocalMaster.setVisible(true);
             }
-        }
-        try {
-            objLocalMaster.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objLocalMaster.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_LocalArmazenamentoActionPerformed
 
@@ -750,30 +834,39 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
 
     private void jMotivoSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMotivoSaidaActionPerformed
         // TODO add your handling code here:
-        if (objMotivo == null || objMotivo.isClosed()) {
-            objMotivo = new TelaMotivoSaidaProdutosFAR();
-            jPainelFarmacia.add(objMotivo);
-            objMotivo.setVisible(true);
-        } else {
-            if (objMotivo.isVisible()) {
-                if (objMotivo.isIcon()) { // Se esta minimizado
-                    try {
-                        objMotivo.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroMotivoSaida_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroMotivoSaida_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objMotivo == null || objMotivo.isClosed()) {
+                objMotivo = new TelaMotivoSaidaProdutosFAR();
+                jPainelFarmacia.add(objMotivo);
+                objMotivo.setVisible(true);
+            } else {
+                if (objMotivo.isVisible()) {
+                    if (objMotivo.isIcon()) { // Se esta minimizado
+                        try {
+                            objMotivo.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objMotivo.toFront(); // traz para frente
+                        objMotivo.pack();//volta frame 
                     }
                 } else {
-                    objMotivo.toFront(); // traz para frente
-                    objMotivo.pack();//volta frame 
+                    objMotivo = new TelaMotivoSaidaProdutosFAR();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objMotivo);//adicona frame ao JDesktopPane  
+                    objMotivo.setVisible(true);
                 }
-            } else {
-                objMotivo = new TelaMotivoSaidaProdutosFAR();
-                TelaModuloFarmacia.jPainelFarmacia.add(objMotivo);//adicona frame ao JDesktopPane  
-                objMotivo.setVisible(true);
             }
-        }
-        try {
-            objMotivo.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objMotivo.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jMotivoSaidaActionPerformed
 

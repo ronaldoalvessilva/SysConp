@@ -6,14 +6,16 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleFornecedores;
-import gestor.Controle.ControleFornecedoresCOMPRAS;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.Fornecedor;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFarmacia.telaCadastroFornecedores_FAR;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -36,7 +38,10 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Fornecedor objForn = new Fornecedor();
-    ControleFornecedores control = new ControleFornecedores(); 
+    ControleFornecedores control = new ControleFornecedores();
+    //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -169,7 +174,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jPesqNomeFornecedor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -219,7 +224,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
         jTabelaFornecedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFornecedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Razão Social", "Status", "CNPJ"
@@ -396,7 +401,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pessoa Jurídica", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pessoa Jurídica", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("CNPJ:");
@@ -438,7 +443,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contato", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contato", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Telefone:");
@@ -906,7 +911,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
         jTabelaHistoricoProdutos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaHistoricoProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Data Compra", "Nr. Doc.", "Código", "Descrição do Produto", "Qtde.", "Vl. Unit."
@@ -1041,28 +1046,55 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 1;
-        Novo();
-        corCampos();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroFornecedores_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroFornecedores_FAR) && objCampos.getCodigoIncluir() == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            Novo();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 2;
-        Alterar();
-        corCampos();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroFornecedores_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroFornecedores_FAR) && objCampos.getCodigoAlterar() == 1) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 2;
+            Alterar();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        // Ainda não está pronto, necessita criar as telas de produtos para verificar se pode ou não excluir
-        verificarFornecedor();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroFornecedores_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroFornecedores_FAR) && objCampos.getCodigoExcluir() == 1) {
+            // Ainda não está pronto, necessita criar as telas de produtos para verificar se pode ou não excluir
+            verificarFornecedor();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
@@ -1200,7 +1232,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
         if (jPesqNomeFornecedor.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma letra ou parte do nome para pesquisa.");
         } else {
-            preencherTabelaFornecedor("SELECT * FROM FORNECEDORES_AC WHERE RazaoSocial LIKE'" + jPesqNomeFornecedor.getText() + "%'AND Modulo='" + modulo  + "'");
+            preencherTabelaFornecedor("SELECT * FROM FORNECEDORES_AC WHERE RazaoSocial LIKE'" + jPesqNomeFornecedor.getText() + "%'AND Modulo='" + modulo + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeFornecedorActionPerformed
 
@@ -1210,7 +1242,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             jTabelaFornecedor.setVisible(true);
-            this.preencherTabelaFornecedor("SELECT * FROM FORNECEDORES_AC WHERE Modulo='" + modulo  + "'");
+            this.preencherTabelaFornecedor("SELECT * FROM FORNECEDORES_AC WHERE Modulo='" + modulo + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabelaFornecedor();
@@ -1236,7 +1268,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
                     + "ON HISTORICO_COMPRA_FAR.IdNfEntrada=NF_COMPRAS_FAR.IdNfEntrada "
                     + "INNER JOIN FORNECEDORES_AC "
                     + "ON NF_COMPRAS_FAR.IdForn=FORNECEDORES_AC.IdForn "
-                    + "WHERE FORNECEDORES_AC.IdForn='" + jIdFornecedor.getText() + "'AND PRODUTOS_AC.Modulo='" + modulo  + "'");
+                    + "WHERE FORNECEDORES_AC.IdForn='" + jIdFornecedor.getText() + "'AND PRODUTOS_AC.Modulo='" + modulo + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabelaHistorico();
@@ -1256,7 +1288,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
                     + "ON HISTORICO_COMPRA_FAR.IdNfEntrada=NF_COMPRAS_FAR.IdNfEntrada "
                     + "INNER JOIN FORNECEDORES_AC "
                     + "ON NF_COMPRAS_FAR.IdForn=FORNECEDORES_AC.IdForn "
-                    + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jPesqProdutosCompras.getText() + "%'AND FORNECEDORES_AC.IdForn='" + jIdFornecedor.getText() + "'AND Modulo='" + modulo  + "'");
+                    + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jPesqProdutosCompras.getText() + "%'AND FORNECEDORES_AC.IdForn='" + jIdFornecedor.getText() + "'AND Modulo='" + modulo + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -1820,7 +1852,7 @@ public final class TelaFornecedor extends javax.swing.JInternalFrame {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                control.excluirFornecedor(objForn); 
+                control.excluirFornecedor(objForn);
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");

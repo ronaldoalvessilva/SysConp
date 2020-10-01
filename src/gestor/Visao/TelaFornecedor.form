@@ -214,7 +214,7 @@
                           </Border>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="1">
+                          <Table columnCount="4" rowCount="0">
                             <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                             <Column editable="true" title="Raz&#xe3;o Social" type="java.lang.Object"/>
                             <Column editable="true" title="Status" type="java.lang.Object"/>
@@ -1529,7 +1529,7 @@
                           </Border>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="1">
+                          <Table columnCount="6" rowCount="0">
                             <Column editable="true" title="Data Compra" type="java.lang.Object"/>
                             <Column editable="true" title="Nr. Doc." type="java.lang.Object"/>
                             <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
