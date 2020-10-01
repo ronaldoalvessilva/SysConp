@@ -2073,4 +2073,125 @@ public class ControleFechamentoDadosSistema {
         conecta.desconecta();
         return objFecha;
     }
+    
+    //-------------------------------------------------------- FARMÁCIA ----------------------------------------------------------------------
+    //COMPRAS
+    public FechamentoRegistros fecharCOMPRAS_far(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE NF_COMPRAS_FAR SET StatusNf=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusNf='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataEntrada<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (NF_COMPRAS_FAR) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+    
+    //INVENTÁRIO
+    public FechamentoRegistros fecharINVENTARIO_far(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INVENTARIO_AC SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataInicio<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (INVENTARIO_AC) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+    
+    //TRANSFERENCIAS
+    public FechamentoRegistros fecharTRANSFERENCIAS_far(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TRANSFERENCIA_PRODUTO_FAR SET StatusLanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusLanc='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataLanc<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (TRANSFERENCIA_PRODUTO_FAR) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+    
+    //REQUISIÇÕES
+    public FechamentoRegistros fecharREQUISICAO_far(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REQUISICAO_AVULSA_PRODUTOS_FAR SET StatusReq=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusReq='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataReq<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (REQUISICAO_AVULSA_PRODUTOS_FAR) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+    
+    //ESTORNO TRANSFERÊNCIAS/REQUISIÇÕES
+    public FechamentoRegistros fecharESTORNO_far(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ESTORNO_PRODUTOS_FAR SET StatusEst=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusEst='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataEst<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ESTORNO_PRODUTOS_FAR) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
+    
+    //SOLICITAÇÃO COMPRAS
+    public FechamentoRegistros fecharSOLICITACAO_far(FechamentoRegistros objFecha) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE SOLICITACAO_PRODUTOS_ADM SET StatusSol=?,UsuarioUp=?,DataUp=?,HorarioUp=? "
+                    + "WHERE StatusSol='" + pSTATUS_FINALIZADO + "' "
+                    + "AND DataSol<='" + objFecha.getDataFechamento() + "'");
+            pst.setString(1, objFecha.getStatusRegistro());
+            pst.setString(2, objFecha.getUsuarioUp());
+            pst.setString(3, objFecha.getDataFechamento());
+            pst.setString(4, objFecha.getHoraFechamento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (SOLICITACAO_PRODUTOS_ADM) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objFecha;
+    }
 }

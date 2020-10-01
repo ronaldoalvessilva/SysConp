@@ -7,12 +7,15 @@ package gestor.Visao;
 
 import gestor.Controle.ControleGerarPopulacao;
 import gestor.Controle.ControleLogSistema;
+import gestor.Modelo.FechamentoRegistros;
 import gestor.Modelo.GerarPopNominal;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaUsuarios.IdUsuario;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +32,8 @@ public class TelaApagarPopulacaoCRC extends javax.swing.JDialog {
     //
     public static String pRESPOSTA;
     public static String pREPSOSTA_existencia;
+    public static String pDATA_PESQUISA;
+    public static int pQUANTIDADE_registros = 0;
     String pDATA_exclusao = "";
     // Variáveis para gravar o log
     String nomeModuloTela = "CONFIGURAÇÕES:Apagar população CRC";
@@ -58,6 +63,7 @@ public class TelaApagarPopulacaoCRC extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jDataExclusao = new com.toedter.calendar.JDateChooser();
         jBtConfirmar = new javax.swing.JButton();
@@ -68,30 +74,49 @@ public class TelaApagarPopulacaoCRC extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Informe data:");
 
         jDataExclusao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDataExclusao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jDataExclusao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataExclusao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(84, 84, 84)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDataExclusao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
@@ -119,11 +144,11 @@ public class TelaApagarPopulacaoCRC extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addGap(90, 90, 90)
                 .addComponent(jBtConfirmar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
@@ -137,7 +162,7 @@ public class TelaApagarPopulacaoCRC extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtConfirmar)
                     .addComponent(jBtSair))
-                .addGap(4, 4, 4))
+                .addGap(3, 3, 3))
         );
 
         pack();
@@ -149,44 +174,56 @@ public class TelaApagarPopulacaoCRC extends javax.swing.JDialog {
         if (jDataExclusao.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data para exclusão da população do CRC.");
         } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a POPULAÇÃO DE INTERNOS na data informada?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                if (tipoServidor == null || tipoServidor.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-                } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                    pDATA_exclusao = formatoAmerica.format(jDataExclusao.getDate().getTime());
-                    objPopNom.setDataExclusaoPop(pDATA_exclusao);
-                    control.verificarPopulacaoLINUX_WINDOWS(objPopNom);
-                    if (pREPSOSTA_existencia != null) {
-                        control.excluirPopulacaoNominal(objPopNom);
-                        if (pRESPOSTA.equals("Sim")) {
-                            JOptionPane.showMessageDialog(rootPane, "População excluída com sucesso.");
-                        } else if (pRESPOSTA.equals("Não")) {
-                            JOptionPane.showMessageDialog(rootPane, "Não foi possível excluída a População, talvez a população não exista mais.");
+            //CALCULAR TOTAL DE REGISTROS A SEREM EXCLUÍDOS
+            try {
+                for (FechamentoRegistros pCONTADOR : control.read()) {
+                    pCONTADOR.getDataFechamento();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaApagarPopulacaoCRC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (pQUANTIDADE_registros > 0) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Quantidade de registros a ser excluído: " + pQUANTIDADE_registros + "\nDeseja realmente excluir a POPULAÇÃO DE INTERNOS na data informada?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    if (tipoServidor == null || tipoServidor.equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+                    } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        pDATA_exclusao = formatoAmerica.format(jDataExclusao.getDate().getTime());
+                        objPopNom.setDataExclusaoPop(pDATA_exclusao);
+                        control.verificarPopulacaoLINUX_WINDOWS(objPopNom);
+                        if (pREPSOSTA_existencia != null) {
+                            control.excluirPopulacaoNominal(objPopNom);
+                            if (pRESPOSTA.equals("Sim")) {
+                                JOptionPane.showMessageDialog(rootPane, "População excluída com sucesso.");
+                            } else if (pRESPOSTA.equals("Não")) {
+                                JOptionPane.showMessageDialog(rootPane, "Não foi possível excluída a População, talvez a população não exista mais.");
+                            }
+                            pREPSOSTA_existencia = null;
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "População não existe...");
                         }
-                        pREPSOSTA_existencia = null;
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "População não existe...");
-                    }
-                } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    pDATA_exclusao = formatoAmerica.format(jDataExclusao.getDate().getTime());
-                    objPopNom.setDataExclusaoPop(pDATA_exclusao);
-                    control.verificarPopulacaoLINUX_WINDOWS(objPopNom);
-                    if (pREPSOSTA_existencia != null) {
-                        control.excluirPopulacaoNominal(objPopNom);
-                        if (pRESPOSTA.equals("Sim")) {
-                            JOptionPane.showMessageDialog(rootPane, "População excluída com sucesso.");
-                        } else if (pRESPOSTA.equals("Não")) {
-                            JOptionPane.showMessageDialog(rootPane, "Não foi possível excluída a População, talvez a população não exista mais.");
+                    } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        pDATA_exclusao = formatoAmerica.format(jDataExclusao.getDate().getTime());
+                        objPopNom.setDataExclusaoPop(pDATA_exclusao);
+                        control.verificarPopulacaoLINUX_WINDOWS(objPopNom);
+                        if (pREPSOSTA_existencia != null) {
+                            control.excluirPopulacaoNominal(objPopNom);
+                            if (pRESPOSTA.equals("Sim")) {
+                                JOptionPane.showMessageDialog(rootPane, "População excluída com sucesso.");
+                            } else if (pRESPOSTA.equals("Não")) {
+                                JOptionPane.showMessageDialog(rootPane, "Não foi possível excluída a População, talvez a população não exista mais.");
+                            }
+                            pREPSOSTA_existencia = null;
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "População não existe...");
                         }
-                        pREPSOSTA_existencia = null;
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "População não existe...");
                     }
                 }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não existe população a ser excluída.");
             }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
@@ -241,9 +278,10 @@ public class TelaApagarPopulacaoCRC extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtSair;
-    private com.toedter.calendar.JDateChooser jDataExclusao;
+    public static com.toedter.calendar.JDateChooser jDataExclusao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
     public void objLog() {
