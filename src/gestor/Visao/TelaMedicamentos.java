@@ -15,10 +15,13 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProdutoMedicamento;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFarmacia.telaCadastroProdutos_FAR;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -53,6 +56,9 @@ public class TelaMedicamentos extends javax.swing.JInternalFrame {
     // HISTÓRICO DE MOVIMENTAÇÃO DO ESTOQUE
     HistoricoMovimentacaoEstoque objHistMovAC = new HistoricoMovimentacaoEstoque();
     ControleHistoricoMovimentacaoFAR controlHistMov = new ControleHistoricoMovimentacaoFAR();
+    //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -1900,160 +1906,196 @@ public class TelaMedicamentos extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroProdutos_FAR) && objCampos.getCodigoIncluir() == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroProdutos_FAR) && objCampos.getCodigoAlterar() == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:    
-        verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
-        verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (jIdProduto.getText().equals(codProdutoLote)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe lote para o mesmo.");
-        } else if (jIdProduto.getText().equals(codProdutoSaldo)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe saldo de estoque ou já teve movimentação.");
-        } else {
-            if (resposta == JOptionPane.YES_OPTION) {
-                objProdMed.setIdProd(Integer.parseInt(jIdProduto.getText()));
-                control.excluirProdutoMed(objProdMed);
-                controlEst.excluirEstoqueProduto(objProdMed);
-                controlHistMov.excluirHistoricoProdutoFAR(objHistMovAC);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        // TODO add your handling code here:  
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroProdutos_FAR) && objCampos.getCodigoExcluir() == 1) {
+            verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
+            verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (jIdProduto.getText().equals(codProdutoLote)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe lote para o mesmo.");
+            } else if (jIdProduto.getText().equals(codProdutoSaldo)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe saldo de estoque ou já teve movimentação.");
+            } else {
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objProdMed.setIdProd(Integer.parseInt(jIdProduto.getText()));
+                    control.excluirProdutoMed(objProdMed);
+                    controlEst.excluirEstoqueProduto(objProdMed);
+                    controlHistMov.excluirHistoricoProdutoFAR(objHistMovAC);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jComboBoxStatusProduto.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe se o produto está ativo ou inativo.");
-            jComboBoxStatusProduto.requestFocus();
-            jComboBoxStatusProduto.setBackground(Color.red);
-        } else if (jDescricaoGrupo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a que grupo o produto pertence.");
-        } else if (jDescricaoProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do produto.");
-            jDescricaoProduto.requestFocus();
-            jDescricaoProduto.setBackground(Color.red);
-        } else if (jComboBoxUnidProduto.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
-            jComboBoxUnidProduto.requestFocus();
-            jComboBoxUnidProduto.setBackground(Color.red);
-        } else if (jLocalMaster.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a localidade de armazenamento do produto.");
-        } else if (jNomeFornecedor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor para esse produto.");
-        } else {
-            objProdMed.setStatusProd((String) jComboBoxStatusProduto.getSelectedItem());
-            objProdMed.setCodigoBarra(jCodigoBarra.getText());
-            objProdMed.setDescricao(jDescricaoProduto.getText());
-            objProdMed.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
-            objProdMed.setReferencia(jReferencia.getText());
-            objProdMed.setAplicaDose((String) jComboBoxAplicaDose.getSelectedItem());
-            objProdMed.setQdtTotalDose((int) jQtdDose.getValue());
-            objProdMed.setFotoProduto(caminhoFoto);
-            objProdMed.setFotoProduto1(caminhoFoto1);
-            objProdMed.setDataFabricacao(jDataFabricacao.getDate());
-            objProdMed.setDataCompra(jDataCompra.getDate());
-            objProdMed.setDataValidade(jDataValidadeProduto.getDate());
-            objProdMed.setModulo(modulo);
-            try {
-                objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
-                objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
-                objProdMed.setQtdSaida(valorReal.parse(jQtdSaida.getText()).floatValue());
-                objProdMed.setAliquotaIcms(valorReal.parse(jAliquotaIcms.getText()).floatValue());
-                objProdMed.setAliquotaIpi(valorReal.parse(jAliquotaIpi.getText()).floatValue());
-                //
-                objProdMed.setEstoqueMaximo(valorReal.parse(jEstoqueMaximo.getText()).floatValue());
-                objProdMed.setEstoqueMinimo(valorReal.parse(jEstoqueMinimo.getText()).floatValue());
-                objProdMed.setPontoPedido(valorReal.parse(jPontoPedido.getText()).floatValue());
-                objProdMed.setSaldoAtual(valorReal.parse(jSaldoAtual.getText()).floatValue());
-                objProdMed.setTipoInventario(tipoInventario);
-            } catch (ParseException ex) {
-            }
-            objProdMed.setDataSaida(jDataSaida.getDate());
-            objProdMed.setClassificaoFiscal(jClassificacao.getText());
-            objProdMed.setObservacao(jObservacao.getText());
-            objProdMed.setLote(loteProdutos);
-            objProdMed.setQtdLote((float) qtdLote);
-            objProdMed.setTopicos(jTopicos.getText());
-            objProdMed.setContraIndicaoes(jContraIndicacoes.getText());
-            objProdMed.setSubstancias(jSubstancias.getText());
-            objProdMed.setAcoesTerapeuticas(jAcoesTerapeuticas.getText());
-            if (acao == 1) {
-                // VERIFICAR SE O PRODUTO JÁ FOI CADASTRADO, CASO JÁ TENHA SIDO CADASTRADO BLOQUEIA
-                verificarProdutoCadastrado();
-                if (jDescricaoProduto.getText().trim().equals(nomeProdutoAC)) {
-                    JOptionPane.showMessageDialog(rootPane, "Produto já foi cadastrado.");
-                } else {
-                    objProdMed.setUsuarioInsert(nameUser);
-                    objProdMed.setDataInsert(dataModFinal);
-                    objProdMed.setHorarioInsert(horaMov);
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroProdutos_FAR) && objCampos.getCodigoGravar() == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jComboBoxStatusProduto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o produto está ativo ou inativo.");
+                jComboBoxStatusProduto.requestFocus();
+                jComboBoxStatusProduto.setBackground(Color.red);
+            } else if (jDescricaoGrupo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a que grupo o produto pertence.");
+            } else if (jDescricaoProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do produto.");
+                jDescricaoProduto.requestFocus();
+                jDescricaoProduto.setBackground(Color.red);
+            } else if (jComboBoxUnidProduto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
+                jComboBoxUnidProduto.requestFocus();
+                jComboBoxUnidProduto.setBackground(Color.red);
+            } else if (jLocalMaster.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a localidade de armazenamento do produto.");
+            } else if (jNomeFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor para esse produto.");
+            } else {
+                objProdMed.setStatusProd((String) jComboBoxStatusProduto.getSelectedItem());
+                objProdMed.setCodigoBarra(jCodigoBarra.getText());
+                objProdMed.setDescricao(jDescricaoProduto.getText());
+                objProdMed.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
+                objProdMed.setReferencia(jReferencia.getText());
+                objProdMed.setAplicaDose((String) jComboBoxAplicaDose.getSelectedItem());
+                objProdMed.setQdtTotalDose((int) jQtdDose.getValue());
+                objProdMed.setFotoProduto(caminhoFoto);
+                objProdMed.setFotoProduto1(caminhoFoto1);
+                objProdMed.setDataFabricacao(jDataFabricacao.getDate());
+                objProdMed.setDataCompra(jDataCompra.getDate());
+                objProdMed.setDataValidade(jDataValidadeProduto.getDate());
+                objProdMed.setModulo(modulo);
+                try {
+                    objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
+                    objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
+                    objProdMed.setQtdSaida(valorReal.parse(jQtdSaida.getText()).floatValue());
+                    objProdMed.setAliquotaIcms(valorReal.parse(jAliquotaIcms.getText()).floatValue());
+                    objProdMed.setAliquotaIpi(valorReal.parse(jAliquotaIpi.getText()).floatValue());
+                    //
+                    objProdMed.setEstoqueMaximo(valorReal.parse(jEstoqueMaximo.getText()).floatValue());
+                    objProdMed.setEstoqueMinimo(valorReal.parse(jEstoqueMinimo.getText()).floatValue());
+                    objProdMed.setPontoPedido(valorReal.parse(jPontoPedido.getText()).floatValue());
+                    objProdMed.setSaldoAtual(valorReal.parse(jSaldoAtual.getText()).floatValue());
+                    objProdMed.setTipoInventario(tipoInventario);
+                } catch (ParseException ex) {
+                }
+                objProdMed.setDataSaida(jDataSaida.getDate());
+                objProdMed.setClassificaoFiscal(jClassificacao.getText());
+                objProdMed.setObservacao(jObservacao.getText());
+                objProdMed.setLote(loteProdutos);
+                objProdMed.setQtdLote((float) qtdLote);
+                objProdMed.setTopicos(jTopicos.getText());
+                objProdMed.setContraIndicaoes(jContraIndicacoes.getText());
+                objProdMed.setSubstancias(jSubstancias.getText());
+                objProdMed.setAcoesTerapeuticas(jAcoesTerapeuticas.getText());
+                if (acao == 1) {
+                    // VERIFICAR SE O PRODUTO JÁ FOI CADASTRADO, CASO JÁ TENHA SIDO CADASTRADO BLOQUEIA
+                    verificarProdutoCadastrado();
+                    if (jDescricaoProduto.getText().trim().equals(nomeProdutoAC)) {
+                        JOptionPane.showMessageDialog(rootPane, "Produto já foi cadastrado.");
+                    } else {
+                        objProdMed.setUsuarioInsert(nameUser);
+                        objProdMed.setDataInsert(dataModFinal);
+                        objProdMed.setHorarioInsert(horaMov);
+                        //
+                        objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
+                        objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
+                        objProdMed.setNomeLocal(jLocalMaster.getText());
+                        control.incluirProdutoMed(objProdMed);
+                        buscarID();
+                        objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
+                        objProdMed.setIdLocal(codLocal);
+                        controlEst.incluirEstoqueProduto(objProdMed);
+                        // Incluir o produto na tabela de lotes (LOTEPRODUTOS)
+                        // Somente inlui o produto, não altera, as alterações somente a quantidade no inventário.
+                        controleLote.incluirLoteProduto(objProdMed);
+                        // CRIAR PRODUTO PARA CONSULTA NA TABELA HISTORICO_NOVIMENTACAO_ESTOQUE_FAR
+                        objHistMovAC.setIdProd(Integer.valueOf(jIdProduto.getText()));
+                        objHistMovAC.setIdLocal(codLocal);
+                        objHistMovAC.setDescricaoLocal(jLocalMaster.getText());
+                        objHistMovAC.setSaldoAtual((float) qtdLote);
+                        controlHistMov.incluirHistoricoProdutoFAR(objHistMovAC);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objProdMed.setUsuarioUp(nameUser);
+                    objProdMed.setDataUp(dataModFinal);
+                    objProdMed.setHorarioUp(horaMov);
                     //
                     objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
                     objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
                     objProdMed.setNomeLocal(jLocalMaster.getText());
-                    control.incluirProdutoMed(objProdMed);
-                    buscarID();
                     objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                    objProdMed.setIdLocal(codLocal);
-                    controlEst.incluirEstoqueProduto(objProdMed);
-                    // Incluir o produto na tabela de lotes (LOTEPRODUTOS)
-                    // Somente inlui o produto, não altera, as alterações somente a quantidade no inventário.
-                    controleLote.incluirLoteProduto(objProdMed);
-                    // CRIAR PRODUTO PARA CONSULTA NA TABELA HISTORICO_NOVIMENTACAO_ESTOQUE_FAR
-                    objHistMovAC.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                    objHistMovAC.setIdLocal(codLocal);
-                    objHistMovAC.setDescricaoLocal(jLocalMaster.getText());
-                    objHistMovAC.setSaldoAtual((float) qtdLote);
-                    controlHistMov.incluirHistoricoProdutoFAR(objHistMovAC);
-                    //
+                    control.alterarProdutoMed(objProdMed);
+                    controlEst.alterarEstoqueProduto(objProdMed);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                objProdMed.setUsuarioUp(nameUser);
-                objProdMed.setDataUp(dataModFinal);
-                objProdMed.setHorarioUp(horaMov);
-                //
-                objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
-                objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
-                objProdMed.setNomeLocal(jLocalMaster.getText());
-                objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                control.alterarProdutoMed(objProdMed);
-                controlEst.alterarEstoqueProduto(objProdMed);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
