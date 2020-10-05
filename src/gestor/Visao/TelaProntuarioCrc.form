@@ -876,18 +876,18 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jComboBoxEscolaridade" pref="189" max="32767" attributes="0"/>
+                                                  <Component id="jAlcunha" max="32767" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="jRGInterno" alignment="1" max="32767" attributes="0"/>
-                                                      <Component id="jAlcunha" max="32767" attributes="0"/>
+                                                      <Component id="jRGInterno" max="32767" attributes="0"/>
+                                                      <Component id="jComboBoxEscolaridade" pref="189" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel14" alignment="1" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -1051,8 +1051,10 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jRGInterno" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="2" groupAlignment="2" attributes="0">
+                                  <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jRGInterno" alignment="2" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="jCPFInterno" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel14" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtZoonFoto" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -1510,20 +1512,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesqCidadeActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jRGInterno">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                        <BevelBorder bevelType="1"/>
-                      </Border>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel60">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1697,6 +1685,14 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="jRGInterno">
+                  <Properties>
+                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+                      <Format format="#########################" subtype="-1" type="5"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

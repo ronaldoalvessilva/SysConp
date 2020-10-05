@@ -337,7 +337,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jLabel21 = new javax.swing.JLabel();
         jProfissao = new javax.swing.JTextField();
         jBtPesqCidade = new javax.swing.JButton();
-        jRGInterno = new javax.swing.JFormattedTextField();
         jLabel60 = new javax.swing.JLabel();
         jSituacao = new javax.swing.JTextField();
         jDataCadastro = new com.toedter.calendar.JDateChooser();
@@ -352,6 +351,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jBtZoonFoto = new javax.swing.JButton();
         jLabel162 = new javax.swing.JLabel();
         jCNC = new javax.swing.JTextField();
+        jRGInterno = new javax.swing.JFormattedTextField();
         jPanel7 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -1262,10 +1262,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
-        jRGInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jRGInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jRGInterno.setEnabled(false);
-
         jLabel60.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(0, 0, 153));
         jLabel60.setText("Situação do Interno");
@@ -1329,6 +1325,13 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jCNC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCNC.setEnabled(false);
 
+        try {
+            jRGInterno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########################")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jRGInterno.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -1341,16 +1344,16 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jComboBoxEscolaridade, 0, 189, Short.MAX_VALUE)
+                                        .addComponent(jAlcunha)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel17))
+                                        .addComponent(jLabel4))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jRGInterno)
-                                            .addComponent(jAlcunha))
+                                            .addComponent(jComboBoxEscolaridade, 0, 189, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1483,8 +1486,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jRGInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jLabel6)
+                        .addComponent(jRGInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jCPFInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtZoonFoto, javax.swing.GroupLayout.Alignment.CENTER)
@@ -6847,7 +6851,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jPesqNome;
     private javax.swing.JTextField jPesquisaCNC;
     public static javax.swing.JTextField jProfissao;
-    public static javax.swing.JFormattedTextField jRGInterno;
+    private javax.swing.JFormattedTextField jRGInterno;
     public static javax.swing.JTextField jRegiaoCorpo;
     public static javax.swing.JTextField jRegiaoCorpo1;
     public static javax.swing.JTextField jRegiaoCorpo2;
