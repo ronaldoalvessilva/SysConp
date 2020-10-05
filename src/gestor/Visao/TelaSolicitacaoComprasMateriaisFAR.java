@@ -12,12 +12,16 @@ import gestor.Controle.ControleSolicitacaoComprasADM;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosSoNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.ItensSolicitacaoCompras;
 import gestor.Modelo.ItensSolicitantesCompras;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SolicitacaoComprasAC;
 import gestor.Modelo.SolicitantesCompras;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFarmacia.telaMovimentacaoSolicitacaoComprasManu_FAR;
+import static gestor.Visao.TelaModuloFarmacia.telaMovimentacaoSolicitacaoComprasProd_FAR;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -57,7 +61,10 @@ public class TelaSolicitacaoComprasMateriaisFAR extends javax.swing.JInternalFra
     ControleAtualizaValorSolicitantes controleSAC = new ControleAtualizaValorSolicitantes();
     ItensSolicitantesCompras itensSolComp = new ItensSolicitantesCompras();
     SolicitantesCompras solComp = new SolicitantesCompras();
-    //          
+    //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
+    //           
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -602,7 +609,7 @@ public class TelaSolicitacaoComprasMateriaisFAR extends javax.swing.JInternalFra
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1140,14 +1147,10 @@ public class TelaSolicitacaoComprasMateriaisFAR extends javax.swing.JInternalFra
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
                                     .addComponent(jCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel24)
-                                        .addGap(75, 75, 75))
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxAprovacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jComboBoxAprovacao, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel24)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1180,8 +1183,9 @@ public class TelaSolicitacaoComprasMateriaisFAR extends javax.swing.JInternalFra
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel24))
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel24)))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxAprovacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1241,7 +1245,7 @@ public class TelaSolicitacaoComprasMateriaisFAR extends javax.swing.JInternalFra
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovoItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovoItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoItem.setText("Novo");
         jBtNovoItem.setContentAreaFilled(false);
         jBtNovoItem.setEnabled(false);
@@ -1664,39 +1668,66 @@ public class TelaSolicitacaoComprasMateriaisFAR extends javax.swing.JInternalFra
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        limparTabelaItens();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasManu_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoIncluir() == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            limparTabelaItens();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objSoliMat.setStatusSol(jStatusSol.getText());
-        if (jStatusSol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasManu_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoAlterar() == 1) {
+            objSoliMat.setStatusSol(jStatusSol.getText());
+            if (jStatusSol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objSoliMat.setStatusSol(jStatusSol.getText());
-        if (jStatusSol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasManu_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoGravar() == 1) {
+            objSoliMat.setStatusSol(jStatusSol.getText());
+            if (jStatusSol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                verificarItensRequisitados();
+            }
         } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            verificarItensRequisitados();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -1903,284 +1934,320 @@ public class TelaSolicitacaoComprasMateriaisFAR extends javax.swing.JInternalFra
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objSoliMat.setStatusSol(jStatusSol.getText());
-        if (jStatusSol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoIncluir() == 1) {
+            objSoliMat.setStatusSol(jStatusSol.getText());
+            if (jStatusSol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objSoliMat.setStatusSol(jStatusSol.getText());
-        if (jStatusSol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoAlterar() == 1) {
+            objSoliMat.setStatusSol(jStatusSol.getText());
+            if (jStatusSol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        objSoliMat.setStatusSol(jStatusSol.getText());
-        if (jStatusSol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            if (tipoValor == 0) { // VALOR INDIVIDUAL
-                pesquisaValorIndividualSOL(); // PESQUISAR VALOR INDIVIDUAL.       
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    // CALCULA VALOR A SER GRAVADO                              
-                    valorVTA = valorVTA + valorTotalItem2;
-                    // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
-                    // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.
-                    itensSolComp.setIdFunc(Integer.valueOf(jIdFuncSol.getText()));
-                    itensSolComp.setDataInicialComp(dataInicial);
-                    itensSolComp.setDataFinalComp(dataFinal);
-                    itensSolComp.setValorVTA((float) valorVTA);
-                    controleSAC.alterarValorAcumuladoSolicitanteIndividualAC(itensSolComp);
-                    //
-                    objItensCompra.setIdItem(Integer.valueOf(idItem));
-                    controle.excluirItensSolicitacaoMaterialADM(objItensCompra);
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirItem();
-                    preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
-                            + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
-                            + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
-                }
-            } else if (tipoValor == 1) { // VALOR EM GRUPO
-                pesquisarValorGrupoSOL(); // PESQUISAR VALOR GRUPO.
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    // CALCULAR VALOR ACUMULADO COM A SAIDA DA SOLICITAÇÃO EM GRUPO
-                    valorMaxGAC = valorMaxGAC + valorTotalItem2;
-                    // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
-                    // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.                           
-                    solComp.setIdDepartamento(Integer.valueOf(codigoDEPTO));
-                    solComp.setTipoValor(tipoValor);
-                    solComp.setDataInicialComp(dataInicial);
-                    solComp.setDataFinalComp(dataFinal);
-                    solComp.setValorMax((float) valorMaxGAC);
-                    controleSAC.alterarValorAcumuladoSolicitanteGrupoAC(solComp);
-                    //
-                    objItensCompra.setIdItem(Integer.valueOf(idItem));
-                    controle.excluirItensSolicitacaoMaterialADM(objItensCompra);
-                    preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_AC "
-                            + "INNER JOIN SOLICITACAO_PRODUTOS_AC "
-                            + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirItem();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoExcluir() == 1) {
+            objSoliMat.setStatusSol(jStatusSol.getText());
+            if (jStatusSol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                if (tipoValor == 0) { // VALOR INDIVIDUAL
+                    pesquisaValorIndividualSOL(); // PESQUISAR VALOR INDIVIDUAL.       
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        // CALCULA VALOR A SER GRAVADO                              
+                        valorVTA = valorVTA + valorTotalItem2;
+                        // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
+                        // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.
+                        itensSolComp.setIdFunc(Integer.valueOf(jIdFuncSol.getText()));
+                        itensSolComp.setDataInicialComp(dataInicial);
+                        itensSolComp.setDataFinalComp(dataFinal);
+                        itensSolComp.setValorVTA((float) valorVTA);
+                        controleSAC.alterarValorAcumuladoSolicitanteIndividualAC(itensSolComp);
+                        //
+                        objItensCompra.setIdItem(Integer.valueOf(idItem));
+                        controle.excluirItensSolicitacaoMaterialADM(objItensCompra);
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirItem();
+                        preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
+                                + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
+                                + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
+                    }
+                } else if (tipoValor == 1) { // VALOR EM GRUPO
+                    pesquisarValorGrupoSOL(); // PESQUISAR VALOR GRUPO.
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        // CALCULAR VALOR ACUMULADO COM A SAIDA DA SOLICITAÇÃO EM GRUPO
+                        valorMaxGAC = valorMaxGAC + valorTotalItem2;
+                        // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
+                        // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.                           
+                        solComp.setIdDepartamento(Integer.valueOf(codigoDEPTO));
+                        solComp.setTipoValor(tipoValor);
+                        solComp.setDataInicialComp(dataInicial);
+                        solComp.setDataFinalComp(dataFinal);
+                        solComp.setValorMax((float) valorMaxGAC);
+                        controleSAC.alterarValorAcumuladoSolicitanteGrupoAC(solComp);
+                        //
+                        objItensCompra.setIdItem(Integer.valueOf(idItem));
+                        controle.excluirItensSolicitacaoMaterialADM(objItensCompra);
+                        preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_AC "
+                                + "INNER JOIN SOLICITACAO_PRODUTOS_AC "
+                                + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirItem();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
-        qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jCodProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o produto para solicitação.");
-        } else if (jQtdItem.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
-        } else if (jCodigoBarras.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o código de barras do produto.");
-        } else {
-            objItensCompra.setIdProd(Integer.valueOf(jCodProduto.getText()));
-            objItensCompra.setNomeProduto(jDescricaoProduto.getText());
-            objItensCompra.setIdSol(Integer.valueOf(jIdSol.getText()));
-            objItensCompra.setCodigoBarras(jCodigoBarras.getText());
-            objItensCompra.setStatusAprovacao((String) jComboBoxAprovacao.getSelectedItem());
-            objItensCompra.setUnidadeProd((String) jComboBoxUnidade.getSelectedItem());
-            objItensCompra.setAprovaSolicitacao(atendeSolicitacao);
-            objItensCompra.setValorTotalItem(valorTotalItem);
-            if (tipoValor == 0) { // SE O VALOR FOR INDIVIDUAL    
-                pesquisaValorIndividualSOL(); // PESQUISAR VALOR INDIVIDUAL.     
-                // SE A DATA DA SOLICITAÇÃO FOR ENTRE A DATA DO PERIODO
-                if (jDataSol.getDate().after(dataIndInicial) && jDataSol.getDate().before(dataIndFinal)) {
-                    // SE O VALOR SOLICITADO FOR MAIOR QUE O ACUMULADO.
-                    if (objItensCompra.getValorTotalItem() <= valorVTA) {
-                        if (acao == 3) {
-                            objItensCompra.setUsuarioInsert(nameUser);
-                            objItensCompra.setDataInsert(dataModFinal);
-                            objItensCompra.setHorarioInsert(horaMov);
-                            objItensCompra.setQtdItem(Float.valueOf(jQtdItem.getText()));
-                            controle.incluirItensSolicitacaoMaterialADM(objItensCompra);
-                            // CALCULA VALOR A SER GRAVADO
-                            valorAIL = valorVTA;
-                            valorAIL = valorAIL - objItensCompra.getValorTotalItem();
-                            // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
-                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                            dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
-                            dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
-                            // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.
-                            itensSolComp.setIdFunc(Integer.valueOf(jIdFuncSol.getText()));
-                            itensSolComp.setDataInicialComp(dataInicial);
-                            itensSolComp.setDataFinalComp(dataFinal);
-                            itensSolComp.setValorVTA((float) valorAIL);
-                            controleSAC.alterarValorAcumuladoSolicitanteIndividualAC(itensSolComp);
-                            //
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                            
-                            preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
-                                    + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                                    + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            SalvarItem();
-                        }
-                        if (acao == 4) {
-                            objItensCompra.setUsuarioUp(nameUser);
-                            objItensCompra.setDataUp(dataModFinal);
-                            objItensCompra.setHorarioUp(horaMov);
-                            objItensCompra.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                            try {
-                                objItensCompra.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
-                                objItensCompra.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
-                            } catch (ParseException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoGravar() == 1) {
+            DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+            qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jCodProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o produto para solicitação.");
+            } else if (jQtdItem.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
+            } else if (jCodigoBarras.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o código de barras do produto.");
+            } else {
+                objItensCompra.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                objItensCompra.setNomeProduto(jDescricaoProduto.getText());
+                objItensCompra.setIdSol(Integer.valueOf(jIdSol.getText()));
+                objItensCompra.setCodigoBarras(jCodigoBarras.getText());
+                objItensCompra.setStatusAprovacao((String) jComboBoxAprovacao.getSelectedItem());
+                objItensCompra.setUnidadeProd((String) jComboBoxUnidade.getSelectedItem());
+                objItensCompra.setAprovaSolicitacao(atendeSolicitacao);
+                objItensCompra.setValorTotalItem(valorTotalItem);
+                if (tipoValor == 0) { // SE O VALOR FOR INDIVIDUAL    
+                    pesquisaValorIndividualSOL(); // PESQUISAR VALOR INDIVIDUAL.     
+                    // SE A DATA DA SOLICITAÇÃO FOR ENTRE A DATA DO PERIODO
+                    if (jDataSol.getDate().after(dataIndInicial) && jDataSol.getDate().before(dataIndFinal)) {
+                        // SE O VALOR SOLICITADO FOR MAIOR QUE O ACUMULADO.
+                        if (objItensCompra.getValorTotalItem() <= valorVTA) {
+                            if (acao == 3) {
+                                objItensCompra.setUsuarioInsert(nameUser);
+                                objItensCompra.setDataInsert(dataModFinal);
+                                objItensCompra.setHorarioInsert(horaMov);
+                                objItensCompra.setQtdItem(Float.valueOf(jQtdItem.getText()));
+                                controle.incluirItensSolicitacaoMaterialADM(objItensCompra);
+                                // CALCULA VALOR A SER GRAVADO
+                                valorAIL = valorVTA;
+                                valorAIL = valorAIL - objItensCompra.getValorTotalItem();
+                                // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
+                                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                                dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
+                                dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
+                                // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.
+                                itensSolComp.setIdFunc(Integer.valueOf(jIdFuncSol.getText()));
+                                itensSolComp.setDataInicialComp(dataInicial);
+                                itensSolComp.setDataFinalComp(dataFinal);
+                                itensSolComp.setValorVTA((float) valorAIL);
+                                controleSAC.alterarValorAcumuladoSolicitanteIndividualAC(itensSolComp);
+                                //
+                                objLog2();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                            
+                                preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
+                                        + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                                        + "INNER JOIN PRODUTOS_AC "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                                        + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                SalvarItem();
                             }
-                            objItensCompra.setIdItem(Integer.valueOf(idItem));
-                            controle.alterarItensSolicitacaoMaterialADM(objItensCompra);
-                            // CALCULA VALOR A SER GRAVADO
-                            valorAIL = valorVTA;
-                            valorAIL = (valorTotalItem2 + valorAIL) - objItensCompra.getValorTotalItem();
-                            // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
-                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                            dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
-                            dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
-                            // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.
-                            itensSolComp.setIdFunc(Integer.valueOf(jIdFuncSol.getText()));
-                            itensSolComp.setDataInicialComp(dataInicial);
-                            itensSolComp.setDataFinalComp(dataFinal);
-                            itensSolComp.setValorVTA((float) valorAIL);
-                            controleSAC.alterarValorAcumuladoSolicitanteIndividualAC(itensSolComp);
-                            //
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
-                                    + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                                    + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            SalvarItem();
+                            if (acao == 4) {
+                                objItensCompra.setUsuarioUp(nameUser);
+                                objItensCompra.setDataUp(dataModFinal);
+                                objItensCompra.setHorarioUp(horaMov);
+                                objItensCompra.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                                try {
+                                    objItensCompra.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                                    objItensCompra.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
+                                } catch (ParseException ex) {
+                                }
+                                objItensCompra.setIdItem(Integer.valueOf(idItem));
+                                controle.alterarItensSolicitacaoMaterialADM(objItensCompra);
+                                // CALCULA VALOR A SER GRAVADO
+                                valorAIL = valorVTA;
+                                valorAIL = (valorTotalItem2 + valorAIL) - objItensCompra.getValorTotalItem();
+                                // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
+                                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                                dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
+                                dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
+                                // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.
+                                itensSolComp.setIdFunc(Integer.valueOf(jIdFuncSol.getText()));
+                                itensSolComp.setDataInicialComp(dataInicial);
+                                itensSolComp.setDataFinalComp(dataFinal);
+                                itensSolComp.setValorVTA((float) valorAIL);
+                                controleSAC.alterarValorAcumuladoSolicitanteIndividualAC(itensSolComp);
+                                //
+                                objLog2();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
+                                        + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                                        + "INNER JOIN PRODUTOS_AC "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                                        + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                SalvarItem();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "O valor do produto solicitado é insuficiente para realizar compras.");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "O valor do produto solicitado é insuficiente para realizar compras.");
+                        JOptionPane.showMessageDialog(rootPane, "Período de solicitação de compras expirado...");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Período de solicitação de compras expirado...");
-                }
-            } else if (tipoValor == 1) { // VALOR EM GRUPO
-                pesquisarValorGrupoSOL(); // PESQUISAR VALOR GRUPO.
-                // SE A DATA DA SOLICITAÇÃO FOR ENTRE A DATA DO PERIODO
-                if (jDataSol.getDate().after(dataGrupoInicial) && jDataSol.getDate().before(dataGrupoFinal)) {
-                    // SE O VALOR SOLICITADO FOR MAIOR QUE O ACUMULADO.
-                    if (objItensCompra.getValorTotalItem() <= valorMaxGAC) {
-                        if (acao == 3) {
-                            objItensCompra.setUsuarioInsert(nameUser);
-                            objItensCompra.setDataInsert(dataModFinal);
-                            objItensCompra.setHorarioInsert(horaMov);
-                            objItensCompra.setQtdItem(Float.valueOf(jQtdItem.getText()));
-                            controle.incluirItensSolicitacaoMaterialADM(objItensCompra);
-                            // CALCULAR VALOR ACUMULADO COM A SAIDA DA SOLICITAÇÃO EM GRUPO
-                            valorMaxGAC = valorMaxGAC - objItensCompra.getValorTotalItem();
-                            // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
-                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                            dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
-                            dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
-                            // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.                           
-                            solComp.setIdDepartamento(Integer.valueOf(codigoDEPTO));
-                            solComp.setTipoValor(tipoValor);
-                            solComp.setDataInicialComp(dataInicial);
-                            solComp.setDataFinalComp(dataFinal);
-                            solComp.setValorMax((float) valorMaxGAC);
-                            controleSAC.alterarValorAcumuladoSolicitanteGrupoAC(solComp);
-                            //
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
-                                    + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                                    + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            SalvarItem();
-                        }
-                        if (acao == 4) {
-                            objItensCompra.setUsuarioUp(nameUser);
-                            objItensCompra.setDataUp(dataModFinal);
-                            objItensCompra.setHorarioUp(horaMov);
-                            objItensCompra.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                            try {
-                                objItensCompra.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
-                                objItensCompra.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
-                            } catch (ParseException ex) {
+                } else if (tipoValor == 1) { // VALOR EM GRUPO
+                    pesquisarValorGrupoSOL(); // PESQUISAR VALOR GRUPO.
+                    // SE A DATA DA SOLICITAÇÃO FOR ENTRE A DATA DO PERIODO
+                    if (jDataSol.getDate().after(dataGrupoInicial) && jDataSol.getDate().before(dataGrupoFinal)) {
+                        // SE O VALOR SOLICITADO FOR MAIOR QUE O ACUMULADO.
+                        if (objItensCompra.getValorTotalItem() <= valorMaxGAC) {
+                            if (acao == 3) {
+                                objItensCompra.setUsuarioInsert(nameUser);
+                                objItensCompra.setDataInsert(dataModFinal);
+                                objItensCompra.setHorarioInsert(horaMov);
+                                objItensCompra.setQtdItem(Float.valueOf(jQtdItem.getText()));
+                                controle.incluirItensSolicitacaoMaterialADM(objItensCompra);
+                                // CALCULAR VALOR ACUMULADO COM A SAIDA DA SOLICITAÇÃO EM GRUPO
+                                valorMaxGAC = valorMaxGAC - objItensCompra.getValorTotalItem();
+                                // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
+                                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                                dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
+                                dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
+                                // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.                           
+                                solComp.setIdDepartamento(Integer.valueOf(codigoDEPTO));
+                                solComp.setTipoValor(tipoValor);
+                                solComp.setDataInicialComp(dataInicial);
+                                solComp.setDataFinalComp(dataFinal);
+                                solComp.setValorMax((float) valorMaxGAC);
+                                controleSAC.alterarValorAcumuladoSolicitanteGrupoAC(solComp);
+                                //
+                                objLog2();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
+                                        + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                                        + "INNER JOIN PRODUTOS_AC "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                                        + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                SalvarItem();
                             }
-                            objItensCompra.setIdItem(Integer.valueOf(idItem));
-                            controle.alterarItensSolicitacaoMaterialADM(objItensCompra);
-                            // CALCULAR VALOR ACUMULADO COM A SAIDA DA SOLICITAÇÃO EM GRUPO
-                            valorMaxGAC = (valorTotalItem2 + valorMaxGAC) - objItensCompra.getValorTotalItem();
-                            // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
-                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                            dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
-                            dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
-                            // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.                           
-                            solComp.setIdDepartamento(Integer.valueOf(codigoDEPTO));
-                            solComp.setTipoValor(tipoValor);
-                            solComp.setDataInicialComp(dataInicial);
-                            solComp.setDataFinalComp(dataFinal);
-                            solComp.setValorMax((float) valorMaxGAC);
-                            controleSAC.alterarValorAcumuladoSolicitanteGrupoAC(solComp);
-                            //
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
-                                    + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                                    + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            SalvarItem();
+                            if (acao == 4) {
+                                objItensCompra.setUsuarioUp(nameUser);
+                                objItensCompra.setDataUp(dataModFinal);
+                                objItensCompra.setHorarioUp(horaMov);
+                                objItensCompra.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                                try {
+                                    objItensCompra.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                                    objItensCompra.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
+                                } catch (ParseException ex) {
+                                }
+                                objItensCompra.setIdItem(Integer.valueOf(idItem));
+                                controle.alterarItensSolicitacaoMaterialADM(objItensCompra);
+                                // CALCULAR VALOR ACUMULADO COM A SAIDA DA SOLICITAÇÃO EM GRUPO
+                                valorMaxGAC = (valorTotalItem2 + valorMaxGAC) - objItensCompra.getValorTotalItem();
+                                // FORMATA AS DATAS PARA GRAVAR NA TABELA ITENS_SOLICITANTES_COMPRAS O VALOR
+                                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                                dataInicial = formatoAmerica.format(jDataSol.getDate().getTime());
+                                dataFinal = formatoAmerica.format(jDataSol.getDate().getTime());
+                                // GRAVAR NA TABELA "ITENS_SOLICITANTES_COMPRAS" O VALOR RETIRADO.                           
+                                solComp.setIdDepartamento(Integer.valueOf(codigoDEPTO));
+                                solComp.setTipoValor(tipoValor);
+                                solComp.setDataInicialComp(dataInicial);
+                                solComp.setDataFinalComp(dataFinal);
+                                solComp.setValorMax((float) valorMaxGAC);
+                                controleSAC.alterarValorAcumuladoSolicitanteGrupoAC(solComp);
+                                //
+                                objLog2();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_PRODUTOS_ADM "
+                                        + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                                        + "INNER JOIN PRODUTOS_AC "
+                                        + "ON ITENS_SOLICITACAO_PRODUTOS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                                        + "WHERE ITENS_SOLICITACAO_PRODUTOS_ADM.IdSol='" + jIdSol.getText() + "'");
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                SalvarItem();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "O valor do produto solicitado é insuficiente para realizar compras.");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "O valor do produto solicitado é insuficiente para realizar compras.");
+                        JOptionPane.showMessageDialog(rootPane, "Período de solicitação de compras expirado...");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Período de solicitação de compras expirado...");
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 

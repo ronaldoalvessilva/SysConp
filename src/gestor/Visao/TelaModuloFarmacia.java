@@ -125,12 +125,26 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     public static String telaCadastroProdutos_FAR = "Cadastro:Produtos - FAR:Manutenção";
     public static String telaCadastroMotivoSaida_FAR = "Cadastro:Motivo Saída - FAR:Manutenção";
     //MOVIMENTAÇÃO
-    public static String telaMovimentacaoComprasProdutos_FAR = "Movimentação:Compras de Produtos/Medicamentos - NFE Compras:Manutenção";
-    public static String telaMovimentacaoInventario_FAR = "Movimentação:";
-    public static String telaMovimentacaoTransferencias_FAR = "Movimentação:";
-    public static String telaMovimentacaoRequisicao_FAR = "Movimentação:";
-    public static String telaMovimentacaoEstorno_FAR = "Movimentação:";
-    public static String telaMovimentacaoSolicitacaoCompras_FAR = "Movimentação:";
+    //NOTAS FISCAIS DE COMPRAS
+    public static String telaMovimentacaoComprasProdutosManu_FAR = "Movimentação:Compras de Produtos/Medicamentos - NFE Compras - FAR:Manutenção";
+    public static String telaMovimentacaoComprasProdutosProd_FAR = "Movimentação:Compras de Produtos/Medicamentos - NFE Compras - FAR:Produtos";
+    public static String telaMovimentacaoComprasProdutosParc_FAR = "Movimentação:Compras de Produtos/Medicamentos - NFE Compras - FAR:Parcelas";
+    //INVENTÁRIO DE ESTOQUE
+    public static String telaMovimentacaoInventarioManu_FAR = "Movimentação:Inventário:Manutenção - FAR";
+    public static String telaMovimentacaoInventarioProd_FAR = "Movimentação:Inventário:Produtos - FAR";
+    public static String telaMovimentacaoInventarioEfet_FAR = "Movimentação:Inventário:Efetivar - FAR";
+    //TRANSFERÊNCIAS DE PRODUTOS
+    public static String telaMovimentacaoTransferenciasManu_FAR = "Movimentação:Transferências de Produtos entre Locais - FAR:Manutenção";
+    public static String telaMovimentacaoTransferenciasProd_FAR = "Movimentação:Transferências de Produtos entre Locais - FAR:Produtos";
+    //REQUISIÇÃO DE PRODUTOS
+    public static String telaMovimentacaoRequisicaoManu_FAR = "Movimentação:Requisição Avulsa de Produtos:Manutenção - FAR";
+    public static String telaMovimentacaoRequisicaoProd_FAR = "Movimentação:Requisição Avulsa de Produtos:Produtos - FAR";
+    //ESTORNO DE PRODUTOS
+    public static String telaMovimentacaoEstornoManu_FAR = "Movimentação:Requisição Avulsa de Produtos:Manutenção - FAR";
+    public static String telaMovimentacaoEstornoProd_FAR = "Movimentação:Requisição Avulsa de Produtos:Produtos - FAR";
+    //SOLICITAÇÃO DE COMPRAS
+    public static String telaMovimentacaoSolicitacaoComprasManu_FAR = "Movimentação:Solicitação de Compras de Produtos - FAR:Manutenção";
+    public static String telaMovimentacaoSolicitacaoComprasProd_FAR = "Movimentação:Solicitação de Compras de Produtos - FAR:Produto";
     //
     String dataLanc;
     int codUsuario;
@@ -653,11 +667,11 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaMovimentacaoInventario_FAR);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoInventarioManu_FAR);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoInventario_FAR) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoInventarioManu_FAR) && objCampos.getCodigoAbrir() == 1) {
             if (objInvEstoque == null || objInvEstoque.isClosed()) {
                 objInvEstoque = new TelaInventarioProdutosMed();
                 jPainelFarmacia.add(objInvEstoque);
@@ -691,11 +705,11 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private void TransferenciaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferenciaProdutosActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaMovimentacaoTransferencias_FAR);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoTransferenciasManu_FAR);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoTransferencias_FAR) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoTransferenciasManu_FAR) && objCampos.getCodigoAbrir() == 1) {
             if (objTransProd == null || objTransProd.isClosed()) {
                 objTransProd = new TelaTransferenciaEstoqueFarmacia();
                 jPainelFarmacia.add(objTransProd);
@@ -729,11 +743,11 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private void NFeEntradaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NFeEntradaProdutosActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaMovimentacaoComprasProdutos_FAR);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoComprasProdutosManu_FAR);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoComprasProdutos_FAR) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoComprasProdutosManu_FAR) && objCampos.getCodigoAbrir() == 1) {
             if (objNfeCompras == null || objNfeCompras.isClosed()) {
                 objNfeCompras = new TelaEntradaProdutos();
                 jPainelFarmacia.add(objNfeCompras);
@@ -767,11 +781,11 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private void RequisicaoMaterialAvulsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RequisicaoMaterialAvulsaActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaMovimentacaoRequisicao_FAR);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoRequisicaoManu_FAR);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoRequisicao_FAR) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoRequisicaoManu_FAR) && objCampos.getCodigoAbrir() == 1) {
             if (objReqAvulFAR == null || objReqAvulFAR.isClosed()) {
                 objReqAvulFAR = new TelaRequisicaoAvulsaFAR();
                 jPainelFarmacia.add(objReqAvulFAR);
@@ -805,11 +819,11 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private void jEstornoTransferenciaRequisicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEstornoTransferenciaRequisicaoActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaMovimentacaoEstorno_FAR);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoManu_FAR);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstorno_FAR) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoManu_FAR) && objCampos.getCodigoAbrir() == 1) {
             if (objEstTransReqFAR == null || objEstTransReqFAR.isClosed()) {
                 objEstTransReqFAR = new TelaEstornoRequisicaoMateriaisFAR();
                 jPainelFarmacia.add(objEstTransReqFAR);
@@ -843,11 +857,11 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private void PedidoComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PedidoComprasActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoCompras_FAR);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoComprasManu_FAR);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoCompras_FAR) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoComprasManu_FAR) && objCampos.getCodigoAbrir() == 1) {
             if (objCompraFAR == null || objCompraFAR.isClosed()) {
                 objCompraFAR = new TelaSolicitacaoComprasMateriaisFAR();
                 jPainelFarmacia.add(objCompraFAR);
@@ -1527,6 +1541,151 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
             pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
             objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
             objCadastroTela.setNomeTela(telaCadastroMotivoSaida_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //MOVIMENAÇÃO
+        //NOTAS FISCAIS DE COMPRAS - MANUTENÇÃO
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoComprasProdutosManu_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoComprasProdutosManu_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoComprasProdutosManu_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //NF - PRODUTOS
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoComprasProdutosProd_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoComprasProdutosProd_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoComprasProdutosProd_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //NF - PARCELAS
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoComprasProdutosParc_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoComprasProdutosParc_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoComprasProdutosParc_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //INVENTÁRIO
+        //MANUTENÇÃO
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoInventarioManu_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoInventarioManu_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoInventarioManu_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRODUTOS
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoInventarioProd_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoInventarioProd_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoInventarioProd_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //BOTÃO EFETIVAR
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoInventarioEfet_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoInventarioEfet_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoInventarioEfet_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //TRANSFERÊNCIA DE PRODUTOS 
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoTransferenciasManu_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoTransferenciasManu_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoTransferenciasManu_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRODUTOS DA TRANSFERÊNCIA
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoTransferenciasProd_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoTransferenciasProd_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoTransferenciasProd_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //REQUISIÇÃO DE PRODUTOS
+        //MANUTENÇÃO 
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoRequisicaoManu_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoRequisicaoManu_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoRequisicaoManu_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRODUTOS DA REQUISIÇÃO
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoRequisicaoProd_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoRequisicaoProd_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoRequisicaoProd_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //ESTORNO DE REQUISIÇÃO
+        //MANUTENÇÃO
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoEstornoManu_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoEstornoManu_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoEstornoManu_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRODUTOS DO ESTORNO
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoEstornoProd_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoEstornoProd_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoEstornoProd_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //SOLICITAÇÃO DE COMPRA
+        //MANUTENÇÃO 
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoSolicitacaoComprasManu_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoSolicitacaoComprasManu_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoSolicitacaoComprasManu_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRODUTOS DA SOLICITAÇÃO DE COMPRAS 
+        objCampos.setNomeTelaPesquisa(telaMovimentacaoSolicitacaoComprasProd_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaMovimentacaoSolicitacaoComprasProd_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaMovimentacaoSolicitacaoComprasProd_FAR);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
