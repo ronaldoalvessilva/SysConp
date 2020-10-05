@@ -9,10 +9,13 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMotivoSaidaFAR;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.MotivoSaidaFAR;
 import static gestor.Visao.TelaInventarioProdutosMed.jTabelaItensProdutoInvent;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFarmacia.telaCadastroMotivoSaida_FAR;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -35,12 +38,15 @@ public class TelaMotivoSaidaProdutosFAR extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     MotivoSaidaFAR objMotivo = new MotivoSaidaFAR();
     ControleMotivoSaidaFAR control = new ControleMotivoSaidaFAR();
+    //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
     //     
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
     String nomeModuloTela = "Farmácia:Modivo de Saída de Produtos:Manutenção";
-
+    //
     int flag;
     int acao;
     String dataInicial, dataFinal, dataEmissao, dataValidade;
@@ -239,7 +245,7 @@ public class TelaMotivoSaidaProdutosFAR extends javax.swing.JInternalFrame {
         jTabelaMotivos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaMotivos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Titulo do Motivo"
@@ -730,82 +736,118 @@ public class TelaMotivoSaidaProdutosFAR extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroMotivoSaida_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroMotivoSaida_FAR) && objCampos.getCodigoIncluir() == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroMotivoSaida_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroMotivoSaida_FAR) && objCampos.getCodigoAlterar() == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:              
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        verificarMotivo();
-        if (jIdMotivo.getText().equals(codMotivo)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, existe relacionamento.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objMotivo.setIdMot(Integer.parseInt(jIdMotivo.getText()));
-                control.excluirMotivoFAR(objMotivo);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        // TODO add your handling code here:  
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroMotivoSaida_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroMotivoSaida_FAR) && objCampos.getCodigoExcluir() == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            verificarMotivo();
+            if (jIdMotivo.getText().equals(codMotivo)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, existe relacionamento.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objMotivo.setIdMot(Integer.parseInt(jIdMotivo.getText()));
+                    control.excluirMotivoFAR(objMotivo);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataMotivo.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
-        } else if (jTituloMotivo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o titulo do motivo.");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroMotivoSaida_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroMotivoSaida_FAR) && objCampos.getCodigoGravar() == 1) {
+            if (jDataMotivo.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+            } else if (jTituloMotivo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o titulo do motivo.");
+            } else {
+                objMotivo.setStatusMot((String) jComboBoxStatus.getSelectedItem());
+                objMotivo.setDataMot(jDataMotivo.getDate());
+                objMotivo.setTituloMotivo(jTituloMotivo.getText());
+                objMotivo.setMotivo(jTextoMotivo.getText());
+            }
+            if (acao == 1) {
+                objMotivo.setUsuarioInsert(nameUser);
+                objMotivo.setDataInsert(dataModFinal);
+                objMotivo.setHorarioInsert(horaMov);
+                //
+                control.incluirMotivoFAR(objMotivo);
+                buscarCodigo();
+                //
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                Salvar();
+            }
+            if (acao == 2) {
+                objMotivo.setUsuarioUp(nameUser);
+                objMotivo.setDataUp(dataModFinal);
+                objMotivo.setHorarioUp(horaMov);
+                //
+                objMotivo.setIdMot(Integer.valueOf(jIdMotivo.getText()));
+                control.alterarMotivoFAR(objMotivo);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                Salvar();
+            }
         } else {
-            objMotivo.setStatusMot((String) jComboBoxStatus.getSelectedItem());
-            objMotivo.setDataMot(jDataMotivo.getDate());
-            objMotivo.setTituloMotivo(jTituloMotivo.getText());
-            objMotivo.setMotivo(jTextoMotivo.getText());
-        }
-        if (acao == 1) {
-            objMotivo.setUsuarioInsert(nameUser);
-            objMotivo.setDataInsert(dataModFinal);
-            objMotivo.setHorarioInsert(horaMov);
-            //
-            control.incluirMotivoFAR(objMotivo);
-            buscarCodigo();
-            //
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            Salvar();
-        }
-        if (acao == 2) {
-            objMotivo.setUsuarioUp(nameUser);
-            objMotivo.setDataUp(dataModFinal);
-            objMotivo.setHorarioUp(horaMov);
-            //
-            objMotivo.setIdMot(Integer.valueOf(jIdMotivo.getText()));
-            control.alterarMotivoFAR(objMotivo);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            Salvar();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

@@ -9,6 +9,8 @@
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Fornecedores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fornecedores"/>
@@ -16,8 +18,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FornecedoresActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="LocalArmazenamento">
               <Properties>
@@ -162,12 +162,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RequisicaoMaterialAvulsaActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+                <MenuItem class="javax.swing.JMenuItem" name="jEstornoTransferenciaRequisicao">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Estorno de Transfer&#xea;ncia/Requisi&#xe7;&#xe3;o Avulsa de Produtos"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEstornoTransferenciaRequisicaoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

@@ -5607,6 +5607,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaSaidaSimbolicaManu_CRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+         try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaidaSimbolicaInt_CRC + "'");
+            conecta.rs.first();
+            pNomeSSI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         if (!pNomeSSI.equals(telaSaidaSimbolicaInt_CRC) || pNomeSSI == null || pNomeSSI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);

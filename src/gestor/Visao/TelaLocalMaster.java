@@ -10,9 +10,12 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitos;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.LocalArmazenamento;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFarmacia.telaCadastroLocalArmazenamento_FAR;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -34,6 +37,9 @@ public class TelaLocalMaster extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     LocalArmazenamento objLocalMaster = new LocalArmazenamento();
     ControleLocalArmazenamento control = new ControleLocalArmazenamento();
+    //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -404,68 +410,104 @@ public class TelaLocalMaster extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroLocalArmazenamento_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroLocalArmazenamento_FAR) && objCampos.getCodigoIncluir() == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroLocalArmazenamento_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroLocalArmazenamento_FAR) && objCampos.getCodigoAlterar() == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarProduto();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroLocalArmazenamento_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroLocalArmazenamento_FAR) && objCampos.getCodigoExcluir() == 1) {
+            verificarProduto();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxStatusLocal.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe se o local está ativo ou inativo.");
-            jComboBoxStatusLocal.requestFocus();
-            jComboBoxStatusLocal.setBackground(Color.red);
-        } else {
-            if (jDescricaoLocal.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local.");
-                jDescricaoLocal.requestFocus();
-                jDescricaoLocal.setBackground(Color.red);
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroLocalArmazenamento_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroLocalArmazenamento_FAR) && objCampos.getCodigoGravar() == 1) {
+            if (jComboBoxStatusLocal.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o local está ativo ou inativo.");
+                jComboBoxStatusLocal.requestFocus();
+                jComboBoxStatusLocal.setBackground(Color.red);
             } else {
-                objLocalMaster.setStatusLocal((String) jComboBoxStatusLocal.getSelectedItem());
-                objLocalMaster.setDescricaLocal(jDescricaoLocal.getText());
-                objLocalMaster.setNivelLocal(nivelLocalFar);
-                objLocalMaster.setModulo(modulo);
-                if (acao == 1) {
-                    objLocalMaster.setUsuarioInsert(nameUser);
-                    objLocalMaster.setDataInsert(dataModFinal);
-                    objLocalMaster.setHorarioInsert(horaMov);
-                    control.incluirLocalMaster(objLocalMaster);
-                    buscarID();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    objLocalMaster.setUsuarioUp(nameUser);
-                    objLocalMaster.setDataUp(dataModFinal);
-                    objLocalMaster.setHorarioUp(horaMov);
-                    objLocalMaster.setIdLocal(Integer.valueOf(jIDLocal.getText()));
-                    control.alterarLocalMaster(objLocalMaster);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (jDescricaoLocal.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local.");
+                    jDescricaoLocal.requestFocus();
+                    jDescricaoLocal.setBackground(Color.red);
+                } else {
+                    objLocalMaster.setStatusLocal((String) jComboBoxStatusLocal.getSelectedItem());
+                    objLocalMaster.setDescricaLocal(jDescricaoLocal.getText());
+                    objLocalMaster.setNivelLocal(nivelLocalFar);
+                    objLocalMaster.setModulo(modulo);
+                    if (acao == 1) {
+                        objLocalMaster.setUsuarioInsert(nameUser);
+                        objLocalMaster.setDataInsert(dataModFinal);
+                        objLocalMaster.setHorarioInsert(horaMov);
+                        control.incluirLocalMaster(objLocalMaster);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        objLocalMaster.setUsuarioUp(nameUser);
+                        objLocalMaster.setDataUp(dataModFinal);
+                        objLocalMaster.setHorarioUp(horaMov);
+                        objLocalMaster.setIdLocal(Integer.valueOf(jIDLocal.getText()));
+                        control.alterarLocalMaster(objLocalMaster);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -484,7 +526,7 @@ public class TelaLocalMaster extends javax.swing.JInternalFrame {
         flag = 1;
         if (jPesqDescricaoLocal.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição ou parte dela para pesquisar.");
-        } else {            
+        } else {
             preencherTabelaLocal("SELECT * FROM LOCAL_ARMAZENAMENTO_AC WHERE DescricaoLocal LIKE'%" + jPesqDescricaoLocal.getText() + "%'AND NivelLocal='" + nivelLocalFar + "'AND Modulo='" + modulo + "'OR NivelLocal='" + nivelLocalEnf + "'AND Modulo='" + modulo + "'OR NivelLocal='" + nivelLocalFar + "'AND Modulo='" + modulo2 + "'OR NivelLocal='" + nivelLocalEnf + "'AND Modulo='" + modulo2 + "'");
         }
 

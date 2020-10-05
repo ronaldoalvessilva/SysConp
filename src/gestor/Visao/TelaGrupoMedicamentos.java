@@ -9,7 +9,11 @@ import gestor.Controle.ControleGrupoProdutos;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitos;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.GrupoProdutos;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFarmacia.telaCadastroGrupoProdutos_FAR;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,6 +31,10 @@ public class TelaGrupoMedicamentos extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     GrupoProdutos objGrupoProd = new GrupoProdutos();
     ControleGrupoProdutos control = new ControleGrupoProdutos();
+    //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
+    //
     int acao, flag;
     String codGrupo;
     String modulo = "F";
@@ -403,52 +411,87 @@ public class TelaGrupoMedicamentos extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroGrupoProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroGrupoProdutos_FAR) && objCampos.getCodigoIncluir() == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroGrupoProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroGrupoProdutos_FAR) && objCampos.getCodigoAlterar() == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarProduto();
-
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroGrupoProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroGrupoProdutos_FAR) && objCampos.getCodigoExcluir() == 1) {
+            verificarProduto();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxStatus.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o status do grupo.");
-            jComboBoxStatus.requestFocus();
-            jComboBoxStatus.setBackground(Color.red);
-        } else {
-            if (jDescricaoGrupo.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do grupo de produtos.");
-                jDescricaoGrupo.requestFocus();
-                jDescricaoGrupo.setBackground(Color.red);
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroGrupoProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroGrupoProdutos_FAR) && objCampos.getCodigoGravar() == 1) {
+            if (jComboBoxStatus.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do grupo.");
+                jComboBoxStatus.requestFocus();
+                jComboBoxStatus.setBackground(Color.red);
             } else {
-                objGrupoProd.setStatusGru((String) jComboBoxStatus.getSelectedItem());
-                objGrupoProd.setNomeGrupo(jDescricaoGrupo.getText());
-                objGrupoProd.setModulo(modulo);
-                if (acao == 1) {
-                    control.incluirGrupo(objGrupoProd);
-                    buscarID();
-                    Salvar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
-                if (acao == 2) {
-                    objGrupoProd.setIdGrupo(Integer.valueOf(jIdGrupo.getText()));
-                    control.alterarGrupo(objGrupoProd);
-                    Salvar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                if (jDescricaoGrupo.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição do grupo de produtos.");
+                    jDescricaoGrupo.requestFocus();
+                    jDescricaoGrupo.setBackground(Color.red);
+                } else {
+                    objGrupoProd.setStatusGru((String) jComboBoxStatus.getSelectedItem());
+                    objGrupoProd.setNomeGrupo(jDescricaoGrupo.getText());
+                    objGrupoProd.setModulo(modulo);
+                    if (acao == 1) {
+                        control.incluirGrupo(objGrupoProd);
+                        buscarID();
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                    if (acao == 2) {
+                        objGrupoProd.setIdGrupo(Integer.valueOf(jIdGrupo.getText()));
+                        control.alterarGrupo(objGrupoProd);
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

@@ -24,11 +24,15 @@ public class CamposAcessos {
     private int codigoExcluir;
     private int codigoGravar;
     private int codigoConsultar;
+    private String nomeTelaPesquisa;
+    private String nomeTelaCadastrada;
+    private int codigoModulo;
+    private String nomeModulo;        
 
     public CamposAcessos() {
     }
 
-    public CamposAcessos(int codigoUsuario, String nomeUsuario, int codigoUsuarioGrupo, int codigoGrupo, String nomeGrupo, int codigoUsuarioAcesso, String nomeTelaAcesso, int codigoAbrir, int codigoIncluir, int codigoAlterar, int codigoExcluir, int codigoGravar, int codigoConsultar) {
+    public CamposAcessos(int codigoUsuario, String nomeUsuario, int codigoUsuarioGrupo, int codigoGrupo, String nomeGrupo, int codigoUsuarioAcesso, String nomeTelaAcesso, int codigoAbrir, int codigoIncluir, int codigoAlterar, int codigoExcluir, int codigoGravar, int codigoConsultar, String nomeTelaPesquisa, String nomeTelaCadastrada, int codigoModulo, String nomeModulo) {
         this.codigoUsuario = codigoUsuario;
         this.nomeUsuario = nomeUsuario;
         this.codigoUsuarioGrupo = codigoUsuarioGrupo;
@@ -42,6 +46,10 @@ public class CamposAcessos {
         this.codigoExcluir = codigoExcluir;
         this.codigoGravar = codigoGravar;
         this.codigoConsultar = codigoConsultar;
+        this.nomeTelaPesquisa = nomeTelaPesquisa;
+        this.nomeTelaCadastrada = nomeTelaCadastrada;
+        this.codigoModulo = codigoModulo;
+        this.nomeModulo = nomeModulo;
     }
 
     /**
@@ -224,5 +232,61 @@ public class CamposAcessos {
      */
     public void setCodigoConsultar(int codigoConsultar) {
         this.codigoConsultar = codigoConsultar;
+    }
+
+    /**
+     * @return the nomeTelaPesquisa
+     */
+    public String getNomeTelaPesquisa() {
+        return nomeTelaPesquisa;
+    }
+
+    /**
+     * @param nomeTelaPesquisa the nomeTelaPesquisa to set
+     */
+    public void setNomeTelaPesquisa(String nomeTelaPesquisa) {
+        this.nomeTelaPesquisa = nomeTelaPesquisa;
+    }
+
+    /**
+     * @return the nomeTelaCadastrada
+     */
+    public String getNomeTelaCadastrada() {
+        return nomeTelaCadastrada;
+    }
+
+    /**
+     * @param nomeTelaCadastrada the nomeTelaCadastrada to set
+     */
+    public void setNomeTelaCadastrada(String nomeTelaCadastrada) {
+        this.nomeTelaCadastrada = nomeTelaCadastrada;
+    }
+
+    /**
+     * @return the codigoModulo
+     */
+    public int getCodigoModulo() {
+        return codigoModulo;
+    }
+
+    /**
+     * @param codigoModulo the codigoModulo to set
+     */
+    public void setCodigoModulo(int codigoModulo) {
+        this.codigoModulo = codigoModulo;
+    }
+
+    /**
+     * @return the nomeModulo
+     */
+    public String getNomeModulo() {
+        return nomeModulo;
+    }
+
+    /**
+     * @param nomeModulo the nomeModulo to set
+     */
+    public void setNomeModulo(String nomeModulo) {
+        this.nomeModulo = nomeModulo;
     }
 }

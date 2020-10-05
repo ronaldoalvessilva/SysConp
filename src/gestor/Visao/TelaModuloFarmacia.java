@@ -9,6 +9,10 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Controle.ControleTelasSistema;
+import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.CamposAcessos;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -76,6 +80,11 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
+    //
     private TelaRecadosFarmacia objRecadoFar = null;
     private TelaFornecedor objForMed = null;
     private TelaMedicamentos objProdMed = null;
@@ -92,6 +101,36 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaConsultasPrescricao objConspes = null;
     private TelaConsultaLocalInterno objConsInt = null;
+    //
+    //
+    public static int codigoUserFAR = 0;
+    public static int codUserAcessoFAR = 0;
+    public static int codigoUserGroupFAR = 0;
+    public static int codAbrirFAR = 0;
+    public static int codIncluirFAR = 0;
+    public static int codAlterarFAR = 0;
+    public static int codExcluirFAR = 0;
+    public static int codGravarFAR = 0;
+    public static int codConsultarFAR = 0;
+    public static int codigoGrupoFAR = 0;
+    public static String nomeGrupoFAR = "";
+    public static String nomeTelaFAR = "";
+    // TELAS DE ACESSOS AO MÓDULO PEDAGOGIA
+    public static String nomeModuloFAR = "FARMACIA";
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // MENU CADASTRO   
+    public static String telaCadastroFornecedores_FAR = "Cadastro:Fornecedores - FAR:Manutenção";
+    public static String telaCadastroLocalArmazenamento_FAR = "Cadastro:Local Armazenamento - FAR:Manutenção";
+    public static String telaCadastroGrupoProdutos_FAR = "Cadastro:Grupo Produtos - FAR:Manutenção";
+    public static String telaCadastroProdutos_FAR = "Cadastro:Produtos - FAR:Manutenção";
+    public static String telaCadastroMotivoSaida_FAR = "Cadastro:Motivo Saída - FAR:Manutenção";
+    //MOVIMENTAÇÃO
+    public static String telaMovimentacaoComprasProdutos_FAR = "Movimentação:Compras de Produtos/Medicamentos - NFE Compras:Manutenção";
+    public static String telaMovimentacaoInventario_FAR = "Movimentação:";
+    public static String telaMovimentacaoTransferencias_FAR = "Movimentação:";
+    public static String telaMovimentacaoRequisicao_FAR = "Movimentação:";
+    public static String telaMovimentacaoEstorno_FAR = "Movimentação:";
+    public static String telaMovimentacaoSolicitacaoCompras_FAR = "Movimentação:";
     //
     String dataLanc;
     int codUsuario;
@@ -114,6 +153,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     public TelaModuloFarmacia() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
+        pesquisarTelasAcessos();
         threadMensagem();
     }
 
@@ -130,8 +170,8 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        Fornecedores = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        Fornecedores = new javax.swing.JMenuItem();
         LocalArmazenamento = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         GrupoProdutos = new javax.swing.JMenuItem();
@@ -155,7 +195,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         jMenu4 = new javax.swing.JMenu();
         TransferenciaProdutos = new javax.swing.JMenuItem();
         RequisicaoMaterialAvulsa = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jEstornoTransferenciaRequisicao = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         PedidoCompras = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -194,6 +234,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         );
 
         jMenu1.setText("Cadastro");
+        jMenu1.add(jSeparator1);
 
         Fornecedores.setText("Fornecedores");
         Fornecedores.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +243,6 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
             }
         });
         jMenu1.add(Fornecedores);
-        jMenu1.add(jSeparator1);
 
         LocalArmazenamento.setText("Local de Armazenamento");
         LocalArmazenamento.addActionListener(new java.awt.event.ActionListener() {
@@ -332,13 +372,13 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         });
         jMenu4.add(RequisicaoMaterialAvulsa);
 
-        jMenuItem2.setText("Estorno de Transferência/Requisição Avulsa de Produtos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jEstornoTransferenciaRequisicao.setText("Estorno de Transferência/Requisição Avulsa de Produtos");
+        jEstornoTransferenciaRequisicao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jEstornoTransferenciaRequisicaoActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem2);
+        jMenu4.add(jEstornoTransferenciaRequisicao);
 
         jMenu2.add(jMenu4);
         jMenu2.add(jSeparator7);
@@ -431,117 +471,153 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
 
     private void GrupoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrupoProdutosActionPerformed
         // TODO add your handling code here:
-        if (objGrupoMed == null || objGrupoMed.isClosed()) {
-            objGrupoMed = new TelaGrupoMedicamentos();
-            jPainelFarmacia.add(objGrupoMed);
-            objGrupoMed.setVisible(true);
-        } else {
-            if (objGrupoMed.isVisible()) {
-                if (objGrupoMed.isIcon()) { // Se esta minimizado
-                    try {
-                        objGrupoMed.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroGrupoProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroGrupoProdutos_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objGrupoMed == null || objGrupoMed.isClosed()) {
+                objGrupoMed = new TelaGrupoMedicamentos();
+                jPainelFarmacia.add(objGrupoMed);
+                objGrupoMed.setVisible(true);
+            } else {
+                if (objGrupoMed.isVisible()) {
+                    if (objGrupoMed.isIcon()) { // Se esta minimizado
+                        try {
+                            objGrupoMed.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objGrupoMed.toFront(); // traz para frente
+                        objGrupoMed.pack();//volta frame 
                     }
                 } else {
-                    objGrupoMed.toFront(); // traz para frente
-                    objGrupoMed.pack();//volta frame 
+                    objGrupoMed = new TelaGrupoMedicamentos();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objGrupoMed);//adicona frame ao JDesktopPane  
+                    objGrupoMed.setVisible(true);
                 }
-            } else {
-                objGrupoMed = new TelaGrupoMedicamentos();
-                TelaModuloFarmacia.jPainelFarmacia.add(objGrupoMed);//adicona frame ao JDesktopPane  
-                objGrupoMed.setVisible(true);
             }
-        }
-        try {
-            objGrupoMed.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objGrupoMed.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_GrupoProdutosActionPerformed
 
     private void ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutosActionPerformed
         // TODO add your handling code here:
-        if (objProdMed == null || objProdMed.isClosed()) {
-            objProdMed = new TelaMedicamentos();
-            jPainelFarmacia.add(objProdMed);
-            objProdMed.setVisible(true);
-        } else {
-            if (objProdMed.isVisible()) {
-                if (objProdMed.isIcon()) { // Se esta minimizado
-                    try {
-                        objProdMed.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroProdutos_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objProdMed == null || objProdMed.isClosed()) {
+                objProdMed = new TelaMedicamentos();
+                jPainelFarmacia.add(objProdMed);
+                objProdMed.setVisible(true);
+            } else {
+                if (objProdMed.isVisible()) {
+                    if (objProdMed.isIcon()) { // Se esta minimizado
+                        try {
+                            objProdMed.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objProdMed.toFront(); // traz para frente
+                        objProdMed.pack();//volta frame 
                     }
                 } else {
-                    objProdMed.toFront(); // traz para frente
-                    objProdMed.pack();//volta frame 
+                    objProdMed = new TelaMedicamentos();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objProdMed);//adicona frame ao JDesktopPane  
+                    objProdMed.setVisible(true);
                 }
-            } else {
-                objProdMed = new TelaMedicamentos();
-                TelaModuloFarmacia.jPainelFarmacia.add(objProdMed);//adicona frame ao JDesktopPane  
-                objProdMed.setVisible(true);
             }
-        }
-        try {
-            objProdMed.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objProdMed.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_ProdutosActionPerformed
 
     private void FornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FornecedoresActionPerformed
         // TODO add your handling code here:
-        if (objForMed == null || objForMed.isClosed()) {
-            objForMed = new TelaFornecedor();
-            jPainelFarmacia.add(objForMed);
-            objForMed.setVisible(true);
-        } else {
-            if (objForMed.isVisible()) {
-                if (objForMed.isIcon()) { // Se esta minimizado
-                    try {
-                        objForMed.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroFornecedores_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroFornecedores_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objForMed == null || objForMed.isClosed()) {
+                objForMed = new TelaFornecedor();
+                jPainelFarmacia.add(objForMed);
+                objForMed.setVisible(true);
+            } else {
+                if (objForMed.isVisible()) {
+                    if (objForMed.isIcon()) { // Se esta minimizado
+                        try {
+                            objForMed.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objForMed.toFront(); // traz para frente
+                        objForMed.pack();//volta frame 
                     }
                 } else {
-                    objForMed.toFront(); // traz para frente
-                    objForMed.pack();//volta frame 
+                    objForMed = new TelaFornecedor();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objForMed);//adicona frame ao JDesktopPane  
+                    objForMed.setVisible(true);
                 }
-            } else {
-                objForMed = new TelaFornecedor();
-                TelaModuloFarmacia.jPainelFarmacia.add(objForMed);//adicona frame ao JDesktopPane  
-                objForMed.setVisible(true);
             }
-        }
-        try {
-            objForMed.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objForMed.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_FornecedoresActionPerformed
 
     private void LocalArmazenamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocalArmazenamentoActionPerformed
         // TODO add your handling code here:
-        if (objLocalMaster == null || objLocalMaster.isClosed()) {
-            objLocalMaster = new TelaLocalMaster();
-            jPainelFarmacia.add(objLocalMaster);
-            objLocalMaster.setVisible(true);
-        } else {
-            if (objLocalMaster.isVisible()) {
-                if (objLocalMaster.isIcon()) { // Se esta minimizado
-                    try {
-                        objLocalMaster.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroLocalArmazenamento_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroLocalArmazenamento_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objLocalMaster == null || objLocalMaster.isClosed()) {
+                objLocalMaster = new TelaLocalMaster();
+                jPainelFarmacia.add(objLocalMaster);
+                objLocalMaster.setVisible(true);
+            } else {
+                if (objLocalMaster.isVisible()) {
+                    if (objLocalMaster.isIcon()) { // Se esta minimizado
+                        try {
+                            objLocalMaster.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objLocalMaster.toFront(); // traz para frente
+                        objLocalMaster.pack();//volta frame 
                     }
                 } else {
-                    objLocalMaster.toFront(); // traz para frente
-                    objLocalMaster.pack();//volta frame 
+                    objLocalMaster = new TelaLocalMaster();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objLocalMaster);//adicona frame ao JDesktopPane  
+                    objLocalMaster.setVisible(true);
                 }
-            } else {
-                objLocalMaster = new TelaLocalMaster();
-                TelaModuloFarmacia.jPainelFarmacia.add(objLocalMaster);//adicona frame ao JDesktopPane  
-                objLocalMaster.setVisible(true);
             }
-        }
-        try {
-            objLocalMaster.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objLocalMaster.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_LocalArmazenamentoActionPerformed
 
@@ -576,204 +652,267 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
 
     private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
         // TODO add your handling code here:
-        if (objInvEstoque == null || objInvEstoque.isClosed()) {
-            objInvEstoque = new TelaInventarioProdutosMed();
-            jPainelFarmacia.add(objInvEstoque);
-            objInvEstoque.setVisible(true);
-        } else {
-            if (objInvEstoque.isVisible()) {
-                if (objInvEstoque.isIcon()) { // Se esta minimizado
-                    try {
-                        objInvEstoque.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoInventario_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoInventario_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objInvEstoque == null || objInvEstoque.isClosed()) {
+                objInvEstoque = new TelaInventarioProdutosMed();
+                jPainelFarmacia.add(objInvEstoque);
+                objInvEstoque.setVisible(true);
+            } else {
+                if (objInvEstoque.isVisible()) {
+                    if (objInvEstoque.isIcon()) { // Se esta minimizado
+                        try {
+                            objInvEstoque.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objInvEstoque.toFront(); // traz para frente
+                        objInvEstoque.pack();//volta frame 
                     }
                 } else {
-                    objInvEstoque.toFront(); // traz para frente
-                    objInvEstoque.pack();//volta frame 
+                    objInvEstoque = new TelaInventarioProdutosMed();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objInvEstoque);//adicona frame ao JDesktopPane  
+                    objInvEstoque.setVisible(true);
                 }
-            } else {
-                objInvEstoque = new TelaInventarioProdutosMed();
-                TelaModuloFarmacia.jPainelFarmacia.add(objInvEstoque);//adicona frame ao JDesktopPane  
-                objInvEstoque.setVisible(true);
             }
-        }
-        try {
-            objInvEstoque.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objInvEstoque.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_InventarioActionPerformed
 
     private void TransferenciaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferenciaProdutosActionPerformed
         // TODO add your handling code here:
-        if (objTransProd == null || objTransProd.isClosed()) {
-            objTransProd = new TelaTransferenciaEstoqueFarmacia();
-            jPainelFarmacia.add(objTransProd);
-            objTransProd.setVisible(true);
-        } else {
-            if (objTransProd.isVisible()) {
-                if (objTransProd.isIcon()) { // Se esta minimizado
-                    try {
-                        objTransProd.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoTransferencias_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoTransferencias_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objTransProd == null || objTransProd.isClosed()) {
+                objTransProd = new TelaTransferenciaEstoqueFarmacia();
+                jPainelFarmacia.add(objTransProd);
+                objTransProd.setVisible(true);
+            } else {
+                if (objTransProd.isVisible()) {
+                    if (objTransProd.isIcon()) { // Se esta minimizado
+                        try {
+                            objTransProd.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objTransProd.toFront(); // traz para frente
+                        objTransProd.pack();//volta frame 
                     }
                 } else {
-                    objTransProd.toFront(); // traz para frente
-                    objTransProd.pack();//volta frame 
+                    objTransProd = new TelaTransferenciaEstoqueFarmacia();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objTransProd);//adicona frame ao JDesktopPane  
+                    objTransProd.setVisible(true);
                 }
-            } else {
-                objTransProd = new TelaTransferenciaEstoqueFarmacia();
-                TelaModuloFarmacia.jPainelFarmacia.add(objTransProd);//adicona frame ao JDesktopPane  
-                objTransProd.setVisible(true);
             }
-        }
-        try {
-            objTransProd.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objTransProd.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_TransferenciaProdutosActionPerformed
 
     private void NFeEntradaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NFeEntradaProdutosActionPerformed
         // TODO add your handling code here:
-        if (objNfeCompras == null || objNfeCompras.isClosed()) {
-            objNfeCompras = new TelaEntradaProdutos();
-            jPainelFarmacia.add(objNfeCompras);
-            objNfeCompras.setVisible(true);
-        } else {
-            if (objNfeCompras.isVisible()) {
-                if (objNfeCompras.isIcon()) { // Se esta minimizado
-                    try {
-                        objNfeCompras.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoComprasProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoComprasProdutos_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objNfeCompras == null || objNfeCompras.isClosed()) {
+                objNfeCompras = new TelaEntradaProdutos();
+                jPainelFarmacia.add(objNfeCompras);
+                objNfeCompras.setVisible(true);
+            } else {
+                if (objNfeCompras.isVisible()) {
+                    if (objNfeCompras.isIcon()) { // Se esta minimizado
+                        try {
+                            objNfeCompras.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objNfeCompras.toFront(); // traz para frente
+                        objNfeCompras.pack();//volta frame 
                     }
                 } else {
-                    objNfeCompras.toFront(); // traz para frente
-                    objNfeCompras.pack();//volta frame 
+                    objNfeCompras = new TelaEntradaProdutos();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objNfeCompras);//adicona frame ao JDesktopPane  
+                    objNfeCompras.setVisible(true);
                 }
-            } else {
-                objNfeCompras = new TelaEntradaProdutos();
-                TelaModuloFarmacia.jPainelFarmacia.add(objNfeCompras);//adicona frame ao JDesktopPane  
-                objNfeCompras.setVisible(true);
             }
-        }
-        try {
-            objNfeCompras.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objNfeCompras.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_NFeEntradaProdutosActionPerformed
 
     private void RequisicaoMaterialAvulsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RequisicaoMaterialAvulsaActionPerformed
         // TODO add your handling code here:
-        if (objReqAvulFAR == null || objReqAvulFAR.isClosed()) {
-            objReqAvulFAR = new TelaRequisicaoAvulsaFAR();
-            jPainelFarmacia.add(objReqAvulFAR);
-            objReqAvulFAR.setVisible(true);
-        } else {
-            if (objReqAvulFAR.isVisible()) {
-                if (objReqAvulFAR.isIcon()) { // Se esta minimizado
-                    try {
-                        objReqAvulFAR.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoRequisicao_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoRequisicao_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objReqAvulFAR == null || objReqAvulFAR.isClosed()) {
+                objReqAvulFAR = new TelaRequisicaoAvulsaFAR();
+                jPainelFarmacia.add(objReqAvulFAR);
+                objReqAvulFAR.setVisible(true);
+            } else {
+                if (objReqAvulFAR.isVisible()) {
+                    if (objReqAvulFAR.isIcon()) { // Se esta minimizado
+                        try {
+                            objReqAvulFAR.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objReqAvulFAR.toFront(); // traz para frente
+                        objReqAvulFAR.pack();//volta frame 
                     }
                 } else {
-                    objReqAvulFAR.toFront(); // traz para frente
-                    objReqAvulFAR.pack();//volta frame 
+                    objReqAvulFAR = new TelaRequisicaoAvulsaFAR();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objReqAvulFAR);//adicona frame ao JDesktopPane  
+                    objReqAvulFAR.setVisible(true);
                 }
-            } else {
-                objReqAvulFAR = new TelaRequisicaoAvulsaFAR();
-                TelaModuloFarmacia.jPainelFarmacia.add(objReqAvulFAR);//adicona frame ao JDesktopPane  
-                objReqAvulFAR.setVisible(true);
             }
-        }
-        try {
-            objReqAvulFAR.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objReqAvulFAR.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_RequisicaoMaterialAvulsaActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jEstornoTransferenciaRequisicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEstornoTransferenciaRequisicaoActionPerformed
         // TODO add your handling code here:
-        if (objEstTransReqFAR == null || objEstTransReqFAR.isClosed()) {
-            objEstTransReqFAR = new TelaEstornoRequisicaoMateriaisFAR();
-            jPainelFarmacia.add(objEstTransReqFAR);
-            objEstTransReqFAR.setVisible(true);
-        } else {
-            if (objEstTransReqFAR.isVisible()) {
-                if (objEstTransReqFAR.isIcon()) { // Se esta minimizado
-                    try {
-                        objEstTransReqFAR.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstorno_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstorno_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objEstTransReqFAR == null || objEstTransReqFAR.isClosed()) {
+                objEstTransReqFAR = new TelaEstornoRequisicaoMateriaisFAR();
+                jPainelFarmacia.add(objEstTransReqFAR);
+                objEstTransReqFAR.setVisible(true);
+            } else {
+                if (objEstTransReqFAR.isVisible()) {
+                    if (objEstTransReqFAR.isIcon()) { // Se esta minimizado
+                        try {
+                            objEstTransReqFAR.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objEstTransReqFAR.toFront(); // traz para frente
+                        objEstTransReqFAR.pack();//volta frame 
                     }
                 } else {
-                    objEstTransReqFAR.toFront(); // traz para frente
-                    objEstTransReqFAR.pack();//volta frame 
+                    objEstTransReqFAR = new TelaEstornoRequisicaoMateriaisFAR();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objEstTransReqFAR);//adicona frame ao JDesktopPane  
+                    objEstTransReqFAR.setVisible(true);
                 }
-            } else {
-                objEstTransReqFAR = new TelaEstornoRequisicaoMateriaisFAR();
-                TelaModuloFarmacia.jPainelFarmacia.add(objEstTransReqFAR);//adicona frame ao JDesktopPane  
-                objEstTransReqFAR.setVisible(true);
             }
+            try {
+                objEstTransReqFAR.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
-        try {
-            objEstTransReqFAR.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jEstornoTransferenciaRequisicaoActionPerformed
 
     private void PedidoComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PedidoComprasActionPerformed
         // TODO add your handling code here:
-        if (objCompraFAR == null || objCompraFAR.isClosed()) {
-            objCompraFAR = new TelaSolicitacaoComprasMateriaisFAR();
-            jPainelFarmacia.add(objCompraFAR);
-            objCompraFAR.setVisible(true);
-        } else {
-            if (objCompraFAR.isVisible()) {
-                if (objCompraFAR.isIcon()) { // Se esta minimizado
-                    try {
-                        objCompraFAR.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoSolicitacaoCompras_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoSolicitacaoCompras_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objCompraFAR == null || objCompraFAR.isClosed()) {
+                objCompraFAR = new TelaSolicitacaoComprasMateriaisFAR();
+                jPainelFarmacia.add(objCompraFAR);
+                objCompraFAR.setVisible(true);
+            } else {
+                if (objCompraFAR.isVisible()) {
+                    if (objCompraFAR.isIcon()) { // Se esta minimizado
+                        try {
+                            objCompraFAR.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCompraFAR.toFront(); // traz para frente
+                        objCompraFAR.pack();//volta frame 
                     }
                 } else {
-                    objCompraFAR.toFront(); // traz para frente
-                    objCompraFAR.pack();//volta frame 
+                    objCompraFAR = new TelaSolicitacaoComprasMateriaisFAR();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objCompraFAR);//adicona frame ao JDesktopPane  
+                    objCompraFAR.setVisible(true);
                 }
-            } else {
-                objCompraFAR = new TelaSolicitacaoComprasMateriaisFAR();
-                TelaModuloFarmacia.jPainelFarmacia.add(objCompraFAR);//adicona frame ao JDesktopPane  
-                objCompraFAR.setVisible(true);
             }
-        }
-        try {
-            objCompraFAR.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objCompraFAR.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_PedidoComprasActionPerformed
 
     private void jMotivoSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMotivoSaidaActionPerformed
         // TODO add your handling code here:
-        if (objMotivo == null || objMotivo.isClosed()) {
-            objMotivo = new TelaMotivoSaidaProdutosFAR();
-            jPainelFarmacia.add(objMotivo);
-            objMotivo.setVisible(true);
-        } else {
-            if (objMotivo.isVisible()) {
-                if (objMotivo.isIcon()) { // Se esta minimizado
-                    try {
-                        objMotivo.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaCadastroMotivoSaida_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCadastroMotivoSaida_FAR) && objCampos.getCodigoAbrir() == 1) {
+            if (objMotivo == null || objMotivo.isClosed()) {
+                objMotivo = new TelaMotivoSaidaProdutosFAR();
+                jPainelFarmacia.add(objMotivo);
+                objMotivo.setVisible(true);
+            } else {
+                if (objMotivo.isVisible()) {
+                    if (objMotivo.isIcon()) { // Se esta minimizado
+                        try {
+                            objMotivo.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objMotivo.toFront(); // traz para frente
+                        objMotivo.pack();//volta frame 
                     }
                 } else {
-                    objMotivo.toFront(); // traz para frente
-                    objMotivo.pack();//volta frame 
+                    objMotivo = new TelaMotivoSaidaProdutosFAR();
+                    TelaModuloFarmacia.jPainelFarmacia.add(objMotivo);//adicona frame ao JDesktopPane  
+                    objMotivo.setVisible(true);
                 }
-            } else {
-                objMotivo = new TelaMotivoSaidaProdutosFAR();
-                TelaModuloFarmacia.jPainelFarmacia.add(objMotivo);//adicona frame ao JDesktopPane  
-                objMotivo.setVisible(true);
             }
-        }
-        try {
-            objMotivo.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objMotivo.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jMotivoSaidaActionPerformed
 
@@ -990,6 +1129,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RequisicaoMaterialAvulsa;
     private javax.swing.JMenuItem TransferenciaProdutos;
     private javax.swing.JMenuItem jAgendaRecados;
+    private javax.swing.JMenuItem jEstornoTransferenciaRequisicao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
@@ -999,7 +1139,6 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMotivoSaida;
@@ -1336,5 +1475,59 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void pesquisarTelasAcessos() {
+        //PESQUISAR A EXISTÊNCIA DA TELA
+        //FORNECEDOR       
+        objCampos.setNomeTelaPesquisa(telaCadastroFornecedores_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaCadastroFornecedores_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaCadastroFornecedores_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //LOCAL ARMAZENAMENTO
+        objCampos.setNomeTelaPesquisa(telaCadastroLocalArmazenamento_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaCadastroLocalArmazenamento_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaCadastroLocalArmazenamento_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //GRUPO PRODUTOS
+        objCampos.setNomeTelaPesquisa(telaCadastroGrupoProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaCadastroGrupoProdutos_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaCadastroGrupoProdutos_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRODUTOS
+        objCampos.setNomeTelaPesquisa(telaCadastroProdutos_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaCadastroProdutos_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaCadastroProdutos_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //MOTIVO
+        objCampos.setNomeTelaPesquisa(telaCadastroMotivoSaida_FAR);
+        pPESQUISAR_acessos.pesquisarTelaCadastrada(objCampos);
+        if (!telaCadastroMotivoSaida_FAR.equals(objCampos.getNomeTelaCadastrada()) || objCampos.getNomeTelaCadastrada() == null) {
+            objCampos.setNomeModulo(nomeModuloFAR);
+            pPESQUISAR_acessos.pesquisarCodigoModulo(objCampos);
+            objCadastroTela.setIdModulo(objCampos.getCodigoModulo());
+            objCadastroTela.setNomeTela(telaCadastroMotivoSaida_FAR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 }

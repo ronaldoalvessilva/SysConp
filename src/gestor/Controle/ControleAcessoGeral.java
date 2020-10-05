@@ -18,6 +18,7 @@ public class ControleAcessoGeral {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     CamposAcessos objCampos = new CamposAcessos();
 
+    //USUÁRIOS
     public CamposAcessos pesquisarUsuario(CamposAcessos objCampos) {
 
         conecta.abrirConexao();
@@ -33,6 +34,7 @@ public class ControleAcessoGeral {
         return objCampos;
     }
 
+    //GRUPOS DE USUÁRIOS
     public CamposAcessos pesquisarGrupoUsuario(CamposAcessos objCampos) {
 
         conecta.abrirConexao();
@@ -51,6 +53,7 @@ public class ControleAcessoGeral {
         return objCampos;
     }
 
+    //TELAS DE ACESSO JÁ LIBERADA
     public CamposAcessos pesquisarTelasAcesso(CamposAcessos objCampos) {
 
         conecta.abrirConexao();
@@ -67,6 +70,34 @@ public class ControleAcessoGeral {
             objCampos.setCodigoGravar(conecta.rs.getInt("Gravar"));
             objCampos.setCodigoConsultar(conecta.rs.getInt("Consultar"));
             objCampos.setNomeTelaAcesso(conecta.rs.getString("NomeTela"));
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objCampos;
+    }
+
+    //TELAS DO SISTEMA JÁ CADASTRADA PELO MÓDULO
+    public CamposAcessos pesquisarTelaCadastrada(CamposAcessos objCampos) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + objCampos.getNomeTelaPesquisa() + "'");
+            conecta.rs.first();
+            objCampos.setNomeTelaCadastrada(conecta.rs.getString("NomeTela"));
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objCampos;
+    }
+
+    //BUSCAR MÓDULO
+    public CamposAcessos pesquisarCodigoModulo(CamposAcessos objCampos) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + objCampos.getNomeModulo() + "'");
+            conecta.rs.first();
+            objCampos.setCodigoModulo(conecta.rs.getInt("IdModulo"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();

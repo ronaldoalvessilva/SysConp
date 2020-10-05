@@ -225,7 +225,7 @@
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="19">
+              <StringArray count="20">
                 <StringItem index="0" value="Selecione..."/>
                 <StringItem index="1" value="M&#xf3;dulo Crc"/>
                 <StringItem index="2" value="M&#xf3;dulo Ger&#xea;ncia Adminstrativa"/>
@@ -245,6 +245,7 @@
                 <StringItem index="16" value="M&#xf3;dulo Portaria Externa"/>
                 <StringItem index="17" value="M&#xf3;dulo Educa&#xe7;&#xe3;o F&#xed;sica"/>
                 <StringItem index="18" value="M&#xf3;dulo Nutri&#xe7;&#xe3;o"/>
+                <StringItem index="19" value="M&#xf3;dulo Farm&#xe1;cia"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

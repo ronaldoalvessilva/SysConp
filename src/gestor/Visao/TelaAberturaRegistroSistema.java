@@ -42,7 +42,10 @@ import gestor.Controle.ListagemCancelamentoNovaEntradadaM;
 import gestor.Controle.ListagemCancelamentoVisitasExternaInteraRolM;
 import gestor.Controle.ListagemCapacitacaoInternoTOM;
 import gestor.Controle.ListagemComposicaoKitHigieneM;
+import gestor.Controle.ListagemComprasFARM;
 import gestor.Controle.ListagemControleLigacoesM;
+import gestor.Controle.ListagemDepositoAtivosM;
+import gestor.Controle.ListagemDepositoInativoM;
 import gestor.Controle.ListagemEntradaAdvogadoInternosM;
 import gestor.Controle.ListagemEntradaAdvogadosM;
 import gestor.Controle.ListagemEntradaColaboradoresM;
@@ -54,12 +57,15 @@ import gestor.Controle.ListagemEntradaVeiculosUnidadeM;
 import gestor.Controle.ListagemEntradaVisitasDiversasM;
 import gestor.Controle.ListagemEntradasFamiliarM;
 import gestor.Controle.ListagemEntradasOficialJusticaM;
+import gestor.Controle.ListagemEstornoFARM;
 import gestor.Controle.ListagemEstornoProdutosM;
+import gestor.Controle.ListagemEstornoValoresM;
 import gestor.Controle.ListagemEvadidosM;
 import gestor.Controle.ListagemFichaJuridicaM;
 import gestor.Controle.ListagemFrequanciaPedagogicaExternaM;
 import gestor.Controle.ListagemFrequenciaCapacitaTOM;
 import gestor.Controle.ListagemFrequenciaLaborTOM;
+import gestor.Controle.ListagemInventarioFARM;
 import gestor.Controle.ListagemLocacaoInternosM;
 import gestor.Controle.ListagemMovimentoPopulcaoM;
 import gestor.Controle.ListagemNotasFiscaisComprasM;
@@ -87,8 +93,13 @@ import gestor.Controle.ListagemRegistroSaidaCrcM;
 import gestor.Controle.ListagemRegistrosCanceladosM;
 import gestor.Controle.ListagemRegressaoRegimeM;
 import gestor.Controle.ListagemRequiscaoAvulsaProdutosM;
+import gestor.Controle.ListagemRequisicaoFARM;
 import gestor.Controle.ListagemRequisicaoProdutosInternoM;
+import gestor.Controle.ListagemSaqueAtivosM;
+import gestor.Controle.ListagemSaqueInativoM;
 import gestor.Controle.ListagemSolicitacaoExamesMedicosM;
+import gestor.Controle.ListagemSolicitacaoFARM;
+import gestor.Controle.ListagemTransferenciaFARM;
 import gestor.Controle.ListagemTransientesM;
 import gestor.Controle.ListagemTriagemOcupacionalM;
 import gestor.Controle.ListagemVeiculosCargasM;
@@ -232,11 +243,24 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     ListagemFrequenciaLaborTOM LISTAGEM_freqLabor = new ListagemFrequenciaLaborTOM();
     ListagemOcorrenciaTOM LISTAGEM_OCORR_to = new ListagemOcorrenciaTOM();
     ListagemTriagemOcupacionalM LISTAGEM_triagemTO = new ListagemTriagemOcupacionalM();
+    //FINANCEIRO
+    ListagemDepositoAtivosM LISTAGEM_deposito_At = new ListagemDepositoAtivosM();
+    ListagemSaqueAtivosM LISTAGEM_saque_At = new ListagemSaqueAtivosM();
+    ListagemDepositoInativoM LISTAGEM_deposito_Inat = new ListagemDepositoInativoM();
+    ListagemSaqueInativoM LISTAGEM_saque_Inat = new ListagemSaqueInativoM();
+    ListagemEstornoValoresM LISTAGEM_estorno_va = new ListagemEstornoValoresM();
     //EDUCAÇÃO FISICA
     ListagemAdmissaoEducacaoFisicaM LISTAGEM_ADM_ef = new ListagemAdmissaoEducacaoFisicaM();
     ListagemAdmissaoEducacaoFisicaNovaM LISTAGEM_EF_nova = new ListagemAdmissaoEducacaoFisicaNovaM();
     ListgagemAtendimentoGrupoEFM LISTAGEM_ATEND_GRUPO_ef = new ListgagemAtendimentoGrupoEFM();
     ListagemOcorrenciaEFM LISTAGEM_OCORR_ef = new ListagemOcorrenciaEFM();
+    //FARMÁCIA
+    ListagemComprasFARM LISTAGEM_compras_far = new ListagemComprasFARM();
+    ListagemInventarioFARM LISTAGEM_inventario_far = new ListagemInventarioFARM();
+    ListagemTransferenciaFARM LISTAGEM_transferencia_far = new ListagemTransferenciaFARM();
+    ListagemRequisicaoFARM LISTAGEM_requisicao_far = new ListagemRequisicaoFARM();
+    ListagemEstornoFARM LISTAGEM_estorno_far = new ListagemEstornoFARM();
+    ListagemSolicitacaoFARM LISTAGEM_solicitacao_far = new ListagemSolicitacaoFARM();
     //
     ControleAberturaDadosSistemaPorModulo control = new ControleAberturaDadosSistemaPorModulo();
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -269,6 +293,8 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     int pTOTAL_GERAL_REGISTROS_NUTRICAO = 0;
     int pTOTAL_GERAL_REGISTROS_ALMOXARIFADO = 0;
     int pTOTAL_GERAL_REGISTROS_ODONTOLOGIA = 0;
+    int pTOTAL_GERAL_REGISTROS_FINANCEIRO = 0;
+    int pTOTAL_GERAL_REGISTROS_FARMACIA = 0;
 
     public static int pTOTAL_ENTRADAS = 0;
     public static int pTOTAL_SAIDAS = 0;
@@ -380,11 +406,24 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     public static int pFREQUENCIA_labora = 0;
     public static int pOCORRE_to = 0;
     public static int pTRIAGEM_to = 0;
+    //FINANCEIRO
+    public static int pDEPOSITO_ativo = 0;
+    public static int pSAQUE_ativo = 0;
+    public static int pDEPOSITO_inativo = 0;
+    public static int pSAQUE_inativo = 0;
+    public static int pESTORNO_valores = 0;
     //EDUCAÇÃO FISICA
     public static int pADMISSAO_ef = 0;
     public static int pADMISSAO_EF_nova = 0;
     public static int pATEND_GRUPO_ef = 0;
     public static int pOCORRE_ef = 0;
+    //FARMÁCIA
+    public static int pCOMPRAS_far = 0;
+    public static int pINVENTARIO_far = 0;
+    public static int pTRANSFERENCIAS_far = 0;
+    public static int pREQUISICAO_far = 0;
+    public static int pESTORNO_far = 0;
+    public static int pSOLICITACAO_far = 0;
 
     String pDATA_INICIAL = "";
     String pDATA_FINAL = "";
@@ -482,7 +521,7 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
         jLabel1.setText("Módulo:");
 
         jComboBoxModulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxModulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Módulo Crc", "Módulo Gerência Adminstrativa", "Módulo Almoxarifado", "Módulo Pedagogia", "Módulo Psicologia", "Módulo Enfermaria", "Módulo Serviço Social", "Módulo Jurídico", "Módulo Odontologia", "Módulo Terapia Ocupacional", "Módulo Financeiro", "Módulo Gerência Operacional", "Módulo Base I", "Módulo Base II", "Módulo Portaria Interna", "Módulo Portaria Externa", "Módulo Educação Física", "Módulo Nutrição" }));
+        jComboBoxModulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Módulo Crc", "Módulo Gerência Adminstrativa", "Módulo Almoxarifado", "Módulo Pedagogia", "Módulo Psicologia", "Módulo Enfermaria", "Módulo Serviço Social", "Módulo Jurídico", "Módulo Odontologia", "Módulo Terapia Ocupacional", "Módulo Financeiro", "Módulo Gerência Operacional", "Módulo Base I", "Módulo Base II", "Módulo Portaria Interna", "Módulo Portaria Externa", "Módulo Educação Física", "Módulo Nutrição", "Módulo Farmácia" }));
         jComboBoxModulo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1004,7 +1043,20 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
                             JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
                         }
                     }; //Teste tela aguarde
-                    t.start(); //Teste tela aguarde     
+                    t.start(); //Teste tela aguarde      
+                } else if (jComboBoxModulo.getSelectedItem().equals("Módulo Farmácia")) {
+                    final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            ModuloFarmacia();
+                            carregando.dispose(); //Teste tela aguarde
+                            jREGISTROS_PROCESSADOS.setText(jTOTAL_REGISTROS.getText());
+                            jTOTAL_REGISTROS.setText("0");
+                            JOptionPane.showMessageDialog(rootPane, "Módulo aberto com sucesso.");
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde  
                 }
             }
         }
@@ -1390,11 +1442,31 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
     }
 
     public void ModuloFinanceiro() {
-        objFecha.setStatusRegistro(pFECHAMENTO);
-        objFecha.setDataFechamento(pDATA_FECHAMENTO);
-        objFecha.setHoraFechamento(horaMov);
-        objFecha.setUsuarioUp(nameUser);
-        //ESTÁ FALTANDO IMPLEMENTAR
+//        objFecha.setStatusRegistro(pFECHAMENTO);
+//        objFecha.setDataFechamento(pDATA_FECHAMENTO);
+//        objFecha.setHoraFechamento(horaMov);
+//        objFecha.setUsuarioUp(nameUser);
+        //FINANCEIRO
+        //DEPOSITO
+        control.fecharDEPOSITO_at(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+        //SAQUE
+        control.fecharSAQUE_at(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+        //ESTORNO
+        control.fecharESTORNO_valores(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+        //DEPOSITO INATIVO
+        control.fecharDEPOSITO_inat(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+        //SAQUE INATIVO
+        control.fecharSAQUE_inat(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
     }
 
     public void ModuloGerenciaOperacional() {
@@ -1512,6 +1584,33 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
         control.fecharOCRP1e(objFecha);
         objLog();
         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+    }
+
+    public void ModuloFarmacia() {
+        //COMPRAS PRODUTOS
+        control.fecharCOMPRAS_far(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+        //INVENTÁRIO
+        control.fecharINVENTARIO_far(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+        //TRANSFERÊNCIAS
+        control.fecharTRANSFERENCIAS_far(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+        //REQUISIÇÃO AVULSA
+        control.fecharREQUISICAO_far(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+        //ESTORNO TRANSFERÊNCIAS/REQUISIÇÕES
+        control.fecharESTORNO_far(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+        //SOLICITAÇÃO DE COMPRAS
+        control.fecharSOLICITACAO_far(objFecha);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
     }
 
     public void ModuloEducacaoFisica() {
@@ -1637,9 +1736,17 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
                 + pOCORRE_seguranca;
     }
 
+    public void total_GERAL_REGISTROS_FINANCEIRO() {
+        pTOTAL_GERAL_REGISTROS_FINANCEIRO = 0;
+    }
+
     public void total_GERAL_REGISTROS_EDUCACAO_FISICA() {
         pTOTAL_GERAL_REGISTROS_EDUCACAO_FISICA = pADMISSAO_ef
                 + pADMISSAO_EF_nova + pATEND_GRUPO_ef + pOCORRE_ef;
+    }
+
+    public void total_GERAL_REGISTROS_FARMACIA() {
+        pTOTAL_GERAL_REGISTROS_FARMACIA = 0;
     }
 
     public void total_GERAL_REGISTROS_NUTRICAO() {
@@ -2442,6 +2549,50 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
         }
     }
 
+    //FINANCEIRO
+    public void calcularTotais_FINANCEIRO() {
+        //DEPOSITO
+        try {
+            for (FechamentoRegistros pDEPOSITO_av : LISTAGEM_deposito_At.read()) {
+                pDEPOSITO_av.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SAQUE 
+        try {
+            for (FechamentoRegistros pSAQUE_av : LISTAGEM_saque_At.read()) {
+                pSAQUE_av.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //DEPOSITO INATIVO
+        try {
+            for (FechamentoRegistros pDEPOSITO_inav : LISTAGEM_deposito_Inat.read()) {
+                pDEPOSITO_inav.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SAQUE INATIVO
+        try {
+            for (FechamentoRegistros pSAQUE_inav : LISTAGEM_saque_Inat.read()) {
+                pSAQUE_inav.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ESTORNO DE VALORES
+        try {
+            for (FechamentoRegistros pESTORNO_va : LISTAGEM_estorno_va.read()) {
+                pESTORNO_va.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     //EDUCAÇÃO FÍSICA
     public void calcularTotais_EDUCACAO_FISICA() {
         //ADMISSÃO FISICA LISTAGEM_ADM_ef
@@ -2472,6 +2623,58 @@ public class TelaAberturaRegistroSistema extends javax.swing.JDialog {
         try {
             for (FechamentoRegistros pOCORRE_ef : LISTAGEM_OCORR_ef.read()) {
                 pOCORRE_ef.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //FARMÁCIA 
+    public void calcularTotais_FARMACIA() {
+        //COMPRAS
+        try {
+            for (FechamentoRegistros pCOMPRAS_far : LISTAGEM_compras_far.read()) {
+                pCOMPRAS_far.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //INVENTÁRIO 
+        try {
+            for (FechamentoRegistros pINVENTARIO_far : LISTAGEM_inventario_far.read()) {
+                pINVENTARIO_far.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //TRANSFERÊNCIAS
+        try {
+            for (FechamentoRegistros pTRANS_far : LISTAGEM_transferencia_far.read()) {
+                pTRANS_far.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //REQUISIÇÃO
+        try {
+            for (FechamentoRegistros pREQUISICAO_far : LISTAGEM_requisicao_far.read()) {
+                pREQUISICAO_far.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ESTORNO
+        try {
+            for (FechamentoRegistros pESTORNO_far : LISTAGEM_estorno_far.read()) {
+                pESTORNO_far.getStatusRegistro();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SOLICITAÇÃO DE COMPRAS 
+        try {
+            for (FechamentoRegistros pSOLICITA_far : LISTAGEM_solicitacao_far.read()) {
+                pSOLICITA_far.getStatusRegistro();
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAberturaTotalSistema.class.getName()).log(Level.SEVERE, null, ex);
