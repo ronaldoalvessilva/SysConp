@@ -39,12 +39,29 @@ public class ControleAlertasCRCPortaria {
         return objAlertaEntrada;
     }
     
-    //
+    //NOVA ENTRADA NA PORTARIA
     public AtivarDesativarAlertaEntradas alterarAlertaNovaEntrada(AtivarDesativarAlertaEntradas objAlertaEntrada) {
 
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSNOVAENTRADA SET UtilizadoCrc=? WHERE IdItem='" + objAlertaEntrada.getIdItem() + "'");
+            pst.setString(1, objAlertaEntrada.getConfirmaEntrada());
+            pst.executeUpdate();
+            pRESPOSTA = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAlertaEntrada;
+    }
+    
+    //RETORNOS DE ENTRADAS NA PORTARIA
+    public AtivarDesativarAlertaEntradas alterarRetornoEntrada(AtivarDesativarAlertaEntradas objAlertaEntrada) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS SET RetCrc=? WHERE IdRetorno='" + objAlertaEntrada.getIdItem() + "' AND IdInternoCrc='" + objAlertaEntrada.getIdInternoCrc() + "'");
             pst.setString(1, objAlertaEntrada.getConfirmaEntrada());
             pst.executeUpdate();
             pRESPOSTA = "Sim";

@@ -141,7 +141,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jMenu7 = new javax.swing.JMenu();
         jAlertasSaidas = new javax.swing.JMenuItem();
         jAlertaEntradas = new javax.swing.JMenuItem();
-        jAlertaRetornos = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -365,14 +364,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jMenu7.add(jAlertaEntradas);
-
-        jAlertaRetornos.setText("Alerta de Retornos - Portaria/CRC");
-        jAlertaRetornos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAlertaRetornosActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jAlertaRetornos);
 
         jAbrirMovimetacaoSistema.add(jMenu7);
 
@@ -737,10 +728,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAlertaEntradasActionPerformed
 
-    private void jAlertaRetornosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlertaRetornosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jAlertaRetornosActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
@@ -753,7 +740,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentosData;
     private javax.swing.JMenuItem jAlertaEntradas;
-    private javax.swing.JMenuItem jAlertaRetornos;
     private javax.swing.JMenuItem jAlertasSaidas;
     private javax.swing.JMenuItem jApagarPopulacaoCRC;
     private javax.swing.JMenuItem jFechamentoSistema;

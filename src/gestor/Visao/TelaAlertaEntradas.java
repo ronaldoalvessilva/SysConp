@@ -31,6 +31,7 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
     String nomeModuloTela = "Configuração:Utilitário:Ativa/Desativar Alertas Portaria/CRC";
     //
     public static int pID_item = 0;
+    public static int pID_INTERNO = 0;
     String pAFIRMACAO = "Não";
     String pNEGACAO = "Sim";
     //
@@ -43,6 +44,7 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
      */
     public static TelaPesquisaAtivaDesativaAlertaEntradas pPESQUISAR_registros;
     public static TelaPesquisaAtivaDesativaAlertaNovaEntradas pPESQUISAR_nova_entra;
+    public static TelaPesquisaAtivaDesativaAlertaRetornos pRETORNOS;
 
     public TelaAlertaEntradas() {
         initComponents();
@@ -57,6 +59,11 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
     public void mostrarPesquisaNE() {
         pPESQUISAR_nova_entra = new TelaPesquisaAtivaDesativaAlertaNovaEntradas(this, true);
         pPESQUISAR_nova_entra.setVisible(true);
+    }
+
+    public void mostrarRetornos() {
+        pRETORNOS = new TelaPesquisaAtivaDesativaAlertaRetornos(this, true);
+        pRETORNOS.setVisible(true);
     }
 
     /**
@@ -104,7 +111,7 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Ativar/Desativar Alertas de Nova Entrada Portaria/CRC :::...");
+        setTitle("...::: Ativar/Desativar Alertas de Entrada/Retornos Portaria/CRC :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Alertas de Entrada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
@@ -163,10 +170,10 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
         jComboBoxAtivarDesativar.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Tipo de Entrada");
+        jLabel8.setText("Tipo de Entrada/Retorno");
 
         jComboBoxTipoEntrada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Registro de Entrada na Unidade Penal - PRIMEIRA VEZ", "Registro de Nova Entrada de Internos - P1/CRC" }));
+        jComboBoxTipoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Registro de Entrada na Unidade Penal - PRIMEIRA VEZ", "Registro de Nova Entrada de Internos - P1/CRC", "Registro de Retorno de Internos na Portaria - P1/CRC" }));
         jComboBoxTipoEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -429,7 +436,7 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,7 +450,7 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBounds(300, 60, 595, 423);
+        setBounds(300, 60, 602, 423);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
@@ -454,6 +461,8 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
             mostrarPesquisa();
         } else if (jComboBoxTipoEntrada.getSelectedItem().equals("Registro de Nova Entrada de Internos - P1/CRC")) {
             mostrarPesquisaNE();
+        }else if(jComboBoxTipoEntrada.getSelectedItem().equals("Registro de Retorno de Internos na Portaria - P1/CRC")){
+            mostrarRetornos();
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -512,6 +521,7 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Registro modificado com sucesso.");
                         } else if (pRESPOSTA.equals("Não")) {
+                            confirmar(!true);
                             JOptionPane.showMessageDialog(rootPane, "Não foi possível modificar o  registro !!!");
                         }
                     }
@@ -552,6 +562,49 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Registro modificado com sucesso.");
                         } else if (pRESPOSTA.equals("Não")) {
+                            confirmar(!true);
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível modificar o  registro !!!");
+                        }
+                    }
+                }
+            }else if(jComboBoxTipoEntrada.getSelectedItem().equals("Registro de Retorno de Internos na Portaria - P1/CRC")){
+                objAlertaEntrada.setIdItem(pID_item);
+                objAlertaEntrada.setIdInternoCrc(pID_INTERNO);
+                objAlertaEntrada.setNumeroRegistro(Integer.valueOf(jIdRegistroEntrada.getText()));
+                objAlertaEntrada.setDataEntrada(jDataRegistro.getDate());
+                objAlertaEntrada.setHoraEntrada(jHoraEntrada.getText());
+                objAlertaEntrada.setNumeroOficio(jNrOficio.getText());
+                objAlertaEntrada.setAtivaDesativa((String) jComboBoxAtivarDesativar.getSelectedItem());
+                objAlertaEntrada.setNomeInterno(jNomeInterno.getText());
+                objAlertaEntrada.setOrigemInterno(jOrigemEntrada.getText());
+                objAlertaEntrada.setTipoEntradaSaida((String) jComboBoxTipoEntrada.getSelectedItem());
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente modificar o alerta do registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    if (jComboBoxAtivarDesativar.getSelectedItem().equals("Ativar")) {
+                        objAlertaEntrada.setConfirmaEntrada(pAFIRMACAO);
+                        control.alterarRetornoEntrada(objAlertaEntrada);
+                        if (pRESPOSTA.equals("Sim")) {
+                            confirmar(!true);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro modificado com sucesso.");
+                        } else if (pRESPOSTA.equals("Não")) {
+                            confirmar(!true);
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível modificar o  registro !!!");
+                        }
+                    } else if (jComboBoxAtivarDesativar.getSelectedItem().equals("Desativar")) {
+                        objAlertaEntrada.setConfirmaEntrada(pNEGACAO);
+                        control.alterarRetornoEntrada(objAlertaEntrada);
+                        if (pRESPOSTA.equals("Sim")) {
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro modificado com sucesso.");
+                        } else if (pRESPOSTA.equals("Não")) {
+                            confirmar(!true);
                             JOptionPane.showMessageDialog(rootPane, "Não foi possível modificar o  registro !!!");
                         }
                     }
@@ -581,7 +634,7 @@ public class TelaAlertaEntradas extends javax.swing.JInternalFrame {
     public static javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtSair;
-    private javax.swing.JComboBox<String> jComboBoxAtivarDesativar;
+    public static javax.swing.JComboBox<String> jComboBoxAtivarDesativar;
     private javax.swing.JComboBox<String> jComboBoxTipoEntrada;
     public static com.toedter.calendar.JDateChooser jDataRegistro;
     public static javax.swing.JTextField jHoraEntrada;

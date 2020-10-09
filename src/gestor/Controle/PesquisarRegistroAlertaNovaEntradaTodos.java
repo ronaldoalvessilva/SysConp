@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AtivarDesativarAlertaEntradas;
+import static gestor.Visao.TelaAlertaEntradas.jComboBoxAtivarDesativar;
 import static gestor.Visao.TelaPesquisaAtivaDesativaAlertaNovaEntradas.pTOTAL_registros;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,44 +25,84 @@ public class PesquisarRegistroAlertaNovaEntradaTodos {
     AtivarDesativarAlertaEntradas objAlertaEntrada = new AtivarDesativarAlertaEntradas();
 
     String pCONFIRMACAO_entrada = "Sim";
+    String pCONFIRMACAO_negada = "Não";
 
     public List<AtivarDesativarAlertaEntradas> read() throws Exception {
         pTOTAL_registros = 0;
         conecta.abrirConexao();
         List<AtivarDesativarAlertaEntradas> listaRegistroPrimeiraEntrada = new ArrayList<AtivarDesativarAlertaEntradas>();
-        try {
-            conecta.executaSQL("SELECT "
-                    + "ITENSNOVAENTRADA.IdItem, "
-                    + "ITENSNOVAENTRADA.IdEntrada, "
-                    + "ITENSNOVAENTRADA.DataEntrada, "
-                    + "ITENSNOVAENTRADA.HorarioEntrada, "
-                    + "ITENSNOVAENTRADA.NrOficio, "
-                    + "ITENSNOVAENTRADA.IdInternoCrc, "
-                    + "PRONTUARIOSCRC.NomeInternoCrc, "
-                    + "ITENSNOVAENTRADA.OrigemInterno, "
-                    + "ITENSNOVAENTRADA.UtilizadoCrc "
-                    + "FROM ITENSNOVAENTRADA "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSNOVAENTRADA.idInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
-            while (conecta.rs.next()) {
-                AtivarDesativarAlertaEntradas pREGISTRO_p1 = new AtivarDesativarAlertaEntradas();
-                pREGISTRO_p1.setIdItem(conecta.rs.getInt("IdItem"));
-                pREGISTRO_p1.setNumeroRegistro(conecta.rs.getInt("IdEntrada"));
-                pREGISTRO_p1.setDataEntrada(conecta.rs.getDate("DataEntrada"));
-                pREGISTRO_p1.setHoraEntrada(conecta.rs.getString("HorarioEntrada"));
-                pREGISTRO_p1.setNumeroOficio(conecta.rs.getString("NrOficio"));
-                pREGISTRO_p1.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
-                pREGISTRO_p1.setNomeInterno(conecta.rs.getString("NomeInternoCrc"));
-                pREGISTRO_p1.setOrigemInterno(conecta.rs.getString("OrigemInterno"));
-                pREGISTRO_p1.setConfirmaEntrada(conecta.rs.getString("UtilizadoCrc"));
-                listaRegistroPrimeiraEntrada.add(pREGISTRO_p1);
-                pTOTAL_registros = pTOTAL_registros + 1;
+        if (jComboBoxAtivarDesativar.getSelectedItem().equals("Ativar")) {
+            try {
+                conecta.executaSQL("SELECT "
+                        + "ITENSNOVAENTRADA.IdItem, "
+                        + "ITENSNOVAENTRADA.IdEntrada, "
+                        + "ITENSNOVAENTRADA.DataEntrada, "
+                        + "ITENSNOVAENTRADA.HorarioEntrada, "
+                        + "ITENSNOVAENTRADA.NrOficio, "
+                        + "ITENSNOVAENTRADA.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "ITENSNOVAENTRADA.OrigemInterno, "
+                        + "ITENSNOVAENTRADA.UtilizadoCrc "
+                        + "FROM ITENSNOVAENTRADA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSNOVAENTRADA.idInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE ITENSNOVAENTRADA.UtilizadoCrc='" + pCONFIRMACAO_entrada + "'");
+                while (conecta.rs.next()) {
+                    AtivarDesativarAlertaEntradas pREGISTRO_p1 = new AtivarDesativarAlertaEntradas();
+                    pREGISTRO_p1.setIdItem(conecta.rs.getInt("IdItem"));
+                    pREGISTRO_p1.setNumeroRegistro(conecta.rs.getInt("IdEntrada"));
+                    pREGISTRO_p1.setDataEntrada(conecta.rs.getDate("DataEntrada"));
+                    pREGISTRO_p1.setHoraEntrada(conecta.rs.getString("HorarioEntrada"));
+                    pREGISTRO_p1.setNumeroOficio(conecta.rs.getString("NrOficio"));
+                    pREGISTRO_p1.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                    pREGISTRO_p1.setNomeInterno(conecta.rs.getString("NomeInternoCrc"));
+                    pREGISTRO_p1.setOrigemInterno(conecta.rs.getString("OrigemInterno"));
+                    pREGISTRO_p1.setConfirmaEntrada(conecta.rs.getString("UtilizadoCrc"));
+                    listaRegistroPrimeiraEntrada.add(pREGISTRO_p1);
+                    pTOTAL_registros = pTOTAL_registros + 1;
+                }
+                return listaRegistroPrimeiraEntrada;
+            } catch (SQLException ex) {
+                Logger.getLogger(PesquisarRegistroAlertaNovaEntradaTodos.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                conecta.desconecta();
             }
-            return listaRegistroPrimeiraEntrada;
-        } catch (SQLException ex) {
-            Logger.getLogger(PesquisarRegistroAlertaNovaEntradaTodos.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conecta.desconecta();
+        } else if (jComboBoxAtivarDesativar.getSelectedItem().equals("Desativar")) {
+            try {
+                conecta.executaSQL("SELECT "
+                        + "ITENSNOVAENTRADA.IdItem, "
+                        + "ITENSNOVAENTRADA.IdEntrada, "
+                        + "ITENSNOVAENTRADA.DataEntrada, "
+                        + "ITENSNOVAENTRADA.HorarioEntrada, "
+                        + "ITENSNOVAENTRADA.NrOficio, "
+                        + "ITENSNOVAENTRADA.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "ITENSNOVAENTRADA.OrigemInterno, "
+                        + "ITENSNOVAENTRADA.UtilizadoCrc "
+                        + "FROM ITENSNOVAENTRADA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSNOVAENTRADA.idInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE ITENSNOVAENTRADA.UtilizadoCrc='" + pCONFIRMACAO_negada + "'");
+                while (conecta.rs.next()) {
+                    AtivarDesativarAlertaEntradas pREGISTRO_p1 = new AtivarDesativarAlertaEntradas();
+                    pREGISTRO_p1.setIdItem(conecta.rs.getInt("IdItem"));
+                    pREGISTRO_p1.setNumeroRegistro(conecta.rs.getInt("IdEntrada"));
+                    pREGISTRO_p1.setDataEntrada(conecta.rs.getDate("DataEntrada"));
+                    pREGISTRO_p1.setHoraEntrada(conecta.rs.getString("HorarioEntrada"));
+                    pREGISTRO_p1.setNumeroOficio(conecta.rs.getString("NrOficio"));
+                    pREGISTRO_p1.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                    pREGISTRO_p1.setNomeInterno(conecta.rs.getString("NomeInternoCrc"));
+                    pREGISTRO_p1.setOrigemInterno(conecta.rs.getString("OrigemInterno"));
+                    pREGISTRO_p1.setConfirmaEntrada(conecta.rs.getString("UtilizadoCrc"));
+                    listaRegistroPrimeiraEntrada.add(pREGISTRO_p1);
+                    pTOTAL_registros = pTOTAL_registros + 1;
+                }
+                return listaRegistroPrimeiraEntrada;
+            } catch (SQLException ex) {
+                Logger.getLogger(PesquisarRegistroAlertaNovaEntradaTodos.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                conecta.desconecta();
+            }
         }
         return null;
     }
