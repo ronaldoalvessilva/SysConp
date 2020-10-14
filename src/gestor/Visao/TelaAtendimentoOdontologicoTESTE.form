@@ -2443,9 +2443,6 @@
                               <Color blue="33" green="66" red="0" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Palatal"/>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[65, 23]"/>
-                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jRBFaceUmMouseClicked"/>
@@ -2498,9 +2495,6 @@
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
-                            </Property>
-                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Todas"/>
                           </Properties>
@@ -2577,6 +2571,7 @@
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Lingual/Palatal"/>
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtFaceSuperior1MouseClicked"/>
@@ -2594,6 +2589,7 @@
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Vestibular"/>
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtFaceInferior1MouseClicked"/>
@@ -2612,6 +2608,7 @@
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Distal"/>
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[2, 10, 2, 5]"/>
                             </Property>
@@ -2632,6 +2629,7 @@
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Oclusal"/>
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtFaceCentral1MouseClicked"/>
@@ -2649,6 +2647,7 @@
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Mesial"/>
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[2, 8, 2, 14]"/>
                             </Property>

@@ -353,6 +353,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMenu7 = new javax.swing.JMenu();
         RelatorioGeralPavilhaoCelas = new javax.swing.JMenuItem();
         ListagemConfere = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         MapaConfere = new javax.swing.JMenuItem();
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         ConferePorOrdemAlfabeticaP1 = new javax.swing.JMenuItem();
@@ -845,13 +846,21 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         });
         jMenu7.add(RelatorioGeralPavilhaoCelas);
 
-        ListagemConfere.setText("Listagem de Confere");
+        ListagemConfere.setText("Listagem de Confere I");
         ListagemConfere.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ListagemConfereActionPerformed(evt);
             }
         });
         jMenu7.add(ListagemConfere);
+
+        jMenuItem4.setText("Listagem de Confere II");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem4);
 
         MapaConfere.setText("Mapa de Confere");
         MapaConfere.addActionListener(new java.awt.event.ActionListener() {
@@ -2483,6 +2492,12 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RelPavilhaoActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TelaRelatorioConfere2 objRelConfere = new TelaRelatorioConfere2();
+        TelaModuloSeguranca.jPainelSeguranca.add(objRelConfere);
+        objRelConfere.show();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2560,6 +2575,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jNIM;
     public static javax.swing.JDesktopPane jPainelSeguranca;
     private javax.swing.JMenuItem jRelatorioInternosComSemTornozeleira;

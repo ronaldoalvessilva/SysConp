@@ -23,14 +23,14 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author ronaldo
  */
-public class TelaRelatorioConfere extends javax.swing.JInternalFrame {
+public class TelaRelatorioConfere2 extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     /**
      * Creates new form TelaRelatorioConfere
      */
-    public TelaRelatorioConfere() {
+    public TelaRelatorioConfere2() {
         initComponents();
         preencherComboBoxPavilhao();
     }
@@ -53,7 +53,7 @@ public class TelaRelatorioConfere extends javax.swing.JInternalFrame {
         jBtSair = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("...::: Listagem 1 de Confere por Pavilhão :::...");
+        setTitle("...::: Listagem 2 de Confere por Pavilhão :::...");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -177,7 +177,7 @@ public class TelaRelatorioConfere extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/GerenciaOperacional/Confere.jasper";
+                String path = "reports/GerenciaOperacional/Confere2.jasper";
                 conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

@@ -1652,7 +1652,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jRBFaceUm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBFaceUm.setForeground(new java.awt.Color(0, 102, 51));
         jRBFaceUm.setText("Palatal");
-        jRBFaceUm.setPreferredSize(new java.awt.Dimension(65, 23));
         jRBFaceUm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jRBFaceUmMouseClicked(evt);
@@ -1692,7 +1691,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         });
 
         jRBFaceTodas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFaceTodas.setForeground(new java.awt.Color(0, 0, 0));
         jRBFaceTodas.setText("Todas");
         jRBFaceTodas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1756,6 +1754,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtFaceSuperior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorTransparente.png"))); // NOI18N
         jBtFaceSuperior1.setToolTipText("Lingual/Palatal");
         jBtFaceSuperior1.setContentAreaFilled(false);
+        jBtFaceSuperior1.setEnabled(false);
         jBtFaceSuperior1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtFaceSuperior1MouseClicked(evt);
@@ -1766,6 +1765,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtFaceInferior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorTransparente.png"))); // NOI18N
         jBtFaceInferior1.setToolTipText("Vestibular");
         jBtFaceInferior1.setContentAreaFilled(false);
+        jBtFaceInferior1.setEnabled(false);
         jBtFaceInferior1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtFaceInferior1MouseClicked(evt);
@@ -1781,6 +1781,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtFaceEsquerda1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaTransparente.png"))); // NOI18N
         jBtFaceEsquerda1.setToolTipText("Distal");
         jBtFaceEsquerda1.setContentAreaFilled(false);
+        jBtFaceEsquerda1.setEnabled(false);
         jBtFaceEsquerda1.setMargin(new java.awt.Insets(2, 10, 2, 5));
         jBtFaceEsquerda1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1792,6 +1793,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtFaceCentral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralTransparente.png"))); // NOI18N
         jBtFaceCentral1.setToolTipText("Oclusal");
         jBtFaceCentral1.setContentAreaFilled(false);
+        jBtFaceCentral1.setEnabled(false);
         jBtFaceCentral1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtFaceCentral1MouseClicked(evt);
@@ -1802,6 +1804,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBTFaceDireita1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaTransparente.png"))); // NOI18N
         jBTFaceDireita1.setToolTipText("Mesial");
         jBTFaceDireita1.setContentAreaFilled(false);
+        jBTFaceDireita1.setEnabled(false);
         jBTFaceDireita1.setMargin(new java.awt.Insets(2, 8, 2, 14));
         jBTFaceDireita1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -7419,10 +7422,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     }//GEN-LAST:event_jBtDente26MouseClicked
 
     private void jRBFaceTresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceTresActionPerformed
-        if(jRBFaceTres.isSelected())
-            jBtFaceCentral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralVermelha.png")));  
-        else
+        if(jRBFaceTres.isSelected()){
+            jBtFaceCentral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralVermelha.png")));
+            jBtFaceCentral1.setEnabled(true);
+        }else{
             jBtFaceCentral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralTransparente.png")));
+            jBtFaceCentral1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRBFaceTresActionPerformed
 
     private void jRBFaceTodas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceTodas1ActionPerformed
@@ -7798,10 +7804,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     }//GEN-LAST:event_jBtDente48MouseClicked
     
     private void jRBFaceUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceUmActionPerformed
-        if (jRBFaceUm.isSelected())
+        if (jRBFaceUm.isSelected()){
             jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorVerde.png")));
-        else
+            jBtFaceSuperior1.setEnabled(true);
+        }else{
             jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorTransparente.png")));
+            jBtFaceSuperior1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRBFaceUmActionPerformed
 
     private void jRBFaceUmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBFaceUmMouseClicked
@@ -7809,24 +7818,33 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     }//GEN-LAST:event_jRBFaceUmMouseClicked
     
     private void jRBFaceDoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceDoisActionPerformed
-          if (jRBFaceDois.isSelected())
+        if (jRBFaceDois.isSelected()) {
             jBtFaceEsquerda1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaAzul.png")));
-        else
+            jBtFaceEsquerda1.setEnabled(true);
+        } else {
             jBtFaceEsquerda1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaTransparente.png")));
+            jBtFaceEsquerda1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRBFaceDoisActionPerformed
 
     private void jRBFaceQuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceQuatroActionPerformed
-       if (jRBFaceQuatro.isSelected())
+       if (jRBFaceQuatro.isSelected()){
             jBTFaceDireita1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaCinza.png")));
-        else
+            jBTFaceDireita1.setEnabled(true);
+       }else{
             jBTFaceDireita1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaTransparente.png")));
+            jBTFaceDireita1.setEnabled(false);
+       }
     }//GEN-LAST:event_jRBFaceQuatroActionPerformed
 
     private void jRBFaceCincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceCincoActionPerformed
-        if (jRBFaceCinco.isSelected())
+        if (jRBFaceCinco.isSelected()){
             jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorAmarela.png")));
-        else
+            jBtFaceInferior1.setEnabled(true);
+        } else{
             jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorTransparente.png")));
+            jBtFaceInferior1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRBFaceCincoActionPerformed
 
     private void jBtFaceInferior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFaceInferior1ActionPerformed
@@ -7840,16 +7858,26 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jRBFaceTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceTodasActionPerformed
         if (jRBFaceTodas.isSelected()) {
             jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorVerde.png")));
+            jBtFaceSuperior1.setEnabled(true);
             jBtFaceEsquerda1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaAzul.png")));
+            jBtFaceEsquerda1.setEnabled(true);
             jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorAmarela.png")));
+            jBtFaceInferior1.setEnabled(true);
             jBTFaceDireita1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaCinza.png")));
+            jBTFaceDireita1.setEnabled(true);
             jBtFaceCentral1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralVermelha.png")));
+            jBtFaceCentral1.setEnabled(true);
         } else {
             jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorTransparente.png")));
+            jBtFaceSuperior1.setEnabled(false);
             jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorTransparente.png")));
+            jBtFaceInferior1.setEnabled(false);
             jBTFaceDireita1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaTransparente.png")));
+            jBTFaceDireita1.setEnabled(false);
             jBtFaceEsquerda1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaTransparente.png")));
+            jBtFaceEsquerda1.setEnabled(false);
             jBtFaceCentral1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralTransparente.png")));
+            jBtFaceCentral1.setEnabled(false);
         }
     }//GEN-LAST:event_jRBFaceTodasActionPerformed
 
