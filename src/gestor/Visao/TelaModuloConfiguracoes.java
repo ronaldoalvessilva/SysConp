@@ -50,6 +50,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private TelaAbrirMovimentoFinalizadoIndividual objAbriMovPSP = null;
     private TelaEmpresa objEmpresa = null;
     private TelaConsultaUsuariosGrupo objConsuGrupo = null;
+    private TelaAlertaEntradas objALERTA_entradas = null;
     //
     int flag, codUsuario;
     String dataLanc;
@@ -82,16 +83,16 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         pABRIR_REGISTROS.setVisible(true);
     }
 
-    public void mostrarAberturaGeral(){
+    public void mostrarAberturaGeral() {
         pABRIR_GERAL = new TelaAberturaTotalSistema(this, true);
         pABRIR_GERAL.setVisible(true);
     }
-    
-    public void mostrarApagar(){
+
+    public void mostrarApagar() {
         pAPAGAR_populcao = new TelaApagarPopulacaoCRC(this, true);
         pAPAGAR_populcao.setVisible(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,6 +137,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jParamentosSistema = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jApagarPopulacaoCRC = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jAlertaEntradas = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -340,6 +343,15 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jAbrirMovimetacaoSistema.add(jApagarPopulacaoCRC);
+        jAbrirMovimetacaoSistema.add(jSeparator8);
+
+        jAlertaEntradas.setText("Alerta de Entradas/Saídas/Retornos -  Portaria/CRC");
+        jAlertaEntradas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAlertaEntradasActionPerformed(evt);
+            }
+        });
+        jAbrirMovimetacaoSistema.add(jAlertaEntradas);
 
         jMenuBar1.add(jAbrirMovimetacaoSistema);
 
@@ -614,7 +626,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             } else {
                 objAbriMov = new TelaAbirMovimentoFinalizado();
                 TelaModuloConfiguracoes.jPainelConfiguracoes.add(objAbriMov);//adicona frame ao JDesktopPane  
-                objAbriMov.setVisible(true);                
+                objAbriMov.setVisible(true);
             }
         }
         try {
@@ -637,7 +649,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
 
     private void jAbrirMovimentoIndPSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAbrirMovimentoIndPSPActionPerformed
         // TODO add your handling code here:
-         if (objAbriMovPSP == null || objAbriMovPSP.isClosed()) {
+        if (objAbriMovPSP == null || objAbriMovPSP.isClosed()) {
             objAbriMovPSP = new TelaAbrirMovimentoFinalizadoIndividual();
             jPainelConfiguracoes.add(objAbriMovPSP);
             objAbriMovPSP.setVisible(true);
@@ -655,11 +667,11 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             } else {
                 objAbriMovPSP = new TelaAbrirMovimentoFinalizadoIndividual();
                 TelaModuloConfiguracoes.jPainelConfiguracoes.add(objAbriMovPSP);//adicona frame ao JDesktopPane  
-                objAbriMovPSP.setVisible(true);                
+                objAbriMovPSP.setVisible(true);
             }
         }
         try {
-           objAbriMovPSP.setSelected(true);
+            objAbriMovPSP.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
     }//GEN-LAST:event_jAbrirMovimentoIndPSPActionPerformed
@@ -668,6 +680,35 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         mostrarApagar();
     }//GEN-LAST:event_jApagarPopulacaoCRCActionPerformed
+
+    private void jAlertaEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlertaEntradasActionPerformed
+        // TODO add your handling code here:
+        if (objALERTA_entradas == null || objALERTA_entradas.isClosed()) {
+            objALERTA_entradas = new TelaAlertaEntradas();
+            jPainelConfiguracoes.add(objALERTA_entradas);
+            objALERTA_entradas.setVisible(true);
+        } else {
+            if (objALERTA_entradas.isVisible()) {
+                if (objALERTA_entradas.isIcon()) { // Se esta minimizado
+                    try {
+                        objALERTA_entradas.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objALERTA_entradas.toFront(); // traz para frente
+                    objALERTA_entradas.pack();//volta frame 
+                }
+            } else {
+                objALERTA_entradas = new TelaAlertaEntradas();
+                TelaModuloConfiguracoes.jPainelConfiguracoes.add(objALERTA_entradas);//adicona frame ao JDesktopPane  
+                objALERTA_entradas.setVisible(true);
+            }
+        }
+        try {
+            objALERTA_entradas.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jAlertaEntradasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -680,6 +721,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jAbrirMovimetacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentosData;
+    private javax.swing.JMenuItem jAlertaEntradas;
     private javax.swing.JMenuItem jApagarPopulacaoCRC;
     private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
@@ -706,6 +748,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -719,7 +762,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         }, periodo, tempo);
     }
-    
+
     // Chama a calculadora de pena para o java
     public void calcPena() {
         try {
@@ -728,7 +771,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             iOException.printStackTrace();
         }
     }
-    
+
     // Calculadora do Windows
     public void CalcWindows() {
         try {

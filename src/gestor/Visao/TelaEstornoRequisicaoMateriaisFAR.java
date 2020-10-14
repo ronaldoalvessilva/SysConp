@@ -12,11 +12,15 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosSoNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAcessoGeral;
+import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.EstornoRequisicaoMateriais;
 import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.ItensRequisicaoMateriaisInternos;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFarmacia.telaMovimentacaoEstornoManu_FAR;
+import static gestor.Visao.TelaModuloFarmacia.telaMovimentacaoEstornoProd_FAR;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -48,7 +52,10 @@ public class TelaEstornoRequisicaoMateriaisFAR extends javax.swing.JInternalFram
     //    
     HistoricoMovimentacaoEstoque objHistMovAC = new HistoricoMovimentacaoEstoque();
     ControleHistoricoMovimentacaoFAR controlHistAC = new ControleHistoricoMovimentacaoFAR();
-    //     
+    //
+    ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
+    CamposAcessos objCampos = new CamposAcessos();
+    //        
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -1414,86 +1421,122 @@ public class TelaEstornoRequisicaoMateriaisFAR extends javax.swing.JInternalFram
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoManu_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoManu_FAR) && objCampos.getCodigoIncluir() == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objEstoReq.setStatusEstorno(jStatusEst.getText());
-        if (jStatusEst.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoManu_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoManu_FAR) && objCampos.getCodigoAlterar() == 1) {
+            objEstoReq.setStatusEstorno(jStatusEst.getText());
+            if (jStatusEst.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objEstoReq.setStatusEstorno(jStatusEst.getText());
-        if (jStatusEst.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoManu_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoManu_FAR) && objCampos.getCodigoExcluir() == 1) {
+            objEstoReq.setStatusEstorno(jStatusEst.getText());
+            if (jStatusEst.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                verificarItensRequisitados();
+            }
         } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            verificarItensRequisitados();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataEst.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do estorno.");
-        } else if (jIdDoc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o código da requisição.");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoManu_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoManu_FAR) && objCampos.getCodigoGravar() == 1) {
+            if (jDataEst.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do estorno.");
+            } else if (jIdDoc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o código da requisição.");
+            } else {
+                if (jRadioBtTransferencias.isSelected()) {
+                    tipoEstorno = 0;
+                } else if (jRadioBtReqAvulsa.isSelected()) {
+                    tipoEstorno = 1;
+                }
+                objEstoReq.setStatusEstorno(jStatusEst.getText());
+                objEstoReq.setDataEstorno(jDataEst.getDate());
+                objEstoReq.setTipoEstorno(tipoEstorno);
+                objEstoReq.setDataReq(jDataReq.getDate());
+                objEstoReq.setLocalEstoque(Integer.valueOf(jIdLocal.getText()));
+                objEstoReq.setIdRequisicao(Integer.valueOf(jIdDoc.getText()));
+                objEstoReq.setNomeRequisitante(jNomeRequisitante.getText());
+                objEstoReq.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objEstoReq.setUsuarioInsert(nameUser);
+                    objEstoReq.setDataInsert(dataModFinal);
+                    objEstoReq.setHorarioInsert(horaMov);
+                    //
+                    control.incluirEstornoMaterialFAR(objEstoReq);
+                    buscarCodigo();
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objEstoReq.setUsuarioUp(nameUser);
+                    objEstoReq.setDataUp(dataModFinal);
+                    objEstoReq.setHorarioUp(horaMov);
+                    //
+                    objEstoReq.setIdEstorno(Integer.valueOf(jIdEst.getText()));
+                    control.alterarEstornoMaterialFAR(objEstoReq);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            if (jRadioBtTransferencias.isSelected()) {
-                tipoEstorno = 0;
-            } else if (jRadioBtReqAvulsa.isSelected()) {
-                tipoEstorno = 1;
-            }
-            objEstoReq.setStatusEstorno(jStatusEst.getText());
-            objEstoReq.setDataEstorno(jDataEst.getDate());
-            objEstoReq.setTipoEstorno(tipoEstorno);
-            objEstoReq.setDataReq(jDataReq.getDate());
-            objEstoReq.setLocalEstoque(Integer.valueOf(jIdLocal.getText()));
-            objEstoReq.setIdRequisicao(Integer.valueOf(jIdDoc.getText()));
-            objEstoReq.setNomeRequisitante(jNomeRequisitante.getText());
-            objEstoReq.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objEstoReq.setUsuarioInsert(nameUser);
-                objEstoReq.setDataInsert(dataModFinal);
-                objEstoReq.setHorarioInsert(horaMov);
-                //
-                control.incluirEstornoMaterialFAR(objEstoReq);
-                buscarCodigo();
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objEstoReq.setUsuarioUp(nameUser);
-                objEstoReq.setDataUp(dataModFinal);
-                objEstoReq.setHorarioUp(horaMov);
-                //
-                objEstoReq.setIdEstorno(Integer.valueOf(jIdEst.getText()));
-                control.alterarEstornoMaterialFAR(objEstoReq);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1516,211 +1559,74 @@ public class TelaEstornoRequisicaoMateriaisFAR extends javax.swing.JInternalFram
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objEstoReq.setStatusEstorno(jStatusEst.getText());
-        if (jStatusEst.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoProd_FAR) && objCampos.getCodigoIncluir() == 1) {
+            acao = 1;
+            objEstoReq.setStatusEstorno(jStatusEst.getText());
+            if (jStatusEst.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objEstoReq.setStatusEstorno(jStatusEst.getText());
-        if (jStatusEst.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoProd_FAR) && objCampos.getCodigoAlterar() == 1) {
+            objEstoReq.setStatusEstorno(jStatusEst.getText());
+            if (jStatusEst.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        objEstoReq.setStatusEstorno(jStatusEst.getText());
-        if (jStatusEst.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                if (jRadioBtTransferencias.isSelected()) {
-                    buscarProdutoLoteEnfermaria();
-                    // CALCULAR O NOVO SALDO PARA ESTOQUE DA ENFERMARIA
-                    estoqueEnfAtual = qtdItemLote + objItensReqMatInter.getQtdItem();
-                    //
-                    objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                    objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
-                    objItensReqMatInter.setEstornoProduto(estornoProduto);
-                    controle.modificarTransferenciaEstoqueFAR(objItensReqMatInter);
-                    // MODIFICA O SALDO TABELA LOTE_PRODUTOS_ENF
-                    objItensReqMatInter.setQtdItem(estoqueEnfAtual);
-                    controle.modificarEstoqueEnfermariaFAR(objItensReqMatInter);
-                } else if (jRadioBtReqAvulsa.isSelected()) {
-                    estornoProduto = "Não";
-                    buscarProdutoLoteFarmacia();
-                    // CALCULAR O NOVO SALDO PARA ESTOQUE DA ENFERMARIA
-                    estoqueEnfAtual = qtdItemLote - objItensReqMatInter.getQtdItem();
-                    // MODIFICAR COMO "Não"  NA TABELA ITENS_REQUISICAO_AVULSA_PRODUTO_FAR O CAMPO EstornoProduto
-                    objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                    objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
-                    objItensReqMatInter.setEstornoProduto(estornoProduto);
-                    controle.modificarRequisicaoMaterialAvulsoEstorno(objItensReqMatInter);
-                    //
-                    objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                    objItensReqMatInter.setLoteProduto(jLote.getText());
-                    objItensReqMatInter.setQtdItem(estoqueEnfAtual);
-                    controle.alterarEstoqueMateraisFAR(objItensReqMatInter); // TABELA DE LOTEPRODUTOS
-                }
-                // EXCLUIR REGISTRO DA TABELA ITENS_ESTORNO_PRODUTO_FAR
-                objItensReqMatInter.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensEstornoTransReqFAR(objItensReqMatInter);
-                //
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENS_ESTORNO_PRODUTOS_FAR "
-                        + "INNER JOIN ESTORNO_PRODUTOS_FAR "
-                        + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdEst=ESTORNO_PRODUTOS_FAR.IdEst "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE ITENS_ESTORNO_PRODUTOS_FAR.IdEst='" + jIdEst.getText() + "'");
-            }
-        }
-    }//GEN-LAST:event_jBtExcluirItemActionPerformed
-
-    private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
-        // TODO add your handling code here:        
-        estornoProduto = "Sim";
-        DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
-        qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jCodProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o produto para requisição.");
-        } else if (jQtdItem.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
-        } else if (jComboBoxUnidade.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
-        } else {
-            objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-            objItensReqMatInter.setDescricaoProduto(jDescricaoProduto.getText());
-            objItensReqMatInter.setIdReq(Integer.valueOf(jIdEst.getText()));
-            objItensReqMatInter.setCodigoBarras(jCodigoBarras.getText());
-            objItensReqMatInter.setLoteProduto(jLote.getText());
-            objItensReqMatInter.setUnidadeProd((String) jComboBoxUnidade.getSelectedItem());
-            //   objItensReqMatInter.setQtdItem(Float.valueOf(jQtdItem.getText()));
-            if (jRadioBtTransferencias.isSelected()) {
-                buscarQuantidadeTransferidaEnfermaria();
-            } else if (jRadioBtReqAvulsa.isSelected()) {
-                buscarQuantidadeRequisitadaAvulsa(); // BUSCAR QUANTIDADE PARA COMPARAR O ESTORNO             
-            }
-            try {
-                objItensReqMatInter.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
-                objItensReqMatInter.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            // CALCULAR O VALOR TOTAL DO ITEM
-            valorTotalItem = objItensReqMatInter.getQtdItem() * objItensReqMatInter.getValorUnitarioItem();
-            objItensReqMatInter.setValorTotalItem(valorTotalItem);
-            if (acao == 3) {
-                objItensReqMatInter.setUsuarioInsert(nameUser);
-                objItensReqMatInter.setDataInsert(dataModFinal);
-                objItensReqMatInter.setHorarioInsert(horaMov);
-                // COMPARA A QUANTIDADE DOS ITENS DA REQUISIÇÃO COM A QUANTIDADE DIGITADA A SER ESTORNADA
-                if (qtdItemEstorno >= objItensReqMatInter.getQtdItem()) {
-                    // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
-                    pegarSaldoEstoque(objItensReqMatInter.getIdProd(), objItensReqMatInter.getLoteProduto());
-                    //                  
-                    estoqueAtual = saldoEstoque + objItensReqMatInter.getQtdItem();
-                    //
-                    objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                    objItensReqMatInter.setLoteProduto(jLote.getText());
-                    objItensReqMatInter.setQtdItem(estoqueAtual);
-                    controle.alterarEstoqueMateraisFAR(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC                  
-                    // GRAVAR REGISTRO NA TABELA ITENS_REQUISICAO_PRODUTOS_INTERNOS
-                    try {
-                        objItensReqMatInter.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    controle.incluirItensEstornoTransReqFAR(objItensReqMatInter);
-                    // MODIFICAR DE "Não" PARA "Sim" NA TABELA ITENS_REQUISICAO_PRODUTO_FAR/ITENS_TRANSFERENCIA_FAR
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoProd_FAR) && objCampos.getCodigoExcluir() == 1) {
+            objEstoReq.setStatusEstorno(jStatusEst.getText());
+            if (jStatusEst.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
                     if (jRadioBtTransferencias.isSelected()) {
-                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                        objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
-                        objItensReqMatInter.setEstornoProduto(estornoProduto);
-                        controle.modificarTransferenciaEstoqueFAR(objItensReqMatInter);
-                        // RETIRAR QUANTIDADE DO ESTOQUE DA ENFERMARIA LOTE_PRODUTO_ENF
-                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                        objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
-                        objItensReqMatInter.setLoteProduto(jLote.getText());
-                        // BUSCAR OS DADOS NA TABELA LOTE_PRODUTO_ENF PARA SER MODIFICADO O SALDO.
                         buscarProdutoLoteEnfermaria();
                         // CALCULAR O NOVO SALDO PARA ESTOQUE DA ENFERMARIA
-                        estoqueEnfAtual = (float) (qtdItemLote - objItensReqMatInter.getQtdItem());
-                        objItensReqMatInter.setQtdItem(estoqueEnfAtual);
-                        controle.modificarEstoqueEnfermariaFAR(objItensReqMatInter); // MODIFICA O SALDO TABELA LOTE_PRODUTOS_ENF
-                    } else if (jRadioBtReqAvulsa.isSelected()) {
-                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                        objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
-                        objItensReqMatInter.setEstornoProduto(estornoProduto);
-                        controle.modificarRequisicaoMaterialAvulsoEstorno(objItensReqMatInter);
-                    }
-                    //
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_ESTORNO_PRODUTOS_FAR "
-                            + "INNER JOIN ESTORNO_PRODUTOS_FAR "
-                            + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdEst=ESTORNO_PRODUTOS_FAR.IdEst "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE ITENS_ESTORNO_PRODUTOS_FAR.IdEst='" + jIdEst.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarItem();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "A quantidade a ser estornada é maior que a requistada.");
-                }
-            }
-            if (acao == 4) {
-                objItensReqMatInter.setUsuarioUp(nameUser);
-                objItensReqMatInter.setDataUp(dataModFinal);
-                objItensReqMatInter.setHorarioUp(horaMov);
-                // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
-                pegarSaldoEstoque(objItensReqMatInter.getIdProd(), objItensReqMatInter.getLoteProduto());
-                // CALCULA O NOVO SALDO DE ESTOQUE 
-                novoSaldoAtual = (float) (qtdItemAnterior + saldoEstoque); // SOMA O SALDO DA TABELA LOTE COM A TABELA ITENS_REQUISICAO           
-                //
-                if (novoSaldoAtual >= objItensReqMatInter.getQtdItem()) {
-                    //BUSCAR QUANTIDADE DO ITEM NA TABELA DE ITENS_ESTORNO_PRODUTOS_FAR                  
-                    buscarQuantidadeRequisitadaAvulsa();
-                    // BUSCAR OS DADOS NA TABELA LOTE_PRODUTO_ENF PARA SER MODIFICADO O SALDO.                    
-                    buscarProdutoLoteEnfermaria();
-                    // CALCULAR O NOVO SALDO PARA ESTOQUE DA ENFERMARIA
-                    estoqueEnfAtual = qtdItemEstorno + qtdItemLote - objItensReqMatInter.getQtdItem();
-                    //
-                    estoqueAtual = (float) (novoSaldoAtual - objItensReqMatInter.getQtdItem()); // DEDUZ O SALDO DE ESTOQUE E GRAVA
-                    //
-                    objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                    objItensReqMatInter.setLoteProduto(jLote.getText());
-                    try {
-                        objItensReqMatInter.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
-                        objItensReqMatInter.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    objItensReqMatInter.setIdItem(Integer.valueOf(idItem));
-                    controle.alterarItensEstornoTransReqFAR(objItensReqMatInter); // ALTERAR QUANTIDADE NA TABELA ITENS_REQUISICAO_PRODUTOS_INTERNOS
-                    //
-                    objItensReqMatInter.setQtdItem(estoqueAtual);
-                    controle.alterarEstoqueMateraisFAR(objItensReqMatInter); // ALTERAR SALDO DE ESTOQUE NA TABELA DE LOTE_PRODUTOS_AC                  
-                    // MODIFICAR DE "Não" PARA "Sim" NA TABELA ITENS_REQUISICAO
-                    if (jRadioBtTransferencias.isSelected()) {
+                        estoqueEnfAtual = qtdItemLote + objItensReqMatInter.getQtdItem();
+                        //
                         objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
                         objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
                         objItensReqMatInter.setEstornoProduto(estornoProduto);
@@ -1729,25 +1635,199 @@ public class TelaEstornoRequisicaoMateriaisFAR extends javax.swing.JInternalFram
                         objItensReqMatInter.setQtdItem(estoqueEnfAtual);
                         controle.modificarEstoqueEnfermariaFAR(objItensReqMatInter);
                     } else if (jRadioBtReqAvulsa.isSelected()) {
+                        estornoProduto = "Não";
+                        buscarProdutoLoteFarmacia();
+                        // CALCULAR O NOVO SALDO PARA ESTOQUE DA ENFERMARIA
+                        estoqueEnfAtual = qtdItemLote - objItensReqMatInter.getQtdItem();
+                        // MODIFICAR COMO "Não"  NA TABELA ITENS_REQUISICAO_AVULSA_PRODUTO_FAR O CAMPO EstornoProduto
                         objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
                         objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
                         objItensReqMatInter.setEstornoProduto(estornoProduto);
                         controle.modificarRequisicaoMaterialAvulsoEstorno(objItensReqMatInter);
+                        //
+                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                        objItensReqMatInter.setLoteProduto(jLote.getText());
+                        objItensReqMatInter.setQtdItem(estoqueEnfAtual);
+                        controle.alterarEstoqueMateraisFAR(objItensReqMatInter); // TABELA DE LOTEPRODUTOS
                     }
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    // EXCLUIR REGISTRO DA TABELA ITENS_ESTORNO_PRODUTO_FAR
+                    objItensReqMatInter.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensEstornoTransReqFAR(objItensReqMatInter);
+                    //
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
                     preencherTabelaItens("SELECT * FROM ITENS_ESTORNO_PRODUTOS_FAR "
                             + "INNER JOIN ESTORNO_PRODUTOS_FAR "
                             + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdEst=ESTORNO_PRODUTOS_FAR.IdEst "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdProd=PRODUTOS_AC.IdProd "
                             + "WHERE ITENS_ESTORNO_PRODUTOS_FAR.IdEst='" + jIdEst.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarItem();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Quantidade requisitada é maior que o saldo de estoque.");
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtExcluirItemActionPerformed
+
+    private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
+        // TODO add your handling code here:    
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaMovimentacaoEstornoProd_FAR);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaMovimentacaoEstornoProd_FAR) && objCampos.getCodigoGravar() == 1) {
+            estornoProduto = "Sim";
+            DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+            qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jCodProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o produto para requisição.");
+            } else if (jQtdItem.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
+            } else if (jComboBoxUnidade.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
+            } else {
+                objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                objItensReqMatInter.setDescricaoProduto(jDescricaoProduto.getText());
+                objItensReqMatInter.setIdReq(Integer.valueOf(jIdEst.getText()));
+                objItensReqMatInter.setCodigoBarras(jCodigoBarras.getText());
+                objItensReqMatInter.setLoteProduto(jLote.getText());
+                objItensReqMatInter.setUnidadeProd((String) jComboBoxUnidade.getSelectedItem());
+                //   objItensReqMatInter.setQtdItem(Float.valueOf(jQtdItem.getText()));
+                if (jRadioBtTransferencias.isSelected()) {
+                    buscarQuantidadeTransferidaEnfermaria();
+                } else if (jRadioBtReqAvulsa.isSelected()) {
+                    buscarQuantidadeRequisitadaAvulsa(); // BUSCAR QUANTIDADE PARA COMPARAR O ESTORNO             
+                }
+                try {
+                    objItensReqMatInter.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                    objItensReqMatInter.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                // CALCULAR O VALOR TOTAL DO ITEM
+                valorTotalItem = objItensReqMatInter.getQtdItem() * objItensReqMatInter.getValorUnitarioItem();
+                objItensReqMatInter.setValorTotalItem(valorTotalItem);
+                if (acao == 3) {
+                    objItensReqMatInter.setUsuarioInsert(nameUser);
+                    objItensReqMatInter.setDataInsert(dataModFinal);
+                    objItensReqMatInter.setHorarioInsert(horaMov);
+                    // COMPARA A QUANTIDADE DOS ITENS DA REQUISIÇÃO COM A QUANTIDADE DIGITADA A SER ESTORNADA
+                    if (qtdItemEstorno >= objItensReqMatInter.getQtdItem()) {
+                        // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
+                        pegarSaldoEstoque(objItensReqMatInter.getIdProd(), objItensReqMatInter.getLoteProduto());
+                        //                  
+                        estoqueAtual = saldoEstoque + objItensReqMatInter.getQtdItem();
+                        //
+                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                        objItensReqMatInter.setLoteProduto(jLote.getText());
+                        objItensReqMatInter.setQtdItem(estoqueAtual);
+                        controle.alterarEstoqueMateraisFAR(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC                  
+                        // GRAVAR REGISTRO NA TABELA ITENS_REQUISICAO_PRODUTOS_INTERNOS
+                        try {
+                            objItensReqMatInter.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        controle.incluirItensEstornoTransReqFAR(objItensReqMatInter);
+                        // MODIFICAR DE "Não" PARA "Sim" NA TABELA ITENS_REQUISICAO_PRODUTO_FAR/ITENS_TRANSFERENCIA_FAR
+                        if (jRadioBtTransferencias.isSelected()) {
+                            objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                            objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
+                            objItensReqMatInter.setEstornoProduto(estornoProduto);
+                            controle.modificarTransferenciaEstoqueFAR(objItensReqMatInter);
+                            // RETIRAR QUANTIDADE DO ESTOQUE DA ENFERMARIA LOTE_PRODUTO_ENF
+                            objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                            objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
+                            objItensReqMatInter.setLoteProduto(jLote.getText());
+                            // BUSCAR OS DADOS NA TABELA LOTE_PRODUTO_ENF PARA SER MODIFICADO O SALDO.
+                            buscarProdutoLoteEnfermaria();
+                            // CALCULAR O NOVO SALDO PARA ESTOQUE DA ENFERMARIA
+                            estoqueEnfAtual = (float) (qtdItemLote - objItensReqMatInter.getQtdItem());
+                            objItensReqMatInter.setQtdItem(estoqueEnfAtual);
+                            controle.modificarEstoqueEnfermariaFAR(objItensReqMatInter); // MODIFICA O SALDO TABELA LOTE_PRODUTOS_ENF
+                        } else if (jRadioBtReqAvulsa.isSelected()) {
+                            objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                            objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
+                            objItensReqMatInter.setEstornoProduto(estornoProduto);
+                            controle.modificarRequisicaoMaterialAvulsoEstorno(objItensReqMatInter);
+                        }
+                        //
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_ESTORNO_PRODUTOS_FAR "
+                                + "INNER JOIN ESTORNO_PRODUTOS_FAR "
+                                + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdEst=ESTORNO_PRODUTOS_FAR.IdEst "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE ITENS_ESTORNO_PRODUTOS_FAR.IdEst='" + jIdEst.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarItem();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "A quantidade a ser estornada é maior que a requistada.");
+                    }
+                }
+                if (acao == 4) {
+                    objItensReqMatInter.setUsuarioUp(nameUser);
+                    objItensReqMatInter.setDataUp(dataModFinal);
+                    objItensReqMatInter.setHorarioUp(horaMov);
+                    // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
+                    pegarSaldoEstoque(objItensReqMatInter.getIdProd(), objItensReqMatInter.getLoteProduto());
+                    // CALCULA O NOVO SALDO DE ESTOQUE 
+                    novoSaldoAtual = (float) (qtdItemAnterior + saldoEstoque); // SOMA O SALDO DA TABELA LOTE COM A TABELA ITENS_REQUISICAO           
+                    //
+                    if (novoSaldoAtual >= objItensReqMatInter.getQtdItem()) {
+                        //BUSCAR QUANTIDADE DO ITEM NA TABELA DE ITENS_ESTORNO_PRODUTOS_FAR                  
+                        buscarQuantidadeRequisitadaAvulsa();
+                        // BUSCAR OS DADOS NA TABELA LOTE_PRODUTO_ENF PARA SER MODIFICADO O SALDO.                    
+                        buscarProdutoLoteEnfermaria();
+                        // CALCULAR O NOVO SALDO PARA ESTOQUE DA ENFERMARIA
+                        estoqueEnfAtual = qtdItemEstorno + qtdItemLote - objItensReqMatInter.getQtdItem();
+                        //
+                        estoqueAtual = (float) (novoSaldoAtual - objItensReqMatInter.getQtdItem()); // DEDUZ O SALDO DE ESTOQUE E GRAVA
+                        //
+                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                        objItensReqMatInter.setLoteProduto(jLote.getText());
+                        try {
+                            objItensReqMatInter.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                            objItensReqMatInter.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        objItensReqMatInter.setIdItem(Integer.valueOf(idItem));
+                        controle.alterarItensEstornoTransReqFAR(objItensReqMatInter); // ALTERAR QUANTIDADE NA TABELA ITENS_REQUISICAO_PRODUTOS_INTERNOS
+                        //
+                        objItensReqMatInter.setQtdItem(estoqueAtual);
+                        controle.alterarEstoqueMateraisFAR(objItensReqMatInter); // ALTERAR SALDO DE ESTOQUE NA TABELA DE LOTE_PRODUTOS_AC                  
+                        // MODIFICAR DE "Não" PARA "Sim" NA TABELA ITENS_REQUISICAO
+                        if (jRadioBtTransferencias.isSelected()) {
+                            objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                            objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
+                            objItensReqMatInter.setEstornoProduto(estornoProduto);
+                            controle.modificarTransferenciaEstoqueFAR(objItensReqMatInter);
+                            // MODIFICA O SALDO TABELA LOTE_PRODUTOS_ENF
+                            objItensReqMatInter.setQtdItem(estoqueEnfAtual);
+                            controle.modificarEstoqueEnfermariaFAR(objItensReqMatInter);
+                        } else if (jRadioBtReqAvulsa.isSelected()) {
+                            objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                            objItensReqMatInter.setIdReq(Integer.valueOf(jIdDoc.getText()));
+                            objItensReqMatInter.setEstornoProduto(estornoProduto);
+                            controle.modificarRequisicaoMaterialAvulsoEstorno(objItensReqMatInter);
+                        }
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_ESTORNO_PRODUTOS_FAR "
+                                + "INNER JOIN ESTORNO_PRODUTOS_FAR "
+                                + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdEst=ESTORNO_PRODUTOS_FAR.IdEst "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON ITENS_ESTORNO_PRODUTOS_FAR.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE ITENS_ESTORNO_PRODUTOS_FAR.IdEst='" + jIdEst.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarItem();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Quantidade requisitada é maior que o saldo de estoque.");
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 

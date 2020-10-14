@@ -408,10 +408,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String pNomeSSM = "";
     String pNomeSSI = "";
 
-//    pNomeSSM
-//      pNomeSSI
-//    telaSaidaSimbolicaManu_CRC
-//    telaSaidaSimbolicaInt_CRC
     /**
      * Creates new form TelaCRC
      */
