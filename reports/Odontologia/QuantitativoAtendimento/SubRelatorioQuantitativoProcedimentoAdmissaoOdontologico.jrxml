@@ -29,7 +29,7 @@ FROM   ODONTOGRAMA_ADMISSAO A
                ON D.IdProcOdonto = A.IdProcOdonto
 WHERE  CONVERT(DATE, A.DataOdontograma) BETWEEN $P{dataInicial} AND $P{dataFinal}
 ORDER  BY B.UsuarioInsert,
-          A.DataOdontograma ]]>
+          A.DataOdontograma]]>
 	</queryString>
 	<field name="DataOdontograma" class="java.sql.Timestamp"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
@@ -47,7 +47,7 @@ ORDER  BY B.UsuarioInsert,
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PROCEDIMENTOS ADMISSÃO]]></text>
+				<text><![CDATA[PROCEDIMENTOS - ADMISSÕES]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
