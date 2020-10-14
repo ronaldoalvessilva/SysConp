@@ -72,4 +72,21 @@ public class ControleAlertasCRCPortaria {
         conecta.desconecta();
         return objAlertaEntrada;
     }
+    
+    //SAÍDAS DA UNIDADE
+    public AtivarDesativarAlertaEntradas alterarSaidas(AtivarDesativarAlertaEntradas objAlertaEntrada) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSCRCPORTARIA SET SaidaConfirmada=? WHERE IdSaida='" + objAlertaEntrada.getIdItem() + "' AND IdInternoCrc='" + objAlertaEntrada.getIdInternoCrc() + "'");
+            pst.setString(1, objAlertaEntrada.getConfirmaEntrada());
+            pst.executeUpdate();
+            pRESPOSTA = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAlertaEntrada;
+    }
 }

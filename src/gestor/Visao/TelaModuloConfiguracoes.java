@@ -138,8 +138,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jApagarPopulacaoCRC = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
-        jMenu7 = new javax.swing.JMenu();
-        jAlertasSaidas = new javax.swing.JMenuItem();
         jAlertaEntradas = new javax.swing.JMenuItem();
 
         setClosable(true);
@@ -347,25 +345,13 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jAbrirMovimetacaoSistema.add(jApagarPopulacaoCRC);
         jAbrirMovimetacaoSistema.add(jSeparator8);
 
-        jMenu7.setText("Retirar Alertas CRC/Portaria Interna");
-
-        jAlertasSaidas.setText("Alerta de Saídas - CRC/Portaria");
-        jAlertasSaidas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAlertasSaidasActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jAlertasSaidas);
-
-        jAlertaEntradas.setText("Alerta de Entradas -  Portaria/CRC");
+        jAlertaEntradas.setText("Alerta de Entradas/Saídas/Retornos -  Portaria/CRC");
         jAlertaEntradas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAlertaEntradasActionPerformed(evt);
             }
         });
-        jMenu7.add(jAlertaEntradas);
-
-        jAbrirMovimetacaoSistema.add(jMenu7);
+        jAbrirMovimetacaoSistema.add(jAlertaEntradas);
 
         jMenuBar1.add(jAbrirMovimetacaoSistema);
 
@@ -695,10 +681,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         mostrarApagar();
     }//GEN-LAST:event_jApagarPopulacaoCRCActionPerformed
 
-    private void jAlertasSaidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlertasSaidasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jAlertasSaidasActionPerformed
-
     private void jAlertaEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlertaEntradasActionPerformed
         // TODO add your handling code here:
         if (objALERTA_entradas == null || objALERTA_entradas.isClosed()) {
@@ -740,7 +722,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentosData;
     private javax.swing.JMenuItem jAlertaEntradas;
-    private javax.swing.JMenuItem jAlertasSaidas;
     private javax.swing.JMenuItem jApagarPopulacaoCRC;
     private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
@@ -750,7 +731,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;

@@ -221,29 +221,14 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator8">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu7">
+            <MenuItem class="javax.swing.JMenuItem" name="jAlertaEntradas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Retirar Alertas CRC/Portaria Interna"/>
+                <Property name="text" type="java.lang.String" value="Alerta de Entradas/Sa&#xed;das/Retornos -  Portaria/CRC"/>
               </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jAlertasSaidas">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Alerta de Sa&#xed;das - CRC/Portaria"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAlertasSaidasActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jAlertaEntradas">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Alerta de Entradas -  Portaria/CRC"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAlertaEntradasActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAlertaEntradasActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

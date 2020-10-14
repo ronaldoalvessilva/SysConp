@@ -35,7 +35,7 @@
                   <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -161,7 +161,6 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jComboBoxAtivarDesativar" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -171,8 +170,9 @@
                                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="103" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="jComboBoxAtivarDesativar" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -271,7 +271,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Data Entrada"/>
+                <Property name="text" type="java.lang.String" value="Data Ent./Saida"/>
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jDataRegistro">
@@ -292,7 +292,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Hora Entrada"/>
+                <Property name="text" type="java.lang.String" value="Hora Ent./Saida"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
@@ -316,7 +316,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Origem"/>
+                <Property name="text" type="java.lang.String" value="Origem/Destino"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jHoraEntrada">
@@ -422,7 +422,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tipo de Entrada/Retorno"/>
+                <Property name="text" type="java.lang.String" value="Tipo de Entrada/Retorno/Sa&#xed;da"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBoxTipoEntrada">
@@ -431,11 +431,12 @@
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
+                  <StringArray count="5">
                     <StringItem index="0" value="Selecione..."/>
                     <StringItem index="1" value="Registro de Entrada na Unidade Penal - PRIMEIRA VEZ"/>
                     <StringItem index="2" value="Registro de Nova Entrada de Internos - P1/CRC"/>
                     <StringItem index="3" value="Registro de Retorno de Internos na Portaria - P1/CRC"/>
+                    <StringItem index="4" value="Registro de Sa&#xed;das de Internos na Portaria - CRC/P1"/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
