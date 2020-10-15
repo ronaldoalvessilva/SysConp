@@ -191,35 +191,43 @@ public class TelaRelatorioVisitasPorIdade extends javax.swing.JInternalFrame {
         } else if (pIDADE_INICIAL > pIDADE_FINAL) {
             JOptionPane.showMessageDialog(rootPane, "Idade Inicial não pode ser maior que a idade final");
         } else {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/ServicoSocial/RelatorioVisitasIdade.jasper";
-                conecta.executaSQL("SELECT "
-                        + "NomeVisita, "
-                        + "DataNasc, "
-                        + "Floor(Datediff(DAY, CONVERT(DATE, DataNasc), Getdate()) / 365.25) AS Idade, "
-                        + "SexoVisita, "
-                        + "StatusVisita FROM VISITASINTERNO "
-                        + "WHERE  Floor(Datediff(DAY, CONVERT(DATE, DataNasc), Getdate()) / 365.25) BETWEEN'"
-                        + jIdadeInicial.getText() + "' "
-                        + "AND'" + jIdadeFinal.getText() + "' "
-                        + "ORDER BY NomeVisita");
-                HashMap parametros = new HashMap();
-                parametros.put("IDADE_INICIAL", jIdadeInicial.getText());
-                parametros.put("IDADE_FINAL", jIdadeFinal.getText());
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório de Internos Por Idade");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/ServicoSocial/RelatorioVisitasIdade.jasper";
+                        conecta.executaSQL("SELECT "
+                                + "NomeVisita, "
+                                + "DataNasc, "
+                                + "Floor(Datediff(DAY, CONVERT(DATE, DataNasc), Getdate()) / 365.25) AS Idade, "
+                                + "SexoVisita, "
+                                + "StatusVisita FROM VISITASINTERNO "
+                                + "WHERE  Floor(Datediff(DAY, CONVERT(DATE, DataNasc), Getdate()) / 365.25) BETWEEN'"
+                                + jIdadeInicial.getText() + "' "
+                                + "AND'" + jIdadeFinal.getText() + "' "
+                                + "ORDER BY NomeVisita");
+                        HashMap parametros = new HashMap();
+                        parametros.put("IDADE_INICIAL", jIdadeInicial.getText());
+                        parametros.put("IDADE_FINAL", jIdadeFinal.getText());
+                        parametros.put("descricaoUnidade", descricaoUnidade);
+                        parametros.put("nomeUsuario", nameUser);
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Relatório de Internos Por Idade");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação            
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    }
+                    carregando.dispose(); //Teste tela aguarde
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
