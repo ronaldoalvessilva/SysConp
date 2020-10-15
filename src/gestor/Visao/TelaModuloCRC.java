@@ -740,7 +740,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenu6.add(jSeparator26);
 
         jConsultaGeralInternosExterna.setForeground(new java.awt.Color(204, 0, 0));
-        jConsultaGeralInternosExterna.setText("Consulta Gerencial de  Internos nas Unidades Externas - CGIUE");
+        jConsultaGeralInternosExterna.setText("PGI - Pesquisa Global de Internos");
         jConsultaGeralInternosExterna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jConsultaGeralInternosExternaActionPerformed(evt);

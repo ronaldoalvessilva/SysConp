@@ -152,7 +152,7 @@ public class ControleUsuarios {
             }
             pst.execute(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados(LAURO DE FREITAS).\nERRO: " + ex);
         }
         conectaLF.desconecta();
         return objUser;
@@ -183,7 +183,7 @@ public class ControleUsuarios {
             }
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(LAURO DE FREITAS).\n\nERRO: " + ex);
         }
         conectaLF.desconecta();
         return objUser;
@@ -196,7 +196,7 @@ public class ControleUsuarios {
             PreparedStatement pst = conectaLF.con.prepareStatement("DELETE FROM USUARIOS WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados(LAURO DE FREITAS).\n\nERRO: " + ex);
         }
         conectaLF.desconecta();
         return objUser;
@@ -212,7 +212,7 @@ public class ControleUsuarios {
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(LAURO DE FREITAS).\nERRO:" + ex);
         }
         conectaLF.desconecta();
         return objUser;
@@ -244,7 +244,7 @@ public class ControleUsuarios {
             }
             pst.execute(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados(VITÓRIA DA CONQUISTA).\nERRO: " + ex);
         }
         conectaVC.desconecta();
         return objUser;
@@ -275,7 +275,7 @@ public class ControleUsuarios {
             }
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(VITÓRIA DA CONQUISTA).\n\nERRO: " + ex);
         }
         conectaVC.desconecta();
         return objUser;
@@ -288,7 +288,7 @@ public class ControleUsuarios {
             PreparedStatement pst = conectaVC.con.prepareStatement("DELETE FROM USUARIOS WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados(VITÓRIA DA CONQUISTA).\n\nERRO: " + ex);
         }
         conectaVC.desconecta();
         return objUser;
@@ -304,7 +304,7 @@ public class ControleUsuarios {
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(VITÓRIA DA CONQUISTA).\nERRO:" + ex);
         }
         conectaVC.desconecta();
         return objUser;
@@ -336,7 +336,7 @@ public class ControleUsuarios {
             }
             pst.execute(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados(ITABUNA).\nERRO: " + ex);
         }
         conectaITB.desconecta();
         return objUser;
@@ -367,7 +367,7 @@ public class ControleUsuarios {
             }
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(ITABUNA).\n\nERRO: " + ex);
         }
         conectaITB.desconecta();
         return objUser;
@@ -380,7 +380,7 @@ public class ControleUsuarios {
             PreparedStatement pst = conectaITB.con.prepareStatement("DELETE FROM USUARIOS WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados(ITABUNA).\n\nERRO: " + ex);
         }
         conectaITB.desconecta();
         return objUser;
@@ -396,7 +396,7 @@ public class ControleUsuarios {
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(ITABUNA).\nERRO:" + ex);
         }
         conectaITB.desconecta();
         return objUser;
@@ -428,7 +428,7 @@ public class ControleUsuarios {
             }
             pst.execute(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados(SALVADOR).\nERRO: " + ex);
         }
         conectaSSA.desconecta();
         return objUser;
@@ -459,7 +459,7 @@ public class ControleUsuarios {
             }
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(SALVADOR).\n\nERRO: " + ex);
         }
         conectaSSA.desconecta();
         return objUser;
@@ -472,7 +472,7 @@ public class ControleUsuarios {
             PreparedStatement pst = conectaSSA.con.prepareStatement("DELETE FROM USUARIOS WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados(SALVADOR).\n\nERRO: " + ex);
         }
         conectaSSA.desconecta();
         return objUser;
@@ -488,7 +488,7 @@ public class ControleUsuarios {
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(SALVADOR).\nERRO:" + ex);
         }
         conectaSSA.desconecta();
         return objUser;
@@ -520,7 +520,7 @@ public class ControleUsuarios {
             }
             pst.execute(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados(BARREIRAS).\nERRO: " + ex);
         }
         conectaBAR.desconecta();
         return objUser;
@@ -530,7 +530,7 @@ public class ControleUsuarios {
 
         conectaBAR.abrirConexao();
         try {
-            PreparedStatement pst = conectaBAR.con.prepareStatement("UPDATE USUARIOS SET StatusUsuario=?,DataCadastro=?,NomeUsuario=?,NomeDepartamento=?,NomeCargo=?,LoginUsuario=?,SenhaUsuario=?,ConfirmaSenhaUsuario=?,AcessoTodasUnidades=?,DataSenha=?WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            PreparedStatement pst = conectaBAR.con.prepareStatement("UPDATE USUARIOS SET StatusUsuario=?,DataCadastro=?,NomeUsuario=?,NomeDepartamento=?,NomeCargo=?,LoginUsuario=?,SenhaUsuario=?,ConfirmaSenhaUsuario=?,AcessoTodasUnidades=?,DataSenha=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.setBoolean(1, objUser.getStatus());
             if (objUser.getDataCadastro() != null) {
                 pst.setTimestamp(2, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
@@ -551,7 +551,7 @@ public class ControleUsuarios {
             }
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(BARREIRAS).\n\nERRO: " + ex);
         }
         conectaBAR.desconecta();
         return objUser;
@@ -564,7 +564,7 @@ public class ControleUsuarios {
             PreparedStatement pst = conectaBAR.con.prepareStatement("DELETE FROM USUARIOS WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados(BARREIRAS).\n\nERRO: " + ex);
         }
         conectaBAR.desconecta();
         return objUser;
@@ -580,7 +580,7 @@ public class ControleUsuarios {
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados(BARREIRAS).\nERRO:" + ex);
         }
         conectaBAR.desconecta();
         return objUser;

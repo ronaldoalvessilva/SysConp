@@ -118,6 +118,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItemLog = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         UsuariosConectados = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jAbrirMovimetacaoSistema = new javax.swing.JMenu();
@@ -232,6 +233,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jMenu6.add(jMenuItemLog);
+        jMenu6.add(jSeparator9);
 
         UsuariosConectados.setText("Usuários Conectados/Desconectados no Sistema");
         UsuariosConectados.addActionListener(new java.awt.event.ActionListener() {
@@ -345,7 +347,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jAbrirMovimetacaoSistema.add(jApagarPopulacaoCRC);
         jAbrirMovimetacaoSistema.add(jSeparator8);
 
-        jAlertaEntradas.setText("Alerta de Entradas/Saídas/Retornos -  Portaria/CRC");
+        jAlertaEntradas.setText("Alerta de Entradas/Saídas/Retornos - Portaria/CRC");
         jAlertaEntradas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAlertaEntradasActionPerformed(evt);
@@ -749,6 +751,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)

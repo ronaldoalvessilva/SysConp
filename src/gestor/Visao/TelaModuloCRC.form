@@ -141,7 +141,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Consulta Gerencial de  Internos nas Unidades Externas - CGIUE"/>
+                <Property name="text" type="java.lang.String" value="PGI - Pesquisa Global de Internos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jConsultaGeralInternosExternaActionPerformed"/>

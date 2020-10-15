@@ -85,6 +85,8 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLogActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="UsuariosConectados">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rios Conectados/Desconectados no Sistema"/>
@@ -223,7 +225,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jAlertaEntradas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Alerta de Entradas/Sa&#xed;das/Retornos -  Portaria/CRC"/>
+                <Property name="text" type="java.lang.String" value="Alerta de Entradas/Sa&#xed;das/Retornos - Portaria/CRC"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAlertaEntradasActionPerformed"/>
