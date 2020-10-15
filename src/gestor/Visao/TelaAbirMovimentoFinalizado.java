@@ -183,6 +183,11 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jBtAlterarSaidaPertences = new javax.swing.JButton();
         jBtConfirmarSaidaPertences = new javax.swing.JButton();
         jCodigoRegistroSaidaPertences = new javax.swing.JTextField();
+        jPanel76 = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        jBtAlterarPopulacao = new javax.swing.JButton();
+        jBtConfirmarPopulacao = new javax.swing.JButton();
+        jCodigoRegistroPopulacao = new javax.swing.JTextField();
         Almoxarifado = new javax.swing.JPanel();
         jPanel53 = new javax.swing.JPanel();
         jPanel54 = new javax.swing.JPanel();
@@ -2020,6 +2025,68 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4))
         );
 
+        jPanel76.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "População Numérica", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel50.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel50.setText("Código Registro:");
+
+        jBtAlterarPopulacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarPopulacao.setText("Alterar");
+        jBtAlterarPopulacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarPopulacaoActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarPopulacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarPopulacao.setText("Confirmar");
+        jBtConfirmarPopulacao.setEnabled(false);
+        jBtConfirmarPopulacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarPopulacaoActionPerformed(evt);
+            }
+        });
+
+        jCodigoRegistroPopulacao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroPopulacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroPopulacao.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel76Layout = new javax.swing.GroupLayout(jPanel76);
+        jPanel76.setLayout(jPanel76Layout);
+        jPanel76Layout.setHorizontalGroup(
+            jPanel76Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel76Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel76Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel76Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarPopulacao)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel76Layout.createSequentialGroup()
+                        .addComponent(jLabel50)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel76Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jCodigoRegistroPopulacao)
+                    .addComponent(jBtConfirmarPopulacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel76Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarPopulacao, jBtConfirmarPopulacao});
+
+        jPanel76Layout.setVerticalGroup(
+            jPanel76Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel76Layout.createSequentialGroup()
+                .addGroup(jPanel76Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoRegistroPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel50))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel76Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarPopulacao)
+                    .addComponent(jBtConfirmarPopulacao))
+                .addGap(4, 4, 4))
+        );
+
+        jPanel76Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarPopulacao, jBtConfirmarPopulacao});
+
         javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
         jPanel36.setLayout(jPanel36Layout);
         jPanel36Layout.setHorizontalGroup(
@@ -2027,28 +2094,30 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
             .addGroup(jPanel36Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel36Layout.createSequentialGroup()
-                        .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel36Layout.createSequentialGroup()
+                                    .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel36Layout.createSequentialGroup()
+                                    .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel36Layout.createSequentialGroup()
-                                .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel36Layout.createSequentialGroup()
-                                .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel36Layout.createSequentialGroup()
-                        .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                            .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel76, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jPanel36Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel38, jPanel44, jPanel45});
@@ -2072,14 +2141,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                     .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel36Layout.createSequentialGroup()
+                        .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel36Layout.createSequentialGroup()
+                        .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel76, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -5347,6 +5421,31 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
+    private void jBtAlterarPopulacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPopulacaoActionPerformed
+        // TODO add your handling code here:
+        jBtAlterarPopulacao.setEnabled(!true);
+        jCodigoRegistroPopulacao.setEnabled(true);
+        jBtConfirmarPopulacao.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }//GEN-LAST:event_jBtAlterarPopulacaoActionPerformed
+
+    private void jBtConfirmarPopulacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarPopulacaoActionPerformed
+        // TODO add your handling code here:
+        if (jCodigoRegistroPopulacao.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroPopulacao.getText()));
+                control.alterar_POPULCAO_NUMERICA(objAbriNov);
+                confirmarPOPULACAO_NUMERICA();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarPopulacaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Almoxarifado;
@@ -5392,6 +5491,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterarPertencesGTE;
     private javax.swing.JButton jBtAlterarPessoas;
     private javax.swing.JButton jBtAlterarPessoasPE;
+    private javax.swing.JButton jBtAlterarPopulacao;
     private javax.swing.JButton jBtAlterarREQUISICAO_avulsa_far;
     private javax.swing.JButton jBtAlterarRegistroATM;
     private javax.swing.JButton jBtAlterarRegistroChegada;
@@ -5443,6 +5543,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtConfirmarPenalidade;
     private javax.swing.JButton jBtConfirmarPertences;
     private javax.swing.JButton jBtConfirmarPertencesGTE;
+    private javax.swing.JButton jBtConfirmarPopulacao;
     private javax.swing.JButton jBtConfirmarREQUISICAO_avulsa_far;
     private javax.swing.JButton jBtConfirmarRegistroATM;
     private javax.swing.JButton jBtConfirmarRegistroChegada;
@@ -5493,6 +5594,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jCodigoRegistroOcorrenciaB2;
     private javax.swing.JTextField jCodigoRegistroPenalidade;
     private javax.swing.JTextField jCodigoRegistroPertencesGTE;
+    private javax.swing.JTextField jCodigoRegistroPopulacao;
     private javax.swing.JTextField jCodigoRegistroREQUISICAO_avulsa_far;
     private javax.swing.JTextField jCodigoRegistroRequisicao;
     private javax.swing.JTextField jCodigoRegistroRevista;
@@ -5561,6 +5663,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -5627,6 +5730,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel73;
     private javax.swing.JPanel jPanel74;
     private javax.swing.JPanel jPanel75;
+    private javax.swing.JPanel jPanel76;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
@@ -5666,6 +5770,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroLivroOcorre.setBackground(Color.white);
         jCodigoRegistroBloqueio.setBackground(Color.white);
         jCodigoRegistroNIN.setBackground(Color.white);
+        jCodigoRegistroPopulacao.setBackground(Color.white);
         //ALMOXARIFADO
         jCodigoRegistroNF.setBackground(Color.white);
         jCodigoRegistroEstorno.setBackground(Color.white);
@@ -5778,6 +5883,10 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroNIN.setEnabled(!true);
         jBtAlterarNIN.setEnabled(true);
         jBtConfirmarNIN.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jCodigoRegistroPopulacao.setEnabled(!true);
+        jBtAlterarPopulacao.setEnabled(true);
+        jBtConfirmarPopulacao.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
         jCodigoRegistroPertencesGTE.setEnabled(!true);
         jBtAlterarPertencesGTE.setEnabled(true);
@@ -6036,6 +6145,13 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroSaidaPertences.setEnabled(!true);
         jBtAlterarSaidaPertences.setEnabled(true);
         jBtConfirmarSaidaPertences.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarPOPULACAO_NUMERICA() {
+        jCodigoRegistroPopulacao.setEnabled(!true);
+        jBtAlterarPopulacao.setEnabled(true);
+        jBtConfirmarPopulacao.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
     }
 

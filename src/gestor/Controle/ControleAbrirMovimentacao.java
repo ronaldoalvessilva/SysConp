@@ -470,6 +470,20 @@ public class ControleAbrirMovimentacao {
         conecta.desconecta();
         return objAbriNov;
     }
+    
+    public AbrirMovimentos alterar_POPULCAO_NUMERICA(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVPOPULACAO SET StatusPop=? WHERE IdPopMov='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
 
     //-------------------------------------------- ALMOXARIFADO --------------------------------------------------------
     public AbrirMovimentos alterar_NF(AbrirMovimentos objAbriNov) {
