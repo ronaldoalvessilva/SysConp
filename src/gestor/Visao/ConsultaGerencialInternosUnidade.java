@@ -485,11 +485,35 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } else if (!jPesquisaNomeInterno.getText().equals("") && jComboBoxFiltroPesquisa.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Selecione um filtro para pesquisa.");
         } else if (!jPesquisaNomeInterno.getText().equals("") && jComboBoxFiltroPesquisa.getSelectedItem().equals("Todos")) {
-            preencherTodosInternos();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    preencherTodosInternos();
+                    carregando.dispose(); //Teste tela aguarde
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         } else if (!jPesquisaNomeInterno.getText().equals("") && jComboBoxFiltroPesquisa.getSelectedItem().equals("Ativos")) {
-            pesquisarInternosAtivos();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    pesquisarInternosAtivos();
+                    carregando.dispose(); //Teste tela aguarde
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         } else if (!jPesquisaNomeInterno.getText().equals("") && jComboBoxFiltroPesquisa.getSelectedItem().equals("Inativos")) {
-            pesquisarInternosInativos();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    pesquisarInternosInativos();
+                    carregando.dispose(); //Teste tela aguarde
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtPesquisaInternoNomeActionPerformed
 
@@ -522,166 +546,219 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             //
             limparCampos();
             //
-            conectaLF.abrirConexao();
-            conectaSSA.abrirConexao();
-            conectaITB.abrirConexao();
-            conectaVC.abrirConexao();
-            conectaBAR.abrirConexao();
-            try {
-                if (nomeUnidadeLF == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
-                    // LAURO DE FREITAS
-                    conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
-                            + "INNER JOIN DADOSPENAISINTERNOS "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "INNER JOIN UNIDADE "
-                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                            + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
-                    conectaLF.rs.first();
-                    jIdInternoExt.setText(String.valueOf(conectaLF.rs.getInt("IdInternoCrc")));
-                    jCnc.setText(conectaLF.rs.getString("Cnc"));
-                    jDataNascimento.setDate(conectaLF.rs.getDate("DataNasciCrc"));
-                    jSituacaoCrc.setText(conectaLF.rs.getString("SituacaoCrc"));
-                    jNomeInternoCrc.setText(conectaLF.rs.getString("NomeInternoCrc"));
-                    jNomeMaeInterno.setText(conectaLF.rs.getString("MaeInternoCrc"));
-                    caminho = conectaLF.rs.getString("FotoInternoCrc");
-                    if (caminho != null) {
-                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(i);
-                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    conectaLF.abrirConexao();
+                    conectaSSA.abrirConexao();
+                    conectaITB.abrirConexao();
+                    conectaVC.abrirConexao();
+                    conectaBAR.abrirConexao();
+                    try {
+                        if (nomeUnidadeLF == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
+                            // LAURO DE FREITAS
+                            conectaLF.executaSQL("SELECT "
+                                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                                    + "PRONTUARIOSCRC.Cnc, "
+                                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                                    + "PRONTUARIOSCRC.MaeInternoCrc, "
+                                    + "PRONTUARIOSCRC.FotoInternoCrc, "
+                                    + "PRONTUARIOSCRC.ImagemFrente "
+                                    + "FROM  PRONTUARIOSCRC "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "INNER JOIN UNIDADE "
+                                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
+                            conectaLF.rs.first();
+                            jIdInternoExt.setText(String.valueOf(conectaLF.rs.getInt("IdInternoCrc")));
+                            jCnc.setText(conectaLF.rs.getString("Cnc"));
+                            jDataNascimento.setDate(conectaLF.rs.getDate("DataNasciCrc"));
+                            jSituacaoCrc.setText(conectaLF.rs.getString("SituacaoCrc"));
+                            jNomeInternoCrc.setText(conectaLF.rs.getString("NomeInternoCrc"));
+                            jNomeMaeInterno.setText(conectaLF.rs.getString("MaeInternoCrc"));
+                            caminho = conectaLF.rs.getString("FotoInternoCrc");
+                            if (caminho != null) {
+                                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                                jFotoInterno.setIcon(i);
+                                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // FOTO DE FRENTE - BANCO DE DADOS
+                            byte[] imgBytes = ((byte[]) conectaLF.rs.getBytes("ImagemFrente"));
+                            if (imgBytes != null) {
+                                ImageIcon pic = null;
+                                pic = new ImageIcon(imgBytes);
+                                Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaled);
+                                jFotoInterno.setIcon(icon);
+                            }
+                            //
+                        } else if (nomeUnidadeSSA == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
+                            // SALVADOR
+                            conectaSSA.executaSQL("SELECT "
+                                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                                    + "PRONTUARIOSCRC.Cnc, "
+                                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                                    + "PRONTUARIOSCRC.MaeInternoCrc, "
+                                    + "PRONTUARIOSCRC.FotoInternoCrc, "
+                                    + "PRONTUARIOSCRC.ImagemFrente "
+                                    + "FROM  PRONTUARIOSCRC "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "INNER JOIN UNIDADE "
+                                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
+                            conectaSSA.rs.first();
+                            jIdInternoExt.setText(String.valueOf(conectaSSA.rs.getInt("IdInternoCrc")));
+                            jCnc.setText(conectaSSA.rs.getString("Cnc"));
+                            jDataNascimento.setDate(conectaSSA.rs.getDate("DataNasciCrc"));
+                            jSituacaoCrc.setText(conectaSSA.rs.getString("SituacaoCrc"));
+                            jNomeInternoCrc.setText(conectaSSA.rs.getString("NomeInternoCrc"));
+                            jNomeMaeInterno.setText(conectaSSA.rs.getString("MaeInternoCrc"));
+                            caminho = conectaSSA.rs.getString("FotoInternoCrc");
+                            if (caminho != null) {
+                                javax.swing.ImageIcon s = new javax.swing.ImageIcon(caminho);
+                                jFotoInterno.setIcon(s);
+                                jFotoInterno.setIcon(new ImageIcon(s.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // FOTO DE FRENTE - BANCO DE DADOS
+                            byte[] imgsBytes = ((byte[]) conectaSSA.rs.getBytes("ImagemFrente"));
+                            if (imgsBytes != null) {
+                                ImageIcon pics = null;
+                                pics = new ImageIcon(imgsBytes);
+                                Image scaleds = pics.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaleds);
+                                jFotoInterno.setIcon(icon);
+                            }
+                        } else if (nomeUnidadeITB == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
+                            // ITABUNA
+                            conectaITB.executaSQL("SELECT "
+                                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                                    + "PRONTUARIOSCRC.Cnc, "
+                                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                                    + "PRONTUARIOSCRC.MaeInternoCrc, "
+                                    + "PRONTUARIOSCRC.FotoInternoCrc, "
+                                    + "PRONTUARIOSCRC.ImagemFrente "
+                                    + "FROM  PRONTUARIOSCRC "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "INNER JOIN UNIDADE "
+                                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
+                            conectaITB.rs.first();
+                            jIdInternoExt.setText(String.valueOf(conectaITB.rs.getInt("IdInternoCrc")));
+                            jCnc.setText(conectaITB.rs.getString("Cnc"));
+                            jDataNascimento.setDate(conectaITB.rs.getDate("DataNasciCrc"));
+                            jSituacaoCrc.setText(conectaITB.rs.getString("SituacaoCrc"));
+                            jNomeInternoCrc.setText(conectaITB.rs.getString("NomeInternoCrc"));
+                            jNomeMaeInterno.setText(conectaITB.rs.getString("MaeInternoCrc"));
+                            caminho = conectaITB.rs.getString("FotoInternoCrc");
+                            if (caminho != null) {
+                                javax.swing.ImageIcon t = new javax.swing.ImageIcon(caminho);
+                                jFotoInterno.setIcon(t);
+                                jFotoInterno.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // FOTO DE FRENTE - BANCO DE DADOS
+                            byte[] imgiBytes = ((byte[]) conectaITB.rs.getBytes("ImagemFrente"));
+                            if (imgiBytes != null) {
+                                ImageIcon pici = null;
+                                pici = new ImageIcon(imgiBytes);
+                                Image scaledi = pici.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaledi);
+                                jFotoInterno.setIcon(icon);
+                            }
+                        } else if (nomeUnidadeVC == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
+                            // VITORIA DA CONQUISTA
+                            conectaVC.executaSQL("SELECT "
+                                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                                    + "PRONTUARIOSCRC.Cnc, "
+                                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                                    + "PRONTUARIOSCRC.MaeInternoCrc, "
+                                    + "PRONTUARIOSCRC.FotoInternoCrc, "
+                                    + "PRONTUARIOSCRC.ImagemFrente "
+                                    + "FROM  PRONTUARIOSCRC "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "INNER JOIN UNIDADE "
+                                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
+                            conectaVC.rs.first();
+                            jIdInternoExt.setText(String.valueOf(conectaVC.rs.getInt("IdInternoCrc")));
+                            jCnc.setText(conectaVC.rs.getString("Cnc"));
+                            jDataNascimento.setDate(conectaVC.rs.getDate("DataNasciCrc"));
+                            jSituacaoCrc.setText(conectaVC.rs.getString("SituacaoCrc"));
+                            jNomeInternoCrc.setText(conectaVC.rs.getString("NomeInternoCrc"));
+                            jNomeMaeInterno.setText(conectaVC.rs.getString("MaeInternoCrc"));
+                            caminho = conectaVC.rs.getString("FotoInternoCrc");
+                            if (caminho != null) {
+                                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
+                                jFotoInterno.setIcon(v);
+                                jFotoInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // FOTO DE FRENTE - BANCO DE DADOS
+                            byte[] imgvBytes = ((byte[]) conectaVC.rs.getBytes("ImagemFrente"));
+                            if (imgvBytes != null) {
+                                ImageIcon picv = null;
+                                picv = new ImageIcon(imgvBytes);
+                                Image scaledv = picv.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaledv);
+                                jFotoInterno.setIcon(icon);
+                            }
+                        } else if (nomeUnidadeBAR == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
+                            // BARREIRAS
+                            conectaBAR.executaSQL("SELECT "
+                                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                                    + "PRONTUARIOSCRC.Cnc, "
+                                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                                    + "PRONTUARIOSCRC.MaeInternoCrc, "
+                                    + "PRONTUARIOSCRC.FotoInternoCrc, "
+                                    + "PRONTUARIOSCRC.ImagemFrente "
+                                    + "FROM  PRONTUARIOSCRC "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "INNER JOIN UNIDADE "
+                                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
+                            conectaBAR.rs.first();
+                            jIdInternoExt.setText(String.valueOf(conectaBAR.rs.getInt("IdInternoCrc")));
+                            jCnc.setText(conectaBAR.rs.getString("Cnc"));
+                            jDataNascimento.setDate(conectaBAR.rs.getDate("DataNasciCrc"));
+                            jSituacaoCrc.setText(conectaBAR.rs.getString("SituacaoCrc"));
+                            jNomeInternoCrc.setText(conectaBAR.rs.getString("NomeInternoCrc"));
+                            jNomeMaeInterno.setText(conectaBAR.rs.getString("MaeInternoCrc"));
+                            caminho = conectaBAR.rs.getString("FotoInternoCrc");
+                            if (caminho != null) {
+                                javax.swing.ImageIcon b = new javax.swing.ImageIcon(caminho);
+                                jFotoInterno.setIcon(b);
+                                jFotoInterno.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // FOTO DE FRENTE - BANCO DE DADOS
+                            byte[] imgbBytes = ((byte[]) conectaBAR.rs.getBytes("ImagemFrente"));
+                            if (imgbBytes != null) {
+                                ImageIcon picb = null;
+                                picb = new ImageIcon(imgbBytes);
+                                Image scaledb = picb.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaledb);
+                                jFotoInterno.setIcon(icon);
+                            }
+                        }
+                    } catch (Exception e) {
                     }
-                    // FOTO DE FRENTE - BANCO DE DADOS
-                    byte[] imgBytes = ((byte[]) conectaLF.rs.getBytes("ImagemFrente"));
-                    if (imgBytes != null) {
-                        ImageIcon pic = null;
-                        pic = new ImageIcon(imgBytes);
-                        Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
-                        ImageIcon icon = new ImageIcon(scaled);
-                        jFotoInterno.setIcon(icon);
-                    }
-                    //
-                } else if (nomeUnidadeSSA == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
-                    // SALVADOR
-                    conectaSSA.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
-                            + "INNER JOIN DADOSPENAISINTERNOS "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "INNER JOIN UNIDADE "
-                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                            + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
-                    conectaSSA.rs.first();
-                    jIdInternoExt.setText(String.valueOf(conectaSSA.rs.getInt("IdInternoCrc")));
-                    jCnc.setText(conectaSSA.rs.getString("Cnc"));
-                    jDataNascimento.setDate(conectaSSA.rs.getDate("DataNasciCrc"));
-                    jSituacaoCrc.setText(conectaSSA.rs.getString("SituacaoCrc"));
-                    jNomeInternoCrc.setText(conectaSSA.rs.getString("NomeInternoCrc"));
-                    jNomeMaeInterno.setText(conectaSSA.rs.getString("MaeInternoCrc"));
-                    caminho = conectaSSA.rs.getString("FotoInternoCrc");
-                    if (caminho != null) {
-                        javax.swing.ImageIcon s = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(s);
-                        jFotoInterno.setIcon(new ImageIcon(s.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                    }
-                    // FOTO DE FRENTE - BANCO DE DADOS
-                    byte[] imgsBytes = ((byte[]) conectaSSA.rs.getBytes("ImagemFrente"));
-                    if (imgsBytes != null) {
-                        ImageIcon pics = null;
-                        pics = new ImageIcon(imgsBytes);
-                        Image scaleds = pics.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
-                        ImageIcon icon = new ImageIcon(scaleds);
-                        jFotoInterno.setIcon(icon);
-                    }
-                } else if (nomeUnidadeITB == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
-                    // ITABUNA
-                    conectaITB.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
-                            + "INNER JOIN DADOSPENAISINTERNOS "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "INNER JOIN UNIDADE "
-                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                            + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
-                    conectaITB.rs.first();
-                    jIdInternoExt.setText(String.valueOf(conectaITB.rs.getInt("IdInternoCrc")));
-                    jCnc.setText(conectaITB.rs.getString("Cnc"));
-                    jDataNascimento.setDate(conectaITB.rs.getDate("DataNasciCrc"));
-                    jSituacaoCrc.setText(conectaITB.rs.getString("SituacaoCrc"));
-                    jNomeInternoCrc.setText(conectaITB.rs.getString("NomeInternoCrc"));
-                    jNomeMaeInterno.setText(conectaITB.rs.getString("MaeInternoCrc"));
-                    caminho = conectaITB.rs.getString("FotoInternoCrc");
-                    if (caminho != null) {
-                        javax.swing.ImageIcon t = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(t);
-                        jFotoInterno.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                    }
-                    // FOTO DE FRENTE - BANCO DE DADOS
-                    byte[] imgiBytes = ((byte[]) conectaITB.rs.getBytes("ImagemFrente"));
-                    if (imgiBytes != null) {
-                        ImageIcon pici = null;
-                        pici = new ImageIcon(imgiBytes);
-                        Image scaledi = pici.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
-                        ImageIcon icon = new ImageIcon(scaledi);
-                        jFotoInterno.setIcon(icon);
-                    }
-                } else if (nomeUnidadeVC == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
-                    // VITORIA DA CONQUISTA
-                    conectaVC.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
-                            + "INNER JOIN DADOSPENAISINTERNOS "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "INNER JOIN UNIDADE "
-                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                            + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
-                    conectaVC.rs.first();
-                    jIdInternoExt.setText(String.valueOf(conectaVC.rs.getInt("IdInternoCrc")));
-                    jCnc.setText(conectaVC.rs.getString("Cnc"));
-                    jDataNascimento.setDate(conectaVC.rs.getDate("DataNasciCrc"));
-                    jSituacaoCrc.setText(conectaVC.rs.getString("SituacaoCrc"));
-                    jNomeInternoCrc.setText(conectaVC.rs.getString("NomeInternoCrc"));
-                    jNomeMaeInterno.setText(conectaVC.rs.getString("MaeInternoCrc"));
-                    caminho = conectaVC.rs.getString("FotoInternoCrc");
-                    if (caminho != null) {
-                        javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(v);
-                        jFotoInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                    }
-                    // FOTO DE FRENTE - BANCO DE DADOS
-                    byte[] imgvBytes = ((byte[]) conectaVC.rs.getBytes("ImagemFrente"));
-                    if (imgvBytes != null) {
-                        ImageIcon picv = null;
-                        picv = new ImageIcon(imgvBytes);
-                        Image scaledv = picv.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
-                        ImageIcon icon = new ImageIcon(scaledv);
-                        jFotoInterno.setIcon(icon);
-                    }
-                } else if (nomeUnidadeBAR == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
-                    // BARREIRAS
-                    conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
-                            + "INNER JOIN DADOSPENAISINTERNOS "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "INNER JOIN UNIDADE "
-                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                            + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
-                    conectaBAR.rs.first();
-                    jIdInternoExt.setText(String.valueOf(conectaBAR.rs.getInt("IdInternoCrc")));
-                    jCnc.setText(conectaBAR.rs.getString("Cnc"));
-                    jDataNascimento.setDate(conectaBAR.rs.getDate("DataNasciCrc"));
-                    jSituacaoCrc.setText(conectaBAR.rs.getString("SituacaoCrc"));
-                    jNomeInternoCrc.setText(conectaBAR.rs.getString("NomeInternoCrc"));
-                    jNomeMaeInterno.setText(conectaBAR.rs.getString("MaeInternoCrc"));
-                    caminho = conectaBAR.rs.getString("FotoInternoCrc");
-                    if (caminho != null) {
-                        javax.swing.ImageIcon b = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(b);
-                        jFotoInterno.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                    }
-                    // FOTO DE FRENTE - BANCO DE DADOS
-                    byte[] imgbBytes = ((byte[]) conectaBAR.rs.getBytes("ImagemFrente"));
-                    if (imgbBytes != null) {
-                        ImageIcon picb = null;
-                        picb = new ImageIcon(imgbBytes);
-                        Image scaledb = picb.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
-                        ImageIcon icon = new ImageIcon(scaledb);
-                        jFotoInterno.setIcon(icon);
-                    }
+                    carregando.dispose(); //Teste tela aguarde
                 }
-            } catch (Exception e) {
-            }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
             conectaLF.desconecta();
             conectaSSA.desconecta();
             conectaITB.desconecta();
@@ -815,7 +892,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         try {
             // LAURO DE FREITAS       
             conectaLF.abrirConexao();
-            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -825,7 +910,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conectaLF.rs.getString("DataNascICrc");
+                dataEntrada = conectaLF.rs.getString("DataNasciCrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
@@ -837,7 +922,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // SALVADOR
         try {
             conectaSSA.abrirConexao();
-            conectaSSA.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaSSA.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -846,7 +939,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaSSA.rs.first();
             do {
                 count1 = count1 + count;
-                dataEntrada1 = conectaSSA.rs.getString("DataNascICrc");
+                dataEntrada1 = conectaSSA.rs.getString("DataNasciCrc");
                 String dia1 = dataEntrada1.substring(8, 10);
                 String mes1 = dataEntrada1.substring(5, 7);
                 String ano1 = dataEntrada1.substring(0, 4);
@@ -859,7 +952,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // ITABUNA
         try {
             conectaITB.abrirConexao();
-            conectaITB.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaITB.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -868,7 +969,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaITB.rs.first();
             do {
                 count2 = count2 + count1 + count;
-                dataEntrada2 = conectaITB.rs.getString("DataNascICrc");
+                dataEntrada2 = conectaITB.rs.getString("DataNasciCrc");
                 String dia2 = dataEntrada2.substring(8, 10);
                 String mes2 = dataEntrada2.substring(5, 7);
                 String ano2 = dataEntrada2.substring(0, 4);
@@ -881,7 +982,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // VITORIA DA CONQUISTA
         try {
             conectaVC.abrirConexao();
-            conectaVC.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaVC.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -890,7 +999,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaVC.rs.first();
             do {
                 count3 = count3 + count2 + count1 + count;
-                dataEntrada3 = conectaVC.rs.getString("DataNascICrc");
+                dataEntrada3 = conectaVC.rs.getString("DataNasciCrc");
                 String dia3 = dataEntrada3.substring(8, 10);
                 String mes3 = dataEntrada3.substring(5, 7);
                 String ano3 = dataEntrada3.substring(0, 4);
@@ -904,7 +1013,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // BARREIRAS
         try {
             conectaBAR.abrirConexao();
-            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaBAR.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -913,7 +1030,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaBAR.rs.first();
             do {
                 count4 = count4 + count3 + count2 + count1 + count;
-                dataEntrada4 = conectaBAR.rs.getString("DataNascICrc");
+                dataEntrada4 = conectaBAR.rs.getString("DataNasciCrc");
                 String dia3 = dataEntrada4.substring(8, 10);
                 String mes3 = dataEntrada4.substring(5, 7);
                 String ano3 = dataEntrada4.substring(0, 4);
@@ -1000,7 +1117,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         try {
             // LAURO DE FREITAS       
             conectaLF.abrirConexao();
-            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1025,7 +1150,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // SALVADOR
         try {
             conectaSSA.abrirConexao();
-            conectaSSA.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaSSA.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1050,7 +1183,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // ITABUNA
         try {
             conectaITB.abrirConexao();
-            conectaITB.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaITB.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1075,7 +1216,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // VITORIA DA CONQUISTA
         try {
             conectaVC.abrirConexao();
-            conectaVC.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaVC.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1101,7 +1250,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // BARREIRAS
         try {
             conectaBAR.abrirConexao();
-            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaBAR.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1110,7 +1267,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaBAR.rs.first();
             do {
                 count4 = count4 + count3 + count2 + count1 + count;
-                dataEntrada4 = conectaBAR.rs.getString("DataNascICrc");
+                dataEntrada4 = conectaBAR.rs.getString("DataNasciCrc");
                 String dia3 = dataEntrada4.substring(8, 10);
                 String mes3 = dataEntrada4.substring(5, 7);
                 String ano3 = dataEntrada4.substring(0, 4);
@@ -1197,7 +1354,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         try {
             // LAURO DE FREITAS       
             conectaLF.abrirConexao();
-            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1210,7 +1375,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conectaLF.rs.getString("DataNascICrc");
+                dataEntrada = conectaLF.rs.getString("DataNasciCrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
@@ -1222,7 +1387,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // SALVADOR
         try {
             conectaSSA.abrirConexao();
-            conectaSSA.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaSSA.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1234,7 +1407,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaSSA.rs.first();
             do {
                 count1 = count1 + count;
-                dataEntrada1 = conectaSSA.rs.getString("DataNascICrc");
+                dataEntrada1 = conectaSSA.rs.getString("DataNasciCrc");
                 String dia1 = dataEntrada1.substring(8, 10);
                 String mes1 = dataEntrada1.substring(5, 7);
                 String ano1 = dataEntrada1.substring(0, 4);
@@ -1247,7 +1420,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // ITABUNA
         try {
             conectaITB.abrirConexao();
-            conectaITB.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaITB.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1259,7 +1440,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaITB.rs.first();
             do {
                 count2 = count2 + count1 + count;
-                dataEntrada2 = conectaITB.rs.getString("DataNascICrc");
+                dataEntrada2 = conectaITB.rs.getString("DataNasciCrc");
                 String dia2 = dataEntrada2.substring(8, 10);
                 String mes2 = dataEntrada2.substring(5, 7);
                 String ano2 = dataEntrada2.substring(0, 4);
@@ -1272,7 +1453,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // VITORIA DA CONQUISTA
         try {
             conectaVC.abrirConexao();
-            conectaVC.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaVC.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1284,7 +1473,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaVC.rs.first();
             do {
                 count3 = count3 + count2 + count1 + count;
-                dataEntrada3 = conectaVC.rs.getString("DataNascICrc");
+                dataEntrada3 = conectaVC.rs.getString("DataNasciCrc");
                 String dia3 = dataEntrada3.substring(8, 10);
                 String mes3 = dataEntrada3.substring(5, 7);
                 String ano3 = dataEntrada3.substring(0, 4);
@@ -1298,7 +1487,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // BARREIRAS
         try {
             conectaBAR.abrirConexao();
-            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaBAR.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1307,7 +1504,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaBAR.rs.first();
             do {
                 count4 = count4 + count3 + count2 + count1 + count;
-                dataEntrada4 = conectaBAR.rs.getString("DataNascICrc");
+                dataEntrada4 = conectaBAR.rs.getString("DataNasciCrc");
                 String dia3 = dataEntrada4.substring(8, 10);
                 String mes3 = dataEntrada4.substring(5, 7);
                 String ano3 = dataEntrada4.substring(0, 4);
@@ -1393,7 +1590,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         try {
             // LAURO DE FREITAS
             conectaLF.abrirConexao();
-            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1403,7 +1608,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conectaLF.rs.getString("DataNascICrc");
+                dataEntrada = conectaLF.rs.getString("DataNasciCrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
@@ -1415,7 +1620,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // SALVADOR
         try {
             conectaSSA.abrirConexao();
-            conectaSSA.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaSSA.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1424,7 +1637,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaSSA.rs.first();
             do {
                 count1 = count1 + count;
-                dataEntrada1 = conectaSSA.rs.getString("DataNascICrc");
+                dataEntrada1 = conectaSSA.rs.getString("DataNasciCrc");
                 String dia1 = dataEntrada1.substring(8, 10);
                 String mes1 = dataEntrada1.substring(5, 7);
                 String ano1 = dataEntrada1.substring(0, 4);
@@ -1437,7 +1650,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // ITABUNA
         try {
             conectaITB.abrirConexao();
-            conectaITB.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaITB.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1446,7 +1667,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaITB.rs.first();
             do {
                 count2 = count2 + count1 + count;
-                dataEntrada2 = conectaITB.rs.getString("DataNascICrc");
+                dataEntrada2 = conectaITB.rs.getString("DataNasciCrc");
                 String dia2 = dataEntrada2.substring(8, 10);
                 String mes2 = dataEntrada2.substring(5, 7);
                 String ano2 = dataEntrada2.substring(0, 4);
@@ -1459,7 +1680,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // VITORIA DA CONQUISTA
         try {
             conectaVC.abrirConexao();
-            conectaVC.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaVC.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1485,7 +1714,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // BARREIRAS
         try {
             conectaBAR.abrirConexao();
-            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaBAR.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1580,7 +1817,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         try {
             // LAURO DE FREITAS
             conectaLF.abrirConexao();
-            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1602,7 +1847,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // SALVADOR
         try {
             conectaSSA.abrirConexao();
-            conectaSSA.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaSSA.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1611,7 +1864,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaSSA.rs.first();
             do {
                 count1 = count1 + count;
-                dataEntrada1 = conectaSSA.rs.getString("DataNascICrc");
+                dataEntrada1 = conectaSSA.rs.getString("DataNasciCrc");
                 String dia1 = dataEntrada1.substring(8, 10);
                 String mes1 = dataEntrada1.substring(5, 7);
                 String ano1 = dataEntrada1.substring(0, 4);
@@ -1624,7 +1877,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // ITABUNA
         try {
             conectaITB.abrirConexao();
-            conectaITB.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaITB.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1633,7 +1894,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaITB.rs.first();
             do {
                 count2 = count2 + count1 + count;
-                dataEntrada2 = conectaITB.rs.getString("DataNascICrc");
+                dataEntrada2 = conectaITB.rs.getString("DataNasciCrc");
                 String dia2 = dataEntrada2.substring(8, 10);
                 String mes2 = dataEntrada2.substring(5, 7);
                 String ano2 = dataEntrada2.substring(0, 4);
@@ -1646,7 +1907,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // VITORIA DA CONQUISTA
         try {
             conectaVC.abrirConexao();
-            conectaVC.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaVC.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1655,7 +1924,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaVC.rs.first();
             do {
                 count3 = count3 + count2 + count1 + count;
-                dataEntrada3 = conectaVC.rs.getString("DataNascICrc");
+                dataEntrada3 = conectaVC.rs.getString("DataNasciCrc");
                 String dia3 = dataEntrada3.substring(8, 10);
                 String mes3 = dataEntrada3.substring(5, 7);
                 String ano3 = dataEntrada3.substring(0, 4);
@@ -1668,7 +1937,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         // BARREIRAS
         try {
             conectaBAR.abrirConexao();
-            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaBAR.executaSQL("SELECT "
+                    + "PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc, "
+                    + "PRONTUARIOSCRC.DataNasciCrc, "
+                    + "DADOSPENAISINTERNOS.IdUnid, "
+                    + "UNIDADE.DescricaoUnid "
+                    + "FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1677,7 +1954,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaBAR.rs.first();
             do {
                 count4 = count4 + count3 + count2 + count1 + count;
-                dataEntrada4 = conectaITB.rs.getString("DataNascICrc");
+                dataEntrada4 = conectaITB.rs.getString("DataNasciCrc");
                 String dia2 = dataEntrada4.substring(8, 10);
                 String mes2 = dataEntrada4.substring(5, 7);
                 String ano2 = dataEntrada4.substring(0, 4);
@@ -1728,7 +2005,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     public void pesquisarUnidadePrisionalLF() {
         conectaLF.abrirConexao();
         try {
-            conectaLF.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
+            conectaLF.executaSQL("SELECT DescricaoUnidade FROM UNIDADE_PENAL_EMPRESA");
             conectaLF.rs.first();
             nomeUnidadeLF = conectaLF.rs.getString("DescricaoUnidade");
         } catch (Exception e) {
@@ -1739,7 +2016,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     public void pesquisarUnidadePrisionalSSA() {
         conectaSSA.abrirConexao();
         try {
-            conectaSSA.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
+            conectaSSA.executaSQL("SELECT DescricaoUnidade FROM UNIDADE_PENAL_EMPRESA");
             conectaSSA.rs.first();
             nomeUnidadeSSA = conectaSSA.rs.getString("DescricaoUnidade");
         } catch (Exception e) {
@@ -1750,7 +2027,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     public void pesquisarUnidadePrisionalITB() {
         conectaITB.abrirConexao();
         try {
-            conectaITB.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
+            conectaITB.executaSQL("SELECT DescricaoUnidade FROM UNIDADE_PENAL_EMPRESA");
             conectaITB.rs.first();
             nomeUnidadeITB = conectaITB.rs.getString("DescricaoUnidade");
         } catch (Exception e) {
@@ -1761,7 +2038,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     public void pesquisarUnidadePrisionalVC() {
         conectaVC.abrirConexao();
         try {
-            conectaVC.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
+            conectaVC.executaSQL("SELECT DescricaoUnidade FROM UNIDADE_PENAL_EMPRESA");
             conectaVC.rs.first();
             nomeUnidadeVC = conectaVC.rs.getString("DescricaoUnidade");
         } catch (Exception e) {
@@ -1772,7 +2049,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     public void pesquisarUnidadePrisionalBAR() {
         conectaBAR.abrirConexao();
         try {
-            conectaBAR.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
+            conectaBAR.executaSQL("SELECT DescricaoUnidade FROM UNIDADE_PENAL_EMPRESA");
             conectaBAR.rs.first();
             nomeUnidadeBAR = conectaBAR.rs.getString("DescricaoUnidade");
         } catch (Exception e) {
