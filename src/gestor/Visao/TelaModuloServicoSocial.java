@@ -1410,7 +1410,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void RelatorioVisitasPorIdadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioVisitasPorIdadeActionPerformed
         // TODO add your handling code here:
-        TelaRelatorioVisitaPorIdade objRelVisitasIdade = new TelaRelatorioVisitaPorIdade();
+        TelaRelatorioVisitasPorIdade objRelVisitasIdade = new TelaRelatorioVisitasPorIdade();
         TelaModuloServicoSocial.jPainelServicoSocial.add(objRelVisitasIdade);
         objRelVisitasIdade.show();
     }//GEN-LAST:event_RelatorioVisitasPorIdadeActionPerformed
