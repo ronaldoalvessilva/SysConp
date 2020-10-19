@@ -172,94 +172,118 @@ public class TelaRelatorioInternosTornozeleiras extends javax.swing.JInternalFra
         if (jComboBoxTipoRelatorio.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário selecionar um tipo de relatório.");
         } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Internos com Tornozeleira na Unidade")) {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/CRC/RelatorioInternosComTornozeleira.jasper";
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
-                        + "AND PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA_UNIDADE + "' "
-                        + "OR PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
-                        + "AND PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "' "
-                        + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("pENTRADA_UNIDADE", pENTRADA_UNIDADE);
-                parametros.put("pRETORNO_UNIDADE", pRETORNO_UNIDADE);
-                parametros.put("pOPCAO", pOPCAO);
-                parametros.put("pUsuario", nameUser);
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Listagem de Internos com Tornozeleira");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/CRC/RelatorioInternosComTornozeleira.jasper";
+                        conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                                + "INNER JOIN DADOSPENAISINTERNOS "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                + "WHERE PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
+                                + "AND PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA_UNIDADE + "' "
+                                + "OR PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
+                                + "AND PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "' "
+                                + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                        HashMap parametros = new HashMap();
+                        parametros.put("pENTRADA_UNIDADE", pENTRADA_UNIDADE);
+                        parametros.put("pRETORNO_UNIDADE", pRETORNO_UNIDADE);
+                        parametros.put("pOPCAO", pOPCAO);
+                        parametros.put("pUsuario", nameUser);
+                        parametros.put("descricaoUnidade", descricaoUnidade);
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Listagem de Internos com Tornozeleira");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação 
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Internos sem Tornozeleira na Unidade")) {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/CRC/RelatorioInternosSemTornozeleira.jasper";
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.Tornozeleira!='" + pOPCAO + "'  "
-                        + "OR PRONTUARIOSCRC.Tornozeleira IS NULL "
-                        + "AND PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA_UNIDADE + "' "
-                        + "OR PRONTUARIOSCRC.Tornozeleira!='" + pOPCAO + "' "
-                        + "OR PRONTUARIOSCRC.Tornozeleira IS NULL "
-                        + "AND PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "' "
-                        + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("pENTRADA_UNIDADE", pENTRADA_UNIDADE);
-                parametros.put("pRETORNO_UNIDADE", pRETORNO_UNIDADE);
-                parametros.put("pOPCAO", pOPCAO);
-                parametros.put("pUsuario", nameUser);
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Listagem de Internos sem Tornozeleira");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/CRC/RelatorioInternosSemTornozeleira.jasper";
+                        conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                                + "INNER JOIN DADOSPENAISINTERNOS "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                + "WHERE PRONTUARIOSCRC.Tornozeleira!='" + pOPCAO + "'  "
+                                + "OR PRONTUARIOSCRC.Tornozeleira IS NULL "
+                                + "AND PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA_UNIDADE + "' "
+                                + "OR PRONTUARIOSCRC.Tornozeleira!='" + pOPCAO + "' "
+                                + "OR PRONTUARIOSCRC.Tornozeleira IS NULL "
+                                + "AND PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "' "
+                                + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                        HashMap parametros = new HashMap();
+                        parametros.put("pENTRADA_UNIDADE", pENTRADA_UNIDADE);
+                        parametros.put("pRETORNO_UNIDADE", pRETORNO_UNIDADE);
+                        parametros.put("pOPCAO", pOPCAO);
+                        parametros.put("pUsuario", nameUser);
+                        parametros.put("descricaoUnidade", descricaoUnidade);
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Listagem de Internos sem Tornozeleira");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação   
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Internos com Tornozeleira fora da Unidade")) {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/CRC/RelatorioInternosComTornozeleiraForaUnidade.jasper";
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE (PRONTUARIOSCRC.SituacaoCrc!='" + pENTRADA_UNIDADE + "' "
-                        + "AND PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
-                        + "AND PRONTUARIOSCRC.SituacaoCrc!='" + pRETORNO_UNIDADE + "') "
-                        + "AND PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
-                        + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("pENTRADA_UNIDADE", pENTRADA_UNIDADE);
-                parametros.put("pRETORNO_UNIDADE", pRETORNO_UNIDADE);
-                parametros.put("pOPCAO", pOPCAO);
-                parametros.put("pUsuario", nameUser);
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Listagem de Internos sem Tornozeleira");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/CRC/RelatorioInternosComTornozeleiraForaUnidade.jasper";
+                        conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                                + "INNER JOIN DADOSPENAISINTERNOS "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                + "WHERE (PRONTUARIOSCRC.SituacaoCrc!='" + pENTRADA_UNIDADE + "' "
+                                + "AND PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
+                                + "AND PRONTUARIOSCRC.SituacaoCrc!='" + pRETORNO_UNIDADE + "') "
+                                + "AND PRONTUARIOSCRC.Tornozeleira='" + pOPCAO + "' "
+                                + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                        HashMap parametros = new HashMap();
+                        parametros.put("pENTRADA_UNIDADE", pENTRADA_UNIDADE);
+                        parametros.put("pRETORNO_UNIDADE", pRETORNO_UNIDADE);
+                        parametros.put("pOPCAO", pOPCAO);
+                        parametros.put("pUsuario", nameUser);
+                        parametros.put("descricaoUnidade", descricaoUnidade);
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Listagem de Internos sem Tornozeleira");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 

@@ -175,35 +175,43 @@ public class TelaRelatorioConfere extends javax.swing.JInternalFrame {
         if (jCombBoxDescricaoPavilhao.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do pavilhão para listar o confere.");
         } else {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/GerenciaOperacional/Confere.jasper";
-                conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN CELAS "
-                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE DescricaoPav='" + jCombBoxDescricaoPavilhao.getSelectedItem() + "' "
-                        + "ORDER BY CELAS.EndCelaPav,PRONTUARIOSCRC.NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("descricaoPav", jCombBoxDescricaoPavilhao.getSelectedItem());
-                parametros.put("nomeUsuario", nameUser);
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Confere");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/GerenciaOperacional/Confere.jasper";
+                        conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "INNER JOIN CELAS "
+                                + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                                + "INNER JOIN PAVILHAO "
+                                + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                                + "INNER JOIN DADOSPENAISINTERNOS "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                + "WHERE DescricaoPav='" + jCombBoxDescricaoPavilhao.getSelectedItem() + "' "
+                                + "ORDER BY CELAS.EndCelaPav,PRONTUARIOSCRC.NomeInternoCrc");
+                        HashMap parametros = new HashMap();
+                        parametros.put("descricaoPav", jCombBoxDescricaoPavilhao.getSelectedItem());
+                        parametros.put("nomeUsuario", nameUser);
+                        parametros.put("descricaoUnidade", descricaoUnidade);
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Confere");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação     
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 

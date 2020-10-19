@@ -560,8 +560,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         RelatoriosConfere = new javax.swing.JMenu();
         MapaConfere = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jRelatorioGeralInternosPavilhaoCelas = new javax.swing.JMenuItem();
+        jListagemConfere = new javax.swing.JMenuItem();
         jMenu13 = new javax.swing.JMenu();
         RelatorioPopulacaoInternosNominal = new javax.swing.JMenuItem();
         jRelatorioInternosNominalNovo = new javax.swing.JMenuItem();
@@ -1362,21 +1362,21 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         });
         RelatoriosConfere.add(MapaConfere);
 
-        jMenuItem1.setText("Relatório Geral de Internos no Pavilhão/Celas");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jRelatorioGeralInternosPavilhaoCelas.setText("Relatório Geral de Internos no Pavilhão/Celas");
+        jRelatorioGeralInternosPavilhaoCelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jRelatorioGeralInternosPavilhaoCelasActionPerformed(evt);
             }
         });
-        RelatoriosConfere.add(jMenuItem1);
+        RelatoriosConfere.add(jRelatorioGeralInternosPavilhaoCelas);
 
-        jMenuItem2.setText("Listagem de Confere");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jListagemConfere.setText("Listagem de Confere");
+        jListagemConfere.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jListagemConfereActionPerformed(evt);
             }
         });
-        RelatoriosConfere.add(jMenuItem2);
+        RelatoriosConfere.add(jListagemConfere);
 
         jMenuRelatorios.add(RelatoriosConfere);
 
@@ -1972,7 +1972,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 //        TelaGerarRelatorio gr = new TelaGerarRelatorio();
 //        TelaModuloCRC.jPainelCRC.add(gr);
 //        gr.show();
-        final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
         carregando.setVisible(true);//Teste tela aguarde
         Thread t = new Thread() { //Teste tela aguarde
             public void run() { //Teste
@@ -2071,125 +2071,165 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_RellatorioIdadeActionPerformed
 
     private void jListagemCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListagemCidadeActionPerformed
-        // TODO add your handling code here:        
-        try {
-            conecta.abrirConexao();
-            String path = "reports/GerenciaAdministrativa/relatorioCidades.jasper";
-            conecta.executaSQL("SELECT * FROM CIDADES ORDER BY NomeCidade");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Cidades");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        // TODO add your handling code here:      
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/GerenciaAdministrativa/relatorioCidades.jasper";
+                    conecta.executaSQL("SELECT * FROM CIDADES ORDER BY NomeCidade");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Cidades");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_jListagemCidadeActionPerformed
 
     private void jListagemUnidadePenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListagemUnidadePenalActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/Diretoria/RelatorioUnidadePenal.jasper";
-            conecta.executaSQL("SELECT * FROM UNIDADE ORDER BY DescricaoUnid");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Unidade Penal");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/Diretoria/RelatorioUnidadePenal.jasper";
+                    conecta.executaSQL("SELECT * FROM UNIDADE ORDER BY DescricaoUnid");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Unidade Penal");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação  
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_jListagemUnidadePenalActionPerformed
 
     private void jListagemPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListagemPaisesActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/ListagemPaises.jasper";
-            conecta.executaSQL("SELECT * FROM PAISES ORDER BY NomePais");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Países");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/ListagemPaises.jasper";
+                    conecta.executaSQL("SELECT * FROM PAISES ORDER BY NomePais");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Países");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação     
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_jListagemPaisesActionPerformed
 
     private void ListagemCadastroInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListagemCadastroInternosActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/ListagemCadastroPronturarioInternos.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Cadastro de Internos na Unidade");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/ListagemCadastroPronturarioInternos.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Cadastro de Internos na Unidade");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação    
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_ListagemCadastroInternosActionPerformed
 
     private void RelatorioEscolaridadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioEscolaridadeActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosEscolaridade.jasper";
-            conecta.executaSQL("SELECT *, FLOOR(DATEDIFF(DAY, CONVERT(DATE, DataNasciCrc), GETDATE()) / 365.25) AS Idade FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "'  "
-                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE + "' "
-                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE_VAZIO + "' "
-                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno + "' "
-                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE + "' "
-                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE_VAZIO + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEnt", statusEntrada);
-            parametros.put("situacaoRet", statusRetorno);
-            parametros.put("pSELECIONE", pSELECIONE);
-            parametros.put("pSELECIONE_VAZIO", pSELECIONE_VAZIO);
-            parametros.put("unidadePenal", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Internos por Escolaridade");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosEscolaridade.jasper";
+                    conecta.executaSQL("SELECT *, FLOOR(DATEDIFF(DAY, CONVERT(DATE, DataNasciCrc), GETDATE()) / 365.25) AS Idade FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "'  "
+                            + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE + "' "
+                            + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE_VAZIO + "' "
+                            + "OR PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno + "' "
+                            + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE + "' "
+                            + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE_VAZIO + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEnt", statusEntrada);
+                    parametros.put("situacaoRet", statusRetorno);
+                    parametros.put("pSELECIONE", pSELECIONE);
+                    parametros.put("pSELECIONE_VAZIO", pSELECIONE_VAZIO);
+                    parametros.put("unidadePenal", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Internos por Escolaridade");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação     
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioEscolaridadeActionPerformed
 
     private void RelatorioArtigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioArtigoActionPerformed
@@ -2201,65 +2241,81 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void RelatorioRegimePenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioRegimePenalActionPerformed
         // TODO add your handling code here:
-        // Remodelar esse relatório com o regime e sexo dos internos. (Feito em 26/11/2014)
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
-                    + "OR SituacaoCrc='" + situacaoRet + "' "
-                    + "OR SituacaoCrc='" + situacaoSai + "' "
-                    + "OR SituacaoCrc LIKE'%" + pPRISAO_DOMICILIAR + "%' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("situacaoEntrada", situacaoEnt);
-            parametros.put("situacaoRetorno", situacaoRet);
-            parametros.put("situacaoSaida", situacaoSai);
-            parametros.put("situacaoDomi", pPRISAO_DOMICILIAR);
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("descricaoUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos Por Regime Penal");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                // Remodelar esse relatório com o regime e sexo dos internos. (Feito em 26/11/2014)
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                            + "OR SituacaoCrc='" + situacaoRet + "' "
+                            + "OR SituacaoCrc='" + situacaoSai + "' "
+                            + "OR SituacaoCrc LIKE'%" + pPRISAO_DOMICILIAR + "%' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("situacaoEntrada", situacaoEnt);
+                    parametros.put("situacaoRetorno", situacaoRet);
+                    parametros.put("situacaoSaida", situacaoSai);
+                    parametros.put("situacaoDomi", pPRISAO_DOMICILIAR);
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos Por Regime Penal");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação      
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioRegimePenalActionPerformed
 
     private void RelatorioEstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioEstadoCivilActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/ListagemPronturarioInternosEstadoCivil.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEnt", statusEntrada);
-            parametros.put("situacaoRet", statusRetorno);
-            parametros.put("descricaoUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos Por Estado Civil");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/ListagemPronturarioInternosEstadoCivil.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEnt", statusEntrada);
+                    parametros.put("situacaoRet", statusRetorno);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos Por Estado Civil");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação  
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioEstadoCivilActionPerformed
 
     private void RelatorioUnidadePenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioUnidadePenalActionPerformed
@@ -2319,7 +2375,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jProntuarioInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProntuarioInternosUnidadeActionPerformed
         // TODO add your handling code here:
-        final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
         carregando.setVisible(true);//Teste tela aguarde
         Thread t = new Thread() { //Teste tela aguarde
             public void run() { //Teste
@@ -2512,41 +2568,49 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         mappopc.show();
     }//GEN-LAST:event_MapaConfereActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jRelatorioGeralInternosPavilhaoCelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioGeralInternosPavilhaoCelasActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
-            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN CELAS "
-                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("descricaoUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem Geral de Confere");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/GerenciaOperacional/ListagemGeralConfere.jasper";
+                    conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                            + "ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem Geral de Confere");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação     
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
+    }//GEN-LAST:event_jRelatorioGeralInternosPavilhaoCelasActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jListagemConfereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListagemConfereActionPerformed
         // TODO add your handling code here:
         TelaRelatorioConfere relConf = new TelaRelatorioConfere();
         TelaModuloCRC.jPainelCRC.add(relConf);
         relConf.show();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jListagemConfereActionPerformed
 
     private void GerarPopulacaoInternosNominalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GerarPopulacaoInternosNominalActionPerformed
         // TODO add your handling code here:
@@ -2700,54 +2764,67 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void RelProgressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelProgressaoActionPerformed
         // TODO add your handling code here:  
-        try {
-            conecta.abrirConexao();
-            String path = "reports/Diretoria/RelatorioMudancaRegimeProgressao.jasper";
-            conecta.executaSQL("SELECT * FROM SENTENCAS "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SENTENCAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN ITENSPROGRESSAOREGIME "
-                    + "ON SENTENCAS.IdInternoCrc=ITENSPROGRESSAOREGIME.IdInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Mudança de Regime Prisional de Internos - PROGRESSÃO");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
-        conecta.desconecta();
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/Diretoria/RelatorioMudancaRegimeProgressao.jasper";
+                    conecta.executaSQL("SELECT * FROM SENTENCAS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON SENTENCAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ITENSPROGRESSAOREGIME "
+                            + "ON SENTENCAS.IdInternoCrc=ITENSPROGRESSAOREGIME.IdInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Mudança de Regime Prisional de Internos - PROGRESSÃO");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação  
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelProgressaoActionPerformed
 
     private void RelRegressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelRegressaoActionPerformed
-        // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/Diretoria/RelatorioMudancaRegimeRegressao.jasper";
-            conecta.executaSQL("SELECT * FROM SENTENCAS "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SENTENCAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN ITENSREGRESSAOREGIME "
-                    + "ON SENTENCAS.IdInternoCrc=ITENSREGRESSAOREGIME.IdInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Mudança de Regime Prisional de Internos - REGRESSÃO");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
-        conecta.desconecta();
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/Diretoria/RelatorioMudancaRegimeRegressao.jasper";
+                    conecta.executaSQL("SELECT * FROM SENTENCAS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON SENTENCAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ITENSREGRESSAOREGIME "
+                            + "ON SENTENCAS.IdInternoCrc=ITENSREGRESSAOREGIME.IdInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Mudança de Regime Prisional de Internos - REGRESSÃO");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação  
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelRegressaoActionPerformed
 
     private void EvasaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EvasaoInternosActionPerformed
@@ -2820,48 +2897,77 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void RelatorioPorCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioPorCidadeActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosPorCidade.jasper";
-            conecta.executaSQL("SELECT MatriculaCrc, NomeInternoCrc, CidadeCrc FROM PRONTUARIOSCRC WHERE SituacaoCrc='" + statusEntrada + "'OR SituacaoCrc='" + statusRetorno + "'ORDER BY CidadeCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("statusEntrada", statusEntrada);
-            parametros.put("statusSaida", statusRetorno);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos por Cidade");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosPorCidade.jasper";
+                    conecta.executaSQL("SELECT MatriculaCrc, "
+                            + "NomeInternoCrc, "
+                            + "CidadeCrc "
+                            + "FROM PRONTUARIOSCRC "
+                            + "WHERE SituacaoCrc='" + statusEntrada + "' "
+                            + "OR SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY CidadeCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("statusEntrada", statusEntrada);
+                    parametros.put("statusSaida", statusRetorno);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos por Cidade");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioPorCidadeActionPerformed
 
     private void RelatorioPorBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioPorBairroActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosPorBairro.jasper";
-            conecta.executaSQL("SELECT MatriculaCrc, NomeInternoCrc, CidadeCrc,BairroCrc FROM PRONTUARIOSCRC WHERE SituacaoCrc='" + statusEntrada + "'OR SituacaoCrc='" + statusRetorno + "'ORDER BY CidadeCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("statusEntrada", statusEntrada);
-            parametros.put("statusSaida", statusRetorno);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos por Cidade e Bairro");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosPorBairro.jasper";
+                    conecta.executaSQL("SELECT MatriculaCrc, "
+                            + "NomeInternoCrc, "
+                            + "CidadeCrc, "
+                            + "BairroCrc "
+                            + "FROM PRONTUARIOSCRC "
+                            + "WHERE SituacaoCrc='" + statusEntrada + "' "
+                            + "OR SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY CidadeCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("statusEntrada", statusEntrada);
+                    parametros.put("statusSaida", statusRetorno);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos por Cidade e Bairro");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação  
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioPorBairroActionPerformed
 
     private void RelatorioSaidaInternosPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioSaidaInternosPortariaActionPerformed
@@ -2931,31 +3037,39 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void CartaoSUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CartaoSUSActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosSemCartaoSUS.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
-                    + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
-                    + "AND SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", statusEntrada);
-            parametros.put("situacaoRetorno", statusRetorno);
-            parametros.put("nomeUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos sem Cartão do SUS");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste  
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosSemCartaoSUS.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
+                            + "AND SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
+                            + "AND SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", statusEntrada);
+                    parametros.put("situacaoRetorno", statusRetorno);
+                    parametros.put("nomeUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos sem Cartão do SUS");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_CartaoSUSActionPerformed
 
     private void ListaPassagemInternosAlbergadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaPassagemInternosAlbergadosActionPerformed
@@ -3008,147 +3122,187 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void RGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RGActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosSemCartaoRG.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.RgInternoCrc='" + cartaoRG + "' "
-                    + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.RgInternoCrc='" + cartaoRG + "' "
-                    + "AND SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", statusEntrada);
-            parametros.put("situacaoRetorno", statusRetorno);
-            parametros.put("nomeUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos sem RG");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosSemCartaoRG.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE PRONTUARIOSCRC.RgInternoCrc='" + cartaoRG + "' "
+                            + "AND SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.RgInternoCrc='" + cartaoRG + "' "
+                            + "AND SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", statusEntrada);
+                    parametros.put("situacaoRetorno", statusRetorno);
+                    parametros.put("nomeUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos sem RG");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação  
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RGActionPerformed
 
     private void CPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosSemCartaoCPF.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.CpfInternoCrc='" + cartaoCPF + "' "
-                    + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.CpfInternoCrc='" + cartaoCPF + "' "
-                    + "AND SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", statusEntrada);
-            parametros.put("situacaoRetorno", statusRetorno);
-            parametros.put("nomeUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos sem CPF");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosSemCartaoCPF.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE PRONTUARIOSCRC.CpfInternoCrc='" + cartaoCPF + "' "
+                            + "AND SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.CpfInternoCrc='" + cartaoCPF + "' "
+                            + "AND SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", statusEntrada);
+                    parametros.put("situacaoRetorno", statusRetorno);
+                    parametros.put("nomeUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos sem CPF");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação         
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_CPFActionPerformed
 
     private void CartaoSUS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CartaoSUS1ActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosComCartaoSUS.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
-                    + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
-                    + "AND SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", statusEntrada);
-            parametros.put("situacaoRetorno", statusRetorno);
-            parametros.put("nomeUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos com Cartão do SUS");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado
-            jv.toFront(); // Traz o relatorio para frente da aplicação
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosComCartaoSUS.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                            + "AND SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                            + "AND SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", statusEntrada);
+                    parametros.put("situacaoRetorno", statusRetorno);
+                    parametros.put("nomeUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos com Cartão do SUS");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado
+                    jv.toFront(); // Traz o relatorio para frente da aplicação
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_CartaoSUS1ActionPerformed
 
     private void DocumentoRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentoRGActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosComCartaoRG.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
-                    + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
-                    + "AND SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", statusEntrada);
-            parametros.put("situacaoRetorno", statusRetorno);
-            parametros.put("nomeUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos com R.G.");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado
-            jv.toFront(); // Traz o relatorio para frente da aplicação
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosComCartaoRG.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
+                            + "AND SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
+                            + "AND SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", statusEntrada);
+                    parametros.put("situacaoRetorno", statusRetorno);
+                    parametros.put("nomeUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos com R.G.");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado
+                    jv.toFront(); // Traz o relatorio para frente da aplicação
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_DocumentoRGActionPerformed
 
     private void DocumentoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DocumentoCPFActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosComCartaoCPF.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.CpfInternoCrc!='" + cartaoCPF + "' "
-                    + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.CpfInternoCrc!='" + cartaoCPF + "' "
-                    + "AND SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", statusEntrada);
-            parametros.put("situacaoRetorno", statusRetorno);
-            parametros.put("nomeUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos com C.P.F.");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado
-            jv.toFront(); // Traz o relatorio para frente da aplicação
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosComCartaoCPF.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE PRONTUARIOSCRC.CpfInternoCrc!='" + cartaoCPF + "' "
+                            + "AND SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.CpfInternoCrc!='" + cartaoCPF + "' "
+                            + "AND SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", statusEntrada);
+                    parametros.put("situacaoRetorno", statusRetorno);
+                    parametros.put("nomeUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos com C.P.F.");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado
+                    jv.toFront(); // Traz o relatorio para frente da aplicação
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_DocumentoCPFActionPerformed
 
     private void RelatorioHorarioEntradaSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioHorarioEntradaSaidaActionPerformed
@@ -3160,31 +3314,39 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void PorNCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PorNCNActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RelatorioInternosComCartaoCNC.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
-                    + "AND SituacaoCrc='" + statusEntrada + "' "
-                    + "OR PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
-                    + "AND SituacaoCrc='" + statusRetorno + "' "
-                    + "ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("situacaoEntrada", statusEntrada);
-            parametros.put("situacaoRetorno", statusRetorno);
-            parametros.put("nomeUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos com C.P.F.");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado
-            jv.toFront(); // Traz o relatorio para frente da aplicação
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RelatorioInternosComCartaoCNC.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
+                            + "AND SituacaoCrc='" + statusEntrada + "' "
+                            + "OR PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
+                            + "AND SituacaoCrc='" + statusRetorno + "' "
+                            + "ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("situacaoEntrada", statusEntrada);
+                    parametros.put("situacaoRetorno", statusRetorno);
+                    parametros.put("nomeUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos com C.P.F.");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado
+                    jv.toFront(); // Traz o relatorio para frente da aplicação
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_PorNCNActionPerformed
 
     private void jLancamentoObitoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLancamentoObitoInternoActionPerformed
@@ -3271,33 +3433,41 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void RelatorioMovVisitasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioMovVisitasInternosActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/RolVisitasMasEndereco.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ROLVISITAS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ROLVISITAS.IdInternoCrc "
-                    + "INNER JOIN ITENSROL "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSROL.IdInternoCrc "
-                    + "INNER JOIN VISITASINTERNO "
-                    + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
-                    + "WHERE PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoEnt + "' "
-                    + "OR PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoRet + "' "
-                    + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("descricaoUnidade", descricaoUnidade);
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Visitas aos Internos");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado             
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/RolVisitasMasEndereco.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN ROLVISITAS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ROLVISITAS.IdInternoCrc "
+                            + "INNER JOIN ITENSROL "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSROL.IdInternoCrc "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoEnt + "' "
+                            + "OR PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoRet + "' "
+                            + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Visitas aos Internos");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                    jv.toFront(); // Traz o relatorio para frente da aplicação        
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioMovVisitasInternosActionPerformed
 
     private void jEmissaoAtestadoReclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmissaoAtestadoReclusaoActionPerformed
@@ -3479,31 +3649,39 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jRelatorioVisitasAdvogadosInternosGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioVisitasAdvogadosInternosGeralActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/GerenciaOperacional/RelatorioInternosAdvogadosGeral.jasper";
-            conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
-                    + "INNER JOIN ITENSADVOGADOINTERNOS "
-                    + "ON ENTRADASADVINTERNOS.IdLanc=ITENSADVOGADOINTERNOS.Idlanc "
-                    + "INNER JOIN ADVOGADOS "
-                    + "ON ENTRADASADVINTERNOS.IdAdvogado=ADVOGADOS.IdAdvogado "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc,ENTRADASADVINTERNOS.DataEntrada");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("descricaoUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Visitas de Advogados aos Internos - Geral");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/GerenciaOperacional/RelatorioInternosAdvogadosGeral.jasper";
+                    conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
+                            + "INNER JOIN ITENSADVOGADOINTERNOS "
+                            + "ON ENTRADASADVINTERNOS.IdLanc=ITENSADVOGADOINTERNOS.Idlanc "
+                            + "INNER JOIN ADVOGADOS "
+                            + "ON ENTRADASADVINTERNOS.IdAdvogado=ADVOGADOS.IdAdvogado "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc,ENTRADASADVINTERNOS.DataEntrada");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Visitas de Advogados aos Internos - Geral");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosGeralActionPerformed
 
     private void jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
@@ -3796,6 +3974,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jLancamentoObitoInterno;
     private javax.swing.JMenuItem jListagemCidade;
+    private javax.swing.JMenuItem jListagemConfere;
     private javax.swing.JMenuItem jListagemPaises;
     private javax.swing.JMenuItem jListagemUnidadePenal;
     private javax.swing.JMenuItem jLocalizacaoInternos;
@@ -3814,8 +3993,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastros;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenu jMenuMovimentacao;
@@ -3829,6 +4006,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jProrrogacaoSaidaTemporaria;
     private javax.swing.JMenuItem jRelatorioDocumentacaoCompleta;
     private javax.swing.JMenuItem jRelatorioEvadidos;
+    private javax.swing.JMenuItem jRelatorioGeralInternosPavilhaoCelas;
     private javax.swing.JMenuItem jRelatorioInternosNominalNovo;
     private javax.swing.JMenuItem jRelatorioRetorno;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
@@ -5603,7 +5781,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaSaidaSimbolicaManu_CRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-         try {
+        try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaSaidaSimbolicaInt_CRC + "'");
             conecta.rs.first();

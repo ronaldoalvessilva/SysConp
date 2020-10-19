@@ -201,44 +201,51 @@ public class TelaRelatorioPorIdade extends javax.swing.JInternalFrame {
         } else if (pIDADE_INICIAL > pIDADE_FINAL) {
             JOptionPane.showMessageDialog(rootPane, "Idade Inicial não pode ser maior que a idade final");
         } else {
-            
-            try {
-                conecta.abrirConexao();
-                String path = "reports/CRC/RelatorioInternosIdade.jasper";
-                conecta.executaSQL("SELECT MatriculaCrc, "
-                        + "Floor(Datediff(DAY, CONVERT(DATE, DataNasciCrc), Getdate()) / 365.25) AS Idade, "
-                        + "NomeInternoCrc, "
-                        + "SexoCrc, "
-                        + "Regime, "
-                        + "TerminoPena, "
-                        + "PRONTUARIOSCRC.IdInternoCrc, "
-                        + "SituacaoCrc "
-                        + "FROM   PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSPENAISINTERNOS\n"
-                        + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE  Floor(Datediff(DAY, CONVERT(DATE, DataNasciCrc), Getdate()) / 365.25) BETWEEN'" + jIdadeInicial.getText() + "' "
-                        + "AND'" + jIdadeFinal.getText() + "' "
-                        + "AND ( PRONTUARIOSCRC.SituacaoCrc ='" + pENTRADA_UNIDADE + "' "
-                        + "OR PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "') "
-                        + "ORDER BY NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("IDADE_INICIAL", jIdadeInicial.getText());
-                parametros.put("IDADE_FINAL", jIdadeFinal.getText());
-                parametros.put("situacaoEntrada", pENTRADA_UNIDADE);
-                parametros.put("situacaoRetorno", pRETORNO_UNIDADE);
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório de Internos Por Idade");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/CRC/RelatorioInternosIdade.jasper";
+                        conecta.executaSQL("SELECT MatriculaCrc, "
+                                + "Floor(Datediff(DAY, CONVERT(DATE, DataNasciCrc), Getdate()) / 365.25) AS Idade, "
+                                + "NomeInternoCrc, "
+                                + "SexoCrc, "
+                                + "Regime, "
+                                + "TerminoPena, "
+                                + "PRONTUARIOSCRC.IdInternoCrc, "
+                                + "SituacaoCrc "
+                                + "FROM   PRONTUARIOSCRC "
+                                + "INNER JOIN DADOSPENAISINTERNOS\n"
+                                + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                                + "WHERE  Floor(Datediff(DAY, CONVERT(DATE, DataNasciCrc), Getdate()) / 365.25) BETWEEN'" + jIdadeInicial.getText() + "' "
+                                + "AND'" + jIdadeFinal.getText() + "' "
+                                + "AND ( PRONTUARIOSCRC.SituacaoCrc ='" + pENTRADA_UNIDADE + "' "
+                                + "OR PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "') "
+                                + "ORDER BY NomeInternoCrc");
+                        HashMap parametros = new HashMap();
+                        parametros.put("IDADE_INICIAL", jIdadeInicial.getText());
+                        parametros.put("IDADE_FINAL", jIdadeFinal.getText());
+                        parametros.put("situacaoEntrada", pENTRADA_UNIDADE);
+                        parametros.put("situacaoRetorno", pRETORNO_UNIDADE);
+                        parametros.put("descricaoUnidade", descricaoUnidade);
+                        parametros.put("nomeUsuario", nameUser);
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Relatório de Internos Por Idade");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação    
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 

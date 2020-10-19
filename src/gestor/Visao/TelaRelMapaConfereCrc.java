@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -146,50 +147,119 @@ public class TelaRelMapaConfereCrc extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jPesDtPopInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
-            jPesDtPopInicial.requestFocus();
-        } else {
-            if (jPesDtPopFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
-                jPesDtPopFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
             } else {
-                if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/GerenciaOperacional/MapaConfere.jasper";
-                        conecta.executaSQL("SELECT * FROM MOVPOPULACAO "
-                                + "INNER JOIN POPESTRANGMASC "
-                                + "ON MOVPOPULACAO.IdPopMov=POPESTRANGMASC.IdPopMov "
-                                + "INNER JOIN POPESTRANGFEM "
-                                + "ON MOVPOPULACAO.IdPopMov=POPESTRANGFEM.IdPopMov "
-                                + "INNER JOIN POPBRASMASC ON MOVPOPULACAO.IdPopMov=POPBRASMASC.IdPopMov "
-                                + "INNER JOIN POPBRASFEM "
-                                + "ON MOVPOPULACAO.IdPopMov=POPBRASFEM.IdPopMov "
-                                + "INNER JOIN POPAGENTES "
-                                + "ON MOVPOPULACAO.IdPopMov=POPAGENTES.IdPopMov "
-                                + "WHERE DataPopMov BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'ORDER BY DataPopMov");
-                        HashMap parametros = new HashMap();
-                        parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);
-                        parametros.put("nomeUsuario", nameUser);
-                        parametros.put("unidadePenal", descricaoUnidade);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Mapa de Confere");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/GerenciaOperacional/MapaConfere.jasper";
+                                    conecta.executaSQL("SELECT * FROM MOVPOPULACAO "
+                                            + "INNER JOIN POPESTRANGMASC "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPESTRANGMASC.IdPopMov "
+                                            + "INNER JOIN POPESTRANGFEM "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPESTRANGFEM.IdPopMov "
+                                            + "INNER JOIN POPBRASMASC ON MOVPOPULACAO.IdPopMov=POPBRASMASC.IdPopMov "
+                                            + "INNER JOIN POPBRASFEM "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPBRASFEM.IdPopMov "
+                                            + "INNER JOIN POPAGENTES "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPAGENTES.IdPopMov "
+                                            + "WHERE DataPopMov BETWEEN'" + dataInicial + "' "
+                                            + "AND '" + dataFinal + "'ORDER BY DataPopMov");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    parametros.put("unidadePenal", descricaoUnidade);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Mapa de Confere");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação       
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
+            } else {
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
+                } else {
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/GerenciaOperacional/MapaConfere.jasper";
+                                    conecta.executaSQL("SELECT * FROM MOVPOPULACAO "
+                                            + "INNER JOIN POPESTRANGMASC "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPESTRANGMASC.IdPopMov "
+                                            + "INNER JOIN POPESTRANGFEM "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPESTRANGFEM.IdPopMov "
+                                            + "INNER JOIN POPBRASMASC ON MOVPOPULACAO.IdPopMov=POPBRASMASC.IdPopMov "
+                                            + "INNER JOIN POPBRASFEM "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPBRASFEM.IdPopMov "
+                                            + "INNER JOIN POPAGENTES "
+                                            + "ON MOVPOPULACAO.IdPopMov=POPAGENTES.IdPopMov "
+                                            + "WHERE DataPopMov BETWEEN'" + dataInicial + "' "
+                                            + "AND '" + dataFinal + "'ORDER BY DataPopMov");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    parametros.put("unidadePenal", descricaoUnidade);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Mapa de Confere");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação       
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }

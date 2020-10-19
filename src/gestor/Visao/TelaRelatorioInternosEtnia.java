@@ -170,33 +170,41 @@ public class TelaRelatorioInternosEtnia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
             jDataPopInicial.requestFocus();
         } else {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());                       
-            try {
-                conecta.abrirConexao();
-                String path = "reports/CRC/RelatorioInternosEtinia.jasper";
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSFISICOSINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                        + "INNER JOIN POPULACAOINTERNOS_CRC "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=POPULACAOINTERNOS_CRC.IdInternoCrc "
-                        + "WHERE POPULACAOINTERNOS_CRC.DataPop='" + dataPopInicial + "' "
-                        + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("pNomeUsuario", nameUser);
-                parametros.put("dataPopulacao", dataPopInicial);
-                parametros.put("pDescricaoUnidade", descricaoUnidade);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório de Internos por Etnia");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\nERRO: " + e);
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                    dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/CRC/RelatorioInternosEtinia.jasper";
+                        conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                                + "INNER JOIN DADOSFISICOSINTERNOS "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                                + "INNER JOIN POPULACAOINTERNOS_CRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=POPULACAOINTERNOS_CRC.IdInternoCrc "
+                                + "WHERE POPULACAOINTERNOS_CRC.DataPop='" + dataPopInicial + "' "
+                                + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                        HashMap parametros = new HashMap();
+                        parametros.put("pNomeUsuario", nameUser);
+                        parametros.put("dataPopulacao", dataPopInicial);
+                        parametros.put("pDescricaoUnidade", descricaoUnidade);
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Relatório de Internos por Etnia");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação 
+                        carregando.dispose(); //Teste tela aguarde
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\nERRO: " + e);
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
