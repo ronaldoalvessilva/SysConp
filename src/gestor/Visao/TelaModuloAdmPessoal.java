@@ -94,6 +94,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaAprovarSolicitacaoCompras objAprovaSol = null;
     private TelaAtividadesMensalUnidade objAtividadeMU = null;
+    private ConsultaGerencialColaboradoresUnidade objConsCola = null;
     //
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -126,6 +127,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     public static String telaColaboradoresFCEnd_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Endereço";
     public static String telaColaboradoresFCDoc_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Documentos";
     public static String telaColaboradoresFCDep_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Dependentes";
+    //CONSULTA
+    public static String telaPesquisaGlobalColaboradores_ADM = "Consulta:Pesquisa Global de Colaboradores";
     // MOVIMENTAÇÃO
     public static String telaAprovadoresSC_ADM = "Movimentação:Aprovadores de Solicitações de Compras:Manutenção";
     //
@@ -179,6 +182,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     String pNomeSEI = "";
     String pNomeAJ = "";
     String pNomeALI = "";
+    //
+    String pNomePGC = "";
     //
     public static int codigoUserADM = 0;
     public static int codUserAcessoADM = 0;
@@ -236,7 +241,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         Consultas = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jConsultaGlobalColaboradores = new javax.swing.JMenuItem();
         ControleAprovacaoCompras = new javax.swing.JMenu();
         AprovadoresSolicitacaoCompras = new javax.swing.JMenuItem();
         SolicitantesCompras = new javax.swing.JMenuItem();
@@ -401,13 +406,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         Consultas.add(jMenuItem2);
         Consultas.add(jSeparator2);
 
-        jMenuItem4.setText("Controle de Colaboradores");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jConsultaGlobalColaboradores.setForeground(new java.awt.Color(204, 0, 0));
+        jConsultaGlobalColaboradores.setText("Pesquisa Global de Colaboradores");
+        jConsultaGlobalColaboradores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jConsultaGlobalColaboradoresActionPerformed(evt);
             }
         });
-        Consultas.add(jMenuItem4);
+        Consultas.add(jConsultaGlobalColaboradores);
 
         jMenuBar1.add(Consultas);
 
@@ -1345,10 +1351,41 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAtividadesMensalUnidadeActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jConsultaGlobalColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaGlobalColaboradoresActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento");
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        buscarAcessoUsuario(telaPesquisaGlobalColaboradores_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaPesquisaGlobalColaboradores_ADM) && codAbrirADM == 1) {
+            if (objConsCola == null || objConsCola.isClosed()) {
+                objConsCola = new ConsultaGerencialColaboradoresUnidade();
+                jPainelAdmPessoal.add(objConsCola);
+                objConsCola.setVisible(true);
+            } else {
+                if (objConsCola.isVisible()) {
+                    if (objConsCola.isIcon()) { // Se esta minimizado
+                        try {
+                            objConsCola.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objConsCola.toFront(); // traz para frente
+                        objConsCola.pack();//volta frame 
+                    }
+                } else {
+                    objConsCola = new ConsultaGerencialColaboradoresUnidade();
+                    TelaModuloAdmPessoal.jPainelAdmPessoal.add(objConsCola);//adicona frame ao JDesktopPane  
+                    objConsCola.setVisible(true);
+                }
+            }
+            try {
+                objConsCola.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+
+//        private ConsultaGerencialColaboradoresUnidade objConsCola = null;
+    }//GEN-LAST:event_jConsultaGlobalColaboradoresActionPerformed
 
     private void jRelatorioAtividadesMensalUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtividadesMensalUnidadeActionPerformed
         // TODO add your handling code here:
@@ -1391,6 +1428,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SolicitacaoComprasAdm;
     private javax.swing.JMenuItem SolicitantesCompras;
     private javax.swing.JMenuItem jAtividadesMensalUnidade;
+    private javax.swing.JMenuItem jConsultaGlobalColaboradores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1402,7 +1440,6 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -1793,6 +1830,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             pNomeCODE = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //CONSULTA  
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPesquisaGlobalColaboradores_ADM + "'");
+            conecta.rs.first();
+            pNomePGC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1954,6 +1999,13 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaColaboradoresFCDep_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //CONSULTA  
+        if (!pNomePGC.equals(telaPesquisaGlobalColaboradores_ADM) || pNomePGC == null || pNomePGC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPesquisaGlobalColaboradores_ADM);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO

@@ -32,7 +32,9 @@ import static gestor.Visao.ConsultaGerencialInternosUnidade.nomeUnidadeSSA;
 import static gestor.Visao.ConsultaGerencialInternosUnidade.nomeUnidadeVC;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -124,7 +126,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
         initComponents();
         setResizable(false);
         corCampos();
-        formatarCampos();       
+        formatarCampos();
         pesquisarDadosInterno();
     }
 
@@ -175,14 +177,13 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
         jSituacao = new javax.swing.JTextField();
         jDataCadastro = new com.toedter.calendar.JDateChooser();
         jDataNascimento = new com.toedter.calendar.JDateChooser();
-        jPanel13 = new javax.swing.JPanel();
-        FotoInternoExt = new javax.swing.JLabel();
         jComboBoxPais = new javax.swing.JTextField();
         jComboBoxCidade = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jCartaoSus = new javax.swing.JTextField();
         jLabel162 = new javax.swing.JLabel();
         jCNC = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jEndereco = new javax.swing.JTextField();
@@ -401,21 +402,6 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
         jDataNascimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataNascimento.setEnabled(false);
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        FotoInternoExt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInternoExt, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInternoExt, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-        );
-
         jComboBoxPais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPais.setEnabled(false);
 
@@ -435,6 +421,19 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
         jCNC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCNC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCNC.setEnabled(false);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 161, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 174, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -456,50 +455,26 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jMatriculaPenal)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel162)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel22)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPaiInterno)
-                                    .addComponent(jMaeInterno)
-                                    .addComponent(jNomeInterno)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jAlcunha)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCartaoSus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jRGInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCPFInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jAlcunha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jRGInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                                .addComponent(jLabel14))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jComboBoxEscolaridade, 0, 0, Short.MAX_VALUE)
                                 .addGap(10, 10, 10)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel17)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCPFInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCartaoSus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,7 +499,31 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jComboBoxPais, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNomeInterno)
+                            .addComponent(jMaeInterno)
+                            .addComponent(jPaiInterno)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jMatriculaPenal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel162)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -535,10 +534,9 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                 .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -579,15 +577,16 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                             .addComponent(jRGInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(jLabel14)
-                            .addComponent(jCPFInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel16)
-                            .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17)
-                            .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jCPFInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel16)
+                    .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel18)
@@ -1338,7 +1337,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1372,7 +1371,6 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JLabel FotoInternoExt;
     private javax.swing.JTextField jAlcunha;
     private javax.swing.JTextField jAltura;
     private javax.swing.JTextField jArtigo1;
@@ -1487,12 +1485,12 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
     private javax.swing.JTextField jPaiInterno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jParagrafo1;
@@ -1597,7 +1595,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
         jArtigo3.setBackground(Color.white);
         jParagrafo1.setBackground(Color.white);
         jParagrafo2.setBackground(Color.white);
-        jParagrafo3.setBackground(Color.white);        
+        jParagrafo3.setBackground(Color.white);
         jVaraCondenacao.setBackground(Color.white);
     }
 
@@ -1673,7 +1671,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
 
     public void pesquisarDadosInterno() {
         // LAURO DE FREITAS
-        if (nomeUnidadeLF == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {           
+        if (nomeUnidadeLF == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
             //
             conecta.abrirConexao();
             try {
@@ -1701,7 +1699,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jAlcunha.setText(conecta.rs.getString("AlcunhaCrc"));
                 jRGInterno.setText(conecta.rs.getString("RgInternoCrc"));
                 jCPFInterno.setText(conecta.rs.getString("CpfInternoCrc"));
-                jCartaoSus.setText(conecta.rs.getString("CartaoSus"));                
+                jCartaoSus.setText(conecta.rs.getString("CartaoSus"));
                 jComboBoxEscolaridade.setSelectedItem(conecta.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conecta.rs.getString("EstadoCivilCrc"));
                 jComboBoxSexo.setSelectedItem(conecta.rs.getString("SexoCrc"));
@@ -1753,11 +1751,26 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jVaraCondenacao.setText(conecta.rs.getString("VaraCondenatoria"));
                 jDataNovaEntrada.setDate(conecta.rs.getDate("DataNovaEntrada"));
                 caminhoFotoPerfil = conecta.rs.getString("FotoPerfil");
+                caminho = conecta.rs.getString("FotoInternoCrc");
+//                if (caminho != null) {
+//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+//                    FotoInternoExt.setIcon(i);
+//                    FotoInternoExt.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH)));
+//                }
+//                // FOTO DE FRENTE - BANCO DE DADOS
+//                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+//                if (imgBytes != null) {
+//                    ImageIcon pic = null;
+//                    pic = new ImageIcon(imgBytes);
+//                    Image scaled = pic.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH);
+//                    ImageIcon icon = new ImageIcon(scaled);
+//                    FotoInternoExt.setIcon(icon);
+//                }
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
             }
-        } else if (nomeUnidadeSSA == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {            
+        } else if (nomeUnidadeSSA == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
             //
             conectaSSA.abrirConexao();
             try {
@@ -1785,7 +1798,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jAlcunha.setText(conectaSSA.rs.getString("AlcunhaCrc"));
                 jRGInterno.setText(conectaSSA.rs.getString("RgInternoCrc"));
                 jCPFInterno.setText(conectaSSA.rs.getString("CpfInternoCrc"));
-                jCartaoSus.setText(conectaSSA.rs.getString("CartaoSus"));                
+                jCartaoSus.setText(conectaSSA.rs.getString("CartaoSus"));
                 jComboBoxEscolaridade.setSelectedItem(conectaSSA.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conectaSSA.rs.getString("EstadoCivilCrc"));
                 jComboBoxSexo.setSelectedItem(conectaSSA.rs.getString("SexoCrc"));
@@ -1837,11 +1850,26 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jVaraCondenacao.setText(conectaSSA.rs.getString("VaraCondenatoria"));
                 jDataNovaEntrada.setDate(conectaSSA.rs.getDate("DataNovaEntrada"));
                 caminhoFotoPerfil = conectaSSA.rs.getString("FotoPerfil");
+                caminho = conectaSSA.rs.getString("FotoInternoCrc");
+//                if (caminho != null) {
+//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+//                    FotoInternoExt.setIcon(i);
+//                    FotoInternoExt.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH)));
+//                }
+//                // FOTO DE FRENTE - BANCO DE DADOS
+//                byte[] imgBytes = ((byte[]) conectaSSA.rs.getBytes("ImagemFrente"));
+//                if (imgBytes != null) {
+//                    ImageIcon pic = null;
+//                    pic = new ImageIcon(imgBytes);
+//                    Image scaled = pic.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH);
+//                    ImageIcon icon = new ImageIcon(scaled);
+//                    FotoInternoExt.setIcon(icon);
+//                }
                 conectaSSA.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
             }
-        } else if (nomeUnidadeITB == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {            
+        } else if (nomeUnidadeITB == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
             //
             conectaITB.abrirConexao();
             try {
@@ -1869,7 +1897,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jAlcunha.setText(conectaITB.rs.getString("AlcunhaCrc"));
                 jRGInterno.setText(conectaITB.rs.getString("RgInternoCrc"));
                 jCPFInterno.setText(conectaITB.rs.getString("CpfInternoCrc"));
-                jCartaoSus.setText(conectaITB.rs.getString("CartaoSus"));               
+                jCartaoSus.setText(conectaITB.rs.getString("CartaoSus"));
                 jComboBoxEscolaridade.setSelectedItem(conectaITB.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conectaITB.rs.getString("EstadoCivilCrc"));
                 jComboBoxSexo.setSelectedItem(conectaITB.rs.getString("SexoCrc"));
@@ -1921,11 +1949,26 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jVaraCondenacao.setText(conectaITB.rs.getString("VaraCondenatoria"));
                 jDataNovaEntrada.setDate(conectaITB.rs.getDate("DataNovaEntrada"));
                 caminhoFotoPerfil = conectaITB.rs.getString("FotoPerfil");
+                caminho = conectaITB.rs.getString("FotoInternoCrc");
+//                if (caminho != null) {
+//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+//                    FotoInternoExt.setIcon(i);
+//                    FotoInternoExt.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH)));
+//                }
+//                // FOTO DE FRENTE - BANCO DE DADOS
+//                byte[] imgBytes = ((byte[]) conectaITB.rs.getBytes("ImagemFrente"));
+//                if (imgBytes != null) {
+//                    ImageIcon pic = null;
+//                    pic = new ImageIcon(imgBytes);
+//                    Image scaled = pic.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH);
+//                    ImageIcon icon = new ImageIcon(scaled);
+//                    FotoInternoExt.setIcon(icon);
+//                }
                 conectaITB.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
             }
-        } else if (nomeUnidadeVC == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {            
+        } else if (nomeUnidadeVC == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
             //
             conectaVC.abrirConexao();
             try {
@@ -1953,7 +1996,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jAlcunha.setText(conectaVC.rs.getString("AlcunhaCrc"));
                 jRGInterno.setText(conectaVC.rs.getString("RgInternoCrc"));
                 jCPFInterno.setText(conectaVC.rs.getString("CpfInternoCrc"));
-                jCartaoSus.setText(conectaVC.rs.getString("CartaoSus"));               
+                jCartaoSus.setText(conectaVC.rs.getString("CartaoSus"));
                 jComboBoxEscolaridade.setSelectedItem(conectaVC.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conectaVC.rs.getString("EstadoCivilCrc"));
                 jComboBoxSexo.setSelectedItem(conectaVC.rs.getString("SexoCrc"));
@@ -2005,11 +2048,26 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jVaraCondenacao.setText(conectaVC.rs.getString("VaraCondenatoria"));
                 jDataNovaEntrada.setDate(conectaVC.rs.getDate("DataNovaEntrada"));
                 caminhoFotoPerfil = conectaVC.rs.getString("FotoPerfil");
+                caminho = conectaVC.rs.getString("FotoInternoCrc");
+//                if (caminho != null) {
+//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+//                    FotoInternoExt.setIcon(i);
+//                    FotoInternoExt.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH)));
+//                }
+//                // FOTO DE FRENTE - BANCO DE DADOS
+//                byte[] imgBytes = ((byte[]) conectaVC.rs.getBytes("ImagemFrente"));
+//                if (imgBytes != null) {
+//                    ImageIcon pic = null;
+//                    pic = new ImageIcon(imgBytes);
+//                    Image scaled = pic.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH);
+//                    ImageIcon icon = new ImageIcon(scaled);
+//                    FotoInternoExt.setIcon(icon);
+//                }
                 conectaVC.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados.\nERROR: " + e);
             }
-        }else if (nomeUnidadeBAR == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {   
+        } else if (nomeUnidadeBAR == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
             conectaBAR.abrirConexao();
             try {
                 conectaBAR.executaSQL("SELECT * FROM PRONTUARIOSCRC "
@@ -2036,7 +2094,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jAlcunha.setText(conectaBAR.rs.getString("AlcunhaCrc"));
                 jRGInterno.setText(conectaBAR.rs.getString("RgInternoCrc"));
                 jCPFInterno.setText(conectaBAR.rs.getString("CpfInternoCrc"));
-                jCartaoSus.setText(conectaBAR.rs.getString("CartaoSus"));               
+                jCartaoSus.setText(conectaBAR.rs.getString("CartaoSus"));
                 jComboBoxEscolaridade.setSelectedItem(conectaBAR.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conectaBAR.rs.getString("EstadoCivilCrc"));
                 jComboBoxSexo.setSelectedItem(conectaBAR.rs.getString("SexoCrc"));
@@ -2088,6 +2146,21 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 jVaraCondenacao.setText(conectaBAR.rs.getString("VaraCondenatoria"));
                 jDataNovaEntrada.setDate(conectaBAR.rs.getDate("DataNovaEntrada"));
                 caminhoFotoPerfil = conectaBAR.rs.getString("FotoPerfil");
+                caminho = conectaBAR.rs.getString("FotoInternoCrc");
+//                if (caminho != null) {
+//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+//                    FotoInternoExt.setIcon(i);
+//                    FotoInternoExt.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH)));
+//                }
+//                // FOTO DE FRENTE - BANCO DE DADOS
+//                byte[] imgBytes = ((byte[]) conectaBAR.rs.getBytes("ImagemFrente"));
+//                if (imgBytes != null) {
+//                    ImageIcon pic = null;
+//                    pic = new ImageIcon(imgBytes);
+//                    Image scaled = pic.getImage().getScaledInstance(FotoInternoExt.getWidth(), FotoInternoExt.getHeight(), Image.SCALE_SMOOTH);
+//                    ImageIcon icon = new ImageIcon(scaled);
+//                    FotoInternoExt.setIcon(icon);
+//                }
                 conectaBAR.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados.\nERROR: " + e);

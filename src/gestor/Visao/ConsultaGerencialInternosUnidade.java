@@ -584,14 +584,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             if (caminho != null) {
                                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                                 jFotoInterno.setIcon(i);
-                                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH)));
                             }
                             // FOTO DE FRENTE - BANCO DE DADOS
                             byte[] imgBytes = ((byte[]) conectaLF.rs.getBytes("ImagemFrente"));
                             if (imgBytes != null) {
                                 ImageIcon pic = null;
                                 pic = new ImageIcon(imgBytes);
-                                Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
                                 ImageIcon icon = new ImageIcon(scaled);
                                 jFotoInterno.setIcon(icon);
                             }
@@ -624,14 +624,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             if (caminho != null) {
                                 javax.swing.ImageIcon s = new javax.swing.ImageIcon(caminho);
                                 jFotoInterno.setIcon(s);
-                                jFotoInterno.setIcon(new ImageIcon(s.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                                jFotoInterno.setIcon(new ImageIcon(s.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH)));
                             }
                             // FOTO DE FRENTE - BANCO DE DADOS
                             byte[] imgsBytes = ((byte[]) conectaSSA.rs.getBytes("ImagemFrente"));
                             if (imgsBytes != null) {
                                 ImageIcon pics = null;
                                 pics = new ImageIcon(imgsBytes);
-                                Image scaleds = pics.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                Image scaleds = pics.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
                                 ImageIcon icon = new ImageIcon(scaleds);
                                 jFotoInterno.setIcon(icon);
                             }
@@ -663,14 +663,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             if (caminho != null) {
                                 javax.swing.ImageIcon t = new javax.swing.ImageIcon(caminho);
                                 jFotoInterno.setIcon(t);
-                                jFotoInterno.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                                jFotoInterno.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH)));
                             }
                             // FOTO DE FRENTE - BANCO DE DADOS
                             byte[] imgiBytes = ((byte[]) conectaITB.rs.getBytes("ImagemFrente"));
                             if (imgiBytes != null) {
                                 ImageIcon pici = null;
                                 pici = new ImageIcon(imgiBytes);
-                                Image scaledi = pici.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                Image scaledi = pici.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
                                 ImageIcon icon = new ImageIcon(scaledi);
                                 jFotoInterno.setIcon(icon);
                             }
@@ -702,14 +702,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             if (caminho != null) {
                                 javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
                                 jFotoInterno.setIcon(v);
-                                jFotoInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                                jFotoInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH)));
                             }
                             // FOTO DE FRENTE - BANCO DE DADOS
                             byte[] imgvBytes = ((byte[]) conectaVC.rs.getBytes("ImagemFrente"));
                             if (imgvBytes != null) {
                                 ImageIcon picv = null;
                                 picv = new ImageIcon(imgvBytes);
-                                Image scaledv = picv.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                Image scaledv = picv.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
                                 ImageIcon icon = new ImageIcon(scaledv);
                                 jFotoInterno.setIcon(icon);
                             }
@@ -741,14 +741,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             if (caminho != null) {
                                 javax.swing.ImageIcon b = new javax.swing.ImageIcon(caminho);
                                 jFotoInterno.setIcon(b);
-                                jFotoInterno.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                                jFotoInterno.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH)));
                             }
                             // FOTO DE FRENTE - BANCO DE DADOS
                             byte[] imgbBytes = ((byte[]) conectaBAR.rs.getBytes("ImagemFrente"));
                             if (imgbBytes != null) {
                                 ImageIcon picb = null;
                                 picb = new ImageIcon(imgbBytes);
-                                Image scaledb = picb.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                                Image scaledb = picb.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
                                 ImageIcon icon = new ImageIcon(scaledb);
                                 jFotoInterno.setIcon(icon);
                             }
@@ -772,14 +772,23 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         if (jIdInternoExt.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
         } else {
-            TelaConsultaProntuarioInternoCrcExt objConsultaIntExt = new TelaConsultaProntuarioInternoCrcExt();
-            if (TelaModuloCRC.jPainelCRC != null) {
-                TelaModuloCRC.jPainelCRC.add(objConsultaIntExt);
-                objConsultaIntExt.show();
-            } else if (TelaModuloPRORES.jPainelDiretoria != null) {
-                TelaModuloPRORES.jPainelDiretoria.add(objConsultaIntExt);
-                objConsultaIntExt.show();
-            }
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste 
+                    TelaConsultaProntuarioInternoCrcExt objConsultaIntExt = new TelaConsultaProntuarioInternoCrcExt();
+                    if (TelaModuloCRC.jPainelCRC != null) {
+                        TelaModuloCRC.jPainelCRC.add(objConsultaIntExt);
+                        objConsultaIntExt.show();
+                        carregando.dispose(); //Teste tela aguarde
+                    } else if (TelaModuloPRORES.jPainelDiretoria != null) {
+                        TelaModuloPRORES.jPainelDiretoria.add(objConsultaIntExt);
+                        objConsultaIntExt.show();
+                        carregando.dispose(); //Teste tela aguarde
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtProntuarioCrcActionPerformed
 
@@ -888,7 +897,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         ArrayList dadosITB = new ArrayList();
         ArrayList dadosVC = new ArrayList();
         ArrayList dadosBAR = new ArrayList();
-        String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Situação", "Data Nasc.", "Unidade Prisional",};
+        String[] Colunas = new String[]{"Código", "Matricula", "Nome do Colaborador", "Status", "Data Nasc.", "Unidade Prisional",};
         try {
             // LAURO DE FREITAS       
             conectaLF.abrirConexao();

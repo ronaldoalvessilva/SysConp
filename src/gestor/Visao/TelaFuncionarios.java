@@ -205,6 +205,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSair = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
         jBtBiometria = new javax.swing.JButton();
+        jBtConsultaMovimentacao = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jNomeMae = new javax.swing.JTextField();
@@ -285,7 +286,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtCancelarLogradouro = new javax.swing.JButton();
         jBtSairLogradouro = new javax.swing.JButton();
         jBtAuditoriaLogradouro = new javax.swing.JButton();
-        jBtImpressaoLogradouro = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
@@ -349,7 +349,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtCancelarDocumentos = new javax.swing.JButton();
         jBtSairDocumentos = new javax.swing.JButton();
         jBtAuditoriaDocumentos = new javax.swing.JButton();
-        jBtImpressaoDocumentos = new javax.swing.JButton();
+        jBtImpressaoFichaColaborador = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -493,7 +493,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(121, 121, 121)
-                .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -960,6 +960,15 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtConsultaMovimentacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtConsultaMovimentacao.setToolTipText("Movimentação do Colaborador");
+        jBtConsultaMovimentacao.setContentAreaFilled(false);
+        jBtConsultaMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConsultaMovimentacaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -978,12 +987,16 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addComponent(jBtSair)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtBiometria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtConsultaMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtExcluir, jBtNovo, jBtSalvar});
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAuditoria, jBtBiometria, jBtConsultaMovimentacao});
 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -996,12 +1009,18 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jBtCancelar, javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.CENTER)
                     .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jBtAuditoria, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtBiometria, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(0, 2, Short.MAX_VALUE))
+                        .addComponent(jBtBiometria)
+                        .addComponent(jBtConsultaMovimentacao)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtAuditoria)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAuditoria, jBtBiometria, jBtConsultaMovimentacao});
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filiação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -1147,7 +1166,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                        .addComponent(jDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
@@ -1402,7 +1421,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
 
@@ -1560,7 +1579,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                         .addComponent(jCelularEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jURL)
                     .addComponent(jEmail))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCelularEnd, jTelefone, jTelefoneEnd});
@@ -1697,16 +1716,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtImpressaoLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressaoLogradouro.setToolTipText("Imprimir Ficha do Colaborador");
-        jBtImpressaoLogradouro.setContentAreaFilled(false);
-        jBtImpressaoLogradouro.setEnabled(false);
-        jBtImpressaoLogradouro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtImpressaoLogradouroActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -1723,9 +1732,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addComponent(jBtCancelarLogradouro)
                 .addGap(1, 1, 1)
                 .addComponent(jBtSairLogradouro)
-                .addGap(18, 18, 18)
-                .addComponent(jBtImpressaoLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1735,9 +1742,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jBtSairLogradouro, javax.swing.GroupLayout.Alignment.CENTER)
-            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jBtImpressaoLogradouro, javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jBtAuditoriaLogradouro, javax.swing.GroupLayout.Alignment.LEADING))
+            .addComponent(jBtAuditoriaLogradouro, javax.swing.GroupLayout.Alignment.CENTER)
             .addComponent(jBtCancelarLogradouro, javax.swing.GroupLayout.Alignment.CENTER)
             .addComponent(jBtSalvarLogradouro, javax.swing.GroupLayout.Alignment.CENTER)
             .addComponent(jBtExcluirLogradouro, javax.swing.GroupLayout.Alignment.CENTER)
@@ -2261,13 +2266,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtImpressaoDocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressaoDocumentos.setToolTipText("Imprimir Ficha do Colaborador");
-        jBtImpressaoDocumentos.setContentAreaFilled(false);
-        jBtImpressaoDocumentos.setEnabled(false);
-        jBtImpressaoDocumentos.addActionListener(new java.awt.event.ActionListener() {
+        jBtImpressaoFichaColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtImpressaoFichaColaborador.setToolTipText("Imprimir Ficha do Colaborador");
+        jBtImpressaoFichaColaborador.setContentAreaFilled(false);
+        jBtImpressaoFichaColaborador.setEnabled(false);
+        jBtImpressaoFichaColaborador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtImpressaoDocumentosActionPerformed(evt);
+                jBtImpressaoFichaColaboradorActionPerformed(evt);
             }
         });
 
@@ -2288,7 +2293,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jBtSairDocumentos)
                 .addGap(18, 18, 18)
-                .addComponent(jBtImpressaoDocumentos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtImpressaoFichaColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaDocumentos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -2302,7 +2307,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtAuditoriaDocumentos)
-                    .addComponent(jBtImpressaoDocumentos)))
+                    .addComponent(jBtImpressaoFichaColaborador)))
             .addComponent(jBtSairDocumentos, javax.swing.GroupLayout.Alignment.CENTER)
             .addComponent(jBtCancelarDocumentos, javax.swing.GroupLayout.Alignment.CENTER)
             .addComponent(jBtSalvarDocumentos, javax.swing.GroupLayout.Alignment.CENTER)
@@ -2902,23 +2907,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private void jBtNovoFoto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFoto2ActionPerformed
         // CÓDIGO PARA O BOTÃO ABRIR IMAGEM
         // Cria o objeto Janela de Seleção de Arquivos
-//        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-//        // Exibir a janela de seleção
-//        int acao = seletor.showOpenDialog(this);
-//        if (acao == JFileChooser.APPROVE_OPTION) {
-//            // Captura o arquivo selecionado na janela
-//            java.io.File f = seletor.getSelectedFile();
-//            caminhoFotoFunc = f.getPath();
-//            // Converter imagem para Icone
-//            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFunc);
-//            // Aplica o icone (imagem) no rotulo
-//            jFotoColaborador.setIcon(i);
-//            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-//            jFotoColaborador.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-//            caminhoFotoFunc = f.getPath();
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Seleção da foto foi cancelada.");
-//        }
         JFileChooser chooser = new JFileChooser();
         int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
@@ -2993,7 +2981,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jBtSalvarLogradouro.setEnabled(!true);
             jBtCancelarLogradouro.setEnabled(true);
             jBtAuditoriaLogradouro.setEnabled(true);
-            jBtImpressaoLogradouro.setEnabled(true);
             // DOCUMENTOS
             jBtNovoDocumentos.setEnabled(true);
             jBtAlterarDocumentos.setEnabled(true);
@@ -3001,7 +2988,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jBtSalvarDocumentos.setEnabled(!true);
             jBtCancelarDocumentos.setEnabled(true);
             jBtAuditoriaDocumentos.setEnabled(true);
-            jBtImpressaoDocumentos.setEnabled(true);
+            jBtImpressaoFichaColaborador.setEnabled(true);
             // DEPENDENTES
             jBtNovoDependente.setEnabled(true);
             //
@@ -3926,13 +3913,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jBtBiometriaActionPerformed
 
-    private void jBtImpressaoLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoLogradouroActionPerformed
+    private void jBtImpressaoFichaColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoFichaColaboradorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtImpressaoLogradouroActionPerformed
+    }//GEN-LAST:event_jBtImpressaoFichaColaboradorActionPerformed
 
-    private void jBtImpressaoDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoDocumentosActionPerformed
+    private void jBtConsultaMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaMovimentacaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtImpressaoDocumentosActionPerformed
+    }//GEN-LAST:event_jBtConsultaMovimentacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3951,13 +3938,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtCancelarDependente;
     private javax.swing.JButton jBtCancelarDocumentos;
     private javax.swing.JButton jBtCancelarLogradouro;
+    private javax.swing.JButton jBtConsultaMovimentacao;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirDependente;
     private javax.swing.JButton jBtExcluirDocumentos;
     private javax.swing.JButton jBtExcluirFoto2;
     private javax.swing.JButton jBtExcluirLogradouro;
-    private javax.swing.JButton jBtImpressaoDocumentos;
-    private javax.swing.JButton jBtImpressaoLogradouro;
+    private javax.swing.JButton jBtImpressaoFichaColaborador;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoDependente;
     private javax.swing.JButton jBtNovoDocumentos;
@@ -4566,7 +4553,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(true);
         jBtCancelarLogradouro.setEnabled(true);
         jBtAuditoriaLogradouro.setEnabled(!true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         //BOTÕES DOCUMETOS
         jBtNovoDocumentos.setEnabled(!true);
         jBtAlterarDocumentos.setEnabled(!true);
@@ -4574,7 +4560,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(true);
         jBtCancelarDocumentos.setEnabled(true);
         jBtAuditoriaDocumentos.setEnabled(!true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // BOTÕES DEPENDENTES
         jBtNovoDependente.setEnabled(!true);
         jBtAlterarDependente.setEnabled(!true);
@@ -4677,7 +4663,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(true);
         jBtCancelarLogradouro.setEnabled(true);
         jBtAuditoriaLogradouro.setEnabled(!true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         //BOTÕES DOCUMENTOS
         jBtNovoDocumentos.setEnabled(!true);
         jBtAlterarDocumentos.setEnabled(!true);
@@ -4685,7 +4670,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(true);
         jBtCancelarDocumentos.setEnabled(true);
         jBtAuditoriaDocumentos.setEnabled(!true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // BOTÕES DEPENDENTES
         jBtNovoDependente.setEnabled(!true);
         jBtAlterarDependente.setEnabled(!true);
@@ -4864,7 +4849,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(!true);
         jBtCancelarLogradouro.setEnabled(!true);
         jBtAuditoriaLogradouro.setEnabled(!true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         // BOTÕES DOCUMENTOS
         jBtNovoDocumentos.setEnabled(true);
         jBtAlterarDocumentos.setEnabled(!true);
@@ -4872,7 +4856,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(!true);
         jBtCancelarDocumentos.setEnabled(!true);
         jBtAuditoriaDocumentos.setEnabled(!true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // BOTÕES DEPENDENTES
         jBtNovoDependente.setEnabled(!true);
         jBtAlterarDependente.setEnabled(!true);
@@ -4971,7 +4955,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(!true);
         jBtCancelarLogradouro.setEnabled(!true);
         jBtAuditoriaLogradouro.setEnabled(true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         jBtNovoFoto2.setEnabled(!true);
         jBtExcluirFoto2.setEnabled(!true);
         jBtWebCam.setEnabled(!true);
@@ -4982,7 +4965,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(!true);
         jBtCancelarDocumentos.setEnabled(!true);
         jBtAuditoriaDocumentos.setEnabled(true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // BOTÕES DEPENDENTES
         jBtNovoDependente.setEnabled(true);
         jBtAlterarDependente.setEnabled(!true);
@@ -5158,7 +5141,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jBtSalvarLogradouro.setEnabled(!true);
             jBtCancelarLogradouro.setEnabled(!true);
             jBtAuditoriaLogradouro.setEnabled(!true);
-            jBtImpressaoLogradouro.setEnabled(!true);
             // BOTÕES DOCUMENTOS
             jBtNovoDocumentos.setEnabled(true);
             jBtAlterarDocumentos.setEnabled(!true);
@@ -5166,7 +5148,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jBtSalvarDocumentos.setEnabled(!true);
             jBtCancelarDocumentos.setEnabled(!true);
             jBtAuditoriaDocumentos.setEnabled(!true);
-            jBtImpressaoDocumentos.setEnabled(!true);
+            jBtImpressaoFichaColaborador.setEnabled(!true);
             // BOTÕES DEPENDENTES
             jBtNovoDependente.setEnabled(!true);
             jBtAlterarDependente.setEnabled(!true);
@@ -5263,7 +5245,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jBtSalvarLogradouro.setEnabled(!true);
             jBtCancelarLogradouro.setEnabled(!true);
             jBtAuditoriaLogradouro.setEnabled(!true);
-            jBtImpressaoLogradouro.setEnabled(!true);
             // BOTÕES DOCUMENTOS
             jBtNovoDocumentos.setEnabled(true);
             jBtAlterarDocumentos.setEnabled(true);
@@ -5271,7 +5252,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jBtSalvarDocumentos.setEnabled(!true);
             jBtCancelarDocumentos.setEnabled(!true);
             jBtAuditoriaDocumentos.setEnabled(!true);
-            jBtImpressaoDocumentos.setEnabled(!true);
+            jBtImpressaoFichaColaborador.setEnabled(!true);
             // BOTÕES DEPENDENTES
             jBtNovoDependente.setEnabled(true);
             jBtAlterarDependente.setEnabled(!true);
@@ -5371,7 +5352,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(!true);
         jBtCancelarLogradouro.setEnabled(!true);
         jBtAuditoriaLogradouro.setEnabled(!true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         // BOTÕES DOCUMENTOS
         jBtNovoDocumentos.setEnabled(!true);
         jBtAlterarDocumentos.setEnabled(!true);
@@ -5379,7 +5359,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(!true);
         jBtCancelarDocumentos.setEnabled(!true);
         jBtAuditoriaDocumentos.setEnabled(!true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // DEPENDENTES
         jCodigoDependente.setText("");
         jComboBoxParentesco.setSelectedItem("Selecione");
@@ -5487,7 +5467,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(!true);
         jBtCancelarLogradouro.setEnabled(!true);
         jBtAuditoriaLogradouro.setEnabled(!true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         // BOTÕES DOCUMENTOS
         jBtNovoDocumentos.setEnabled(!true);
         jBtAlterarDocumentos.setEnabled(true);
@@ -5495,7 +5474,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(!true);
         jBtCancelarDocumentos.setEnabled(!true);
         jBtAuditoriaDocumentos.setEnabled(!true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // DEPENDENTES        
         jComboBoxParentesco.setEnabled(true);
         jDataNascimentoParentesco.setEnabled(true);
@@ -5525,7 +5504,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(!true);
         jBtCancelarLogradouro.setEnabled(!true);
         jBtAuditoriaLogradouro.setEnabled(true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         // BOTÕES DOCUMENTOS
         jBtNovoDocumentos.setEnabled(true);
         jBtAlterarDocumentos.setEnabled(true);
@@ -5533,7 +5511,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(!true);
         jBtCancelarDocumentos.setEnabled(!true);
         jBtAuditoriaDocumentos.setEnabled(true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // DEPENDENTES
         jCodigoDependente.setText("");
         jComboBoxParentesco.setSelectedItem("Selecione");
@@ -5568,7 +5546,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(!true);
         jBtCancelarLogradouro.setEnabled(!true);
         jBtAuditoriaLogradouro.setEnabled(true);
-        jBtImpressaoLogradouro.setEnabled(true);
         // BOTÕES DOCUMENTOS
         jBtNovoDocumentos.setEnabled(true);
         jBtAlterarDocumentos.setEnabled(true);
@@ -5576,7 +5553,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(!true);
         jBtCancelarDocumentos.setEnabled(!true);
         jBtAuditoriaDocumentos.setEnabled(true);
-        jBtImpressaoDocumentos.setEnabled(true);
+        jBtImpressaoFichaColaborador.setEnabled(true);
         // DEPENDENTES
         jCodigoDependente.setText("");
         jComboBoxParentesco.setSelectedItem("Selecione");
@@ -5611,7 +5588,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarLogradouro.setEnabled(!true);
         jBtCancelarLogradouro.setEnabled(!true);
         jBtAuditoriaLogradouro.setEnabled(true);
-        jBtImpressaoLogradouro.setEnabled(!true);
         // BOTÕES DOCUMENTOS
         jBtNovoDocumentos.setEnabled(true);
         jBtAlterarDocumentos.setEnabled(true);
@@ -5619,7 +5595,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarDocumentos.setEnabled(!true);
         jBtCancelarDocumentos.setEnabled(!true);
         jBtAuditoriaDocumentos.setEnabled(true);
-        jBtImpressaoDocumentos.setEnabled(!true);
+        jBtImpressaoFichaColaborador.setEnabled(!true);
         // DEPENDENTES
         jCodigoDependente.setText("");
         jComboBoxParentesco.setSelectedItem("Selecione");
