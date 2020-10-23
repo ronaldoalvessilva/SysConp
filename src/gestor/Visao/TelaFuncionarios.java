@@ -704,7 +704,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel7.setText("Status");
 
         jComboBoxStatusFunc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxStatusFunc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo", "INSS", "Férias" }));
+        jComboBoxStatusFunc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo", "INSS", "Férias", "Transferência", "Em Trânsito", "Óbito", "Desligado", "Abandono de emprego" }));
         jComboBoxStatusFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatusFunc.setEnabled(false);
 
@@ -1008,9 +1008,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jBtSalvar, javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtCancelar, javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jBtBiometria)
-                        .addComponent(jBtConsultaMovimentacao)))
+                    .addComponent(jBtBiometria, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtConsultaMovimentacao, javax.swing.GroupLayout.Alignment.CENTER))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()

@@ -82,7 +82,7 @@ public class ControleSaidaSimbolica {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROMSAIDA_SIMBOLICA_CRC WHERE IdRegSaida='" + objSaida.getIdRegSaida() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM SAIDA_SIMBOLICA_CRC WHERE IdRegSaida='" + objSaida.getIdRegSaida() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
