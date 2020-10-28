@@ -272,7 +272,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RelatorioProdutosConsumoAvulso">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtos Consumo Aulso"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtos Consumo Avulso"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioProdutosConsumoAvulsoActionPerformed"/>
@@ -280,7 +280,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RelatorioAvulsoPorDepartamento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtos Consumo Avuslo por Departamento"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtos Consumo Avulso por Departamento"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioAvulsoPorDepartamentoActionPerformed"/>

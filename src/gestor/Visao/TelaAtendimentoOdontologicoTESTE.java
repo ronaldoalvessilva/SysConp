@@ -25,6 +25,7 @@ import gestor.Modelo.ProcedimentoOdontologico;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1799,7 +1800,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 jBtFaceCentral1MouseClicked(evt);
             }
         });
-        jPanel13.add(jBtFaceCentral1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 60, 60));
+        jPanel13.add(jBtFaceCentral1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 9, 111, 125));
 
         jBTFaceDireita1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaTransparente.png"))); // NOI18N
         jBTFaceDireita1.setToolTipText("Mesial");
@@ -7432,7 +7433,22 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     }//GEN-LAST:event_jRBFaceTresActionPerformed
 
     private void jRBFaceTodas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceTodas1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:      
+        if (jRBFaceTodas1.isSelected()) {
+            jBtFaceCentral1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceTodasI.png")));   
+            jBtFaceCentral1.setEnabled(true);           
+        } else {
+            jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorTransparente.png")));
+            jBtFaceSuperior1.setEnabled(false);
+            jBtFaceInferior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferiorTransparente.png")));
+            jBtFaceInferior1.setEnabled(false);
+            jBTFaceDireita1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireitaTransparente.png")));
+            jBTFaceDireita1.setEnabled(false);
+            jBtFaceEsquerda1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerdaTransparente.png")));
+            jBtFaceEsquerda1.setEnabled(false);
+            jBtFaceCentral1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentralTransparente.png")));
+            jBtFaceCentral1.setEnabled(false);
+        }
     }//GEN-LAST:event_jRBFaceTodas1ActionPerformed
 
     private void jBtDente26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDente26ActionPerformed
@@ -7807,6 +7823,8 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         if (jRBFaceUm.isSelected()){
             jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorVerde.png")));
             jBtFaceSuperior1.setEnabled(true);
+            selecionaFacePalatal(jNumeroDente.getText());
+           // jBtDente11.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
         }else{
             jBtFaceSuperior1.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperiorTransparente.png")));
             jBtFaceSuperior1.setEnabled(false);
@@ -10540,5 +10558,39 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         objLogSys.setIdLancMov(Integer.valueOf(jIDLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
-    }    
+    }  
+    
+    public void selecionaNumeroDente(JToggleButton nDente){
+        nDente.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+    }
+    
+    public String selecionaFacePalatal(String dente) {
+        switch (dente) {
+            case "11":
+                selecionaNumeroDente(jBtDente11);
+                break;
+            case "12":
+                selecionaNumeroDente(jBtDente12);
+                break;
+            case "13":
+                selecionaNumeroDente(jBtDente11);
+                break;
+            case "14":
+                selecionaNumeroDente(jBtDente12);
+                break;
+            case "15":
+                selecionaNumeroDente(jBtDente11);
+                break;
+            case "16":
+                selecionaNumeroDente(jBtDente12);
+                break;
+            case "17":
+                selecionaNumeroDente(jBtDente11);
+                break;
+            case "18":
+                selecionaNumeroDente(jBtDente12);
+                break;
+        }
+        return dente;
+    }
 }

@@ -88,7 +88,7 @@
 				<reportElement x="0" y="1" width="555" height="20" uuid="a991b073-616b-44ac-9e27-190c7b8022d0"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="5" y="3" width="235" height="20" forecolor="#0000FF" uuid="09f0b147-be59-4436-b143-242520cf2658"/>
+				<reportElement x="5" y="3" width="242" height="20" forecolor="#0000FF" uuid="09f0b147-be59-4436-b143-242520cf2658"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -102,8 +102,8 @@
 				<text><![CDATA[Listagem de Produtos Cadastrado por Grupo]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="240" y="3" width="313" height="20" forecolor="#FF0000" uuid="71d22cd9-cd20-410b-bae3-ad81bfa17aca"/>
-				<textElement>
+				<reportElement x="247" y="3" width="302" height="20" forecolor="#FF0000" uuid="71d22cd9-cd20-410b-bae3-ad81bfa17aca"/>
+				<textElement textAlignment="Right">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
