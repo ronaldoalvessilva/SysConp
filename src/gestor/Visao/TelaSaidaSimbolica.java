@@ -1369,7 +1369,7 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         if (jPesquisarNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome para pesquisa.");
         } else {
-
+         
         }
     }//GEN-LAST:event_jBtPesqInternoActionPerformed
 

@@ -204,40 +204,48 @@ public class TelaRelatorioSaidaInternosPorData extends javax.swing.JInternalFram
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/CRC/RelatorioSaidaInternosPortaria.jasper";
-                            conecta.executaSQL("SELECT *  FROM ITENSREGSAIDA "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "INNER JOIN DADOSPENAISINTERNOS "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE ITENSREGSAIDA.DataSaida BETWEEN '" + dataInicial + "' "
-                                    + "AND '" + dataFinal + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaTransferencia + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaMedico + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaAudiencia + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + outrasSaidas + "' "
-                                    + "ORDER BY ITENSREGSAIDA.DataSaida, ITENSREGSAIDA.DestinoSaida,PRONTUARIOSCRC.NomeInternoCrc");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("saidaTransferencia", saidaTransferencia);
-                            parametros.put("saidaMedico", saidaMedico);
-                            parametros.put("saidaAudiencia", saidaAudiencia);
-                            parametros.put("outrasSaida", outrasSaidas);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Saida de Interno por Beneficio");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/CRC/RelatorioSaidaInternosPortaria.jasper";
+                                    conecta.executaSQL("SELECT *  FROM ITENSREGSAIDA "
+                                            + "INNER JOIN PRONTUARIOSCRC "
+                                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                            + "INNER JOIN DADOSPENAISINTERNOS "
+                                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                            + "WHERE ITENSREGSAIDA.DataSaida BETWEEN '" + dataInicial + "' "
+                                            + "AND '" + dataFinal + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaTransferencia + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaMedico + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaAudiencia + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + outrasSaidas + "' "
+                                            + "ORDER BY ITENSREGSAIDA.DataSaida, ITENSREGSAIDA.DestinoSaida,PRONTUARIOSCRC.NomeInternoCrc");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("saidaTransferencia", saidaTransferencia);
+                                    parametros.put("saidaMedico", saidaMedico);
+                                    parametros.put("saidaAudiencia", saidaAudiencia);
+                                    parametros.put("outrasSaida", outrasSaidas);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Saida de Interno por Beneficio");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação 
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }
@@ -256,40 +264,48 @@ public class TelaRelatorioSaidaInternosPorData extends javax.swing.JInternalFram
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/CRC/RelatorioSaidaInternosPortaria.jasper";
-                            conecta.executaSQL("SELECT *  FROM ITENSREGSAIDA "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "INNER JOIN DADOSPENAISINTERNOS "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE ITENSREGSAIDA.DataSaida BETWEEN '" + dataInicial + "' "
-                                    + "AND '" + dataFinal + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaTransferencia + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaMedico + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaAudiencia + "' "
-                                    + "AND ITENSREGSAIDA.DestinoSaida!='" + outrasSaidas + "' "
-                                    + "ORDER BY ITENSREGSAIDA.DataSaida, ITENSREGSAIDA.DestinoSaida,PRONTUARIOSCRC.NomeInternoCrc");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("saidaTransferencia", saidaTransferencia);
-                            parametros.put("saidaMedico", saidaMedico);
-                            parametros.put("saidaAudiencia", saidaAudiencia);
-                            parametros.put("outrasSaida", outrasSaidas);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Saida de Interno por Beneficio");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/CRC/RelatorioSaidaInternosPortaria.jasper";
+                                    conecta.executaSQL("SELECT *  FROM ITENSREGSAIDA "
+                                            + "INNER JOIN PRONTUARIOSCRC "
+                                            + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                            + "INNER JOIN DADOSPENAISINTERNOS "
+                                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                            + "WHERE ITENSREGSAIDA.DataSaida BETWEEN '" + dataInicial + "' "
+                                            + "AND '" + dataFinal + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaTransferencia + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaMedico + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + saidaAudiencia + "' "
+                                            + "AND ITENSREGSAIDA.DestinoSaida!='" + outrasSaidas + "' "
+                                            + "ORDER BY ITENSREGSAIDA.DataSaida, ITENSREGSAIDA.DestinoSaida,PRONTUARIOSCRC.NomeInternoCrc");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("saidaTransferencia", saidaTransferencia);
+                                    parametros.put("saidaMedico", saidaMedico);
+                                    parametros.put("saidaAudiencia", saidaAudiencia);
+                                    parametros.put("outrasSaida", outrasSaidas);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Saida de Interno por Beneficio");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }

@@ -181,45 +181,53 @@ public class TelaRelatorioRetornoInternosPT extends javax.swing.JInternalFrame {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 pDATA_inicial = formatoAmerica.format(jPesDtRetInicial.getDate().getTime());
                 pDATA_final = formatoAmerica.format(jPesDtRetFinal.getDate().getTime());
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/PortariaInterna/RelatorioRetornoInternosPortaria.jasper";
-                    conecta.executaSQL("SELECT ITENSREGISTRO.IdInternoCrc, "
-                            + "PRONTUARIOSCRC.NomeInternoCrc, "
-                            + "ITENSREGISTRO.DataRetorno, "
-                            + "ITENSREGISTRO.HorarioRetorno, "
-                            + "ITENSREGISTRO.OrigemRetorno, "
-                            + "PAVILHAO.DescricaoPav, "
-                            + "CELAS.EndCelaPav "
-                            + "FROM ITENSREGISTRO   "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN ITENSLOCACAOINTERNO "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                            + "INNER JOIN CELAS "
-                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                            + "INNER JOIN PAVILHAO "
-                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                            + "WHERE CONVERT(DATE, DataRetorno,103) BETWEEN'" + pDATA_inicial + "' "
-                            + "AND '" + pDATA_final + "' "
-                            + "AND OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
-                            + "ORDER BY ITENSREGISTRO.DataRetorno,PRONTUARIOSCRC.NomeInternoCrc");
-                    HashMap parametros = new HashMap();
-                    parametros.put("dataInicial", pDATA_inicial);
-                    parametros.put("dataFinal", pDATA_final);
-                    parametros.put("pUNIDADE_penal", descricaoUnidade);
-                    parametros.put("pUSUARIO_logado", nameUser);
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Retorno de Internos na Unidade");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação                  
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                }
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/PortariaInterna/RelatorioRetornoInternosPortaria.jasper";
+                            conecta.executaSQL("SELECT ITENSREGISTRO.IdInternoCrc, "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                    + "ITENSREGISTRO.DataRetorno, "
+                                    + "ITENSREGISTRO.HorarioRetorno, "
+                                    + "ITENSREGISTRO.OrigemRetorno, "
+                                    + "PAVILHAO.DescricaoPav, "
+                                    + "CELAS.EndCelaPav "
+                                    + "FROM ITENSREGISTRO   "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                                    + "INNER JOIN CELAS "
+                                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                                    + "INNER JOIN PAVILHAO "
+                                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                                    + "WHERE CONVERT(DATE, DataRetorno,103) BETWEEN'" + pDATA_inicial + "' "
+                                    + "AND '" + pDATA_final + "' "
+                                    + "AND OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
+                                    + "ORDER BY ITENSREGISTRO.DataRetorno,PRONTUARIOSCRC.NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", pDATA_inicial);
+                            parametros.put("dataFinal", pDATA_final);
+                            parametros.put("pUNIDADE_penal", descricaoUnidade);
+                            parametros.put("pUSUARIO_logado", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Retorno de Internos na Unidade");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação    
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             if (jPesDtRetInicial.getDate() == null) {
@@ -236,45 +244,53 @@ public class TelaRelatorioRetornoInternosPT extends javax.swing.JInternalFrame {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 pDATA_inicial = formatoAmerica.format(jPesDtRetInicial.getDate().getTime());
                 pDATA_final = formatoAmerica.format(jPesDtRetFinal.getDate().getTime());
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/PortariaInterna/RelatorioRetornoInternosPortaria.jasper";
-                    conecta.executaSQL("SELECT ITENSREGISTRO.IdInternoCrc, "
-                            + "PRONTUARIOSCRC.NomeInternoCrc, "
-                            + "ITENSREGISTRO.DataRetorno, "
-                            + "ITENSREGISTRO.HorarioRetorno, "
-                            + "ITENSREGISTRO.OrigemRetorno, "
-                            + "PAVILHAO.DescricaoPav, "
-                            + "CELAS.EndCelaPav "
-                            + "FROM ITENSREGISTRO "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN ITENSLOCACAOINTERNO "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                            + "INNER JOIN CELAS "
-                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                            + "INNER JOIN PAVILHAO "
-                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                            + "WHERE CONVERT(DATE, DataRetorno,103) BETWEEN'" + pDATA_inicial + "' "
-                            + "AND '" + pDATA_final + "' "
-                            + "AND OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
-                            + "ORDER BY ITENSREGISTRO.DataRetorno,PRONTUARIOSCRC.NomeInternoCrc");
-                    HashMap parametros = new HashMap();
-                    parametros.put("dataInicial", pDATA_inicial);
-                    parametros.put("dataFinal", pDATA_final);
-                    parametros.put("pUNIDADE_penal", descricaoUnidade);
-                    parametros.put("pUSUARIO_logado", nameUser);
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Retorno de Internos na Unidade");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação            
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                }
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/PortariaInterna/RelatorioRetornoInternosPortaria.jasper";
+                            conecta.executaSQL("SELECT ITENSREGISTRO.IdInternoCrc, "
+                                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                    + "ITENSREGISTRO.DataRetorno, "
+                                    + "ITENSREGISTRO.HorarioRetorno, "
+                                    + "ITENSREGISTRO.OrigemRetorno, "
+                                    + "PAVILHAO.DescricaoPav, "
+                                    + "CELAS.EndCelaPav "
+                                    + "FROM ITENSREGISTRO "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                                    + "INNER JOIN CELAS "
+                                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                                    + "INNER JOIN PAVILHAO "
+                                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                                    + "WHERE CONVERT(DATE, DataRetorno,103) BETWEEN'" + pDATA_inicial + "' "
+                                    + "AND '" + pDATA_final + "' "
+                                    + "AND OrigemRetorno='" + jComboBoxTipoRetorno.getSelectedItem() + "' "
+                                    + "ORDER BY ITENSREGISTRO.DataRetorno,PRONTUARIOSCRC.NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", pDATA_inicial);
+                            parametros.put("dataFinal", pDATA_final);
+                            parametros.put("pUNIDADE_penal", descricaoUnidade);
+                            parametros.put("pUSUARIO_logado", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Retorno de Internos na Unidade");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação     
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed

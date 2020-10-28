@@ -195,40 +195,48 @@ public class TelaRelPopulacaoInternosNominalNovo extends javax.swing.JInternalFr
                     dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());
                     dataPopFinal = formatoAmerica.format(jDataPopFinal.getDate().getTime());
                     dataPopulacao = dataPopInicial;
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/CRC/RelatorioPopulacaoNominalCRC_Todos.jasper";
-                        conecta.executaSQL("SELECT POPULACAOINTERNOS_CRC.DataPop, "
-                                + "POPULACAOINTERNOS_CRC.IdInternoCrc, "
-                                + "PRONTUARIOSCRC.NomeInternoCrc, "
-                                + "PRONTUARIOSCRC.SituacaoCrc, "
-                                + "PRONTUARIOSCRC.SexoCrc, "
-                                + "DADOSPENAISINTERNOS.Regime "
-                                + "FROM POPULACAOINTERNOS_CRC "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "INNER JOIN DADOSPENAISINTERNOS "
-                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN'" + dataPopInicial + "' "
-                                + "AND '" + dataPopFinal + "' "
-                                + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
-                        HashMap parametros = new HashMap();
-                        parametros.put("pDATA_INICIAL", dataPopInicial);
-                        parametros.put("pDATA_FINAL", dataPopFinal);
-                        parametros.put("dataPopulacao", jDataPopInicial.getDate());
-                        parametros.put("pUNIDADE", descricaoUnidade);
-                        parametros.put("pUSUARIO", nameUser);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Relatório de População Internos Nominal");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                    }
+                    final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            try {
+                                conecta.abrirConexao();
+                                String path = "reports/CRC/RelatorioPopulacaoNominalCRC_Todos.jasper";
+                                conecta.executaSQL("SELECT POPULACAOINTERNOS_CRC.DataPop, "
+                                        + "POPULACAOINTERNOS_CRC.IdInternoCrc, "
+                                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                        + "PRONTUARIOSCRC.SituacaoCrc, "
+                                        + "PRONTUARIOSCRC.SexoCrc, "
+                                        + "DADOSPENAISINTERNOS.Regime "
+                                        + "FROM POPULACAOINTERNOS_CRC "
+                                        + "INNER JOIN PRONTUARIOSCRC "
+                                        + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                        + "INNER JOIN DADOSPENAISINTERNOS "
+                                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                        + "WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN'" + dataPopInicial + "' "
+                                        + "AND '" + dataPopFinal + "' "
+                                        + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                                HashMap parametros = new HashMap();
+                                parametros.put("pDATA_INICIAL", dataPopInicial);
+                                parametros.put("pDATA_FINAL", dataPopFinal);
+                                parametros.put("dataPopulacao", jDataPopInicial.getDate());
+                                parametros.put("pUNIDADE", descricaoUnidade);
+                                parametros.put("pUSUARIO", nameUser);
+                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                jv.setTitle("Relatório de População Internos Nominal");
+                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                jv.toFront(); // Traz o relatorio para frente da aplicação      
+                                carregando.dispose(); //Teste tela aguarde
+                                conecta.desconecta();
+                            } catch (JRException e) {
+                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                            }
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde
                 }
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
@@ -244,40 +252,48 @@ public class TelaRelPopulacaoInternosNominalNovo extends javax.swing.JInternalFr
                     dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());
                     dataPopFinal = formatoAmerica.format(jDataPopFinal.getDate().getTime());
                     dataPopulacao = dataPopInicial;
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/CRC/RelatorioPopulacaoNominalCRC_Todos.jasper";
-                        conecta.executaSQL("SELECT POPULACAOINTERNOS_CRC.DataPop, "
-                                + "POPULACAOINTERNOS_CRC.IdInternoCrc, "
-                                + "PRONTUARIOSCRC.NomeInternoCrc, "
-                                + "PRONTUARIOSCRC.SituacaoCrc, "
-                                + "PRONTUARIOSCRC.SexoCrc, "
-                                + "DADOSPENAISINTERNOS.Regime "
-                                + "FROM POPULACAOINTERNOS_CRC "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "INNER JOIN DADOSPENAISINTERNOS "
-                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN'" + dataPopInicial + "' "
-                                + "AND '" + dataPopFinal + "' "
-                                + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
-                        HashMap parametros = new HashMap();
-                        parametros.put("pDATA_INICIAL", dataPopInicial);
-                        parametros.put("pDATA_FINAL", dataPopFinal);
-                        parametros.put("dataPopulacao", jDataPopInicial.getDate());
-                        parametros.put("pUNIDADE", descricaoUnidade);
-                        parametros.put("pUSUARIO", nameUser);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Relatório de População Internos Nominal");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
-                    }
+                    final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste
+                            try {
+                                conecta.abrirConexao();
+                                String path = "reports/CRC/RelatorioPopulacaoNominalCRC_Todos.jasper";
+                                conecta.executaSQL("SELECT POPULACAOINTERNOS_CRC.DataPop, "
+                                        + "POPULACAOINTERNOS_CRC.IdInternoCrc, "
+                                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                                        + "PRONTUARIOSCRC.SituacaoCrc, "
+                                        + "PRONTUARIOSCRC.SexoCrc, "
+                                        + "DADOSPENAISINTERNOS.Regime "
+                                        + "FROM POPULACAOINTERNOS_CRC "
+                                        + "INNER JOIN PRONTUARIOSCRC "
+                                        + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                        + "INNER JOIN DADOSPENAISINTERNOS "
+                                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                        + "WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN'" + dataPopInicial + "' "
+                                        + "AND '" + dataPopFinal + "' "
+                                        + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                                HashMap parametros = new HashMap();
+                                parametros.put("pDATA_INICIAL", dataPopInicial);
+                                parametros.put("pDATA_FINAL", dataPopFinal);
+                                parametros.put("dataPopulacao", jDataPopInicial.getDate());
+                                parametros.put("pUNIDADE", descricaoUnidade);
+                                parametros.put("pUSUARIO", nameUser);
+                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                jv.setTitle("Relatório de População Internos Nominal");
+                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                jv.toFront(); // Traz o relatorio para frente da aplicação   
+                                carregando.dispose(); //Teste tela aguarde
+                                conecta.desconecta();
+                            } catch (JRException e) {
+                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+                            }
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde
                 }
             }
         }
