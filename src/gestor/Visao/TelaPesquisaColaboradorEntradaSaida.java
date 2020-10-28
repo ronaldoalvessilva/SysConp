@@ -7,12 +7,12 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jBtZoonColaborador;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jCargoFunc;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jFotoColaborador;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jIDFunc;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jNomeFuncionario;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jSetorFunc;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.jFuncaoColaborador;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.jFotoColaborador;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.jIdColaborador;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.jNomeColaborador;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.jMatriculaColaborador;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.jNomeMaeColaborador;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author user
  */
-public class TelaPesqColaborador extends javax.swing.JInternalFrame {
+public class TelaPesquisaColaboradorEntradaSaida extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
@@ -38,7 +38,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPesqColaborador
      */
-    public TelaPesqColaborador() {
+    public TelaPesquisaColaboradorEntradaSaida() {
         initComponents();
     }
 
@@ -54,7 +54,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jNomeColaborador = new javax.swing.JTextField();
+        jPesquisarNomeColaborador = new javax.swing.JTextField();
         jBtPesqNome = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -65,13 +65,13 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Pesquisa Colaborador - P1 :::...");
+        setTitle("...::: Pesquisa Colaborador Gte. Adm. :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jNomeColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesquisarNomeColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqNome.setToolTipText("Pesquisa por Nome");
@@ -101,7 +101,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPesquisarNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -113,7 +113,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(jCheckBox1)
                 .addComponent(jBtPesqNome)
-                .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPesquisarNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel1))
         );
 
@@ -141,8 +141,6 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
             jTabelaPesqFunc.getColumnModel().getColumn(2).setMaxWidth(150);
         }
 
-        jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtEnviar.setText("Enviar");
         jBtEnviar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,8 +149,6 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtSair.setForeground(new java.awt.Color(255, 0, 0));
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
         jBtSair.addActionListener(new java.awt.event.ActionListener() {
@@ -212,16 +208,16 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jNomeColaborador.getText().isEmpty()) {
+        if (jPesquisarNomeColaborador.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do colaborador e clique no botão ENVIAR");
         } else if (idFunc == null) {
             JOptionPane.showMessageDialog(rootPane, "Selecione nome do colaborador corretamente para ENVIAR.");
         } else {
             if (flag == 1) {
                 nomeFuncionario = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 1);
-                jNomeColaborador.setText(nomeFuncionario);
+                jPesquisarNomeColaborador.setText(nomeFuncionario);
                 idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
-                jIDFunc.setText(idFunc);
+                jIdColaborador.setText(idFunc);
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM COLABORADOR "
@@ -233,8 +229,8 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                             + "AND StatusFunc='" + statusFunc + "'");
                     conecta.rs.first();
                     // Tabela Funcionarios
-                    jIDFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
-                    jNomeFuncionario.setText(conecta.rs.getString("NomeFunc"));
+                    jIdColaborador.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
+                    jNomeColaborador.setText(conecta.rs.getString("NomeFunc"));
                     caminho = conecta.rs.getString("ImagemFunc");
                     if (caminho != null) {
                         javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
@@ -250,9 +246,9 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                         ImageIcon icon2 = new ImageIcon(scaled2);
                         jFotoColaborador.setIcon(icon2);
                     }
-                    jSetorFunc.setText(conecta.rs.getString("NomeDepartamento"));
-                    jCargoFunc.setText(conecta.rs.getString("NomeCargo"));
-                    jBtZoonColaborador.setEnabled(true);
+                    jMatriculaColaborador.setText(conecta.rs.getString("MatriculaFunc"));
+                    jFuncaoColaborador.setText(conecta.rs.getString("Funcao"));
+                    jNomeMaeColaborador.setText(conecta.rs.getString("NomeMae"));
                     conecta.desconecta();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -271,16 +267,17 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         // Pesquisar colaborador por nome
         flag = 1;
-        if (jNomeColaborador.getText().equals("")) {
+        if (jPesquisarNomeColaborador.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
-            jNomeColaborador.requestFocus();
+            jPesquisarNomeColaborador.requestFocus();
         } else {
             buscarFunc("SELECT * FROM COLABORADOR "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                    + "WHERE NomeFunc LIKE'%" + jNomeColaborador.getText() + "%' AND StatusFunc='" + statusFunc + "'");
+                    + "WHERE NomeFunc LIKE'%" + jPesquisarNomeColaborador.getText() + "%' "
+                    + "AND StatusFunc='" + statusFunc + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -304,7 +301,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
         flag = 1;
         if (flag == 1 && evt.getClickCount() == 1) {
             nomeFuncionario = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 1);
-            jNomeColaborador.setText(nomeFuncionario);
+            jPesquisarNomeColaborador.setText(nomeFuncionario);
             idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaPesqFuncMouseClicked
@@ -316,9 +313,9 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSair;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jNomeColaborador;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jPesquisarNomeColaborador;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaPesqFunc;

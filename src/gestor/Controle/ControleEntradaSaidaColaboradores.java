@@ -16,6 +16,7 @@ import static gestor.Visao.TelaEntradaSaidasColaboradores.pCODIGO_registro;
 import static gestor.Visao.TelaEntradaSaidasColaboradores.pCODIGO_colaborador;
 import static gestor.Visao.TelaEntradaSaidasColaboradores.pUNIDADE_origem;
 import static gestor.Visao.TelaEntradaSaidasColaboradores.jComboBoxUnidadeOrigem;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.pRESPOSTA_opcao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,20 +38,21 @@ public class ControleEntradaSaidaColaboradores {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ENTRADAS_SAIDAS_COLABORADORES (StatusRegistro,DataRegistro,Operacao,TipoMovimento,UnidadeOrigem,UnidadeDestino,TipoMovimento,Motivo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ENTRADAS_SAIDAS_COLABORADORES (StatusRegistro,DataRegistro,Operacao,TipoMovimento,UnidadeOrigem,UnidadeDestino,Motivo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objEntradaSaidaCola.getStatusRegistro());
             pst.setTimestamp(2, new java.sql.Timestamp(objEntradaSaidaCola.getDataRegistro().getTime()));
             pst.setString(3, objEntradaSaidaCola.getOperacao());
             pst.setString(4, objEntradaSaidaCola.getTipoMovimento());
             pst.setString(5, objEntradaSaidaCola.getUnidadeOrigem());
             pst.setString(6, objEntradaSaidaCola.getUnidadeDestino());
-            pst.setString(7, objEntradaSaidaCola.getTipoMovimento());
-            pst.setString(8, objEntradaSaidaCola.getMotivo());
-            pst.setString(9, objEntradaSaidaCola.getUsuarioInsert());
-            pst.setString(10, objEntradaSaidaCola.getDataInsert());
-            pst.setString(11, objEntradaSaidaCola.getHorarioInsert());
+            pst.setString(7, objEntradaSaidaCola.getMotivo());
+            pst.setString(8, objEntradaSaidaCola.getUsuarioInsert());
+            pst.setString(9, objEntradaSaidaCola.getDataInsert());
+            pst.setString(10, objEntradaSaidaCola.getHorarioInsert());
             pst.execute();
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -61,20 +63,21 @@ public class ControleEntradaSaidaColaboradores {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_COLABORADORES SET StatusRegistro=?,DataRegistro=?,Operacao=?,TipoMovimento=?,UnidadeOrigem=?,UnidadeDestino=?,TipoMovimento=?,Motivo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegRegistro='" + objEntradaSaidaCola.getIdRegistro() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_COLABORADORES SET StatusRegistro=?,DataRegistro=?,Operacao=?,TipoMovimento=?,UnidadeOrigem=?,UnidadeDestino=?,Motivo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegRegistro='" + objEntradaSaidaCola.getIdRegistro() + "'");
             pst.setString(1, objEntradaSaidaCola.getStatusRegistro());
             pst.setTimestamp(2, new java.sql.Timestamp(objEntradaSaidaCola.getDataRegistro().getTime()));
             pst.setString(3, objEntradaSaidaCola.getOperacao());
             pst.setString(4, objEntradaSaidaCola.getTipoMovimento());
             pst.setString(5, objEntradaSaidaCola.getUnidadeOrigem());
             pst.setString(6, objEntradaSaidaCola.getUnidadeDestino());
-            pst.setString(7, objEntradaSaidaCola.getTipoMovimento());
-            pst.setString(8, objEntradaSaidaCola.getMotivo());
-            pst.setString(9, objEntradaSaidaCola.getUsuarioUp());
-            pst.setString(10, objEntradaSaidaCola.getDataUp());
-            pst.setString(11, objEntradaSaidaCola.getHorarioUp());
+            pst.setString(7, objEntradaSaidaCola.getMotivo());
+            pst.setString(8, objEntradaSaidaCola.getUsuarioUp());
+            pst.setString(9, objEntradaSaidaCola.getDataUp());
+            pst.setString(10, objEntradaSaidaCola.getHorarioUp());
             pst.executeUpdate();
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -87,7 +90,9 @@ public class ControleEntradaSaidaColaboradores {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ENTRADAS_SAIDAS_COLABORADORES WHERE IdRegRegistro='" + objEntradaSaidaCola.getIdRegistro() + "'");
             pst.executeUpdate();
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -101,7 +106,9 @@ public class ControleEntradaSaidaColaboradores {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_COLABORADORES SET StatusRegistro=? WHERE IdRegRegistro='" + objEntradaSaidaCola.getIdRegistro() + "'");
             pst.setString(1, objEntradaSaidaCola.getStatusRegistro());
             pst.executeUpdate();
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -111,19 +118,21 @@ public class ControleEntradaSaidaColaboradores {
     public EntradasSaidasColaboradores PESQUISAR_status(EntradasSaidasColaboradores objEntradaSaidaCola) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdRegSaida,StatusRegistro "
-                    + "FROM SAIDA_SIMBOLICA_CRC "
-                    + "WHERE IdRegSaida='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT IdRegRegistro,StatusRegistro "
+                    + "FROM ENTRADAS_SAIDAS_COLABORADORES "
+                    + "WHERE IdRegRegistro='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             objEntradaSaidaCola.setStatusRegistro(conecta.rs.getString("StatusRegistro"));
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não foi possível verificar se lançamento foi finalizado.\nERROR: " + ex);
         }
         conecta.desconecta();
         return objEntradaSaidaCola;
     }
 
-//------------------------------------------------- ITENS INTERNOS
+//------------------------------------------------- ITENS COLABORADORES --------------------------------------------------------------------------------
     public EntradasSaidasColaboradores incluirItensRegistroSaida(EntradasSaidasColaboradores objEntradaSaidaCola) {
 
         conecta.abrirConexao();
@@ -132,20 +141,22 @@ public class ControleEntradaSaidaColaboradores {
             pst.setInt(1, objEntradaSaidaCola.getIdRegistro());
             pst.setInt(2, objEntradaSaidaCola.getIdColaborador());
             if (objEntradaSaidaCola.getDataEvento() != null) {
-                pst.setTimestamp(4, new java.sql.Timestamp(objEntradaSaidaCola.getDataEvento().getTime()));
+                pst.setTimestamp(3, new java.sql.Timestamp(objEntradaSaidaCola.getDataEvento().getTime()));
             } else {
-                pst.setDate(4, null);
+                pst.setDate(3, null);
             }
-            if (objEntradaSaidaCola.getDataRetrono() != null) {
+            if (objEntradaSaidaCola.getDataRetorno() != null) {
                 pst.setTimestamp(4, new java.sql.Timestamp(objEntradaSaidaCola.getDataRegistro().getTime()));
             } else {
                 pst.setDate(4, null);
             }
-            pst.setString(6, objEntradaSaidaCola.getUsuarioInsert());
-            pst.setString(7, objEntradaSaidaCola.getDataInsert());
-            pst.setString(8, objEntradaSaidaCola.getHorarioInsert());
+            pst.setString(5, objEntradaSaidaCola.getUsuarioInsert());
+            pst.setString(6, objEntradaSaidaCola.getDataInsert());
+            pst.setString(7, objEntradaSaidaCola.getHorarioInsert());
             pst.execute();
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -160,20 +171,22 @@ public class ControleEntradaSaidaColaboradores {
             pst.setInt(1, objEntradaSaidaCola.getIdRegistro());
             pst.setInt(2, objEntradaSaidaCola.getIdColaborador());
             if (objEntradaSaidaCola.getDataEvento() != null) {
-                pst.setTimestamp(4, new java.sql.Timestamp(objEntradaSaidaCola.getDataEvento().getTime()));
+                pst.setTimestamp(3, new java.sql.Timestamp(objEntradaSaidaCola.getDataEvento().getTime()));
             } else {
-                pst.setDate(4, null);
+                pst.setDate(3, null);
             }
-            if (objEntradaSaidaCola.getDataRetrono() != null) {
+            if (objEntradaSaidaCola.getDataRetorno() != null) {
                 pst.setTimestamp(4, new java.sql.Timestamp(objEntradaSaidaCola.getDataRegistro().getTime()));
             } else {
                 pst.setDate(4, null);
             }
-            pst.setString(6, objEntradaSaidaCola.getUsuarioUp());
-            pst.setString(7, objEntradaSaidaCola.getDataUp());
-            pst.setString(8, objEntradaSaidaCola.getHorarioUp());
+            pst.setString(5, objEntradaSaidaCola.getUsuarioUp());
+            pst.setString(6, objEntradaSaidaCola.getDataUp());
+            pst.setString(7, objEntradaSaidaCola.getHorarioUp());
             pst.executeUpdate();
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -186,7 +199,9 @@ public class ControleEntradaSaidaColaboradores {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_ENTRADAS_SAIDAS_COLABORADORES WHERE IdItem='" + objEntradaSaidaCola.getIdItem() + "'");
             pst.executeUpdate();
+            pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -266,13 +281,13 @@ public class ControleEntradaSaidaColaboradores {
     public EntradasSaidasColaboradores MOSTRAR_colaborador(EntradasSaidasColaboradores objEntradaSaidaCola) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdRegSaida, "
+            conecta.executaSQL("SELECT IdRegRegistro, "
                     + "StatusRegistro,DataRegistro, "
-                    + "Nrdocumento,VaraCrime, "
-                    + "NomeJuiz,LocalAudiencia,"
-                    + "TipoBeneficio,MotivoSaida "
-                    + "FROM SAIDA_SIMBOLICA_CRC "
-                    + "WHERE IdRegSaida='" + jCodigoPesqFunc.getText() + "' ");
+                    + "Operacao,TipoMovimento, "
+                    + "UnidadeOrigem,UnidadeDestino,"
+                    + "Motivo "
+                    + "FROM ENTRADAS_SAIDAS_COLABORADORES "
+                    + "WHERE IdRegRegistro='" + jCodigoPesqFunc.getText() + "' ");
             conecta.rs.first();
             objEntradaSaidaCola.setIdRegistro(conecta.rs.getInt("IdRegRegistro"));
             objEntradaSaidaCola.setStatusRegistro(conecta.rs.getString("StatusRegistro"));
@@ -292,9 +307,10 @@ public class ControleEntradaSaidaColaboradores {
     public EntradasSaidasColaboradores PESQUISAR_EXISTENCIA_colaborador(EntradasSaidasColaboradores objSaida) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdRegRegistro, "
+            conecta.executaSQL("SELECT "
+                    + "IdRegRegistro, "
                     + "IdFunc "
-                    + "FROM ITENS_SAIDA_SIMBOLICA_CRC "
+                    + "FROM ITENS_ENTRADAS_SAIDAS_COLABORADORES "
                     + "WHERE IdRegRegistro='" + jIdRegistro.getText() + "' "
                     + "AND IdFunc='" + jIdColaborador.getText() + "'");
             conecta.rs.first();
@@ -304,5 +320,5 @@ public class ControleEntradaSaidaColaboradores {
         }
         conecta.desconecta();
         return objSaida;
-    }
+    }         
 }

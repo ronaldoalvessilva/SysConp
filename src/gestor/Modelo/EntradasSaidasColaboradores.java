@@ -29,7 +29,7 @@ public class EntradasSaidasColaboradores {
     private String nomeColaborador;
     private String nomeMaeColaborador;
     private Date dataEvento;
-    private Date dataRetrono;
+    private Date dataRetorno;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -40,7 +40,7 @@ public class EntradasSaidasColaboradores {
     public EntradasSaidasColaboradores() {
     }
 
-    public EntradasSaidasColaboradores(Integer idRegistro, String statusRegistro, Date dataRegistro, String operacao, String tipoMovimento, String unidadeOrigem, String unidadeDestino, String motivo, Integer idItem, Integer idColaborador, String matricula, String funcao, String nomeColaborador, String nomeMaeColaborador, Date dataEvento, Date dataRetrono, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public EntradasSaidasColaboradores(Integer idRegistro, String statusRegistro, Date dataRegistro, String operacao, String tipoMovimento, String unidadeOrigem, String unidadeDestino, String motivo, Integer idItem, Integer idColaborador, String matricula, String funcao, String nomeColaborador, String nomeMaeColaborador, Date dataEvento, Date dataRetorno, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegistro = idRegistro;
         this.statusRegistro = statusRegistro;
         this.dataRegistro = dataRegistro;
@@ -56,7 +56,7 @@ public class EntradasSaidasColaboradores {
         this.nomeColaborador = nomeColaborador;
         this.nomeMaeColaborador = nomeMaeColaborador;
         this.dataEvento = dataEvento;
-        this.dataRetrono = dataRetrono;
+        this.dataRetorno = dataRetorno;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -276,17 +276,17 @@ public class EntradasSaidasColaboradores {
     }
 
     /**
-     * @return the dataRetrono
+     * @return the dataRetorno
      */
-    public Date getDataRetrono() {
-        return dataRetrono;
+    public Date getDataRetorno() {
+        return dataRetorno;
     }
 
     /**
-     * @param dataRetrono the dataRetrono to set
+     * @param dataRetorno the dataRetorno to set
      */
-    public void setDataRetrono(Date dataRetrono) {
-        this.dataRetrono = dataRetrono;
+    public void setDataRetorno(Date dataRetorno) {
+        this.dataRetorno = dataRetorno;
     }
 
     /**
@@ -375,10 +375,10 @@ public class EntradasSaidasColaboradores {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.idRegistro);
-        hash = 31 * hash + Objects.hashCode(this.idItem);
-        hash = 31 * hash + Objects.hashCode(this.idColaborador);
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.idRegistro);
+        hash = 13 * hash + Objects.hashCode(this.idItem);
+        hash = 13 * hash + Objects.hashCode(this.idColaborador);
         return hash;
     }
 
