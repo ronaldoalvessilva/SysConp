@@ -139,6 +139,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTabelaDestinoInternos">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                     <BevelBorder bevelType="1"/>
@@ -221,6 +222,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTabelaOrigemInternos">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                     <BevelBorder bevelType="1"/>

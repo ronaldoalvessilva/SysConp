@@ -392,6 +392,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaProgramacaoKit.setAutoCreateRowSorter(true);
         jTabelaProgramacaoKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProgramacaoKit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -412,8 +413,6 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             jTabelaProgramacaoKit.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaProgramacaoKit.getColumnModel().getColumn(1).setMinWidth(100);
             jTabelaProgramacaoKit.getColumnModel().getColumn(1).setMaxWidth(100);
-            jTabelaProgramacaoKit.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaProgramacaoKit.getColumnModel().getColumn(2).setMaxWidth(80);
             jTabelaProgramacaoKit.getColumnModel().getColumn(3).setMinWidth(80);
             jTabelaProgramacaoKit.getColumnModel().getColumn(3).setMaxWidth(80);
             jTabelaProgramacaoKit.getColumnModel().getColumn(4).setMinWidth(80);
@@ -1423,12 +1422,25 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private void jBtVoltarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarUmActionPerformed
         // TODO add your handling code here:
         Integer rows = jTabelaDestino.getModel().getRowCount();
+        Integer row0 = jTabelaOrigem.getModel().getRowCount();
         if (rows != 0) {
             if (jTabelaDestino.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
-                count2 = count2 - 1;
-                qtdInternos = qtdInternos + 1;
+               if (row0 == 0) {
+                   int qtdTotal = 0;
+                   qtdInternos = 0;
+                   qtdInternos++;
+//                count2 = count2 - 1;
+//                qtdInternos = qtdInternos + 1;
+                qtdTotal = (Integer.parseInt(jtotalDestino.getText()));
                 jtotalDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
                 jtotalOrigem.setText(Integer.toString(qtdInternos));
+                } else if (row0 != 0) {
+                    qtdInternos++;
+                    count2 = count2 - 1;
+                    jtotalDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalOrigem.setText(Integer.toString(qtdInternos));
+                }
+                count2 = count2 - 1;
                 //Pega os models das listas, para fazer as inserções e remoções
                 DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaDestino.getModel();
                 DefaultTableModel modelDestino = (DefaultTableModel) jTabelaOrigem.getModel();
@@ -1455,14 +1467,16 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
     private void jBtVoltarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarTodosActionPerformed
         // TODO add your handling code here:
-        flag = 0;
+        //flag = 0;
         Integer rows = jTabelaDestino.getModel().getRowCount();
         if (rows != 0) {
             DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaOrigem.getModel();
             GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+            int qtdeNaOrigem = Integer.parseInt(jtotalOrigem.getText());// Atualização
+            int qtdeNoDestino = Integer.parseInt(jtotalDestino.getText());// Atualização
             try {
                 for (GravarInternosKitCompleto dd : controleKDTodos.read()) {
-                    jtotalOrigem.setText(jtotalDestino.getText()); // Converter inteiro em string para exibir na tela
+                    jtotalOrigem.setText(String.valueOf(qtdeNoDestino + qtdeNaOrigem));//Atualização // Converter inteiro em string para exibir na tela
                     dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1471,6 +1485,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                     centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                     //
                     jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaOrigem.getColumnModel().getColumn(1).setCellRenderer(centralizado);// Atualização
                 }
             } catch (Exception ex) {
                 Logger.getLogger(TelaMontagemPagamentoKitInterno.class
@@ -1482,7 +1497,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             ((DefaultTableModel) jTabelaDestino.getModel()).removeRow(0);
         }
         // LIMPAR O TOTALIZADOR DA TABELA
-        jtotalDestino.setText("");
+        jtotalDestino.setText("0"); // Atualização
     }//GEN-LAST:event_jBtVoltarTodosActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed

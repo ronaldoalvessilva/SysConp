@@ -33,6 +33,7 @@ import static gestor.Visao.TelaAgendaCompromissos.jNomeUsuarioAgenda;
 import static gestor.Visao.TelaAgendaCompromissos.jTabelaAgendaEventos;
 import static gestor.Visao.TelaAgendaCompromissos.jTextoEvento;
 import static gestor.Visao.TelaAgendaCompromissos.jtotalRegistros;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloAlmoxarifado.jPainelAlmoxarifado;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -552,7 +553,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         Relatorios.add(jMenu1);
         Relatorios.add(jSeparator4);
 
-        RelatorioProdutosConsumoAvulso.setText("Relatório de Produtos Consumo Aulso");
+        RelatorioProdutosConsumoAvulso.setText("Relatório de Produtos Consumo Avulso");
         RelatorioProdutosConsumoAvulso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RelatorioProdutosConsumoAvulsoActionPerformed(evt);
@@ -560,7 +561,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         });
         Relatorios.add(RelatorioProdutosConsumoAvulso);
 
-        RelatorioAvulsoPorDepartamento.setText("Relatório de Produtos Consumo Avuslo por Departamento");
+        RelatorioAvulsoPorDepartamento.setText("Relatório de Produtos Consumo Avulso por Departamento");
         RelatorioAvulsoPorDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RelatorioAvulsoPorDepartamentoActionPerformed(evt);
@@ -1053,6 +1054,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
                     + "ORDER BY GRUPO_PRODUTOS_AC.NomeGrupo,PRODUTOS_AC.DescricaoProd");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
+            parametros.put("descricaoUnidade", descricaoUnidade);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          

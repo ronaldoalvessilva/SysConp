@@ -133,6 +133,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "População Atual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
+        jTabelaDestinoInternos.setAutoCreateRowSorter(true);
         jTabelaDestinoInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDestinoInternos.setForeground(new java.awt.Color(0, 0, 255));
         jTabelaDestinoInternos.setModel(new javax.swing.table.DefaultTableModel(
@@ -175,6 +176,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Lista de Internos na Unidade", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
+        jTabelaOrigemInternos.setAutoCreateRowSorter(true);
         jTabelaOrigemInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOrigemInternos.setForeground(new java.awt.Color(255, 0, 0));
         jTabelaOrigemInternos.setModel(new javax.swing.table.DefaultTableModel(
