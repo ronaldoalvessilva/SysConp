@@ -704,7 +704,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel7.setText("Status");
 
         jComboBoxStatusFunc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxStatusFunc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo", "INSS", "Férias", "Transferência", "Em Trânsito", "Óbito", "Desligado", "Abandono de emprego" }));
+        jComboBoxStatusFunc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo", "INSS", "Férias", "Transferência", "Em Trânsito", "Óbito", "Desligado", "Abandono de emprego", "Em Transito" }));
         jComboBoxStatusFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatusFunc.setEnabled(false);
 

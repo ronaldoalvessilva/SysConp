@@ -1227,6 +1227,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             //
             jBtNovoColaborador.setEnabled(true);
+            jBtFinalizarColaborador.setEnabled(true);
             //
             jComboBoxUnidadeOrigem.removeAllItems();
             jComboBoxUnidadeDestino.removeAllItems();
@@ -1316,15 +1317,20 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresManu_ADM) && objCampos.getCodigoAlterar() == 1) {
-            acao = 2;
-            bloquearBotoes(!true);
-            bloquearTodosCampos(!true);
-            habilitarCamposManutencao(true);
-            Alterar(true);
-            buscarUnidadeOrigemDestino();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 2;
+                bloquearBotoes(!true);
+                bloquearTodosCampos(!true);
+                habilitarCamposManutencao(true);
+                Alterar(true);
+                buscarUnidadeOrigemDestino();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1512,15 +1518,20 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresCola_ADM) && objCampos.getCodigoIncluir() == 1) {
-            acao = 3;
-            limparCamposColaborador();
-            bloquearBotoes(!true);
-            bloquearTodosCampos(!true);
-            NovoColaborador(true);
-            habilitarCamposColaborador(true);
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 3;
+                limparCamposColaborador();
+                bloquearBotoes(!true);
+                bloquearTodosCampos(!true);
+                NovoColaborador(true);
+                habilitarCamposColaborador(true);
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1534,14 +1545,19 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresCola_ADM) && objCampos.getCodigoAlterar() == 1) {
-            acao = 4;
-            bloquearBotoes(!true);
-            bloquearTodosCampos(!true);
-            AlterarColaborador(true);
-            habilitarCamposColaborador(true);
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 4;
+                bloquearBotoes(!true);
+                bloquearTodosCampos(!true);
+                AlterarColaborador(true);
+                habilitarCamposColaborador(true);
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1555,27 +1571,32 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresCola_ADM) && objCampos.getCodigoExcluir() == 1) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                bloquearBotoes(!true);
-                bloquearTodosCampos(!true);
-                limparCamposColaborador();
-                ExcluirColaborador(true);
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                objEntraSaiFunc.setIdItem(Integer.valueOf(pID_item));
-                CONTROLE_ENTRADAS_saidas.excluirItensRegistroSaida(objEntraSaiFunc);
-                //
-                if (pRESPOSTA_opcao.equals("Sim")) {
-                    // APAGAR DADOS DA TABELA
-                    while (jTabelaColaborador.getModel().getRowCount() > 0) {
-                        ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    limparCamposColaborador();
+                    ExcluirColaborador(true);
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    objEntraSaiFunc.setIdItem(Integer.valueOf(pID_item));
+                    CONTROLE_ENTRADAS_saidas.excluirItensRegistroSaida(objEntraSaiFunc);
+                    //
+                    if (pRESPOSTA_opcao.equals("Sim")) {
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaColaborador.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
+                        }
+                        pPREENCHER_TABELA_colaboradores();
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    } else if (pRESPOSTA_opcao.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
                     }
-                    pPREENCHER_TABELA_colaboradores();
-                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
-                } else if (pRESPOSTA_opcao.equals("Não")) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
                 }
             }
         } else {
@@ -1661,6 +1682,17 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarColaboradorActionPerformed
         // TODO add your handling code here:
+        Integer rows = jTabelaColaborador.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar esse registro, pois não existe(m) produto(s) lançado(s).");
+        } else {
+            CONTROLE_ENTRADAS_saidas.PESQUISAR_status(objEntraSaiFunc);
+            if (objEntraSaiFunc.getStatusRegistro().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else {
+                pFINALIZAR_REG_colaboradores();
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarColaboradorActionPerformed
 
     private void jBtSairColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairColaboradorActionPerformed
@@ -1790,7 +1822,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jStatusRegistro;
+    public static javax.swing.JTextField jStatusRegistro;
     private javax.swing.JTabbedPane jTabbedPane1;
     public static javax.swing.JTable jTabelaColaborador;
     private javax.swing.JTable jTabelaFuncionario;

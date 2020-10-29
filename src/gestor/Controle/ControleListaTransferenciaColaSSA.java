@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author ronaldo.silva7
  */
-public class ControleListaSSA {
+public class ControleListaTransferenciaColaSSA {
     ConexaoBancoDadosSSA conectaSSA = new ConexaoBancoDadosSSA();
     ColaboradoresTransferenciasUnidades objCola = new ColaboradoresTransferenciasUnidades();
     

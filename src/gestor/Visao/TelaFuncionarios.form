@@ -908,7 +908,7 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="10">
                         <StringItem index="0" value="Ativo"/>
                         <StringItem index="1" value="Inativo"/>
                         <StringItem index="2" value="INSS"/>
@@ -918,6 +918,7 @@
                         <StringItem index="6" value="&#xd3;bito"/>
                         <StringItem index="7" value="Desligado"/>
                         <StringItem index="8" value="Abandono de emprego"/>
+                        <StringItem index="9" value="Em Transito"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

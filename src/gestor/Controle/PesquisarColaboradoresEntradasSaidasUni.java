@@ -49,8 +49,7 @@ public class PesquisarColaboradoresEntradasSaidasUni {
                     + "FROM ITENS_ENTRADAS_SAIDAS_COLABORADORES "
                     + "INNER JOIN COLABORADOR "
                     + "ON ITENS_ENTRADAS_SAIDAS_COLABORADORES.IdFunc=COLABORADOR.IdFunc "
-                    + "WHERE ITENS_ENTRADAS_SAIDAS_COLABORADORES.IdRegRegistro='" + jCodigoPesqFunc.getText() + "' "
-                    + "ORDER BY IdItem");
+                    + "WHERE ITENS_ENTRADAS_SAIDAS_COLABORADORES.IdRegRegistro='" + jCodigoPesqFunc.getText() + "'");
             while (conecta.rs.next()) {
                 EntradasSaidasColaboradores pColaboradoresEntSaida = new EntradasSaidasColaboradores();
                 pColaboradoresEntSaida.setIdItem(conecta.rs.getInt("IdItem"));
