@@ -209,6 +209,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_ADM_SOCIAL = 0;
     public static int pQUANTIDADE_EVO_SOCIAL = 0;
     public static int pQUANTIDADE_ATE_FAMILIA = 0;
+    public static int pQUANTIDADE_EVO_FAMILIA = 0;
     public static int pQUANTIDADE_DIAS_VISITADOS = 0;
     public static int pQUANTIDADE_VISITA_FAMILIA_INT = 0;
     public static int pQUANTIDADE_VISITAS = 0;

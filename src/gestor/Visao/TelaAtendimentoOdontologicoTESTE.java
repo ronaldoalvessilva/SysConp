@@ -10560,35 +10560,55 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         objLogSys.setStatusMov(statusMov);
     }  
     
-    public void selecionaNumeroDente(JToggleButton nDente){
+    public void selecionaNumeroDentePalatal(JToggleButton nDente){
+        nDente.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+    }
+    
+    public void selecionaNumeroDenteMesial(JToggleButton nDente){
+        nDente.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+    }
+    
+    public void selecionaNumeroDenteVestibular(JToggleButton nDente){
+        nDente.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+    }
+    
+    public void selecionaNumeroDenteDistal(JToggleButton nDente){
+        nDente.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+    }
+    
+    public void selecionaNumeroDenteOclusal(JToggleButton nDente){
+        nDente.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+    }
+    
+    public void selecionaNumeroDenteExtracao(JToggleButton nDente){
         nDente.setIcon(new ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
     }
     
     public String selecionaFacePalatal(String dente) {
         switch (dente) {
             case "11":
-                selecionaNumeroDente(jBtDente11);
+                selecionaNumeroDentePalatal(jBtDente11);
                 break;
             case "12":
-                selecionaNumeroDente(jBtDente12);
+                selecionaNumeroDentePalatal(jBtDente12);
                 break;
             case "13":
-                selecionaNumeroDente(jBtDente11);
+                selecionaNumeroDentePalatal(jBtDente11);
                 break;
             case "14":
-                selecionaNumeroDente(jBtDente12);
+                selecionaNumeroDentePalatal(jBtDente12);
                 break;
             case "15":
-                selecionaNumeroDente(jBtDente11);
+                selecionaNumeroDentePalatal(jBtDente11);
                 break;
             case "16":
-                selecionaNumeroDente(jBtDente12);
+                selecionaNumeroDentePalatal(jBtDente12);
                 break;
             case "17":
-                selecionaNumeroDente(jBtDente11);
+                selecionaNumeroDentePalatal(jBtDente11);
                 break;
             case "18":
-                selecionaNumeroDente(jBtDente12);
+                selecionaNumeroDentePalatal(jBtDente12);
                 break;
         }
         return dente;

@@ -1431,6 +1431,7 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
+        jTabelaEvolucao.setAutoCreateRowSorter(true);
         jTabelaEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3092,7 +3093,7 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
                 String mes = dataEvolucao.substring(5, 7);
                 String ano = dataEvolucao.substring(0, 4);
                 dataEvolucao = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdEvolucaoFam"), dataAtendimento, conecta.rs.getString("TextoEvolucaoVisita")});
+                dados.add(new Object[]{conecta.rs.getInt("IdEvolucaoFam"), dataEvolucao, conecta.rs.getString("TextoEvolucaoVisita")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }

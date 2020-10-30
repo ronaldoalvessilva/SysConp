@@ -353,7 +353,7 @@ public final class TelaFornecedorAC extends javax.swing.JInternalFrame {
 
         jComboBoxClass.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxClass.setForeground(new java.awt.Color(153, 0, 102));
-        jComboBoxClass.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Juridica" }));
+        jComboBoxClass.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Juridica", "Fisica" }));
         jComboBoxClass.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxClass.setEnabled(false);
 
