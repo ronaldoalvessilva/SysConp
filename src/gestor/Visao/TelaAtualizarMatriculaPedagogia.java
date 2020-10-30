@@ -1271,7 +1271,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         jComboBoxStatusAluno.setSelectedItem("Selecione...");
         jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
         jDataConclusaoDesistencia.setDate(null);
-        jAvaliacao.setText("");
+        jAvaliacao.setText("0");
         jObservacao.setText("");
     }
 

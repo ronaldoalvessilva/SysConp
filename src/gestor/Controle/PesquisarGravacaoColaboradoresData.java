@@ -30,7 +30,7 @@ public class PesquisarGravacaoColaboradoresData {
         List<EntradasSaidasColaboradores> listaRegistroEntradasSaidasColaboradores = new ArrayList<EntradasSaidasColaboradores>();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdRegistro, "
+                    + "IdRegRegistro, "
                     + "StatusRegistro, "
                     + "DataRegistro, "
                     + "Operacao, "
@@ -43,7 +43,7 @@ public class PesquisarGravacaoColaboradoresData {
                     + "AND '" + dataFinal + "'");
             while (conecta.rs.next()) {
                 EntradasSaidasColaboradores pEntradaSaidaFunc = new EntradasSaidasColaboradores();
-                pEntradaSaidaFunc.setIdRegistro(conecta.rs.getInt("IdRegistro"));
+                pEntradaSaidaFunc.setIdRegistro(conecta.rs.getInt("IdRegRegistro"));
                 pEntradaSaidaFunc.setStatusRegistro(conecta.rs.getString("StatusRegistro"));
                 pEntradaSaidaFunc.setDataRegistro(conecta.rs.getDate("DataRegistro"));
                 pEntradaSaidaFunc.setOperacao(conecta.rs.getString("Operacao"));

@@ -2095,12 +2095,11 @@ public class TelaSaidaSimbolica extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o lançamento selecionado?", "Confirmação",
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
-            final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
             carregando.setVisible(true);//Teste tela aguarde
             Thread t = new Thread() { //Teste tela aguarde
                 Date date = null;
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
                 public void run() { //Teste
                     for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
                         //LANÇAR NA TABELA DE MOVIMENTAÇÃO   

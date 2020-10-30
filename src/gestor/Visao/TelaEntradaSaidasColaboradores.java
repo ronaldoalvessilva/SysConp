@@ -12,6 +12,7 @@ import gestor.Controle.ControleDocumentosColaborador;
 import gestor.Controle.ControleEnderecosColaborador;
 import gestor.Controle.ControleEntradaSaidaColaboradores;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.PesquisarColaboradoresEntradasSaidasUni;
 import gestor.Controle.PesquisarGravacaoColaboradores;
 import gestor.Controle.PesquisarGravacaoColaboradoresCodigo;
 import gestor.Controle.PesquisarGravacaoColaboradoresData;
@@ -24,13 +25,16 @@ import gestor.Modelo.EntradasSaidasColaboradores;
 import gestor.Modelo.Funcionarios;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.telaEntradasSaidasColaboradoresCola_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaEntradasSaidasColaboradoresManu_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -52,6 +56,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     PesquisarGravacaoColaboradoresCodigo LISTA_ENTRADAS_SAIDAS_codigo = new PesquisarGravacaoColaboradoresCodigo();
     PesquisarGravacaoColaboradoresData LISTA_ENTRADAS_SAIDAS_data = new PesquisarGravacaoColaboradoresData();
     ControleEntradaSaidaColaboradores CONTROLE_ENTRADAS_saidas = new ControleEntradaSaidaColaboradores();
+    PesquisarColaboradoresEntradasSaidasUni LISTAR_colaboradores = new PesquisarColaboradoresEntradasSaidasUni();
     //
     Funcionarios objCola = new Funcionarios();
     ControleColaborador control = new ControleColaborador();
@@ -80,20 +85,33 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     String statusMov;
     String horaMov;
     String dataModFinal;
-    String pDATA_Registros = "";
+    String pDATA_evento = null;
+    String pDATA_retorno = null;
     public static int pTOTAL_registros = 0;
     public static int pUNIDADE_origem = 0;
     public static int pUNIDADE_destino = 0;
     public static String pCODIGO_registro = "";
     public static String pCODIGO_colaborador = "";
+    //
+    public static String pRESPOSTA_opcao = "";
+    public static String pID_item;
+    public static int pITEM;
+    public static String pID_colaborador;
 
     /**
      * Creates new form TelaEntradaSaidasColaboradores
      */
+    public static TelaFinalizarEntradaSaidaColaboradorADM pFINALIZAR_entrada;
+
     public TelaEntradaSaidasColaboradores() {
         initComponents();
         formatarCampos();
         corCampos();
+    }
+
+    public void mostrarFinalizar() {
+        pFINALIZAR_entrada = new TelaFinalizarEntradaSaidaColaboradorADM(this, true);
+        pFINALIZAR_entrada.setVisible(true);
     }
 
     /**
@@ -182,6 +200,8 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jDataEvento = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
         jDataRetorno = new com.toedter.calendar.JDateChooser();
+        jLabel17 = new javax.swing.JLabel();
+        jtotaColaboradoresRegistrados = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaColaborador = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
@@ -319,15 +339,35 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Data", "Status", "Nome do Colaborador", "Departamento"
+                "Código", "Data", "Status", "Operação", "Tipo Movimento"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaFuncionarioMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(jTabelaFuncionario);
+        if (jTabelaFuncionario.getColumnModel().getColumnCount() > 0) {
+            jTabelaFuncionario.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaFuncionario.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaFuncionario.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaFuncionario.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaFuncionario.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaFuncionario.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaFuncionario.getColumnModel().getColumn(3).setMinWidth(100);
+            jTabelaFuncionario.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaFuncionario.getColumnModel().getColumn(4).setMinWidth(250);
+            jTabelaFuncionario.getColumnModel().getColumn(4).setMaxWidth(250);
+        }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
@@ -425,6 +465,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jDataRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataRegistro.setEnabled(false);
 
+        jIdRegistro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdRegistro.setEnabled(false);
 
@@ -438,6 +479,11 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jComboBoxTipoMovimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", " ", " " }));
         jComboBoxTipoMovimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimento.setEnabled(false);
+        jComboBoxTipoMovimento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTipoMovimentoItemStateChanged(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Unidade de Origem");
@@ -686,28 +732,68 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
         jBtNovoColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoColaborador.setEnabled(false);
+        jBtNovoColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoColaboradorActionPerformed(evt);
+            }
+        });
 
         jBtAlterarColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarColaborador.setEnabled(false);
+        jBtAlterarColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarColaboradorActionPerformed(evt);
+            }
+        });
 
         jBtExcluirColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtExcluirColaborador.setEnabled(false);
+        jBtExcluirColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirColaboradorActionPerformed(evt);
+            }
+        });
 
         jBtSalvarColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvarColaborador.setEnabled(false);
+        jBtSalvarColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarColaboradorActionPerformed(evt);
+            }
+        });
 
         jBtCancelarColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelarColaborador.setEnabled(false);
+        jBtCancelarColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarColaboradorActionPerformed(evt);
+            }
+        });
 
         jBtFinalizarColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
         jBtFinalizarColaborador.setEnabled(false);
+        jBtFinalizarColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFinalizarColaboradorActionPerformed(evt);
+            }
+        });
 
         jBtSairColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSairColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairColaboradorActionPerformed(evt);
+            }
+        });
 
         jBtAuditoriaColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoriaColaborador.setToolTipText("Auditoria");
         jBtAuditoriaColaborador.setContentAreaFilled(false);
         jBtAuditoriaColaborador.setEnabled(false);
+        jBtAuditoriaColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaColaboradorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -770,9 +856,11 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Nome da Mãe");
 
+        jIdColaborador.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdColaborador.setEnabled(false);
 
+        jMatriculaColaborador.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jMatriculaColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jMatriculaColaborador.setEnabled(false);
 
@@ -789,6 +877,11 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jBtPesquisarColaborador.setText("Pesquisa");
         jBtPesquisarColaborador.setToolTipText("Pesquisar Colaborador");
         jBtPesquisarColaborador.setEnabled(false);
+        jBtPesquisarColaborador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarColaboradorActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Data Evento");
@@ -801,6 +894,17 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
         jDataRetorno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataRetorno.setEnabled(false);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel17.setText("Total Itens");
+
+        jtotaColaboradoresRegistrados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtotaColaboradoresRegistrados.setForeground(new java.awt.Color(204, 0, 0));
+        jtotaColaboradoresRegistrados.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jtotaColaboradoresRegistrados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jtotaColaboradoresRegistrados.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jtotaColaboradoresRegistrados.setEnabled(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -834,13 +938,14 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jDataRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtPesquisarColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jDataRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtotaColaboradoresRegistrados)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtPesquisarColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -867,12 +972,14 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel15))
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel17))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesquisarColaborador)
                     .addComponent(jDataEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDataRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtotaColaboradoresRegistrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisarColaborador))
                 .addGap(3, 3, 3))
         );
 
@@ -882,15 +989,20 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Item", "Código", "Nome do Colaborador", "Data Evento 1", "Data Evento 2"
+                "Item", "Código", "Nome do Colaborador", "Data Evento", "Data Retorno", "Nome da Mãe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTabelaColaborador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaColaboradorMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTabelaColaborador);
@@ -905,6 +1017,8 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             jTabelaColaborador.getColumnModel().getColumn(3).setMaxWidth(80);
             jTabelaColaborador.getColumnModel().getColumn(4).setMinWidth(80);
             jTabelaColaborador.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaColaborador.getColumnModel().getColumn(5).setMinWidth(250);
+            jTabelaColaborador.getColumnModel().getColumn(5).setMaxWidth(250);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -1112,23 +1226,59 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //
-//            jBtNovoInterno.setEnabled(true);
-//            //
-//            CONTROLE_ENTRADAS_saidas(objSaida);
-//            jIdRegistro.setText(String.valueOf(objSaida.getIdRegSaida()));
-//            jStatusRegistro.setText(objSaida.getStatusRegistro());
-//            jDataRegistro.setDate(objSaida.getDataRegistro());
-//            jDocumentoSB_Registro.setText(objSaida.getNrdocumento());
-//            jVaraCrime.setText(objSaida.getVaraCrime());
-//            jNomeJuiz.setText(objSaida.getNomeJuiz());
-//            jLocalAudiencia.setText(String.valueOf(objSaida.getLocalAudiencia()));
-//            jComboBoxTipoBeneficio.setSelectedItem(objSaida.getTipoBeneficio().toString());
-//            jMotivo.setText(objSaida.getMotivoSaida());
+            jBtNovoColaborador.setEnabled(true);
+            jBtFinalizarColaborador.setEnabled(true);
+            //
+            jComboBoxUnidadeOrigem.removeAllItems();
+            jComboBoxUnidadeDestino.removeAllItems();
+            //
+            CONTROLE_ENTRADAS_saidas.MOSTRAR_colaborador(objEntraSaiFunc);
+            jIdRegistro.setText(String.valueOf(objEntraSaiFunc.getIdRegistro()));
+            jStatusRegistro.setText(objEntraSaiFunc.getStatusRegistro());
+            jDataRegistro.setDate(objEntraSaiFunc.getDataRegistro());
+            jComboBoxOperacao.setSelectedItem(objEntraSaiFunc.getOperacao());
+            jComboBoxTipoMovimento.setSelectedItem(objEntraSaiFunc.getTipoMovimento());
+            jComboBoxUnidadeOrigem.addItem(objEntraSaiFunc.getUnidadeOrigem());
+            jComboBoxUnidadeDestino.addItem(objEntraSaiFunc.getUnidadeDestino());
+            jMotivo.setText(objEntraSaiFunc.getMotivo());
+            if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")) {
+                jLabel6.setText("Data Admissão");
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")) {
+                jLabel6.setText("Data Transf.");
+                jLabel15.setVisible(!true);
+                jDataRetorno.setVisible(!true);
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Retorno de Férias")) {
+                jLabel6.setText("Data Entrada.");
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento")) {
+                jLabel6.setText("Data Desli.");
+                jLabel15.setVisible(!true);
+                jDataRetorno.setVisible(!true);
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento Voluntário")) {
+                jLabel6.setText("Data Des.Vol.");
+                jLabel15.setVisible(!true);
+                jDataRetorno.setVisible(!true);
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")) {
+                jLabel6.setText("Data Transf.");
+                jLabel15.setVisible(!true);
+                jDataRetorno.setVisible(!true);
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Óbito")) {
+                jLabel6.setText("Data Óbito");
+                jLabel15.setVisible(!true);
+                jDataRetorno.setVisible(!true);
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("INSS")) {
+                jLabel6.setText("Data INSS");
+                jLabel15.setVisible(!true);
+                jDataRetorno.setVisible(!true);
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Férias")) {
+                jLabel6.setText("Data Férias");
+                jLabel15.setVisible(!true);
+                jDataRetorno.setVisible(!true);
+            }
             // APAGAR DADOS DA TABELA
             while (jTabelaColaborador.getModel().getRowCount() > 0) {
                 ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
             }
-            pPREENCHER_TABELA_Internos();
+            pPREENCHER_TABELA_colaboradores();
         }
     }//GEN-LAST:event_jTabelaFuncionarioMouseClicked
 
@@ -1167,14 +1317,20 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresManu_ADM) && objCampos.getCodigoAlterar() == 1) {
-            acao = 2;
-            limparTodosCampos();
-            bloquearBotoes(!true);
-            bloquearTodosCampos(!true);
-            Alterar(true);
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 2;
+                bloquearBotoes(!true);
+                bloquearTodosCampos(!true);
+                habilitarCamposManutencao(true);
+                Alterar(true);
+                buscarUnidadeOrigemDestino();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1192,20 +1348,26 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             if (jStatusRegistro.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    statusMov = "Excluiu";
-                    horaMov = jHoraSistema.getText();
-                    objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
-                    CONTROLE_ENTRADAS_saidas.excluirRegistroSaida(objEntraSaiFunc);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
-                    bloquearBotoes(!true);
-                    bloquearTodosCampos(!true);
-                    limparTodosCampos();
-                    Excluir(true);
-                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                Integer row = jTabelaColaborador.getRowCount();
+                if (row != 0) {
+                    JOptionPane.showMessageDialog(null, "Não é possível excluir o registro selecionado, exclua primeiro o(s) colaborador(es) associado(s) a esse registro.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+
+                        statusMov = "Excluiu";
+                        horaMov = jHoraSistema.getText();
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        CONTROLE_ENTRADAS_saidas.excluirRegistroSaida(objEntraSaiFunc);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
+                        bloquearBotoes(!true);
+                        bloquearTodosCampos(!true);
+                        limparTodosCampos();
+                        Excluir(true);
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    }
                 }
             }
         } else {
@@ -1250,7 +1412,11 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
                     bloquearBotoes(!true);
                     bloquearTodosCampos(!true);
                     Salvar(true);
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (pRESPOSTA_opcao.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_opcao.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    }
                 }
                 if (acao == 2) {
                     objEntraSaiFunc.setUsuarioUp(nameUser);
@@ -1263,7 +1429,11 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
                     bloquearBotoes(!true);
                     bloquearTodosCampos(!true);
                     Salvar(true);
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (pRESPOSTA_opcao.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_opcao.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    }
                 }
             }
         } else {
@@ -1278,6 +1448,17 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        Integer rows = jTabelaColaborador.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar esse registro, pois não existe(m) produto(s) lançado(s).");
+        } else {
+            CONTROLE_ENTRADAS_saidas.PESQUISAR_status(objEntraSaiFunc);
+            if (objEntraSaiFunc.getStatusRegistro().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else {
+                pFINALIZAR_REG_colaboradores();
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1306,6 +1487,261 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             jComboBoxTipoMovimento.addItem("Férias");
         }
     }//GEN-LAST:event_jComboBoxOperacaoItemStateChanged
+
+    private void jComboBoxTipoMovimentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoMovimentoItemStateChanged
+        // TODO add your handling code here:
+//        if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")
+//                && acao == 1
+//                || jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência") && acao == 2) {
+//
+//            jComboBoxTipoMovimento.setEnabled(true);
+//        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")
+//                && acao == 1
+//                || jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência") && acao == 2) {
+//
+//            jComboBoxTipoMovimento.setEnabled(true);
+//        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")
+//                && acao == 1
+//                || jComboBoxTipoMovimento.getSelectedItem().equals("Admissão") && acao == 2) {
+//
+//            jComboBoxTipoMovimento.setEnabled(true);
+//        } else {
+//            jComboBoxTipoMovimento.setEnabled(!true);
+//        }
+    }//GEN-LAST:event_jComboBoxTipoMovimentoItemStateChanged
+
+    private void jBtNovoColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoColaboradorActionPerformed
+        // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaEntradasSaidasColaboradoresCola_ADM);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresCola_ADM) && objCampos.getCodigoIncluir() == 1) {
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 3;
+                limparCamposColaborador();
+                bloquearBotoes(!true);
+                bloquearTodosCampos(!true);
+                NovoColaborador(true);
+                habilitarCamposColaborador(true);
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtNovoColaboradorActionPerformed
+
+    private void jBtAlterarColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarColaboradorActionPerformed
+        // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaEntradasSaidasColaboradoresCola_ADM);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresCola_ADM) && objCampos.getCodigoAlterar() == 1) {
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 4;
+                bloquearBotoes(!true);
+                bloquearTodosCampos(!true);
+                AlterarColaborador(true);
+                habilitarCamposColaborador(true);
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtAlterarColaboradorActionPerformed
+
+    private void jBtExcluirColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirColaboradorActionPerformed
+        // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaEntradasSaidasColaboradoresCola_ADM);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresCola_ADM) && objCampos.getCodigoExcluir() == 1) {
+            objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    limparCamposColaborador();
+                    ExcluirColaborador(true);
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    objEntraSaiFunc.setIdItem(Integer.valueOf(pID_item));
+                    CONTROLE_ENTRADAS_saidas.excluirItensRegistroSaida(objEntraSaiFunc);
+                    //
+                    if (pRESPOSTA_opcao.equals("Sim")) {
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaColaborador.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
+                        }
+                        pPREENCHER_TABELA_colaboradores();
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    } else if (pRESPOSTA_opcao.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtExcluirColaboradorActionPerformed
+
+    private void jBtSalvarColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarColaboradorActionPerformed
+        // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaEntradasSaidasColaboradoresCola_ADM);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEntradasSaidasColaboradoresCola_ADM) && objCampos.getCodigoGravar() == 1) {
+            if (jIdColaborador.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
+            } else if (jNomeColaborador.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
+            } else if (jDataEvento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do evento.");
+            } else {
+                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                objEntraSaiFunc.setIdColaborador(Integer.valueOf(jIdColaborador.getText()));
+                objEntraSaiFunc.setNomeColaborador(jNomeColaborador.getText());
+                objEntraSaiFunc.setDataEvento(jDataEvento.getDate());
+                objEntraSaiFunc.setDataRetorno(jDataRetorno.getDate());
+                if (acao == 3) {
+                    objEntraSaiFunc.setUsuarioInsert(nameUser);
+                    objEntraSaiFunc.setDataInsert(dataModFinal);
+                    objEntraSaiFunc.setHorarioInsert(horaMov);
+                    CONTROLE_ENTRADAS_saidas.incluirItensRegistroSaida(objEntraSaiFunc);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    limparCamposColaborador();
+                    SalvarColaborador(true);
+                    if (pRESPOSTA_opcao.equals("Sim")) {
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaColaborador.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
+                        }
+                        pPREENCHER_TABELA_colaboradores();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_opcao.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    }
+                }
+                if (acao == 4) {
+                    objEntraSaiFunc.setUsuarioUp(nameUser);
+                    objEntraSaiFunc.setDataUp(dataModFinal);
+                    objEntraSaiFunc.setHorarioUp(horaMov);
+                    objEntraSaiFunc.setIdItem(Integer.valueOf(pID_item));
+                    CONTROLE_ENTRADAS_saidas.alterarItensRegistroSaida(objEntraSaiFunc);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+
+                    bloquearBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    limparCamposColaborador();
+                    SalvarColaborador(true);
+                    if (pRESPOSTA_opcao.equals("Sim")) {
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaColaborador.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
+                        }
+                        pPREENCHER_TABELA_colaboradores();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_opcao.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtSalvarColaboradorActionPerformed
+
+    private void jBtCancelarColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarColaboradorActionPerformed
+        // TODO add your handling code here:
+        CancelarColaborador(true);
+    }//GEN-LAST:event_jBtCancelarColaboradorActionPerformed
+
+    private void jBtFinalizarColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarColaboradorActionPerformed
+        // TODO add your handling code here:
+        Integer rows = jTabelaColaborador.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar esse registro, pois não existe(m) produto(s) lançado(s).");
+        } else {
+            CONTROLE_ENTRADAS_saidas.PESQUISAR_status(objEntraSaiFunc);
+            if (objEntraSaiFunc.getStatusRegistro().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else {
+                pFINALIZAR_REG_colaboradores();
+            }
+        }
+    }//GEN-LAST:event_jBtFinalizarColaboradorActionPerformed
+
+    private void jBtSairColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairColaboradorActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jBtSairColaboradorActionPerformed
+
+    private void jBtAuditoriaColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaColaboradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAuditoriaColaboradorActionPerformed
+
+    private void jTabelaColaboradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaColaboradorMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            pID_item = "" + jTabelaColaborador.getValueAt(jTabelaColaborador.getSelectedRow(), 0);
+            //
+            pID_colaborador = "" + jTabelaColaborador.getValueAt(jTabelaColaborador.getSelectedRow(), 1);
+            jIdColaborador.setText(pID_colaborador);
+            bloquearBotoes(!true);
+            bloquearTodosCampos(!true);
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            //
+            jBtNovoColaborador.setEnabled(true);
+            jBtAlterarColaborador.setEnabled(true);
+            jBtExcluirColaborador.setEnabled(true);
+            jBtCancelarColaborador.setEnabled(true);
+            LISTAR_colaboradores.MOSTRAR_ENTRADA_SAIDA_colaboradores(objEntraSaiFunc);
+            jIdColaborador.setText(String.valueOf(objEntraSaiFunc.getIdColaborador()));
+            jMatriculaColaborador.setText(objEntraSaiFunc.getMatricula());
+            jFuncaoColaborador.setText(objEntraSaiFunc.getFuncao());
+            jNomeColaborador.setText(objEntraSaiFunc.getNomeColaborador());
+            jNomeMaeColaborador.setText(objEntraSaiFunc.getNomeMaeColaborador());
+            jDataEvento.setDate(objEntraSaiFunc.getDataEvento());
+            jDataRetorno.setDate(objEntraSaiFunc.getDataRetorno());
+        }
+    }//GEN-LAST:event_jTabelaColaboradorMouseClicked
+
+    private void jBtPesquisarColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarColaboradorActionPerformed
+        // TODO add your handling code here:
+        TelaPesquisaColaboradorEntradaSaida objPesquisaFunc = new TelaPesquisaColaboradorEntradaSaida();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objPesquisaFunc);
+        objPesquisaFunc.show();
+    }//GEN-LAST:event_jBtPesquisarColaboradorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1352,6 +1788,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
@@ -1386,10 +1823,11 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jStatusRegistro;
+    public static javax.swing.JTextField jStatusRegistro;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaColaborador;
+    public static javax.swing.JTable jTabelaColaborador;
     private javax.swing.JTable jTabelaFuncionario;
+    private javax.swing.JTextField jtotaColaboradoresRegistrados;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -1415,14 +1853,38 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jNomeMaeColaborador.setBackground(Color.WHITE);
         jDataEvento.setBackground(Color.WHITE);
         jDataRetorno.setBackground(Color.WHITE);
+        jtotaColaboradoresRegistrados.setBackground(Color.WHITE);
     }
 
     public void limparTodosCampos() {
+        jIdRegistro.setText("");
+        jStatusRegistro.setText("");
+        jDataRegistro.setDate(null);
+        jComboBoxOperacao.setSelectedItem("Selecione...");
+        jComboBoxTipoMovimento.setSelectedItem("Selecione...");
+        jComboBoxUnidadeOrigem.setSelectedItem("Selecione...");
+        jComboBoxUnidadeDestino.setSelectedItem("Selecione...");
+        jMotivo.setText("");
 
+        jIdColaborador.setText("");
+        jMatriculaColaborador.setText("");
+        jFuncaoColaborador.setText("");
+        jNomeColaborador.setText("");
+        jNomeMaeColaborador.setText("");
+        jDataEvento.setDate(null);
+        jDataRetorno.setDate(null);
+        jFotoColaborador.setIcon(null);
     }
 
     public void limparCamposColaborador() {
-
+        jIdColaborador.setText("");
+        jMatriculaColaborador.setText("");
+        jFuncaoColaborador.setText("");
+        jNomeColaborador.setText("");
+        jNomeMaeColaborador.setText("");
+        jDataEvento.setDate(null);
+        jDataRetorno.setDate(null);
+        jFotoColaborador.setIcon(null);
     }
 
     public void bloquearTodosCampos(boolean opcao) {
@@ -1512,8 +1974,12 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     public void Salvar(boolean opcao) {
         jBtNovo.setEnabled(opcao);
+        jBtAlterar.setEnabled(opcao);
+        jBtExcluir.setEnabled(opcao);
         jBtFinalizar.setEnabled(opcao);
         jBtAuditoria.setEnabled(opcao);
+        //
+        jBtNovoColaborador.setEnabled(opcao);
     }
 
     public void Cancelar(boolean opcao) {
@@ -1540,37 +2006,72 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         CONTROLE_ENTRADAS_saidas.PESQUISAR_unidades(objEntraSaiFunc);
     }
 
-    public void NovoColaborador() {
-
+    public void NovoColaborador(boolean opcao) {
+        if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")) {
+            jLabel6.setText("Data Admissão");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")) {
+            jLabel6.setText("Data Transf.");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Retorno de Férias")) {
+            jLabel6.setText("Data Entrada.");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento")) {
+            jLabel6.setText("Data Desli.");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento Voluntário")) {
+            jLabel6.setText("Data Des.Vol.");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")) {
+            jLabel6.setText("Data Transf.");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Óbito")) {
+            jLabel6.setText("Data Óbito");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("INSS")) {
+            jLabel6.setText("Data INSS");
+        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Férias")) {
+            jLabel6.setText("Data Férias");
+        }
+        jBtSalvarColaborador.setEnabled(opcao);
+        jBtCancelarColaborador.setEnabled(opcao);
+        jBtPesquisarColaborador.setEnabled(opcao);
     }
 
-    public void AlterarColaborador() {
-
+    public void AlterarColaborador(boolean opcao) {
+        jBtSalvarColaborador.setEnabled(opcao);
+        jBtCancelarColaborador.setEnabled(opcao);
     }
 
-    public void ExcluirColaborador() {
-
+    public void ExcluirColaborador(boolean opcao) {
+        jBtNovoColaborador.setEnabled(opcao);
     }
 
-    public void SalvarColaborador() {
-
+    public void SalvarColaborador(boolean opcao) {
+        jBtNovoColaborador.setEnabled(opcao);
+        //
+        jBtNovo.setEnabled(opcao);
+        jBtAlterar.setEnabled(opcao);
+        jBtExcluir.setEnabled(opcao);
+        jBtFinalizar.setEnabled(opcao);
+        jBtAuditoria.setEnabled(opcao);
     }
 
-    public void CancelarColaborador() {
-
+    public void CancelarColaborador(boolean opcao) {
+        limparCamposColaborador();
+        jBtNovoColaborador.setEnabled(opcao);
+        //
+        jBtNovo.setEnabled(opcao);
+        jBtAlterar.setEnabled(opcao);
+        jBtExcluir.setEnabled(opcao);
+        jBtFinalizar.setEnabled(opcao);
+        jBtAuditoria.setEnabled(opcao);
     }
 
     public void mostrarTodos() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
         try {
             for (EntradasSaidasColaboradores dd : LISTAR_TODOS_registros.read()) {
-                pDATA_Registros = String.valueOf(dd.getDataRegistro());
-                String dia = pDATA_Registros.substring(8, 10);
-                String mes = pDATA_Registros.substring(5, 7);
-                String ano = pDATA_Registros.substring(0, 4);
-                pDATA_Registros = dia + "/" + mes + "/" + ano;
+                pDATA_evento = String.valueOf(dd.getDataRegistro());
+                String dia = pDATA_evento.substring(8, 10);
+                String mes = pDATA_evento.substring(5, 7);
+                String ano = pDATA_evento.substring(0, 4);
+                pDATA_evento = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_Registros, dd.getStatusRegistro(), dd.getOperacao()});
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_evento, dd.getStatusRegistro(), dd.getOperacao(), dd.getTipoMovimento()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaFuncionario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -1590,13 +2091,13 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
         try {
             for (EntradasSaidasColaboradores dd : LISTA_ENTRADAS_SAIDAS_codigo.read()) {
-                pDATA_Registros = String.valueOf(dd.getDataRegistro());
-                String dia = pDATA_Registros.substring(8, 10);
-                String mes = pDATA_Registros.substring(5, 7);
-                String ano = pDATA_Registros.substring(0, 4);
-                pDATA_Registros = dia + "/" + mes + "/" + ano;
+                pDATA_evento = String.valueOf(dd.getDataRegistro());
+                String dia = pDATA_evento.substring(8, 10);
+                String mes = pDATA_evento.substring(5, 7);
+                String ano = pDATA_evento.substring(0, 4);
+                pDATA_evento = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_Registros, dd.getStatusRegistro(), dd.getOperacao()});
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_evento, dd.getStatusRegistro(), dd.getOperacao(), dd.getTipoMovimento()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaFuncionario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -1616,13 +2117,13 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
         try {
             for (EntradasSaidasColaboradores dd : LISTA_ENTRADAS_SAIDAS_data.read()) {
-                pDATA_Registros = String.valueOf(dd.getDataRegistro());
-                String dia = pDATA_Registros.substring(8, 10);
-                String mes = pDATA_Registros.substring(5, 7);
-                String ano = pDATA_Registros.substring(0, 4);
-                pDATA_Registros = dia + "/" + mes + "/" + ano;
+                pDATA_evento = String.valueOf(dd.getDataRegistro());
+                String dia = pDATA_evento.substring(8, 10);
+                String mes = pDATA_evento.substring(5, 7);
+                String ano = pDATA_evento.substring(0, 4);
+                pDATA_evento = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
-                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_Registros, dd.getStatusRegistro(), dd.getOperacao()});
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_evento, dd.getStatusRegistro(), dd.getOperacao(), dd.getTipoMovimento()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaFuncionario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -1638,65 +2139,199 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         }
     }
 
-    public void pPREENCHER_TABELA_Internos() {
-//        // APAGAR DADOS DA TABELA
-//        while (jTabelaColaborador.getModel().getRowCount() > 0) {
-//            ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
-//        }
-//        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaColaborador.getModel();
-//        try {
-//            for (EntradasSaidasColaboradores dd : LISTAR_internos.read()) {
-//                pDATA_Registros = String.valueOf(dd.getDataRegistroSA());
-//                String dia = pDATA_Registros.substring(8, 10);
-//                String mes = pDATA_Registros.substring(5, 7);
-//                String ano = pDATA_Registros.substring(0, 4);
-//                pDATA_Registros = dia + "/" + mes + "/" + ano;
-//                dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdInternoCrc(), dd.getNomeInternoCrc(), dd.getNrdocumentoSA(), dd.getTipoBeneficioSA(), pDATA_Registros});
-//                jtotaInternosSelecionados.setText(Integer.toString(pTOTAL_registros));
-//                // BARRA DE ROLAGEM HORIZONTAL
-//                jTabelaColaborador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-//                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//                //
-//                jTabelaColaborador.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//                jTabelaColaborador.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//                jTabelaColaborador.getColumnModel().getColumn(5).setCellRenderer(centralizado);
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(TelaSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+    public void pPREENCHER_TABELA_colaboradores() {
+        // APAGAR DADOS DA TABELA
+        while (jTabelaColaborador.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
+        }
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaColaborador.getModel();
+        try {
+            for (EntradasSaidasColaboradores dd : LISTAR_colaboradores.read()) {
+                pDATA_evento = String.valueOf(dd.getDataEvento());
+                if (pDATA_evento != null) {
+                    String dia = pDATA_evento.substring(8, 10);
+                    String mes = pDATA_evento.substring(5, 7);
+                    String ano = pDATA_evento.substring(0, 4);
+                    pDATA_evento = dia + "/" + mes + "/" + ano;
+                }
+                //                
+                pDATA_retorno = String.valueOf(dd.getDataRetorno());
+                if (pDATA_retorno == null) {
+                    pDATA_retorno = "Sem Retorno";
+                    dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdColaborador(), dd.getNomeColaborador(), pDATA_evento, pDATA_retorno, dd.getNomeMaeColaborador()});
+                    jtotaColaboradoresRegistrados.setText(Integer.toString(pTOTAL_registros));
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaColaborador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaColaborador.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                } else if (pDATA_retorno.equals("")) {
+                    pDATA_retorno = "Sem Retorno";
+                    dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdColaborador(), dd.getNomeColaborador(), pDATA_evento, pDATA_retorno, dd.getNomeMaeColaborador()});
+                    jtotaColaboradoresRegistrados.setText(Integer.toString(pTOTAL_registros));
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaColaborador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaColaborador.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                } else if (pDATA_retorno.equals(null)) {
+                    pDATA_retorno = "Sem Retorno";
+                    dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdColaborador(), dd.getNomeColaborador(), pDATA_evento, pDATA_retorno, dd.getNomeMaeColaborador()});
+                    jtotaColaboradoresRegistrados.setText(Integer.toString(pTOTAL_registros));
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaColaborador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaColaborador.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                } else if (pDATA_retorno.equals("null")) {
+                    pDATA_retorno = "Sem Retorno";
+                    dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdColaborador(), dd.getNomeColaborador(), pDATA_evento, pDATA_retorno, dd.getNomeMaeColaborador()});
+                    jtotaColaboradoresRegistrados.setText(Integer.toString(pTOTAL_registros));
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaColaborador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaColaborador.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                } else if (!pDATA_retorno.equals("") && !pDATA_retorno.equals(null)) {
+                    String diaR = pDATA_retorno.substring(8, 10);
+                    String mesR = pDATA_retorno.substring(5, 7);
+                    String anoR = pDATA_retorno.substring(0, 4);
+                    pDATA_retorno = diaR + "/" + mesR + "/" + anoR;
+                    dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdColaborador(), dd.getNomeColaborador(), pDATA_evento, pDATA_retorno, dd.getNomeMaeColaborador()});
+                    jtotaColaboradoresRegistrados.setText(Integer.toString(pTOTAL_registros));
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaColaborador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaColaborador.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                    jTabelaColaborador.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-//
 
-    public void pPREENCHER_TABELA_REG_Internos() {
-//        // APAGAR DADOS DA TABELA
-//        while (jTabelaColaborador.getModel().getRowCount() > 0) {
-//            ((DefaultTableModel) jTabelaColaborador.getModel()).removeRow(0);
-//        }
-//        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaColaborador.getModel();
-//        try {
-//            for (EntradasSaidasColaboradores dd : LISTAR_REGISTROS_colaboradores.read()) {
-//                pDATA_Registros = String.valueOf(dd.getDataRegistroSA());
-//                String dia = pDATA_Registros.substring(8, 10);
-//                String mes = pDATA_Registros.substring(5, 7);
-//                String ano = pDATA_Registros.substring(0, 4);
-//                pDATA_Registros = dia + "/" + mes + "/" + ano;
-//                dadosOrigem.addRow(new Object[]{dd.getIdItem(), dd.getIdInternoCrc(), dd.getNomeInternoCrc(), dd.getNrdocumentoSA(), dd.getTipoBeneficioSA(), pDATA_Registros});
-//                jtotaInternosSelecionados.setText(Integer.toString(pTOTAL_registros));
-//                // BARRA DE ROLAGEM HORIZONTAL
-//                jTabelaColaborador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-//                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//                //
-//                jTabelaColaborador.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//                jTabelaColaborador.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//                jTabelaColaborador.getColumnModel().getColumn(5).setCellRenderer(centralizado);
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(TelaSaidaSimbolica.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+    public void pFINALIZAR_REG_colaboradores() {
+        statusMov = "Finalizou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o lançamento selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Retorno de Férias")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento Voluntário")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")) {
+                mostrarFinalizar();
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Óbito")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("INSS")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Férias")) {
+                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+
+                        carregando.dispose(); //Teste tela aguarde
+                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
+            }
+        }
     }
 
     public void objLog() {
