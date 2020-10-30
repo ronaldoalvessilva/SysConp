@@ -18,6 +18,9 @@ import static gestor.Visao.TelaEntradaSaidasColaboradores.jComboBoxUnidadeOrigem
 import static gestor.Visao.TelaEntradaSaidasColaboradores.jIdRegistro;
 import static gestor.Visao.TelaEntradaSaidasColaboradores.jStatusRegistro;
 import static gestor.Visao.TelaEntradaSaidasColaboradores.jTabelaColaborador;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,7 +48,7 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
     //LOCALHOST
     ControleListaTransferenciaColaLOCALHOST controlLHOST = new ControleListaTransferenciaColaLOCALHOST();
     //
-    int pCODIGO_func = 0;
+    public static int pCODIGO_func = 0;
     public static String pNOME_colaborador = "";
     public static String pNOME_MAE_colaborador = "";
     //
@@ -59,6 +62,10 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
     //
     String pSTATUS_colaborador = "Em Transito";
     String pSTATUS_finalizador = "FINALIZADO";
+    //
+    String statusMov;
+    String horaMov;
+    String dataModFinal;
 
     /**
      * Creates new form TelaFinalizarEntradaSaidaColaboradorADM
@@ -238,12 +245,14 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
         } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
 
         } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) { //LOCAL DE DESTINO
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
             final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
             carregando.setVisible(true);//Teste tela aguarde
             Thread t = new Thread() { //Teste tela aguarde
                 public void run() { //Teste
                     for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
-                        objCola.setIdFunc((int) jTabelaColaborador.getValueAt(i, 1));
                         pCODIGO_func = (int) jTabelaColaborador.getValueAt(i, 1);
                         objCola.setNomeFuncionario((String) jTabelaColaborador.getValueAt(i, 2));
                         objCola.setNomeMae((String) jTabelaColaborador.getValueAt(i, 5));
@@ -252,30 +261,36 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
                         if (pNOME_colaborador.equals(objCola.getNomeFuncionario()) && pNOME_MAE_colaborador.equals(objCola.getNomeMae())) {
                             JOptionPane.showMessageDialog(rootPane, "Colaborador já tem ficha cadastrado na unidade de destino.");
                         } else {
-                            //ESCOLHER A ORIGEM PARA PESQUISAR O(S) COLABORADOR(ES)
-                            try {
-                                if (jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
-                                    pPESQUISAR_COLABORADOR_VC_gravar();
-                                } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
-                                    pPESQUISAR_COLABORADOR_ITB_gravar();
-                                } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
-                                    pPESQUISAR_COLABORADOR_LF_gravar();
-                                } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
-                                    pPESQUISAR_COLABORADOR_BAR_gravar();
-                                }
-                            } catch (Exception ex) {
-                                Logger.getLogger(TelaFinalizarEntradaSaidaColaboradorADM.class.getName()).log(Level.SEVERE, null, ex);
+                            //ESCOLHER A ORIGEM PARA PESQUISAR O(S) COLABORADOR(ES)                         
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC") 
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC") 
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista") 
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")){
+                                pPESQUISAR_COLABORADOR_VC_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT") 
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
+                                pPESQUISAR_COLABORADOR_ITB_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF") 
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas") ) {
+                                pPESQUISAR_COLABORADOR_LF_gravar();       
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA") 
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                                pPESQUISAR_COLABORADOR_BAR_gravar();
                             }
                             //GRAVAR NA TABELA OS DADOS DO COLABORADOR
                             objCola.setStatusFunc(pSTATUS_colaborador);
                             objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
                             objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                            objCola.setUsuarioInsert(nameUser);
+                            objCola.setDataInsert(dataModFinal);
+                            objCola.setHorarioInsert(horaMov);
                             control.incluirColaboradorSSA(objCola);
                             BUSCAR_codigoSSA();
                             control.incluirEnderecosColaboradorSSA(objCola);
                             control.incluirDocumentosColaboradorSSA(objCola);
-                            //ATUALIZAR FICAHA CADASTRAL DO COLABORADOR
-                            objCola.setIdFunc(Integer.valueOf(objCola.getIdFunc()));
+                            //ATUALIZAR FICHA CADASTRAL DO COLABORADOR
+                            objCola.setIdFunc(pCODIGO_func);
+                            objCola.setStatusFunc("Transferência");
                             control.FINALIZAR_ColaboradorVC(objCola);
                         }
                     }
@@ -397,353 +412,360 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
-    public void pPESQUISAR_COLABORADOR_LF_gravar() throws Exception {
-        for (ColaboradoresTransferenciasUnidades ff : controlLF.read()) {
-            objCola.setIdFunc(ff.getIdFunc());
-            objCola.setStatusFunc(ff.getStatusFunc());
-            objCola.setDataCadastro(ff.getDataCadastro());
-            objCola.setNomeFuncionario(ff.getNomeFuncionario());
-            objCola.setSexo(ff.getSexo());
-            objCola.setEscolaridade(ff.getEscolaridade());
-            objCola.setMatricula(ff.getMatricula());
-            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
-            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
-            objCola.setEstadoCivil(ff.getEstadoCivil());
-            objCola.setDataNascimento(ff.getDataNascimento());
-            objCola.setNomeMae(ff.getNomeMae());
-            objCola.setNomePai(ff.getNomePai());
-            objCola.setReligiao(ff.getReligiao());
-            objCola.setTipoSangue(ff.getTipoSangue());
-            objCola.setCargaHoraria(ff.getCargaHoraria());
-            objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
-            objCola.setHorarioInicio(ff.getHorarioInicio());
-            objCola.setHorarioFinal(ff.getHorarioFinal());
-            objCola.setFuncao(ff.getFuncao());
-            objCola.setNacionalidade(ff.getNacionalidade());
-            objCola.setPais(ff.getPais());
-            objCola.setNaturalidade(ff.getNaturalidade());
-            objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
-            objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
-            //ENDEREÇO
-            objCola.setIdEnd(ff.getIdEnd());
-            objCola.setEndereco(ff.getEndereco());
-            objCola.setBairroEnd(ff.getBairroEnd());
-            objCola.setCompEnd(ff.getCompEnd());
-            objCola.setCidadeEnd(ff.getCidadeEnd());
-            objCola.setEstadoEnd(ff.getEstadoEnd());
-            objCola.setCepEnd(ff.getCepEnd());
-            // CONTATO
-            objCola.setEmailEndEmp(ff.getEmailEndEmp());
-            objCola.setTelEnd(ff.getFoneEnd());
-            objCola.setTelEnd(ff.getTelEnd());
-            objCola.setCelEnd(ff.getCelEnd());
-            objCola.setUrl(ff.getUrl());
-            objCola.setObservacao(ff.getObservacao());
-            // DOCUMENTOS
-            objCola.setIdDoc(ff.getIdDoc());
-            objCola.setRgDoc(ff.getRgDoc());
-            objCola.setCpfDoc(ff.getCpfDoc());
-            objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
-            objCola.setOrgaoDoc(ff.getOrgaoDoc());
-            objCola.setEstadoOrgao(ff.getEstadoOrgao());
-            objCola.setPisDoc(ff.getPisDoc());
-            objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
-            objCola.setTituloDoc(ff.getTituloDoc());
-            objCola.setZonaDoc(ff.getZonaDoc());
-            objCola.setSecaoDoc(ff.getSecaoDoc());
-            objCola.setCtpsDoc(ff.getCtpsDoc());
-            objCola.setSerieDoc(ff.getSerieDoc());
-            objCola.setHabiliDoc(ff.getHabiliDoc());
-            objCola.setReserVistaDoc(ff.getReserVistaDoc());
-            objCola.setCateDoc(ff.getCateDoc());
-            objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
-            objCola.setProfDoc(ff.getProfDoc());
-            objCola.setAlturaDoc(ff.getAlturaDoc());
-            objCola.setCalcaDoc(ff.getCalcaDoc());
-            objCola.setSapatoDoc(ff.getSapatoDoc());
-            objCola.setPesoDoc(ff.getPesoDoc());
-            objCola.setCamisaDoc(ff.getCamisaDoc());
-            objCola.setCarteiraDoc(ff.getCarteiraDoc());
+    public void pPESQUISAR_COLABORADOR_LF_gravar() {
+        try {
+            for (ColaboradoresTransferenciasUnidades ff : controlLF.read()) {
+                objCola.setStatusFunc(ff.getStatusFunc());
+                objCola.setDataCadastro(ff.getDataCadastro());
+                objCola.setNomeFuncionario(ff.getNomeFuncionario());
+                objCola.setSexo(ff.getSexo());
+                objCola.setEscolaridade(ff.getEscolaridade());
+                objCola.setMatricula(ff.getMatricula());
+                objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                objCola.setEstadoCivil(ff.getEstadoCivil());
+                objCola.setDataNascimento(ff.getDataNascimento());
+                objCola.setNomeMae(ff.getNomeMae());
+                objCola.setNomePai(ff.getNomePai());
+                objCola.setReligiao(ff.getReligiao());
+                objCola.setTipoSangue(ff.getTipoSangue());
+                objCola.setCargaHoraria(ff.getCargaHoraria());
+                objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
+                objCola.setHorarioInicio(ff.getHorarioInicio());
+                objCola.setHorarioFinal(ff.getHorarioFinal());
+                objCola.setFuncao(ff.getFuncao());
+                objCola.setNacionalidade(ff.getNacionalidade());
+                objCola.setPais(ff.getPais());
+                objCola.setNaturalidade(ff.getNaturalidade());
+                objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
+                objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
+                //ENDEREÇO
+                objCola.setIdEnd(ff.getIdEnd());
+                objCola.setEndereco(ff.getEndereco());
+                objCola.setBairroEnd(ff.getBairroEnd());
+                objCola.setCompEnd(ff.getCompEnd());
+                objCola.setCidadeEnd(ff.getCidadeEnd());
+                objCola.setEstadoEnd(ff.getEstadoEnd());
+                objCola.setCepEnd(ff.getCepEnd());
+                // CONTATO
+                objCola.setEmailEndEmp(ff.getEmailEndEmp());
+                objCola.setTelEnd(ff.getFoneEnd());
+                objCola.setTelEnd(ff.getTelEnd());
+                objCola.setCelEnd(ff.getCelEnd());
+                objCola.setUrl(ff.getUrl());
+                objCola.setObservacao(ff.getObservacao());
+                // DOCUMENTOS
+                objCola.setIdDoc(ff.getIdDoc());
+                objCola.setRgDoc(ff.getRgDoc());
+                objCola.setCpfDoc(ff.getCpfDoc());
+                objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
+                objCola.setOrgaoDoc(ff.getOrgaoDoc());
+                objCola.setEstadoOrgao(ff.getEstadoOrgao());
+                objCola.setPisDoc(ff.getPisDoc());
+                objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
+                objCola.setTituloDoc(ff.getTituloDoc());
+                objCola.setZonaDoc(ff.getZonaDoc());
+                objCola.setSecaoDoc(ff.getSecaoDoc());
+                objCola.setCtpsDoc(ff.getCtpsDoc());
+                objCola.setSerieDoc(ff.getSerieDoc());
+                objCola.setHabiliDoc(ff.getHabiliDoc());
+                objCola.setReserVistaDoc(ff.getReserVistaDoc());
+                objCola.setCateDoc(ff.getCateDoc());
+                objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
+                objCola.setProfDoc(ff.getProfDoc());
+                objCola.setAlturaDoc(ff.getAlturaDoc());
+                objCola.setCalcaDoc(ff.getCalcaDoc());
+                objCola.setSapatoDoc(ff.getSapatoDoc());
+                objCola.setPesoDoc(ff.getPesoDoc());
+                objCola.setCamisaDoc(ff.getCamisaDoc());
+                objCola.setCarteiraDoc(ff.getCarteiraDoc());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFinalizarEntradaSaidaColaboradorADM.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void pPESQUISAR_COLABORADOR_SSA_gravar() throws Exception {
-        for (ColaboradoresTransferenciasUnidades ff : controlSSA.read()) {
-            objCola.setIdFunc(ff.getIdFunc());
-            objCola.setStatusFunc(ff.getStatusFunc());
-            objCola.setDataCadastro(ff.getDataCadastro());
-            objCola.setNomeFuncionario(ff.getNomeFuncionario());
-            objCola.setSexo(ff.getSexo());
-            objCola.setEscolaridade(ff.getEscolaridade());
-            objCola.setMatricula(ff.getMatricula());
-            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
-            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
-            objCola.setEstadoCivil(ff.getEstadoCivil());
-            objCola.setDataNascimento(ff.getDataNascimento());
-            objCola.setNomeMae(ff.getNomeMae());
-            objCola.setNomePai(ff.getNomePai());
-            objCola.setReligiao(ff.getReligiao());
-            objCola.setTipoSangue(ff.getTipoSangue());
-            objCola.setCargaHoraria(ff.getCargaHoraria());
-            objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
-            objCola.setHorarioInicio(ff.getHorarioInicio());
-            objCola.setHorarioFinal(ff.getHorarioFinal());
-            objCola.setFuncao(ff.getFuncao());
-            objCola.setNacionalidade(ff.getNacionalidade());
-            objCola.setPais(ff.getPais());
-            objCola.setNaturalidade(ff.getNaturalidade());
-            objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
-            objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
-            //ENDEREÇO
-            objCola.setIdEnd(ff.getIdEnd());
-            objCola.setEndereco(ff.getEndereco());
-            objCola.setBairroEnd(ff.getBairroEnd());
-            objCola.setCompEnd(ff.getCompEnd());
-            objCola.setCidadeEnd(ff.getCidadeEnd());
-            objCola.setEstadoEnd(ff.getEstadoEnd());
-            objCola.setCepEnd(ff.getCepEnd());
-            // CONTATO
-            objCola.setEmailEndEmp(ff.getEmailEndEmp());
-            objCola.setTelEnd(ff.getFoneEnd());
-            objCola.setTelEnd(ff.getTelEnd());
-            objCola.setCelEnd(ff.getCelEnd());
-            objCola.setUrl(ff.getUrl());
-            objCola.setObservacao(ff.getObservacao());
-            // DOCUMENTOS
-            objCola.setIdDoc(ff.getIdDoc());
-            objCola.setRgDoc(ff.getRgDoc());
-            objCola.setCpfDoc(ff.getCpfDoc());
-            objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
-            objCola.setOrgaoDoc(ff.getOrgaoDoc());
-            objCola.setEstadoOrgao(ff.getEstadoOrgao());
-            objCola.setPisDoc(ff.getPisDoc());
-            objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
-            objCola.setTituloDoc(ff.getTituloDoc());
-            objCola.setZonaDoc(ff.getZonaDoc());
-            objCola.setSecaoDoc(ff.getSecaoDoc());
-            objCola.setCtpsDoc(ff.getCtpsDoc());
-            objCola.setSerieDoc(ff.getSerieDoc());
-            objCola.setHabiliDoc(ff.getHabiliDoc());
-            objCola.setReserVistaDoc(ff.getReserVistaDoc());
-            objCola.setCateDoc(ff.getCateDoc());
-            objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
-            objCola.setProfDoc(ff.getProfDoc());
-            objCola.setAlturaDoc(ff.getAlturaDoc());
-            objCola.setCalcaDoc(ff.getCalcaDoc());
-            objCola.setSapatoDoc(ff.getSapatoDoc());
-            objCola.setPesoDoc(ff.getPesoDoc());
-            objCola.setCamisaDoc(ff.getCamisaDoc());
-            objCola.setCarteiraDoc(ff.getCarteiraDoc());
+    public void pPESQUISAR_COLABORADOR_SSA_gravar() {
+        try {
+            for (ColaboradoresTransferenciasUnidades ff : controlSSA.read()) {
+                objCola.setStatusFunc(ff.getStatusFunc());
+                objCola.setDataCadastro(ff.getDataCadastro());
+                objCola.setNomeFuncionario(ff.getNomeFuncionario());
+                objCola.setSexo(ff.getSexo());
+                objCola.setEscolaridade(ff.getEscolaridade());
+                objCola.setMatricula(ff.getMatricula());
+                objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                objCola.setEstadoCivil(ff.getEstadoCivil());
+                objCola.setDataNascimento(ff.getDataNascimento());
+                objCola.setNomeMae(ff.getNomeMae());
+                objCola.setNomePai(ff.getNomePai());
+                objCola.setReligiao(ff.getReligiao());
+                objCola.setTipoSangue(ff.getTipoSangue());
+                objCola.setCargaHoraria(ff.getCargaHoraria());
+                objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
+                objCola.setHorarioInicio(ff.getHorarioInicio());
+                objCola.setHorarioFinal(ff.getHorarioFinal());
+                objCola.setFuncao(ff.getFuncao());
+                objCola.setNacionalidade(ff.getNacionalidade());
+                objCola.setPais(ff.getPais());
+                objCola.setNaturalidade(ff.getNaturalidade());
+                objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
+                objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
+                //ENDEREÇO
+                objCola.setEndereco(ff.getEndereco());
+                objCola.setBairroEnd(ff.getBairroEnd());
+                objCola.setCompEnd(ff.getCompEnd());
+                objCola.setCidadeEnd(ff.getCidadeEnd());
+                objCola.setEstadoEnd(ff.getEstadoEnd());
+                objCola.setCepEnd(ff.getCepEnd());
+                // CONTATO
+                objCola.setEmailEndEmp(ff.getEmailEndEmp());
+                objCola.setTelEnd(ff.getFoneEnd());
+                objCola.setTelEnd(ff.getTelEnd());
+                objCola.setCelEnd(ff.getCelEnd());
+                objCola.setUrl(ff.getUrl());
+                objCola.setObservacao(ff.getObservacao());
+                // DOCUMENTOS
+                objCola.setRgDoc(ff.getRgDoc());
+                objCola.setCpfDoc(ff.getCpfDoc());
+                objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
+                objCola.setOrgaoDoc(ff.getOrgaoDoc());
+                objCola.setEstadoOrgao(ff.getEstadoOrgao());
+                objCola.setPisDoc(ff.getPisDoc());
+                objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
+                objCola.setTituloDoc(ff.getTituloDoc());
+                objCola.setZonaDoc(ff.getZonaDoc());
+                objCola.setSecaoDoc(ff.getSecaoDoc());
+                objCola.setCtpsDoc(ff.getCtpsDoc());
+                objCola.setSerieDoc(ff.getSerieDoc());
+                objCola.setHabiliDoc(ff.getHabiliDoc());
+                objCola.setReserVistaDoc(ff.getReserVistaDoc());
+                objCola.setCateDoc(ff.getCateDoc());
+                objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
+                objCola.setProfDoc(ff.getProfDoc());
+                objCola.setAlturaDoc(ff.getAlturaDoc());
+                objCola.setCalcaDoc(ff.getCalcaDoc());
+                objCola.setSapatoDoc(ff.getSapatoDoc());
+                objCola.setPesoDoc(ff.getPesoDoc());
+                objCola.setCamisaDoc(ff.getCamisaDoc());
+                objCola.setCarteiraDoc(ff.getCarteiraDoc());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFinalizarEntradaSaidaColaboradorADM.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void pPESQUISAR_COLABORADOR_ITB_gravar() throws Exception {
-        for (ColaboradoresTransferenciasUnidades ff : controlITB.read()) {
-            objCola.setIdFunc(ff.getIdFunc());
-            objCola.setStatusFunc(ff.getStatusFunc());
-            objCola.setDataCadastro(ff.getDataCadastro());
-            objCola.setNomeFuncionario(ff.getNomeFuncionario());
-            objCola.setSexo(ff.getSexo());
-            objCola.setEscolaridade(ff.getEscolaridade());
-            objCola.setMatricula(ff.getMatricula());
-            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
-            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
-            objCola.setEstadoCivil(ff.getEstadoCivil());
-            objCola.setDataNascimento(ff.getDataNascimento());
-            objCola.setNomeMae(ff.getNomeMae());
-            objCola.setNomePai(ff.getNomePai());
-            objCola.setReligiao(ff.getReligiao());
-            objCola.setTipoSangue(ff.getTipoSangue());
-            objCola.setCargaHoraria(ff.getCargaHoraria());
-            objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
-            objCola.setHorarioInicio(ff.getHorarioInicio());
-            objCola.setHorarioFinal(ff.getHorarioFinal());
-            objCola.setFuncao(ff.getFuncao());
-            objCola.setNacionalidade(ff.getNacionalidade());
-            objCola.setPais(ff.getPais());
-            objCola.setNaturalidade(ff.getNaturalidade());
-            objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
-            objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
-            //ENDEREÇO
-            objCola.setIdEnd(ff.getIdEnd());
-            objCola.setEndereco(ff.getEndereco());
-            objCola.setBairroEnd(ff.getBairroEnd());
-            objCola.setCompEnd(ff.getCompEnd());
-            objCola.setCidadeEnd(ff.getCidadeEnd());
-            objCola.setEstadoEnd(ff.getEstadoEnd());
-            objCola.setCepEnd(ff.getCepEnd());
-            // CONTATO
-            objCola.setEmailEndEmp(ff.getEmailEndEmp());
-            objCola.setTelEnd(ff.getFoneEnd());
-            objCola.setTelEnd(ff.getTelEnd());
-            objCola.setCelEnd(ff.getCelEnd());
-            objCola.setUrl(ff.getUrl());
-            objCola.setObservacao(ff.getObservacao());
-            // DOCUMENTOS
-            objCola.setIdDoc(ff.getIdDoc());
-            objCola.setRgDoc(ff.getRgDoc());
-            objCola.setCpfDoc(ff.getCpfDoc());
-            objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
-            objCola.setOrgaoDoc(ff.getOrgaoDoc());
-            objCola.setEstadoOrgao(ff.getEstadoOrgao());
-            objCola.setPisDoc(ff.getPisDoc());
-            objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
-            objCola.setTituloDoc(ff.getTituloDoc());
-            objCola.setZonaDoc(ff.getZonaDoc());
-            objCola.setSecaoDoc(ff.getSecaoDoc());
-            objCola.setCtpsDoc(ff.getCtpsDoc());
-            objCola.setSerieDoc(ff.getSerieDoc());
-            objCola.setHabiliDoc(ff.getHabiliDoc());
-            objCola.setReserVistaDoc(ff.getReserVistaDoc());
-            objCola.setCateDoc(ff.getCateDoc());
-            objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
-            objCola.setProfDoc(ff.getProfDoc());
-            objCola.setAlturaDoc(ff.getAlturaDoc());
-            objCola.setCalcaDoc(ff.getCalcaDoc());
-            objCola.setSapatoDoc(ff.getSapatoDoc());
-            objCola.setPesoDoc(ff.getPesoDoc());
-            objCola.setCamisaDoc(ff.getCamisaDoc());
-            objCola.setCarteiraDoc(ff.getCarteiraDoc());
+    public void pPESQUISAR_COLABORADOR_ITB_gravar() {
+        try {
+            for (ColaboradoresTransferenciasUnidades ff : controlITB.read()) {
+                objCola.setStatusFunc(ff.getStatusFunc());
+                objCola.setDataCadastro(ff.getDataCadastro());
+                objCola.setNomeFuncionario(ff.getNomeFuncionario());
+                objCola.setSexo(ff.getSexo());
+                objCola.setEscolaridade(ff.getEscolaridade());
+                objCola.setMatricula(ff.getMatricula());
+                objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                objCola.setEstadoCivil(ff.getEstadoCivil());
+                objCola.setDataNascimento(ff.getDataNascimento());
+                objCola.setNomeMae(ff.getNomeMae());
+                objCola.setNomePai(ff.getNomePai());
+                objCola.setReligiao(ff.getReligiao());
+                objCola.setTipoSangue(ff.getTipoSangue());
+                objCola.setCargaHoraria(ff.getCargaHoraria());
+                objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
+                objCola.setHorarioInicio(ff.getHorarioInicio());
+                objCola.setHorarioFinal(ff.getHorarioFinal());
+                objCola.setFuncao(ff.getFuncao());
+                objCola.setNacionalidade(ff.getNacionalidade());
+                objCola.setPais(ff.getPais());
+                objCola.setNaturalidade(ff.getNaturalidade());
+                objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
+                objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
+                //ENDEREÇO
+                objCola.setEndereco(ff.getEndereco());
+                objCola.setBairroEnd(ff.getBairroEnd());
+                objCola.setCompEnd(ff.getCompEnd());
+                objCola.setCidadeEnd(ff.getCidadeEnd());
+                objCola.setEstadoEnd(ff.getEstadoEnd());
+                objCola.setCepEnd(ff.getCepEnd());
+                // CONTATO
+                objCola.setEmailEndEmp(ff.getEmailEndEmp());
+                objCola.setTelEnd(ff.getFoneEnd());
+                objCola.setTelEnd(ff.getTelEnd());
+                objCola.setCelEnd(ff.getCelEnd());
+                objCola.setUrl(ff.getUrl());
+                objCola.setObservacao(ff.getObservacao());
+                // DOCUMENTOS
+                objCola.setRgDoc(ff.getRgDoc());
+                objCola.setCpfDoc(ff.getCpfDoc());
+                objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
+                objCola.setOrgaoDoc(ff.getOrgaoDoc());
+                objCola.setEstadoOrgao(ff.getEstadoOrgao());
+                objCola.setPisDoc(ff.getPisDoc());
+                objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
+                objCola.setTituloDoc(ff.getTituloDoc());
+                objCola.setZonaDoc(ff.getZonaDoc());
+                objCola.setSecaoDoc(ff.getSecaoDoc());
+                objCola.setCtpsDoc(ff.getCtpsDoc());
+                objCola.setSerieDoc(ff.getSerieDoc());
+                objCola.setHabiliDoc(ff.getHabiliDoc());
+                objCola.setReserVistaDoc(ff.getReserVistaDoc());
+                objCola.setCateDoc(ff.getCateDoc());
+                objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
+                objCola.setProfDoc(ff.getProfDoc());
+                objCola.setAlturaDoc(ff.getAlturaDoc());
+                objCola.setCalcaDoc(ff.getCalcaDoc());
+                objCola.setSapatoDoc(ff.getSapatoDoc());
+                objCola.setPesoDoc(ff.getPesoDoc());
+                objCola.setCamisaDoc(ff.getCamisaDoc());
+                objCola.setCarteiraDoc(ff.getCarteiraDoc());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFinalizarEntradaSaidaColaboradorADM.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void pPESQUISAR_COLABORADOR_VC_gravar() throws Exception {
-        for (ColaboradoresTransferenciasUnidades ff : controlVC.read()) {
-            objCola.setIdFunc(ff.getIdFunc());
-            objCola.setStatusFunc(ff.getStatusFunc());
-            objCola.setDataCadastro(ff.getDataCadastro());
-            objCola.setNomeFuncionario(ff.getNomeFuncionario());
-            objCola.setSexo(ff.getSexo());
-            objCola.setEscolaridade(ff.getEscolaridade());
-            objCola.setMatricula(ff.getMatricula());
-            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
-            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
-            objCola.setEstadoCivil(ff.getEstadoCivil());
-            objCola.setDataNascimento(ff.getDataNascimento());
-            objCola.setNomeMae(ff.getNomeMae());
-            objCola.setNomePai(ff.getNomePai());
-            objCola.setReligiao(ff.getReligiao());
-            objCola.setTipoSangue(ff.getTipoSangue());
-            objCola.setCargaHoraria(ff.getCargaHoraria());
-            objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
-            objCola.setHorarioInicio(ff.getHorarioInicio());
-            objCola.setHorarioFinal(ff.getHorarioFinal());
-            objCola.setFuncao(ff.getFuncao());
-            objCola.setNacionalidade(ff.getNacionalidade());
-            objCola.setPais(ff.getPais());
-            objCola.setNaturalidade(ff.getNaturalidade());
-            objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
-            objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
-            //ENDEREÇO
-            objCola.setIdEnd(ff.getIdEnd());
-            objCola.setEndereco(ff.getEndereco());
-            objCola.setBairroEnd(ff.getBairroEnd());
-            objCola.setCompEnd(ff.getCompEnd());
-            objCola.setCidadeEnd(ff.getCidadeEnd());
-            objCola.setEstadoEnd(ff.getEstadoEnd());
-            objCola.setCepEnd(ff.getCepEnd());
-            // CONTATO
-            objCola.setEmailEndEmp(ff.getEmailEndEmp());
-            objCola.setTelEnd(ff.getFoneEnd());
-            objCola.setTelEnd(ff.getTelEnd());
-            objCola.setCelEnd(ff.getCelEnd());
-            objCola.setUrl(ff.getUrl());
-            objCola.setObservacao(ff.getObservacao());
-            // DOCUMENTOS
-            objCola.setIdDoc(ff.getIdDoc());
-            objCola.setRgDoc(ff.getRgDoc());
-            objCola.setCpfDoc(ff.getCpfDoc());
-            objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
-            objCola.setOrgaoDoc(ff.getOrgaoDoc());
-            objCola.setEstadoOrgao(ff.getEstadoOrgao());
-            objCola.setPisDoc(ff.getPisDoc());
-            objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
-            objCola.setTituloDoc(ff.getTituloDoc());
-            objCola.setZonaDoc(ff.getZonaDoc());
-            objCola.setSecaoDoc(ff.getSecaoDoc());
-            objCola.setCtpsDoc(ff.getCtpsDoc());
-            objCola.setSerieDoc(ff.getSerieDoc());
-            objCola.setHabiliDoc(ff.getHabiliDoc());
-            objCola.setReserVistaDoc(ff.getReserVistaDoc());
-            objCola.setCateDoc(ff.getCateDoc());
-            objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
-            objCola.setProfDoc(ff.getProfDoc());
-            objCola.setAlturaDoc(ff.getAlturaDoc());
-            objCola.setCalcaDoc(ff.getCalcaDoc());
-            objCola.setSapatoDoc(ff.getSapatoDoc());
-            objCola.setPesoDoc(ff.getPesoDoc());
-            objCola.setCamisaDoc(ff.getCamisaDoc());
-            objCola.setCarteiraDoc(ff.getCarteiraDoc());
+    public void pPESQUISAR_COLABORADOR_VC_gravar() {
+        try {
+            for (ColaboradoresTransferenciasUnidades ff : controlVC.read()) {
+                objCola.setStatusFunc(ff.getStatusFunc());
+                objCola.setDataCadastro(ff.getDataCadastro());
+                objCola.setNomeFuncionario(ff.getNomeFuncionario());
+                objCola.setSexo(ff.getSexo());
+                objCola.setEscolaridade(ff.getEscolaridade());
+                objCola.setMatricula(ff.getMatricula());
+                objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                objCola.setEstadoCivil(ff.getEstadoCivil());
+                objCola.setDataNascimento(ff.getDataNascimento());
+                objCola.setNomeMae(ff.getNomeMae());
+                objCola.setNomePai(ff.getNomePai());
+                objCola.setReligiao(ff.getReligiao());
+                objCola.setTipoSangue(ff.getTipoSangue());
+                objCola.setCargaHoraria(ff.getCargaHoraria());
+                objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
+                objCola.setHorarioInicio(ff.getHorarioInicio());
+                objCola.setHorarioFinal(ff.getHorarioFinal());
+                objCola.setFuncao(ff.getFuncao());
+                objCola.setNacionalidade(ff.getNacionalidade());
+                objCola.setPais(ff.getPais());
+                objCola.setNaturalidade(ff.getNaturalidade());
+                objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
+                objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
+                //ENDEREÇO
+                objCola.setEndereco(ff.getEndereco());
+                objCola.setBairroEnd(ff.getBairroEnd());
+                objCola.setCompEnd(ff.getCompEnd());
+                objCola.setCidadeEnd(ff.getCidadeEnd());
+                objCola.setEstadoEnd(ff.getEstadoEnd());
+                objCola.setCepEnd(ff.getCepEnd());
+                // CONTATO
+                objCola.setEmailEndEmp(ff.getEmailEndEmp());
+                objCola.setTelEnd(ff.getFoneEnd());
+                objCola.setTelEnd(ff.getTelEnd());
+                objCola.setCelEnd(ff.getCelEnd());
+                objCola.setUrl(ff.getUrl());
+                objCola.setObservacao(ff.getObservacao());
+                // DOCUMENTOS
+                objCola.setRgDoc(ff.getRgDoc());
+                objCola.setCpfDoc(ff.getCpfDoc());
+                objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
+                objCola.setOrgaoDoc(ff.getOrgaoDoc());
+                objCola.setEstadoOrgao(ff.getEstadoOrgao());
+                objCola.setPisDoc(ff.getPisDoc());
+                objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
+                objCola.setTituloDoc(ff.getTituloDoc());
+                objCola.setZonaDoc(ff.getZonaDoc());
+                objCola.setSecaoDoc(ff.getSecaoDoc());
+                objCola.setCtpsDoc(ff.getCtpsDoc());
+                objCola.setSerieDoc(ff.getSerieDoc());
+                objCola.setHabiliDoc(ff.getHabiliDoc());
+                objCola.setReserVistaDoc(ff.getReserVistaDoc());
+                objCola.setCateDoc(ff.getCateDoc());
+                objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
+                objCola.setProfDoc(ff.getProfDoc());
+                objCola.setAlturaDoc(ff.getAlturaDoc());
+                objCola.setCalcaDoc(ff.getCalcaDoc());
+                objCola.setSapatoDoc(ff.getSapatoDoc());
+                objCola.setPesoDoc(ff.getPesoDoc());
+                objCola.setCamisaDoc(ff.getCamisaDoc());
+                objCola.setCarteiraDoc(ff.getCarteiraDoc());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFinalizarEntradaSaidaColaboradorADM.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void pPESQUISAR_COLABORADOR_BAR_gravar() throws Exception {
-        for (ColaboradoresTransferenciasUnidades ff : controlBAR.read()) {
-            objCola.setIdFunc(ff.getIdFunc());
-            objCola.setStatusFunc(ff.getStatusFunc());
-            objCola.setDataCadastro(ff.getDataCadastro());
-            objCola.setNomeFuncionario(ff.getNomeFuncionario());
-            objCola.setSexo(ff.getSexo());
-            objCola.setEscolaridade(ff.getEscolaridade());
-            objCola.setMatricula(ff.getMatricula());
-            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
-            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
-            objCola.setEstadoCivil(ff.getEstadoCivil());
-            objCola.setDataNascimento(ff.getDataNascimento());
-            objCola.setNomeMae(ff.getNomeMae());
-            objCola.setNomePai(ff.getNomePai());
-            objCola.setReligiao(ff.getReligiao());
-            objCola.setTipoSangue(ff.getTipoSangue());
-            objCola.setCargaHoraria(ff.getCargaHoraria());
-            objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
-            objCola.setHorarioInicio(ff.getHorarioInicio());
-            objCola.setHorarioFinal(ff.getHorarioFinal());
-            objCola.setFuncao(ff.getFuncao());
-            objCola.setNacionalidade(ff.getNacionalidade());
-            objCola.setPais(ff.getPais());
-            objCola.setNaturalidade(ff.getNaturalidade());
-            objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
-            objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
-            //ENDEREÇO
-            objCola.setIdEnd(ff.getIdEnd());
-            objCola.setEndereco(ff.getEndereco());
-            objCola.setBairroEnd(ff.getBairroEnd());
-            objCola.setCompEnd(ff.getCompEnd());
-            objCola.setCidadeEnd(ff.getCidadeEnd());
-            objCola.setEstadoEnd(ff.getEstadoEnd());
-            objCola.setCepEnd(ff.getCepEnd());
-            // CONTATO
-            objCola.setEmailEndEmp(ff.getEmailEndEmp());
-            objCola.setTelEnd(ff.getFoneEnd());
-            objCola.setTelEnd(ff.getTelEnd());
-            objCola.setCelEnd(ff.getCelEnd());
-            objCola.setUrl(ff.getUrl());
-            objCola.setObservacao(ff.getObservacao());
-            // DOCUMENTOS
-            objCola.setIdDoc(ff.getIdDoc());
-            objCola.setRgDoc(ff.getRgDoc());
-            objCola.setCpfDoc(ff.getCpfDoc());
-            objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
-            objCola.setOrgaoDoc(ff.getOrgaoDoc());
-            objCola.setEstadoOrgao(ff.getEstadoOrgao());
-            objCola.setPisDoc(ff.getPisDoc());
-            objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
-            objCola.setTituloDoc(ff.getTituloDoc());
-            objCola.setZonaDoc(ff.getZonaDoc());
-            objCola.setSecaoDoc(ff.getSecaoDoc());
-            objCola.setCtpsDoc(ff.getCtpsDoc());
-            objCola.setSerieDoc(ff.getSerieDoc());
-            objCola.setHabiliDoc(ff.getHabiliDoc());
-            objCola.setReserVistaDoc(ff.getReserVistaDoc());
-            objCola.setCateDoc(ff.getCateDoc());
-            objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
-            objCola.setProfDoc(ff.getProfDoc());
-            objCola.setAlturaDoc(ff.getAlturaDoc());
-            objCola.setCalcaDoc(ff.getCalcaDoc());
-            objCola.setSapatoDoc(ff.getSapatoDoc());
-            objCola.setPesoDoc(ff.getPesoDoc());
-            objCola.setCamisaDoc(ff.getCamisaDoc());
-            objCola.setCarteiraDoc(ff.getCarteiraDoc());
+    public void pPESQUISAR_COLABORADOR_BAR_gravar() {
+        try {
+            for (ColaboradoresTransferenciasUnidades ff : controlBAR.read()) {
+                objCola.setStatusFunc(ff.getStatusFunc());
+                objCola.setDataCadastro(ff.getDataCadastro());
+                objCola.setNomeFuncionario(ff.getNomeFuncionario());
+                objCola.setSexo(ff.getSexo());
+                objCola.setEscolaridade(ff.getEscolaridade());
+                objCola.setMatricula(ff.getMatricula());
+                objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                objCola.setEstadoCivil(ff.getEstadoCivil());
+                objCola.setDataNascimento(ff.getDataNascimento());
+                objCola.setNomeMae(ff.getNomeMae());
+                objCola.setNomePai(ff.getNomePai());
+                objCola.setReligiao(ff.getReligiao());
+                objCola.setTipoSangue(ff.getTipoSangue());
+                objCola.setCargaHoraria(ff.getCargaHoraria());
+                objCola.setRegimeTrabalho(ff.getRegimeTrabalho());
+                objCola.setHorarioInicio(ff.getHorarioInicio());
+                objCola.setHorarioFinal(ff.getHorarioFinal());
+                objCola.setFuncao(ff.getFuncao());
+                objCola.setNacionalidade(ff.getNacionalidade());
+                objCola.setPais(ff.getPais());
+                objCola.setNaturalidade(ff.getNaturalidade());
+                objCola.setEstadoNacionalidade(ff.getEstadoNacionalidade());
+                objCola.setImagemFrenteCO(ff.getImagemFrenteCO());
+                //ENDEREÇO
+                objCola.setEndereco(ff.getEndereco());
+                objCola.setBairroEnd(ff.getBairroEnd());
+                objCola.setCompEnd(ff.getCompEnd());
+                objCola.setCidadeEnd(ff.getCidadeEnd());
+                objCola.setEstadoEnd(ff.getEstadoEnd());
+                objCola.setCepEnd(ff.getCepEnd());
+                // CONTATO
+                objCola.setEmailEndEmp(ff.getEmailEndEmp());
+                objCola.setTelEnd(ff.getFoneEnd());
+                objCola.setTelEnd(ff.getTelEnd());
+                objCola.setCelEnd(ff.getCelEnd());
+                objCola.setUrl(ff.getUrl());
+                objCola.setObservacao(ff.getObservacao());
+                // DOCUMENTOS
+                objCola.setRgDoc(ff.getRgDoc());
+                objCola.setCpfDoc(ff.getCpfDoc());
+                objCola.setDataEmissaoDoc(ff.getDataEmissaoDoc());
+                objCola.setOrgaoDoc(ff.getOrgaoDoc());
+                objCola.setEstadoOrgao(ff.getEstadoOrgao());
+                objCola.setPisDoc(ff.getPisDoc());
+                objCola.setDataCadPisDoc(ff.getDataCadPisDoc());
+                objCola.setTituloDoc(ff.getTituloDoc());
+                objCola.setZonaDoc(ff.getZonaDoc());
+                objCola.setSecaoDoc(ff.getSecaoDoc());
+                objCola.setCtpsDoc(ff.getCtpsDoc());
+                objCola.setSerieDoc(ff.getSerieDoc());
+                objCola.setHabiliDoc(ff.getHabiliDoc());
+                objCola.setReserVistaDoc(ff.getReserVistaDoc());
+                objCola.setCateDoc(ff.getCateDoc());
+                objCola.setCartSaudeDoc(ff.getCartSaudeDoc());
+                objCola.setProfDoc(ff.getProfDoc());
+                objCola.setAlturaDoc(ff.getAlturaDoc());
+                objCola.setCalcaDoc(ff.getCalcaDoc());
+                objCola.setSapatoDoc(ff.getSapatoDoc());
+                objCola.setPesoDoc(ff.getPesoDoc());
+                objCola.setCamisaDoc(ff.getCamisaDoc());
+                objCola.setCarteiraDoc(ff.getCarteiraDoc());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFinalizarEntradaSaidaColaboradorADM.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

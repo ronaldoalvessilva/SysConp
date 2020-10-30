@@ -1654,6 +1654,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
                     CONTROLE_ENTRADAS_saidas.alterarItensRegistroSaida(objEntraSaiFunc);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+
                     bloquearBotoes(!true);
                     bloquearTodosCampos(!true);
                     limparCamposColaborador();

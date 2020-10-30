@@ -319,7 +319,11 @@ public class ControleTransferenciaColaboradorUnidades {
         buscarDeptoSSA(objCola.getNomeDepartamento()); // Pesquisa o ID do DEPARTAMENTO
         conectaSSA.abrirConexao();
         try {
-            PreparedStatement pst = conectaSSA.con.prepareStatement("INSERT INTO COLABORADOR (StatusFunc,DataCadFunc,NomeFunc,MatriculaFunc,SexoFunc,EscolaFunc,EstadoCivil,DataNascimento,ImagemFunc,NomeMae,NomePai,Religiao,TipoSangue,IdCargo,IdDepartamento,CargaHoraria,RegimeTrabalho,HorarioInicio,HorarioFinal,Funcao,Nacionalidade,Pais,Naturalidade,EstadoNaturalidade,UsuarioInsert,DataInsert,HorarioInsert,ImagemFrenteCO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conectaSSA.con.prepareStatement("INSERT INTO COLABORADOR (StatusFunc,DataCadFunc,NomeFunc,"
+                    + "MatriculaFunc,SexoFunc,EscolaFunc,EstadoCivil,DataNascimento,ImagemFunc,"
+                    + "NomeMae,NomePai,Religiao,TipoSangue,IdCargo,IdDepartamento,CargaHoraria,"
+                    + "RegimeTrabalho,HorarioInicio,HorarioFinal,Funcao,Nacionalidade,Pais,"
+                    + "Naturalidade,EstadoNaturalidade,UsuarioInsert,DataInsert,HorarioInsert,ImagemFrenteCO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objCola.getStatusFunc());
             if (objCola.getDataCadastro() != null) {
                 pst.setTimestamp(2, new java.sql.Timestamp(objCola.getDataCadastro().getTime()));

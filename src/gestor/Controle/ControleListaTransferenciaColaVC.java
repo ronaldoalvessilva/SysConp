@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Modelo.ColaboradoresTransferenciasUnidades;
+import static gestor.Visao.TelaFinalizarEntradaSaidaColaboradorADM.pCODIGO_func;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +36,15 @@ public class ControleListaTransferenciaColaVC {
                     + "ON COLABORADOR.IdFunc=ENDERECOS.IdFunc "
                     + "INNER JOIN DOCUMENTOS "
                     + "ON COLABORADOR.IdFunc=DOCUMENTOS.IdFunc  "
-                    + "WHERE COLABORADOR.IdFunc='" + objCola.getIdFunc() + "'");
+                    + "WHERE COLABORADOR.IdFunc='" + pCODIGO_func + "'");
             while (conectaVC.rs.next()) {
                 ColaboradoresTransferenciasUnidades pTRANSFERENCIA_colaboradores = new ColaboradoresTransferenciasUnidades();
-                pTRANSFERENCIA_colaboradores.setIdFunc(conectaVC.rs.getInt("IdFunc"));
                 pTRANSFERENCIA_colaboradores.setStatusFunc(conectaVC.rs.getString("StatusFunc"));
                 pTRANSFERENCIA_colaboradores.setDataCadastro(conectaVC.rs.getDate("DataCadFunc"));
                 pTRANSFERENCIA_colaboradores.setNomeFuncionario(conectaVC.rs.getString("NomeFunc"));
                 pTRANSFERENCIA_colaboradores.setSexo(conectaVC.rs.getString("SexoFunc"));
                 pTRANSFERENCIA_colaboradores.setEscolaridade(conectaVC.rs.getString("EscolaFunc"));
-                pTRANSFERENCIA_colaboradores.setMatricula(conectaVC.rs.getString("MatriculaFunc"));
-                pTRANSFERENCIA_colaboradores.setIdCargo(conectaVC.rs.getInt("IdCargo"));
-                pTRANSFERENCIA_colaboradores.setNomeCargo(conectaVC.rs.getString("NomeCargo"));
-                pTRANSFERENCIA_colaboradores.setIdDepartamento(conectaVC.rs.getInt("IdDepartamento"));
-                pTRANSFERENCIA_colaboradores.setNomeDepartamento(conectaVC.rs.getString("NomeDepartamento"));
+                pTRANSFERENCIA_colaboradores.setMatricula(conectaVC.rs.getString("MatriculaFunc"));         
                 pTRANSFERENCIA_colaboradores.setEstadoCivil(conectaVC.rs.getString("EstadoCivil"));
                 pTRANSFERENCIA_colaboradores.setDataNascimento(conectaVC.rs.getDate("DataNascimento"));
                 pTRANSFERENCIA_colaboradores.setNomeMae(conectaVC.rs.getString("NomeMae"));
@@ -66,7 +62,6 @@ public class ControleListaTransferenciaColaVC {
                 pTRANSFERENCIA_colaboradores.setEstadoNacionalidade(conectaVC.rs.getString("Nacionalidade"));
                 pTRANSFERENCIA_colaboradores.setImagemFrenteCO(conectaVC.rs.getBytes("ImagemFrenteCO"));
                 //ENDEREÇO
-                pTRANSFERENCIA_colaboradores.setIdEnd(conectaVC.rs.getInt("IdEnd"));
                 pTRANSFERENCIA_colaboradores.setEndereco(conectaVC.rs.getString("Endereco"));
                 pTRANSFERENCIA_colaboradores.setBairroEnd(conectaVC.rs.getString("BairroEnd"));
                 pTRANSFERENCIA_colaboradores.setCompEnd(conectaVC.rs.getString("CompEnd"));
@@ -81,7 +76,6 @@ public class ControleListaTransferenciaColaVC {
                 pTRANSFERENCIA_colaboradores.setUrl(conectaVC.rs.getString("Url"));
                 pTRANSFERENCIA_colaboradores.setObservacao(conectaVC.rs.getString("Observacao"));
                 // DOCUMENTOS
-                pTRANSFERENCIA_colaboradores.setIdDoc(conectaVC.rs.getInt("IdDoc"));
                 pTRANSFERENCIA_colaboradores.setRgDoc(conectaVC.rs.getString("RgDoc"));
                 pTRANSFERENCIA_colaboradores.setCpfDoc(conectaVC.rs.getString("CpfDoc"));
                 pTRANSFERENCIA_colaboradores.setDataEmissaoDoc(conectaVC.rs.getDate("DataEmissaoDoc"));
@@ -114,5 +108,5 @@ public class ControleListaTransferenciaColaVC {
             conectaVC.desconecta();
         }
         return null;
-    }
+    }  
 }
