@@ -5,20 +5,23 @@
  */
 package gestor.Controle;
 
-import gestor.Dao.ConexaoBancoDadosVC;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ColaboradoresTransferenciasUnidades;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.pRESPOSTA_opcao;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ronaldo.silva7
  */
 public class ControleListaTransferenciaColaLOCALHOST {
-    ConexaoBancoDadosVC conecta = new ConexaoBancoDadosVC();
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
     ColaboradoresTransferenciasUnidades objCola = new ColaboradoresTransferenciasUnidades();
     
     public List<ColaboradoresTransferenciasUnidades> read() throws Exception {
@@ -114,5 +117,20 @@ public class ControleListaTransferenciaColaLOCALHOST {
             conecta.desconecta();
         }
         return null;
+    }
+    
+    public ColaboradoresTransferenciasUnidades FINALIZAR_ColaboradorLOCALHOST(ColaboradoresTransferenciasUnidades objCola) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COLABORADOR SET StatusFunc=? WHERE IdFunc='" + objCola.getIdFunc() + "'");
+            pst.setString(1, objCola.getStatusFunc());
+            pst.executeUpdate();
+            pRESPOSTA_opcao = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_opcao = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objCola;
     }
 }

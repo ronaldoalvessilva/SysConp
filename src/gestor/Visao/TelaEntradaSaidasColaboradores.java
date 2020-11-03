@@ -11,18 +11,20 @@ import gestor.Controle.ControleDependentesColaborador;
 import gestor.Controle.ControleDocumentosColaborador;
 import gestor.Controle.ControleEnderecosColaborador;
 import gestor.Controle.ControleEntradaSaidaColaboradores;
+import gestor.Controle.ControleListaTransferenciaColaLOCALHOST;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleTransferenciaColaboradorUnidades;
 import gestor.Controle.PesquisarColaboradoresEntradasSaidasUni;
 import gestor.Controle.PesquisarGravacaoColaboradores;
 import gestor.Controle.PesquisarGravacaoColaboradoresCodigo;
 import gestor.Controle.PesquisarGravacaoColaboradoresData;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.CamposAcessos;
+import gestor.Modelo.ColaboradoresTransferenciasUnidades;
 import gestor.Modelo.Dependentes;
 import gestor.Modelo.Documentos;
 import gestor.Modelo.Enderecos;
 import gestor.Modelo.EntradasSaidasColaboradores;
-import gestor.Modelo.Funcionarios;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloAdmPessoal.telaEntradasSaidasColaboradoresCola_ADM;
@@ -31,10 +33,8 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -50,6 +50,7 @@ import javax.swing.table.DefaultTableModel;
 public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ControleListaTransferenciaColaLOCALHOST CONTROLE_FINALIZA_func = new ControleListaTransferenciaColaLOCALHOST();
     //
     EntradasSaidasColaboradores objEntraSaiFunc = new EntradasSaidasColaboradores();
     PesquisarGravacaoColaboradores LISTAR_TODOS_registros = new PesquisarGravacaoColaboradores();
@@ -58,7 +59,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     ControleEntradaSaidaColaboradores CONTROLE_ENTRADAS_saidas = new ControleEntradaSaidaColaboradores();
     PesquisarColaboradoresEntradasSaidasUni LISTAR_colaboradores = new PesquisarColaboradoresEntradasSaidasUni();
     //
-    Funcionarios objCola = new Funcionarios();
+    ColaboradoresTransferenciasUnidades objCola = new ColaboradoresTransferenciasUnidades();
     ControleColaborador control = new ControleColaborador();
     Enderecos objEnd = new Enderecos();
     ControleEnderecosColaborador controle = new ControleEnderecosColaborador();
@@ -66,6 +67,8 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     ControleDocumentosColaborador controleDoc = new ControleDocumentosColaborador();
     Dependentes objDep = new Dependentes();
     ControleDependentesColaborador controlDep = new ControleDependentesColaborador();
+    //
+    ControleTransferenciaColaboradorUnidades CONTROL_STATUS_func = new ControleTransferenciaColaboradorUnidades();
     //
     ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
     CamposAcessos objCampos = new CamposAcessos();
@@ -97,6 +100,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     public static String pID_item;
     public static int pITEM;
     public static String pID_colaborador;
+    int pCODIGO_funcionario = 0;
 
     /**
      * Creates new form TelaEntradaSaidasColaboradores
@@ -497,7 +501,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jComboBoxUnidadeOrigem.setEnabled(false);
 
         jComboBoxUnidadeDestino.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxUnidadeDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxUnidadeDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "localHost" }));
         jComboBoxUnidadeDestino.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxUnidadeDestino.setEnabled(false);
 
@@ -1456,7 +1460,73 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             if (objEntraSaiFunc.getStatusRegistro().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
             } else {
-                pFINALIZAR_REG_colaboradores();
+                if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Ativo");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Ativo");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Retorno de Férias")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Ativo");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Desligado");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento Voluntário")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Desligado");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")) {
+                    pFINALIZAR_REG_colaboradores();
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Óbito")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Óbito");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("INSS")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("INSS");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Férias")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Férias");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
             }
         }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
