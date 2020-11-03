@@ -243,7 +243,109 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
         if (jComboBoxLocalDestino.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Selecione uma unidade para realizar a transferência da ficha cadastral do colaborador.");
         } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
-
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_func = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setNomeFuncionario((String) jTabelaColaborador.getValueAt(i, 2));
+                        objCola.setNomeMae((String) jTabelaColaborador.getValueAt(i, 5));
+                        //VERIFICAR NO DESTINO SE JÁ EXISTE O COLABORADOR
+                        control.pPESQUISAR_colaboradorLF(objCola.getNomeFuncionario(), objCola.getNomeMae());
+                        if (pNOME_colaborador.equals(objCola.getNomeFuncionario()) && pNOME_MAE_colaborador.equals(objCola.getNomeMae())) {
+                            JOptionPane.showMessageDialog(rootPane, "Colaborador já tem ficha cadastrado na unidade de destino.");
+                        } else {
+                            //ESCOLHER A ORIGEM PARA PESQUISAR O(S) COLABORADOR(ES)                         
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
+                                pPESQUISAR_COLABORADOR_VC_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
+                                pPESQUISAR_COLABORADOR_ITB_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                                pPESQUISAR_COLABORADOR_SSA_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                                pPESQUISAR_COLABORADOR_BAR_gravar();
+                            }
+                            //GRAVAR NA TABELA OS DADOS DO COLABORADOR NO DESTINO
+                            objCola.setStatusFunc(pSTATUS_colaborador);
+                            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                            objCola.setUsuarioInsert(nameUser);
+                            objCola.setDataInsert(dataModFinal);
+                            objCola.setHorarioInsert(horaMov);
+                            control.incluirColaboradorLF(objCola);
+                            BUSCAR_codigoLF();
+                            control.incluirEnderecosColaboradorLF(objCola);
+                            control.incluirDocumentosColaboradorLF(objCola);
+                            //ATUALIZAR FICHA CADASTRAL DO COLABORADOR NA ORIGEM                                                                               
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorVC(objCola);
+                                 //
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorVC(objEntraSaiFunc);
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorITB(objCola);
+                                //
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorITB(objEntraSaiFunc);
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorSSA(objCola);
+                                //
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorSSA(objEntraSaiFunc);
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorBAR(objCola);
+                                //
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorBAR(objEntraSaiFunc);
+                            }
+                        }
+                    }
+                    FINALIZAR_registros();
+                    carregando.dispose(); //Teste tela aguarde  
+                    //
+                    if (pRESPOSTA_SSA_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_SSA_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
+                    }
+                    if (pRESPOSTA_FI_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso.");
+                        jStatusRegistro.setText("FINALIZADO");
+                    } else if (pRESPOSTA_FI_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "O registro não pode ser FINALIZADO.");
+                    }
+                    dispose();
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) { //LOCAL DE DESTINO
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -262,18 +364,18 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
                             JOptionPane.showMessageDialog(rootPane, "Colaborador já tem ficha cadastrado na unidade de destino.");
                         } else {
                             //ESCOLHER A ORIGEM PARA PESQUISAR O(S) COLABORADOR(ES)                         
-                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC") 
-                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC") 
-                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista") 
-                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")){
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
                                 pPESQUISAR_COLABORADOR_VC_gravar();
-                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT") 
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
                                     || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
                                 pPESQUISAR_COLABORADOR_ITB_gravar();
-                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF") 
-                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas") ) {
-                                pPESQUISAR_COLABORADOR_LF_gravar();       
-                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA") 
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                                pPESQUISAR_COLABORADOR_LF_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
                                     || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
                                 pPESQUISAR_COLABORADOR_BAR_gravar();
                             }
@@ -288,15 +390,48 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
                             BUSCAR_codigoSSA();
                             control.incluirEnderecosColaboradorSSA(objCola);
                             control.incluirDocumentosColaboradorSSA(objCola);
-                            //ATUALIZAR FICHA CADASTRAL DO COLABORADOR
-                            objCola.setIdFunc(pCODIGO_func);
-                            objCola.setStatusFunc("Transferência");
-                            control.FINALIZAR_ColaboradorVC(objCola);
+                            //ATUALIZAR FICHA CADASTRAL DO COLABORADOR NA ORIGEM                                                                               
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorVC(objCola);
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                //
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorVC(objEntraSaiFunc);
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorITB(objCola);
+                                //
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorITB(objEntraSaiFunc);
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorLF(objCola);
+                                //
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorLF(objEntraSaiFunc);
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                                objCola.setIdFunc(pCODIGO_func);
+                                objCola.setStatusFunc("Transferência");
+                                control.FINALIZAR_ColaboradorBAR(objCola);
+                                //
+                                objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                                objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                                control.FINALIZAR_TRANSFERENCIA_ColaboradorBAR(objEntraSaiFunc);
+                            }
                         }
                     }
-                    objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
-                    objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
-                    control.FINALIZAR_TRANSFERENCIA_ColaboradorVC(objEntraSaiFunc);
                     //
                     FINALIZAR_registros();
                     carregando.dispose(); //Teste tela aguarde  
@@ -316,14 +451,312 @@ public class TelaFinalizarEntradaSaidaColaboradorADM extends javax.swing.JDialog
                 }
             }; //Teste tela aguarde
             t.start(); //Teste tela aguarde
-        } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPLF - Conjunto Penal de Vitória da Conquista")) { //LOCAL DE DESTINO
-
         } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) { //LOCAL DE DESTINO
-
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_func = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setNomeFuncionario((String) jTabelaColaborador.getValueAt(i, 2));
+                        objCola.setNomeMae((String) jTabelaColaborador.getValueAt(i, 5));
+                        //VERIFICAR NO DESTINO SE JÁ EXISTE O COLABORADOR
+                        control.pPESQUISAR_colaboradorVC(objCola.getNomeFuncionario(), objCola.getNomeMae());
+                        if (pNOME_colaborador.equals(objCola.getNomeFuncionario()) && pNOME_MAE_colaborador.equals(objCola.getNomeMae())) {
+                            JOptionPane.showMessageDialog(rootPane, "Colaborador já tem ficha cadastrado na unidade de destino.");
+                        } else {
+                            //ESCOLHER A ORIGEM PARA PESQUISAR O(S) COLABORADOR(ES)                         
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                                pPESQUISAR_COLABORADOR_SSA_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
+                                pPESQUISAR_COLABORADOR_ITB_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                                pPESQUISAR_COLABORADOR_LF_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                                pPESQUISAR_COLABORADOR_BAR_gravar();
+                            }
+                            //GRAVAR NA TABELA OS DADOS DO COLABORADOR NO DESTINO
+                            objCola.setStatusFunc(pSTATUS_colaborador);
+                            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                            objCola.setUsuarioInsert(nameUser);
+                            objCola.setDataInsert(dataModFinal);
+                            objCola.setHorarioInsert(horaMov);
+                            control.incluirColaboradorVC(objCola);
+                            BUSCAR_codigoVC();
+                            control.incluirEnderecosColaboradorVC(objCola);
+                            control.incluirDocumentosColaboradorVC(objCola);
+                        }
+                    }
+                    //ATUALIZAR FICHA CADASTRAL DO COLABORADOR NA ORIGEM                                                                               
+                    if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorITB(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorITB(objEntraSaiFunc);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorLF(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorLF(objEntraSaiFunc);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorBAR(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorBAR(objEntraSaiFunc);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorSSA(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorSSA(objEntraSaiFunc);
+                    }
+                    //
+                    FINALIZAR_registros();
+                    carregando.dispose(); //Teste tela aguarde  
+                    //
+                    if (pRESPOSTA_SSA_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_SSA_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
+                    }
+                    if (pRESPOSTA_FI_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso.");
+                        jStatusRegistro.setText("FINALIZADO");
+                    } else if (pRESPOSTA_FI_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "O registro não pode ser FINALIZADO.");
+                    }
+                    dispose();
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) { //LOCAL DE DESTINO
-
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_func = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setNomeFuncionario((String) jTabelaColaborador.getValueAt(i, 2));
+                        objCola.setNomeMae((String) jTabelaColaborador.getValueAt(i, 5));
+                        //VERIFICAR NO DESTINO SE JÁ EXISTE O COLABORADOR
+                        control.pPESQUISAR_colaboradorITB(objCola.getNomeFuncionario(), objCola.getNomeMae());
+                        if (pNOME_colaborador.equals(objCola.getNomeFuncionario()) && pNOME_MAE_colaborador.equals(objCola.getNomeMae())) {
+                            JOptionPane.showMessageDialog(rootPane, "Colaborador já tem ficha cadastrado na unidade de destino.");
+                        } else {
+                            //ESCOLHER A ORIGEM PARA PESQUISAR O(S) COLABORADOR(ES)                         
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                                pPESQUISAR_COLABORADOR_SSA_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
+                                pPESQUISAR_COLABORADOR_VC_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                                pPESQUISAR_COLABORADOR_LF_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                                pPESQUISAR_COLABORADOR_BAR_gravar();
+                            }
+                            //GRAVAR NA TABELA OS DADOS DO COLABORADOR NO DESTINO
+                            objCola.setStatusFunc(pSTATUS_colaborador);
+                            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                            objCola.setUsuarioInsert(nameUser);
+                            objCola.setDataInsert(dataModFinal);
+                            objCola.setHorarioInsert(horaMov);
+                            control.incluirColaboradorITB(objCola);
+                            BUSCAR_codigoITB();
+                            control.incluirEnderecosColaboradorITB(objCola);
+                            control.incluirDocumentosColaboradorITB(objCola);
+                        }
+                    }
+                    //ATUALIZAR FICHA CADASTRAL DO COLABORADOR NA ORIGEM                                                                               
+                    if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorLF(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorLF(objEntraSaiFunc);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorBAR(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorBAR(objEntraSaiFunc);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                        //ATUALIZAR FICHA CADASTRAL DO COLABORADOR NA ORIGEM
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorSSA(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorSSA(objEntraSaiFunc);
+                    }
+                    //
+                    FINALIZAR_registros();
+                    carregando.dispose(); //Teste tela aguarde  
+                    //
+                    if (pRESPOSTA_SSA_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_SSA_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
+                    }
+                    if (pRESPOSTA_FI_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso.");
+                        jStatusRegistro.setText("FINALIZADO");
+                    } else if (pRESPOSTA_FI_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "O registro não pode ser FINALIZADO.");
+                    }
+                    dispose();
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         } else if (jComboBoxLocalDestino.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) { //LOCAL DE DESTINO
-
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_func = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setNomeFuncionario((String) jTabelaColaborador.getValueAt(i, 2));
+                        objCola.setNomeMae((String) jTabelaColaborador.getValueAt(i, 5));
+                        //VERIFICAR NO DESTINO SE JÁ EXISTE O COLABORADOR
+                        control.pPESQUISAR_colaboradorBAR(objCola.getNomeFuncionario(), objCola.getNomeMae());
+                        if (pNOME_colaborador.equals(objCola.getNomeFuncionario()) && pNOME_MAE_colaborador.equals(objCola.getNomeMae())) {
+                            JOptionPane.showMessageDialog(rootPane, "Colaborador já tem ficha cadastrado na unidade de destino.");
+                        } else {
+                            //ESCOLHER A ORIGEM PARA PESQUISAR O(S) COLABORADOR(ES)                         
+                            if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                                pPESQUISAR_COLABORADOR_SSA_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
+                                pPESQUISAR_COLABORADOR_VC_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                                pPESQUISAR_COLABORADOR_LF_gravar();
+                            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
+                                    || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
+                                pPESQUISAR_COLABORADOR_ITB_gravar();
+                            }
+                            //GRAVAR NA TABELA OS DADOS DO COLABORADOR NO DESTINO
+                            objCola.setStatusFunc(pSTATUS_colaborador);
+                            objCola.setNomeCargo((String) jComboBoxCargoPesquisa.getSelectedItem());
+                            objCola.setNomeDepartamento((String) jComboBoxDepartamentoPesquisa.getSelectedItem());
+                            objCola.setUsuarioInsert(nameUser);
+                            objCola.setDataInsert(dataModFinal);
+                            objCola.setHorarioInsert(horaMov);
+                            control.incluirColaboradorBAR(objCola);
+                            BUSCAR_codigoBAR();
+                            control.incluirEnderecosColaboradorBAR(objCola);
+                            control.incluirDocumentosColaboradorBAR(objCola);
+                        }
+                    }
+                    //ATUALIZAR FICHA CADASTRAL DO COLABORADOR NA ORIGEM                                                                               
+                    if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPLF - Conjunto Penal de Lauro de Freitas")) {
+                        //ATUALIZAR FICHA CADASTRAL DO COLABORADOR NA ORIGEM
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorLF(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorLF(objEntraSaiFunc);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPIt - Conjunto Penal de Itabuna")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorITB(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorITB(objEntraSaiFunc);
+                        //
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorITB(objCola);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorSSA(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorSSA(objEntraSaiFunc);
+                    } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitoria da Conquista - CPVC")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitoria da Conquista")
+                            || jComboBoxUnidadeOrigem.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
+                        objCola.setIdFunc(pCODIGO_func);
+                        objCola.setStatusFunc("Transferência");
+                        control.FINALIZAR_ColaboradorVC(objCola);
+                        //
+                        objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objEntraSaiFunc.setStatusRegistro(pSTATUS_finalizador);
+                        control.FINALIZAR_TRANSFERENCIA_ColaboradorVC(objEntraSaiFunc);
+                    }
+                    //
+                    FINALIZAR_registros();
+                    carregando.dispose(); //Teste tela aguarde  
+                    //
+                    if (pRESPOSTA_SSA_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_SSA_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
+                    }
+                    if (pRESPOSTA_FI_reposta.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso.");
+                        jStatusRegistro.setText("FINALIZADO");
+                    } else if (pRESPOSTA_FI_reposta.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "O registro não pode ser FINALIZADO.");
+                    }
+                    dispose();
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
