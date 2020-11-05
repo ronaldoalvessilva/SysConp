@@ -1919,12 +1919,14 @@
                       <Color blue="0" green="0" red="cc" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="5">
+                      <StringArray count="7">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="CPBAR"/>
                         <StringItem index="2" value="CPITB"/>
                         <StringItem index="3" value="CPSSA"/>
                         <StringItem index="4" value="CPVC"/>
+                        <StringItem index="5" value="CPLF"/>
+                        <StringItem index="6" value="localhost"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

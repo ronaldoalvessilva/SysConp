@@ -483,11 +483,6 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         jComboBoxTipoMovimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", " ", " " }));
         jComboBoxTipoMovimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimento.setEnabled(false);
-        jComboBoxTipoMovimento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxTipoMovimentoItemStateChanged(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Unidade de Origem");
@@ -1304,7 +1299,6 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             }
             habilitarCamposManutencao(true);
             Novo(true);
-            buscarUnidadeOrigemDestino();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1397,6 +1391,9 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal de destino");
             } else if (jMotivo.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe um motivo para operação especificada.");
+            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals(jComboBoxUnidadeDestino.getSelectedItem())
+                    && jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível fazer a saída por transferência do colaborador para a mesma unidade.");
             } else {
                 objEntraSaiFunc.setStatusRegistro(jStatusRegistro.getText());
                 objEntraSaiFunc.setDataRegistro(jDataRegistro.getDate());
@@ -1538,6 +1535,9 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaTransferenciaColaboradores objAuditoriaMan = new TelaAuditoriaTransferenciaColaboradores();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objAuditoriaMan);
+        objAuditoriaMan.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jComboBoxOperacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxOperacaoItemStateChanged
@@ -1556,29 +1556,8 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             jComboBoxTipoMovimento.addItem("INSS");
             jComboBoxTipoMovimento.addItem("Férias");
         }
+        buscarUnidadeOrigemDestino();
     }//GEN-LAST:event_jComboBoxOperacaoItemStateChanged
-
-    private void jComboBoxTipoMovimentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoMovimentoItemStateChanged
-        // TODO add your handling code here:
-//        if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")
-//                && acao == 1
-//                || jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência") && acao == 2) {
-//
-//            jComboBoxTipoMovimento.setEnabled(true);
-//        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")
-//                && acao == 1
-//                || jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência") && acao == 2) {
-//
-//            jComboBoxTipoMovimento.setEnabled(true);
-//        } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")
-//                && acao == 1
-//                || jComboBoxTipoMovimento.getSelectedItem().equals("Admissão") && acao == 2) {
-//
-//            jComboBoxTipoMovimento.setEnabled(true);
-//        } else {
-//            jComboBoxTipoMovimento.setEnabled(!true);
-//        }
-    }//GEN-LAST:event_jComboBoxTipoMovimentoItemStateChanged
 
     private void jBtNovoColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoColaboradorActionPerformed
         // TODO add your handling code here:
@@ -1761,7 +1740,73 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
             if (objEntraSaiFunc.getStatusRegistro().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
             } else {
-                pFINALIZAR_REG_colaboradores();
+                if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Ativo");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Ativo");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Retorno de Férias")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Ativo");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Desligado");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento Voluntário")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Desligado");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")) {
+                    pFINALIZAR_REG_colaboradores();
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Óbito")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Óbito");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("INSS")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("INSS");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Férias")) {
+                    for (int i = 0; i < jTabelaColaborador.getRowCount(); i++) {
+                        pCODIGO_funcionario = (int) jTabelaColaborador.getValueAt(i, 1);
+                        objCola.setIdFunc(pCODIGO_funcionario);
+                        objCola.setStatusFunc("Férias");
+                        CONTROLE_FINALIZA_func.FINALIZAR_ColaboradorLOCALHOST(objCola);
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
             }
         }
     }//GEN-LAST:event_jBtFinalizarColaboradorActionPerformed
@@ -1773,6 +1818,9 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaColaboradorActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaTransferenciaColaboradores_FUNC objAuditoriaCola = new TelaAuditoriaTransferenciaColaboradores_FUNC();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objAuditoriaCola);
+        objAuditoriaCola.show();
     }//GEN-LAST:event_jBtAuditoriaColaboradorActionPerformed
 
     private void jTabelaColaboradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaColaboradorMouseClicked
@@ -2054,7 +2102,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     public void Cancelar(boolean opcao) {
         if (jIdRegistro.getText().equals("")) {
-            bloquearTodosCampos(true);
+            bloquearTodosCampos(!true);
             bloquearBotoes(!true);
             jBtNovo.setEnabled(opcao);
         } else {
@@ -2310,97 +2358,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o lançamento selecionado?", "Confirmação",
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
-            if (jComboBoxTipoMovimento.getSelectedItem().equals("Admissão")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Entrada por Transferência")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Retorno de Férias")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Desligamento Voluntário")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Saída por Transferência")) {
-                mostrarFinalizar();
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Óbito")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("INSS")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            } else if (jComboBoxTipoMovimento.getSelectedItem().equals("Férias")) {
-                final ViewAguarde carregando = new ViewAguarde(); //Teste tela aguarde
-                carregando.setVisible(true);//Teste tela aguarde
-                Thread t = new Thread() { //Teste tela aguarde
-                    public void run() { //Teste
-
-                        carregando.dispose(); //Teste tela aguarde
-                        JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
-                    }
-                }; //Teste tela aguarde
-                t.start(); //Teste tela aguarde
-            }
+            mostrarFinalizar();
         }
     }
 

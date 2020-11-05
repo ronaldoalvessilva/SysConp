@@ -963,7 +963,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
 
         jComboBoxSigla.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxSigla.setForeground(new java.awt.Color(204, 0, 0));
-        jComboBoxSigla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "CPBAR", "CPITB", "CPSSA", "CPVC" }));
+        jComboBoxSigla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "CPBAR", "CPITB", "CPSSA", "CPVC", "CPLF", "localhost" }));
         jComboBoxSigla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSigla.setEnabled(false);
 
@@ -1519,6 +1519,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
             objEmpUni.setCapacidadeMas(Integer.valueOf(jCapacidadeMasc.getText()));
             objEmpUni.setCapacidadeFen(Integer.valueOf(jCapacidadeFem.getText()));
             objEmpUni.setCapacidadeTotal(Integer.valueOf(jCapacidadeTotal.getText()));
+            objEmpUni.setSigla((String) jComboBoxSigla.getSelectedItem());
             if (acao == 3) {
                 objEmpUni.setUsuarioInsert(nameUser);
                 objEmpUni.setDataInsert(dataModFinal);
@@ -1604,6 +1605,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
                 jCapacidadeMasc.setText(conecta.rs.getString("CapacidadeMas"));
                 jCapacidadeFem.setText(conecta.rs.getString("CapacidadeFen"));
                 jCapacidadeTotal.setText(conecta.rs.getString("CapacidadeTotal"));
+                jComboBoxSigla.setSelectedItem(conecta.rs.getString("Sigla"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados...\nERRO: " + e);
@@ -2031,6 +2033,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setText("0");
         jCapacidadeFem.setText("0");
         jCapacidadeTotal.setText("0");
+        jComboBoxSigla.setSelectedItem("Selecione...");
         //
         jDescricaoUnidade.setEnabled(true);
         jEnderecoUnidade.setEnabled(true);
@@ -2041,6 +2044,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setEnabled(true);
         jCapacidadeFem.setEnabled(true);
         jCapacidadeTotal.setEnabled(true);
+        jComboBoxSigla.setEnabled(true);
         //
         jBtNovaUnid.setEnabled(!true);
         jBtAlterarUnid.setEnabled(!true);
@@ -2090,6 +2094,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setEnabled(true);
         jCapacidadeFem.setEnabled(true);
         jCapacidadeTotal.setEnabled(true);
+        jComboBoxSigla.setEnabled(true);
         //
         jBtNovaUnid.setEnabled(!true);
         jBtAlterarUnid.setEnabled(!true);
@@ -2140,6 +2145,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setText("");
         jCapacidadeFem.setText("");
         jCapacidadeTotal.setText("");
+        jComboBoxSigla.setSelectedItem("Selecione...");
         //
         jDescricaoUnidade.setEnabled(!true);
         jEnderecoUnidade.setEnabled(!true);
@@ -2150,6 +2156,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setEnabled(!true);
         jCapacidadeFem.setEnabled(!true);
         jCapacidadeTotal.setEnabled(!true);
+        jComboBoxSigla.setEnabled(!true);
         //
         jBtNovaUnid.setEnabled(true);
         jBtAlterarUnid.setEnabled(!true);
@@ -2200,6 +2207,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setText("");
         jCapacidadeFem.setText("");
         jCapacidadeTotal.setText("");
+        jComboBoxSigla.setSelectedItem("Selecione...");
         //
         jDescricaoUnidade.setEnabled(!true);
         jEnderecoUnidade.setEnabled(!true);
@@ -2210,6 +2218,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setEnabled(!true);
         jCapacidadeFem.setEnabled(!true);
         jCapacidadeTotal.setEnabled(!true);
+        jComboBoxSigla.setEnabled(!true);
         //
         jBtNovaUnid.setEnabled(true);
         jBtAlterarUnid.setEnabled(!true);
@@ -2255,11 +2264,12 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jEnderecoUnidade.setText("");
         jBairroUnidade.setText("");
         jCidadeUnidade.setText("");
-        jComboBoxEstadoUnidade.setSelectedItem(null);
-        jComboBoxRegime.setSelectedItem(null);
+        jComboBoxEstadoUnidade.setSelectedItem("Selecione...");
+        jComboBoxRegime.setSelectedItem("Selecione...");
         jCapacidadeMasc.setText("");
         jCapacidadeFem.setText("");
         jCapacidadeTotal.setText("");
+        jComboBoxSigla.setSelectedItem("Selecione...");
         //
         jDescricaoUnidade.setEnabled(!true);
         jEnderecoUnidade.setEnabled(!true);
@@ -2270,6 +2280,7 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
         jCapacidadeMasc.setEnabled(!true);
         jCapacidadeFem.setEnabled(!true);
         jCapacidadeTotal.setEnabled(!true);
+        jComboBoxSigla.setEnabled(!true);
         //
         jBtNovaUnid.setEnabled(true);
         jBtAlterarUnid.setEnabled(!true);

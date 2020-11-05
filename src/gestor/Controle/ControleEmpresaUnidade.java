@@ -26,7 +26,7 @@ public class ControleEmpresaUnidade {
         buscarEmpresa(objEmpUni.getDescricaoEmpresa());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO UNIDADE_PENAL_EMPRESA (IdEmpresa,DescricaoUnidade,Endereco,Bairro,Cidade,Estado,Regime,CapacidadeMas,CapacidadeFen,CapacidadeTotal,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO UNIDADE_PENAL_EMPRESA (IdEmpresa,DescricaoUnidade,Endereco,Bairro,Cidade,Estado,Regime,CapacidadeMas,CapacidadeFen,CapacidadeTotal,UsuarioInsert,DataInsert,HorarioInsert,Sigla) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, codEmpresa);
             pst.setString(2, objEmpUni.getDescricaoUnidade());
             pst.setString(3, objEmpUni.getEndereco());
@@ -40,6 +40,7 @@ public class ControleEmpresaUnidade {
             pst.setString(11, objEmpUni.getUsuarioInsert());
             pst.setString(12, objEmpUni.getDataInsert());
             pst.setString(13, objEmpUni.getHorarioInsert());
+            pst.setString(14, objEmpUni.getSigla());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados\n\nERRO:" + ex);
@@ -52,7 +53,7 @@ public class ControleEmpresaUnidade {
         buscarEmpresa(objEmpUni.getDescricaoEmpresa());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE UNIDADE_PENAL_EMPRESA SET IdEmpresa=?,DescricaoUnidade=?,Endereco=?,Bairro=?,Cidade=?,Estado=?,Regime=?,CapacidadeMas=?,CapacidadeFen=?,CapacidadeTotal=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdUnidEmp='" + objEmpUni.getIdUnidEmp() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE UNIDADE_PENAL_EMPRESA SET IdEmpresa=?,DescricaoUnidade=?,Endereco=?,Bairro=?,Cidade=?,Estado=?,Regime=?,CapacidadeMas=?,CapacidadeFen=?,CapacidadeTotal=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Sigla=? WHERE IdUnidEmp='" + objEmpUni.getIdUnidEmp() + "'");
             pst.setInt(1, codEmpresa);
             pst.setString(2, objEmpUni.getDescricaoUnidade());
             pst.setString(3, objEmpUni.getEndereco());
@@ -66,6 +67,7 @@ public class ControleEmpresaUnidade {
             pst.setString(11, objEmpUni.getUsuarioUp());
             pst.setString(12, objEmpUni.getDataUp());
             pst.setString(13, objEmpUni.getHorarioUp());
+            pst.setString(14, objEmpUni.getSigla());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados\n\nERRO:" + ex);
