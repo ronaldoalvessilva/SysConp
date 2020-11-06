@@ -30,11 +30,11 @@ public class EmpresaUnidade {
 	private String dataUp;	
 	private String horarioInsert;
 	private String horarioUp;   
-
+        private String sigla;
     public EmpresaUnidade() {
     }
 
-    public EmpresaUnidade(int idUnidEmp, String descricaoUnidade, String endereco, String bairro, String cidade, String estado, String regime, int capacidadeMas, int capacidadeFen, int capacidadeTotal, int idEmpresa, String descricaoEmpresa, Double versaoAtual, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public EmpresaUnidade(int idUnidEmp, String descricaoUnidade, String endereco, String bairro, String cidade, String estado, String regime, int capacidadeMas, int capacidadeFen, int capacidadeTotal, int idEmpresa, String descricaoEmpresa, Double versaoAtual, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String sigla) {
         this.idUnidEmp = idUnidEmp;
         this.descricaoUnidade = descricaoUnidade;
         this.endereco = endereco;
@@ -54,6 +54,7 @@ public class EmpresaUnidade {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
+        this.sigla = sigla;
     }
 
     /**
@@ -320,5 +321,19 @@ public class EmpresaUnidade {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the sigla
+     */
+    public String getSigla() {
+        return sigla;
+    }
+
+    /**
+     * @param sigla the sigla to set
+     */
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 }

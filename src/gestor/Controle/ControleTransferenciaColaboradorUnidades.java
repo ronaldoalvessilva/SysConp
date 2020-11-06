@@ -127,7 +127,7 @@ public class ControleTransferenciaColaboradorUnidades {
         return objCola;
     }
 
-    public ColaboradoresTransferenciasUnidades incluirDocumentosColaborador(ColaboradoresTransferenciasUnidades objCola) {
+    public ColaboradoresTransferenciasUnidades incluirDocumentosColaboradorLF(ColaboradoresTransferenciasUnidades objCola) {
         conectaLF.abrirConexao();
         try {
             PreparedStatement pst = conectaLF.con.prepareStatement("INSERT INTO DOCUMENTOS (IdFunc,RgDoc,DataEmissaoDoc,OrgaoDoc,EstadoOrg,CpfDoc,PisDoc,DataCadPisDoc,TituloDoc,ZonaDoc,SecaoDoc,CtpsDoc,SerieDoc,HabiliDoc,ReservistaDoc,CateDoc,CartSaudeDoc,ProfDoc,AlturaDoc,PesoDoc,CalcaDoc,CamisaDoc,SapatoDoc,CarteiraDoc,TipoConjugue,DataNasConjugue,NomeConjugue,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
