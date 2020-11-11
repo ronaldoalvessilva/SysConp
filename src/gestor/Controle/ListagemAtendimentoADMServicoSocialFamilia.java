@@ -50,8 +50,10 @@ public class ListagemAtendimentoADMServicoSocialFamilia {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT DataAtendf "
-                    + "FROM ATENDIMENTOFAMILIAR "
-                    + "WHERE CONVERT(DATE, DataAtendf) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "FROM ATENDIMENTOFAMILIAR A "
+                    + "INNER JOIN EVOLUCAO_ATENDIMENTO_FAMILIA B "
+                    + "ON A.IdVisita = B.IdVisita "
+                    + "WHERE CONVERT(DATE, A.DataAtendf) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' ");                   
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pAtivaSSF = new AtividadesMensalRealizadaUnidades();
