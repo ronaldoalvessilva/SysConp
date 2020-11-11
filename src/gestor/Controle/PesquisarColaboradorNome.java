@@ -7,6 +7,9 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EntradasSaidasColaboradores;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.dataInicial;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.dataFinal;
+import static gestor.Visao.TelaEntradaSaidasColaboradores.jPesqNome;
 import static gestor.Visao.TelaEntradaSaidasColaboradores.pTOTAL_registros;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author ronaldo.silva7
  */
-public class PesquisarGravacaoColaboradores {
+public class PesquisarColaboradorNome {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     EntradasSaidasColaboradores objEntraSaiFunc = new EntradasSaidasColaboradores();
         
@@ -35,8 +38,13 @@ public class PesquisarGravacaoColaboradores {
                     + "TipoMovimento, "
                     + "UnidadeOrigem, "
                     + "UnidadeDestino, "
-                    + "Motivo "
-                    + "FROM ENTRADAS_SAIDAS_COLABORADORES");
+                    + "Observacao "
+                    + "FROM ENTRADAS_SAIDAS_COLABORADORES "
+                    + "INNER JOIN ITENS_ENTRADAS_SAIDAS_COLABORADORES "
+                    + "ON ENTRADAS_SAIDAS_COLABORADORES.IdRegRegistro=itens_ENTRADAS_SAIDAS_COLABORADORES.IdRegRegistro "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON ITENS_ENTRADAS_SAIDAS_COLABORADORES.IdFunc=COLABORADOR.IdFunc "
+                    + "WHERE NomeFunc LIKE'%" + jPesqNome.getText() + "%' ");
             while (conecta.rs.next()) {
                 EntradasSaidasColaboradores pEntradaSaidaFunc = new EntradasSaidasColaboradores();
                 pEntradaSaidaFunc.setIdRegistro(conecta.rs.getInt("IdRegRegistro"));

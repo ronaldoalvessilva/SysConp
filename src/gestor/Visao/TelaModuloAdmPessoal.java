@@ -96,6 +96,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private TelaAtividadesMensalUnidade objAtividadeMU = null;
     private ConsultaGerencialColaboradoresUnidade objConsCola = null;
     private TelaEntradaSaidasColaboradores objEntradaSaidaFunc = null;
+    private TelaEscalaFolgas objEscala = null;
     //
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -154,6 +155,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     //
     public static String telaEntradasSaidasColaboradoresManu_ADM = "Movimentação:Entradas e Saídas Colaboradores na Unidade:Manutenção";
     public static String telaEntradasSaidasColaboradoresCola_ADM = "Movimentação:Entradas e Saídas Colaboradores na Unidade:Colaboradores";
+    public static String telaEscala_ADM = "Cadastro:Escala de Folgas:Manutenção";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCD = "";
@@ -191,11 +193,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     //
     String pNomeESCM = "";
     String pNomeESCC = "";
-
-//    pNomeESCM
-//            pNomeESCc
-//    telaEntradasSaidasColaboradoresManu_ADM
-//    telaEntradasSaidasColaboradoresCola_ADM
+    //
+    String pNomeEF = "";
+    //
     public static int codigoUserADM = 0;
     public static int codUserAcessoADM = 0;
     public static int codigoUserGroupADM = 0;
@@ -242,6 +242,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         Colaborador = new javax.swing.JMenu();
         FichaCadastral = new javax.swing.JMenuItem();
+        jEscalaTrabalho = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jAtividadesMensalUnidade = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
@@ -368,6 +369,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             }
         });
         Colaborador.add(FichaCadastral);
+
+        jEscalaTrabalho.setText("Escalas de Trabalho");
+        jEscalaTrabalho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEscalaTrabalhoActionPerformed(evt);
+            }
+        });
+        Colaborador.add(jEscalaTrabalho);
 
         Cadastros.add(Colaborador);
         Cadastros.add(jSeparator1);
@@ -1463,6 +1472,40 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jEntradasSaidaColaboradoresActionPerformed
 
+    private void jEscalaTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEscalaTrabalhoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEscala_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscala_ADM) && codAbrirADM == 1) {
+            if (objEscala == null || objEscala.isClosed()) {
+                objEscala = new TelaEscalaFolgas();
+                jPainelAdmPessoal.add(objEscala);
+                objEscala.setVisible(true);
+            } else {
+                if (objEscala.isVisible()) {
+                    if (objEscala.isIcon()) { // Se esta minimizado
+                        try {
+                            objEscala.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objEscala.toFront(); // traz para frente
+                        objEscala.pack();//volta frame 
+                    }
+                } else {
+                    objEscala = new TelaEscalaFolgas();
+                    TelaModuloAdmPessoal.jPainelAdmPessoal.add(objEscala);//adicona frame ao JDesktopPane  
+                    objEntradaSaidaFunc.setVisible(true);
+                }
+            }
+            try {
+                objEscala.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jEscalaTrabalhoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1494,6 +1537,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jDepartamentos;
     private javax.swing.JMenu jDiversos;
     private javax.swing.JMenuItem jEntradasSaidaColaboradores;
+    private javax.swing.JMenuItem jEscalaTrabalho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -2026,6 +2070,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             pNomeESCC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //ESCALA DE FOLGAS    
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEscala_ADM + "'");
+            conecta.rs.first();
+            pNomeEF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         if (!pNomeCD.equals(telaCadastroDepartamento_ADM) || pNomeCD == null || pNomeCD.equals("")) {
             buscarCodigoModulo();
@@ -2190,6 +2242,13 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEntradasSaidasColaboradoresCola_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //ESCALA DE FOLGAS   
+        if (!pNomeEF.equals(telaEscala_ADM) || pNomeEF == null || pNomeEF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEscala_ADM);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

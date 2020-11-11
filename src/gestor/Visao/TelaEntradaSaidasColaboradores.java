@@ -14,6 +14,7 @@ import gestor.Controle.ControleEntradaSaidaColaboradores;
 import gestor.Controle.ControleListaTransferenciaColaLOCALHOST;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleTransferenciaColaboradorUnidades;
+import gestor.Controle.PesquisarColaboradorNome;
 import gestor.Controle.PesquisarColaboradoresEntradasSaidasUni;
 import gestor.Controle.PesquisarGravacaoColaboradores;
 import gestor.Controle.PesquisarGravacaoColaboradoresCodigo;
@@ -58,6 +59,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     PesquisarGravacaoColaboradoresData LISTA_ENTRADAS_SAIDAS_data = new PesquisarGravacaoColaboradoresData();
     ControleEntradaSaidaColaboradores CONTROLE_ENTRADAS_saidas = new ControleEntradaSaidaColaboradores();
     PesquisarColaboradoresEntradasSaidasUni LISTAR_colaboradores = new PesquisarColaboradoresEntradasSaidasUni();
+    PesquisarColaboradorNome LISTAR_COLABORADORES_nome = new PesquisarColaboradorNome();
     //
     ColaboradoresTransferenciasUnidades objCola = new ColaboradoresTransferenciasUnidades();
     ControleColaborador control = new ControleColaborador();
@@ -1104,14 +1106,21 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
 
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
         // TODO add your handling code here:
-//        count = 0;
-//        flag = 1;
-//        pesquisarFuncNome("SELECT * FROM COLABORADOR "
-//            + "INNER JOIN DEPARTAMENTOS "
-//            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-//            + "INNER JOIN CARGOS "
-//            + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-//            + "WHERE NomeFunc LIKE'%" + jPesqNome.getText() + "%'");
+        Integer rows = jTabelaColaborador.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe registro a ser pesquisado.");
+        } else {
+            count = 0;
+            flag = 1;
+             // APAGAR DADOS DA TABELA
+            while (jTabelaFuncionario.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaFuncionario.getModel()).removeRow(0);
+            }
+            pPESQUISAR_nome();
+            if (pTOTAL_registros == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem exibidos...");
+            }
+        }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
@@ -1353,7 +1362,6 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
-
                         statusMov = "Excluiu";
                         horaMov = jHoraSistema.getText();
                         objEntraSaiFunc.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
@@ -1936,7 +1944,7 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jPesqNome;
+    public static javax.swing.JTextField jPesqNome;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2235,6 +2243,32 @@ public class TelaEntradaSaidasColaboradores extends javax.swing.JInternalFrame {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
         try {
             for (EntradasSaidasColaboradores dd : LISTA_ENTRADAS_SAIDAS_data.read()) {
+                pDATA_evento = String.valueOf(dd.getDataRegistro());
+                String dia = pDATA_evento.substring(8, 10);
+                String mes = pDATA_evento.substring(5, 7);
+                String ano = pDATA_evento.substring(0, 4);
+                pDATA_evento = dia + "/" + mes + "/" + ano;
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
+                dadosOrigem.addRow(new Object[]{dd.getIdRegistro(), pDATA_evento, dd.getStatusRegistro(), dd.getOperacao(), dd.getTipoMovimento()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaFuncionario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaFuncionario.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaFuncionario.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaFuncionario.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaCancelamentoPagamentoKits.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void pPESQUISAR_nome(){
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
+        try {
+            for (EntradasSaidasColaboradores dd : LISTAR_COLABORADORES_nome.read()) {
                 pDATA_evento = String.valueOf(dd.getDataRegistro());
                 String dia = pDATA_evento.substring(8, 10);
                 String mes = pDATA_evento.substring(5, 7);
