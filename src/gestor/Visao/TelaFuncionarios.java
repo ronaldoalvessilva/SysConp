@@ -124,6 +124,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
      */
     public static TelaWebCamColaborador webCamFunc;
     public static TelaBiometriaColaboradores telaBiometriaFunc;
+    public static TelaCronogramaEscala pCRONOGRAMA;
 
     public TelaFuncionarios() {
         initComponents();
@@ -139,6 +140,11 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     public void mostrarBiometriaFunc() {
         telaBiometriaFunc = new TelaBiometriaColaboradores(this, true);
         telaBiometriaFunc.setVisible(true);
+    }
+    
+    public void mostrarCRONOGRAMA(){
+       pCRONOGRAMA = new TelaCronogramaEscala(this, true);
+       pCRONOGRAMA.setVisible(true);
     }
 
     /**
@@ -4579,6 +4585,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
     private void jBtCronogramaEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCronogramaEscalaActionPerformed
         // TODO add your handling code here:
+        mostrarCRONOGRAMA();
     }//GEN-LAST:event_jBtCronogramaEscalaActionPerformed
 
     private void jBtAuditoriaEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEscalaActionPerformed

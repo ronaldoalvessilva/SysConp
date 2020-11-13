@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EscalaFolgas;
 import static gestor.Visao.TelaFuncionarios.jCodigoPesqFunc;
 import static gestor.Visao.TelaFuncionarios.jComboBoxDescricaoEscala;
+import static gestor.Visao.TelaFuncionarios.jIDFunc;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +106,42 @@ public class PesquisarEscalasDescricao {
                     + "WHERE IdFunc='" + jCodigoPesqFunc.getText() + "'");
             conecta.rs.first();
             objEscalas.setIdRegistro(conecta.rs.getInt("IdRegistro"));
+            objEscalas.setIdEscala(conecta.rs.getInt("IdEscala"));
+            objEscalas.setDescricaoEscala(conecta.rs.getString("DescricaoEscala"));
+            objEscalas.setQuantidadeTrab(conecta.rs.getInt("QuantidadeTrab"));
+            objEscalas.setQuantidadeFolga(conecta.rs.getInt("QuantidadeFolga"));
+            objEscalas.setTurno(conecta.rs.getString("Turno"));
+            objEscalas.setTurma(conecta.rs.getString("Turma"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleEscalaFolgas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
+
+    public EscalaFolgas MOSTRAR_FUNC_cronograma(EscalaFolgas objEscalas) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.IdRegistro, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala,"
+                    + "ESCALA_TRABALHO.DescricaoEscala, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeTrab, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeFolga, "
+                    + "ESCALA_TRABALHO.Turno, "
+                    + "ESCALA_TRABALHO.Turma, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc, "
+                    + "COLABORADOR.NomeFunc "
+                    + "FROM ESCALA_TRABALHO_FOLGA_COLABORADOR "
+                    + "INNER JOIN ESCALA_TRABALHO "
+                    + "ON ESCALA_TRABALHO_FOLGA_COLABORADOR.IdRegistro=ESCALA_TRABALHO.IdRegistro "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc=COLABORADOR.IdFunc "
+                    + "WHERE COLABORADOR.IdFunc='" + jIDFunc.getText() + "'");
+            conecta.rs.first();
+            objEscalas.setIdRegistro(conecta.rs.getInt("IdRegistro"));
+            objEscalas.setIdFunc(conecta.rs.getInt("IdFunc"));
+            objEscalas.setNomeFuncEscala(conecta.rs.getString("NomeFunc"));
             objEscalas.setIdEscala(conecta.rs.getInt("IdEscala"));
             objEscalas.setDescricaoEscala(conecta.rs.getString("DescricaoEscala"));
             objEscalas.setQuantidadeTrab(conecta.rs.getInt("QuantidadeTrab"));
