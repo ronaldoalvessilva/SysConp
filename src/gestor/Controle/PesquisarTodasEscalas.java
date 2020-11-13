@@ -6,7 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.EscalFolgas;
+import gestor.Modelo.EscalaFolgas;
 import static gestor.Visao.TelaEscalaFolgas.pTOTAL_registros;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,12 +20,12 @@ import java.util.logging.Logger;
  */
 public class PesquisarTodasEscalas {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    EscalFolgas objEscalas = new EscalFolgas();
+    EscalaFolgas objEscalas = new EscalaFolgas();
         
-     public List<EscalFolgas> read() throws Exception {
+     public List<EscalaFolgas> read() throws Exception {
         pTOTAL_registros = 0;
         conecta.abrirConexao();
-        List<EscalFolgas> listaRegistroEntradasSaidasColaboradores = new ArrayList<EscalFolgas>();
+        List<EscalaFolgas> listaRegistroEntradasSaidasColaboradores = new ArrayList<EscalaFolgas>();
         try {
             conecta.executaSQL("SELECT "
                     + "IdRegistro, "
@@ -38,7 +38,7 @@ public class PesquisarTodasEscalas {
                     + "Turma "
                     + "FROM ESCALA_TRABALHO");
             while (conecta.rs.next()) {
-                EscalFolgas pEscalFolgas = new EscalFolgas();
+                EscalaFolgas pEscalFolgas = new EscalaFolgas();
                 pEscalFolgas.setIdRegistro(conecta.rs.getInt("IdRegistro"));
                 pEscalFolgas.setStatusEscala(conecta.rs.getString("StatusEscala"));
                 pEscalFolgas.setDataCadastro(conecta.rs.getDate("DataCadastro"));

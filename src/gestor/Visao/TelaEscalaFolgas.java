@@ -15,7 +15,7 @@ import gestor.Controle.PesquisarEscalasCodigo;
 import gestor.Controle.PesquisarEscalasData;
 import gestor.Controle.PesquisarTodasEscalas;
 import gestor.Modelo.CamposAcessos;
-import gestor.Modelo.EscalFolgas;
+import gestor.Modelo.EscalaFolgas;
 import static gestor.Visao.TelaModuloAdmPessoal.telaEscala_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
 
-    EscalFolgas objEscalas = new EscalFolgas();
+    EscalaFolgas objEscalas = new EscalaFolgas();
     PesquisarTodasEscalas LISTAR_TODOS_registros = new PesquisarTodasEscalas();
     PesquisarEscalasCodigo LISTA_ESCALA_codigo = new PesquisarEscalasCodigo();
     PesquisarEscalasData LISTA_ESCALA_data = new PesquisarEscalasData();
@@ -1089,7 +1089,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
     public void mostrarTodos() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
         try {
-            for (EscalFolgas dd : LISTAR_TODOS_registros.read()) {
+            for (EscalaFolgas dd : LISTAR_TODOS_registros.read()) {
                 pDATA_evento = String.valueOf(dd.getDataCadastro());
                 String dia = pDATA_evento.substring(8, 10);
                 String mes = pDATA_evento.substring(5, 7);
@@ -1115,7 +1115,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
     public void mostrarRegistroCodigo() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
         try {
-            for (EscalFolgas dd : LISTA_ESCALA_codigo.read()) {
+            for (EscalaFolgas dd : LISTA_ESCALA_codigo.read()) {
                 pDATA_evento = String.valueOf(dd.getDataCadastro());
                 String dia = pDATA_evento.substring(8, 10);
                 String mes = pDATA_evento.substring(5, 7);
@@ -1141,7 +1141,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
     public void mostraPesquisaData() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaFuncionario.getModel();
         try {
-            for (EscalFolgas dd : LISTA_ESCALA_data.read()) {
+            for (EscalaFolgas dd : LISTA_ESCALA_data.read()) {
                 pDATA_evento = String.valueOf(dd.getDataCadastro());
                 String dia = pDATA_evento.substring(8, 10);
                 String mes = pDATA_evento.substring(5, 7);

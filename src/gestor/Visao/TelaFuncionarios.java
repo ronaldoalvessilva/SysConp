@@ -10,6 +10,7 @@ import gestor.Controle.ControleDependentesColaborador;
 import gestor.Controle.ControleDocumentosColaborador;
 import gestor.Controle.ControleEnderecosColaborador;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleEscalaFolgas;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitos;
@@ -17,9 +18,11 @@ import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosMin;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.PesquisarEscalasDescricao;
 import gestor.Modelo.Dependentes;
 import gestor.Modelo.Documentos;
 import gestor.Modelo.Enderecos;
+import gestor.Modelo.EscalaFolgas;
 import gestor.Modelo.Funcionarios;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -39,26 +42,20 @@ import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCDep_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCDoc_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCEnd_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFC_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaEscalaTrabalho_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -86,12 +83,17 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     ControleDependentesColaborador controlDep = new ControleDependentesColaborador();
     //
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //ESCALA DE TRABALHO
+    EscalaFolgas objEscala = new EscalaFolgas();
+    PesquisarEscalasDescricao pPESQUISAR_nome = new PesquisarEscalasDescricao();
+    ControleEscalaFolgas CONTROLE_ESCALA_colaborador = new ControleEscalaFolgas();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
     String nomeModuloTela = "AdmPessoal:Colaboradores:Ficha Cadastral:Manutenção";
     String nomeModuloTela1 = "AdmPessoal:Colaboradores:Ficha Cadastral:Dependentes";
+    String nomeModuloTela2 = "AdmPessoal:Colaboradores:Ficha Cadastral:Escala de Trabalho";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -112,6 +114,10 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     String dataInicial, dataFinal;
     //ARRAY PARA FOTO DO COLABORADOR
     byte[] persona_imagem = null;
+    //
+    public static int pID_ESCALA = 0;
+    public static String pRESPOSTA_escala = "";
+    public static int pCODIGO_colaborador = 0;
 
     /**
      * Creates new form TelaFuncionarios
@@ -351,6 +357,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtAuditoriaDocumentos = new javax.swing.JButton();
         jBtImpressaoFichaColaborador = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel25 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -363,8 +371,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTabelaDependentes = new javax.swing.JTable();
         jPanel22 = new javax.swing.JPanel();
         jBtNovoDependente = new javax.swing.JButton();
         jBtAlterarDependente = new javax.swing.JButton();
@@ -373,7 +379,43 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtCancelarDependente = new javax.swing.JButton();
         jBtAuditoriaDependente = new javax.swing.JButton();
         jLabel71 = new javax.swing.JLabel();
-        jtotalItens = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTabelaDependentes = new javax.swing.JTable();
+        jPanel33 = new javax.swing.JPanel();
+        jLabel82 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
+        jPanel35 = new javax.swing.JPanel();
+        jtotalItens = new javax.swing.JLabel();
+        jPanel26 = new javax.swing.JPanel();
+        jPanel27 = new javax.swing.JPanel();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        jCodigoEscala = new javax.swing.JTextField();
+        jQtdTrabalho = new javax.swing.JTextField();
+        jQtdFolga = new javax.swing.JTextField();
+        jTurnoEscala = new javax.swing.JTextField();
+        jLabel88 = new javax.swing.JLabel();
+        jTurmaEscala = new javax.swing.JTextField();
+        jLabel89 = new javax.swing.JLabel();
+        jComboBoxDescricaoEscala = new javax.swing.JComboBox<>();
+        jLabel90 = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        jDepartamentoEscala = new javax.swing.JTextField();
+        jNomeCargoEscala = new javax.swing.JTextField();
+        jPanel28 = new javax.swing.JPanel();
+        jBtNovaEscala = new javax.swing.JButton();
+        jBtAlterarEscala = new javax.swing.JButton();
+        jBtExcluirEscala = new javax.swing.JButton();
+        jBtSalvarEscala = new javax.swing.JButton();
+        jBtCancelarEscala = new javax.swing.JButton();
+        jBtAuditoriaEscala = new javax.swing.JButton();
+        jPanel29 = new javax.swing.JPanel();
+        jBtCronogramaEscala = new javax.swing.JButton();
+        jBtImprimeEscala = new javax.swing.JButton();
+        jPanel36 = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
@@ -493,7 +535,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(121, 121, 121)
-                .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -610,7 +652,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -764,8 +806,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxStatusFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))))
+                                    .addComponent(jLabel7)
+                                    .addComponent(jComboBoxStatusFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(4, 4, 4)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -1165,7 +1207,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                        .addComponent(jDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
@@ -1323,7 +1365,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel52)
                     .addComponent(jPais, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1369,7 +1411,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addComponent(jLabel68)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBoxEstadoNaturalidade, 0, 98, Short.MAX_VALUE))
+                    .addComponent(jComboBoxEstadoNaturalidade, 0, 104, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
@@ -1578,7 +1620,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                         .addComponent(jCelularEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jURL)
                     .addComponent(jEmail))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCelularEnd, jTelefone, jTelefoneEnd});
@@ -2155,7 +2197,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                             .addComponent(jLabel20)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jComboBoxTipoConjugue, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                             .addComponent(jLabel22)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jDataNasConjugue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -2344,7 +2386,9 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Documentos", jPanel13);
 
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dependentes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 204, 51))); // NOI18N
+        jTabbedPane3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel25.setText("Código");
@@ -2417,7 +2461,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                             .addComponent(jNomeDependente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel77)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2444,32 +2488,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addComponent(jNomeDependente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jTabelaDependentes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaDependentes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nome do Dependente", "Nascimento", "Parentesco"
-            }
-        ));
-        jTabelaDependentes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaDependentesMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jTabelaDependentes);
-        if (jTabelaDependentes.getColumnModel().getColumnCount() > 0) {
-            jTabelaDependentes.getColumnModel().getColumn(0).setMinWidth(60);
-            jTabelaDependentes.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaDependentes.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaDependentes.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaDependentes.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaDependentes.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaDependentes.getColumnModel().getColumn(3).setMinWidth(180);
-            jTabelaDependentes.getColumnModel().getColumn(3).setMaxWidth(180);
-        }
 
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -2530,14 +2548,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jLabel71.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel71.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel71.setText("Total Dependentes:");
-
-        jtotalItens.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jtotalItens.setForeground(new java.awt.Color(255, 0, 0));
-        jtotalItens.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jtotalItens.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jtotalItens.setDisabledTextColor(new java.awt.Color(255, 0, 0));
-        jtotalItens.setEnabled(false);
+        jLabel71.setText("Campos obrigatórios (*)");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -2554,11 +2565,9 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvarDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jBtCancelarDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel71)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtotalItens, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addComponent(jBtAuditoriaDependente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2568,7 +2577,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtNovoDependente)
                     .addComponent(jBtAlterarDependente)
@@ -2576,12 +2585,472 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jBtSalvarDependente)
                     .addComponent(jBtCancelarDependente)
                     .addComponent(jLabel71)
-                    .addComponent(jtotalItens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAuditoriaDependente))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jPanel22Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarDependente, jBtCancelarDependente, jBtExcluirDependente, jBtNovoDependente, jBtSalvarDependente});
+
+        jTabelaDependentes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaDependentes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome do Dependente", "Nascimento", "Parentesco"
+            }
+        ));
+        jTabelaDependentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaDependentesMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTabelaDependentes);
+        if (jTabelaDependentes.getColumnModel().getColumnCount() > 0) {
+            jTabelaDependentes.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaDependentes.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaDependentes.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaDependentes.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaDependentes.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaDependentes.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaDependentes.getColumnModel().getColumn(3).setMinWidth(180);
+            jTabelaDependentes.getColumnModel().getColumn(3).setMaxWidth(180);
+        }
+
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel82.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel82))
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel82)
+        );
+
+        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalItens.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalItens, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalItens, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
+                        .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3))
+        );
+
+        jTabbedPane3.addTab("Dependentes", jPanel25);
+
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jLabel83.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel83.setText("Código");
+
+        jLabel84.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel84.setText("Descrição da Escala");
+
+        jLabel85.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel85.setText("Qtd. Trab.");
+
+        jLabel86.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel86.setText("Qtd. Folga");
+
+        jLabel87.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel87.setText("Turno");
+
+        jCodigoEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCodigoEscala.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoEscala.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jCodigoEscala.setEnabled(false);
+
+        jQtdTrabalho.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jQtdTrabalho.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jQtdTrabalho.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQtdTrabalho.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jQtdTrabalho.setEnabled(false);
+
+        jQtdFolga.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jQtdFolga.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jQtdFolga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQtdFolga.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jQtdFolga.setEnabled(false);
+
+        jTurnoEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTurnoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTurnoEscala.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTurnoEscala.setEnabled(false);
+
+        jLabel88.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel88.setText("Turma");
+
+        jTurmaEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTurmaEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTurmaEscala.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTurmaEscala.setEnabled(false);
+
+        jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel89.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/X.png"))); // NOI18N
+
+        jComboBoxDescricaoEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxDescricaoEscala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxDescricaoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxDescricaoEscala.setEnabled(false);
+        jComboBoxDescricaoEscala.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDescricaoEscalaItemStateChanged(evt);
+            }
+        });
+
+        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel90.setText("Departamento:");
+
+        jLabel91.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel91.setText("Cargo:");
+
+        jDepartamentoEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jDepartamentoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDepartamentoEscala.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jDepartamentoEscala.setEnabled(false);
+
+        jNomeCargoEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jNomeCargoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeCargoEscala.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jNomeCargoEscala.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel27Layout.createSequentialGroup()
+                        .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel91)
+                            .addComponent(jLabel90))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNomeCargoEscala)
+                            .addComponent(jDepartamentoEscala)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel27Layout.createSequentialGroup()
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel83)
+                                .addComponent(jCodigoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel84, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxDescricaoEscala, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel27Layout.createSequentialGroup()
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel27Layout.createSequentialGroup()
+                                    .addComponent(jQtdTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel89)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel27Layout.createSequentialGroup()
+                                    .addComponent(jLabel85, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(32, 32, 32)))
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel27Layout.createSequentialGroup()
+                                    .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE))
+                                .addComponent(jQtdFolga))
+                            .addGap(9, 9, 9)
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel87)
+                                .addComponent(jTurnoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel88)
+                                .addComponent(jTurmaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(31, 31, 31))
+        );
+
+        jPanel27Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoEscala, jQtdTrabalho});
+
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel83)
+                    .addComponent(jLabel84))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCodigoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDescricaoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel85)
+                        .addComponent(jLabel86))
+                    .addComponent(jLabel88)
+                    .addComponent(jLabel87))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jTurnoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jQtdTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel89)
+                    .addComponent(jQtdFolga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTurmaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel90)
+                    .addComponent(jDepartamentoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jNomeCargoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel91))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtNovaEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovaEscala.setText("Novo");
+        jBtNovaEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtNovaEscala.setEnabled(false);
+        jBtNovaEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaEscalaActionPerformed(evt);
+            }
+        });
+
+        jBtAlterarEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEscala.setText("Alterar");
+        jBtAlterarEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtAlterarEscala.setEnabled(false);
+        jBtAlterarEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEscalaActionPerformed(evt);
+            }
+        });
+
+        jBtExcluirEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtExcluirEscala.setText("Excluir");
+        jBtExcluirEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtExcluirEscala.setEnabled(false);
+        jBtExcluirEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirEscalaActionPerformed(evt);
+            }
+        });
+
+        jBtSalvarEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvarEscala.setText("Gravar");
+        jBtSalvarEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtSalvarEscala.setEnabled(false);
+        jBtSalvarEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarEscalaActionPerformed(evt);
+            }
+        });
+
+        jBtCancelarEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelarEscala.setText("Cancelar");
+        jBtCancelarEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtCancelarEscala.setEnabled(false);
+        jBtCancelarEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarEscalaActionPerformed(evt);
+            }
+        });
+
+        jBtAuditoriaEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaEscala.setToolTipText("Auditoria");
+        jBtAuditoriaEscala.setContentAreaFilled(false);
+        jBtAuditoriaEscala.setEnabled(false);
+        jBtAuditoriaEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaEscalaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
+        jPanel28.setLayout(jPanel28Layout);
+        jPanel28Layout.setHorizontalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtNovaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtAlterarEscala)
+                .addGap(1, 1, 1)
+                .addComponent(jBtExcluirEscala)
+                .addGap(1, 1, 1)
+                .addComponent(jBtSalvarEscala)
+                .addGap(1, 1, 1)
+                .addComponent(jBtCancelarEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtAuditoriaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEscala, jBtCancelarEscala, jBtExcluirEscala, jBtNovaEscala, jBtSalvarEscala});
+
+        jPanel28Layout.setVerticalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtAlterarEscala)
+                    .addComponent(jBtNovaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtExcluirEscala)
+                    .addComponent(jBtSalvarEscala)
+                    .addComponent(jBtCancelarEscala)
+                    .addComponent(jBtAuditoriaEscala))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEscala, jBtCancelarEscala, jBtExcluirEscala, jBtNovaEscala, jBtSalvarEscala});
+
+        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtCronogramaEscala.setForeground(new java.awt.Color(0, 102, 0));
+        jBtCronogramaEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calendar_add.png"))); // NOI18N
+        jBtCronogramaEscala.setText("CRONOGRAMA");
+        jBtCronogramaEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtCronogramaEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCronogramaEscalaActionPerformed(evt);
+            }
+        });
+
+        jBtImprimeEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtImprimeEscala.setText("IMPRIMIR CRONOGRAMA");
+        jBtImprimeEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtCronogramaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtImprimeEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel29Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCronogramaEscala, jBtImprimeEscala});
+
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtImprimeEscala)
+                    .addComponent(jBtCronogramaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel29Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCronogramaEscala, jBtImprimeEscala});
+
+        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
+        jPanel36.setLayout(jPanel36Layout);
+        jPanel36Layout.setHorizontalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel36Layout.setVerticalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, 527, Short.MAX_VALUE)
+                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Dados da Escala", jPanel26);
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -2589,24 +3058,17 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jTabbedPane3)
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(jTabbedPane3))
         );
 
-        jTabbedPane1.addTab("Dependentes", jPanel20);
+        jTabbedPane1.addTab("Dependentes/Escala", jPanel20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2631,6 +3093,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             acao = 1;
             Novo();
             corCampo();
+            limparCamposEscala();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -2961,8 +3424,11 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jTabelaFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaFuncionarioMouseClicked
-        // TODO add your handling code here:      
+        // TODO add your handling code here:   
+        flag = 1;
         if (flag == 1) {
+            String pIDFunc = "" + jTabelaFuncionario.getValueAt(jTabelaFuncionario.getSelectedRow(), 0);
+            jCodigoPesqFunc.setText(pIDFunc);
             String nomeFunc = "" + jTabelaFuncionario.getValueAt(jTabelaFuncionario.getSelectedRow(), 3);
             jPesqNome.setText(nomeFunc);
             // MANUTENÇÃO
@@ -3098,6 +3564,30 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         }
         countDep = 0;
         preencherTabelaDepende("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+        //PESQUISAR CÓDIGO DO COLABORADOR PARA VER SE O MESMO TEM ESCALA CADASTRADA
+        CONTROLE_ESCALA_colaborador.MOSTRAR_CODIGO_ESCALA_func(objEscala);
+        if (pCODIGO_colaborador == Integer.parseInt(jIDFunc.getText())) {
+            jComboBoxDescricaoEscala.removeAllItems();
+            pPESQUISAR_nome.MOSTRAR_FUNC_escala(objEscala);
+            jCodigoEscala.setText(String.valueOf(objEscala.getIdRegistro()));
+            pID_ESCALA = objEscala.getIdEscala();
+            jComboBoxDescricaoEscala.addItem(objEscala.getDescricaoEscala());
+            jQtdTrabalho.setText(String.valueOf(objEscala.getQuantidadeTrab()));
+            jQtdFolga.setText(String.valueOf(objEscala.getQuantidadeFolga()));
+            jTurnoEscala.setText(objEscala.getTurno());
+            jTurmaEscala.setText(objEscala.getTurma());
+            jDepartamentoEscala.setText(jDepartamento.getText());
+            jNomeCargoEscala.setText(jNomeCargo.getText());
+            //
+            bloquearBotoesEscala(!true);
+            jBtAlterarEscala.setEnabled(true);
+            jBtExcluirEscala.setEnabled(true);
+            jBtAuditoriaEscala.setEnabled(true);
+        } else {
+            limparCamposEscala();
+            bloquearBotoesEscala(!true);
+            jBtNovaEscala.setEnabled(true);
+        }
     }//GEN-LAST:event_jTabelaFuncionarioMouseClicked
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
@@ -3662,7 +4152,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-                    + "WHERE NomeFunc='" + jCodigoPesqFunc.getText() + "'");
+                    + "WHERE IdFunc='" + jCodigoPesqFunc.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqCodigoFuncActionPerformed
 
@@ -3909,7 +4399,6 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
         mostrarBiometriaFunc();
-
     }//GEN-LAST:event_jBtBiometriaActionPerformed
 
     private void jBtImpressaoFichaColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoFichaColaboradorActionPerformed
@@ -3920,6 +4409,185 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtConsultaMovimentacaoActionPerformed
 
+    private void jComboBoxDescricaoEscalaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDescricaoEscalaItemStateChanged
+        // TODO add your handling code here:
+        if (jComboBoxDescricaoEscala.getSelectedItem() != null) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                pPESQUISAR_nome.MOSTRAR_escala(objEscala);
+                jCodigoEscala.setText(String.valueOf(objEscala.getIdRegistro()));
+                jComboBoxDescricaoEscala.addItem(objEscala.getDescricaoEscala());
+                jQtdTrabalho.setText(String.valueOf(objEscala.getQuantidadeTrab()));
+                jQtdFolga.setText(String.valueOf(objEscala.getQuantidadeFolga()));
+                jTurnoEscala.setText(objEscala.getTurno());
+                jTurmaEscala.setText(objEscala.getTurma());
+            }
+        }
+    }//GEN-LAST:event_jComboBoxDescricaoEscalaItemStateChanged
+
+    private void jBtNovaEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEscalaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEscalaTrabalho_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codIncluirADM == 1) {
+            acao = 5;
+            bloquearBotoesEscala(!true);
+            habilitarCamposEscala(true);
+            NovaEscala(true);
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            jComboBoxDescricaoEscala.removeAllItems();
+            jDepartamentoEscala.setText(jDepartamento.getText());
+            jNomeCargoEscala.setText(jNomeCargo.getText());
+            try {
+                for (EscalaFolgas b : pPESQUISAR_nome.read()) {
+                    jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
+                    jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
+                    jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
+                    jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
+                    jTurnoEscala.setText(b.getTurno());
+                    jTurmaEscala.setText(b.getTurma());
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtNovaEscalaActionPerformed
+
+    private void jBtAlterarEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEscalaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEscalaTrabalho_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codAlterarADM == 1) {
+            acao = 6;
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            bloquearBotoesEscala(!true);
+            habilitarCamposEscala(true);
+            AlterarEscala(true);
+            jDepartamentoEscala.setText(jDepartamento.getText());
+            jNomeCargoEscala.setText(jNomeCargo.getText());
+            try {
+                for (EscalaFolgas b : pPESQUISAR_nome.read()) {
+                    jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
+                    jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
+                    jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
+                    jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
+                    jTurnoEscala.setText(b.getTurno());
+                    jTurmaEscala.setText(b.getTurma());
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtAlterarEscalaActionPerformed
+
+    private void jBtExcluirEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEscalaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEscalaTrabalho_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codExcluirADM == 1) {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                objEscala.setIdEscala(pID_ESCALA);
+                CONTROLE_ESCALA_colaborador.excluirEscalaTrabalhoFolga(objEscala);
+                bloquearBotoesEscala(!true);
+                habilitarCamposEscala(!true);
+                ExcluirEscala(!true);
+                limparCamposEscala();
+                if (pRESPOSTA_escala.equals("Sim")) {
+                    JOptionPane.showMessageDialog(null, "Resgistro excluído com sucesso.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro, tente novamente.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtExcluirEscalaActionPerformed
+
+    private void jBtSalvarEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEscalaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEscalaTrabalho_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codGravarADM == 1) {
+            if (jCodigoEscala.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o código da escala.");
+            } else if (jComboBoxDescricaoEscala.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a descrição da escala.");
+            } else if (jQtdTrabalho.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a quantidade de dias de trabalho.");
+            } else if (jQtdFolga.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a quantidade de dias de folga.");
+            } else {
+                objEscala.setIdRegistro(Integer.valueOf(objEscala.getIdRegistro()));
+                objEscala.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                objEscala.setDescricaoEscala((String) jComboBoxDescricaoEscala.getSelectedItem());
+                objEscala.setQuantidadeTrab(Integer.valueOf(jQtdTrabalho.getText()));
+                objEscala.setQuantidadeFolga(Integer.valueOf(jQtdFolga.getText()));
+                if (acao == 5) {
+                    objEscala.setUsuarioInsert(nameUser);
+                    objEscala.setDataInsert(dataModFinal);
+                    objEscala.setHorarioInsert(horaMov);
+                    CONTROLE_ESCALA_colaborador.incluirEscalaTrabalhoFolga(objEscala);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoesEscala(!true);
+                    habilitarCamposEscala(!true);
+                    SalvarEscala(true);
+                    //BUSCAR CÓDIGO DA ESCALA DE TRABALHO E FOLGA NA TABELA ESCALA_TRABALHO_FOLGA_COLABORADOR
+                    CONTROLE_ESCALA_colaborador.PESQUISAR_CODIGO_escala(objEscala);
+                    if (pRESPOSTA_escala.equals("Sim")) {
+                        JOptionPane.showMessageDialog(null, "Resgistro gravado com sucesso.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível gravar o registro, tente novamente.");
+                    }
+                }
+                if (acao == 6) {
+                    objEscala.setUsuarioUp(nameUser);
+                    objEscala.setDataUp(dataModFinal);
+                    objEscala.setHorarioUp(horaMov);
+                    objEscala.setIdEscala(pID_ESCALA);
+                    CONTROLE_ESCALA_colaborador.alterarEscalaTrabalhoFolga(objEscala);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoesEscala(!true);
+                    habilitarCamposEscala(!true);
+                    SalvarEscala(true);
+                    if (pRESPOSTA_escala.equals("Sim")) {
+                        JOptionPane.showMessageDialog(null, "Resgistro gravado com sucesso.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível gravar o registro, tente novamente.");
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtSalvarEscalaActionPerformed
+
+    private void jBtCancelarEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarEscalaActionPerformed
+        // TODO add your handling code here:
+        bloquearBotoesEscala(!true);
+        CancelarEscala(true);
+    }//GEN-LAST:event_jBtCancelarEscalaActionPerformed
+
+    private void jBtCronogramaEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCronogramaEscalaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtCronogramaEscalaActionPerformed
+
+    private void jBtAuditoriaEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEscalaActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaEscalaTrabalhoFolga objAuditoriaES = new TelaAuditoriaEscalaTrabalhoFolga();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objAuditoriaES);
+        objAuditoriaES.show();
+    }//GEN-LAST:event_jBtAuditoriaEscalaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField jAltura;
@@ -3927,23 +4595,30 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarDependente;
     private javax.swing.JButton jBtAlterarDocumentos;
+    private javax.swing.JButton jBtAlterarEscala;
     private javax.swing.JButton jBtAlterarLogradouro;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoriaDependente;
     private javax.swing.JButton jBtAuditoriaDocumentos;
+    private javax.swing.JButton jBtAuditoriaEscala;
     private javax.swing.JButton jBtAuditoriaLogradouro;
     private javax.swing.JButton jBtBiometria;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtCancelarDependente;
     private javax.swing.JButton jBtCancelarDocumentos;
+    private javax.swing.JButton jBtCancelarEscala;
     private javax.swing.JButton jBtCancelarLogradouro;
     private javax.swing.JButton jBtConsultaMovimentacao;
+    private javax.swing.JButton jBtCronogramaEscala;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirDependente;
     private javax.swing.JButton jBtExcluirDocumentos;
+    private javax.swing.JButton jBtExcluirEscala;
     private javax.swing.JButton jBtExcluirFoto2;
     private javax.swing.JButton jBtExcluirLogradouro;
     private javax.swing.JButton jBtImpressaoFichaColaborador;
+    private javax.swing.JButton jBtImprimeEscala;
+    private javax.swing.JButton jBtNovaEscala;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoDependente;
     private javax.swing.JButton jBtNovoDocumentos;
@@ -3961,6 +4636,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarDependente;
     private javax.swing.JButton jBtSalvarDocumentos;
+    private javax.swing.JButton jBtSalvarEscala;
     private javax.swing.JButton jBtSalvarLogradouro;
     private javax.swing.JButton jBtWebCam;
     private javax.swing.JFormattedTextField jCPF;
@@ -3976,7 +4652,9 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JTextField jCidade;
     public static javax.swing.JTextField jCodigoDependente;
-    private javax.swing.JTextField jCodigoPesqFunc;
+    private javax.swing.JTextField jCodigoEscala;
+    public static javax.swing.JTextField jCodigoPesqFunc;
+    public static javax.swing.JComboBox<String> jComboBoxDescricaoEscala;
     private javax.swing.JComboBox jComboBoxEscolaridade;
     private javax.swing.JComboBox jComboBoxEstado;
     private javax.swing.JComboBox jComboBoxEstadoCivil;
@@ -3999,6 +4677,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JTextField jDepartamento;
+    public static javax.swing.JTextField jDepartamentoEscala;
     private javax.swing.JTextField jEmail;
     private javax.swing.JTextField jEndereco;
     public static javax.swing.JLabel jFotoColaborador;
@@ -4087,10 +4766,21 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
     public static javax.swing.JTextField jMatricula;
     private javax.swing.JTextField jNaturalidade;
     public static javax.swing.JTextField jNomeCargo;
+    public static javax.swing.JTextField jNomeCargoEscala;
     private javax.swing.JTextField jNomeConjugue;
     private javax.swing.JTextField jNomeDependente;
     public static javax.swing.JTextField jNomeFuncionario;
@@ -4116,10 +4806,19 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -4131,6 +4830,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jPesqNome;
     private javax.swing.JTextField jPis;
     private javax.swing.JTextField jProfissao;
+    private javax.swing.JTextField jQtdFolga;
+    private javax.swing.JTextField jQtdTrabalho;
     private javax.swing.JFormattedTextField jRG;
     private javax.swing.JTextField jReligiao;
     private javax.swing.JTextField jReservista;
@@ -4142,15 +4843,18 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jSerie;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable jTabelaDependentes;
     private javax.swing.JTable jTabelaFuncionario;
     private javax.swing.JFormattedTextField jTelefone;
     private javax.swing.JFormattedTextField jTelefoneEnd;
     private javax.swing.JTextField jTipoSang;
     private javax.swing.JTextField jTitulo;
+    private javax.swing.JTextField jTurmaEscala;
+    private javax.swing.JTextField jTurnoEscala;
     private javax.swing.JTextField jURL;
     private javax.swing.JTextField jZona;
-    private javax.swing.JTextField jtotalItens;
+    private javax.swing.JLabel jtotalItens;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -4301,6 +5005,15 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jNomeDependente.setBackground(Color.WHITE);
         jDataNascimentoParentesco.setBackground(Color.WHITE);
         jtotalItens.setBackground(Color.WHITE);
+        //ESCALA DE TRABALHO
+        jCodigoEscala.setBackground(Color.WHITE);
+        jComboBoxDescricaoEscala.setBackground(Color.WHITE);
+        jQtdTrabalho.setBackground(Color.WHITE);
+        jQtdFolga.setBackground(Color.WHITE);
+        jTurnoEscala.setBackground(Color.WHITE);
+        jTurmaEscala.setBackground(Color.WHITE);
+        jDepartamentoEscala.setBackground(Color.WHITE);
+        jNomeCargoEscala.setBackground(Color.WHITE);
     }
 
     public void limparCamposRegistro() {
@@ -5613,6 +6326,75 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtAuditoriaDependente.setEnabled(!true);
     }
 
+    public void habilitarCamposEscala(boolean opcao) {
+        jComboBoxDescricaoEscala.setEnabled(opcao);
+    }
+
+    public void bloquearBotoesEscala(boolean opcao) {
+        jBtNovaEscala.setEnabled(opcao);
+        jBtAlterarEscala.setEnabled(opcao);
+        jBtExcluirEscala.setEnabled(opcao);
+        jBtSalvarEscala.setEnabled(opcao);
+        jBtCancelarEscala.setEnabled(opcao);
+        jBtAuditoriaEscala.setEnabled(opcao);
+    }
+
+    public void NovaEscala(boolean opcao) {
+        jBtSalvarEscala.setEnabled(opcao);
+        jBtCancelarEscala.setEnabled(opcao);
+    }
+
+    public void AlterarEscala(boolean opcao) {
+        jBtSalvarEscala.setEnabled(opcao);
+        jBtCancelarEscala.setEnabled(opcao);
+    }
+
+    public void ExcluirEscala(boolean opcao) {
+        jBtNovaEscala.setEnabled(opcao);
+    }
+
+    public void SalvarEscala(boolean opcao) {
+        jBtAlterarEscala.setEnabled(opcao);
+        jBtExcluirEscala.setEnabled(opcao);
+        jBtAuditoriaEscala.setEnabled(opcao);
+    }
+
+    public void CancelarEscala(boolean opcao) {
+        if (pID_ESCALA != 0) {
+            jComboBoxDescricaoEscala.removeAllItems();
+            pPESQUISAR_nome.MOSTRAR_FUNC_escala(objEscala);
+            jCodigoEscala.setText(String.valueOf(objEscala.getIdRegistro()));
+            pID_ESCALA = objEscala.getIdEscala();
+            jComboBoxDescricaoEscala.addItem(objEscala.getDescricaoEscala());
+            jQtdTrabalho.setText(String.valueOf(objEscala.getQuantidadeTrab()));
+            jQtdFolga.setText(String.valueOf(objEscala.getQuantidadeFolga()));
+            jTurnoEscala.setText(objEscala.getTurno());
+            jTurmaEscala.setText(objEscala.getTurma());
+            jDepartamentoEscala.setText(jDepartamento.getText());
+            jNomeCargoEscala.setText(jNomeCargo.getText());
+            //
+            jBtAlterarEscala.setEnabled(opcao);
+            jBtExcluirEscala.setEnabled(opcao);
+            jBtAuditoriaEscala.setEnabled(opcao);
+            habilitarCamposEscala(!true);
+        } else {
+            habilitarCamposEscala(!true);
+            limparCamposEscala();
+            jBtNovaEscala.setEnabled(opcao);
+        }
+    }
+
+    public void limparCamposEscala() {
+        jCodigoEscala.setText("");
+        jComboBoxDescricaoEscala.removeAllItems();
+        jQtdTrabalho.setText("");
+        jQtdFolga.setText("");
+        jTurnoEscala.setText("");
+        jTurmaEscala.setText("");
+        jDepartamentoEscala.setText("");
+        jNomeCargoEscala.setText("");
+    }
+
     public void verificarColaborador() {
         conecta.abrirConexao();
         try {
@@ -5896,6 +6678,15 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela1);
+        objLogSys.setIdLancMov(Integer.valueOf(jIDFunc.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog2() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela2);
         objLogSys.setIdLancMov(Integer.valueOf(jIDFunc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);

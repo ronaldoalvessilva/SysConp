@@ -11,8 +11,11 @@ import java.util.Date;
  *
  * @author ronal
  */
-public class EscalFolgas {
-    private Integer IdRegistro;
+public class EscalaFolgas {
+    private Integer idRegistro;
+    private Integer idEscala;
+    private Integer idFunc;
+    private String nomeFuncEscala;
     private String statusEscala;
     private Date dataCadastro;
     private Integer quantidadeTrab;
@@ -27,11 +30,14 @@ public class EscalFolgas {
     private String dataUp;
     private String horarioUp;
 
-    public EscalFolgas() {
+    public EscalaFolgas() {
     }
 
-    public EscalFolgas(Integer IdRegistro, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
-        this.IdRegistro = IdRegistro;
+    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+        this.idRegistro = idRegistro;
+        this.idEscala = idEscala;
+        this.idFunc = idFunc;
+        this.nomeFuncEscala = nomeFuncEscala;
         this.statusEscala = statusEscala;
         this.dataCadastro = dataCadastro;
         this.quantidadeTrab = quantidadeTrab;
@@ -48,17 +54,59 @@ public class EscalFolgas {
     }
 
     /**
-     * @return the IdRegistro
+     * @return the idRegistro
      */
     public Integer getIdRegistro() {
-        return IdRegistro;
+        return idRegistro;
     }
 
     /**
-     * @param IdRegistro the IdRegistro to set
+     * @param idRegistro the idRegistro to set
      */
-    public void setIdRegistro(Integer IdRegistro) {
-        this.IdRegistro = IdRegistro;
+    public void setIdRegistro(Integer idRegistro) {
+        this.idRegistro = idRegistro;
+    }
+
+    /**
+     * @return the idEscala
+     */
+    public Integer getIdEscala() {
+        return idEscala;
+    }
+
+    /**
+     * @param idEscala the idEscala to set
+     */
+    public void setIdEscala(Integer idEscala) {
+        this.idEscala = idEscala;
+    }
+
+    /**
+     * @return the idFunc
+     */
+    public Integer getIdFunc() {
+        return idFunc;
+    }
+
+    /**
+     * @param idFunc the idFunc to set
+     */
+    public void setIdFunc(Integer idFunc) {
+        this.idFunc = idFunc;
+    }
+
+    /**
+     * @return the nomeFuncEscala
+     */
+    public String getNomeFuncEscala() {
+        return nomeFuncEscala;
+    }
+
+    /**
+     * @param nomeFuncEscala the nomeFuncEscala to set
+     */
+    public void setNomeFuncEscala(String nomeFuncEscala) {
+        this.nomeFuncEscala = nomeFuncEscala;
     }
 
     /**

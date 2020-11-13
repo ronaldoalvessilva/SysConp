@@ -6,7 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.EscalFolgas;
+import gestor.Modelo.EscalaFolgas;
 import static gestor.Visao.TelaEscalaFolgas.dataFinal;
 import static gestor.Visao.TelaEscalaFolgas.dataInicial;
 import static gestor.Visao.TelaEscalaFolgas.pTOTAL_registros;
@@ -23,12 +23,12 @@ import java.util.logging.Logger;
 public class PesquisarEscalasData {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    EscalFolgas objEscalas = new EscalFolgas();
+    EscalaFolgas objEscalas = new EscalaFolgas();
 
-    public List<EscalFolgas> read() throws Exception {
+    public List<EscalaFolgas> read() throws Exception {
         pTOTAL_registros = 0;
         conecta.abrirConexao();
-        List<EscalFolgas> listaRegistroEntradasSaidasColaboradores = new ArrayList<EscalFolgas>();
+        List<EscalaFolgas> listaRegistroEntradasSaidasColaboradores = new ArrayList<EscalaFolgas>();
         try {
             conecta.executaSQL("SELECT "
                     + "IdRegistro, "
@@ -43,7 +43,7 @@ public class PesquisarEscalasData {
                     + "WHERE DataCadastro BETWEEN '" + dataInicial + "' "
                     + "AND '" + dataFinal + "'");
             while (conecta.rs.next()) {
-                EscalFolgas pEscalFolgas = new EscalFolgas();
+                EscalaFolgas pEscalFolgas = new EscalaFolgas();
                 pEscalFolgas.setIdRegistro(conecta.rs.getInt("IdRegistro"));
                 pEscalFolgas.setStatusEscala(conecta.rs.getString("StatusEscala"));
                 pEscalFolgas.setDataCadastro(conecta.rs.getDate("DataCadastro"));

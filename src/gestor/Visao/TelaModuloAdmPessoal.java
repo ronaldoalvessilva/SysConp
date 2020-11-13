@@ -156,6 +156,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     public static String telaEntradasSaidasColaboradoresManu_ADM = "Movimentação:Entradas e Saídas Colaboradores na Unidade:Manutenção";
     public static String telaEntradasSaidasColaboradoresCola_ADM = "Movimentação:Entradas e Saídas Colaboradores na Unidade:Colaboradores";
     public static String telaEscala_ADM = "Cadastro:Escala de Folgas:Manutenção";
+    public static String telaEscalaTrabalho_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Dependentes";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCD = "";
@@ -196,6 +197,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     //
     String pNomeEF = "";
     //
+    String pNomeETFC = "";
+    // 
     public static int codigoUserADM = 0;
     public static int codUserAcessoADM = 0;
     public static int codigoUserGroupADM = 0;
@@ -2078,6 +2081,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             pNomeEF = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //          
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEscalaTrabalho_ADM + "'");
+            conecta.rs.first();
+            pNomeETFC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         if (!pNomeCD.equals(telaCadastroDepartamento_ADM) || pNomeCD == null || pNomeCD.equals("")) {
             buscarCodigoModulo();
@@ -2249,6 +2260,13 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEscala_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //          
+        if (!pNomeETFC.equals(telaEscalaTrabalho_ADM) || pNomeETFC == null || pNomeETFC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEscalaTrabalho_ADM);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
