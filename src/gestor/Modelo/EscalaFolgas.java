@@ -29,11 +29,18 @@ public class EscalaFolgas {
     private String usuarioUp;
     private String dataUp;
     private String horarioUp;
+    private int idCrono;
+    private String PrimeiroApt;
+    private String SegundoApt;
+    private Date dataInicial;
+    private Date dataFinal;
+    private Date dataPrimeiraFolga;
+    private Date dataCronograma;
 
     public EscalaFolgas() {
     }
 
-    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma) {
         this.idRegistro = idRegistro;
         this.idEscala = idEscala;
         this.idFunc = idFunc;
@@ -51,6 +58,13 @@ public class EscalaFolgas {
         this.usuarioUp = usuarioUp;
         this.dataUp = dataUp;
         this.horarioUp = horarioUp;
+        this.idCrono = idCrono;
+        this.PrimeiroApt = PrimeiroApt;
+        this.SegundoApt = SegundoApt;
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
+        this.dataPrimeiraFolga = dataPrimeiraFolga;
+        this.dataCronograma = dataCronograma;
     }
 
     /**
@@ -289,5 +303,103 @@ public class EscalaFolgas {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the idCrono
+     */
+    public int getIdCrono() {
+        return idCrono;
+    }
+
+    /**
+     * @param idCrono the idCrono to set
+     */
+    public void setIdCrono(int idCrono) {
+        this.idCrono = idCrono;
+    }
+
+    /**
+     * @return the PrimeiroApt
+     */
+    public String getPrimeiroApt() {
+        return PrimeiroApt;
+    }
+
+    /**
+     * @param PrimeiroApt the PrimeiroApt to set
+     */
+    public void setPrimeiroApt(String PrimeiroApt) {
+        this.PrimeiroApt = PrimeiroApt;
+    }
+
+    /**
+     * @return the SegundoApt
+     */
+    public String getSegundoApt() {
+        return SegundoApt;
+    }
+
+    /**
+     * @param SegundoApt the SegundoApt to set
+     */
+    public void setSegundoApt(String SegundoApt) {
+        this.SegundoApt = SegundoApt;
+    }
+
+    /**
+     * @return the dataInicial
+     */
+    public Date getDataInicial() {
+        return dataInicial;
+    }
+
+    /**
+     * @param dataInicial the dataInicial to set
+     */
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    /**
+     * @return the dataFinal
+     */
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    /**
+     * @param dataFinal the dataFinal to set
+     */
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
+    /**
+     * @return the dataPrimeiraFolga
+     */
+    public Date getDataPrimeiraFolga() {
+        return dataPrimeiraFolga;
+    }
+
+    /**
+     * @param dataPrimeiraFolga the dataPrimeiraFolga to set
+     */
+    public void setDataPrimeiraFolga(Date dataPrimeiraFolga) {
+        this.dataPrimeiraFolga = dataPrimeiraFolga;
+    }
+
+    /**
+     * @return the dataCronograma
+     */
+    public Date getDataCronograma() {
+        return dataCronograma;
+    }
+
+    /**
+     * @param dataCronograma the dataCronograma to set
+     */
+    public void setDataCronograma(Date dataCronograma) {
+        this.dataCronograma = dataCronograma;
     }
 }

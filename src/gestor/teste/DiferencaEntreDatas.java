@@ -15,8 +15,8 @@ import java.util.GregorianCalendar;
  */
 public class DiferencaEntreDatas {
      public static void main(String args[]) throws ParseException{
-         String maiorData = "05/10/2033";
-         String menorData = "10/03/2011";
+         String maiorData = "30/01/2021";
+         String menorData = "16/11/2020";
         try {  
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
             GregorianCalendar maior = new GregorianCalendar();

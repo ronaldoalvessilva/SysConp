@@ -141,10 +141,10 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         telaBiometriaFunc = new TelaBiometriaColaboradores(this, true);
         telaBiometriaFunc.setVisible(true);
     }
-    
-    public void mostrarCRONOGRAMA(){
-       pCRONOGRAMA = new TelaCronogramaEscala(this, true);
-       pCRONOGRAMA.setVisible(true);
+
+    public void mostrarCRONOGRAMA() {
+        pCRONOGRAMA = new TelaCronogramaEscala(this, true);
+        pCRONOGRAMA.setVisible(true);
     }
 
     /**
@@ -4434,27 +4434,31 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEscalaTrabalho_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codIncluirADM == 1) {
-            acao = 5;
-            bloquearBotoesEscala(!true);
-            habilitarCamposEscala(true);
-            NovaEscala(true);
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            jComboBoxDescricaoEscala.removeAllItems();
-            jDepartamentoEscala.setText(jDepartamento.getText());
-            jNomeCargoEscala.setText(jNomeCargo.getText());
-            try {
-                for (EscalaFolgas b : pPESQUISAR_nome.read()) {
-                    jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
-                    jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
-                    jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
-                    jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
-                    jTurnoEscala.setText(b.getTurno());
-                    jTurmaEscala.setText(b.getTurma());
+            if (jComboBoxStatusFunc.getSelectedItem().equals("Ativo")) {
+                acao = 5;
+                bloquearBotoesEscala(!true);
+                habilitarCamposEscala(true);
+                NovaEscala(true);
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                jComboBoxDescricaoEscala.removeAllItems();
+                jDepartamentoEscala.setText(jDepartamento.getText());
+                jNomeCargoEscala.setText(jNomeCargo.getText());
+                try {
+                    for (EscalaFolgas b : pPESQUISAR_nome.read()) {
+                        jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
+                        jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
+                        jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
+                        jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
+                        jTurnoEscala.setText(b.getTurno());
+                        jTurmaEscala.setText(b.getTurma());
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
                 }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Colaborador não está ativo, por isso não é possível definir escala de trabalho e folga.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -4465,26 +4469,30 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEscalaTrabalho_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codAlterarADM == 1) {
-            acao = 6;
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            bloquearBotoesEscala(!true);
-            habilitarCamposEscala(true);
-            AlterarEscala(true);
-            jDepartamentoEscala.setText(jDepartamento.getText());
-            jNomeCargoEscala.setText(jNomeCargo.getText());
-            try {
-                for (EscalaFolgas b : pPESQUISAR_nome.read()) {
-                    jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
-                    jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
-                    jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
-                    jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
-                    jTurnoEscala.setText(b.getTurno());
-                    jTurmaEscala.setText(b.getTurma());
+            if (jComboBoxStatusFunc.getSelectedItem().equals("Ativo")) {
+                acao = 6;
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                bloquearBotoesEscala(!true);
+                habilitarCamposEscala(true);
+                AlterarEscala(true);
+                jDepartamentoEscala.setText(jDepartamento.getText());
+                jNomeCargoEscala.setText(jNomeCargo.getText());
+                try {
+                    for (EscalaFolgas b : pPESQUISAR_nome.read()) {
+                        jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
+                        jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
+                        jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
+                        jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
+                        jTurnoEscala.setText(b.getTurno());
+                        jTurmaEscala.setText(b.getTurma());
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
                 }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Colaborador não está ativo, por isso não é possível definir escala de trabalho e folga.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -4495,23 +4503,27 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEscalaTrabalho_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codExcluirADM == 1) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                objEscala.setIdEscala(pID_ESCALA);
-                CONTROLE_ESCALA_colaborador.excluirEscalaTrabalhoFolga(objEscala);
-                bloquearBotoesEscala(!true);
-                habilitarCamposEscala(!true);
-                ExcluirEscala(!true);
-                limparCamposEscala();
-                if (pRESPOSTA_escala.equals("Sim")) {
-                    JOptionPane.showMessageDialog(null, "Resgistro excluído com sucesso.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro, tente novamente.");
+            if (jComboBoxStatusFunc.getSelectedItem().equals("Ativo")) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    objEscala.setIdEscala(pID_ESCALA);
+                    CONTROLE_ESCALA_colaborador.excluirEscalaTrabalhoFolga(objEscala);
+                    bloquearBotoesEscala(!true);
+                    habilitarCamposEscala(!true);
+                    ExcluirEscala(!true);
+                    limparCamposEscala();
+                    if (pRESPOSTA_escala.equals("Sim")) {
+                        JOptionPane.showMessageDialog(null, "Resgistro excluído com sucesso.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro, tente novamente.");
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Colaborador não está ativo, por isso não é possível definir escala de trabalho e folga.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");

@@ -16,6 +16,7 @@ import static gestor.Visao.TelaFuncionarios.pRESPOSTA_escala;
 import static gestor.Visao.TelaFuncionarios.pID_ESCALA;
 import static gestor.Visao.TelaFuncionarios.jCodigoPesqFunc;
 import static gestor.Visao.TelaFuncionarios.pCODIGO_colaborador;
+import static gestor.Visao.TelaCronogramaEscala.pRESPOSTA_crono;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -130,7 +131,7 @@ public class ControleEscalaFolgas {
             conecta.rs.last();
             jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
         } catch (Exception ERROR) {
-            JOptionPane.showMessageDialog(null, "Não foi possível obter o código do registro\n" +ERROR);
+            JOptionPane.showMessageDialog(null, "Não foi possível obter o código do registro\n" + ERROR);
         }
         conecta.desconecta();
         return objEscalas;
@@ -152,9 +153,8 @@ public class ControleEscalaFolgas {
         conecta.desconecta();
         return objEscalas;
     }
-    
-   //----------------------------- TELA FUNCIONÁRIOS ESCALA DE TRABALHO E FOLGAS -----------------------
-    
+
+    //----------------------------- TELA FUNCIONÁRIOS ESCALA DE TRABALHO E FOLGAS -----------------------
     public EscalaFolgas incluirEscalaTrabalhoFolga(EscalaFolgas objEscalas) {
 
         conecta.abrirConexao();
@@ -176,7 +176,7 @@ public class ControleEscalaFolgas {
         conecta.desconecta();
         return objEscalas;
     }
-    
+
     public EscalaFolgas alterarEscalaTrabalhoFolga(EscalaFolgas objEscalas) {
 
         conecta.abrirConexao();
@@ -198,12 +198,12 @@ public class ControleEscalaFolgas {
         conecta.desconecta();
         return objEscalas;
     }
-    
+
     public EscalaFolgas excluirEscalaTrabalhoFolga(EscalaFolgas objEscalas) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ESCALA_TRABALHO_FOLGA_COLABORADOR WHERE IdEscala='" + objEscalas.getIdEscala() + "'");            
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ESCALA_TRABALHO_FOLGA_COLABORADOR WHERE IdEscala='" + objEscalas.getIdEscala() + "'");
             pst.executeUpdate();
             pRESPOSTA_escala = "Sim";
         } catch (SQLException ex) {
@@ -213,7 +213,7 @@ public class ControleEscalaFolgas {
         conecta.desconecta();
         return objEscalas;
     }
-    
+
     public EscalaFolgas PESQUISAR_CODIGO_escala(EscalaFolgas objEscalas) {
         conecta.abrirConexao();
         try {
@@ -222,12 +222,12 @@ public class ControleEscalaFolgas {
             conecta.rs.last();
             pID_ESCALA = conecta.rs.getInt("IdEscala");
         } catch (Exception ERROR) {
-            JOptionPane.showMessageDialog(null, "Não foi possível obter o código do registro\n" +ERROR);
+            JOptionPane.showMessageDialog(null, "Não foi possível obter o código do registro\n" + ERROR);
         }
         conecta.desconecta();
         return objEscalas;
     }
-    
+
     public EscalaFolgas MOSTRAR_CODIGO_ESCALA_func(EscalaFolgas objEscalas) {
         conecta.abrirConexao();
         try {
@@ -238,7 +238,79 @@ public class ControleEscalaFolgas {
                     + "WHERE IdFunc='" + jCodigoPesqFunc.getText() + "'");
             conecta.rs.first();
             pCODIGO_colaborador = conecta.rs.getInt("IdFunc");
-        } catch (Exception ERROR) {            
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
+
+    //--------------------------------------  CRONOGRAMA DE ESCALA DE TRABALHO E FOLGA ----------------------------
+    public EscalaFolgas incluirCronogramaTrabalhoFolga(EscalaFolgas objEscalas) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR (IdRegistro,IdFunc,IdEscala,PrimeiroApt,SegundoApt,DataInicial,DataFinal,DataCronograma,DataPrimeiraFolga) VALUES(?,?,?,?,?,?,?,?,?)");
+            pst.setInt(1, objEscalas.getIdRegistro());
+            pst.setInt(2, objEscalas.getIdFunc());
+            pst.setInt(3, objEscalas.getIdEscala());
+            pst.setString(4, objEscalas.getPrimeiroApt());
+            pst.setString(5, objEscalas.getSegundoApt());
+            pst.setTimestamp(6, new java.sql.Timestamp(objEscalas.getDataInicial().getTime()));
+            pst.setTimestamp(7, new java.sql.Timestamp(objEscalas.getDataFinal().getTime()));
+            pst.setTimestamp(8, new java.sql.Timestamp(objEscalas.getDataCronograma().getTime()));
+            if (objEscalas.getDataPrimeiraFolga() != null) {
+                pst.setTimestamp(9, new java.sql.Timestamp(objEscalas.getDataPrimeiraFolga().getTime()));
+            } else {
+                pst.setDate(9, null);
+            }
+            pst.execute();
+            pRESPOSTA_crono = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_crono = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
+
+    public EscalaFolgas alterarCronogramaTrabalhoFolga(EscalaFolgas objEscalas) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET IdRegistro=?,IdFunc=?,IdEscala=?,PrimeiroApt=?,SegundoApt=?,DataInicial=?,DataFinal=?,DataCronograma=?,DataPrimeiraFolga=? WHERE IdCrono='" + objEscalas.getIdCrono() + "'");
+            pst.setInt(1, objEscalas.getIdRegistro());
+            pst.setInt(2, objEscalas.getIdFunc());
+            pst.setInt(3, objEscalas.getIdEscala());
+            pst.setString(4, objEscalas.getPrimeiroApt());
+            pst.setString(5, objEscalas.getSegundoApt());
+            pst.setTimestamp(6, new java.sql.Timestamp(objEscalas.getDataInicial().getTime()));
+            pst.setTimestamp(7, new java.sql.Timestamp(objEscalas.getDataFinal().getTime()));
+            pst.setTimestamp(8, new java.sql.Timestamp(objEscalas.getDataCronograma().getTime()));
+            if (objEscalas.getDataPrimeiraFolga() != null) {
+                pst.setTimestamp(9, new java.sql.Timestamp(objEscalas.getDataPrimeiraFolga().getTime()));
+            } else {
+                pst.setDate(9, null);
+            }
+            pst.executeUpdate();
+            pRESPOSTA_crono = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_crono = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
+
+    public EscalaFolgas excluirCronogramaTrabalhoFolga(EscalaFolgas objEscalas) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR WHERE IdCrono='" + objEscalas.getIdCrono() + "'");
+            pst.executeUpdate();
+            pRESPOSTA_crono = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_crono = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objEscalas;
