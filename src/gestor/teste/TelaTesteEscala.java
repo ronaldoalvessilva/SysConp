@@ -5,10 +5,12 @@
  */
 package gestor.teste;
 
+import gestor.Visao.TelaCronogramaEscala;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,8 +37,17 @@ public class TelaTesteEscala extends javax.swing.JDialog {
     long diferencaDias;
     //
     DateUtils dateUtils = new DateUtils();
-    int inteiro = 1;
+    int inteiro = 0;
     Date d1;
+    Date d3;
+    Date d4;
+    int pDIAS_FOLGA = 0;
+    String dataPrimeiraFolga;
+    String pSITUACAO_TRABALHO_folga = "";
+    //
+    String data1 = null;
+    String data2 = null;
+    int opcao = 0;
 
     /**
      * Creates new form TelaTesteEscala
@@ -60,6 +71,8 @@ public class TelaTesteEscala extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jDataInicial = new com.toedter.calendar.JDateChooser();
         jDataFinal = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jDataPrimeiraFoga = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,6 +91,10 @@ public class TelaTesteEscala extends javax.swing.JDialog {
 
         jDataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        jLabel3.setText("Primeira Folga");
+
+        jDataPrimeiraFoga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,9 +103,11 @@ public class TelaTesteEscala extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jDataInicial, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jDataPrimeiraFoga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -109,7 +128,11 @@ public class TelaTesteEscala extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDataPrimeiraFoga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(65, 65, 65))
         );
@@ -123,26 +146,19 @@ public class TelaTesteEscala extends javax.swing.JDialog {
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+        dataPrimeiraFolga = formatoAmerica.format(jDataPrimeiraFoga.getDate().getTime());
         if (jDataInicial.getDate().after(jDataFinal.getDate())) {
             JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
         } else {
             calculoDias();
-            for (int i = 0; i < totalDias; i++) {
-                try {
-                    d1 = new SimpleDateFormat("dd/MM/yyyy").parse(dataInicial);
-                    Date d2 = dateUtils.addDate(Calendar.DAY_OF_MONTH, inteiro, d1);
-                    System.out.print("Data da Escala: " + d2 + "\n");
-                    ++inteiro;
-                } catch (ParseException ex) {
-                    Logger.getLogger(NewClass.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            }
+            CALCULAR_trabalho();
+            CALCULAR_DIAS_folgas_1X1();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -186,8 +202,10 @@ public class TelaTesteEscala extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
+    private com.toedter.calendar.JDateChooser jDataPrimeiraFoga;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
     public void calculoDias() {
@@ -209,6 +227,68 @@ public class TelaTesteEscala extends javax.swing.JDialog {
             System.out.println(diferencaMinutos);
             System.out.println(diferencaHoras);
             System.out.println(diferencaDias);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaTesteEscala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void CALCULAR_trabalho() {
+        pSITUACAO_TRABALHO_folga = "TRABALHANDO";
+        for (int i = 0; i < totalDias; i++) {
+            try {
+                d1 = new SimpleDateFormat("dd/MM/yyyy").parse(dataInicial);
+                Date d2 = dateUtils.addDate(Calendar.DAY_OF_MONTH, inteiro, d1);
+                System.out.print("Data da Escala: " + d2 + " STATUS: " + pSITUACAO_TRABALHO_folga + "\n");
+                ++inteiro;
+            } catch (ParseException ex) {
+                Logger.getLogger(NewClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void CALCULAR_DIAS_folgas_1X1() {
+
+        pDIAS_FOLGA = 0;
+        pSITUACAO_TRABALHO_folga = "FOLGA";
+        for (int i = 0; i < totalDias; i++) {
+            try {
+                d3 = new SimpleDateFormat("dd/MM/yyyy").parse(dataPrimeiraFolga);
+                d4 = dateUtils.addDate(Calendar.DAY_OF_MONTH, pDIAS_FOLGA, d3);
+                System.out.print("Data da Escala: " + d4 + " STATUS: " + pSITUACAO_TRABALHO_folga + "\n");
+            } catch (ParseException ex) {
+                Logger.getLogger(NewClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ++pDIAS_FOLGA;
+            COMPRARA_datas(d3, d4);
+            if (opcao == 0) {
+                --pDIAS_FOLGA;
+            } else if (opcao == 1) {
+                ++pDIAS_FOLGA;
+            } else if (opcao == 2) {
+                ++pDIAS_FOLGA;
+            }
+        }
+
+    }
+
+    public void COMPRARA_datas(Date a, Date b) {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        data1 = formatoAmerica.format(jDataInicial.getDate().getTime());
+        data2 = formatoAmerica.format(jDataPrimeiraFoga.getDate().getTime());
+        try {
+            a = new SimpleDateFormat("dd/MM/yyyy").parse(data1);
+            b = new SimpleDateFormat("dd/MM/yyyy").parse(data2);
+            a.compareTo(b);
+            if (a.after(b)) {
+                opcao = 0;
+                // DATA a MAIOR QUE b
+            } else if (a.before(b)) {
+                opcao = 1;
+                //DATA a MENOR b
+            } else if (a.equals(b)) {
+                opcao = 2;
+                //DATAS IGUAIS
+            }
         } catch (ParseException ex) {
             Logger.getLogger(TelaTesteEscala.class.getName()).log(Level.SEVERE, null, ex);
         }

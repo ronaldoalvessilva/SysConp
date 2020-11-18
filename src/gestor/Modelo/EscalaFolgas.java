@@ -36,11 +36,12 @@ public class EscalaFolgas {
     private Date dataFinal;
     private Date dataPrimeiraFolga;
     private Date dataCronograma;
+    private String StatusTrabFolga;
 
     public EscalaFolgas() {
     }
 
-    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma) {
+    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga) {
         this.idRegistro = idRegistro;
         this.idEscala = idEscala;
         this.idFunc = idFunc;
@@ -65,6 +66,7 @@ public class EscalaFolgas {
         this.dataFinal = dataFinal;
         this.dataPrimeiraFolga = dataPrimeiraFolga;
         this.dataCronograma = dataCronograma;
+        this.StatusTrabFolga = StatusTrabFolga;
     }
 
     /**
@@ -401,5 +403,19 @@ public class EscalaFolgas {
      */
     public void setDataCronograma(Date dataCronograma) {
         this.dataCronograma = dataCronograma;
+    }
+
+    /**
+     * @return the StatusTrabFolga
+     */
+    public String getStatusTrabFolga() {
+        return StatusTrabFolga;
+    }
+
+    /**
+     * @param StatusTrabFolga the StatusTrabFolga to set
+     */
+    public void setStatusTrabFolga(String StatusTrabFolga) {
+        this.StatusTrabFolga = StatusTrabFolga;
     }
 }

@@ -110,7 +110,6 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jIdRegistro = new javax.swing.JTextField();
-        jDescricaoEscala = new javax.swing.JTextField();
         jQuantidadeDiasTrab = new javax.swing.JFormattedTextField();
         jQuantidadeDiasFolga = new javax.swing.JFormattedTextField();
         jComboBoxTurno = new javax.swing.JComboBox<>();
@@ -120,6 +119,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jComboBoxStatus = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jDataCadastro = new com.toedter.calendar.JDateChooser();
+        jComboBoxDescricaoEscala = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jBtAlterar = new javax.swing.JButton();
@@ -365,10 +365,6 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jIdRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdRegistro.setEnabled(false);
 
-        jDescricaoEscala.setText("[ DESCRIÇÃO DA ESCALA DE TRABALHO ]");
-        jDescricaoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDescricaoEscala.setEnabled(false);
-
         jQuantidadeDiasTrab.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jQuantidadeDiasTrab.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jQuantidadeDiasTrab.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -412,6 +408,11 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jDataCadastro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataCadastro.setEnabled(false);
 
+        jComboBoxDescricaoEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxDescricaoEscala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "ESCALA DE 6 X 2", "ESCALA 12 X 36 (1 X 1) - TURMA A", "ESCALA 12 X 36 (1 X 1) - TURMA B", "ESCALA 12 X 36 (1 X 1) - TURMA C", "ESCALA 12 X 36 (1 X 1) - TURMA D", "ESCALA 8 X 3 - NOTURMA", "ESCALA 10 X 4 - NOTURNA", " " }));
+        jComboBoxDescricaoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxDescricaoEscala.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -435,12 +436,6 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                                 .addGap(3, 3, 3)
                                 .addComponent(jComboBoxTurma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jDescricaoEscala))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -449,7 +444,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jComboBoxStatus, 0, 123, Short.MAX_VALUE)))
                         .addGap(5, 5, 5)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -465,7 +460,11 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jQuantidadeDiasFolga, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
+                            .addComponent(jLabel4)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jComboBoxDescricaoEscala, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -493,7 +492,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDescricaoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxDescricaoEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -770,7 +769,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
             jDataCadastro.setDate(objEscalas.getDataCadastro());
             jQuantidadeDiasTrab.setText(String.valueOf(objEscalas.getQuantidadeTrab()));
             jQuantidadeDiasFolga.setText(String.valueOf(objEscalas.getQuantidadeFolga()));
-            jDescricaoEscala.setText(objEscalas.getDescricaoEscala());
+            jComboBoxDescricaoEscala.setSelectedItem(objEscalas.getDescricaoEscala());
             jComboBoxTurno.setSelectedItem(objEscalas.getTurno());
             jComboBoxTurma.setSelectedItem(objEscalas.getTurma());
         }
@@ -859,7 +858,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a quantidade de dias de trabalhar.");
             } else if (jQuantidadeDiasFolga.getText().equals("0")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a quantidade de dias de folga.");
-            } else if (jDescricaoEscala.getText().equals("")) {
+            } else if (jComboBoxDescricaoEscala.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição da escala de trabalho.");
             } else if (jComboBoxTurno.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o turno de trabalho.");
@@ -870,12 +869,12 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                 objEscalas.setDataCadastro(jDataCadastro.getDate());
                 objEscalas.setQuantidadeTrab(Integer.parseInt(jQuantidadeDiasTrab.getText()));
                 objEscalas.setQuantidadeFolga(Integer.parseInt(jQuantidadeDiasFolga.getText()));
-                objEscalas.setDescricaoEscala(jDescricaoEscala.getText());
+                objEscalas.setDescricaoEscala((String)jComboBoxDescricaoEscala.getSelectedItem());
                 objEscalas.setTurno((String) jComboBoxTurno.getSelectedItem());
                 objEscalas.setTurma((String) jComboBoxTurma.getSelectedItem());
                 if (acao == 1) {
                     PESQUISAR_ESCALA_trabalho();
-                    if (pDESCRICAO_escala.equals(jDescricaoEscala.getText()) && pQUANTIDADE_trabalho.equals(jQuantidadeDiasTrab.getText())) {
+                    if (pDESCRICAO_escala.equals(jComboBoxDescricaoEscala.getSelectedItem()) && pQUANTIDADE_trabalho.equals(jQuantidadeDiasTrab.getText())) {
                         JOptionPane.showMessageDialog(rootPane, "Essa escala de trabalho já foi cadastrada.");
                     } else {
                         objEscalas.setUsuarioInsert(nameUser);
@@ -948,13 +947,13 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JCheckBox jCheckBox1;
     public static javax.swing.JTextField jCodigoPesqEscala;
+    private javax.swing.JComboBox<String> jComboBoxDescricaoEscala;
     private javax.swing.JComboBox<String> jComboBoxStatus;
     private javax.swing.JComboBox<String> jComboBoxTurma;
     private javax.swing.JComboBox<String> jComboBoxTurno;
     private com.toedter.calendar.JDateChooser jDataCadastro;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
-    private javax.swing.JTextField jDescricaoEscala;
     public static javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -996,7 +995,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jDataCadastro.setBackground(Color.WHITE);
         jQuantidadeDiasTrab.setBackground(Color.WHITE);
         jQuantidadeDiasFolga.setBackground(Color.WHITE);
-        jDescricaoEscala.setBackground(Color.WHITE);
+        jComboBoxDescricaoEscala.setBackground(Color.WHITE);
         jComboBoxTurno.setBackground(Color.WHITE);
         jComboBoxTurma.setBackground(Color.WHITE);
     }
@@ -1015,7 +1014,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jDataCadastro.setEnabled(opcao);
         jQuantidadeDiasTrab.setEnabled(opcao);
         jQuantidadeDiasFolga.setEnabled(opcao);
-        jDescricaoEscala.setEnabled(opcao);
+        jComboBoxDescricaoEscala.setEnabled(opcao);
         jComboBoxTurno.setEnabled(opcao);
         jComboBoxTurma.setEnabled(opcao);
     }
@@ -1025,7 +1024,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jDataCadastro.setEnabled(opcao);
         jQuantidadeDiasTrab.setEnabled(opcao);
         jQuantidadeDiasFolga.setEnabled(opcao);
-        jDescricaoEscala.setEnabled(opcao);
+        jComboBoxDescricaoEscala.setEnabled(opcao);
         jComboBoxTurno.setEnabled(opcao);
         jComboBoxTurma.setEnabled(opcao);
     }
@@ -1036,7 +1035,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jDataCadastro.setDate(null);
         jQuantidadeDiasTrab.setText("0");
         jQuantidadeDiasFolga.setText("0");
-        jDescricaoEscala.setText("");
+        jComboBoxDescricaoEscala.setSelectedItem("Selecione...");
         jComboBoxTurno.setSelectedItem("Selecione...");
         jComboBoxTurma.setSelectedItem("Selecione...");
     }
