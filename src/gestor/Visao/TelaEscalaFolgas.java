@@ -120,6 +120,10 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jDataCadastro = new com.toedter.calendar.JDateChooser();
         jComboBoxDescricaoEscala = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jHorarioInicial = new javax.swing.JFormattedTextField();
+        jHorarioFinal = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jBtAlterar = new javax.swing.JButton();
@@ -413,6 +417,25 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jComboBoxDescricaoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDescricaoEscala.setEnabled(false);
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Horário Inicial");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Horário Termino");
+
+        jHorarioInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHorarioInicial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jHorarioInicial.setText("00:00");
+        jHorarioInicial.setEnabled(false);
+        jHorarioInicial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jHorarioFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHorarioFinal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jHorarioFinal.setText("00:00");
+        jHorarioFinal.setToolTipText("");
+        jHorarioFinal.setEnabled(false);
+        jHorarioFinal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -420,21 +443,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(204, 204, 204))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jComboBoxTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jComboBoxTurma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jComboBoxDescricaoEscala, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -464,7 +473,32 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBoxDescricaoEscala, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jComboBoxTurno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel11))
+                            .addComponent(jHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -496,11 +530,15 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -772,6 +810,8 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
             jComboBoxDescricaoEscala.setSelectedItem(objEscalas.getDescricaoEscala());
             jComboBoxTurno.setSelectedItem(objEscalas.getTurno());
             jComboBoxTurma.setSelectedItem(objEscalas.getTurma());
+            jHorarioInicial.setText(objEscalas.getHorarioInicial());
+            jHorarioFinal.setText(objEscalas.getHorarioFinal());
         }
     }//GEN-LAST:event_jTabelaFuncionarioMouseClicked
 
@@ -864,14 +904,24 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o turno de trabalho.");
             } else if (jComboBoxTurma.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione a turma de trabalho.");
+            } else if (jHorarioInicial.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Horário inicial não pode ser em branco.");
+            } else if (jHorarioInicial.getText().equals("00:00")) {
+                JOptionPane.showMessageDialog(rootPane, "Horário inicial não pode ser zero.");
+            } else if (jHorarioFinal.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Horário final não pode ser em branco.");
+            } else if (jHorarioFinal.getText().equals("00:00")) {
+                JOptionPane.showMessageDialog(rootPane, "Horário final não pode ser zero.");
             } else {
                 objEscalas.setStatusEscala((String) jComboBoxStatus.getSelectedItem());
                 objEscalas.setDataCadastro(jDataCadastro.getDate());
                 objEscalas.setQuantidadeTrab(Integer.parseInt(jQuantidadeDiasTrab.getText()));
                 objEscalas.setQuantidadeFolga(Integer.parseInt(jQuantidadeDiasFolga.getText()));
-                objEscalas.setDescricaoEscala((String)jComboBoxDescricaoEscala.getSelectedItem());
+                objEscalas.setDescricaoEscala((String) jComboBoxDescricaoEscala.getSelectedItem());
                 objEscalas.setTurno((String) jComboBoxTurno.getSelectedItem());
                 objEscalas.setTurma((String) jComboBoxTurma.getSelectedItem());
+                objEscalas.setHorarioInicial(jHorarioInicial.getText());
+                objEscalas.setHorarioFinal(jHorarioFinal.getText());
                 if (acao == 1) {
                     PESQUISAR_ESCALA_trabalho();
                     if (pDESCRICAO_escala.equals(jComboBoxDescricaoEscala.getSelectedItem()) && pQUANTIDADE_trabalho.equals(jQuantidadeDiasTrab.getText())) {
@@ -954,9 +1004,13 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataCadastro;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private javax.swing.JFormattedTextField jHorarioFinal;
+    private javax.swing.JFormattedTextField jHorarioInicial;
     public static javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
@@ -998,6 +1052,8 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jComboBoxDescricaoEscala.setBackground(Color.WHITE);
         jComboBoxTurno.setBackground(Color.WHITE);
         jComboBoxTurma.setBackground(Color.WHITE);
+        jHorarioInicial.setBackground(Color.WHITE);
+        jHorarioFinal.setBackground(Color.WHITE);
     }
 
     public void bloquearBotoes(boolean opcao) {
@@ -1017,6 +1073,8 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jComboBoxDescricaoEscala.setEnabled(opcao);
         jComboBoxTurno.setEnabled(opcao);
         jComboBoxTurma.setEnabled(opcao);
+        jHorarioInicial.setEnabled(opcao);
+        jHorarioFinal.setEnabled(opcao);
     }
 
     public void habilitarCamposManutencao(boolean opcao) {
@@ -1027,6 +1085,8 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jComboBoxDescricaoEscala.setEnabled(opcao);
         jComboBoxTurno.setEnabled(opcao);
         jComboBoxTurma.setEnabled(opcao);
+        jHorarioInicial.setEnabled(opcao);
+        jHorarioFinal.setEnabled(opcao);
     }
 
     public void limparTodosCampos() {
@@ -1038,6 +1098,8 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jComboBoxDescricaoEscala.setSelectedItem("Selecione...");
         jComboBoxTurno.setSelectedItem("Selecione...");
         jComboBoxTurma.setSelectedItem("Selecione...");
+        jHorarioInicial.setText("0:00");
+        jHorarioFinal.setText("0:00");
     }
 
     public void Novo(boolean opcao) {

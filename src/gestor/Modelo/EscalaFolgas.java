@@ -37,11 +37,13 @@ public class EscalaFolgas {
     private Date dataPrimeiraFolga;
     private Date dataCronograma;
     private String StatusTrabFolga;
+    private String horarioInicial;
+    private String horarioFinal;
 
     public EscalaFolgas() {
     }
 
-    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga) {
+    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga, String horarioInicial, String horarioFinal) {
         this.idRegistro = idRegistro;
         this.idEscala = idEscala;
         this.idFunc = idFunc;
@@ -67,6 +69,8 @@ public class EscalaFolgas {
         this.dataPrimeiraFolga = dataPrimeiraFolga;
         this.dataCronograma = dataCronograma;
         this.StatusTrabFolga = StatusTrabFolga;
+        this.horarioInicial = horarioInicial;
+        this.horarioFinal = horarioFinal;
     }
 
     /**
@@ -417,5 +421,33 @@ public class EscalaFolgas {
      */
     public void setStatusTrabFolga(String StatusTrabFolga) {
         this.StatusTrabFolga = StatusTrabFolga;
+    }
+
+    /**
+     * @return the horarioInicial
+     */
+    public String getHorarioInicial() {
+        return horarioInicial;
+    }
+
+    /**
+     * @param horarioInicial the horarioInicial to set
+     */
+    public void setHorarioInicial(String horarioInicial) {
+        this.horarioInicial = horarioInicial;
+    }
+
+    /**
+     * @return the horarioFinal
+     */
+    public String getHorarioFinal() {
+        return horarioFinal;
+    }
+
+    /**
+     * @param horarioFinal the horarioFinal to set
+     */
+    public void setHorarioFinal(String horarioFinal) {
+        this.horarioFinal = horarioFinal;
     }
 }

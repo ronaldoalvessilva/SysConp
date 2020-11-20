@@ -154,4 +154,45 @@ public class PesquisarEscalasDescricao {
         conecta.desconecta();
         return objEscalas;
     }
+    
+    public EscalaFolgas MOSTRAR_DADOS_CRONOGRAMA_gravado(EscalaFolgas objEscalas) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdRegistro, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala,"
+                    + "ESCALA_TRABALHO.DescricaoEscala, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeTrab, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeFolga, "
+                    + "ESCALA_TRABALHO.Turno, "
+                    + "ESCALA_TRABALHO.Turma, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc, "
+                    + "COLABORADOR.NomeFunc "
+                    + "FROM CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR "
+                    + "INNER JOIN ESCALA_TRABALHO "
+                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala=ESCALA_TRABALHO.IdEscala "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc=COLABORADOR.IdFunc "
+                    + "WHERE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc='" + jIDFunc.getText() + "'");
+            conecta.rs.first();
+            objEscalas.setIdRegistro(conecta.rs.getInt("IdRegistro"));
+            objEscalas.setIdFunc(conecta.rs.getInt("IdFunc"));
+            objEscalas.setNomeFuncEscala(conecta.rs.getString("NomeFunc"));
+            objEscalas.setIdEscala(conecta.rs.getInt("IdEscala"));
+            objEscalas.setDescricaoEscala(conecta.rs.getString("DescricaoEscala"));
+            objEscalas.setQuantidadeTrab(conecta.rs.getInt("QuantidadeTrab"));
+            objEscalas.setQuantidadeFolga(conecta.rs.getInt("QuantidadeFolga"));
+            objEscalas.setTurno(conecta.rs.getString("Turno"));
+            objEscalas.setTurma(conecta.rs.getString("Turma"));
+            objEscalas.setPrimeiroApt(conecta.rs.getString("PrimeiroApt"));
+            objEscalas.setSegundoApt(conecta.rs.getString("SegundoApt"));
+            objEscalas.setDataInicial(conecta.rs.getDate("DataInicial"));
+            objEscalas.setDataFinal(conecta.rs.getDate("DataFinal"));
+            objEscalas.setDataPrimeiraFolga(conecta.rs.getDate("DataPrimeiraFolga"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleEscalaFolgas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
 }

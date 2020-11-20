@@ -42,6 +42,7 @@ import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCDep_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCDoc_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCEnd_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFC_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaCronograma_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaEscalaTrabalho_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -2963,8 +2964,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtAlterarEscala)
                     .addComponent(jBtNovaEscala, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAlterarEscala)
                     .addComponent(jBtExcluirEscala)
                     .addComponent(jBtSalvarEscala)
                     .addComponent(jBtCancelarEscala)
@@ -4597,7 +4598,12 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
     private void jBtCronogramaEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCronogramaEscalaActionPerformed
         // TODO add your handling code here:
-        mostrarCRONOGRAMA();
+        buscarAcessoUsuario(telaCronograma_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCronograma_ADM) && codIncluirADM == 1) {
+            mostrarCRONOGRAMA();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtCronogramaEscalaActionPerformed
 
     private void jBtAuditoriaEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEscalaActionPerformed

@@ -155,8 +155,12 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     //
     public static String telaEntradasSaidasColaboradoresManu_ADM = "Movimentação:Entradas e Saídas Colaboradores na Unidade:Manutenção";
     public static String telaEntradasSaidasColaboradoresCola_ADM = "Movimentação:Entradas e Saídas Colaboradores na Unidade:Colaboradores";
-    public static String telaEscala_ADM = "Cadastro:Escala de Folgas:Manutenção";
-    public static String telaEscalaTrabalho_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Dependentes";
+    public static String telaEscala_ADM = "Cadastro:Escala de Trabalho:Manutenção";
+    public static String telaEscalaTrabalho_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Escala de Trabalho";
+    //
+    public static String telaCronograma_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Cronograma";
+    public static String telaCronogramaCriar_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Cronograma:Criar";
+    public static String telaCronogramaEfetuar_ADM = "Cadastro:Cadastro de Colaboradores:Ficha Cadastral:Cronograma:Efetuar";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCD = "";
@@ -199,6 +203,10 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     //
     String pNomeETFC = "";
     // 
+    String pNomeCRO = "";
+    String pNomeCria = "";
+    String pNomeEfe = "";
+
     public static int codigoUserADM = 0;
     public static int codUserAcessoADM = 0;
     public static int codigoUserGroupADM = 0;
@@ -2089,6 +2097,28 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             pNomeETFC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //        
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCronograma_ADM + "'");
+            conecta.rs.first();
+            pNomeCRO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCronogramaCriar_ADM + "'");
+            conecta.rs.first();
+            pNomeCria = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCronogramaEfetuar_ADM + "'");
+            conecta.rs.first();
+            pNomeEfe = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         if (!pNomeCD.equals(telaCadastroDepartamento_ADM) || pNomeCD == null || pNomeCD.equals("")) {
             buscarCodigoModulo();
@@ -2267,6 +2297,25 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEscalaTrabalho_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //    
+        if (!pNomeCRO.equals(telaCronograma_ADM) || pNomeCRO == null || pNomeCRO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCronograma_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCria.equals(telaCronogramaCriar_ADM) || pNomeCria == null || pNomeCria.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCronogramaCriar_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEfe.equals(telaCronogramaEfetuar_ADM) || pNomeEfe == null || pNomeEfe.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCronogramaEfetuar_ADM);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

@@ -9,11 +9,26 @@ import Utilitarios.DateUtils;
 import gestor.Controle.ControleEscalaFolgas;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.PesquisarEscalasDescricao;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EscalaFolgas;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaFuncionarios.jDepartamento;
 import static gestor.Visao.TelaFuncionarios.jNomeCargo;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaCronogramaCriar_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaCronogramaEfetuar_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -22,7 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +48,7 @@ import javax.swing.JOptionPane;
  */
 public class TelaCronogramaEscala extends javax.swing.JDialog {
 
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
     EscalaFolgas objEscalas = new EscalaFolgas();
     PesquisarEscalasDescricao pPESQUISAR_colaborador = new PesquisarEscalasDescricao();
     DateUtils dateUtils = new DateUtils();
@@ -71,6 +86,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     public static Date d4;
     public static Date pDATA_cronograma = null;
     String pDATA_evento = "";
+    String pDATA_d4c = "";
     int pDIAS_FOLGA = 0;
     int pTOTAL_registros = 0;
     //
@@ -84,6 +100,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     String data1 = null;
     String data2 = null;
     int opcao = 0;
+    public static int pTOTAL_REGISTROS_crono = 0;
 
     /**
      * Creates new form TelaCronogramaEscala
@@ -551,6 +568,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jBtEfetuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Botoes_Site_5745_Knob_Valid_Green(1).png"))); // NOI18N
         jBtEfetuar.setText("EFETUAR");
         jBtEfetuar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtEfetuar.setEnabled(false);
         jBtEfetuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEfetuarActionPerformed(evt);
@@ -606,6 +624,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
         jBtAlterar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtAlterar.setEnabled(false);
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -615,6 +634,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
         jBtExcluir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtExcluir.setEnabled(false);
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -623,6 +643,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 
         jBtBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1339_03.gif"))); // NOI18N
         jBtBuscar.setText("Buscar");
+        jBtBuscar.setToolTipText("Buscar dados gravados.");
         jBtBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jBtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,11 +757,19 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        Novo();
-        acao = 1;
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaCronogramaCriar_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCronogramaCriar_ADM) && codIncluirADM == 1) {
+            habilitarCampos(true);
+            bloquearBotoes(!true);
+            Novo(true);
+            acao = 1;
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            pBUSCAR_dados();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
@@ -769,47 +798,66 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 
     private void jBtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarActionPerformed
         // TODO add your handling code here:
-        pBUSCAR_dados();
+        pBUSCAR_DADOS_crono();
     }//GEN-LAST:event_jBtBuscarActionPerformed
 
     private void jBtEfetuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEfetuarActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataInicial = formatoAmerica.format(jDataInicialCronograma.getDate().getTime());
-        dataFinal = formatoAmerica.format(jDataFinalCronograma.getDate().getTime());
-        dataPrimeiraFolga = formatoAmerica.format(jDataPrimeiraFolga.getDate().getTime());
-        if (jCodigoFunc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário clicar no botão busca para trazer os dados do cronograma.");
-        } else if (jDataInicialCronograma.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data Inicial.");
-        } else if (jDataFinalCronograma.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
-        } else if (jDataPrimeiraFolga.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da primeira folga");
-        } else if (jDataInicialCronograma.getDate().after(jDataFinalCronograma.getDate())) {
-            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-        } else if (jDataPrimeiraFolga.getDate().before(jDataInicialCronograma.getDate())) {
-            JOptionPane.showMessageDialog(rootPane, "Data da primeira folga não pode ser maior que data inicial.");
-        } else if (jComboBoxPrimeiroApt.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o promeiro apontamento.");
-        } else if (!jComboBoxPrimeiroApt.getSelectedItem().equals("TRABALHADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Só é possível selecionar a opção <TRABALHANDO>.");
-        } else if (jComboBoxSegundoApt.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o segundo apontamento.");
-        } else if (!jComboBoxSegundoApt.getSelectedItem().equals("FOLGA")) {
-            JOptionPane.showMessageDialog(rootPane, "Só é possível selecionar a opção <FOLGA>.");
-        } else {
-            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
-            carregando.setVisible(true);//Teste tela aguarde
-            Thread t = new Thread() { //Teste tela aguarde
-                public void run() { //Teste                  
-                    calculoDias();
-                    CALCULAR_datas();
-                    CALCULAR_DIAS_folgas_1X1();
-                    carregando.dispose(); //Teste tela aguarde
+        buscarAcessoUsuario(telaCronogramaEfetuar_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCronogramaEfetuar_ADM) && codGravarADM == 1) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataInicial = formatoAmerica.format(jDataInicialCronograma.getDate().getTime());
+            dataFinal = formatoAmerica.format(jDataFinalCronograma.getDate().getTime());
+            dataPrimeiraFolga = formatoAmerica.format(jDataPrimeiraFolga.getDate().getTime());
+            if (jCodigoFunc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário clicar no botão busca para trazer os dados do cronograma.");
+            } else if (jDataInicialCronograma.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data Inicial.");
+            } else if (jDataFinalCronograma.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+            } else if (jDataPrimeiraFolga.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da primeira folga");
+            } else if (jDataInicialCronograma.getDate().after(jDataFinalCronograma.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+            } else if (jDataPrimeiraFolga.getDate().before(jDataInicialCronograma.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "Data da primeira folga não pode ser maior que data inicial.");
+            } else if (jComboBoxPrimeiroApt.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o promeiro apontamento.");
+            } else if (!jComboBoxPrimeiroApt.getSelectedItem().equals("TRABALHADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Só é possível selecionar a opção <TRABALHANDO>.");
+            } else if (jComboBoxSegundoApt.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o segundo apontamento.");
+            } else if (!jComboBoxSegundoApt.getSelectedItem().equals("FOLGA")) {
+                JOptionPane.showMessageDialog(rootPane, "Só é possível selecionar a opção <FOLGA>.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Confirma a gravação do cronograma do colaborador?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearBotoes(true);
+                    habilitarCampos(!true);
+                    final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                    carregando.setVisible(true);//Teste tela aguarde
+                    Thread t = new Thread() { //Teste tela aguarde
+                        public void run() { //Teste                  
+                            calculoDias();
+                            CALCULAR_datas();
+                            CALCULAR_DIAS_folgas_1X1();
+                            carregando.dispose(); //Teste tela aguarde
+                            Salvar();
+                            if (pTOTAL_REGISTROS_crono == totalDias) {
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                            }
+                        }
+                    }; //Teste tela aguarde
+                    t.start(); //Teste tela aguarde
                 }
-            }; //Teste tela aguarde
-            t.start(); //Teste tela aguarde
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtEfetuarActionPerformed
 
@@ -936,13 +984,29 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jDepartamentoEscala.setText(jDepartamento.getText());
         jCargo.setText(jNomeCargo.getText());
     }
+    
+    public void pBUSCAR_DADOS_crono(){
+        pPESQUISAR_colaborador.MOSTRAR_DADOS_CRONOGRAMA_gravado(objEscalas);
+        pID_REGISTRO = objEscalas.getIdRegistro();
+        jCodigoFunc.setText(String.valueOf(objEscalas.getIdFunc()));
+        jNomeColaboradorEscala.setText(objEscalas.getNomeFuncEscala());
+        pID_ESCALA = objEscalas.getIdEscala();
+        jEscala.setText(objEscalas.getDescricaoEscala());
+        jQuantTrabalho.setText(String.valueOf(objEscalas.getQuantidadeTrab()));
+        jQuantFolga.setText(String.valueOf(objEscalas.getQuantidadeFolga()));
+        jTurnoEscala.setText(objEscalas.getTurno());
+        jTurmaEscala.setText(objEscalas.getTurma());
+        jComboBoxPrimeiroApt.setSelectedItem(objEscalas.getPrimeiroApt());
+        jComboBoxSegundoApt.setSelectedItem(objEscalas.getSegundoApt());
+        jDataInicialCronograma.setDate(objEscalas.getDataInicial());
+        jDataFinalCronograma.setDate(objEscalas.getDataFinal());
+        jDataPrimeiraFolga.setDate(objEscalas.getDataPrimeiraFolga());
+        jDepartamentoEscala.setText(jDepartamento.getText());
+        jCargo.setText(jNomeCargo.getText());
+    }
 
-    public void Novo() {
-        jComboBoxPrimeiroApt.setEnabled(true);
-        jComboBoxSegundoApt.setEnabled(true);
-        jDataInicialCronograma.setEnabled(true);
-        jDataFinalCronograma.setEnabled(true);
-        jDataPrimeiraFolga.setEnabled(true);
+    public void Novo(boolean opcao) {
+        jBtEfetuar.setEnabled(opcao);
     }
 
     public void Alterar() {
@@ -951,6 +1015,23 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 
     public void Excluir() {
 
+    }
+
+    public void Salvar() {
+        jBtNovo.setEnabled(true);
+    }
+
+    public void bloquearBotoes(boolean opcao) {
+        jBtEfetuar.setEnabled(opcao);
+        jBtNovo.setEnabled(opcao);
+    }
+
+    public void habilitarCampos(boolean opcao) {
+        jComboBoxPrimeiroApt.setEnabled(opcao);
+        jComboBoxSegundoApt.setEnabled(opcao);
+        jDataInicialCronograma.setEnabled(opcao);
+        jDataFinalCronograma.setEnabled(opcao);
+        jDataPrimeiraFolga.setEnabled(opcao);
     }
 
     public void calculoDias() {
@@ -967,11 +1048,11 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             long diferencaHoras = diferencaMinutos / 60;
             long diferencaDias = diferencaHoras / 24;
             totalDias = (int) (long) diferencaDias;
-            System.out.println(diferencaMS);
-            System.out.println(diferencaSegundos);
-            System.out.println(diferencaMinutos);
-            System.out.println(diferencaHoras);
-            System.out.println(diferencaDias);
+//            System.out.println(diferencaMS);
+//            System.out.println(diferencaSegundos);
+//            System.out.println(diferencaMinutos);
+//            System.out.println(diferencaHoras);
+//            System.out.println(diferencaDias);
         } catch (ParseException ex) {
             Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -992,13 +1073,6 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
                 Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (acao == 1 && pRESPOSTA_crono.equals("Sim")) {
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-        } else if (pRESPOSTA_crono.equals("Não")) {
-            JOptionPane.showMessageDialog(rootPane, "");
-        }
     }
 
     public void CALCULAR_DIAS_folgas_1X1() {
@@ -1008,12 +1082,13 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             try {
                 d3 = new SimpleDateFormat("dd/MM/yyyy").parse(dataPrimeiraFolga);
                 d4 = dateUtils.addDate(Calendar.DAY_OF_MONTH, pDIAS_FOLGA, d3);
-                System.out.print("Data da Escala: " + d4 + " STATUS: " + pSITUACAO_TRABALHO_folga + "\n");
+                objEscalas.setDataCronograma(d4);
+//                System.out.print("Data da Escala: " + d4 + " STATUS: " + pSITUACAO_TRABALHO_folga + "\n");
                 //PESQUISAR DATA PARA COMPARAR E GRAVAR AS FOLGAS
                 pPESQUISAR_data();
-                if (d4.equals(pDATA_evento)) {
+                if (pDATA_d4c.equals(pDATA_evento)) {
                     objEscalas.setIdFunc(Integer.valueOf(jCodigoFunc.getText()));
-                    objEscalas.setDataCronograma(d4);
+//                    objEscalas.setDataCronograma(d4);
                     objEscalas.setStatusTrabFolga(pSITUACAO_TRABALHO_folga);
                     CONTROLE_ESCALA_colaborador.alterarStatusCronogramaTrabalhoFolga(objEscalas);
                 }
@@ -1089,6 +1164,9 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         String mes = pDATA_evento.substring(5, 7);
         String ano = pDATA_evento.substring(0, 4);
         pDATA_evento = dia + "/" + mes + "/" + ano;
+        //
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        pDATA_d4c = formatoAmerica.format(d4);
     }
 
     public void objLog() {
@@ -1098,5 +1176,43 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 //        objLogSys.setIdLancMov(Integer.valueOf(jIDFunc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

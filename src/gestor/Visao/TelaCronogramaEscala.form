@@ -975,6 +975,7 @@
                     </LineBorder>
                   </Border>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtEfetuarActionPerformed"/>
@@ -1073,6 +1074,7 @@
                     </LineBorder>
                   </Border>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAlterarActionPerformed"/>
@@ -1091,6 +1093,7 @@
                     </LineBorder>
                   </Border>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirActionPerformed"/>
@@ -1102,6 +1105,7 @@
                   <Image iconType="3" name="/gestor/Imagens/Lupas_1339_03.gif"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Buscar dados gravados."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder roundedCorners="true">

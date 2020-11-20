@@ -19,8 +19,10 @@ import static gestor.Visao.TelaFuncionarios.jCodigoPesqFunc;
 import static gestor.Visao.TelaFuncionarios.pCODIGO_colaborador;
 import static gestor.Visao.TelaCronogramaEscala.pRESPOSTA_crono;
 import static gestor.Visao.TelaCronogramaEscala.pDATA_cronograma;
+import static gestor.Visao.TelaCronogramaEscala.pTOTAL_REGISTROS_crono;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -34,11 +36,14 @@ public class ControleEscalaFolgas {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     EscalaFolgas objEscalas = new EscalaFolgas();
 
+    String pDATA_pesquisa;
+    String pDATA_grava;
+
     public EscalaFolgas incluirEscalaTrabalaho(EscalaFolgas objEscalas) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ESCALA_TRABALHO (StatusEscala,DataCadastro,DescricaoEscala,QuantidadeTrab,QuantidadeFolga,Turno,Turma,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ESCALA_TRABALHO (StatusEscala,DataCadastro,DescricaoEscala,QuantidadeTrab,QuantidadeFolga,Turno,Turma,HorarioInicial,HorarioFinal,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objEscalas.getStatusEscala());
             pst.setTimestamp(2, new java.sql.Timestamp(objEscalas.getDataCadastro().getTime()));
             pst.setString(3, objEscalas.getDescricaoEscala());
@@ -46,9 +51,11 @@ public class ControleEscalaFolgas {
             pst.setInt(5, objEscalas.getQuantidadeFolga());
             pst.setString(6, objEscalas.getTurno());
             pst.setString(7, objEscalas.getTurma());
-            pst.setString(8, objEscalas.getUsuarioInsert());
-            pst.setString(9, objEscalas.getDataInsert());
-            pst.setString(10, objEscalas.getHorarioInsert());
+            pst.setString(8, objEscalas.getHorarioInicial());
+            pst.setString(9, objEscalas.getHorarioFinal());
+            pst.setString(10, objEscalas.getUsuarioInsert());
+            pst.setString(11, objEscalas.getDataInsert());
+            pst.setString(12, objEscalas.getHorarioInsert());
             pst.execute();
             pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
@@ -63,7 +70,7 @@ public class ControleEscalaFolgas {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ESCALA_TRABALHO SET StatusEscala=?,DataCadastro=?,DescricaoEscala=?,QuantidadeTrab=?,QuantidadeFolga=?,Turno=?,Turma=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistro='" + objEscalas.getIdRegistro() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ESCALA_TRABALHO SET StatusEscala=?,DataCadastro=?,DescricaoEscala=?,QuantidadeTrab=?,QuantidadeFolga=?,Turno=?,Turma=?,HorarioInicial=?,HorarioFinal=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistro='" + objEscalas.getIdRegistro() + "'");
             pst.setString(1, objEscalas.getStatusEscala());
             pst.setTimestamp(2, new java.sql.Timestamp(objEscalas.getDataCadastro().getTime()));
             pst.setString(3, objEscalas.getDescricaoEscala());
@@ -71,9 +78,11 @@ public class ControleEscalaFolgas {
             pst.setInt(5, objEscalas.getQuantidadeFolga());
             pst.setString(6, objEscalas.getTurno());
             pst.setString(7, objEscalas.getTurma());
-            pst.setString(8, objEscalas.getUsuarioUp());
-            pst.setString(9, objEscalas.getDataUp());
-            pst.setString(10, objEscalas.getHorarioUp());
+            pst.setString(8, objEscalas.getHorarioInicial());
+            pst.setString(9, objEscalas.getHorarioFinal());
+            pst.setString(10, objEscalas.getUsuarioUp());
+            pst.setString(11, objEscalas.getDataUp());
+            pst.setString(12, objEscalas.getHorarioUp());
             pst.executeUpdate();
             pRESPOSTA_opcao = "Sim";
         } catch (SQLException ex) {
@@ -106,7 +115,7 @@ public class ControleEscalaFolgas {
                     + "StatusEscala,DataCadastro, "
                     + "QuantidadeTrab,QuantidadeFolga, "
                     + "DescricaoEscala,Turno,"
-                    + "Turma "
+                    + "Turma,HorarioInicial,HorarioFinal  "
                     + "FROM ESCALA_TRABALHO "
                     + "WHERE IdRegistro='" + jCodigoPesqEscala.getText() + "' ");
             conecta.rs.first();
@@ -118,6 +127,8 @@ public class ControleEscalaFolgas {
             objEscalas.setDescricaoEscala(conecta.rs.getString("DescricaoEscala"));
             objEscalas.setTurno(conecta.rs.getString("Turno"));
             objEscalas.setTurma(conecta.rs.getString("Turma"));
+            objEscalas.setHorarioInicial(conecta.rs.getString("HorarioInicial"));
+            objEscalas.setHorarioFinal(conecta.rs.getString("HorarioFinal"));
         } catch (SQLException ex) {
             Logger.getLogger(ControleEscalaFolgas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -321,15 +332,15 @@ public class ControleEscalaFolgas {
     }
 
     public EscalaFolgas alterarStatusCronogramaTrabalhoFolga(EscalaFolgas objEscalas) {
-
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        pDATA_grava = formatoAmerica.format(objEscalas.getDataCronograma());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET StatusTrabFolga=? WHERE IdFunc='" + objEscalas.getIdCrono() + "' AND DataCronograma='" + objEscalas.getDataCronograma() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET StatusTrabFolga=? WHERE IdFunc='" + objEscalas.getIdFunc() + "' AND DataCronograma='" + pDATA_grava + "'");
             pst.setString(1, objEscalas.getStatusTrabFolga());
             pst.executeUpdate();
-            pRESPOSTA_crono = "Sim";
+            ++pTOTAL_REGISTROS_crono;
         } catch (SQLException ex) {
-            pRESPOSTA_crono = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -338,15 +349,17 @@ public class ControleEscalaFolgas {
 
     //
     public EscalaFolgas PESQUISAR_DATA_Folga(EscalaFolgas objEscalas) {
-
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        pDATA_pesquisa = formatoAmerica.format(d4);
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT IdFunc, "
                     + "DataCronograma "
                     + "FROM CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR "
-                    + "WHERE DataCronograma='" + d4 + "'");
+                    + "WHERE DataCronograma='" + pDATA_pesquisa + "'");
             conecta.rs.first();
             pDATA_cronograma = conecta.rs.getDate("DataCronograma");
+
         } catch (Exception ERROR) {
         }
         conecta.desconecta();

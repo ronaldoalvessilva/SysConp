@@ -37,8 +37,9 @@ public class PesquisarEscalasData {
                     + "QuantidadeTrab, "
                     + "QuantidadeFolga, "
                     + "DescricaoEscala, "
-                    + "Turno, "
-                    + "Turma "
+                    + "Turno,Turma, "
+                    + "HorarioInicial, "
+                    + "HorarioFinal "
                     + "FROM ESCALA_TRABALHO "
                     + "WHERE DataCadastro BETWEEN '" + dataInicial + "' "
                     + "AND '" + dataFinal + "'");
@@ -52,6 +53,8 @@ public class PesquisarEscalasData {
                 pEscalFolgas.setDescricaoEscala(conecta.rs.getString("DescricaoEscala"));
                 pEscalFolgas.setTurno(conecta.rs.getString("Turno"));
                 pEscalFolgas.setTurma(conecta.rs.getString("Turma"));
+                pEscalFolgas.setTurno(conecta.rs.getString("HorarioInicial"));
+                pEscalFolgas.setTurma(conecta.rs.getString("HorarioFinal"));
                 listaRegistroEntradasSaidasColaboradores.add(pEscalFolgas);
                 pTOTAL_registros = pTOTAL_registros + 1;
             }
