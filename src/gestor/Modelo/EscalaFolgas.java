@@ -39,11 +39,13 @@ public class EscalaFolgas {
     private String StatusTrabFolga;
     private String horarioInicial;
     private String horarioFinal;
+    private String mesReferencia;
+    private String anoReferencia;
 
     public EscalaFolgas() {
     }
 
-    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga, String horarioInicial, String horarioFinal) {
+    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga, String horarioInicial, String horarioFinal, String mesReferencia, String anoReferencia) {
         this.idRegistro = idRegistro;
         this.idEscala = idEscala;
         this.idFunc = idFunc;
@@ -71,6 +73,8 @@ public class EscalaFolgas {
         this.StatusTrabFolga = StatusTrabFolga;
         this.horarioInicial = horarioInicial;
         this.horarioFinal = horarioFinal;
+        this.mesReferencia = mesReferencia;
+        this.anoReferencia = anoReferencia;
     }
 
     /**
@@ -449,5 +453,33 @@ public class EscalaFolgas {
      */
     public void setHorarioFinal(String horarioFinal) {
         this.horarioFinal = horarioFinal;
+    }
+
+    /**
+     * @return the mesReferencia
+     */
+    public String getMesReferencia() {
+        return mesReferencia;
+    }
+
+    /**
+     * @param mesReferencia the mesReferencia to set
+     */
+    public void setMesReferencia(String mesReferencia) {
+        this.mesReferencia = mesReferencia;
+    }
+
+    /**
+     * @return the anoReferencia
+     */
+    public String getAnoReferencia() {
+        return anoReferencia;
+    }
+
+    /**
+     * @param anoReferencia the anoReferencia to set
+     */
+    public void setAnoReferencia(String anoReferencia) {
+        this.anoReferencia = anoReferencia;
     }
 }

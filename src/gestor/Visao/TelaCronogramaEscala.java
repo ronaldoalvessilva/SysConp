@@ -8,6 +8,7 @@ package gestor.Visao;
 import Utilitarios.DateUtils;
 import gestor.Controle.ControleEscalaFolgas;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.PesquisaMesAnoCronograma;
 import gestor.Controle.PesquisarEscalasDescricao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EscalaFolgas;
@@ -53,6 +54,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     PesquisarEscalasDescricao pPESQUISAR_colaborador = new PesquisarEscalasDescricao();
     DateUtils dateUtils = new DateUtils();
     ControleEscalaFolgas CONTROLE_ESCALA_colaborador = new ControleEscalaFolgas();
+    //
+    PesquisaMesAnoCronograma pesquisaMesAno = new PesquisaMesAnoCronograma();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -100,7 +103,28 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     String data1 = null;
     String data2 = null;
     int opcao = 0;
-    public static int pTOTAL_REGISTROS_crono = 0;
+    public static int pTOTAL_REGISTROS_crono = 1;
+    //
+    String pMES_01 = "01";
+    String pMES_02 = "02";
+    String pMES_03 = "Março";
+    String pMES_04 = "Abril";
+    String pMES_05 = "Maio";
+    String pMES_06 = "Junho";
+    String pMES_07 = "Julho";
+    String pMES_08 = "Agosto";
+    String pMES_09 = "Setembro";
+    String pMES_10 = "Outubro";
+    String pMES_11 = "Novembro";
+    String pMES_12 = "Dezembro";
+    //
+    String pMES_REFERENCIA = "";
+    String pDIA = "";
+    String pMES = "";
+    String pANO = "";
+    String pEXISTE_ANO = "";
+    String pEXISTE_MES = "";
+    String pEXISTE_FUN = "";
 
     /**
      * Creates new form TelaCronogramaEscala
@@ -162,10 +186,14 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jDataPrimeiraFolga = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
+        jComboBoxMesReferencia = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jComboBoxAnoReferencia = new javax.swing.JComboBox<>();
         jPanel10 = new javax.swing.JPanel();
         jBtEfetuar = new javax.swing.JButton();
         jBtFechar = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -541,9 +569,21 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel16.setText("Informe a data da primeira folga");
+        jComboBoxMesReferencia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxMesReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        jComboBoxMesReferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxMesReferencia.setEnabled(false);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setText("Mês Referência");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setText("Ano");
+
+        jComboBoxAnoReferencia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAnoReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "1900", "1901", "1902", "1903", "1904", "1905", "1906", "1907", "1908", "1909", "1910", "1911", "1912", "1913", "1914", "1915", "1916", "1917", "1918", "1919", "1920", "1921", "1922", "1923", "1924", "1925", "1926", "1927", "1928", "1929", "1930", "1931", "1932", "1933", "1934", "1935", "1936", "1937", "1938", "1939", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050", "2051", "2052", "2053", "2054", "2055", "2056", "2057", "2058", "2059", "2060", "2061", "2062", "2063", "2064", "2065", "2066", "2067", "2068", "2069", "2070", "2071", "2072", "2073", "2074", "2075", "2076", "2077", "2078", "2079", "2080", "2081", "2082", "2083", "2084", "2085", "2086", "2087", "2088", "2089", "2090", "2091", "2092", "2093", "2094", "2095", "2096", "2097", "2098", "2099", "2100", "2101", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2111", "2112", "2113", "2114", "2115", "2116", "2117", "2118", "2119", "2120", "2121", "2122", "2123", "2124", "2125", "2126", "2127", "2128", "2129", "2130", "2131", "2132", "2133", "2134", "2135", "2136", "2137", "2138", "2139", "2140", "2141", "2142", "2143", "2144", "2145", "2146", "2147", "2148", "2149", "2150", "2151", "2152", "2153", "2154", "2155", "2156", "2157", "2158", "2159", "2160", "2161", "2162", "2163", "2164", "2165", "2166", "2167", "2168", "2169", "2170", "2171", "2172", "2173", "2174", "2175", "2176", " " }));
+        jComboBoxAnoReferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAnoReferencia.setEnabled(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -551,15 +591,27 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(jComboBoxMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(jComboBoxAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel16)
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -584,6 +636,10 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             }
         });
 
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel16.setText("Informe a data da primeira folga");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -591,6 +647,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtEfetuar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -604,7 +662,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEfetuar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
                 .addGap(4, 4, 4))
         );
 
@@ -708,8 +767,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGap(4, 4, 4)
                                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(6, 6, 6)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -740,8 +798,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -829,31 +887,558 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o segundo apontamento.");
             } else if (!jComboBoxSegundoApt.getSelectedItem().equals("FOLGA")) {
                 JOptionPane.showMessageDialog(rootPane, "Só é possível selecionar a opção <FOLGA>.");
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o mês de referencia.");
+            } else if (jComboBoxAnoReferencia.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o ano de referência.");
             } else {
                 int resposta = JOptionPane.showConfirmDialog(this, "Confirma a gravação do cronograma do colaborador?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    bloquearBotoes(true);
-                    habilitarCampos(!true);
-                    final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
-                    carregando.setVisible(true);//Teste tela aguarde
-                    Thread t = new Thread() { //Teste tela aguarde
-                        public void run() { //Teste                  
-                            calculoDias();
-                            CALCULAR_datas();
-                            CALCULAR_DIAS_folgas_1X1();
-                            carregando.dispose(); //Teste tela aguarde
-                            Salvar();
-                            if (pTOTAL_REGISTROS_crono == totalDias) {
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            } else if (pTOTAL_REGISTROS_crono < totalDias) {
-                                JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                    pMES_REFERENCIA = formatoAmerica.format(jDataInicialCronograma.getDate().getTime());
+                    if (jComboBoxMesReferencia.getSelectedItem().equals("Janeiro")) {
+                        pMES_01 = "01";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_01) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                         }
-                    }; //Teste tela aguarde
-                    t.start(); //Teste tela aguarde
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Fevereiro")) {
+                        pMES_02 = "02";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_02) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Março")) {
+                        pMES_03 = "03";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_03) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Abril")) {
+                        pMES_04 = "04";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_04) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Maio")) {
+                        pMES_05 = "05";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_05) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Junho")) {
+                        pMES_06 = "06";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_06) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Julho")) {
+                        pMES_07 = "07";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_07) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Agosto")) {
+                        pMES_08 = "08";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_08) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Setembro")) {
+                        pMES_09 = "09";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_09) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Outubro")) {
+                        pMES_10 = "10";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_10) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Novembro")) {
+                        pMES_11 = "11";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_11) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else if (jComboBoxMesReferencia.getSelectedItem().equals("Dezembro")) {
+                        pMES_12 = "12";
+                        pDIA = pMES_REFERENCIA.substring(0, 1);
+                        pMES = pMES_REFERENCIA.substring(3, 5);
+                        pANO = pMES_REFERENCIA.substring(6, 10);
+                        pMES_REFERENCIA = pMES;
+                        if (pMES_REFERENCIA.equals(pMES_12) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
+                            //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                            try {
+                                for (EscalaFolgas pp : pesquisaMesAno.read()) {
+                                    pEXISTE_FUN = pp.getIdFunc().toString();
+                                    pEXISTE_ANO = pp.getAnoReferencia();
+                                    pEXISTE_MES = pp.getMesReferencia();
+                                }
+                            } catch (Exception ex) {
+                                Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO)) && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES) && jCodigoFunc.getText().equals(pEXISTE_FUN)) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                bloquearBotoes(true);
+                                habilitarCampos(!true);
+                                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                                carregando.setVisible(true);//Teste tela aguarde
+                                Thread t = new Thread() { //Teste tela aguarde
+                                    public void run() { //Teste                                        
+                                        calculoDias();
+                                        CALCULAR_datas();
+                                        CALCULAR_DIAS_folgas_1X1();
+                                        carregando.dispose(); //Teste tela aguarde
+                                        Salvar();
+                                        if (pTOTAL_REGISTROS_crono == totalDias) {
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        } else if (pTOTAL_REGISTROS_crono < totalDias) {
+                                            JOptionPane.showMessageDialog(rootPane, "Os registros não foram todos gravados, solicite ajuda do administrador do sistema.");
+                                        }
+                                    }
+                                }; //Teste tela aguarde
+                                t.start(); //Teste tela aguarde
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
+                    }
                 }
             }
         } else {
@@ -883,13 +1468,17 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCronogramaEscala.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -917,6 +1506,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     private javax.swing.JButton jBtNovo;
     private javax.swing.JTextField jCargo;
     private javax.swing.JTextField jCodigoFunc;
+    public static javax.swing.JComboBox<String> jComboBoxAnoReferencia;
+    public static javax.swing.JComboBox<String> jComboBoxMesReferencia;
     private javax.swing.JComboBox<String> jComboBoxPrimeiroApt;
     private javax.swing.JComboBox<String> jComboBoxSegundoApt;
     private com.toedter.calendar.JDateChooser jDataFinalCronograma;
@@ -932,6 +1523,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -968,6 +1561,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jTurmaEscala.setBackground(Color.WHITE);
         jDepartamentoEscala.setBackground(Color.WHITE);
         jCargo.setBackground(Color.WHITE);
+        jComboBoxMesReferencia.setBackground(Color.WHITE);
+        jComboBoxAnoReferencia.setBackground(Color.WHITE);
     }
 
     public void pBUSCAR_dados() {
@@ -984,8 +1579,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jDepartamentoEscala.setText(jDepartamento.getText());
         jCargo.setText(jNomeCargo.getText());
     }
-    
-    public void pBUSCAR_DADOS_crono(){
+
+    public void pBUSCAR_DADOS_crono() {
         pPESQUISAR_colaborador.MOSTRAR_DADOS_CRONOGRAMA_gravado(objEscalas);
         pID_REGISTRO = objEscalas.getIdRegistro();
         jCodigoFunc.setText(String.valueOf(objEscalas.getIdFunc()));
@@ -1003,6 +1598,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jDataPrimeiraFolga.setDate(objEscalas.getDataPrimeiraFolga());
         jDepartamentoEscala.setText(jDepartamento.getText());
         jCargo.setText(jNomeCargo.getText());
+        jComboBoxMesReferencia.setSelectedItem(objEscalas.getMesReferencia());
+        jComboBoxAnoReferencia.setSelectedItem(objEscalas.getAnoReferencia());
     }
 
     public void Novo(boolean opcao) {
@@ -1032,6 +1629,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jDataInicialCronograma.setEnabled(opcao);
         jDataFinalCronograma.setEnabled(opcao);
         jDataPrimeiraFolga.setEnabled(opcao);
+        jComboBoxMesReferencia.setEnabled(opcao);
+        jComboBoxAnoReferencia.setEnabled(opcao);
     }
 
     public void calculoDias() {
@@ -1048,11 +1647,6 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             long diferencaHoras = diferencaMinutos / 60;
             long diferencaDias = diferencaHoras / 24;
             totalDias = (int) (long) diferencaDias;
-//            System.out.println(diferencaMS);
-//            System.out.println(diferencaSegundos);
-//            System.out.println(diferencaMinutos);
-//            System.out.println(diferencaHoras);
-//            System.out.println(diferencaDias);
         } catch (ParseException ex) {
             Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1065,7 +1659,6 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             try {
                 d1 = new SimpleDateFormat("dd/MM/yyyy").parse(dataInicial);
                 d2 = dateUtils.addDate(Calendar.DAY_OF_MONTH, inteiro, d1);
-//                System.out.print("Data da Escala: " + d2 + " STATUS: " + pSITUACAO_TRABALHO_folga + "\n");
                 GRAVAR_beans();
                 CONTROLE_ESCALA_colaborador.incluirCronogramaTrabalhoFolga(objEscalas);
                 ++inteiro;
@@ -1083,12 +1676,10 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
                 d3 = new SimpleDateFormat("dd/MM/yyyy").parse(dataPrimeiraFolga);
                 d4 = dateUtils.addDate(Calendar.DAY_OF_MONTH, pDIAS_FOLGA, d3);
                 objEscalas.setDataCronograma(d4);
-//                System.out.print("Data da Escala: " + d4 + " STATUS: " + pSITUACAO_TRABALHO_folga + "\n");
                 //PESQUISAR DATA PARA COMPARAR E GRAVAR AS FOLGAS
                 pPESQUISAR_data();
                 if (pDATA_d4c.equals(pDATA_evento)) {
                     objEscalas.setIdFunc(Integer.valueOf(jCodigoFunc.getText()));
-//                    objEscalas.setDataCronograma(d4);
                     objEscalas.setStatusTrabFolga(pSITUACAO_TRABALHO_folga);
                     CONTROLE_ESCALA_colaborador.alterarStatusCronogramaTrabalhoFolga(objEscalas);
                 }
@@ -1131,7 +1722,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         }
     }
 
-    //ADICIONANDO DADOS NA LISTA
+    //ADICIONANDO DADOS NA LISTA - NÃO ESTÁ SENDO USADO POR ENQUANTO
     public List<EscalaFolgas> read() throws Exception {
 
         List<EscalaFolgas> listaDatas = new ArrayList<EscalaFolgas>();
@@ -1155,6 +1746,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         objEscalas.setDataCronograma(d2);
         objEscalas.setDataPrimeiraFolga(jDataPrimeiraFolga.getDate());
         objEscalas.setStatusTrabFolga(pSITUACAO_TRABALHO_folga);
+        objEscalas.setMesReferencia((String) jComboBoxMesReferencia.getSelectedItem());
+        objEscalas.setAnoReferencia((String) jComboBoxAnoReferencia.getSelectedItem());
     }
 
     public void pPESQUISAR_data() {

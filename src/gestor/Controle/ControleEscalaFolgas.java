@@ -262,7 +262,7 @@ public class ControleEscalaFolgas {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR (IdRegistro,IdEscala,IdFunc,DataCronograma,StatusTrabFolga,DataInicial,DataFinal,DataPrimeiraFolga,PrimeiroApt,SegundoApt) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR (IdRegistro,IdEscala,IdFunc,DataCronograma,StatusTrabFolga,DataInicial,DataFinal,DataPrimeiraFolga,PrimeiroApt,SegundoApt,MesReferencia,AnoReferencia) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objEscalas.getIdRegistro());
             pst.setInt(2, objEscalas.getIdEscala());
             pst.setInt(3, objEscalas.getIdFunc());
@@ -277,6 +277,8 @@ public class ControleEscalaFolgas {
             }
             pst.setString(9, objEscalas.getPrimeiroApt());
             pst.setString(10, objEscalas.getSegundoApt());
+            pst.setString(11, objEscalas.getMesReferencia());
+            pst.setString(12, objEscalas.getAnoReferencia());
             pst.execute();
             pRESPOSTA_crono = "Sim";
         } catch (SQLException ex) {
@@ -291,7 +293,7 @@ public class ControleEscalaFolgas {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET IdRegistro=?,IdEscala=?,IdFunc=?,DataCronograma=?,StatusTrabFolga=?,DataInicial=?,DataFinal=?,DataPrimeiraFolga=?,PrimeiroApt=?,SegundoApt=? WHERE IdCrono='" + objEscalas.getIdCrono() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET IdRegistro=?,IdEscala=?,IdFunc=?,DataCronograma=?,StatusTrabFolga=?,DataInicial=?,DataFinal=?,DataPrimeiraFolga=?,PrimeiroApt=?,SegundoApt=?,MesReferencia=?,AnoReferencia=? WHERE IdCrono='" + objEscalas.getIdCrono() + "'");
             pst.setInt(1, objEscalas.getIdRegistro());
             pst.setInt(2, objEscalas.getIdEscala());
             pst.setInt(3, objEscalas.getIdFunc());
@@ -306,6 +308,8 @@ public class ControleEscalaFolgas {
             }
             pst.setString(9, objEscalas.getPrimeiroApt());
             pst.setString(10, objEscalas.getSegundoApt());
+            pst.setString(11, objEscalas.getMesReferencia());
+            pst.setString(12, objEscalas.getAnoReferencia());
             pst.executeUpdate();
             pRESPOSTA_crono = "Sim";
         } catch (SQLException ex) {

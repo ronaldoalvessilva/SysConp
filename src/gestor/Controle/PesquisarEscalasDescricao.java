@@ -167,7 +167,7 @@ public class PesquisarEscalasDescricao {
                     + "ESCALA_TRABALHO.Turno, "
                     + "ESCALA_TRABALHO.Turma, "
                     + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc, "
-                    + "COLABORADOR.NomeFunc "
+                    + "COLABORADOR.NomeFunc,MesReferencia,AnoReferencia "
                     + "FROM CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR "
                     + "INNER JOIN ESCALA_TRABALHO "
                     + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala=ESCALA_TRABALHO.IdEscala "
@@ -189,6 +189,8 @@ public class PesquisarEscalasDescricao {
             objEscalas.setDataInicial(conecta.rs.getDate("DataInicial"));
             objEscalas.setDataFinal(conecta.rs.getDate("DataFinal"));
             objEscalas.setDataPrimeiraFolga(conecta.rs.getDate("DataPrimeiraFolga"));
+            objEscalas.setMesReferencia(conecta.rs.getString("MesReferencia"));
+            objEscalas.setAnoReferencia(conecta.rs.getString("AnoReferencia"));
         } catch (SQLException ex) {
             Logger.getLogger(ControleEscalaFolgas.class.getName()).log(Level.SEVERE, null, ex);
         }
