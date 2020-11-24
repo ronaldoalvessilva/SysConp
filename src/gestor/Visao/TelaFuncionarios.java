@@ -4600,7 +4600,11 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCronograma_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCronograma_ADM) && codIncluirADM == 1) {
-            mostrarCRONOGRAMA();
+            if (jComboBoxStatusFunc.getSelectedItem().equals("Ativo")) {
+                mostrarCRONOGRAMA();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O colaborador não está ativo, por isso não é permitido gerar o cronograma de trabalho.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4690,7 +4694,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxPesqFunc;
     private javax.swing.JComboBox jComboBoxRegimeTrabalho;
     private javax.swing.JComboBox jComboBoxSexo;
-    private javax.swing.JComboBox jComboBoxStatusFunc;
+    public static javax.swing.JComboBox jComboBoxStatusFunc;
     private javax.swing.JComboBox jComboBoxTipoConjugue;
     private javax.swing.JTextField jComplemento;
     private com.toedter.calendar.JDateChooser jDataAdmissao;

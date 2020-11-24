@@ -41,11 +41,12 @@ public class EscalaFolgas {
     private String horarioFinal;
     private String mesReferencia;
     private String anoReferencia;
+    private String tipoCronograma;
 
     public EscalaFolgas() {
     }
 
-    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga, String horarioInicial, String horarioFinal, String mesReferencia, String anoReferencia) {
+    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga, String horarioInicial, String horarioFinal, String mesReferencia, String anoReferencia, String tipoCronograma) {
         this.idRegistro = idRegistro;
         this.idEscala = idEscala;
         this.idFunc = idFunc;
@@ -75,6 +76,7 @@ public class EscalaFolgas {
         this.horarioFinal = horarioFinal;
         this.mesReferencia = mesReferencia;
         this.anoReferencia = anoReferencia;
+        this.tipoCronograma = tipoCronograma;
     }
 
     /**
@@ -481,5 +483,19 @@ public class EscalaFolgas {
      */
     public void setAnoReferencia(String anoReferencia) {
         this.anoReferencia = anoReferencia;
+    }
+
+    /**
+     * @return the tipoCronograma
+     */
+    public String getTipoCronograma() {
+        return tipoCronograma;
+    }
+
+    /**
+     * @param tipoCronograma the tipoCronograma to set
+     */
+    public void setTipoCronograma(String tipoCronograma) {
+        this.tipoCronograma = tipoCronograma;
     }
 }

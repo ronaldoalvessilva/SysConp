@@ -10,6 +10,10 @@ import gestor.Modelo.EscalaFolgas;
 import static gestor.Visao.TelaFuncionarios.jCodigoPesqFunc;
 import static gestor.Visao.TelaFuncionarios.jComboBoxDescricaoEscala;
 import static gestor.Visao.TelaFuncionarios.jIDFunc;
+import static gestor.Visao.TelaPesquisaCronogramaEscala.jAnoReferencia;
+import static gestor.Visao.TelaPesquisaCronogramaEscala.jMesReferencia;
+import static gestor.Visao.TelaPesquisaCronogramaEscala.pMES_referencia;
+import static gestor.Visao.TelaPesquisaCronogramaEscala.pANO_referencia;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -154,13 +158,21 @@ public class PesquisarEscalasDescricao {
         conecta.desconecta();
         return objEscalas;
     }
-    
+
     public EscalaFolgas MOSTRAR_DADOS_CRONOGRAMA_gravado(EscalaFolgas objEscalas) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT "
+            conecta.executaSQL("SELECT DISTINCT CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc, "
                     + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdRegistro, "
-                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala,"
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.PrimeiroApt, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.SegundoApt, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.DataInicial, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.DataFinal, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.DataPrimeiraFolga, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.MesReferencia, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.AnoReferencia, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.TipoCronograma, "
                     + "ESCALA_TRABALHO.DescricaoEscala, "
                     + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeTrab, "
                     + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeFolga, "
@@ -170,10 +182,14 @@ public class PesquisarEscalasDescricao {
                     + "COLABORADOR.NomeFunc,MesReferencia,AnoReferencia "
                     + "FROM CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR "
                     + "INNER JOIN ESCALA_TRABALHO "
-                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala=ESCALA_TRABALHO.IdEscala "
+                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdRegistro=ESCALA_TRABALHO.IdRegistro "
+                    + "INNER JOIN ESCALA_TRABALHO_FOLGA_COLABORADOR "
+                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala=ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala "
                     + "INNER JOIN COLABORADOR "
                     + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc=COLABORADOR.IdFunc "
-                    + "WHERE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc='" + jIDFunc.getText() + "'");
+                    + "WHERE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc='" + jIDFunc.getText() + "' "
+                    + "AND MesReferencia='" + pMES_referencia + "' "
+                    + "AND AnoReferencia='" + pANO_referencia + "'");
             conecta.rs.first();
             objEscalas.setIdRegistro(conecta.rs.getInt("IdRegistro"));
             objEscalas.setIdFunc(conecta.rs.getInt("IdFunc"));
@@ -191,6 +207,63 @@ public class PesquisarEscalasDescricao {
             objEscalas.setDataPrimeiraFolga(conecta.rs.getDate("DataPrimeiraFolga"));
             objEscalas.setMesReferencia(conecta.rs.getString("MesReferencia"));
             objEscalas.setAnoReferencia(conecta.rs.getString("AnoReferencia"));
+            objEscalas.setTipoCronograma(conecta.rs.getString("TipoCronograma"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleEscalaFolgas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
+
+    public EscalaFolgas MOSTRAR_DADOS_CRONOGRAMA_gravadoMA(EscalaFolgas objEscalas) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT DISTINCT CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdRegistro, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.PrimeiroApt, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.SegundoApt, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.DataInicial, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.DataFinal, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.DataPrimeiraFolga, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.MesReferencia, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.AnoReferencia, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc, "
+                    + "CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.TipoCronograma, "
+                    + "ESCALA_TRABALHO.DescricaoEscala, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeTrab, "
+                    + "ESCALA_TRABALHO_FOLGA_COLABORADOR.QuantidadeFolga, "
+                    + "ESCALA_TRABALHO.Turno, "
+                    + "ESCALA_TRABALHO.Turma, "
+                    + "COLABORADOR.NomeFunc,MesReferencia,AnoReferencia "
+                    + "FROM CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR "
+                    + "INNER JOIN ESCALA_TRABALHO "
+                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdRegistro=ESCALA_TRABALHO.IdRegistro "
+                    + "INNER JOIN ESCALA_TRABALHO_FOLGA_COLABORADOR "
+                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala=ESCALA_TRABALHO_FOLGA_COLABORADOR.IdEscala "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc=COLABORADOR.IdFunc "
+                    + "WHERE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc='" + jIDFunc.getText() + "' "
+                    + "AND CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.MesReferencia='" + jMesReferencia.getText() + "' "
+                    + "AND CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.AnoReferencia='" + jAnoReferencia.getText() + "'");
+            conecta.rs.first();
+            objEscalas.setIdRegistro(conecta.rs.getInt("IdRegistro"));
+            objEscalas.setIdFunc(conecta.rs.getInt("IdFunc"));
+            objEscalas.setNomeFuncEscala(conecta.rs.getString("NomeFunc"));
+            objEscalas.setIdEscala(conecta.rs.getInt("IdEscala"));
+            objEscalas.setDescricaoEscala(conecta.rs.getString("DescricaoEscala"));
+            objEscalas.setQuantidadeTrab(conecta.rs.getInt("QuantidadeTrab"));
+            objEscalas.setQuantidadeFolga(conecta.rs.getInt("QuantidadeFolga"));
+            objEscalas.setTurno(conecta.rs.getString("Turno"));
+            objEscalas.setTurma(conecta.rs.getString("Turma"));
+            objEscalas.setPrimeiroApt(conecta.rs.getString("PrimeiroApt"));
+            objEscalas.setSegundoApt(conecta.rs.getString("SegundoApt"));
+            objEscalas.setDataInicial(conecta.rs.getDate("DataInicial"));
+            objEscalas.setDataFinal(conecta.rs.getDate("DataFinal"));
+            objEscalas.setDataPrimeiraFolga(conecta.rs.getDate("DataPrimeiraFolga"));
+            objEscalas.setMesReferencia(conecta.rs.getString("MesReferencia"));
+            objEscalas.setAnoReferencia(conecta.rs.getString("AnoReferencia"));
+            objEscalas.setTipoCronograma(conecta.rs.getString("TipoCronograma"));
         } catch (SQLException ex) {
             Logger.getLogger(ControleEscalaFolgas.class.getName()).log(Level.SEVERE, null, ex);
         }
