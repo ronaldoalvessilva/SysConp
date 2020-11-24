@@ -42,11 +42,12 @@ public class EscalaFolgas {
     private String mesReferencia;
     private String anoReferencia;
     private String tipoCronograma;
+    private String motivo;
 
     public EscalaFolgas() {
     }
 
-    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga, String horarioInicial, String horarioFinal, String mesReferencia, String anoReferencia, String tipoCronograma) {
+    public EscalaFolgas(Integer idRegistro, Integer idEscala, Integer idFunc, String nomeFuncEscala, String statusEscala, Date dataCadastro, Integer quantidadeTrab, Integer quantidadeFolga, String descricaoEscala, String turno, String turma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idCrono, String PrimeiroApt, String SegundoApt, Date dataInicial, Date dataFinal, Date dataPrimeiraFolga, Date dataCronograma, String StatusTrabFolga, String horarioInicial, String horarioFinal, String mesReferencia, String anoReferencia, String tipoCronograma, String motivo) {
         this.idRegistro = idRegistro;
         this.idEscala = idEscala;
         this.idFunc = idFunc;
@@ -77,6 +78,7 @@ public class EscalaFolgas {
         this.mesReferencia = mesReferencia;
         this.anoReferencia = anoReferencia;
         this.tipoCronograma = tipoCronograma;
+        this.motivo = motivo;
     }
 
     /**
@@ -497,5 +499,19 @@ public class EscalaFolgas {
      */
     public void setTipoCronograma(String tipoCronograma) {
         this.tipoCronograma = tipoCronograma;
+    }
+
+    /**
+     * @return the motivo
+     */
+    public String getMotivo() {
+        return motivo;
+    }
+
+    /**
+     * @param motivo the motivo to set
+     */
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 }

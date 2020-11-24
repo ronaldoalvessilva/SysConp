@@ -105,7 +105,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     String data1 = null;
     String data2 = null;
     int opcao = 0;
-    public static int pTOTAL_REGISTROS_crono = 1;
+    public static int pTOTAL_REGISTROS_crono = 0;
     //
     String pMES_01 = "01";
     String pMES_02 = "02";
@@ -133,6 +133,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
      */
     public static TelaFuncionarios pCOLABORADOR;
     public static TelaPesquisaCronogramaEscala pPESQUISAR_registros;
+    public static TelaAlterarCronogramaEscala pALTERAR_registro;
 
     public TelaCronogramaEscala(TelaFuncionarios parent, boolean modal) {
         this.pCOLABORADOR = parent;
@@ -145,6 +146,11 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     public void mostrarRegistros() {
         pPESQUISAR_registros = new TelaPesquisaCronogramaEscala(this, true);
         pPESQUISAR_registros.setVisible(true);
+    }
+
+    public void mostrarAlterar() {
+        pALTERAR_registro = new TelaAlterarCronogramaEscala(this, true);
+        pALTERAR_registro.setVisible(true);
     }
 
     /**
@@ -686,6 +692,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar dia de trabalho ou folga");
         jBtAlterar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jBtAlterar.setEnabled(false);
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -789,26 +796,24 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(4, 4, 4)
+                                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(6, 6, 6)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7))
@@ -893,13 +898,14 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "É necessário clicar no botão busca para trazer os dados do cronograma.");
         } else {
             if (jComboBoxStatusFunc.getSelectedItem().equals("Ativo")) {
-                Alterar();
+                Alterar(!true);
                 acao = 2;
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
+                mostrarAlterar();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O colaborador não está ativo, por isso não é permitido gerar o cronograma de trabalho.");
+                JOptionPane.showMessageDialog(rootPane, "O colaborador não está ativo, por isso não é permitido modificar o cronograma de trabalho.");
             }
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
@@ -1551,6 +1557,8 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
                             JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                         }
                     }
+                } else {
+                    jBtNovo.setEnabled(true);
                 }
             }
         } else {
@@ -1610,7 +1618,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtAlterar;
+    public static javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtBuscar;
     private javax.swing.JButton jBtEfetuar;
     public static javax.swing.JButton jBtExcluir;
@@ -1716,15 +1724,15 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
         jCargo.setText(jNomeCargo.getText());
         jComboBoxMesReferencia.setSelectedItem(objEscalas.getMesReferencia());
         jComboBoxAnoReferencia.setSelectedItem(objEscalas.getAnoReferencia());
-//        jComboBoxTipoCronograma
+        jComboBoxTipoCronograma.setSelectedItem(objEscalas.getTipoCronograma());
     }
 
     public void Novo(boolean opcao) {
         jBtEfetuar.setEnabled(opcao);
     }
 
-    public void Alterar() {
-
+    public void Alterar(boolean opcao) {
+        jBtNovo.setEnabled(opcao);
     }
 
     public void Excluir(boolean opcao) {
@@ -1737,6 +1745,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
 
     public void bloquearBotoes(boolean opcao) {
         jBtEfetuar.setEnabled(opcao);
+        jBtNovo.setEnabled(opcao);
         jBtNovo.setEnabled(opcao);
     }
 
@@ -1785,7 +1794,6 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             long diferencaHoras = diferencaMinutos / 60;
             long diferencaDias = diferencaHoras / 24;
             totalDias = (int) (long) diferencaDias;
-            System.out.println("Total de Dias Calculado: " + totalDias + "\n");
         } catch (ParseException ex) {
             Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1835,6 +1843,7 @@ public class TelaCronogramaEscala extends javax.swing.JDialog {
             } else if (opcao == 2) {
                 ++pDIAS_FOLGA;
             }
+            ++pTOTAL_REGISTROS_crono;
         }
     }
 

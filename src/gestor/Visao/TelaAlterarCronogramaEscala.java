@@ -6,9 +6,9 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleEscalaFolgas;
+import gestor.Controle.ControlePesquisarAlterarCronograma;
 import gestor.Controle.PesquisarEscalasDescricao;
 import gestor.Modelo.EscalaFolgas;
-import static gestor.Visao.TelaCronogramaEscala.jBtAlterar;
 import static gestor.Visao.TelaCronogramaEscala.pID_REGISTRO;
 import static gestor.Visao.TelaCronogramaEscala.pID_ESCALA;
 import static gestor.Visao.TelaCronogramaEscala.jCargo;
@@ -27,13 +27,14 @@ import static gestor.Visao.TelaCronogramaEscala.jQuantFolga;
 import static gestor.Visao.TelaCronogramaEscala.jQuantTrabalho;
 import static gestor.Visao.TelaCronogramaEscala.jTurmaEscala;
 import static gestor.Visao.TelaCronogramaEscala.jTurnoEscala;
-import static gestor.Visao.TelaCronogramaEscala.jBtExcluir;
 import static gestor.Visao.TelaCronogramaEscala.jComboBoxTipoCronograma;
+import static gestor.Visao.TelaCronogramaEscala.pRESPOSTA_crono;
 import static gestor.Visao.TelaFuncionarios.jDepartamento;
 import static gestor.Visao.TelaFuncionarios.jNomeCargo;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -43,27 +44,31 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ronal
  */
-public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
+public class TelaAlterarCronogramaEscala extends javax.swing.JDialog {
 
     EscalaFolgas objEscalas = new EscalaFolgas();
     PesquisarEscalasDescricao pPESQUISAR_colaborador = new PesquisarEscalasDescricao();
-    ControleEscalaFolgas pPESQUISAR_todosReg = new ControleEscalaFolgas();
+    ControlePesquisarAlterarCronograma pPESQUISAR_todosReg = new ControlePesquisarAlterarCronograma();
+    ControleEscalaFolgas CONTROLE_ESCALA_colaborador = new ControleEscalaFolgas();
 
     String pDATA_inicial;
     String pDATA_final;
+    String pDATA_crono;
     public static int pTOTAL_registros = 0;
     public static String pMES_referencia = "";
     public static String pANO_referencia = "";
+    public static String pID_crono = "";
     int flag = 0;
+    public static String pRESPOSTA_cronoAL = "";
     /**
      * Creates new form TelaPesquisaCronogramaEscala
      */
-    public static TelaCronogramaEscala pCRONOGRAMA_escala;
+    public static TelaCronogramaEscala pALTERAR_CRONOGRAMA_escala;
 
-    public TelaPesquisaCronogramaEscala(TelaCronogramaEscala parent, boolean modal) {
-        this.pCRONOGRAMA_escala = parent;
+    public TelaAlterarCronogramaEscala(TelaCronogramaEscala parent, boolean modal) {
+        this.pALTERAR_CRONOGRAMA_escala = parent;
         this.setModal(modal);
-        setLocationRelativeTo(pCRONOGRAMA_escala);
+        setLocationRelativeTo(pALTERAR_CRONOGRAMA_escala);
         initComponents();
         corCampos();
         LIMPAR_tabela();
@@ -92,6 +97,15 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         jAnoReferencia = new javax.swing.JTextField();
         jDataInicial = new com.toedter.calendar.JDateChooser();
         jDataFinal = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        jIdCrono = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jDataCronograma = new com.toedter.calendar.JDateChooser();
+        jComboBoxStatusTrabFolga = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jMotivo = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaCronograma = new javax.swing.JTable();
         jPanel30 = new javax.swing.JPanel();
@@ -100,11 +114,13 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         jPanel32 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jBtEnviar = new javax.swing.JButton();
+        jBtGravar = new javax.swing.JButton();
         jBSair = new javax.swing.JButton();
+        jBtAlterar = new javax.swing.JButton();
+        jBtCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("...::: Cronograma de Escala e Folga de Trabalho :::...");
+        setTitle("...::: Alterar Cronograma de Escala e Folga de Trabalho :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -155,54 +171,108 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         jDataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataFinal.setEnabled(false);
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Registro");
+
+        jIdCrono.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jIdCrono.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdCrono.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdCrono.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jIdCrono.setEnabled(false);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("Dt. Cronograma");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Status");
+
+        jDataCronograma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataCronograma.setEnabled(false);
+
+        jComboBoxStatusTrabFolga.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxStatusTrabFolga.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "TRABALHADO", "FOLGA", "FÉRIAS", "ATESTADO", "INSS", "AFASTADO", "LICENÇA" }));
+        jComboBoxStatusTrabFolga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxStatusTrabFolga.setEnabled(false);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Motivo da troca de escala");
+
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jMotivo.setColumns(20);
+        jMotivo.setRows(5);
+        jMotivo.setText("{DIGITE AQUI O MOTIVO DA MUDANÇA DA ESCALA}");
+        jMotivo.setEnabled(false);
+        jScrollPane2.setViewportView(jMotivo);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jIdColaborador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jDataCronograma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jIdCrono, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jMesReferencia)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jMesReferencia)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)))
+                            .addComponent(jComboBoxStatusTrabFolga, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAnoReferencia, jMesReferencia});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDataCronograma, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdCrono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxStatusTrabFolga, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
@@ -216,7 +286,19 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
                     .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
         );
 
         jTabelaCronograma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -225,11 +307,11 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Nome do Colaborador", "Data Inicial", "Data Final", "Mês Referência", "Ano Referência"
+                "Registro", "Data Crono", "Status", "Código", "Nome do Colaborador", "Data Inicial", "Data Final", "Mês Referência", "Ano Referência"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -243,18 +325,24 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTabelaCronograma);
         if (jTabelaCronograma.getColumnModel().getColumnCount() > 0) {
-            jTabelaCronograma.getColumnModel().getColumn(0).setMinWidth(60);
-            jTabelaCronograma.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaCronograma.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaCronograma.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaCronograma.getColumnModel().getColumn(2).setMinWidth(70);
-            jTabelaCronograma.getColumnModel().getColumn(2).setMaxWidth(70);
-            jTabelaCronograma.getColumnModel().getColumn(3).setMinWidth(70);
-            jTabelaCronograma.getColumnModel().getColumn(3).setMaxWidth(70);
-            jTabelaCronograma.getColumnModel().getColumn(4).setMinWidth(100);
-            jTabelaCronograma.getColumnModel().getColumn(4).setMaxWidth(100);
-            jTabelaCronograma.getColumnModel().getColumn(5).setMinWidth(100);
-            jTabelaCronograma.getColumnModel().getColumn(5).setMaxWidth(100);
+            jTabelaCronograma.getColumnModel().getColumn(0).setMinWidth(80);
+            jTabelaCronograma.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTabelaCronograma.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaCronograma.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaCronograma.getColumnModel().getColumn(2).setMinWidth(150);
+            jTabelaCronograma.getColumnModel().getColumn(2).setMaxWidth(150);
+            jTabelaCronograma.getColumnModel().getColumn(3).setMinWidth(60);
+            jTabelaCronograma.getColumnModel().getColumn(3).setMaxWidth(60);
+            jTabelaCronograma.getColumnModel().getColumn(4).setMinWidth(250);
+            jTabelaCronograma.getColumnModel().getColumn(4).setMaxWidth(250);
+            jTabelaCronograma.getColumnModel().getColumn(5).setMinWidth(70);
+            jTabelaCronograma.getColumnModel().getColumn(5).setMaxWidth(70);
+            jTabelaCronograma.getColumnModel().getColumn(6).setMinWidth(70);
+            jTabelaCronograma.getColumnModel().getColumn(6).setMaxWidth(70);
+            jTabelaCronograma.getColumnModel().getColumn(7).setMinWidth(100);
+            jTabelaCronograma.getColumnModel().getColumn(7).setMaxWidth(100);
+            jTabelaCronograma.getColumnModel().getColumn(8).setMinWidth(100);
+            jTabelaCronograma.getColumnModel().getColumn(8).setMaxWidth(100);
         }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -304,11 +392,12 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
-        jBtEnviar.setText("Enviar");
-        jBtEnviar.addActionListener(new java.awt.event.ActionListener() {
+        jBtGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtGravar.setText("Gravar");
+        jBtGravar.setEnabled(false);
+        jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtEnviarActionPerformed(evt);
+                jBtGravarActionPerformed(evt);
             }
         });
 
@@ -320,27 +409,50 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
             }
         });
 
+        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterar.setText("Alterar");
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
+
+        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelar.setText("Cancelar");
+        jBtCancelar.setEnabled(false);
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtEnviar)
+                .addComponent(jBtAlterar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBSair)
                 .addContainerGap())
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBSair, jBtEnviar});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBSair, jBtAlterar, jBtCancelar, jBtGravar});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtEnviar)
-                    .addComponent(jBSair))
+                    .addComponent(jBtGravar)
+                    .addComponent(jBSair)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -349,37 +461,34 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5))
+                .addGap(4, 4, 4))
         );
 
         pack();
@@ -390,19 +499,48 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
+            pID_crono = "" + jTabelaCronograma.getValueAt(jTabelaCronograma.getSelectedRow(), 0);
             pMES_referencia = "" + jTabelaCronograma.getValueAt(jTabelaCronograma.getSelectedRow(), 4);
             pANO_referencia = "" + jTabelaCronograma.getValueAt(jTabelaCronograma.getSelectedRow(), 5);
-            pBUSCAR_DADOS_crono();
+            pBUSCAR_DADOS_crono();            
         }
     }//GEN-LAST:event_jTabelaCronogramaMouseClicked
 
-    private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        pENVIAR_DADOS_crono();
-        jBtExcluir.setEnabled(true);
-        jBtAlterar.setEnabled(true);
-        dispose();
-    }//GEN-LAST:event_jBtEnviarActionPerformed
+        Alterar();
+    }//GEN-LAST:event_jBtAlterarActionPerformed
+
+    private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
+        // TODO add your handling code here:
+        if (jIdCrono.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário informar o código do registro.");
+        } else if (jComboBoxStatusTrabFolga.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o status da escala.");
+        }else if(jComboBoxStatusTrabFolga.getSelectedItem().equals("Selecione...")){
+            JOptionPane.showMessageDialog(rootPane, "Selecione o status da escala.");
+        }else if(jMotivo.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Informe o motivo da mudança da escala.");
+        } else {
+            objEscalas.setIdCrono(Integer.valueOf(jIdCrono.getText()));
+            objEscalas.setStatusTrabFolga((String)jComboBoxStatusTrabFolga.getSelectedItem());
+            objEscalas.setMotivo(jMotivo.getText());
+            CONTROLE_ESCALA_colaborador.alterarCronogramaTrabalhoFolga(objEscalas);
+            Salvar();
+            LIMPAR_tabela();
+            PESQUISAR_TODOS_registros();
+            if (pRESPOSTA_cronoAL.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            } else if (pRESPOSTA_cronoAL.equals("Não")) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente ou solicite ajuda do administrador do sistema.");
+            }
+        }
+    }//GEN-LAST:event_jBtGravarActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        // TODO add your handling code here:
+        Cancelar();
+    }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
         // TODO add your handling code here:
@@ -426,20 +564,21 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPesquisaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAlterarCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPesquisaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAlterarCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPesquisaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAlterarCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPesquisaCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAlterarCronogramaEscala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaPesquisaCronogramaEscala dialog = new TelaPesquisaCronogramaEscala(pCRONOGRAMA_escala, true);
+                TelaAlterarCronogramaEscala dialog = new TelaAlterarCronogramaEscala(pALTERAR_CRONOGRAMA_escala, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -454,18 +593,28 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField jAnoReferencia;
     private javax.swing.JButton jBSair;
-    private javax.swing.JButton jBtEnviar;
+    private javax.swing.JButton jBtAlterar;
+    private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtGravar;
+    private javax.swing.JComboBox<String> jComboBoxStatusTrabFolga;
+    private com.toedter.calendar.JDateChooser jDataCronograma;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
     private javax.swing.JTextField jIdColaborador;
+    private javax.swing.JTextField jIdCrono;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jMesReferencia;
+    private javax.swing.JTextArea jMotivo;
     private javax.swing.JTextField jNomeColaborador;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -473,11 +622,15 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTabelaCronograma;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
+        jIdCrono.setBackground(Color.WHITE);
+        jDataCronograma.setBackground(Color.WHITE);
+        jComboBoxStatusTrabFolga.setBackground(Color.WHITE);
         jIdColaborador.setBackground(Color.WHITE);
         jNomeColaborador.setBackground(Color.WHITE);
         jDataInicial.setBackground(Color.WHITE);
@@ -485,10 +638,14 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         jMesReferencia.setBackground(Color.WHITE);
         jAnoReferencia.setBackground(Color.WHITE);
         jComboBoxTipoCronograma.setBackground(Color.WHITE);
+        jMotivo.setBackground(Color.WHITE);
     }
 
     public void pBUSCAR_DADOS_crono() {
-        pPESQUISAR_colaborador.MOSTRAR_DADOS_CRONOGRAMA_gravado(objEscalas);
+        pPESQUISAR_colaborador.MOSTRAR_DADOS_CRONOGRAMA_gravadoAL(objEscalas);
+        jIdCrono.setText(String.valueOf(objEscalas.getIdCrono()));
+        jDataCronograma.setDate(objEscalas.getDataCronograma());
+        jComboBoxStatusTrabFolga.setSelectedItem(objEscalas.getStatusTrabFolga());
         jIdColaborador.setText(String.valueOf(objEscalas.getIdFunc()));
         jNomeColaborador.setText(objEscalas.getNomeFuncEscala());
         jDataInicial.setDate(objEscalas.getDataInicial());
@@ -496,6 +653,7 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         jMesReferencia.setText(objEscalas.getMesReferencia());
         jAnoReferencia.setText(objEscalas.getAnoReferencia());
         jComboBoxTipoCronograma.setSelectedItem(objEscalas.getTipoCronograma());
+        jMotivo.setText(objEscalas.getMotivo());
     }
 
     public void pENVIAR_DADOS_crono() {
@@ -519,6 +677,34 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
         jComboBoxMesReferencia.setSelectedItem(objEscalas.getMesReferencia());
         jComboBoxAnoReferencia.setSelectedItem(objEscalas.getAnoReferencia());
         jComboBoxTipoCronograma.setSelectedItem(objEscalas.getTipoCronograma());
+        jMotivo.setText(objEscalas.getMotivo());
+    }
+
+    public void Alterar() {
+        jComboBoxStatusTrabFolga.setEnabled(true);
+        jMotivo.setEnabled(true);
+        //
+        jBtAlterar.setEnabled(!true);
+        jBtGravar.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }
+
+    public void Salvar() {
+        jComboBoxStatusTrabFolga.setEnabled(!true);
+        jMotivo.setEnabled(!true);
+        //
+        jBtAlterar.setEnabled(true);
+        jBtGravar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void Cancelar() {
+        jComboBoxStatusTrabFolga.setEnabled(!true);
+        jMotivo.setEnabled(!true);
+        //
+        jBtAlterar.setEnabled(true);
+        jBtGravar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
     }
 
     public void PESQUISAR_TODOS_registros() {
@@ -536,8 +722,14 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
                 String mesF = pDATA_final.substring(5, 7);
                 String anoF = pDATA_final.substring(0, 4);
                 pDATA_final = diaF + "/" + mesF + "/" + anoF;
+                //
+                pDATA_crono = String.valueOf(dd.getDataCronograma());
+                String diaC = pDATA_crono.substring(8, 10);
+                String mesC = pDATA_crono.substring(5, 7);
+                String anoC = pDATA_crono.substring(0, 4);
+                pDATA_crono = diaC + "/" + mesC + "/" + anoC;
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
-                dadosOrigem.addRow(new Object[]{dd.getIdFunc(), dd.getNomeFuncEscala(), pDATA_inicial, pDATA_final, dd.getMesReferencia(), dd.getAnoReferencia()});
+                dadosOrigem.addRow(new Object[]{dd.getIdCrono(), pDATA_crono, dd.getStatusTrabFolga(), dd.getIdFunc(), dd.getNomeFuncEscala(), pDATA_inicial, pDATA_final, dd.getMesReferencia(), dd.getAnoReferencia()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCronograma.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -545,13 +737,16 @@ public class TelaPesquisaCronogramaEscala extends javax.swing.JDialog {
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
                 jTabelaCronograma.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaCronograma.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 jTabelaCronograma.getColumnModel().getColumn(2).setCellRenderer(centralizado);
                 jTabelaCronograma.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-                jTabelaCronograma.getColumnModel().getColumn(4).setCellRenderer(centralizado);
                 jTabelaCronograma.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+                jTabelaCronograma.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+                jTabelaCronograma.getColumnModel().getColumn(7).setCellRenderer(centralizado);
+                jTabelaCronograma.getColumnModel().getColumn(8).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaPesquisaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAlterarCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -22,6 +22,7 @@ import static gestor.Visao.TelaCronogramaEscala.pDATA_cronograma;
 import static gestor.Visao.TelaCronogramaEscala.pTOTAL_REGISTROS_crono;
 import static gestor.Visao.TelaFuncionarios.jIDFunc;
 import static gestor.Visao.TelaPesquisaCronogramaEscala.pTOTAL_registros;
+import static gestor.Visao.TelaAlterarCronogramaEscala.pRESPOSTA_cronoAL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -298,28 +299,13 @@ public class ControleEscalaFolgas {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET IdRegistro=?,IdEscala=?,IdFunc=?,DataCronograma=?,StatusTrabFolga=?,DataInicial=?,DataFinal=?,DataPrimeiraFolga=?,PrimeiroApt=?,SegundoApt=?,MesReferencia=?,AnoReferencia=?,TipoCronograma=? WHERE IdCrono='" + objEscalas.getIdCrono() + "'");
-            pst.setInt(1, objEscalas.getIdRegistro());
-            pst.setInt(2, objEscalas.getIdEscala());
-            pst.setInt(3, objEscalas.getIdFunc());
-            pst.setTimestamp(4, new java.sql.Timestamp(objEscalas.getDataCronograma().getTime()));
-            pst.setString(5, objEscalas.getStatusTrabFolga());
-            pst.setTimestamp(6, new java.sql.Timestamp(objEscalas.getDataInicial().getTime()));
-            pst.setTimestamp(7, new java.sql.Timestamp(objEscalas.getDataFinal().getTime()));
-            if (objEscalas.getDataPrimeiraFolga() != null) {
-                pst.setTimestamp(8, new java.sql.Timestamp(objEscalas.getDataPrimeiraFolga().getTime()));
-            } else {
-                pst.setDate(8, null);
-            }
-            pst.setString(9, objEscalas.getPrimeiroApt());
-            pst.setString(10, objEscalas.getSegundoApt());
-            pst.setString(11, objEscalas.getMesReferencia());
-            pst.setString(12, objEscalas.getAnoReferencia());
-            pst.setString(13, objEscalas.getTipoCronograma());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET StatusTrabFolga=?,Motivo=? WHERE IdCrono='" + objEscalas.getIdCrono() + "'");                      
+            pst.setString(1, objEscalas.getStatusTrabFolga()); 
+            pst.setString(2, objEscalas.getMotivo());
             pst.executeUpdate();
-            pRESPOSTA_crono = "Sim";
+            pRESPOSTA_cronoAL = "Sim";
         } catch (SQLException ex) {
-            pRESPOSTA_crono = "Não";
+            pRESPOSTA_cronoAL = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -349,8 +335,6 @@ public class ControleEscalaFolgas {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET StatusTrabFolga=? WHERE IdFunc='" + objEscalas.getIdFunc() + "' AND DataCronograma='" + pDATA_grava + "'");
             pst.setString(1, objEscalas.getStatusTrabFolga());
             pst.executeUpdate();
-            ++pTOTAL_REGISTROS_crono;
-            System.out.println("Total de Dias gravado: " + pTOTAL_REGISTROS_crono + "\n");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
@@ -370,7 +354,6 @@ public class ControleEscalaFolgas {
                     + "WHERE DataCronograma='" + pDATA_pesquisa + "'");
             conecta.rs.first();
             pDATA_cronograma = conecta.rs.getDate("DataCronograma");
-
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
@@ -408,7 +391,7 @@ public class ControleEscalaFolgas {
                     + "ON CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc=COLABORADOR.IdFunc "
                     + "WHERE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR.IdFunc='" + jIDFunc.getText() + "'");
             while (conecta.rs.next()) {
-                EscalaFolgas pEscalFolgas = new EscalaFolgas();
+                EscalaFolgas pEscalFolgas = new EscalaFolgas();                
                 pEscalFolgas.setIdFunc(conecta.rs.getInt("IdFunc"));
                 pEscalFolgas.setNomeFuncEscala(conecta.rs.getString("NomeFunc"));
                 pEscalFolgas.setDataInicial(conecta.rs.getDate("DataInicial"));

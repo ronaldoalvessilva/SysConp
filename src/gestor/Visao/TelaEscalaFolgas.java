@@ -413,7 +413,7 @@ public class TelaEscalaFolgas extends javax.swing.JInternalFrame {
         jDataCadastro.setEnabled(false);
 
         jComboBoxDescricaoEscala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDescricaoEscala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "ESCALA DE 6 X 2", "ESCALA 12 X 36 (1 X 1) - TURMA A", "ESCALA 12 X 36 (1 X 1) - TURMA B", "ESCALA 12 X 36 (1 X 1) - TURMA C", "ESCALA 12 X 36 (1 X 1) - TURMA D", "ESCALA 8 X 3 - NOTURMA", "ESCALA 10 X 4 - NOTURNA", " " }));
+        jComboBoxDescricaoEscala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "ESCALA 12 X 36 (1 X 1) - TURMA A", "ESCALA 12 X 36 (1 X 1) - TURMA B", "ESCALA 12 X 36 (1 X 1) - TURMA C", "ESCALA 12 X 36 (1 X 1) - TURMA D", " " }));
         jComboBoxDescricaoEscala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDescricaoEscala.setEnabled(false);
 

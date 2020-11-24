@@ -828,16 +828,13 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="6">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="ESCALA DE 6 X 2"/>
-                        <StringItem index="2" value="ESCALA 12 X 36 (1 X 1) - TURMA A"/>
-                        <StringItem index="3" value="ESCALA 12 X 36 (1 X 1) - TURMA B"/>
-                        <StringItem index="4" value="ESCALA 12 X 36 (1 X 1) - TURMA C"/>
-                        <StringItem index="5" value="ESCALA 12 X 36 (1 X 1) - TURMA D"/>
-                        <StringItem index="6" value="ESCALA 8 X 3 - NOTURMA"/>
-                        <StringItem index="7" value="ESCALA 10 X 4 - NOTURNA"/>
-                        <StringItem index="8" value=" "/>
+                        <StringItem index="1" value="ESCALA 12 X 36 (1 X 1) - TURMA A"/>
+                        <StringItem index="2" value="ESCALA 12 X 36 (1 X 1) - TURMA B"/>
+                        <StringItem index="3" value="ESCALA 12 X 36 (1 X 1) - TURMA C"/>
+                        <StringItem index="4" value="ESCALA 12 X 36 (1 X 1) - TURMA D"/>
+                        <StringItem index="5" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

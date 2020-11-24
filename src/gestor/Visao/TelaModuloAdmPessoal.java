@@ -289,6 +289,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         FrequenciaColaboradoresPorDepartamento = new javax.swing.JMenuItem();
         RelatorioIndividualColaboradorFrequencia = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jRelatorioEscalaTrabalhoGeral = new javax.swing.JMenuItem();
+        jRelatorioEscalaTrabalhoIndividual = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenuItem13 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
@@ -598,6 +601,26 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jMenu4.add(RelatorioIndividualColaboradorFrequencia);
 
         Relatorios.add(jMenu4);
+
+        jMenu1.setText("Relatório de Escala de Trabalho e Folga");
+
+        jRelatorioEscalaTrabalhoGeral.setText("Escala de Trabalho Geral");
+        jRelatorioEscalaTrabalhoGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioEscalaTrabalhoGeralActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRelatorioEscalaTrabalhoGeral);
+
+        jRelatorioEscalaTrabalhoIndividual.setText("Escala de trabalho Individual");
+        jRelatorioEscalaTrabalhoIndividual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioEscalaTrabalhoIndividualActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRelatorioEscalaTrabalhoIndividual);
+
+        Relatorios.add(jMenu1);
         Relatorios.add(jSeparator7);
 
         jMenuItem13.setText("Relatório de Registro Entrada e Saída de Visitas Portaria/Departamento");
@@ -1517,6 +1540,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jEscalaTrabalhoActionPerformed
 
+    private void jRelatorioEscalaTrabalhoGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioEscalaTrabalhoGeralActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRelatorioEscalaTrabalhoGeralActionPerformed
+
+    private void jRelatorioEscalaTrabalhoIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioEscalaTrabalhoIndividualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRelatorioEscalaTrabalhoIndividualActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1550,6 +1581,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jEntradasSaidaColaboradores;
     private javax.swing.JMenuItem jEscalaTrabalho;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -1564,6 +1596,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jPais;
     private javax.swing.JMenuItem jPopulacaoCarcerariaAgentes;
     private javax.swing.JMenuItem jRelatorioAtividadesMensalUnidade;
+    private javax.swing.JMenuItem jRelatorioEscalaTrabalhoGeral;
+    private javax.swing.JMenuItem jRelatorioEscalaTrabalhoIndividual;
     private javax.swing.JMenuItem jRelatorioFichaCadastral;
     private javax.swing.JMenuItem jRelatorioPopulacaoAlimenticia;
     private javax.swing.JMenuItem jRelatorioTotaisProdutividade;

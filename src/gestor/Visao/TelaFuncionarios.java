@@ -119,6 +119,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     public static int pID_ESCALA = 0;
     public static String pRESPOSTA_escala = "";
     public static int pCODIGO_colaborador = 0;
+    //
+    public static String pCODIGO_PESQUISA_func = "";
 
     /**
      * Creates new form TelaFuncionarios
@@ -3128,45 +3130,51 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here: 
         buscarAcessoUsuario(telaColaboradoresFC_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFC_ADM) && codExcluirADM == 1) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
-                        + "WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
-                conecta.rs.first();
-                idFunc = conecta.rs.getString("IdFunc");
-                //
-                conecta.executaSQL("SELECT * FROM DEPENDENTES "
-                        + "WHERE IdFunc='" + jIDFunc.getText() + "'");
-                conecta.rs.first();
-                codFuncDep = conecta.rs.getString("IdFunc");
-            } catch (SQLException ex) {
-            }
-            if (jIDFunc.getText().equals(idFunc)) {
-                JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
-            } else if (jIDFunc.getText().equals(codFuncDep)) {
-                JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
+            //VERIFICAR SE EXISTE REGISTRO NA TABELA CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR
+            PESQUISAR_COLABORADOR_escala();
+            if (jIDFunc.getText().equals(pCODIGO_PESQUISA_func)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o registro selecionado, existe outros registros associados a esse colaborador na tabela de ESCALAS DE TRABALHO.");
             } else {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    // EXCLUIR O DOCUMENTO
-                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                    objDoc.setIdDoc(codDoc);
-                    controleDoc.excluirDocumentosColaborador(objDoc);
-                    // EXCLUIR ENDEREÇO
-                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                    objEnd.setIdEnd(codEnd);
-                    controle.excluiEnderecosColaborador(objEnd);
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+                            + "WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
+                    conecta.rs.first();
+                    idFunc = conecta.rs.getString("IdFunc");
                     //
-                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                    control.excluirColaborador(objCola);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Excluir();
-                    JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                    conecta.executaSQL("SELECT * FROM DEPENDENTES "
+                            + "WHERE IdFunc='" + jIDFunc.getText() + "'");
+                    conecta.rs.first();
+                    codFuncDep = conecta.rs.getString("IdFunc");
+                } catch (SQLException ex) {
+                }
+                if (jIDFunc.getText().equals(idFunc)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
+                } else if (jIDFunc.getText().equals(codFuncDep)) {
+                    JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
+                } else {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        // EXCLUIR O DOCUMENTO
+                        objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        objDoc.setIdDoc(codDoc);
+                        controleDoc.excluirDocumentosColaborador(objDoc);
+                        // EXCLUIR ENDEREÇO
+                        objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        objEnd.setIdEnd(codEnd);
+                        controle.excluiEnderecosColaborador(objEnd);
+                        //
+                        objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        control.excluirColaborador(objCola);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Excluir();
+                        JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                    }
                 }
             }
         } else {
@@ -3655,43 +3663,49 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaColaboradoresFCEnd_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCEnd_ADM) && codExcluirADM == 1) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
-                conecta.rs.first();
-                idFunc = conecta.rs.getString("IdFunc");
-                //
-                conecta.executaSQL("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
-                conecta.rs.first();
-                codFuncDep = conecta.rs.getString("IdFunc");
-            } catch (SQLException ex) {
-            }
-            if (jIDFunc.getText().equals(idFunc)) {
-                JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
-            } else if (jIDFunc.getText().equals(codFuncDep)) {
-                JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
+            //VERIFICAR SE EXISTE REGISTRO NA TABELA CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR
+            PESQUISAR_COLABORADOR_escala();
+            if (jIDFunc.getText().equals(pCODIGO_PESQUISA_func)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o registro selecionado, existe outros registros associados a esse colaborador na tabela de ESCALAS DE TRABALHO.");
             } else {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    // EXCLUIR O DOCUMENTO
-                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                    objDoc.setIdDoc(codDoc);
-                    controleDoc.excluirDocumentosColaborador(objDoc);
-                    // EXCLUIR ENDEREÇO
-                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                    objEnd.setIdEnd(codEnd);
-                    controle.excluiEnderecosColaborador(objEnd);
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
+                    conecta.rs.first();
+                    idFunc = conecta.rs.getString("IdFunc");
                     //
-                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                    control.excluirColaborador(objCola);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Excluir();
-                    JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                    conecta.executaSQL("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+                    conecta.rs.first();
+                    codFuncDep = conecta.rs.getString("IdFunc");
+                } catch (SQLException ex) {
+                }
+                if (jIDFunc.getText().equals(idFunc)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
+                } else if (jIDFunc.getText().equals(codFuncDep)) {
+                    JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
+                } else {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        // EXCLUIR O DOCUMENTO
+                        objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        objDoc.setIdDoc(codDoc);
+                        controleDoc.excluirDocumentosColaborador(objDoc);
+                        // EXCLUIR ENDEREÇO
+                        objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        objEnd.setIdEnd(codEnd);
+                        controle.excluiEnderecosColaborador(objEnd);
+                        //
+                        objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                        control.excluirColaborador(objCola);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Excluir();
+                        JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                    }
                 }
             }
         } else {
@@ -4471,26 +4485,32 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaEscalaTrabalho_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codAlterarADM == 1) {
             if (jComboBoxStatusFunc.getSelectedItem().equals("Ativo")) {
-                acao = 6;
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                bloquearBotoesEscala(!true);
-                habilitarCamposEscala(true);
-                AlterarEscala(true);
-                jDepartamentoEscala.setText(jDepartamento.getText());
-                jNomeCargoEscala.setText(jNomeCargo.getText());
-                try {
-                    for (EscalaFolgas b : pPESQUISAR_nome.read()) {
-                        jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
-                        jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
-                        jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
-                        jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
-                        jTurnoEscala.setText(b.getTurno());
-                        jTurmaEscala.setText(b.getTurma());
+                //VERIFICAR SE EXISTE REGISTRO NA TABELA CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR
+                PESQUISAR_COLABORADOR_escala();
+                if (jIDFunc.getText().equals(pCODIGO_PESQUISA_func)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o registro selecionado, existe outros registros associados a esse colaboradorna tabela de ESCALAS DE TRABALHO.");
+                } else {
+                    acao = 6;
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    bloquearBotoesEscala(!true);
+                    habilitarCamposEscala(true);
+                    AlterarEscala(true);
+                    jDepartamentoEscala.setText(jDepartamento.getText());
+                    jNomeCargoEscala.setText(jNomeCargo.getText());
+                    try {
+                        for (EscalaFolgas b : pPESQUISAR_nome.read()) {
+                            jCodigoEscala.setText(String.valueOf(b.getIdRegistro()));
+                            jComboBoxDescricaoEscala.addItem(b.getDescricaoEscala());
+                            jQtdTrabalho.setText(String.valueOf(b.getQuantidadeTrab()));
+                            jQtdFolga.setText(String.valueOf(b.getQuantidadeFolga()));
+                            jTurnoEscala.setText(b.getTurno());
+                            jTurmaEscala.setText(b.getTurma());
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
                     }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Não exites escala a ser exibida. Será necessário gravar primeiro as escalas de trabalho do colaborador.");
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Colaborador não está ativo, por isso não é possível definir escala de trabalho e folga.");
@@ -4505,22 +4525,28 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaEscalaTrabalho_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaEscalaTrabalho_ADM) && codExcluirADM == 1) {
             if (jComboBoxStatusFunc.getSelectedItem().equals("Ativo")) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    statusMov = "Excluiu";
-                    horaMov = jHoraSistema.getText();
-                    dataModFinal = jDataSistema.getText();
-                    objEscala.setIdEscala(pID_ESCALA);
-                    CONTROLE_ESCALA_colaborador.excluirEscalaTrabalhoFolga(objEscala);
-                    bloquearBotoesEscala(!true);
-                    habilitarCamposEscala(!true);
-                    ExcluirEscala(!true);
-                    limparCamposEscala();
-                    if (pRESPOSTA_escala.equals("Sim")) {
-                        JOptionPane.showMessageDialog(null, "Resgistro excluído com sucesso.");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro, tente novamente.");
+                //VERIFICAR SE EXISTE REGISTRO NA TABELA CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR
+                PESQUISAR_COLABORADOR_escala();
+                if (jIDFunc.getText().equals(pCODIGO_PESQUISA_func)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o registro selecionado, existe outros registros associados a esse colaboradorna tabela de ESCALAS DE TRABALHO.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        statusMov = "Excluiu";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                        objEscala.setIdEscala(pID_ESCALA);
+                        CONTROLE_ESCALA_colaborador.excluirEscalaTrabalhoFolga(objEscala);
+                        bloquearBotoesEscala(!true);
+                        habilitarCamposEscala(!true);
+                        ExcluirEscala(!true);
+                        limparCamposEscala();
+                        if (pRESPOSTA_escala.equals("Sim")) {
+                            JOptionPane.showMessageDialog(null, "Resgistro excluído com sucesso.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro, tente novamente.");
+                        }
                     }
                 }
             } else {
@@ -6505,6 +6531,10 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void PESQUISAR_COLABORADOR_escala() {
+        pPESQUISAR_nome.MOSTRAR_DADOS_COLABORADOR_EXCLUIR_escala(objEscala);
     }
 
     public void preencherTodasEntradas(String sql) {

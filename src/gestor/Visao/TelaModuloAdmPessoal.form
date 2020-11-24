@@ -314,6 +314,29 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Escala de Trabalho e Folga"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioEscalaTrabalhoGeral">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Escala de Trabalho Geral"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioEscalaTrabalhoGeralActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioEscalaTrabalhoIndividual">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Escala de trabalho Individual"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioEscalaTrabalhoIndividualActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator7">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
