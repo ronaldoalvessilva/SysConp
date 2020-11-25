@@ -327,8 +327,23 @@ public class ControleEscalaFolgas {
         return objEscalas;
     }
 
-    public EscalaFolgas alterarStatusCronogramaTrabalhoFolga(EscalaFolgas objEscalas) {
+    public EscalaFolgas alterarStatusCronogramaTrabalhoFolgaWindows(EscalaFolgas objEscalas) {
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        pDATA_grava = formatoAmerica.format(objEscalas.getDataCronograma());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR SET StatusTrabFolga=? WHERE IdFunc='" + objEscalas.getIdFunc() + "' AND DataCronograma='" + pDATA_grava + "'");
+            pst.setString(1, objEscalas.getStatusTrabFolga());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
+    
+    public EscalaFolgas alterarStatusCronogramaTrabalhoFolgaLinux(EscalaFolgas objEscalas) {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
         pDATA_grava = formatoAmerica.format(objEscalas.getDataCronograma());
         conecta.abrirConexao();
         try {
@@ -343,8 +358,25 @@ public class ControleEscalaFolgas {
     }
 
     //
-    public EscalaFolgas PESQUISAR_DATA_Folga(EscalaFolgas objEscalas) {
+    public EscalaFolgas PESQUISAR_DATA_FOLGA_windows(EscalaFolgas objEscalas) {
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        pDATA_pesquisa = formatoAmerica.format(d4);
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdFunc, "
+                    + "DataCronograma "
+                    + "FROM CRONOGRAMA_ESCALA_TRABALHO_FOLGA_COLABORADOR "
+                    + "WHERE DataCronograma='" + pDATA_pesquisa + "'");
+            conecta.rs.first();
+            pDATA_cronograma = conecta.rs.getDate("DataCronograma");
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+        return objEscalas;
+    }
+    
+     public EscalaFolgas PESQUISAR_DATA_FOLGA_linux(EscalaFolgas objEscalas) {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
         pDATA_pesquisa = formatoAmerica.format(d4);
         conecta.abrirConexao();
         try {
