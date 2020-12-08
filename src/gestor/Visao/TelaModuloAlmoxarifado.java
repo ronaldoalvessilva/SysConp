@@ -9,6 +9,8 @@ import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleListaKitsAgendado;
+import gestor.Modelo.AlertaKitHigiente;
 import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
@@ -56,10 +58,15 @@ import static gestor.Visao.TelaRecadosAlmoxarifado.jRecado;
 import static gestor.Visao.TelaRecadosAlmoxarifado.jTabelaTodosRecados;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -81,6 +88,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
+    AlertaKitHigiente objComp = new AlertaKitHigiente();
+    ControleListaKitsAgendado CONTROLE_LISTA_kits = new ControleListaKitsAgendado();
+    //
     private TelaFornecedorAC objForn = null;
     private TelaGrupoProdutos objGrupoProdutos = null;
     private TelaLocalArmazenamentoAC objLocalAC = null;
@@ -101,6 +111,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaProgramacaoKitsHigiene objProgramaKit = null;
     private TelaRelatorioProgramacaoKits objRelProgKit = null;
     private TelaCancelamentoPagamentoKits objCancelaKit = null;
+    private TelaAlertaPagamentoKitHigiene objAlertaKit = null;
     //
     String dataLanc;
     int codUsuario;
@@ -222,6 +233,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public static String nomeTelaAL = "";
     //
     String dataSisConvert = "";
+    String pDATA_inicial = "";
+    //
+    String data1 = null;
+    String data2 = null;
+    int opcao = 0;
 
     // TelaEntradaProdutos FAZER A MESMA QUE ESTÁ NO MODULO FARMACIA
     /**
@@ -1523,8 +1539,125 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             public void run() {
                 verificarRecado();
                 verificarAgendaCompromisso();
+                VERIFICAR_KITS_agendado();
             }
         }, periodo, tempo);
+    }
+
+    public void VERIFICAR_KITS_agendado() {
+        CONTROLE_LISTA_kits.LISTAR_AGENDA_kit(objComp);
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+            if (pDATA_inicial.equals(jDataSistema.getText())) {
+                //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                    objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                    jPainelAlmoxarifado.add(objAlertaKit);
+                    objAlertaKit.setVisible(true);
+                } else {
+                    if (objAlertaKit.isVisible()) {
+                        if (objAlertaKit.isIcon()) { // Se esta minimizado
+                            try {
+                                objAlertaKit.setIcon(false); // maximiniza
+                            } catch (PropertyVetoException ex) {
+                            }
+                        } else {
+                            objAlertaKit.toFront(); // traz para frente
+                            objAlertaKit.pack();//volta frame 
+                        }
+                    } else {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                        objAlertaKit.setVisible(true);
+                    }
+                }
+                try {
+                    objAlertaKit.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+            if (pDATA_inicial.equals(jDataSistema.getText())) {
+                //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                    objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                    jPainelAlmoxarifado.add(objAlertaKit);
+                    objAlertaKit.setVisible(true);
+                } else {
+                    if (objAlertaKit.isVisible()) {
+                        if (objAlertaKit.isIcon()) { // Se esta minimizado
+                            try {
+                                objAlertaKit.setIcon(false); // maximiniza
+                            } catch (PropertyVetoException ex) {
+                            }
+                        } else {
+                            objAlertaKit.toFront(); // traz para frente
+                            objAlertaKit.pack();//volta frame 
+                        }
+                    } else {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                        objAlertaKit.setVisible(true);
+                    }
+                }
+                try {
+                    objRecadosAlmox.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                }
+            }
+        }
+    }
+
+    public void COMPRARA_DATAS_windows(Date a, Date b) {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        data1 = formatoAmerica.format(objComp.getDataPrevisao());
+        data2 = formatoAmerica.format(jDataSistema.getText());
+        try {
+            a = new SimpleDateFormat("dd/MM/yyyy").parse(data1);
+            b = new SimpleDateFormat("dd/MM/yyyy").parse(data2);
+            a.compareTo(b);
+            if (a.after(b)) {
+                opcao = 0;
+                // DATA a MAIOR QUE b
+            } else if (a.before(b)) {
+                opcao = 1;
+                //DATA a MENOR b
+            } else if (a.equals(b)) {
+                opcao = 2;
+                //DATAS IGUAIS
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void COMPRARA_DATAS_linux(Date a, Date b) {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+        data1 = formatoAmerica.format(objComp.getDataPrevisao());
+        data2 = formatoAmerica.format(jDataSistema.getText());
+        try {
+            a = new SimpleDateFormat("yyyy/MM/dd").parse(data1);
+            b = new SimpleDateFormat("yyyy/MM/dd").parse(data2);
+            a.compareTo(b);
+            if (a.after(b)) {
+                opcao = 0;
+                // DATA a MAIOR QUE b
+            } else if (a.before(b)) {
+                opcao = 1;
+                //DATA a MENOR b
+            } else if (a.equals(b)) {
+                opcao = 2;
+                //DATAS IGUAIS
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void verificarRecado() {
