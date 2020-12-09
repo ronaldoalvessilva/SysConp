@@ -112,6 +112,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaRelatorioProgramacaoKits objRelProgKit = null;
     private TelaCancelamentoPagamentoKits objCancelaKit = null;
     private TelaAlertaPagamentoKitHigiene objAlertaKit = null;
+    private TelaConsultaKitsEntregueNaoEntregues objConsultaKit_PAGO_NAO_PAGO = null;
     //
     String dataLanc;
     int codUsuario;
@@ -280,7 +281,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jMenu2 = new javax.swing.JMenu();
         jLocalizacaoInternos = new javax.swing.JMenuItem();
         MovimentacaoCrc = new javax.swing.JMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
         ConsultaEstoque = new javax.swing.JMenuItem();
+        jConsultaKitsHigiene = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         EntradaMateriais = new javax.swing.JMenuItem();
         InventarioMateriais = new javax.swing.JMenuItem();
@@ -448,6 +451,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(MovimentacaoCrc);
+        jMenu2.add(jSeparator15);
 
         ConsultaEstoque.setText("Consulta de Estoque");
         ConsultaEstoque.addActionListener(new java.awt.event.ActionListener() {
@@ -456,6 +460,14 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(ConsultaEstoque);
+
+        jConsultaKitsHigiene.setText("Consulta de Kits de Higiene Entregue/Entregar");
+        jConsultaKitsHigiene.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConsultaKitsHigieneActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jConsultaKitsHigiene);
 
         jMenuBar1.add(jMenu2);
 
@@ -1466,6 +1478,35 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelarPagamentoKitActionPerformed
 
+    private void jConsultaKitsHigieneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaKitsHigieneActionPerformed
+        // TODO add your handling code here:
+        if (objConsultaKit_PAGO_NAO_PAGO == null || objConsultaKit_PAGO_NAO_PAGO.isClosed()) {
+            objConsultaKit_PAGO_NAO_PAGO = new TelaConsultaKitsEntregueNaoEntregues();
+            jPainelAlmoxarifado.add(objConsultaKit_PAGO_NAO_PAGO);
+            objConsultaKit_PAGO_NAO_PAGO.setVisible(true);
+        } else {
+            if (objConsultaKit_PAGO_NAO_PAGO.isVisible()) {
+                if (objConsultaKit_PAGO_NAO_PAGO.isIcon()) { // Se esta minimizado
+                    try {
+                        objConsultaKit_PAGO_NAO_PAGO.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objConsultaKit_PAGO_NAO_PAGO.toFront(); // traz para frente
+                    objConsultaKit_PAGO_NAO_PAGO.pack();//volta frame 
+                }
+            } else {
+                objConsultaKit_PAGO_NAO_PAGO = new TelaConsultaKitsEntregueNaoEntregues();
+                TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objConsultaKit_PAGO_NAO_PAGO);//adicona frame ao JDesktopPane  
+                objConsultaKit_PAGO_NAO_PAGO.setVisible(true);
+            }
+        }
+        try {
+            objConsultaKit_PAGO_NAO_PAGO.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jConsultaKitsHigieneActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1499,6 +1540,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SolicitacaoComprasMateriaisInternos;
     private javax.swing.JMenuItem TiposKitsInternos;
     private javax.swing.JMenuItem jCancelarPagamentoKit;
+    private javax.swing.JMenuItem jConsultaKitsHigiene;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
@@ -1520,6 +1562,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1550,65 +1593,69 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
-            if (pDATA_inicial.equals(jDataSistema.getText())) {
-                //CHAMA TELA PARA MOSTRAR DADOS DO KIT
-                if (objAlertaKit == null || objAlertaKit.isClosed()) {
-                    objAlertaKit = new TelaAlertaPagamentoKitHigiene();
-                    jPainelAlmoxarifado.add(objAlertaKit);
-                    objAlertaKit.setVisible(true);
-                } else {
-                    if (objAlertaKit.isVisible()) {
-                        if (objAlertaKit.isIcon()) { // Se esta minimizado
-                            try {
-                                objAlertaKit.setIcon(false); // maximiniza
-                            } catch (PropertyVetoException ex) {
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
                             }
                         } else {
-                            objAlertaKit.toFront(); // traz para frente
-                            objAlertaKit.pack();//volta frame 
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(true);
                         }
-                    } else {
-                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
-                        TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
-                        objAlertaKit.setVisible(true);
                     }
-                }
-                try {
-                    objAlertaKit.setSelected(true);
-                } catch (java.beans.PropertyVetoException e) {
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
                 }
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
-            if (pDATA_inicial.equals(jDataSistema.getText())) {
-                //CHAMA TELA PARA MOSTRAR DADOS DO KIT
-                if (objAlertaKit == null || objAlertaKit.isClosed()) {
-                    objAlertaKit = new TelaAlertaPagamentoKitHigiene();
-                    jPainelAlmoxarifado.add(objAlertaKit);
-                    objAlertaKit.setVisible(true);
-                } else {
-                    if (objAlertaKit.isVisible()) {
-                        if (objAlertaKit.isIcon()) { // Se esta minimizado
-                            try {
-                                objAlertaKit.setIcon(false); // maximiniza
-                            } catch (PropertyVetoException ex) {
+            if (objComp.getDataPrevisao() != null) {
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
                             }
                         } else {
-                            objAlertaKit.toFront(); // traz para frente
-                            objAlertaKit.pack();//volta frame 
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(true);
                         }
-                    } else {
-                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
-                        TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
-                        objAlertaKit.setVisible(true);
                     }
-                }
-                try {
-                    objRecadosAlmox.setSelected(true);
-                } catch (java.beans.PropertyVetoException e) {
+                    try {
+                        objRecadosAlmox.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
                 }
             }
         }

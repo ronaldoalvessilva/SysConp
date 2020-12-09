@@ -13,10 +13,11 @@ import java.util.Objects;
  * @author ronaldo.silva7
  */
 public class AlertaKitHigiente {
-    
+
     private Integer idRegProdutoKC;
     private Integer idRegistroComp;
     private Date dataPrevisao;
+    private Date dataPagamento;
     private String kitPago;
     private Integer idKit;
     private int kitInicial;
@@ -33,10 +34,11 @@ public class AlertaKitHigiente {
     public AlertaKitHigiente() {
     }
 
-    public AlertaKitHigiente(Integer idRegProdutoKC, Integer idRegistroComp, Date dataPrevisao, String kitPago, Integer idKit, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String tipoKit, Integer codigoProduto, String descricaoProduto, Integer quantProd) {
+    public AlertaKitHigiente(Integer idRegProdutoKC, Integer idRegistroComp, Date dataPrevisao, Date dataPagamento, String kitPago, Integer idKit, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String tipoKit, Integer codigoProduto, String descricaoProduto, Integer quantProd) {
         this.idRegProdutoKC = idRegProdutoKC;
         this.idRegistroComp = idRegistroComp;
         this.dataPrevisao = dataPrevisao;
+        this.dataPagamento = dataPagamento;
         this.kitPago = kitPago;
         this.idKit = idKit;
         this.kitInicial = kitInicial;
@@ -91,6 +93,20 @@ public class AlertaKitHigiente {
      */
     public void setDataPrevisao(Date dataPrevisao) {
         this.dataPrevisao = dataPrevisao;
+    }
+
+    /**
+     * @return the dataPagamento
+     */
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    /**
+     * @param dataPagamento the dataPagamento to set
+     */
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
     /**
@@ -264,10 +280,10 @@ public class AlertaKitHigiente {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.idRegProdutoKC);
-        hash = 61 * hash + Objects.hashCode(this.idRegistroComp);
-        hash = 61 * hash + Objects.hashCode(this.idKit);
-        hash = 61 * hash + Objects.hashCode(this.codigoProduto);
+        hash = 61 * hash + Objects.hashCode(this.getIdRegProdutoKC());
+        hash = 61 * hash + Objects.hashCode(this.getIdRegistroComp());
+        hash = 61 * hash + Objects.hashCode(this.getIdKit());
+        hash = 61 * hash + Objects.hashCode(this.getCodigoProduto());
         return hash;
     }
 
