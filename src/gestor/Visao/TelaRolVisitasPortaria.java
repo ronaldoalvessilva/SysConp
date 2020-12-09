@@ -1344,10 +1344,24 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
             // Habilitar os botões
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSROL "
+                conecta.executaSQL("SELECT "
+                        + "ITENSROL.IdRol, "
+                        + "ITENSROL.IdVisita, "
+                        + "VISITASINTERNO.NomeVisita, "
+                        + "ITENSROL.IdItemRol, "
+                        + "ITENSROL.ParentescoVisita, "
+                        + "VISITASINTERNO.StatusVisita, "
+                        + "VISITASINTERNO.DataNasc, "
+                        + "VISITASINTERNO.ImagemVisita, "
+                        + "VISITASINTERNO.ImagemFrenteVI, "
+                        + "VISITASINTERNO.DataCadVisita, "
+                        + "ITENSROL.DataInicio, "
+                        + "VISITASINTERNO.DataValiAnte "
+                        + "FROM ITENSROL "
                         + "INNER JOIN VISITASINTERNO "
                         + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
-                        + "WHERE VISITASINTERNO.IdVisita='" + jIDVisita.getText() + "' AND IdRol='" + jIDRol.getText() + "'");
+                        + "WHERE VISITASINTERNO.IdVisita='" + jIDVisita.getText() + "' "
+                        + "AND IdRol='" + jIDRol.getText() + "'");
                 conecta.rs.first();
                 jIDVisita.setText(conecta.rs.getString("IdVisita")); // Coluna 0
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita")); // Coluna 1

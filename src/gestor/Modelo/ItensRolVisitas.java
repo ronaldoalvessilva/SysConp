@@ -20,6 +20,7 @@ public class ItensRolVisitas {
     private String nomeInternoCrc;
     private int idVisita;
     private String nomeVisita;
+    private String parentescoVisita;
     private Date dataInicio;
     private String statusVisitaInterno;
     private String usuarioInsert;
@@ -38,7 +39,10 @@ public class ItensRolVisitas {
     private int sextaVisita;
     private int sabadoVisita;
 
-    public ItensRolVisitas(int idItemRol, Date dataRol, int idRol, int idInternoCrc, String nomeInternoCrc, int idVisita, String nomeVisita, Date dataInicio, String statusVisitaInterno, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, int idInstituicao, String nomeInstituicao, int domingoVisita, int segundaVisita, int tercaVisita, int quartaVisita, int quintaVisita, int sextaVisita, int sabadoVisita) {
+    public ItensRolVisitas() {
+    }
+
+    public ItensRolVisitas(int idItemRol, Date dataRol, int idRol, int idInternoCrc, String nomeInternoCrc, int idVisita, String nomeVisita, String parentescoVisita, Date dataInicio, String statusVisitaInterno, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, int idInstituicao, String nomeInstituicao, int domingoVisita, int segundaVisita, int tercaVisita, int quartaVisita, int quintaVisita, int sextaVisita, int sabadoVisita) {
         this.idItemRol = idItemRol;
         this.dataRol = dataRol;
         this.idRol = idRol;
@@ -46,6 +50,7 @@ public class ItensRolVisitas {
         this.nomeInternoCrc = nomeInternoCrc;
         this.idVisita = idVisita;
         this.nomeVisita = nomeVisita;
+        this.parentescoVisita = parentescoVisita;
         this.dataInicio = dataInicio;
         this.statusVisitaInterno = statusVisitaInterno;
         this.usuarioInsert = usuarioInsert;
@@ -63,9 +68,6 @@ public class ItensRolVisitas {
         this.quintaVisita = quintaVisita;
         this.sextaVisita = sextaVisita;
         this.sabadoVisita = sabadoVisita;
-    }
-
-    public ItensRolVisitas() {
     }
 
     /**
@@ -164,6 +166,20 @@ public class ItensRolVisitas {
      */
     public void setNomeVisita(String nomeVisita) {
         this.nomeVisita = nomeVisita;
+    }
+
+    /**
+     * @return the parentescoVisita
+     */
+    public String getParentescoVisita() {
+        return parentescoVisita;
+    }
+
+    /**
+     * @param parentescoVisita the parentescoVisita to set
+     */
+    public void setParentescoVisita(String parentescoVisita) {
+        this.parentescoVisita = parentescoVisita;
     }
 
     /**
