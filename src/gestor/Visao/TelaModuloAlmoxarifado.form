@@ -140,7 +140,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jConsultaKitsHigiene">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Consulta de Kits de Higiene Entregue/Entregar"/>
+                <Property name="text" type="java.lang.String" value="Consulta de Kits de Higiene Entregue/Entregar - (Programa&#xe7;&#xe3;o)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jConsultaKitsHigieneActionPerformed"/>

@@ -461,7 +461,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         });
         jMenu2.add(ConsultaEstoque);
 
-        jConsultaKitsHigiene.setText("Consulta de Kits de Higiene Entregue/Entregar");
+        jConsultaKitsHigiene.setText("Consulta de Kits de Higiene Entregue/Entregar - (Programação)");
         jConsultaKitsHigiene.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jConsultaKitsHigieneActionPerformed(evt);
