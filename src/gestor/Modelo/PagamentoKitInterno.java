@@ -31,11 +31,12 @@ public class PagamentoKitInterno {
     private String horarioUp;
     private int idRegistroComp;   
     private int idKit;
+    private String kitPersonalizado;
 
     public PagamentoKitInterno() {
     }
 
-    public PagamentoKitInterno(int idPagto, String statusLanc, Date dataLanc, String responsavel, String horaInicio, String horaTermino, String tipoKit, int idPav, String descricaoPavilhao, String observacao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idRegistroComp, int idKit) {
+    public PagamentoKitInterno(int idPagto, String statusLanc, Date dataLanc, String responsavel, String horaInicio, String horaTermino, String tipoKit, int idPav, String descricaoPavilhao, String observacao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idRegistroComp, int idKit, String kitPersonalizado) {
         this.idPagto = idPagto;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -54,6 +55,7 @@ public class PagamentoKitInterno {
         this.horarioUp = horarioUp;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
+        this.kitPersonalizado = kitPersonalizado;
     }
 
     /**
@@ -306,5 +308,19 @@ public class PagamentoKitInterno {
      */
     public void setIdKit(int idKit) {
         this.idKit = idKit;
+    }
+
+    /**
+     * @return the kitPersonalizado
+     */
+    public String getKitPersonalizado() {
+        return kitPersonalizado;
+    }
+
+    /**
+     * @param kitPersonalizado the kitPersonalizado to set
+     */
+    public void setKitPersonalizado(String kitPersonalizado) {
+        this.kitPersonalizado = kitPersonalizado;
     }
 }

@@ -30,11 +30,13 @@ public class AlertaKitHigiente {
     private Integer codigoProduto;
     private String descricaoProduto;
     private Integer quantProd;
+    private Integer idPav;
+    private String descricaoPav;
 
     public AlertaKitHigiente() {
     }
 
-    public AlertaKitHigiente(Integer idRegProdutoKC, Integer idRegistroComp, Date dataPrevisao, Date dataPagamento, String kitPago, Integer idKit, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String tipoKit, Integer codigoProduto, String descricaoProduto, Integer quantProd) {
+    public AlertaKitHigiente(Integer idRegProdutoKC, Integer idRegistroComp, Date dataPrevisao, Date dataPagamento, String kitPago, Integer idKit, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String tipoKit, Integer codigoProduto, String descricaoProduto, Integer quantProd, Integer idPav, String descricaoPav) {
         this.idRegProdutoKC = idRegProdutoKC;
         this.idRegistroComp = idRegistroComp;
         this.dataPrevisao = dataPrevisao;
@@ -51,6 +53,8 @@ public class AlertaKitHigiente {
         this.codigoProduto = codigoProduto;
         this.descricaoProduto = descricaoProduto;
         this.quantProd = quantProd;
+        this.idPav = idPav;
+        this.descricaoPav = descricaoPav;
     }
 
     /**
@@ -275,6 +279,34 @@ public class AlertaKitHigiente {
      */
     public void setQuantProd(Integer quantProd) {
         this.quantProd = quantProd;
+    }
+
+    /**
+     * @return the idPav
+     */
+    public Integer getIdPav() {
+        return idPav;
+    }
+
+    /**
+     * @param idPav the idPav to set
+     */
+    public void setIdPav(Integer idPav) {
+        this.idPav = idPav;
+    }
+
+    /**
+     * @return the descricaoPav
+     */
+    public String getDescricaoPav() {
+        return descricaoPav;
+    }
+
+    /**
+     * @param descricaoPav the descricaoPav to set
+     */
+    public void setDescricaoPav(String descricaoPav) {
+        this.descricaoPav = descricaoPav;
     }
 
     @Override

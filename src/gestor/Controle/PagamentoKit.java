@@ -26,7 +26,7 @@ public class PagamentoKit {
         buscarPavilhao(objPag.getDescricaoPavilhao());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PAGAMENTO_KIT_INTERNOS (StatusLanc,DataLanc,Responsavel,HoraInicio,HoraTermino,IdKit,TipoKit,IdRegistro,IdPav,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PAGAMENTO_KIT_INTERNOS (StatusLanc,DataLanc,Responsavel,HoraInicio,HoraTermino,IdKit,TipoKit,IdRegistro,IdPav,Observacao,UsuarioInsert,DataInsert,HorarioInsert,KitPersonalizado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objPag.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objPag.getDataLanc().getTime()));
             pst.setString(3, objPag.getResponsavel());
@@ -40,6 +40,7 @@ public class PagamentoKit {
             pst.setString(11, objPag.getUsuarioInsert());
             pst.setString(12, objPag.getDataInsert());
             pst.setString(13, objPag.getHorarioInsert());
+            pst.setString(14, objPag.getKitPersonalizado());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO:" + ex);
@@ -52,7 +53,7 @@ public class PagamentoKit {
         buscarPavilhao(objPag.getDescricaoPavilhao());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PAGAMENTO_KIT_INTERNOS SET StatusLanc=?,DataLanc=?,Responsavel=?,HoraInicio=?,HoraTermino=?,IdKit=?,TipoKit=?,IdRegistro=?,IdPav=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdPagto='" + objPag.getIdPagto() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PAGAMENTO_KIT_INTERNOS SET StatusLanc=?,DataLanc=?,Responsavel=?,HoraInicio=?,HoraTermino=?,IdKit=?,TipoKit=?,IdRegistro=?,IdPav=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=?,KitPersonalizado=? WHERE IdPagto='" + objPag.getIdPagto() + "'");
             pst.setString(1, objPag.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objPag.getDataLanc().getTime()));
             pst.setString(3, objPag.getResponsavel());
@@ -66,6 +67,7 @@ public class PagamentoKit {
             pst.setString(11, objPag.getUsuarioUp());
             pst.setString(12, objPag.getDataUp());
             pst.setString(13, objPag.getHorarioUp());
+            pst.setString(14, objPag.getKitPersonalizado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO:" + ex);

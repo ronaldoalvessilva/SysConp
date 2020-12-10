@@ -108,7 +108,7 @@ public class ControleListaKitsAgendado {
                         + "AND DataPrevisao='" + jDataSistema.getText() + "'");
                 while (conecta.rs.next()) {
                     AlertaKitHigiente pDigi = new AlertaKitHigiente();
-                    pDigi.setIdRegProdutoKC(conecta.rs.getInt("IdRegProdutosVC"));
+                    pDigi.setIdRegProdutoKC(conecta.rs.getInt("IdRegProdutosKC"));
                     pDigi.setIdRegistroComp(conecta.rs.getInt("IdRegistroComp"));
                     pDigi.setDataPrevisao(conecta.rs.getDate("DataPrevisao"));
                     pDigi.setKitPago(conecta.rs.getString("KitPago"));
