@@ -355,6 +355,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaProdutos.setAutoCreateRowSorter(true);
         jTabelaProdutos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

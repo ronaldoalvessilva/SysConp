@@ -75,6 +75,7 @@ public class TelaConsultaKitsEntregueNaoEntregues extends javax.swing.JInternalF
         setIconifiable(true);
         setTitle("...::: Consulta de Kits Pagos/Pagos {Programação} :::...");
 
+        jTabelaProdutosKitCompleto.setAutoCreateRowSorter(true);
         jTabelaProdutosKitCompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutosKitCompleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -134,13 +134,6 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         jDataPesFinal = new com.toedter.calendar.JDateChooser();
         jBtPesquisaData = new javax.swing.JButton();
         jCheckBoxTodos = new javax.swing.JCheckBox();
-        jLabel4 = new javax.swing.JLabel();
-        jRBtKitInicialPesquisa = new javax.swing.JRadioButton();
-        jRBtKitQuinzenalPesquisa = new javax.swing.JRadioButton();
-        jRBtKitMensalPesquisa = new javax.swing.JRadioButton();
-        jRBtKitDecendialPesquisa = new javax.swing.JRadioButton();
-        jRBtKitSemestraPesquisa = new javax.swing.JRadioButton();
-        jRBtKitAnualPesquisa = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaRegistrosMontagemKits = new javax.swing.JTable();
         jBtConfirmar = new javax.swing.JButton();
@@ -151,6 +144,17 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         jPanel38 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jRBtKitInicialPesquisa = new javax.swing.JRadioButton();
+        jRBtKitQuinzenalPesquisa = new javax.swing.JRadioButton();
+        jRBtKitMensalPesquisa = new javax.swing.JRadioButton();
+        jRBtKitDecendialPesquisa = new javax.swing.JRadioButton();
+        jRBtKitSemestraPesquisa = new javax.swing.JRadioButton();
+        jRBtKitAnualPesquisa = new javax.swing.JRadioButton();
+        jComboBoxSelecionarKit = new javax.swing.JComboBox<>();
+        jBtPesquisaTipoKit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Pesquisa de Registro de Montagem de Kits Higiêne de Internos :::...");
@@ -197,79 +201,30 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Tipo de Kit:");
-
-        grupoBotoes.add(jRBtKitInicialPesquisa);
-        jRBtKitInicialPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBtKitInicialPesquisa.setText("Inicial");
-        jRBtKitInicialPesquisa.setEnabled(false);
-
-        grupoBotoes.add(jRBtKitQuinzenalPesquisa);
-        jRBtKitQuinzenalPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBtKitQuinzenalPesquisa.setText("Quinzenal");
-        jRBtKitQuinzenalPesquisa.setEnabled(false);
-
-        grupoBotoes.add(jRBtKitMensalPesquisa);
-        jRBtKitMensalPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBtKitMensalPesquisa.setText("Mensal");
-        jRBtKitMensalPesquisa.setEnabled(false);
-
-        grupoBotoes.add(jRBtKitDecendialPesquisa);
-        jRBtKitDecendialPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBtKitDecendialPesquisa.setText("Decendial");
-        jRBtKitDecendialPesquisa.setEnabled(false);
-
-        grupoBotoes.add(jRBtKitSemestraPesquisa);
-        jRBtKitSemestraPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBtKitSemestraPesquisa.setText("Semestral");
-        jRBtKitSemestraPesquisa.setEnabled(false);
-
-        grupoBotoes.add(jRBtKitAnualPesquisa);
-        jRBtKitAnualPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBtKitAnualPesquisa.setText("Anual");
-        jRBtKitAnualPesquisa.setEnabled(false);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(44, 44, 44)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCodigoRegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(jCheckBoxTodos))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRBtKitInicialPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRBtKitDecendialPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRBtKitQuinzenalPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRBtKitMensalPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRBtKitSemestraPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRBtKitAnualPesquisa)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(jCodigoRegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtPesquisaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jCheckBoxTodos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,27 +240,27 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisaData)
                     .addComponent(jCheckBoxTodos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jRBtKitAnualPesquisa)
-                    .addComponent(jRBtKitSemestraPesquisa)
-                    .addComponent(jRBtKitDecendialPesquisa)
-                    .addComponent(jRBtKitMensalPesquisa)
-                    .addComponent(jRBtKitQuinzenalPesquisa)
-                    .addComponent(jRBtKitInicialPesquisa)
-                    .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        TabelaRegistrosMontagemKits.setAutoCreateRowSorter(true);
         TabelaRegistrosMontagemKits.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         TabelaRegistrosMontagemKits.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador", "Observação"
+                "Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador", "Pavilhão/Galeria"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         TabelaRegistrosMontagemKits.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelaRegistrosMontagemKitsMouseClicked(evt);
@@ -392,6 +347,102 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Pesquisa por Kit:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Tipo de Kit:");
+
+        grupoBotoes.add(jRBtKitInicialPesquisa);
+        jRBtKitInicialPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitInicialPesquisa.setText("Inicial");
+        jRBtKitInicialPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitQuinzenalPesquisa);
+        jRBtKitQuinzenalPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitQuinzenalPesquisa.setText("Quinzenal");
+        jRBtKitQuinzenalPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitMensalPesquisa);
+        jRBtKitMensalPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitMensalPesquisa.setText("Mensal");
+        jRBtKitMensalPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitDecendialPesquisa);
+        jRBtKitDecendialPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitDecendialPesquisa.setText("Decendial");
+        jRBtKitDecendialPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitSemestraPesquisa);
+        jRBtKitSemestraPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitSemestraPesquisa.setText("Semestral");
+        jRBtKitSemestraPesquisa.setEnabled(false);
+
+        grupoBotoes.add(jRBtKitAnualPesquisa);
+        jRBtKitAnualPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtKitAnualPesquisa.setText("Anual");
+        jRBtKitAnualPesquisa.setEnabled(false);
+
+        jComboBoxSelecionarKit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxSelecionarKit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Kit Inicial", "Kit Decendial", "Kit Quinzenal", "Kit Mensal", "Kit Semestral", "Kit Anual" }));
+        jComboBoxSelecionarKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jBtPesquisaTipoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisaTipoKit.setToolTipText("Pesquisa por Tipo de Kit de Higiene");
+        jBtPesquisaTipoKit.setContentAreaFilled(false);
+        jBtPesquisaTipoKit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaTipoKitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBtKitInicialPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBtKitDecendialPesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBtKitQuinzenalPesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBtKitMensalPesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRBtKitSemestraPesquisa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRBtKitAnualPesquisa)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxSelecionarKit, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtPesquisaTipoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxSelecionarKit, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisaTipoKit)
+                    .addComponent(jLabel5)
+                    .addComponent(jRBtKitAnualPesquisa)
+                    .addComponent(jRBtKitSemestraPesquisa)
+                    .addComponent(jRBtKitMensalPesquisa)
+                    .addComponent(jRBtKitQuinzenalPesquisa)
+                    .addComponent(jRBtKitDecendialPesquisa)
+                    .addComponent(jRBtKitInicialPesquisa)
+                    .addComponent(jLabel4))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -412,7 +463,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -421,9 +473,11 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -449,7 +503,21 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         if (jCodigoRegistroPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do Registro para pesquisa.");
         } else {
-            preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+            preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                     + "INNER JOIN COLABORADOR "
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                     + "INNER JOIN DEPARTAMENTOS "
@@ -460,6 +528,10 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + jCodigoRegistroPesquisa.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesquisaCodigoActionPerformed
@@ -485,7 +557,21 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                        preencherTabelaRegistrosMontagemKits("SELECT "
+                                + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                                + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                                + "KITS_HIGIENE_INTERNO.IdKit, "
+                                + "KITS_HIGIENE_INTERNO.KitInicial, "
+                                + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                                + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                                + "KITS_HIGIENE_INTERNO.KitMensal, "
+                                + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                                + "KITS_HIGIENE_INTERNO.KitAnual, "
+                                + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                                + "COLABORADOR.NomeFunc, "
+                                + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                                + "PAVILHAO.DescricaoPav "
+                                + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                 + "INNER JOIN COLABORADOR "
                                 + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                                 + "INNER JOIN DEPARTAMENTOS "
@@ -496,6 +582,10 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                 + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
                                 + "INNER JOIN PRODUTOS_AC "
                                 + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                                + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                                + "INNER JOIN PAVILHAO "
+                                + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                 + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
@@ -516,7 +606,21 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                        preencherTabelaRegistrosMontagemKits("SELECT "
+                                + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                                + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                                + "KITS_HIGIENE_INTERNO.IdKit, "
+                                + "KITS_HIGIENE_INTERNO.KitInicial, "
+                                + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                                + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                                + "KITS_HIGIENE_INTERNO.KitMensal, "
+                                + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                                + "KITS_HIGIENE_INTERNO.KitAnual, "
+                                + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                                + "COLABORADOR.NomeFunc, "
+                                + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                                + "PAVILHAO.DescricaoPav "
+                                + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                 + "INNER JOIN COLABORADOR "
                                 + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                                 + "INNER JOIN DEPARTAMENTOS "
@@ -527,6 +631,10 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                 + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
                                 + "INNER JOIN PRODUTOS_AC "
                                 + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                                + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                                + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                                + "INNER JOIN PAVILHAO "
+                                + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                 + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
@@ -541,7 +649,21 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         count1 = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+            this.preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                     + "INNER JOIN COLABORADOR "
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                     + "INNER JOIN DEPARTAMENTOS "
@@ -551,7 +673,12 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
                     + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd");
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "ORDER BY DataComp");
         } else {
             limparTabela();
             jtotalRegistros.setText("");
@@ -910,6 +1037,207 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
+    private void jBtPesquisaTipoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaTipoKitActionPerformed
+        // TODO add your handling code here:
+        count = 0;
+        flag = 1;
+        if (jComboBoxSelecionarKit.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de kit para pesquisar.");
+        } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Inicial")) {
+            preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KITS_HIGIENE_INTERNO.KitInicial=1 "
+                    + "ORDER BY DataComp");
+        } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Decendial")) {
+            preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KITS_HIGIENE_INTERNO.KitDecendial=1 "
+                    + "ORDER BY DataComp");
+        } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Quinzenal")) {
+            preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KITS_HIGIENE_INTERNO.KitQuinzenal=1 "
+                    + "ORDER BY DataComp");
+        } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Mensal")) {
+            preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KITS_HIGIENE_INTERNO.KitMensal=1 "
+                    + "ORDER BY DataComp");
+        } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Semestral")) {
+            preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KITS_HIGIENE_INTERNO.KitSemestral=1 "
+                    + "ORDER BY DataComp");
+        } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Anual")) {
+            preencherTabelaRegistrosMontagemKits("SELECT "
+                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KITS_HIGIENE_INTERNO.KitAnual=1 "
+                    + "ORDER BY DataComp");
+        }
+    }//GEN-LAST:event_jBtPesquisaTipoKitActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -958,17 +1286,21 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtPesquisaCodigo;
     private javax.swing.JButton jBtPesquisaData;
+    private javax.swing.JButton jBtPesquisaTipoKit;
     private javax.swing.JButton jBtSair;
     private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JTextField jCodigoRegistroPesquisa;
+    private javax.swing.JComboBox<String> jComboBoxSelecionarKit;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
@@ -985,7 +1317,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
 
     public void preencherTabelaRegistrosMontagemKits(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador", "Observação"};
+        String[] Colunas = new String[]{"Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador", "Pavilhão/Galeria"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -1019,7 +1351,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     nomeKit = "Kit Semestral";
                 }
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-                dados.add(new Object[]{conecta.rs.getInt("IdRegistroComp"), dataEmissao, conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getString("IdFunc"), conecta.rs.getString("NomeFunc"), conecta.rs.getString("Observacao")});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistroComp"), dataEmissao, conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getString("IdFunc"), conecta.rs.getString("NomeFunc"), conecta.rs.getString("DescricaoPav")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");

@@ -962,6 +962,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
+        jTabelaInternos.setAutoCreateRowSorter(true);
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setForeground(new java.awt.Color(204, 0, 0));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
@@ -1290,6 +1291,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Internos Selecionados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
+        jTabelaInternosSelecionados.setAutoCreateRowSorter(true);
         jTabelaInternosSelecionados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternosSelecionados.setForeground(new java.awt.Color(0, 102, 0));
         jTabelaInternosSelecionados.setModel(new javax.swing.table.DefaultTableModel(
@@ -1420,6 +1422,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos do Kit", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 0, 0))); // NOI18N
 
+        jTabelaProdutos.setAutoCreateRowSorter(true);
         jTabelaProdutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1845,6 +1848,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Internos com Kits Completos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
+        jTabelaInternosKitCompleto.setAutoCreateRowSorter(true);
         jTabelaInternosKitCompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternosKitCompleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2039,6 +2043,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
+        jTabelaProdutosKitCompleto.setAutoCreateRowSorter(true);
         jTabelaProdutosKitCompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutosKitCompleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

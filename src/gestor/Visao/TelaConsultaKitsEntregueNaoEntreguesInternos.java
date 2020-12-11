@@ -83,6 +83,7 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
         setTitle("...::: Consulta de Kits Higiene/Entregue {Internos - Individual} :::...");
         setToolTipText("");
 
+        jTabelaProdutosKitCompleto.setAutoCreateRowSorter(true);
         jTabelaProdutosKitCompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutosKitCompleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
