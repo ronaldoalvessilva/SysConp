@@ -138,6 +138,8 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsultaEstoqueActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator16">
+            </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu7">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consulta de Kits de Higiene Entregues/Entregar - (Programa&#xe7;&#xe3;o)"/>
@@ -153,10 +155,18 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jConsultaKitPorInterno">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Consulta de Kits de Higiene Entregue - (Interno e Produtos)"/>
+                    <Property name="text" type="java.lang.String" value="Consulta de Kits de Higiene Entregue - (Interno e Produtos) - Individual"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jConsultaKitPorInternoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jConsultaKitsTodosInternos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Consulta de Kits de Higiene Entregue - (Internos e Produtos) - Todos"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jConsultaKitsTodosInternosActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -396,12 +406,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioPendenciaPagtoKitActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioPagamentoKit">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Pagamento de Kits de Higiene de Internos"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioPagamentoKitActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

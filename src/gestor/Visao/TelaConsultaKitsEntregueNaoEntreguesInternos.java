@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleListaKitsPagoPorInterno;
 import gestor.Controle.ControleListaKitsPagoPorInternoIndividual;
-import gestor.Controle.ControleListaKitsaPagar;
+import gestor.Controle.ControleListaKitsPagoPorInternoTodos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AlertaKitHigiente;
 import java.sql.SQLException;
@@ -46,7 +46,7 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
      */
     public TelaConsultaKitsEntregueNaoEntreguesInternos() {
         initComponents();
-        pPESQUISAR_colaborador();
+        pPESQUISAR_interno();
     }
 
     /**
@@ -80,7 +80,7 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Consulta de Kits Higiene/Entregue {Internos} :::...");
+        setTitle("...::: Consulta de Kits Higiene/Entregue {Internos - Individual} :::...");
         setToolTipText("");
 
         jTabelaProdutosKitCompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -214,7 +214,7 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel4))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 143, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -285,19 +285,19 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,16 +307,16 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
+                .addGap(81, 81, 81))
         );
 
-        setBounds(300, 60, 718, 462);
+        setBounds(300, 60, 677, 386);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
@@ -332,35 +332,101 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
         } else if (jComboBoxNomeInterno.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno para pesquisa.");
         } else if (jComboBoxKitPagoNaoPago.getSelectedItem().equals("Todos Kits")) {
-            while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-            }
-            LISTA_KIT_PAGO_internos();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste                   
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                    }
+                    LISTA_KIT_PAGO_internos();
+                    carregando.dispose(); //Teste tela aguarde   
+                    if (pTOTAL_produtos == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde              
         } else if (jComboBoxKitPagoNaoPago.getSelectedItem().equals("Kit Decendial")) {
-            while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-            }
-            LISTAR_PRODUTOS_kit_PERSONALIZADO();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                    }
+                    LISTAR_PRODUTOS_kit_PERSONALIZADO();
+                    carregando.dispose(); //Teste tela aguarde
+                    if (pTOTAL_produtos == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde  
         } else if (jComboBoxKitPagoNaoPago.getSelectedItem().equals("Kit Quinzenal")) {
-            while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-            }
-            LISTAR_PRODUTOS_kit_PERSONALIZADO();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                    }
+                    LISTAR_PRODUTOS_kit_PERSONALIZADO();
+                    carregando.dispose(); //Teste tela aguarde
+                    if (pTOTAL_produtos == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde  
         } else if (jComboBoxKitPagoNaoPago.getSelectedItem().equals("Kit Mensal")) {
-            while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-            }
-            LISTAR_PRODUTOS_kit_PERSONALIZADO();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                    }
+                    LISTAR_PRODUTOS_kit_PERSONALIZADO();
+                    carregando.dispose(); //Teste tela aguarde
+                    if (pTOTAL_produtos == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde  
         } else if (jComboBoxKitPagoNaoPago.getSelectedItem().equals("Kit Semestral")) {
-            while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-            }
-            LISTAR_PRODUTOS_kit_PERSONALIZADO();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                    }
+                    LISTAR_PRODUTOS_kit_PERSONALIZADO();
+                    carregando.dispose(); //Teste tela aguarde
+                    if (pTOTAL_produtos == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde  
         } else if (jComboBoxKitPagoNaoPago.getSelectedItem().equals("Kit Anual")) {
-            while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-            }
-            LISTAR_PRODUTOS_kit_PERSONALIZADO();
+            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+            carregando.setVisible(true);//Teste tela aguarde
+            Thread t = new Thread() { //Teste tela aguarde
+                public void run() { //Teste
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                    }
+                    LISTAR_PRODUTOS_kit_PERSONALIZADO();
+                    carregando.dispose(); //Teste tela aguarde
+                    if (pTOTAL_produtos == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
+                    }
+                }
+            }; //Teste tela aguarde
+            t.start(); //Teste tela aguarde  
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -450,7 +516,7 @@ public class TelaConsultaKitsEntregueNaoEntreguesInternos extends javax.swing.JI
         }
     }
 
-    public void pPESQUISAR_colaborador() {
+    public void pPESQUISAR_interno() {
 
         jComboBoxNomeInterno.removeAllItems();
         conecta.abrirConexao();

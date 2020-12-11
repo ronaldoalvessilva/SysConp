@@ -32,11 +32,13 @@ public class AlertaKitHigiente {
     private Integer quantProd;
     private Integer idPav;
     private String descricaoPav;
+    private Integer idInternoCrc;
+    private String nomeInternoCrc;
 
     public AlertaKitHigiente() {
     }
 
-    public AlertaKitHigiente(Integer idRegProdutoKC, Integer idRegistroComp, Date dataPrevisao, Date dataPagamento, String kitPago, Integer idKit, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String tipoKit, Integer codigoProduto, String descricaoProduto, Integer quantProd, Integer idPav, String descricaoPav) {
+    public AlertaKitHigiente(Integer idRegProdutoKC, Integer idRegistroComp, Date dataPrevisao, Date dataPagamento, String kitPago, Integer idKit, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String tipoKit, Integer codigoProduto, String descricaoProduto, Integer quantProd, Integer idPav, String descricaoPav, Integer idInternoCrc, String nomeInternoCrc) {
         this.idRegProdutoKC = idRegProdutoKC;
         this.idRegistroComp = idRegistroComp;
         this.dataPrevisao = dataPrevisao;
@@ -55,6 +57,8 @@ public class AlertaKitHigiente {
         this.quantProd = quantProd;
         this.idPav = idPav;
         this.descricaoPav = descricaoPav;
+        this.idInternoCrc = idInternoCrc;
+        this.nomeInternoCrc = nomeInternoCrc;
     }
 
     /**
@@ -309,13 +313,42 @@ public class AlertaKitHigiente {
         this.descricaoPav = descricaoPav;
     }
 
+    /**
+     * @return the idInternoCrc
+     */
+    public Integer getIdInternoCrc() {
+        return idInternoCrc;
+    }
+
+    /**
+     * @param idInternoCrc the idInternoCrc to set
+     */
+    public void setIdInternoCrc(Integer idInternoCrc) {
+        this.idInternoCrc = idInternoCrc;
+    }
+
+    /**
+     * @return the nomeInternoCrc
+     */
+    public String getNomeInternoCrc() {
+        return nomeInternoCrc;
+    }
+
+    /**
+     * @param nomeInternoCrc the nomeInternoCrc to set
+     */
+    public void setNomeInternoCrc(String nomeInternoCrc) {
+        this.nomeInternoCrc = nomeInternoCrc;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.getIdRegProdutoKC());
-        hash = 61 * hash + Objects.hashCode(this.getIdRegistroComp());
-        hash = 61 * hash + Objects.hashCode(this.getIdKit());
-        hash = 61 * hash + Objects.hashCode(this.getCodigoProduto());
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.idRegProdutoKC);
+        hash = 47 * hash + Objects.hashCode(this.idRegistroComp);
+        hash = 47 * hash + Objects.hashCode(this.codigoProduto);
+        hash = 47 * hash + Objects.hashCode(this.idPav);
+        hash = 47 * hash + Objects.hashCode(this.idInternoCrc);
         return hash;
     }
 
@@ -337,12 +370,16 @@ public class AlertaKitHigiente {
         if (!Objects.equals(this.idRegistroComp, other.idRegistroComp)) {
             return false;
         }
-        if (!Objects.equals(this.idKit, other.idKit)) {
+        if (!Objects.equals(this.codigoProduto, other.codigoProduto)) {
             return false;
         }
-        if (!Objects.equals(this.codigoProduto, other.codigoProduto)) {
+        if (!Objects.equals(this.idPav, other.idPav)) {
+            return false;
+        }
+        if (!Objects.equals(this.idInternoCrc, other.idInternoCrc)) {
             return false;
         }
         return true;
     }
+    
 }

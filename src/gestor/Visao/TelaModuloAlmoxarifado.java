@@ -114,6 +114,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaAlertaPagamentoKitHigiene objAlertaKit = null;
     private TelaConsultaKitsEntregueNaoEntregues objConsultaKit_PAGO_NAO_PAGO = null;
     private TelaConsultaKitsEntregueNaoEntreguesInternos objKitPago_interno = null;
+    private TelaConsultaKitsEntregueNaoEntreguesInternosTodos objKitPagoTodos = null;
     //
     String dataLanc;
     int codUsuario;
@@ -284,9 +285,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         MovimentacaoCrc = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         ConsultaEstoque = new javax.swing.JMenuItem();
+        jSeparator16 = new javax.swing.JPopupMenu.Separator();
         jMenu7 = new javax.swing.JMenu();
         jConsultaKitsHigiene = new javax.swing.JMenuItem();
         jConsultaKitPorInterno = new javax.swing.JMenuItem();
+        jConsultaKitsTodosInternos = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         EntradaMateriais = new javax.swing.JMenuItem();
         InventarioMateriais = new javax.swing.JMenuItem();
@@ -323,7 +326,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         RelatorioPendenciaPagtoKit = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jRelatorioPagamentoKit = new javax.swing.JMenuItem();
         RelatorioGeralProgramacaoKit = new javax.swing.JMenuItem();
         jRelatorioConfereMatriculaCalcadoBermuda = new javax.swing.JMenuItem();
 
@@ -464,6 +467,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(ConsultaEstoque);
+        jMenu2.add(jSeparator16);
 
         jMenu7.setText("Consulta de Kits de Higiene Entregues/Entregar - (Programação)");
 
@@ -475,13 +479,21 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         });
         jMenu7.add(jConsultaKitsHigiene);
 
-        jConsultaKitPorInterno.setText("Consulta de Kits de Higiene Entregue - (Interno e Produtos)");
+        jConsultaKitPorInterno.setText("Consulta de Kits de Higiene Entregue - (Interno e Produtos) - Individual");
         jConsultaKitPorInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jConsultaKitPorInternoActionPerformed(evt);
             }
         });
         jMenu7.add(jConsultaKitPorInterno);
+
+        jConsultaKitsTodosInternos.setText("Consulta de Kits de Higiene Entregue - (Internos e Produtos) - Todos");
+        jConsultaKitsTodosInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConsultaKitsTodosInternosActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jConsultaKitsTodosInternos);
 
         jMenu2.add(jMenu7);
 
@@ -682,13 +694,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         });
         jMenu5.add(RelatorioPendenciaPagtoKit);
 
-        jMenuItem2.setText("Relatório de Pagamento de Kits de Higiene de Internos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jRelatorioPagamentoKit.setText("Relatório de Pagamento de Kits de Higiene de Internos");
+        jRelatorioPagamentoKit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jRelatorioPagamentoKitActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem2);
+        jMenu5.add(jRelatorioPagamentoKit);
 
         Relatorios.add(jMenu5);
 
@@ -1464,9 +1476,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RelatorioGeralProgramacaoKitActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jRelatorioPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPagamentoKitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jRelatorioPagamentoKitActionPerformed
 
     private void jCancelarPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarPagamentoKitActionPerformed
         // TODO add your handling code here:TelaCancelamentoPagamentoKits
@@ -1567,6 +1579,35 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         objRelConf.show();
     }//GEN-LAST:event_jRelatorioConfereMatriculaCalcadoBermudaActionPerformed
 
+    private void jConsultaKitsTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaKitsTodosInternosActionPerformed
+        // TODO add your handling code here: 
+        if (objKitPagoTodos == null || objKitPagoTodos.isClosed()) {
+            objKitPagoTodos = new TelaConsultaKitsEntregueNaoEntreguesInternosTodos();
+            jPainelAlmoxarifado.add(objKitPagoTodos);
+            objKitPagoTodos.setVisible(true);
+        } else {
+            if (objKitPagoTodos.isVisible()) {
+                if (objKitPagoTodos.isIcon()) { // Se esta minimizado
+                    try {
+                        objKitPagoTodos.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objKitPagoTodos.toFront(); // traz para frente
+                    objKitPagoTodos.pack();//volta frame 
+                }
+            } else {
+                objKitPagoTodos = new TelaConsultaKitsEntregueNaoEntreguesInternosTodos();
+                TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objKitPagoTodos);//adicona frame ao JDesktopPane  
+                objKitPagoTodos.setVisible(true);
+            }
+        }
+        try {
+            objKitPagoTodos.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jConsultaKitsTodosInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1602,6 +1643,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCancelarPagamentoKit;
     private javax.swing.JMenuItem jConsultaKitPorInterno;
     private javax.swing.JMenuItem jConsultaKitsHigiene;
+    private javax.swing.JMenuItem jConsultaKitsTodosInternos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
@@ -1613,11 +1655,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     public static javax.swing.JDesktopPane jPainelAlmoxarifado;
     private javax.swing.JMenuItem jProgramarKits;
     private javax.swing.JMenuItem jRelatorioConfereMatriculaCalcadoBermuda;
+    private javax.swing.JMenuItem jRelatorioPagamentoKit;
     private javax.swing.JMenuItem jRelatorioSaidaInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
@@ -1626,6 +1668,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
+    private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
