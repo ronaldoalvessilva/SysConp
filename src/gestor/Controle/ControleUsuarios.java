@@ -13,6 +13,7 @@ import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Modelo.Usuarios;
+import static gestor.Visao.TelaTrocaSenha_MD5.pRESPOSTA_senha;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -117,7 +118,9 @@ public class ControleUsuarios {
             pst.setString(2, Criptografia.criptografar(objUser.getSenha1()));
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
             pst.executeUpdate(); // Executa a inserção
+            pRESPOSTA_senha= "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_senha = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
         }
         conecta.desconecta();

@@ -2411,11 +2411,12 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     }
 
     public void PESQUISAR_LIBERACAO_implementacao() {
-        PESQUISAR_IMPLEMENTA_001(telaEntradasSaidasColaboradoresManu_ADM);
-        PESQUISAR_IMPLEMENTA_002(telaEscala_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_001(telaEntradasSaidasColaboradoresManu_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_002(telaEscala_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_003(telaPesquisaGlobalColaboradores_ADM);
     }
 
-    public void PESQUISAR_IMPLEMENTA_001(String pNOME_tela) {
+    public void PESQUISAR_IMPLEMENTA_GTA_001(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
@@ -2430,7 +2431,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         }
     }
 
-    public void PESQUISAR_IMPLEMENTA_002(String pNOME_tela) {
+    public void PESQUISAR_IMPLEMENTA_GTA_002(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
@@ -2442,6 +2443,25 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             jEscalaTrabalho.setVisible(!true);
         } else {
             jEscalaTrabalho.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_003(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaGlobalColaboradores.setVisible(!true);
+            jSeparator2.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jConsultaGlobalColaboradores.setVisible(!true);
+            jSeparator2.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jConsultaGlobalColaboradores.setVisible(!true);
+            jSeparator2.setVisible(!true);
+        } else {
+            jConsultaGlobalColaboradores.setVisible(true);
+            jSeparator2.setVisible(true);
         }
     }
 }

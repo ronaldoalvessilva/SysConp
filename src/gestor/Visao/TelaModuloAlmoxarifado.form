@@ -140,7 +140,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator16">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu7">
+            <Menu class="javax.swing.JMenu" name="jConsultaKits">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consulta de Kits de Higiene Entregues/Entregar - (Programa&#xe7;&#xe3;o)"/>
               </Properties>

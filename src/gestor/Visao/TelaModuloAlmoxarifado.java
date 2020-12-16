@@ -9,9 +9,11 @@ import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Controle.ControleListaKitsAgendado;
 import gestor.Modelo.AlertaKitHigiente;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -90,6 +92,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     //
     AlertaKitHigiente objComp = new AlertaKitHigiente();
     ControleListaKitsAgendado CONTROLE_LISTA_kits = new ControleListaKitsAgendado();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaFornecedorAC objForn = null;
     private TelaGrupoProdutos objGrupoProdutos = null;
@@ -178,6 +183,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     //CANCELAMENTO DE PAGAMENTO DE KITS DE HIGIENE
     public static String telaCancelamentoPagamentoManu = "Movimentação:Cancelamento de Kit de Higiene de Internos:Manutenção";
     public static String telaCancelamentoPagamentoInt = "Movimentação:Cancelamento de Kit de Higiene de Internos:Internos/Produtos";
+    //
+    public static String telaConsultaKitsEntreguePrincipal_AL = "Consulta:Consulta de Kits de Higiene Entregues/Entregar - (Programação)";
+    public static String telaConsultaKitsEntregueNaoEntregues_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue";
+    public static String telaConsultaKitsEntregueNaoEntreguesInternos_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue por Interno";
+    public static String telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue:Todos";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCF = "";
@@ -221,6 +231,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     //CANCELAMENTO PAGAMENTO KIT DE HIGIENE
     String pNomeCPKH_Manu = "";
     String pNomeCPKH_Inte = "";
+    // CONSULTA DE KITS PAGOS E NÃO PAGOS
+    String pNomeCKENP = "";
+    String pNomeCKENE = "";
+    String pNomeCKENI = "";
+    String pNomeCKENEIT = "";
     //
     public static int codigoUserAL = 0;
     public static int codUserAcessoAL = 0;
@@ -250,6 +265,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela  
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem();
     }
 
@@ -286,7 +302,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         ConsultaEstoque = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JPopupMenu.Separator();
-        jMenu7 = new javax.swing.JMenu();
+        jConsultaKits = new javax.swing.JMenu();
         jConsultaKitsHigiene = new javax.swing.JMenuItem();
         jConsultaKitPorInterno = new javax.swing.JMenuItem();
         jConsultaKitsTodosInternos = new javax.swing.JMenuItem();
@@ -469,7 +485,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jMenu2.add(ConsultaEstoque);
         jMenu2.add(jSeparator16);
 
-        jMenu7.setText("Consulta de Kits de Higiene Entregues/Entregar - (Programação)");
+        jConsultaKits.setText("Consulta de Kits de Higiene Entregues/Entregar - (Programação)");
 
         jConsultaKitsHigiene.setText("Consulta de Kits de Higiene Entregue/Entregar - (Só Produtos)");
         jConsultaKitsHigiene.addActionListener(new java.awt.event.ActionListener() {
@@ -477,7 +493,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
                 jConsultaKitsHigieneActionPerformed(evt);
             }
         });
-        jMenu7.add(jConsultaKitsHigiene);
+        jConsultaKits.add(jConsultaKitsHigiene);
 
         jConsultaKitPorInterno.setText("Consulta de Kits de Higiene Entregue - (Interno e Produtos) - Individual");
         jConsultaKitPorInterno.addActionListener(new java.awt.event.ActionListener() {
@@ -485,7 +501,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
                 jConsultaKitPorInternoActionPerformed(evt);
             }
         });
-        jMenu7.add(jConsultaKitPorInterno);
+        jConsultaKits.add(jConsultaKitPorInterno);
 
         jConsultaKitsTodosInternos.setText("Consulta de Kits de Higiene Entregue - (Internos e Produtos) - Todos");
         jConsultaKitsTodosInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -493,9 +509,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
                 jConsultaKitsTodosInternosActionPerformed(evt);
             }
         });
-        jMenu7.add(jConsultaKitsTodosInternos);
+        jConsultaKits.add(jConsultaKitsTodosInternos);
 
-        jMenu2.add(jMenu7);
+        jMenu2.add(jConsultaKits);
 
         jMenuBar1.add(jMenu2);
 
@@ -1642,6 +1658,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem TiposKitsInternos;
     private javax.swing.JMenuItem jCancelarPagamentoKit;
     private javax.swing.JMenuItem jConsultaKitPorInterno;
+    private javax.swing.JMenu jConsultaKits;
     private javax.swing.JMenuItem jConsultaKitsHigiene;
     private javax.swing.JMenuItem jConsultaKitsTodosInternos;
     private javax.swing.JLabel jLabel1;
@@ -1652,7 +1669,6 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
@@ -2379,6 +2395,35 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             pNomeCPKH_Inte = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //CONSULTA DE KITS DE HIGIENE    
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntreguePrincipal_AL + "'");
+            conecta.rs.first();
+            pNomeCKENP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntregueNaoEntregues_AL + "'");
+            conecta.rs.first();
+            pNomeCKENE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntregueNaoEntreguesInternos_AL + "'");
+            conecta.rs.first();
+            pNomeCKENI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL + "'");
+            conecta.rs.first();
+            pNomeCKENEIT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeCF.equals(telaCadastroFornecedoresAL) || pNomeCF == null || pNomeCF.equals("")) {
             buscarCodigoModulo();
@@ -2560,6 +2605,31 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaCancelamentoPagamentoInt);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //CONSULTA DE PAGAMENTO DE KITS DE HIGIENE  
+        if (!pNomeCKENP.equals(telaConsultaKitsEntreguePrincipal_AL) || pNomeCKENP == null || pNomeCKENP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntreguePrincipal_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCKENE.equals(telaConsultaKitsEntregueNaoEntregues_AL) || pNomeCKENE == null || pNomeCKENE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntregueNaoEntregues_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCKENI.equals(telaConsultaKitsEntregueNaoEntreguesInternos_AL) || pNomeCKENI == null || pNomeCKENI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntregueNaoEntreguesInternos_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCKENEIT.equals(telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL) || pNomeCKENEIT == null || pNomeCKENEIT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
@@ -2571,6 +2641,49 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pCodModulo = conecta.rs.getInt("IdModulo");
         } catch (SQLException ex) {
+        }
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_ALM_001(telaConsultaKitsEntreguePrincipal_AL);
+        PESQUISAR_IMPLEMENTA_ALM_002(telaCancelamentoPagamentoManu);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_ALM_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaKits.setVisible(!true);
+            jSeparator16.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jConsultaKits.setVisible(!true);
+            jSeparator16.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jConsultaKits.setVisible(!true);
+            jSeparator16.setVisible(!true);
+        } else {
+            jConsultaKits.setVisible(true);
+            jSeparator16.setVisible(true);
+        }
+    }
+    
+    public void PESQUISAR_IMPLEMENTA_ALM_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else {
+            jCancelarPagamentoKit.setVisible(true);
+            jSeparator14.setVisible(true);
         }
     }
 }

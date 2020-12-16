@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -90,6 +92,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaRecadosCrc objRecados = null;
     private TelaRetornoInterno objRetorno = null;
@@ -417,6 +422,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         buscarEvadido(); // verificar internos evadidos saida laborativa
         buscarEvadidoSaidaTemporaria(); // Verifcar internos evadidos saida temporaria
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         //  verificarRetornoInternos();
         threadMensagem(); // A cada 5 minutos verifica mensagem    
     }
@@ -5845,6 +5851,30 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_CRC_001(telaSaidaSimbolicaManu_CRC);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CRC_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSaidaSimbolica.setVisible(!true);
+            jSeparator34.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jSaidaSimbolica.setVisible(!true);
+            jSeparator34.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jSaidaSimbolica.setVisible(!true);
+            jSeparator34.setVisible(!true);
+        } else {
+            jSaidaSimbolica.setVisible(true);
+            jSeparator34.setVisible(true);
+        }
+    }
+
     //  Verificar depois a utilização dessa tela no projeto
 //            TelaConsultaRetornoInternos objConsultaRetornoInterno = new TelaConsultaRetornoInternos();
 //        TelaModuloCRC.jPainelCRC.add(objConsultaRetornoInterno);
