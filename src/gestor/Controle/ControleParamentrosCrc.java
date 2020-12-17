@@ -21,6 +21,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static gestor.Visao.TelaParamentrosSistema.jComboBoxTelaImplementacao;
 import static gestor.Visao.TelaParamentrosSistema.jComboBoxModuloImplementacao;
+import static gestor.Visao.TelaParamentrosSistema.pCOD_mod;
+import static gestor.Visao.TelaParamentrosSistema.pCOD_tel;
+import static gestor.Visao.TelaParamentrosSistema.pMOD;
+import static gestor.Visao.TelaParamentrosSistema.pTELA;
 
 /**
  *
@@ -156,13 +160,18 @@ public class ControleParamentrosCrc {
     }
 
     public ParametrosCrc alterarImp(ParametrosCrc objParCrc) {
-
+        pBUSCAR_modulo(objParCrc.getNomeModulo());
+        pBUSCAR_tela(objParCrc.getNomeTela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE IMPLEMENTACAO_SISTEMA SET Habilitar=? WHERE IdModulo='" + objParCrc.getIdModulo() + "' AND IdTelas='" + objParCrc.getIdTelas() + "'");
-            pst.setString(1, objParCrc.getHabilitarImp());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE IMPLEMENTACAO_SISTEMA SET IdModulo=?,IdTelas=?,Habilitar=? WHERE IdModulo='" + pCOD_mod + "' AND IdTelas='" + pCOD_tel + "'");
+            pst.setInt(1, pCODIGO_modulo);
+            pst.setInt(2, pCODIGO_tela);
+            pst.setString(3, objParCrc.getHabilitarImp());
             pst.executeUpdate();
+            pRESPOSTA_gravado = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_gravado = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -266,7 +275,9 @@ public class ControleParamentrosCrc {
                     + "ON IMPLEMENTACAO_SISTEMA.IdTelas=TELAS.IdTelas "
                     + "INNER JOIN PARAMETROSCRC "
                     + "ON IMPLEMENTACAO_SISTEMA.IdPar=PARAMETROSCRC.IdPar "
-                    + "WHERE IMPLEMENTACAO_SISTEMA.IdPar='" + pCODIGO_parametro + "'");
+                    //                    + "WHERE IMPLEMENTACAO_SISTEMA.IdPar='" + pCODIGO_parametro + "' "
+                    + "WHERE TELAS.NomeTela='" + pMOD + "' "
+                    + "AND MODULOS.NomeModulo='" + pTELA + "'");
             conecta.rs.first();
             pCODIGO_registro = conecta.rs.getInt("IdImp");
             objParCrc.setHabilitarImp(conecta.rs.getString("Habilitar"));

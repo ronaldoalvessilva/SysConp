@@ -65,6 +65,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public static String pRESPOSTA_gravado = "";
     String pCODIGO_REGISTRO_comp;
     String pCODIGO_REGISTRO_tel;
+    //
+    public static String pCOD_mod;
+    public static String pCOD_tel;
+    public static String pMOD;
+    public static String pTELA;
 
     /**
      * Creates new form TelaParamentrosCrc
@@ -236,6 +241,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPainelBotoesImplemenetacoes = new javax.swing.JPanel();
         jBtNovoImp = new javax.swing.JButton();
         jBtExcluirImp = new javax.swing.JButton();
+        jBtAlterarImp = new javax.swing.JButton();
         jPainelTabelaImplementacao = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaImplementacoes = new javax.swing.JTable();
@@ -1754,6 +1760,15 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtAlterarImp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarImp.setText("Alterar");
+        jBtAlterarImp.setEnabled(false);
+        jBtAlterarImp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarImpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPainelBotoesImplemenetacoesLayout = new javax.swing.GroupLayout(jPainelBotoesImplemenetacoes);
         jPainelBotoesImplemenetacoes.setLayout(jPainelBotoesImplemenetacoesLayout);
         jPainelBotoesImplemenetacoesLayout.setHorizontalGroup(
@@ -1761,8 +1776,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             .addGroup(jPainelBotoesImplemenetacoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPainelBotoesImplemenetacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtNovoImp, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                     .addComponent(jBtExcluirImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                    .addComponent(jBtNovoImp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtAlterarImp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPainelBotoesImplemenetacoesLayout.setVerticalGroup(
@@ -1770,9 +1786,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             .addGroup(jPainelBotoesImplemenetacoesLayout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(jBtNovoImp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtAlterarImp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirImp)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
 
         jPainelTabelaImplementacao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -1794,6 +1812,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTabelaImplementacoes.setEnabled(false);
         jTabelaImplementacoes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaImplementacoesMouseClicked(evt);
@@ -2883,6 +2902,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:       
         pACAO = 1;
+        jTabelaImplementacoes.setEnabled(true);
         Alterar();
         pesquisarColaboradorPRI();
         pesquisarColaboradorSEG();
@@ -2994,6 +3014,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             verificarParametrosSRV();
             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
         }
+        pACAO = 0;
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -3146,6 +3167,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private void jBtNovoImpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoImpActionPerformed
         // TODO add your handling code here:
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            pACAO = 1;
             //SE FOR O ADMINISTRADOR DO SISTEMA, SOLICITAR BIOMETRIA - FAZER
             if (pACAO == 1) {
                 if (jComboBoxHabilitar.getSelectedItem() == null) {
@@ -3213,20 +3235,21 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             flag = 1;
-            if (pACAO == 1) {
+            if (jTabelaImplementacoes.isEnabled()) {
                 jBtExcluirImp.setEnabled(true);
-                if (flag == 1) {
-                    String pHABILITA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 0);
-                    jComboBoxHabilitar.setSelectedItem(pHABILITA);
-                    String pMOD = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 1);
-                    jComboBoxModuloImplementacao.setSelectedItem(pMOD);
-                    String pTELA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 2);
-                    jComboBoxTelaImplementacao.setSelectedItem(pTELA);
-                    control.pPESQUISAR_registro(objParCrc);
-                    jComboBoxHabilitar.setSelectedItem((String) objParCrc.getHabilitarImp());
-                    jComboBoxModuloImplementacao.setSelectedItem((String) objParCrc.getNomeModulo());
-                    jComboBoxTelaImplementacao.setSelectedItem((String) objParCrc.getNomeTela());
-                }
+                jBtAlterarImp.setEnabled(true);
+                pCOD_mod = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 0);
+                pMOD = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 1);
+                jComboBoxModuloImplementacao.setSelectedItem(pMOD);
+                String pHABILITA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 2);
+                jComboBoxHabilitar.setSelectedItem(pHABILITA);
+                pCOD_tel = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 3);
+                pTELA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 4);
+                jComboBoxTelaImplementacao.setSelectedItem(pTELA);
+                control.pPESQUISAR_registro(objParCrc);
+                jComboBoxHabilitar.addItem(objParCrc.getHabilitarImp());
+                jComboBoxModuloImplementacao.addItem(objParCrc.getNomeModulo());
+                jComboBoxTelaImplementacao.addItem(objParCrc.getNomeTela());                
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso para modificar essa funcionalidade.");
@@ -3238,9 +3261,52 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         control.pPESQUISAR_tela(objParCrc);
     }//GEN-LAST:event_jComboBoxTelaImplementacaoMouseClicked
 
+    private void jBtAlterarImpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarImpActionPerformed
+        // TODO add your handling code here:
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            pACAO = 2;
+            //SE FOR O ADMINISTRADOR DO SISTEMA, SOLICITAR BIOMETRIA - FAZER
+            if (pACAO == 2) {
+                if (jComboBoxHabilitar.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Campo Habilirar/Desabilitar, não pode ser vazio.");
+                } else if (jComboBoxHabilitar.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Campo Habilirar/Desabilitar, não pode ser vazio.");
+                } else if (jComboBoxHabilitar.getSelectedItem().equals("Selecione...")) {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione um opção.");
+                } else {
+                    DefaultTableModel DTM_imp = (DefaultTableModel) jTabelaImplementacoes.getModel();
+                    objParCrc.setIdModulo(pCODIGO_modulo);
+                    objParCrc.setIdPar(Integer.valueOf(IDLanc));
+                    objParCrc.setNomeModulo((String) jComboBoxModuloImplementacao.getSelectedItem());
+                    objParCrc.setHabilitarImp((String) jComboBoxHabilitar.getSelectedItem());
+                    objParCrc.setNomeTela((String) jComboBoxTelaImplementacao.getSelectedItem());
+                    control.pPESQUISAR_modulo(objParCrc);
+                    control.pPESQUISAR_tela(objParCrc);
+                    control.pPESQUISAR_registro(objParCrc);
+                    objParCrc.getIdTelas();
+                    Object campos[] = {objParCrc.getIdModulo(), objParCrc.getNomeModulo(), objParCrc.getHabilitarImp(), objParCrc.getIdTelas(), objParCrc.getNomeTela()};
+                    DTM_imp.addRow(campos);
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaImplementacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaImplementacoes.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaImplementacoes.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                    pALTERAR_imp();
+                    pLIMPAR_CAMPOS_imp();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso para modificar essa funcionalidade.");
+        }
+    }//GEN-LAST:event_jBtAlterarImpActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
+    private javax.swing.JButton jBtAlterarImp;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluirImp;
@@ -4235,7 +4301,27 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             pLIMPAR_CAMPOS_imp();
             pBUSCAR_DADOS_imp();
             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-        } else {
+        } else if (pRESPOSTA_gravado.equals("Não")) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+        }
+    }
+
+    public void pALTERAR_imp() {
+        objParCrc.setIdModulo(pCODIGO_modulo);
+        objParCrc.setIdImp(pCODIGO_registro);
+        objParCrc.setIdPar(Integer.valueOf(IDLanc));
+        objParCrc.setHabilitarImp((String) jComboBoxHabilitar.getSelectedItem());
+        objParCrc.setNomeModulo((String) jComboBoxModuloImplementacao.getSelectedItem());        
+        objParCrc.setIdTelas(pCODIGO_tela);
+        objParCrc.setNomeTela((String) jComboBoxTelaImplementacao.getSelectedItem());
+        objParCrc.setIdImp(pCODIGO_registro);
+        control.alterarImp(objParCrc);
+        if (pRESPOSTA_gravado.equals("Sim")) {
+            limparTabela();
+            pLIMPAR_CAMPOS_imp();
+            pBUSCAR_DADOS_imp();
+            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        } else if (pRESPOSTA_gravado.equals("Não")) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
         }
     }
@@ -4285,13 +4371,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-    
+
     public void PESQUISAR_LIBERACAO_implementacao() {
         PESQUISAR_IMPLEMENTA_CONF_005(painelHabilitarImplementacoes);
         PESQUISAR_IMPLEMENTA_CONF_006(painelTabelaImplementacao);
         PESQUISAR_IMPLEMENTA_CONF_007(painelBotoesImplemenetacoes);
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_CONF_005(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
@@ -4306,7 +4392,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jHabilitarImplementacoes.setVisible(true);
         }
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_CONF_006(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
@@ -4321,6 +4407,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jPainelTabelaImplementacao.setVisible(true);
         }
     }
+
     public void PESQUISAR_IMPLEMENTA_CONF_007(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);

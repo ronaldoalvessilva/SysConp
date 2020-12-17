@@ -2989,6 +2989,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtCronogramaEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calendar_add.png"))); // NOI18N
         jBtCronogramaEscala.setText("CRONOGRAMA");
         jBtCronogramaEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtCronogramaEscala.setEnabled(false);
         jBtCronogramaEscala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCronogramaEscalaActionPerformed(evt);
@@ -2998,6 +2999,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtImprimeEscala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
         jBtImprimeEscala.setText("IMPRIMIR CRONOGRAMA");
         jBtImprimeEscala.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jBtImprimeEscala.setEnabled(false);
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
@@ -3604,6 +3606,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             jBtAlterarEscala.setEnabled(true);
             jBtExcluirEscala.setEnabled(true);
             jBtAuditoriaEscala.setEnabled(true);
+            jBtCronogramaEscala.setEnabled(true);
+            jBtImprimeEscala.setEnabled(true);
         } else {
             limparCamposEscala();
             bloquearBotoesEscala(!true);
@@ -6398,6 +6402,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtSalvarEscala.setEnabled(opcao);
         jBtCancelarEscala.setEnabled(opcao);
         jBtAuditoriaEscala.setEnabled(opcao);
+        jBtCronogramaEscala.setEnabled(opcao);
+        jBtImprimeEscala.setEnabled(opcao);
     }
 
     public void NovaEscala(boolean opcao) {
@@ -6418,6 +6424,9 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jBtAlterarEscala.setEnabled(opcao);
         jBtExcluirEscala.setEnabled(opcao);
         jBtAuditoriaEscala.setEnabled(opcao);
+        //
+        jBtCronogramaEscala.setEnabled(opcao);
+        jBtImprimeEscala.setEnabled(opcao);
     }
 
     public void CancelarEscala(boolean opcao) {
@@ -6796,21 +6805,21 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     }
 
     public void PESQUISAR_LIBERACAO_implementacao() {
-        PESQUISAR_IMPLEMENTA_003(telaEscalaTrabalho_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_FUN_001(telaEscalaTrabalho_ADM);
     }
 
-    public void PESQUISAR_IMPLEMENTA_003(String pNOME_tela) {
+    public void PESQUISAR_IMPLEMENTA_GTA_FUN_001(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
         if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jDadosEscala.setVisible(!true);
+            jTabbedPane3.remove(jDadosEscala);
         } else if (objParCrc.getHabilitarImp() == null) {
-            jDadosEscala.setVisible(!true);
+            jTabbedPane3.remove(jDadosEscala);
         } else if (objParCrc.getHabilitarImp().equals("")) {
-            jDadosEscala.setVisible(!true);
+            jTabbedPane3.remove(jDadosEscala);
         } else {
-            jDadosEscala.setVisible(true);
+            jTabbedPane3.add(jDadosEscala.add("Dados Escala", jCep));
         }
     }
 }
