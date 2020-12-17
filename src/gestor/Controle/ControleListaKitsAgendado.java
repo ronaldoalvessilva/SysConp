@@ -142,7 +142,9 @@ public class ControleListaKitsAgendado {
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT DISTINCT IdRegProdutosKC,IdRegistroComp, "
+               conecta.executaSQL("SELECT DISTINCT "
+                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegProdutosKC, "
+                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.KitPago, "
                         + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit, "
@@ -169,7 +171,9 @@ public class ControleListaKitsAgendado {
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT DISTINCT IdRegProdutosKC,IdRegistroComp, "
+                conecta.executaSQL("SELECT DISTINCT "
+                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegProdutosKC, "
+                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.KitPago, "
                         + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit, "
