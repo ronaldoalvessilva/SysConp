@@ -5,6 +5,7 @@
  */
 package gestor.Modelo;
 
+import com.mongodb.Bytes;
 import java.util.Date;
 
 /**
@@ -93,11 +94,20 @@ public class ParametrosCrc {
     private String pagamentoKit;
     private String sistemaManutencao;
     private String biometriaEF;
+    private Integer idImp;
+    private Integer idModulo;
+    private String nomeModulo;
+    private Integer idTelas;
+    private String nomeTela;
+    private String habilitarImp;
+    private Integer idUsuario;
+    private String nomeUsuario;
+    private Bytes senhaUsuario;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, String numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao, String biometriaEF) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, String numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao, String biometriaEF, Integer idImp, Integer idModulo, String nomeModulo, Integer idTelas, String nomeTela, String habilitarImp, Integer idUsuario, String nomeUsuario, Bytes senhaUsuario) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -178,6 +188,15 @@ public class ParametrosCrc {
         this.pagamentoKit = pagamentoKit;
         this.sistemaManutencao = sistemaManutencao;
         this.biometriaEF = biometriaEF;
+        this.idImp = idImp;
+        this.idModulo = idModulo;
+        this.nomeModulo = nomeModulo;
+        this.idTelas = idTelas;
+        this.nomeTela = nomeTela;
+        this.habilitarImp = habilitarImp;
+        this.idUsuario = idUsuario;
+        this.nomeUsuario = nomeUsuario;
+        this.senhaUsuario = senhaUsuario;
     }
 
     /**
@@ -1298,5 +1317,131 @@ public class ParametrosCrc {
      */
     public void setBiometriaEF(String biometriaEF) {
         this.biometriaEF = biometriaEF;
+    }
+
+    /**
+     * @return the idImp
+     */
+    public Integer getIdImp() {
+        return idImp;
+    }
+
+    /**
+     * @param idImp the idImp to set
+     */
+    public void setIdImp(Integer idImp) {
+        this.idImp = idImp;
+    }
+
+    /**
+     * @return the idModulo
+     */
+    public Integer getIdModulo() {
+        return idModulo;
+    }
+
+    /**
+     * @param idModulo the idModulo to set
+     */
+    public void setIdModulo(Integer idModulo) {
+        this.idModulo = idModulo;
+    }
+
+    /**
+     * @return the nomeModulo
+     */
+    public String getNomeModulo() {
+        return nomeModulo;
+    }
+
+    /**
+     * @param nomeModulo the nomeModulo to set
+     */
+    public void setNomeModulo(String nomeModulo) {
+        this.nomeModulo = nomeModulo;
+    }
+
+    /**
+     * @return the idTelas
+     */
+    public Integer getIdTelas() {
+        return idTelas;
+    }
+
+    /**
+     * @param idTelas the idTelas to set
+     */
+    public void setIdTelas(Integer idTelas) {
+        this.idTelas = idTelas;
+    }
+
+    /**
+     * @return the nomeTela
+     */
+    public String getNomeTela() {
+        return nomeTela;
+    }
+
+    /**
+     * @param nomeTela the nomeTela to set
+     */
+    public void setNomeTela(String nomeTela) {
+        this.nomeTela = nomeTela;
+    }
+
+    /**
+     * @return the habilitarImp
+     */
+    public String getHabilitarImp() {
+        return habilitarImp;
+    }
+
+    /**
+     * @param habilitarImp the habilitarImp to set
+     */
+    public void setHabilitarImp(String habilitarImp) {
+        this.habilitarImp = habilitarImp;
+    }
+
+    /**
+     * @return the idUsuario
+     */
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    /**
+     * @return the nomeUsuario
+     */
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    /**
+     * @param nomeUsuario the nomeUsuario to set
+     */
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    /**
+     * @return the senhaUsuario
+     */
+    public Bytes getSenhaUsuario() {
+        return senhaUsuario;
+    }
+
+    /**
+     * @param senhaUsuario the senhaUsuario to set
+     */
+    public void setSenhaUsuario(Bytes senhaUsuario) {
+        this.senhaUsuario = senhaUsuario;
     }
 }

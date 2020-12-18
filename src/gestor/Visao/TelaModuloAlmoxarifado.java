@@ -9,7 +9,11 @@ import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
+import gestor.Controle.ControleListaKitsAgendado;
+import gestor.Modelo.AlertaKitHigiente;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -56,10 +60,15 @@ import static gestor.Visao.TelaRecadosAlmoxarifado.jRecado;
 import static gestor.Visao.TelaRecadosAlmoxarifado.jTabelaTodosRecados;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -81,6 +90,12 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
+    AlertaKitHigiente objComp = new AlertaKitHigiente();
+    ControleListaKitsAgendado CONTROLE_LISTA_kits = new ControleListaKitsAgendado();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
+    //
     private TelaFornecedorAC objForn = null;
     private TelaGrupoProdutos objGrupoProdutos = null;
     private TelaLocalArmazenamentoAC objLocalAC = null;
@@ -101,6 +116,10 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaProgramacaoKitsHigiene objProgramaKit = null;
     private TelaRelatorioProgramacaoKits objRelProgKit = null;
     private TelaCancelamentoPagamentoKits objCancelaKit = null;
+    private TelaAlertaPagamentoKitHigiene objAlertaKit = null;
+    private TelaConsultaKitsEntregueNaoEntregues objConsultaKit_PAGO_NAO_PAGO = null;
+    private TelaConsultaKitsEntregueNaoEntreguesInternos objKitPago_interno = null;
+    private TelaConsultaKitsEntregueNaoEntreguesInternosTodos objKitPagoTodos = null;
     //
     String dataLanc;
     int codUsuario;
@@ -164,6 +183,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     //CANCELAMENTO DE PAGAMENTO DE KITS DE HIGIENE
     public static String telaCancelamentoPagamentoManu = "Movimentação:Cancelamento de Kit de Higiene de Internos:Manutenção";
     public static String telaCancelamentoPagamentoInt = "Movimentação:Cancelamento de Kit de Higiene de Internos:Internos/Produtos";
+    //
+    public static String telaConsultaKitsEntreguePrincipal_AL = "Consulta:Consulta de Kits de Higiene Entregues/Entregar - (Programação)";
+    public static String telaConsultaKitsEntregueNaoEntregues_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue";
+    public static String telaConsultaKitsEntregueNaoEntreguesInternos_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue por Interno";
+    public static String telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue:Todos";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCF = "";
@@ -207,6 +231,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     //CANCELAMENTO PAGAMENTO KIT DE HIGIENE
     String pNomeCPKH_Manu = "";
     String pNomeCPKH_Inte = "";
+    // CONSULTA DE KITS PAGOS E NÃO PAGOS
+    String pNomeCKENP = "";
+    String pNomeCKENE = "";
+    String pNomeCKENI = "";
+    String pNomeCKENEIT = "";
     //
     public static int codigoUserAL = 0;
     public static int codUserAcessoAL = 0;
@@ -222,6 +251,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public static String nomeTelaAL = "";
     //
     String dataSisConvert = "";
+    String pDATA_inicial = "";
+    //
+    String data1 = null;
+    String data2 = null;
+    int opcao = 0;
 
     // TelaEntradaProdutos FAZER A MESMA QUE ESTÁ NO MODULO FARMACIA
     /**
@@ -231,6 +265,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela  
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem();
     }
 
@@ -264,7 +299,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jMenu2 = new javax.swing.JMenu();
         jLocalizacaoInternos = new javax.swing.JMenuItem();
         MovimentacaoCrc = new javax.swing.JMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
         ConsultaEstoque = new javax.swing.JMenuItem();
+        jSeparator16 = new javax.swing.JPopupMenu.Separator();
+        jConsultaKits = new javax.swing.JMenu();
+        jConsultaKitsHigiene = new javax.swing.JMenuItem();
+        jConsultaKitPorInterno = new javax.swing.JMenuItem();
+        jConsultaKitsTodosInternos = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         EntradaMateriais = new javax.swing.JMenuItem();
         InventarioMateriais = new javax.swing.JMenuItem();
@@ -301,8 +342,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         RelatorioPendenciaPagtoKit = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jRelatorioPagamentoKit = new javax.swing.JMenuItem();
         RelatorioGeralProgramacaoKit = new javax.swing.JMenuItem();
+        jRelatorioConfereMatriculaCalcadoBermuda = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -432,6 +474,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(MovimentacaoCrc);
+        jMenu2.add(jSeparator15);
 
         ConsultaEstoque.setText("Consulta de Estoque");
         ConsultaEstoque.addActionListener(new java.awt.event.ActionListener() {
@@ -440,6 +483,35 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(ConsultaEstoque);
+        jMenu2.add(jSeparator16);
+
+        jConsultaKits.setText("Consulta de Kits de Higiene Entregues/Entregar - (Programação)");
+
+        jConsultaKitsHigiene.setText("Consulta de Kits de Higiene Entregue/Entregar - (Só Produtos)");
+        jConsultaKitsHigiene.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConsultaKitsHigieneActionPerformed(evt);
+            }
+        });
+        jConsultaKits.add(jConsultaKitsHigiene);
+
+        jConsultaKitPorInterno.setText("Consulta de Kits de Higiene Entregue - (Interno e Produtos) - Individual");
+        jConsultaKitPorInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConsultaKitPorInternoActionPerformed(evt);
+            }
+        });
+        jConsultaKits.add(jConsultaKitPorInterno);
+
+        jConsultaKitsTodosInternos.setText("Consulta de Kits de Higiene Entregue - (Internos e Produtos) - Todos");
+        jConsultaKitsTodosInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConsultaKitsTodosInternosActionPerformed(evt);
+            }
+        });
+        jConsultaKits.add(jConsultaKitsTodosInternos);
+
+        jMenu2.add(jConsultaKits);
 
         jMenuBar1.add(jMenu2);
 
@@ -638,13 +710,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         });
         jMenu5.add(RelatorioPendenciaPagtoKit);
 
-        jMenuItem2.setText("Relatório de Pagamento de Kits de Higiene de Internos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jRelatorioPagamentoKit.setText("Relatório de Pagamento de Kits de Higiene de Internos");
+        jRelatorioPagamentoKit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jRelatorioPagamentoKitActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem2);
+        jMenu5.add(jRelatorioPagamentoKit);
 
         Relatorios.add(jMenu5);
 
@@ -655,6 +727,14 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(RelatorioGeralProgramacaoKit);
+
+        jRelatorioConfereMatriculaCalcadoBermuda.setText("Relatório de Confere por Matricula/Calçado/Bermuda");
+        jRelatorioConfereMatriculaCalcadoBermuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioConfereMatriculaCalcadoBermudaActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioConfereMatriculaCalcadoBermuda);
 
         jMenuBar1.add(Relatorios);
 
@@ -1412,9 +1492,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RelatorioGeralProgramacaoKitActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jRelatorioPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPagamentoKitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jRelatorioPagamentoKitActionPerformed
 
     private void jCancelarPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarPagamentoKitActionPerformed
         // TODO add your handling code here:TelaCancelamentoPagamentoKits
@@ -1450,6 +1530,100 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelarPagamentoKitActionPerformed
 
+    private void jConsultaKitsHigieneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaKitsHigieneActionPerformed
+        // TODO add your handling code here:
+        if (objConsultaKit_PAGO_NAO_PAGO == null || objConsultaKit_PAGO_NAO_PAGO.isClosed()) {
+            objConsultaKit_PAGO_NAO_PAGO = new TelaConsultaKitsEntregueNaoEntregues();
+            jPainelAlmoxarifado.add(objConsultaKit_PAGO_NAO_PAGO);
+            objConsultaKit_PAGO_NAO_PAGO.setVisible(true);
+        } else {
+            if (objConsultaKit_PAGO_NAO_PAGO.isVisible()) {
+                if (objConsultaKit_PAGO_NAO_PAGO.isIcon()) { // Se esta minimizado
+                    try {
+                        objConsultaKit_PAGO_NAO_PAGO.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objConsultaKit_PAGO_NAO_PAGO.toFront(); // traz para frente
+                    objConsultaKit_PAGO_NAO_PAGO.pack();//volta frame 
+                }
+            } else {
+                objConsultaKit_PAGO_NAO_PAGO = new TelaConsultaKitsEntregueNaoEntregues();
+                TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objConsultaKit_PAGO_NAO_PAGO);//adicona frame ao JDesktopPane  
+                objConsultaKit_PAGO_NAO_PAGO.setVisible(true);
+            }
+        }
+        try {
+            objConsultaKit_PAGO_NAO_PAGO.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jConsultaKitsHigieneActionPerformed
+
+    private void jConsultaKitPorInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaKitPorInternoActionPerformed
+        // TODO add your handling code here:
+        if (objKitPago_interno == null || objKitPago_interno.isClosed()) {
+            objKitPago_interno = new TelaConsultaKitsEntregueNaoEntreguesInternos();
+            jPainelAlmoxarifado.add(objKitPago_interno);
+            objKitPago_interno.setVisible(true);
+        } else {
+            if (objKitPago_interno.isVisible()) {
+                if (objKitPago_interno.isIcon()) { // Se esta minimizado
+                    try {
+                        objKitPago_interno.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objKitPago_interno.toFront(); // traz para frente
+                    objKitPago_interno.pack();//volta frame 
+                }
+            } else {
+                objKitPago_interno = new TelaConsultaKitsEntregueNaoEntreguesInternos();
+                TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objKitPago_interno);//adicona frame ao JDesktopPane  
+                objKitPago_interno.setVisible(true);
+            }
+        }
+        try {
+            objKitPago_interno.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jConsultaKitPorInternoActionPerformed
+
+    private void jRelatorioConfereMatriculaCalcadoBermudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioConfereMatriculaCalcadoBermudaActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioConfereAlmoxarifado objRelConf = new TelaRelatorioConfereAlmoxarifado();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objRelConf);
+        objRelConf.show();
+    }//GEN-LAST:event_jRelatorioConfereMatriculaCalcadoBermudaActionPerformed
+
+    private void jConsultaKitsTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaKitsTodosInternosActionPerformed
+        // TODO add your handling code here: 
+        if (objKitPagoTodos == null || objKitPagoTodos.isClosed()) {
+            objKitPagoTodos = new TelaConsultaKitsEntregueNaoEntreguesInternosTodos();
+            jPainelAlmoxarifado.add(objKitPagoTodos);
+            objKitPagoTodos.setVisible(true);
+        } else {
+            if (objKitPagoTodos.isVisible()) {
+                if (objKitPagoTodos.isIcon()) { // Se esta minimizado
+                    try {
+                        objKitPagoTodos.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objKitPagoTodos.toFront(); // traz para frente
+                    objKitPagoTodos.pack();//volta frame 
+                }
+            } else {
+                objKitPagoTodos = new TelaConsultaKitsEntregueNaoEntreguesInternosTodos();
+                TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objKitPagoTodos);//adicona frame ao JDesktopPane  
+                objKitPagoTodos.setVisible(true);
+            }
+        }
+        try {
+            objKitPagoTodos.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jConsultaKitsTodosInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1483,6 +1657,10 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SolicitacaoComprasMateriaisInternos;
     private javax.swing.JMenuItem TiposKitsInternos;
     private javax.swing.JMenuItem jCancelarPagamentoKit;
+    private javax.swing.JMenuItem jConsultaKitPorInterno;
+    private javax.swing.JMenu jConsultaKits;
+    private javax.swing.JMenuItem jConsultaKitsHigiene;
+    private javax.swing.JMenuItem jConsultaKitsTodosInternos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
@@ -1493,10 +1671,11 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     public static javax.swing.JDesktopPane jPainelAlmoxarifado;
     private javax.swing.JMenuItem jProgramarKits;
+    private javax.swing.JMenuItem jRelatorioConfereMatriculaCalcadoBermuda;
+    private javax.swing.JMenuItem jRelatorioPagamentoKit;
     private javax.swing.JMenuItem jRelatorioSaidaInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
@@ -1504,6 +1683,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator15;
+    private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1523,8 +1704,129 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             public void run() {
                 verificarRecado();
                 verificarAgendaCompromisso();
+                VERIFICAR_KITS_agendado();
             }
         }, periodo, tempo);
+    }
+
+    public void VERIFICAR_KITS_agendado() {
+        CONTROLE_LISTA_kits.LISTAR_AGENDA_kit(objComp);
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            if (objComp.getDataPrevisao() != null) {
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
+        }
+    }
+
+    public void COMPRARA_DATAS_windows(Date a, Date b) {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        data1 = formatoAmerica.format(objComp.getDataPrevisao());
+        data2 = formatoAmerica.format(jDataSistema.getText());
+        try {
+            a = new SimpleDateFormat("dd/MM/yyyy").parse(data1);
+            b = new SimpleDateFormat("dd/MM/yyyy").parse(data2);
+            a.compareTo(b);
+            if (a.after(b)) {
+                opcao = 0;
+                // DATA a MAIOR QUE b
+            } else if (a.before(b)) {
+                opcao = 1;
+                //DATA a MENOR b
+            } else if (a.equals(b)) {
+                opcao = 2;
+                //DATAS IGUAIS
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void COMPRARA_DATAS_linux(Date a, Date b) {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+        data1 = formatoAmerica.format(objComp.getDataPrevisao());
+        data2 = formatoAmerica.format(jDataSistema.getText());
+        try {
+            a = new SimpleDateFormat("yyyy/MM/dd").parse(data1);
+            b = new SimpleDateFormat("yyyy/MM/dd").parse(data2);
+            a.compareTo(b);
+            if (a.after(b)) {
+                opcao = 0;
+                // DATA a MAIOR QUE b
+            } else if (a.before(b)) {
+                opcao = 1;
+                //DATA a MENOR b
+            } else if (a.equals(b)) {
+                opcao = 2;
+                //DATAS IGUAIS
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCronogramaEscala.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void verificarRecado() {
@@ -2093,6 +2395,35 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             pNomeCPKH_Inte = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //CONSULTA DE KITS DE HIGIENE    
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntreguePrincipal_AL + "'");
+            conecta.rs.first();
+            pNomeCKENP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntregueNaoEntregues_AL + "'");
+            conecta.rs.first();
+            pNomeCKENE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntregueNaoEntreguesInternos_AL + "'");
+            conecta.rs.first();
+            pNomeCKENI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL + "'");
+            conecta.rs.first();
+            pNomeCKENEIT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeCF.equals(telaCadastroFornecedoresAL) || pNomeCF == null || pNomeCF.equals("")) {
             buscarCodigoModulo();
@@ -2274,6 +2605,31 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaCancelamentoPagamentoInt);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //CONSULTA DE PAGAMENTO DE KITS DE HIGIENE  
+        if (!pNomeCKENP.equals(telaConsultaKitsEntreguePrincipal_AL) || pNomeCKENP == null || pNomeCKENP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntreguePrincipal_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCKENE.equals(telaConsultaKitsEntregueNaoEntregues_AL) || pNomeCKENE == null || pNomeCKENE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntregueNaoEntregues_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCKENI.equals(telaConsultaKitsEntregueNaoEntreguesInternos_AL) || pNomeCKENI == null || pNomeCKENI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntregueNaoEntreguesInternos_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCKENEIT.equals(telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL) || pNomeCKENEIT == null || pNomeCKENEIT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
@@ -2285,6 +2641,49 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pCodModulo = conecta.rs.getInt("IdModulo");
         } catch (SQLException ex) {
+        }
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_ALM_001(telaConsultaKitsEntreguePrincipal_AL);
+        PESQUISAR_IMPLEMENTA_ALM_002(telaCancelamentoPagamentoManu);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_ALM_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaKits.setVisible(!true);
+            jSeparator16.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jConsultaKits.setVisible(!true);
+            jSeparator16.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jConsultaKits.setVisible(!true);
+            jSeparator16.setVisible(!true);
+        } else {
+            jConsultaKits.setVisible(true);
+            jSeparator16.setVisible(true);
+        }
+    }
+    
+    public void PESQUISAR_IMPLEMENTA_ALM_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else {
+            jCancelarPagamentoKit.setVisible(true);
+            jSeparator14.setVisible(true);
         }
     }
 }

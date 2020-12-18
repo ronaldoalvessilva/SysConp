@@ -27,7 +27,7 @@ public class ControleItensRolVisitas {
         buscarVisita(objItenRol.getNomeVisita(), objItenRol.getIdVisita());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSROL (DataRol,IdRol,IdInternoCrc,IdVisita,DataInicio,StatusVisita,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSROL (DataRol,IdRol,IdInternoCrc,IdVisita,DataInicio,StatusVisita,UsuarioInsert,DataInsert,HorarioInsert,ParentescoVisita) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objItenRol.getDataRol().getTime()));
             pst.setInt(2, objItenRol.getIdRol());
             pst.setInt(3, objItenRol.getIdInternoCrc());
@@ -37,6 +37,7 @@ public class ControleItensRolVisitas {
             pst.setString(7, objItenRol.getUsuarioInsert());
             pst.setString(8, objItenRol.getDataInsert());
             pst.setString(9, objItenRol.getHoraInsert());
+            pst.setString(10, objItenRol.getParentescoVisita());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
@@ -51,7 +52,7 @@ public class ControleItensRolVisitas {
         buscarVisita(objItenRol.getNomeVisita(), objItenRol.getIdVisita());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSROL SET DataRol=?,IdRol=?,IdInternoCrc=?,IdVisita=?,DataInicio=?,StatusVisita=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemRol='" + objItenRol.getIdItemRol() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSROL SET DataRol=?,IdRol=?,IdInternoCrc=?,IdVisita=?,DataInicio=?,StatusVisita=?,UsuarioUp=?,DataUp=?,HorarioUp=?,ParentescoVisita=? WHERE IdItemRol='" + objItenRol.getIdItemRol() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objItenRol.getDataRol().getTime()));
             pst.setInt(2, objItenRol.getIdRol());
             pst.setInt(3, objItenRol.getIdInternoCrc());
@@ -61,6 +62,7 @@ public class ControleItensRolVisitas {
             pst.setString(7, objItenRol.getUsuarioUp());
             pst.setString(8, objItenRol.getDataUp());
             pst.setString(9, objItenRol.getHoraUp());
+            pst.setString(10, objItenRol.getParentescoVisita());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);

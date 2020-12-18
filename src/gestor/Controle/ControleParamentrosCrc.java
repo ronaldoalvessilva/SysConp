@@ -7,10 +7,24 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ParametrosCrc;
-import java.sql.Date;
+import static gestor.Visao.TelaParamentrosSistema.pCODIGO_registro;
+import static gestor.Visao.TelaParamentrosSistema.pCODIGO_parametro;
+import static gestor.Visao.TelaParamentrosSistema.pCODIGO_PESQUISA_modulo;
+import static gestor.Visao.TelaParamentrosSistema.pCODIGO_PESQUISA_tela;
+import static gestor.Visao.TelaParamentrosSistema.pRESPOSTA_gravado;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaParamentrosSistema.jComboBoxTelaImplementacao;
+import static gestor.Visao.TelaParamentrosSistema.jComboBoxModuloImplementacao;
+import static gestor.Visao.TelaParamentrosSistema.pCOD_mod;
+import static gestor.Visao.TelaParamentrosSistema.pCOD_tel;
+import static gestor.Visao.TelaParamentrosSistema.pMOD;
+import static gestor.Visao.TelaParamentrosSistema.pTELA;
 
 /**
  *
@@ -20,6 +34,9 @@ public class ControleParamentrosCrc {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ParametrosCrc objParCrc = new ParametrosCrc();
+
+    Integer pCODIGO_modulo = 0;
+    Integer pCODIGO_tela = 0;
 
     public ParametrosCrc alterarParametrosCrc(ParametrosCrc objParCrc) {
 
@@ -117,6 +134,189 @@ public class ControleParamentrosCrc {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objParCrc;
+    }
+
+    public ParametrosCrc incluirImp(ParametrosCrc objParCrc) {
+        pBUSCAR_modulo(objParCrc.getNomeModulo());
+        pBUSCAR_tela(objParCrc.getNomeTela());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO IMPLEMENTACAO_SISTEMA (IdModulo,IdTelas,IdPar,Habilitar) VALUES(?,?,?,?) ");
+            pst.setInt(1, pCODIGO_modulo);
+            pst.setInt(2, pCODIGO_tela);
+            pst.setInt(3, objParCrc.getIdPar());
+            pst.setString(4, objParCrc.getHabilitarImp());
+            pst.executeUpdate();
+            pRESPOSTA_gravado = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_gravado = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objParCrc;
+    }
+
+    public ParametrosCrc alterarImp(ParametrosCrc objParCrc) {
+        pBUSCAR_modulo(objParCrc.getNomeModulo());
+        pBUSCAR_tela(objParCrc.getNomeTela());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE IMPLEMENTACAO_SISTEMA SET IdModulo=?,IdTelas=?,Habilitar=? WHERE IdModulo='" + pCOD_mod + "' AND IdTelas='" + pCOD_tel + "'");
+            pst.setInt(1, pCODIGO_modulo);
+            pst.setInt(2, pCODIGO_tela);
+            pst.setString(3, objParCrc.getHabilitarImp());
+            pst.executeUpdate();
+            pRESPOSTA_gravado = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_gravado = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objParCrc;
+    }
+
+    public ParametrosCrc excluirImp(ParametrosCrc objParCrc) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM IMPLEMENTACAO_SISTEMA "
+                    + "WHERE IdImp='" + objParCrc.getIdImp() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objParCrc;
+    }
+
+    public void pBUSCAR_modulo(String pDESCRICAO_modulo) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + pDESCRICAO_modulo + "'");
+            conecta.rs.first();
+            pCODIGO_modulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível pesquisar o módulo.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+    }
+
+    public void pBUSCAR_tela(String pDESCRICAO_tela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + pDESCRICAO_tela + "'");
+            conecta.rs.first();
+            pCODIGO_tela = conecta.rs.getInt("IdTelas");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível pesquisar o módulo.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+    }
+
+    public List<ParametrosCrc> read() throws Exception {
+        conecta.abrirConexao();
+        List<ParametrosCrc> listaTelas = new ArrayList<ParametrosCrc>();
+        try {
+            conecta.executaSQL("SELECT IdImp, "
+                    + "IMPLEMENTACAO_SISTEMA.IdModulo, "
+                    + "IMPLEMENTACAO_SISTEMA.IdTelas, "
+                    + "TELAS.NomeTela, "
+                    + "MODULOS.NomeModulo, "
+                    + "IMPLEMENTACAO_SISTEMA.IdPar, "
+                    + "IMPLEMENTACAO_SISTEMA.Habilitar "
+                    + "FROM IMPLEMENTACAO_SISTEMA "
+                    + "INNER JOIN MODULOS "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdModulo=MODULOS.IdModulo "
+                    + "INNER JOIN TELAS "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdTelas=TELAS.IdTelas "
+                    + "INNER JOIN PARAMETROSCRC "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdPar=PARAMETROSCRC.IdPar "
+                    + "WHERE IMPLEMENTACAO_SISTEMA.IdPar='" + pCODIGO_parametro + "'");
+            while (conecta.rs.next()) {
+                ParametrosCrc pDigital = new ParametrosCrc();
+                pDigital.setIdImp(conecta.rs.getInt("IdImp"));
+                pDigital.setIdPar(conecta.rs.getInt("IdPar"));
+                pDigital.setIdModulo(conecta.rs.getInt("IdModulo"));
+                pDigital.setNomeModulo(conecta.rs.getString("NomeModulo"));
+                pDigital.setIdTelas(conecta.rs.getInt("IdTelas"));
+                pDigital.setNomeTela(conecta.rs.getString("NomeTela"));
+                pDigital.setHabilitarImp(conecta.rs.getString("Habilitar"));
+                listaTelas.add(pDigital);
+            }
+            return listaTelas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleParamentrosCrc.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public ParametrosCrc pPESQUISAR_registro(ParametrosCrc objParCrc) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdImp, "
+                    + "IMPLEMENTACAO_SISTEMA.IdModulo, "
+                    + "IMPLEMENTACAO_SISTEMA.IdTelas, "
+                    + "TELAS.NomeTela, "
+                    + "MODULOS.NomeModulo, "
+                    + "IMPLEMENTACAO_SISTEMA.IdPar, "
+                    + "IMPLEMENTACAO_SISTEMA.Habilitar "
+                    + "FROM IMPLEMENTACAO_SISTEMA "
+                    + "INNER JOIN MODULOS "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdModulo=MODULOS.IdModulo "
+                    + "INNER JOIN TELAS "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdTelas=TELAS.IdTelas "
+                    + "INNER JOIN PARAMETROSCRC "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdPar=PARAMETROSCRC.IdPar "
+                    + "WHERE TELAS.NomeTela='" + pMOD + "' "
+                    + "AND MODULOS.NomeModulo='" + pTELA + "'");
+            conecta.rs.first();
+            pCODIGO_registro = conecta.rs.getInt("IdImp");
+            objParCrc.setHabilitarImp(conecta.rs.getString("Habilitar"));
+            objParCrc.setIdModulo(conecta.rs.getInt("IdModulo"));
+            objParCrc.setNomeModulo(conecta.rs.getString("NomeModulo"));
+            objParCrc.setIdTelas(conecta.rs.getInt("IdTelas"));
+            objParCrc.setNomeTela(conecta.rs.getString("NomeTela"));
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objParCrc;
+    }
+
+    public ParametrosCrc pPESQUISAR_modulo(ParametrosCrc objParCrc) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdModulo "
+                    + "FROM MODULOS "
+                    + "WHERE NomeModulo='" + jComboBoxModuloImplementacao.getSelectedItem() + "' ");
+            conecta.rs.first();
+            pCODIGO_PESQUISA_modulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objParCrc;
+    }
+
+    public ParametrosCrc pPESQUISAR_tela(ParametrosCrc objParCrc) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdTelas "
+                    + "FROM TELAS "
+                    + "WHERE NomeTela='" + jComboBoxTelaImplementacao.getSelectedItem() + "' ");
+            conecta.rs.first();
+            pCODIGO_PESQUISA_tela = conecta.rs.getInt("IdTelas");
+        } catch (SQLException ex) {
         }
         conecta.desconecta();
         return objParCrc;

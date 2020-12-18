@@ -104,7 +104,7 @@ public class ControlePesquisarEmpresaLogon {
             conecta.rs.first();
             objUsuarios.setDataCadastro(conecta.rs.getDate("DataSenha"));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possível LOCALIZAR os Dados.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
         }
         conecta.desconecta();
         return objUsuarios;

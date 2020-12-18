@@ -31,13 +31,14 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
      * Creates new form TelaTrocaSenha_MD5
      */
     public static TelaLoginSenha pTELA_senha;
+    public static String pRESPOSTA_senha = "";
 
     public TelaTrocaSenha_MD5(TelaLoginSenha parent, boolean modal) {
         this.pTELA_senha = parent;
         this.setModal(modal);
         setLocationRelativeTo(pTELA_senha);
         initComponents();
-        formatarCampos();        
+        formatarCampos();
     }
 
     /**
@@ -182,7 +183,11 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
                 objUser.setSenha2(jPasswordConfirmaSenha.getText());
                 if (jPasswordNovaSenha.getText() == null ? jPasswordNovaSenha.getText() == null : jPasswordConfirmaSenha.getText().equals(jPasswordNovaSenha.getText())) {
                     control.trocarSenhaUsuario(objUser);
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (pRESPOSTA_senha.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_senha.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar a senha, tente novamente.");
+                    }
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Senhas não conferem !!!");
@@ -340,7 +345,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
     private javax.swing.JPasswordField jPasswordNovaSenha;
     // End of variables declaration//GEN-END:variables
 
-    public void formatarCampos(){
+    public void formatarCampos() {
         jDataTroca.setCalendar(Calendar.getInstance());
         //
         jPasswordNovaSenha.setDocument(new LimiteDigitosMin(21));

@@ -125,7 +125,7 @@ public class TelaPesqInternosVisitasRol extends javax.swing.JInternalFrame {
         jTabelaPesqInternosRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "ID Rol", "Código", "Nome do Interno"

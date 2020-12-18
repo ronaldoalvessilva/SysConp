@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -80,6 +82,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaDepartamento objDp = null;
     private TelaCargo objCargos = null;
@@ -228,6 +233,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela  
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem(); // A cada 5 minutos verifica mensagem
     }
 
@@ -2402,5 +2408,60 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_GTA_001(telaEntradasSaidasColaboradoresManu_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_002(telaEscala_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_003(telaPesquisaGlobalColaboradores_ADM);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            Movimentacao.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            Movimentacao.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            Movimentacao.setVisible(!true);
+        } else {
+            Movimentacao.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEscalaTrabalho.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jEscalaTrabalho.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jEscalaTrabalho.setVisible(!true);
+        } else {
+            jEscalaTrabalho.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_003(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaGlobalColaboradores.setVisible(!true);
+            jSeparator2.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jConsultaGlobalColaboradores.setVisible(!true);
+            jSeparator2.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jConsultaGlobalColaboradores.setVisible(!true);
+            jSeparator2.setVisible(!true);
+        } else {
+            jConsultaGlobalColaboradores.setVisible(true);
+            jSeparator2.setVisible(true);
+        }
     }
 }

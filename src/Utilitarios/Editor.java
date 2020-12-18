@@ -1,3 +1,5 @@
+package Utilitarios;
+
 import java.io.*; //importa pra poder usar File, FileReader e FileWriter 
 import javax.swing.JFileChooser; //Importa componente pra janela de escolha de arquio
 import javax.swing.JFrame; //Janela Principal

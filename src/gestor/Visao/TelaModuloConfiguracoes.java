@@ -8,6 +8,10 @@ package gestor.Visao;
 import Util.SQL.TableExample;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
+import gestor.Controle.ControleTelasSistema;
+import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaRecadosAdministrador.jIDLanc;
 import static gestor.Visao.TelaRecadosAdministrador.jDataLanc;
@@ -40,6 +44,32 @@ import javax.swing.ListSelectionModel;
 public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    public static String nomeModuloCONF = "CONFIGURACOES";
+    //
+    public static String telaFechamentoSistema = "Utilitários:Fechamento do Sistema";
+    public static String telaAbrirMovimentoSistema = "Utilitário:Abrir Movimento do Sistema";
+    public static String telaApagarPopulacaoCRC = "Utilitário:Apagar População - CRC";
+    public static String telaModificarAlertaEntradas = "Utilitário:Modificar Alerta Entrada de Internos";
+    //
+    public static String painelHabilitarImplementacoes = "Parâmetros:Painel Habilitar/Desabilitar Implementações";
+    public static String painelTabelaImplementacao = "Parâmetros:Painel da Tabela de Habilitar Implementações";
+    public static String painelBotoesImplemenetacoes = "Parâmetros:Painel de Botões de Implementações";
+    //
+    String pNomeFS = "";
+    String pNomeAMS = "";
+    String pNomeAPC = "";
+    String pNomeMAE = "";
+    //
+    String pNomePHI = "";
+    String pNomePTHI = "";
+    String pNomePBI = "";
     //
     private TelaGrupoUsuarios tpu = null;
     private TelaUsuarios objUser = null;
@@ -70,6 +100,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     public TelaModuloConfiguracoes() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela  
+        pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem();
     }
 
@@ -122,13 +154,13 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         UsuariosConectados = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jAbrirMovimetacaoSistema = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jCalculadoraPenal = new javax.swing.JMenuItem();
+        jCalculadoraWindows = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        JMenuSQL = new javax.swing.JMenuItem();
+        jConsultaSQL = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jFechamentoSistema = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jAbrirMovimentoSistema = new javax.swing.JMenu();
         jAbrirTodosMovimentacaoSistema = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jAbrirMovimentoTotal = new javax.swing.JMenuItem();
@@ -250,30 +282,30 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
 
         jAbrirMovimetacaoSistema.setText("Utilitários");
 
-        jMenuItem3.setText("Calculadora de Pena");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jCalculadoraPenal.setText("Calculadora de Pena");
+        jCalculadoraPenal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jCalculadoraPenalActionPerformed(evt);
             }
         });
-        jAbrirMovimetacaoSistema.add(jMenuItem3);
+        jAbrirMovimetacaoSistema.add(jCalculadoraPenal);
 
-        jMenuItem4.setText("Calculadora do Windows");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jCalculadoraWindows.setText("Calculadora do Windows");
+        jCalculadoraWindows.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jCalculadoraWindowsActionPerformed(evt);
             }
         });
-        jAbrirMovimetacaoSistema.add(jMenuItem4);
+        jAbrirMovimetacaoSistema.add(jCalculadoraWindows);
         jAbrirMovimetacaoSistema.add(jSeparator1);
 
-        JMenuSQL.setText("Consultas SQL");
-        JMenuSQL.addActionListener(new java.awt.event.ActionListener() {
+        jConsultaSQL.setText("Consultas SQL");
+        jConsultaSQL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JMenuSQLActionPerformed(evt);
+                jConsultaSQLActionPerformed(evt);
             }
         });
-        jAbrirMovimetacaoSistema.add(JMenuSQL);
+        jAbrirMovimetacaoSistema.add(jConsultaSQL);
         jAbrirMovimetacaoSistema.add(jSeparator5);
 
         jFechamentoSistema.setForeground(new java.awt.Color(0, 0, 204));
@@ -285,8 +317,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         });
         jAbrirMovimetacaoSistema.add(jFechamentoSistema);
 
-        jMenu3.setForeground(new java.awt.Color(0, 102, 0));
-        jMenu3.setText("Abrir Movimentos do Sistema");
+        jAbrirMovimentoSistema.setForeground(new java.awt.Color(0, 102, 0));
+        jAbrirMovimentoSistema.setText("Abrir Movimentos do Sistema");
 
         jAbrirTodosMovimentacaoSistema.setText("Abrir Todos Movimentos Fechado do Sistema por Módulos");
         jAbrirTodosMovimentacaoSistema.addActionListener(new java.awt.event.ActionListener() {
@@ -294,7 +326,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 jAbrirTodosMovimentacaoSistemaActionPerformed(evt);
             }
         });
-        jMenu3.add(jAbrirTodosMovimentacaoSistema);
+        jAbrirMovimentoSistema.add(jAbrirTodosMovimentacaoSistema);
 
         jMenu4.setText("Abrir Movimentos Individual");
 
@@ -314,7 +346,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         });
         jMenu4.add(jAbrirMovimentoIndPSP);
 
-        jMenu3.add(jMenu4);
+        jAbrirMovimentoSistema.add(jMenu4);
 
         jAbrirTodosMovimentosData.setText("Abrir Todos os Movimentos Por Data");
         jAbrirTodosMovimentosData.addActionListener(new java.awt.event.ActionListener() {
@@ -322,9 +354,9 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 jAbrirTodosMovimentosDataActionPerformed(evt);
             }
         });
-        jMenu3.add(jAbrirTodosMovimentosData);
+        jAbrirMovimentoSistema.add(jAbrirTodosMovimentosData);
 
-        jAbrirMovimetacaoSistema.add(jMenu3);
+        jAbrirMovimetacaoSistema.add(jAbrirMovimentoSistema);
         jAbrirMovimetacaoSistema.add(jSeparator6);
 
         jParamentosSistema.setText("Parâmetros do Sistema");
@@ -465,16 +497,16 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jCalculadoraPenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalculadoraPenalActionPerformed
         // TODO add your handling code here:
         // O aplicativo tem que está no diretorio c:\windows\system ou C:\Windows\SysWOW64
         calcPena();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jCalculadoraPenalActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jCalculadoraWindowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalculadoraWindowsActionPerformed
         // TODO add your handling code here:
         CalcWindows();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jCalculadoraWindowsActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -592,11 +624,11 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_ConsultaGruposActionPerformed
 
-    private void JMenuSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuSQLActionPerformed
+    private void jConsultaSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaSQLActionPerformed
         // TODO add your handling code here:
         TableExample objSQL = new TableExample();
         objSQL.createConnectionDialog();
-    }//GEN-LAST:event_JMenuSQLActionPerformed
+    }//GEN-LAST:event_jConsultaSQLActionPerformed
 
     private void jFechamentoSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFechamentoSistemaActionPerformed
         // TODO add your handling code here:
@@ -716,27 +748,27 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
     private javax.swing.JMenuItem Empresa;
-    private javax.swing.JMenuItem JMenuSQL;
     private javax.swing.JMenuItem UsuariosConectados;
     private javax.swing.JMenuItem jAbrirMovimentoIndPSP;
+    private javax.swing.JMenu jAbrirMovimentoSistema;
     private javax.swing.JMenuItem jAbrirMovimentoTotal;
     private javax.swing.JMenu jAbrirMovimetacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentacaoSistema;
     private javax.swing.JMenuItem jAbrirTodosMovimentosData;
     private javax.swing.JMenuItem jAlertaEntradas;
     private javax.swing.JMenuItem jApagarPopulacaoCRC;
+    private javax.swing.JMenuItem jCalculadoraPenal;
+    private javax.swing.JMenuItem jCalculadoraWindows;
+    private javax.swing.JMenuItem jConsultaSQL;
     private javax.swing.JMenuItem jFechamentoSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemGrupos;
     private javax.swing.JMenuItem jMenuItemLog;
     private javax.swing.JMenuItem jMenuItemSair;
@@ -882,5 +914,197 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jTabelaTodosRecados.setAutoResizeMode(jTabelaTodosRecados.AUTO_RESIZE_OFF);
         jTabelaTodosRecados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         conecta.desconecta();
+    }
+
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaFechamentoSistema + "'");
+            conecta.rs.first();
+            pNomeFS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAbrirMovimentoSistema + "'");
+            conecta.rs.first();
+            pNomeAMS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaApagarPopulacaoCRC + "'");
+            conecta.rs.first();
+            pNomeAPC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaModificarAlertaEntradas + "'");
+            conecta.rs.first();
+            pNomeMAE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //PAINEIS
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + painelHabilitarImplementacoes + "'");
+            conecta.rs.first();
+            pNomePHI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + painelTabelaImplementacao + "'");
+            conecta.rs.first();
+            pNomePTHI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + painelBotoesImplemenetacoes + "'");
+            conecta.rs.first();
+            pNomePBI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        if (!pNomeFS.equals(telaFechamentoSistema) || pNomeFS == null || pNomeFS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaFechamentoSistema);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAMS.equals(telaAbrirMovimentoSistema) || pNomeAMS == null || pNomeAMS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAbrirMovimentoSistema);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAPC.equals(telaApagarPopulacaoCRC) || pNomeAPC == null || pNomeAPC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaApagarPopulacaoCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMAE.equals(telaModificarAlertaEntradas) || pNomeMAE == null || pNomeMAE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaModificarAlertaEntradas);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //   
+        if (!pNomePHI.equals(painelHabilitarImplementacoes) || pNomePHI == null || pNomePHI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(painelHabilitarImplementacoes);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePTHI.equals(painelTabelaImplementacao) || pNomePTHI == null || pNomePTHI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(painelTabelaImplementacao);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePBI.equals(painelBotoesImplemenetacoes) || pNomePBI == null || pNomePBI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(painelBotoesImplemenetacoes);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloCONF + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_CONF_001(telaFechamentoSistema);
+        PESQUISAR_IMPLEMENTA_CONF_002(telaAbrirMovimentoSistema);
+        PESQUISAR_IMPLEMENTA_CONF_003(telaApagarPopulacaoCRC);
+        PESQUISAR_IMPLEMENTA_CONF_004(telaModificarAlertaEntradas);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CONF_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jFechamentoSistema.setVisible(!true);
+            jSeparator5.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jFechamentoSistema.setVisible(!true);
+            jSeparator5.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jFechamentoSistema.setVisible(!true);
+            jSeparator5.setVisible(!true);
+        } else {
+            jFechamentoSistema.setVisible(true);
+            jSeparator5.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CONF_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAbrirMovimentoSistema.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAbrirMovimentoSistema.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAbrirMovimentoSistema.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else {
+            jAbrirMovimentoSistema.setVisible(true);
+            jSeparator6.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CONF_003(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jApagarPopulacaoCRC.setVisible(!true);
+            jSeparator7.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jApagarPopulacaoCRC.setVisible(!true);
+            jSeparator7.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jApagarPopulacaoCRC.setVisible(!true);
+            jSeparator7.setVisible(!true);
+        } else {
+            jApagarPopulacaoCRC.setVisible(true);
+            jSeparator7.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CONF_004(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAlertaEntradas.setVisible(!true);
+            jSeparator8.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAlertaEntradas.setVisible(!true);
+            jSeparator8.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAlertaEntradas.setVisible(!true);
+            jSeparator8.setVisible(!true);
+        } else {
+            jAlertaEntradas.setVisible(true);
+            jSeparator8.setVisible(true);
+        }
     }
 }

@@ -15,7 +15,7 @@ import static gestor.Visao.TelaRolVisitas.jDataValiAntecedente;
 import static gestor.Visao.TelaRolVisitas.jIDVisita;
 import static gestor.Visao.TelaRolVisitas.jDataNascVisita;
 import static gestor.Visao.TelaRolVisitas.jNomeVisita;
-import static gestor.Visao.TelaRolVisitas.jParentescoVisita;
+//import static gestor.Visao.TelaRolVisitas.jParentescoVisita;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -124,7 +124,7 @@ public class TelaPesquisaVisitasRol extends javax.swing.JInternalFrame {
         jTabelaVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome da Visita", "Parentesco", "Data Cadastro"
@@ -224,7 +224,9 @@ public class TelaPesquisaVisitasRol extends javax.swing.JInternalFrame {
             jPesqNome.requestFocus();
         } else {
             jTabelaVisitas.setVisible(true);
-            preencherTabelaVisitas("SELECT * FROM VISITASINTERNO WHERE NomeVisita LIKE'%" + jPesqNome.getText() + "%'AND StatusVisita='" + statusVisita + "'");
+            preencherTabelaVisitas("SELECT * FROM VISITASINTERNO "
+                    + "WHERE NomeVisita LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND StatusVisita='" + statusVisita + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -250,11 +252,13 @@ public class TelaPesquisaVisitasRol extends javax.swing.JInternalFrame {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITASINTERNO WHERE NomeVisita='" + jPesqNome.getText() + "' AND IdVisita='" + idVistaInt + "'");
+                conecta.executaSQL("SELECT * FROM VISITASINTERNO "
+                        + "WHERE NomeVisita='" + jPesqNome.getText() + "' "
+                        + "AND IdVisita='" + idVistaInt + "'");
                 conecta.rs.first();
                 jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
-                jParentescoVisita.setText(conecta.rs.getString("ParentescoVisita"));
+//                jParentescoVisita.setText(conecta.rs.getString("ParentescoVisita"));
                 //   jRGVisita.setText(conecta.rs.getString("RgVisita"));                
                 caminho = conecta.rs.getString("ImagemVisita");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);

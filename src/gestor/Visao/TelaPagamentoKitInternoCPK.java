@@ -198,6 +198,8 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jBtPesquisarKit = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jIdRegistroComp = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jComboBoxKitPersonalizado = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -573,6 +575,19 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jIdRegistroComp.setDisabledTextColor(new java.awt.Color(0, 0, 204));
         jIdRegistroComp.setEnabled(false);
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel20.setText("Kit Personalizado");
+
+        jComboBoxKitPersonalizado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxKitPersonalizado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Sim", "Não" }));
+        jComboBoxKitPersonalizado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxKitPersonalizado.setEnabled(false);
+        jComboBoxKitPersonalizado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxKitPersonalizadoItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -582,7 +597,6 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel14)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jResponsavel)
@@ -595,16 +609,27 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
-                                        .addGap(0, 224, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jStatusLanc))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jComboBoxTipoKit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesquisarKit, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addGap(132, 132, 132))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jComboBoxTipoKit, 0, 284, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtPesquisarKit, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxKitPersonalizado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel20)))))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -660,11 +685,14 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxTipoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisarKit))
+                    .addComponent(jBtPesquisarKit)
+                    .addComponent(jComboBoxKitPersonalizado, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -1548,8 +1576,10 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário o tipo de kit.");
             } else if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...") || jComboBoxPavilhao.getSelectedItem().equals("") || jComboBoxPavilhao.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual é o pavilhão.");
-            } else if (jIdKit.getText().equals("")) {
+            } else if (jIdKit.getText().equals("") && !jComboBoxTipoKit.getSelectedItem().equals("Kit Personalizado")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o código da composição do kit de higiêne do interno.");
+            } else if (jComboBoxKitPersonalizado.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar se o kit é ou não personalizado.");
             } else {
                 objPag.setStatusLanc(jStatusLanc.getText());
                 objPag.setDataLanc(jDataLanc.getDate());
@@ -1560,6 +1590,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 objPag.setIdKit(Integer.valueOf(jIdKit.getText()));
                 objPag.setTipoKit((String) jComboBoxTipoKit.getSelectedItem());
                 objPag.setDescricaoPavilhao((String) jComboBoxPavilhao.getSelectedItem());
+                objPag.setKitPersonalizado((String) jComboBoxKitPersonalizado.getSelectedItem());
                 objPag.setObservacao(jObservacao.getText());
                 if (acao == 1) {
                     objPag.setUsuarioInsert(nameUser);
@@ -1595,6 +1626,10 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário o tipo de kit.");
             } else if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...") || jComboBoxPavilhao.getSelectedItem().equals("") || jComboBoxPavilhao.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual é o pavilhão.");
+            } else if (jIdKit.getText().equals("") && !jComboBoxTipoKit.getSelectedItem().equals("Kit Personalizado")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o código da composição do kit de higiêne do interno.");
+            } else if (jComboBoxKitPersonalizado.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar se o kit é ou não personalizado.");
             } else {
                 objPag.setStatusLanc(jStatusLanc.getText());
                 objPag.setDataLanc(jDataLanc.getDate());
@@ -1603,6 +1638,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 objPag.setHoraTermino(jHorarioTermino.getText());
                 objPag.setTipoKit((String) jComboBoxTipoKit.getSelectedItem());
                 objPag.setDescricaoPavilhao((String) jComboBoxPavilhao.getSelectedItem());
+                objPag.setKitPersonalizado((String) jComboBoxKitPersonalizado.getSelectedItem());
                 objPag.setObservacao(jObservacao.getText());
                 if (acao == 1) {
                     objPag.setUsuarioInsert(nameUser);
@@ -1638,6 +1674,10 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário o tipo de kit.");
             } else if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...") || jComboBoxPavilhao.getSelectedItem().equals("") || jComboBoxPavilhao.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual é o pavilhão.");
+            } else if (jIdKit.getText().equals("") && !jComboBoxTipoKit.getSelectedItem().equals("Kit Personalizado")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o código da composição do kit de higiêne do interno.");
+            } else if (jComboBoxKitPersonalizado.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar se o kit é ou não personalizado.");
             } else {
                 objPag.setStatusLanc(jStatusLanc.getText());
                 objPag.setDataLanc(jDataLanc.getDate());
@@ -1646,6 +1686,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 objPag.setHoraTermino(jHorarioTermino.getText());
                 objPag.setTipoKit((String) jComboBoxTipoKit.getSelectedItem());
                 objPag.setDescricaoPavilhao((String) jComboBoxPavilhao.getSelectedItem());
+                objPag.setKitPersonalizado((String) jComboBoxKitPersonalizado.getSelectedItem());
                 objPag.setObservacao(jObservacao.getText());
                 if (acao == 1) {
                     objPag.setUsuarioInsert(nameUser);
@@ -1994,6 +2035,19 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtPesquisarKitActionPerformed
 
+    private void jComboBoxKitPersonalizadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxKitPersonalizadoItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            if (jComboBoxKitPersonalizado.getSelectedItem().equals("Selecione...")) {
+                jComboBoxTipoKit.setSelectedItem("Selecione...");
+            } else if (jComboBoxKitPersonalizado.getSelectedItem().equals("Sim")) {
+                jComboBoxTipoKit.setSelectedItem("Kit Personalizado");
+            } else if (jComboBoxKitPersonalizado.getSelectedItem().equals("Não")) {
+                jComboBoxTipoKit.setSelectedItem("Selecione...");
+            }
+        }
+    }//GEN-LAST:event_jComboBoxKitPersonalizadoItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
@@ -2018,6 +2072,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarInterno;
     private javax.swing.JCheckBox jCheckBox19;
+    private javax.swing.JComboBox<String> jComboBoxKitPersonalizado;
     public static javax.swing.JComboBox jComboBoxPavilhao;
     public static javax.swing.JComboBox jComboBoxTipoKit;
     private com.toedter.calendar.JDateChooser jDataEntrega;
@@ -2045,6 +2100,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

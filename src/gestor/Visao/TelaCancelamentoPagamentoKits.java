@@ -357,6 +357,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addGap(5, 5, 5))
         );
 
+        jTabelaCancelamento.setAutoCreateRowSorter(true);
         jTabelaCancelamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCancelamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -905,6 +906,7 @@ public class TelaCancelamentoPagamentoKits extends javax.swing.JInternalFrame {
                 .addGap(5, 5, 5))
         );
 
+        jTabelaProdutosKitInterno.setAutoCreateRowSorter(true);
         jTabelaProdutosKitInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutosKitInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

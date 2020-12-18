@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProntuariosInternosCRC" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a0782ce3-ac12-4b22-a392-8d9a4fa8e452">
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="matriculaCrc" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -804,7 +804,7 @@
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Crime Ediondo: ]]></text>
+				<text><![CDATA[Crime Hediondo: ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="87" y="381" width="63" height="20" uuid="14d1fdcb-f576-4d00-abcb-33bab7bfc937"/>
