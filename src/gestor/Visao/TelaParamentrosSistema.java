@@ -1780,6 +1780,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jBtPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setEnabled(false);
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -3257,6 +3258,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             if (jTabelaImplementacoes.isEnabled()) {
                 jBtExcluirImp.setEnabled(true);
                 jBtAlterarImp.setEnabled(true);
+                jBtPesquisar.setEnabled(true);
                 pCOD_mod = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 0);
                 pMOD = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 1);
                 jComboBoxModuloImplementacao.setSelectedItem(pMOD);
@@ -3849,12 +3851,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jComboBoxTelaImplementacao.setEnabled(true);
             //
             jBtNovoImp.setEnabled(true);
+            jBtPesquisar.setEnabled(true);
         } else {
             jComboBoxHabilitar.setEnabled(!true);
             jComboBoxModuloImplementacao.setEnabled(!true);
             jComboBoxTelaImplementacao.setEnabled(!true);
             //
             jBtNovoImp.setEnabled(!true);
+            jBtPesquisar.setEnabled(!true);
         }
         //
         jBtAlterar.setEnabled(!true);

@@ -1,7 +1,20 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleParamentrosCrc;
+import gestor.Controle.ControlePesquisaParametrosImplementacoes;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ParametrosCrc;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,8 +27,11 @@ import gestor.Modelo.ParametrosCrc;
  */
 public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
 
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ;
     ParametrosCrc objParCrc = new ParametrosCrc();
     ControleParamentrosCrc control = new ControleParamentrosCrc();
+    ControlePesquisaParametrosImplementacoes controle = new ControlePesquisaParametrosImplementacoes();
 
     int flag = 1;
     public static String pCOD_mod;
@@ -74,6 +90,11 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
         jComboBoxModuloImplementacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jTelaModuloImplementacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTelaModuloImplementacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTelaModuloImplementacaoKeyReleased(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Código Módulo");
@@ -100,14 +121,10 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
                         .addComponent(jTelaModuloImplementacao, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addGap(147, 147, 147))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCodigoModulo)
-                                .addGap(6, 6, 6)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jCodigoModulo))
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
@@ -250,7 +267,6 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
 
     private void jTabelaPesquisaImplementacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesquisaImplementacoesMouseClicked
         // TODO add your handling code here:
-
         flag = 1;
         pCOD_mod = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 0);
         pMOD = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 1);
@@ -267,13 +283,20 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
+
+    private void jTelaModuloImplementacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTelaModuloImplementacaoKeyReleased
+        // TODO add your handling code here:
+        if (!jTelaModuloImplementacao.getText().equals("")) {
+            pBUSCAR_DADOS_imp();
+        }
+    }//GEN-LAST:event_jTelaModuloImplementacaoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -331,6 +354,36 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaPesquisaImplementacoes;
-    private javax.swing.JTextField jTelaModuloImplementacao;
+    public static javax.swing.JTextField jTelaModuloImplementacao;
     // End of variables declaration//GEN-END:variables
+
+    public void pBUSCAR_DADOS_imp() {
+
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaPesquisaImplementacoes.getModel();
+        while (jTabelaPesquisaImplementacoes.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaPesquisaImplementacoes.getModel()).removeRow(0);
+                }
+        try {
+            for (ParametrosCrc pp : controle.read()) {
+                dadosOrigem.addRow(new Object[]{pp.getIdModulo(), pp.getNomeModulo(), pp.getHabilitarImp(), pp.getIdTelas(), pp.getNomeTela()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaImplementacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaPesquisaImplementacoes.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaImplementacoes.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaParamentrosSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void limparTabela() {
+        // APAGAR DADOS DA TABELA PRODUTOS
+        while (jTabelaPesquisaImplementacoes.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaPesquisaImplementacoes.getModel()).removeRow(0);
+        }
+    }
 }

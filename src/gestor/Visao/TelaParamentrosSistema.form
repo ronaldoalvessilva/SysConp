@@ -3196,6 +3196,7 @@
                           <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Pesquisar"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisarActionPerformed"/>

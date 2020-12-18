@@ -275,7 +275,6 @@ public class ControleParamentrosCrc {
                     + "ON IMPLEMENTACAO_SISTEMA.IdTelas=TELAS.IdTelas "
                     + "INNER JOIN PARAMETROSCRC "
                     + "ON IMPLEMENTACAO_SISTEMA.IdPar=PARAMETROSCRC.IdPar "
-                    //                    + "WHERE IMPLEMENTACAO_SISTEMA.IdPar='" + pCODIGO_parametro + "' "
                     + "WHERE TELAS.NomeTela='" + pMOD + "' "
                     + "AND MODULOS.NomeModulo='" + pTELA + "'");
             conecta.rs.first();
