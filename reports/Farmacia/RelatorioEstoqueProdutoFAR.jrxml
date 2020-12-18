@@ -11,7 +11,7 @@
 	<parameter name="nomeUsuario" class="java.lang.String"/>
 	<parameter name="modulo" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM PRODUTOS_AC INNER JOIN GRUPO_PRODUTOS_AC ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd WHERE DataMov=$P{dataEstoque} AND PRODUTOS_AC.Modulo=$P{modulo}]]>
+		<![CDATA[SELECT * FROM PRODUTOS_AC INNER JOIN GRUPO_PRODUTOS_AC ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd WHERE CONVERT(DATE, DataMov)=$P{dataEstoque} AND PRODUTOS_AC.Modulo=$P{modulo}]]>
 	</queryString>
 	<field name="IdProd" class="java.lang.Integer"/>
 	<field name="StatusProd" class="java.lang.String"/>
@@ -54,13 +54,14 @@
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
 	<field name="Modulo" class="java.lang.String"/>
+	<field name="CompoeKit" class="java.lang.String"/>
 	<field name="StatusGru" class="java.lang.String"/>
 	<field name="NomeGrupo" class="java.lang.String"/>
 	<field name="IdHistorico" class="java.lang.Integer"/>
 	<field name="TipoOpe" class="java.lang.String"/>
 	<field name="NomeOperacao" class="java.lang.String"/>
 	<field name="IdDoc" class="java.lang.Integer"/>
-	<field name="DataMov" class="java.util.Date"/>
+	<field name="DataMov" class="java.sql.Timestamp"/>
 	<field name="QtdItem" class="java.lang.Double"/>
 	<field name="SaldoAtual" class="java.lang.Double"/>
 	<group name="DataMov">

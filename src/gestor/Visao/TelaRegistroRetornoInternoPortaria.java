@@ -773,9 +773,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                                         .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel11)
                                     .addComponent(jOrigemOperacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
@@ -818,6 +816,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {confirmadoRetorno, jNrDocumento});
 
+        jTabelaItensInterno.setAutoCreateRowSorter(true);
         jTabelaItensInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(

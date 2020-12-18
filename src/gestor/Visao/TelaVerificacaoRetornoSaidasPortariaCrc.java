@@ -112,6 +112,7 @@ public class TelaVerificacaoRetornoSaidasPortariaCrc extends javax.swing.JIntern
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaEntradaSaidaPortariaCrc.setAutoCreateRowSorter(true);
         jTabelaEntradaSaidaPortariaCrc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaSaidaPortariaCrc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

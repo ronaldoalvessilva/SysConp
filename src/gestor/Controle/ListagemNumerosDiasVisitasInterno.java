@@ -58,6 +58,7 @@ public class ListagemNumerosDiasVisitasInterno {
                 pAtivaSSF.setDataEntradaVisita(conecta.rs.getDate("DataEntrada"));
                 listaVisitasInternos.add(pAtivaSSF);
                 pQUANTIDADE_VISITA_FAMILIA_INT = pQUANTIDADE_VISITA_FAMILIA_INT + 1;
+                
             }
             return listaVisitasInternos;
         } catch (SQLException ex) {

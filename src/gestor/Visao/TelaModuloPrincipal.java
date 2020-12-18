@@ -1460,7 +1460,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         carregando.setVisible(true);//Teste tela aguarde
         Thread t = new Thread() { //Teste tela aguarde
             public void run() { //Teste
-                pMODULO_EDUCACAO_fisica();
+                pMODULO_farmacia();
                 carregando.dispose(); //Teste tela aguarde
             }
         }; //Teste tela aguarde
@@ -2263,7 +2263,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
     private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
         Produtividade pPSP = new Produtividade();
-        pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pPSP.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pPSP.setExtendedState(MAXIMIZED_BOTH);
         pPSP.setVisible(true);
     }//GEN-LAST:event_jBtProdutividadeActionPerformed
