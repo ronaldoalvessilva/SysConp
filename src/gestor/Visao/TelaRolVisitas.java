@@ -1001,7 +1001,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jCombBoxStatusVisita.setEnabled(false);
 
         jComboBoxParentesco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", " " }));
+        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", "Neto(a)", "Outros" }));
         jComboBoxParentesco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxParentesco.setEnabled(false);
 
@@ -1850,12 +1850,12 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     controle.incluirItensRol(objItenRol);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarVisita();
                     preencherTabelaItens("SELECT * FROM ITENSROL "
                             + "INNER JOIN VISITASINTERNO "
                             + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
                             + "WHERE IdRol='" + jIDRol.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarVisita();
                 }
                 if (acao == 4) {
                     // Para o log do registro
@@ -1871,12 +1871,12 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     controle.alterarItensRol(objItenRol);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarVisita();
                     preencherTabelaItens("SELECT * FROM ITENSROL "
                             + "INNER JOIN VISITASINTERNO "
                             + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
                             + "WHERE IdRol='" + jIDRol.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarVisita();
                 }
             }
         } else {
@@ -1931,8 +1931,8 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             //
             jIDVisita.setText("");
             jNomeVisita.setText("");
-            jComboBoxParentesco.removeAllItems();
-            jComboBoxParentesco.addItem("Selecione...");
+            jComboBoxParentesco.removeItem(null);
+            jComboBoxParentesco.setSelectedItem("Selecione...");
             jCombBoxStatusVisita.setSelectedItem(null);
             jDataNascVisita.setDate(null);
             jDataCadaVisita.setDate(null);
@@ -2006,7 +2006,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             jBtCancelarVisita.setEnabled(true);
             jBtAuditoriaVisitas.setEnabled(true);
             //
-            jComboBoxParentesco.removeAllItems();
+            jComboBoxParentesco.removeItem(null);
             //
             conecta.abrirConexao();
             try {
@@ -2015,7 +2015,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                         + "ITENSROL.IdVisita, "
                         + "VISITASINTERNO.NomeVisita, "
                         + "ITENSROL.IdItemRol, "
-                        + "VISITASINTERNO.ParentescoVisita, "
+                        + "ITENSROL.ParentescoVisita, "
                         + "VISITASINTERNO.StatusVisita, "
                         + "VISITASINTERNO.DataNasc, "
                         + "VISITASINTERNO.ImagemVisita, "
@@ -2032,7 +2032,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 jIDVisita.setText(conecta.rs.getString("IdVisita")); // Coluna 0
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita")); // Coluna 1
                 idItem = conecta.rs.getString("IdItemRol"); // Coluna 2
-                jComboBoxParentesco.addItem(conecta.rs.getString("ParentescoVisita"));
+                jComboBoxParentesco.setSelectedItem(conecta.rs.getString("ParentescoVisita"));
                 jCombBoxStatusVisita.setSelectedItem(conecta.rs.getString("StatusVisita"));
                 jDataNascVisita.setDate(conecta.rs.getDate("DataNasc"));
                 // Capturando foto
@@ -3083,8 +3083,8 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         // Limpar os campos para inclusão
         jIDVisita.setText("");
         jNomeVisita.setText("");
-        jComboBoxParentesco.removeAllItems();
-        jComboBoxParentesco.addItem("Selecione...");
+        jComboBoxParentesco.removeItem(null);
+        jComboBoxParentesco.setSelectedItem("Selecione...");
         jCombBoxStatusVisita.setSelectedItem(null);
         jDataNascVisita.setDate(null);
         jDataCadaVisita.setDate(null);
@@ -3131,8 +3131,8 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
 
         jIDVisita.setText("");
         jNomeVisita.setText("");
-        jComboBoxParentesco.removeAllItems();
-        jComboBoxParentesco.addItem("Selecione...");
+        jComboBoxParentesco.removeItem(null);
+        jComboBoxParentesco.setSelectedItem("Selecione...");
         jCombBoxStatusVisita.setSelectedItem(null);
         jDataNascVisita.setDate(null);
         jDataCadaVisita.setDate(null);
@@ -3203,7 +3203,8 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         // Visita externa
         jIDVisita.setText("");
         jNomeVisita.setText("");
-        jComboBoxParentesco.setSelectedItem("Selecione..");
+        jComboBoxParentesco.removeItem(null);
+        jComboBoxParentesco.setSelectedItem("Selecione...");
         jCombBoxStatusVisita.setSelectedItem(null);
         jDataNascVisita.setDate(null);
         jDataCadaVisita.setDate(null);
