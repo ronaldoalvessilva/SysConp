@@ -1513,8 +1513,7 @@ public class TelaConsultaVisitaSocial extends javax.swing.JInternalFrame {
 
     public void formatarCampos() {
 
-        jNomeVisita.setDocument(new LimiteDigitos(50));
-        jParentesco.setDocument(new LimiteDigitos(50));
+        jNomeVisita.setDocument(new LimiteDigitos(50));        
         jEnderecoVisita.setDocument(new LimiteDigitosAlfa(50));
         jCidade.setDocument(new LimiteDigitos(50));
         jBairroVisita.setDocument(new LimiteDigitos(50));

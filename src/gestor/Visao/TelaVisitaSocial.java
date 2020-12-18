@@ -173,7 +173,6 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jNomeVisita = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jParentesco = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jDataCadastro = new com.toedter.calendar.JDateChooser();
@@ -189,6 +188,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         jLabel30 = new javax.swing.JLabel();
         jNacionalidade = new javax.swing.JTextField();
         jBtVerificarDoc = new javax.swing.JButton();
+        jComboBoxParentesco = new javax.swing.JComboBox<>();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -668,9 +668,6 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Grau Parentesco");
 
-        jParentesco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jParentesco.setEnabled(false);
-
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Dt. Nascimento");
 
@@ -733,6 +730,11 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
             }
         });
 
+        jComboBoxParentesco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", " " }));
+        jComboBoxParentesco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxParentesco.setEnabled(false);
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -740,54 +742,49 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNacionalidade)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel30))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jNacionalidade)
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jDataNascVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBoxAdultoCrianca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxVistaIntima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtVerificarDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jIDVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jComboBoxSexo, 0, 108, Short.MAX_VALUE))
+                                .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addGap(10, 10, 10))
-                                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jParentesco)
-                            .addComponent(jNomeVisita, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())))
+                                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jDataNascVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxAdultoCrianca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                            .addComponent(jComboBoxVistaIntima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtVerificarDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jIDVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jComboBoxSexo, 0, 108, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(10, 10, 10))
+                            .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jNomeVisita, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel30)
+                    .addComponent(jComboBoxParentesco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -797,11 +794,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel29)
-                            .addComponent(jLabel11)))
+                        .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -818,11 +811,14 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jNomeVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel28)))
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxAdultoCrianca, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1419,7 +1415,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
                 objVisita.setStatusVisita((String) jComboBoxStatus.getSelectedItem());
                 objVisita.setNomeVisita(jNomeVisita.getText());
                 objVisita.setFoto(caminhoVisitasInternos);
-                objVisita.setParentescoVisita(jParentesco.getText());
+                objVisita.setParentescoVisita((String)jComboBoxParentesco.getSelectedItem());
                 objVisita.setDataNascVisita(jDataNascVisita.getDate());
                 objVisita.setSexoVisita((String) jComboBoxSexo.getSelectedItem());
                 objVisita.setDataCadVisita(jDataCadastro.getDate());
@@ -1586,7 +1582,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
                     jLabelFoto.setIcon(icon);
                 }
                 //
-                jParentesco.setText(conecta.rs.getString("ParentescoVisita"));
+                jComboBoxParentesco.setSelectedItem(conecta.rs.getString("ParentescoVisita"));
                 jDataNascVisita.setDate(conecta.rs.getDate("DataNasc"));
                 jComboBoxSexo.setSelectedItem(conecta.rs.getString("SexoVisita"));
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadVisita"));
@@ -1662,7 +1658,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         count = 0;
         flag = 1;
         if (jGrauParentesco.getText().equals("")) {
-            JOptionPane.showMessageDialog(jParentesco, "Informe o parentesco para pesquisa.");
+            JOptionPane.showMessageDialog(jComboBoxParentesco, "Informe o parentesco para pesquisa.");
         } else {
             jTabelaVisitas.setVisible(true);
             preencherVisitasNome("SELECT * FROM VISITASINTERNO WHERE ParentescoVisita LIKE'%" + jGrauParentesco.getText() + "%'");
@@ -1794,6 +1790,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JTextField jCidade;
     private javax.swing.JComboBox jComboBoxAdultoCrianca;
+    public static javax.swing.JComboBox<String> jComboBoxParentesco;
     private javax.swing.JComboBox jComboBoxSexo;
     private javax.swing.JComboBox jComboBoxStatus;
     private javax.swing.JComboBox jComboBoxVistaIntima;
@@ -1862,7 +1859,6 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jParentesco;
     private javax.swing.JTextField jPesqNomeInterno;
     private javax.swing.JTextField jPesqNomeVisita;
     private javax.swing.JFormattedTextField jRG;
@@ -1883,7 +1879,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
     public void formatarCampos() {
 
         jNomeVisita.setDocument(new LimiteDigitos(50));
-        jParentesco.setDocument(new LimiteDigitos(50));
+//        jComboBoxParentesco.setDocument(new LimiteDigitos(50));
         jEnderecoVisita.setDocument(new LimiteDigitosAlfa(50));
         jCidade.setDocument(new LimiteDigitos(50));
         jBairroVisita.setDocument(new LimiteDigitos(50));
@@ -1904,7 +1900,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         jIDVisita.setBackground(Color.white);
         jComboBoxStatus.setBackground(Color.WHITE);
         jNomeVisita.setBackground(Color.WHITE);
-        jParentesco.setBackground(Color.WHITE);
+        jComboBoxParentesco.setBackground(Color.WHITE);
         jDataNascVisita.setBackground(Color.WHITE);
         jLabelFoto.setBackground(Color.WHITE);
         jComboBoxSexo.setBackground(Color.WHITE);
@@ -1932,7 +1928,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         jComboBoxStatus.setSelectedItem("Ativo");
         jComboBoxSexo.setSelectedItem("Masculino");
         jNomeVisita.setText("");
-        jParentesco.setText("");
+        jComboBoxParentesco.setSelectedItem("Selecione");
         jDataNascVisita.setCalendar(Calendar.getInstance());
         jLabelFoto.setIcon(null);
         jComboBoxAdultoCrianca.setSelectedItem("Selecione");
@@ -1956,7 +1952,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         // Habilitar/Desabilitar Campos
         jComboBoxStatus.setEnabled(true);
         jNomeVisita.setEnabled(true);
-        jParentesco.setEnabled(true);
+        jComboBoxParentesco.setEnabled(true);
         jDataNascVisita.setEnabled(true);
         jComboBoxAdultoCrianca.setEnabled(true);
         jComboBoxVistaIntima.setEnabled(true);
@@ -1995,7 +1991,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         // Habilitar/Desabilitar Campos
         jComboBoxStatus.setEnabled(true);
         jNomeVisita.setEnabled(true);
-        jParentesco.setEnabled(true);
+        jComboBoxParentesco.setEnabled(true);
         jDataNascVisita.setEnabled(true);
         jComboBoxAdultoCrianca.setEnabled(true);
         jComboBoxVistaIntima.setEnabled(true);
@@ -2037,7 +2033,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         jComboBoxStatus.setSelectedItem("Ativo");
         jComboBoxSexo.setSelectedItem("Masculino");
         jNomeVisita.setText("");
-        jParentesco.setText("");
+        jComboBoxParentesco.setSelectedItem("Selecione");
         jDataNascVisita.setDate(null);
         jComboBoxAdultoCrianca.setSelectedItem("Selecione");
         jComboBoxVistaIntima.setSelectedItem("Não");
@@ -2062,7 +2058,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         // Habilitar/Desabilitar Campos
         jComboBoxStatus.setEnabled(!true);
         jNomeVisita.setEnabled(!true);
-        jParentesco.setEnabled(!true);
+        jComboBoxParentesco.setEnabled(!true);
         jDataNascVisita.setEnabled(!true);
         jComboBoxAdultoCrianca.setEnabled(!true);
         jComboBoxVistaIntima.setEnabled(!true);
@@ -2102,7 +2098,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         // Habilitar/Desabilitar Campos
         jComboBoxStatus.setEnabled(!true);
         jNomeVisita.setEnabled(!true);
-        jParentesco.setEnabled(!true);
+        jComboBoxParentesco.setEnabled(!true);
         jDataNascVisita.setEnabled(!true);
         jComboBoxAdultoCrianca.setEnabled(!true);
         jComboBoxVistaIntima.setEnabled(!true);
@@ -2144,7 +2140,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
             jComboBoxStatus.setSelectedItem("Ativo");
             jComboBoxSexo.setSelectedItem("Masculino");
             jNomeVisita.setText("");
-            jParentesco.setText("");
+            jComboBoxParentesco.setSelectedItem("Selecione");
             jDataNascVisita.setDate(null);
             jComboBoxAdultoCrianca.setSelectedItem("Selecione");
             jComboBoxVistaIntima.setSelectedItem("Não");
@@ -2168,7 +2164,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
             //
             jComboBoxStatus.setEnabled(!true);
             jNomeVisita.setEnabled(!true);
-            jParentesco.setEnabled(!true);
+            jComboBoxParentesco.setEnabled(!true);
             jDataNascVisita.setEnabled(!true);
             jComboBoxAdultoCrianca.setEnabled(!true);
             jComboBoxVistaIntima.setEnabled(!true);
@@ -2206,7 +2202,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         } else {
             jComboBoxStatus.setEnabled(!true);
             jNomeVisita.setEnabled(!true);
-            jParentesco.setEnabled(!true);
+            jComboBoxParentesco.setEnabled(!true);
             jDataNascVisita.setEnabled(!true);
             jComboBoxAdultoCrianca.setEnabled(!true);
             jComboBoxVistaIntima.setEnabled(!true);

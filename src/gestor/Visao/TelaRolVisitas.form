@@ -1636,7 +1636,7 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
+                      <StringArray count="19">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Companheiro(a)"/>
                         <StringItem index="2" value="Esposo(a)"/>
@@ -1649,7 +1649,13 @@
                         <StringItem index="9" value="Filho(a)"/>
                         <StringItem index="10" value="M&#xe3;e Adotiva"/>
                         <StringItem index="11" value="Pai Adotivo"/>
-                        <StringItem index="12" value=" "/>
+                        <StringItem index="12" value="Padastro"/>
+                        <StringItem index="13" value="Madastra"/>
+                        <StringItem index="14" value="Cunhado(a)"/>
+                        <StringItem index="15" value="Primo(a)"/>
+                        <StringItem index="16" value="Genro"/>
+                        <StringItem index="17" value="Nora"/>
+                        <StringItem index="18" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

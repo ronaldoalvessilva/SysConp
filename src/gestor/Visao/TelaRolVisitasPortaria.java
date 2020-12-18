@@ -1349,7 +1349,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                         + "ITENSROL.IdVisita, "
                         + "VISITASINTERNO.NomeVisita, "
                         + "ITENSROL.IdItemRol, "
-                        + "ITENSROL.ParentescoVisita, "
+                        + "VISITASINTERNO.ParentescoVisita, "
                         + "VISITASINTERNO.StatusVisita, "
                         + "VISITASINTERNO.DataNasc, "
                         + "VISITASINTERNO.ImagemVisita, "
