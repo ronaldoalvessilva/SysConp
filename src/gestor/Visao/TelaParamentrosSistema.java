@@ -3332,10 +3332,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
-    private javax.swing.JButton jBtAlterarImp;
+    public static javax.swing.JButton jBtAlterarImp;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtExcluirImp;
+    public static javax.swing.JButton jBtExcluirImp;
     private javax.swing.JButton jBtNovoImp;
     private javax.swing.JButton jBtPesqColaboradorCRC;
     private javax.swing.JButton jBtPesqColaboradorCRCSEG;
@@ -3370,7 +3370,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxDocTrans;
     private javax.swing.JComboBox<String> jComboBoxEducacaoFisica;
     private javax.swing.JComboBox jComboBoxEnfermeiros;
-    private javax.swing.JComboBox<String> jComboBoxHabilitar;
+    public static javax.swing.JComboBox<String> jComboBoxHabilitar;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB1;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB2;
     private javax.swing.JComboBox<String> jComboBoxHabilitarVisitantesBaseI;

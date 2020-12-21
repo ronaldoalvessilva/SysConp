@@ -25,6 +25,8 @@ import static gestor.Visao.TelaParamentrosSistema.pCOD_mod;
 import static gestor.Visao.TelaParamentrosSistema.pCOD_tel;
 import static gestor.Visao.TelaParamentrosSistema.pMOD;
 import static gestor.Visao.TelaParamentrosSistema.pTELA;
+import static gestor.Visao.TelaPesquisaModuloTela_CONF.pMODp;
+import static gestor.Visao.TelaPesquisaModuloTela_CONF.pTELAp;
 
 /**
  *
@@ -316,6 +318,39 @@ public class ControleParamentrosCrc {
                     + "WHERE NomeTela='" + jComboBoxTelaImplementacao.getSelectedItem() + "' ");
             conecta.rs.first();
             pCODIGO_PESQUISA_tela = conecta.rs.getInt("IdTelas");
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objParCrc;
+    }
+    
+    public ParametrosCrc pPESQUISAR_REGISTRO_selecionado(ParametrosCrc objParCrc) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdImp, "
+                    + "IMPLEMENTACAO_SISTEMA.IdModulo, "
+                    + "IMPLEMENTACAO_SISTEMA.IdTelas, "
+                    + "TELAS.NomeTela, "
+                    + "MODULOS.NomeModulo, "
+                    + "IMPLEMENTACAO_SISTEMA.IdPar, "
+                    + "IMPLEMENTACAO_SISTEMA.Habilitar "
+                    + "FROM IMPLEMENTACAO_SISTEMA "
+                    + "INNER JOIN MODULOS "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdModulo=MODULOS.IdModulo "
+                    + "INNER JOIN TELAS "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdTelas=TELAS.IdTelas "
+                    + "INNER JOIN PARAMETROSCRC "
+                    + "ON IMPLEMENTACAO_SISTEMA.IdPar=PARAMETROSCRC.IdPar "
+                    + "WHERE TELAS.NomeTela='" + pMODp + "' "
+                    + "AND MODULOS.NomeModulo='" + pTELAp + "'");
+            conecta.rs.first();
+            pCODIGO_registro = conecta.rs.getInt("IdImp");
+            objParCrc.setHabilitarImp(conecta.rs.getString("Habilitar"));
+            objParCrc.setIdModulo(conecta.rs.getInt("IdModulo"));
+            objParCrc.setNomeModulo(conecta.rs.getString("NomeModulo"));
+            objParCrc.setIdTelas(conecta.rs.getInt("IdTelas"));
+            objParCrc.setNomeTela(conecta.rs.getString("NomeTela"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
