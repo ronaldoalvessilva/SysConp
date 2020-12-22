@@ -100,6 +100,11 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
     String codigoRegistroGrava;
     public static int codigoPavilhao = 0;
     String confirmacaoUso = "Não"; // VARIAVEL QUE CONTROLA SE O PAVILHAO CONFIRMOU O REGISTRO
+    //
+    public static int pVARIOS_INTERNOS_POR_visita = 0;
+    
+    
+    
     /**
      * Creates new form TelaEntradaSaidaVistasInternos
      */

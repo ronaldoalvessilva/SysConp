@@ -26,10 +26,12 @@ import gestor.Modelo.Digital;
 import gestor.Modelo.EntradaSaidaVisitasInternos;
 import gestor.Modelo.ItensEntradaSaidaVisitasInternos;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PesquisaInternosRolVisitasPortaria;
 import gestor.Modelo.VisitaInterno;
 import static gestor.Visao.TelaEntradaSaidaVisitasInternos.jIDlanc;
 import static gestor.Visao.TelaEntradaSaidaVisitasInternos.jTabelaVisitasInternos;
 import static gestor.Visao.TelaEntradaSaidaVisitasInternos.jtotalItens;
+import static gestor.Visao.TelaEntradaSaidaVisitasInternos.pVARIOS_INTERNOS_POR_visita;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -130,6 +132,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
      * Creates new form TelaAcessoBiometria
      */
     public static TelaEntradaSaidaVisitasInternos entradaSaidaBiometria;
+    public static TelaPesquisaInternosRolVarios pPESQUISAR_INTERNOS_visita;
 
     public TelaAcessoBiometria(TelaEntradaSaidaVisitasInternos parent, boolean modal) {
         this.entradaSaidaBiometria = parent;
@@ -140,6 +143,10 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
         verificarVisitasBiometrica();
     }
 
+//    public void MOSTRAR_LISTA_internos() {
+//        pPESQUISAR_INTERNOS_visita = new TelaPesquisaInternosRolVarios(this, true);
+//        pPESQUISAR_INTERNOS_visita.setVisible(true);
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -598,6 +605,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
     private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
         // TODO add your handling code here:    
         Novo();
+        pPESQUISAR_INTERNOS_visita = new TelaPesquisaInternosRolVarios(this, true);
         // Instanciar a DLL
         CIS_SDK dll = CIS_SDK.INSTANCE;
         //
@@ -849,7 +857,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                 //
                 byte[] pDigitalCap = pDigital.getByteArray(0, 669);
                 pDigitalCapturada = pDigitalCap; // SALVAR DIGITAL NO BANCO DE DADOS - ANALISANDO
-                //
+                //               
                 ControleVisitaInterno digiControl = new ControleVisitaInterno();
                 Digital d = new Digital();
                 int pVar = 0;
@@ -886,110 +894,150 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                     int iRetornod3 = dll.CIS_SDK_Biometrico_CompararDigital(pr1, pr5);
                     // VERIFICAR SE A DIGITAL É IGUAL AO DEDO UM                  
                     if (iRetorno == 1) {
-                        jIdRol.setText(String.valueOf(dd.getIdRol()));
-                        jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
-                        jNomeInternoBio.setText(dd.getNomeInternoCrc());
-                        jRegimePenal.setText(dd.getRegime());
-                        codigoPavilhao = dd.getIdPav();
-                        jPavilhao.setText(dd.getPavilhao());
-                        jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
-                        caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        if (caminhoFotoVisita != null) {
-                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                            jFotoVisita.setIcon(a);
-                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        //VERIFICAR SE A VISITA TEM MAIS DE UM INTERNO A SER VISITADO
+                        //SE TIVER MAIS DE UM INTERNO CADASTADO NO ROL, IRÁ MOSTRAR NA TELA
+                        //PARA SER ESCOLHIDO PELO USUÁRIO.
+                        ControleVisitaInterno CONTROLE_internos = new ControleVisitaInterno();
+                        PesquisaInternosRolVisitasPortaria objPesInterno = new PesquisaInternosRolVisitasPortaria();
+                        CONTROLE_internos.pPESQUISAR_QUANTIDADE_internos(objPesInterno);
+                        if (pVARIOS_INTERNOS_POR_visita > 1) {
+                            pPESQUISAR_INTERNOS_visita.setVisible(true);
+                        } else {
+                            jIdRol.setText(String.valueOf(dd.getIdRol()));
+                            jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                            jNomeInternoBio.setText(dd.getNomeInternoCrc());
+                            jRegimePenal.setText(dd.getRegime());
+                            codigoPavilhao = dd.getIdPav();
+                            jPavilhao.setText(dd.getPavilhao());
+                            jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
+                            caminhoFotoVisita = dd.getCaminhoFotoVisita();
+                            if (caminhoFotoVisita != null) {
+                                javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                                jFotoVisita.setIcon(a);
+                                jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                            imagemFreteVisitaVI = dd.getImagemFrenteVI();
+                            if (imagemFreteVisitaVI != null) {
+                                ImageIcon pic = null;
+                                pic = new ImageIcon(imagemFreteVisitaVI);
+                                Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaled);
+                                jFotoVisita.setIcon(icon);
+                            }
+                            jGrauParentesco.setText(dd.getGrauParentesco());
+                            jNomeVisitante.setText(dd.getNomeVisita());
+                            JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                            int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                            return;
                         }
-                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                        imagemFreteVisitaVI = dd.getImagemFrenteVI();
-                        if (imagemFreteVisitaVI != null) {
-                            ImageIcon pic = null;
-                            pic = new ImageIcon(imagemFreteVisitaVI);
-                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
-                            ImageIcon icon = new ImageIcon(scaled);
-                            jFotoVisita.setIcon(icon);
-                        }
-                        jGrauParentesco.setText(dd.getGrauParentesco());
-                        jNomeVisitante.setText(dd.getNomeVisita());
-                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
-                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
-                        return;
                         // VERIFICAR SE A DIGITAL É IGUAL AO DEDO DOIS
                     } else if (iRetornod1 == 1) {
-                        jIdRol.setText(String.valueOf(dd.getIdRol()));
-                        jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
-                        jNomeInternoBio.setText(dd.getNomeInternoCrc());
-                        jRegimePenal.setText(dd.getRegime());
-                        codigoPavilhao = dd.getIdPav();
-                        jPavilhao.setText(dd.getPavilhao());
-                        jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
-                        caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        if (caminhoFotoVisita != null) {
-                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                            jFotoVisita.setIcon(a);
-                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        //VERIFICAR SE A VISITA TEM MAIS DE UM INTERNO A SER VISITADO
+                        //SE TIVER MAIS DE UM INTERNO CADASTADO NO ROL, IRÁ MOSTRAR NA TELA
+                        //PARA SER ESCOLHIDO PELO USUÁRIO.
+                        ControleVisitaInterno CONTROLE_internos = new ControleVisitaInterno();
+                        PesquisaInternosRolVisitasPortaria objPesInterno = new PesquisaInternosRolVisitasPortaria();
+                        CONTROLE_internos.pPESQUISAR_QUANTIDADE_internos(objPesInterno);
+                        if (pVARIOS_INTERNOS_POR_visita > 1) {
+                            pPESQUISAR_INTERNOS_visita.setVisible(true);
+                        } else {
+                            jIdRol.setText(String.valueOf(dd.getIdRol()));
+                            jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                            jNomeInternoBio.setText(dd.getNomeInternoCrc());
+                            jRegimePenal.setText(dd.getRegime());
+                            codigoPavilhao = dd.getIdPav();
+                            jPavilhao.setText(dd.getPavilhao());
+                            jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
+                            caminhoFotoVisita = dd.getCaminhoFotoVisita();
+                            if (caminhoFotoVisita != null) {
+                                javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                                jFotoVisita.setIcon(a);
+                                jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                            imagemFreteVisitaVI = dd.getImagemFrenteVI();
+                            if (imagemFreteVisitaVI != null) {
+                                ImageIcon pic = null;
+                                pic = new ImageIcon(imagemFreteVisitaVI);
+                                Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaled);
+                                jFotoVisita.setIcon(icon);
+                            }
+                            jGrauParentesco.setText(dd.getGrauParentesco());
+                            jNomeVisitante.setText(dd.getNomeVisita());
+                            JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                            int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                            return;
                         }
-                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                        imagemFreteVisitaVI = dd.getImagemFrenteVI();
-                        if (imagemFreteVisitaVI != null) {
-                            ImageIcon pic = null;
-                            pic = new ImageIcon(imagemFreteVisitaVI);
-                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
-                            ImageIcon icon = new ImageIcon(scaled);
-                            jFotoVisita.setIcon(icon);
-                        }
-                        jGrauParentesco.setText(dd.getGrauParentesco());
-                        jNomeVisitante.setText(dd.getNomeVisita());
-                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
-                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
-                        return;
                         // VERIFICAR SE A DIGITAL É IGUAL AO DEDO TRÊS
                     } else if (iRetornod2 == 1) {
-                        jIdRol.setText(String.valueOf(dd.getIdRol()));
-                        jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
-                        jNomeInternoBio.setText(dd.getNomeInternoCrc());
-                        jRegimePenal.setText(dd.getRegime());
-                        codigoPavilhao = dd.getIdPav();
-                        jPavilhao.setText(dd.getPavilhao());
-                        jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
-                        caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
-                        jGrauParentesco.setText(dd.getGrauParentesco());
-                        jNomeVisitante.setText(dd.getNomeVisita());
-                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
-                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
-                        return;
-                        // VERIFICAR SE A DIGITAL É IGUAL AO DEDO QUATRO
-                    } else if (iRetornod3 == 1) {
-                        jIdRol.setText(String.valueOf(dd.getIdRol()));
-                        jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
-                        jNomeInternoBio.setText(dd.getNomeInternoCrc());
-                        jRegimePenal.setText(dd.getRegime());
-                        codigoPavilhao = dd.getIdPav();
-                        jPavilhao.setText(dd.getPavilhao());
-                        jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
-                        caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        if (caminhoFotoVisita != null) {
+                        //VERIFICAR SE A VISITA TEM MAIS DE UM INTERNO A SER VISITADO
+                        //SE TIVER MAIS DE UM INTERNO CADASTADO NO ROL, IRÁ MOSTRAR NA TELA
+                        //PARA SER ESCOLHIDO PELO USUÁRIO.
+                        ControleVisitaInterno CONTROLE_internos = new ControleVisitaInterno();
+                        PesquisaInternosRolVisitasPortaria objPesInterno = new PesquisaInternosRolVisitasPortaria();
+                        CONTROLE_internos.pPESQUISAR_QUANTIDADE_internos(objPesInterno);
+                        if (pVARIOS_INTERNOS_POR_visita > 1) {
+                            pPESQUISAR_INTERNOS_visita.setVisible(true);
+                        } else {
+                            jIdRol.setText(String.valueOf(dd.getIdRol()));
+                            jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                            jNomeInternoBio.setText(dd.getNomeInternoCrc());
+                            jRegimePenal.setText(dd.getRegime());
+                            codigoPavilhao = dd.getIdPav();
+                            jPavilhao.setText(dd.getPavilhao());
+                            jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
+                            caminhoFotoVisita = dd.getCaminhoFotoVisita();
                             javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
                             jFotoVisita.setIcon(a);
                             jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                            //
+                            jGrauParentesco.setText(dd.getGrauParentesco());
+                            jNomeVisitante.setText(dd.getNomeVisita());
+                            JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                            int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                            return;
                         }
-                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                        imagemFreteVisitaVI = dd.getImagemFrenteVI();
-                        if (imagemFreteVisitaVI != null) {
-                            ImageIcon pic = null;
-                            pic = new ImageIcon(imagemFreteVisitaVI);
-                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
-                            ImageIcon icon = new ImageIcon(scaled);
-                            jFotoVisita.setIcon(icon);
+                        // VERIFICAR SE A DIGITAL É IGUAL AO DEDO QUATRO
+                    } else if (iRetornod3 == 1) {
+                        //VERIFICAR SE A VISITA TEM MAIS DE UM INTERNO A SER VISITADO
+                        //SE TIVER MAIS DE UM INTERNO CADASTADO NO ROL, IRÁ MOSTRAR NA TELA
+                        //PARA SER ESCOLHIDO PELO USUÁRIO.
+                        ControleVisitaInterno CONTROLE_internos = new ControleVisitaInterno();
+                        PesquisaInternosRolVisitasPortaria objPesInterno = new PesquisaInternosRolVisitasPortaria();
+                        CONTROLE_internos.pPESQUISAR_QUANTIDADE_internos(objPesInterno);
+                        if (pVARIOS_INTERNOS_POR_visita > 1) {
+                            pPESQUISAR_INTERNOS_visita.setVisible(true);
+                        } else {
+                            jIdRol.setText(String.valueOf(dd.getIdRol()));
+                            jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                            jNomeInternoBio.setText(dd.getNomeInternoCrc());
+                            jRegimePenal.setText(dd.getRegime());
+                            codigoPavilhao = dd.getIdPav();
+                            jPavilhao.setText(dd.getPavilhao());
+                            jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
+                            caminhoFotoVisita = dd.getCaminhoFotoVisita();
+                            if (caminhoFotoVisita != null) {
+                                javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                                jFotoVisita.setIcon(a);
+                                jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                            }
+                            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                            imagemFreteVisitaVI = dd.getImagemFrenteVI();
+                            if (imagemFreteVisitaVI != null) {
+                                ImageIcon pic = null;
+                                pic = new ImageIcon(imagemFreteVisitaVI);
+                                Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                                ImageIcon icon = new ImageIcon(scaled);
+                                jFotoVisita.setIcon(icon);
+                            }
+                            jGrauParentesco.setText(dd.getGrauParentesco());
+                            jNomeVisitante.setText(dd.getNomeVisita());
+                            JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                            int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                            return;
                         }
-                        jGrauParentesco.setText(dd.getGrauParentesco());
-                        jNomeVisitante.setText(dd.getNomeVisita());
-                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
-                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
-                        return;
                     }
                     // SE TODOS AS DIGITAIS FOREM IGUAL A -2 , DIGITAL NÃO CADASTRADA
                     if (iRetorno == -2 && iRetornod1 == -2 && iRetornod2 == -2 && iRetornod3 == -2 && qtdVisitas == pVar) {

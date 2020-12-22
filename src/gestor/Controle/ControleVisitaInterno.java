@@ -7,7 +7,11 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.Digital;
+import gestor.Modelo.PesquisaInternosRolVisitasPortaria;
 import gestor.Modelo.VisitaInterno;
+import static gestor.Visao.TelaEntradaSaidaVisitasInternos.pVARIOS_INTERNOS_POR_visita;
+import static gestor.Visao.TelaPesquisaInternosRolVarios.idInt;
+import static gestor.Visao.TelaPesquisaInternosRolVarios.idVisita;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +28,9 @@ public class ControleVisitaInterno {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     VisitaInterno objVisita = new VisitaInterno();
+    PesquisaInternosRolVisitasPortaria objPesInterno = new PesquisaInternosRolVisitasPortaria();
+    Digital pDigi = new Digital();
+    //
     String pBio = null;
     public static int count = 0;
     public static int qtdVisitas = 0;
@@ -140,7 +147,7 @@ public class ControleVisitaInterno {
 
     public List<Digital> read() throws Exception {
         conecta.abrirConexao();
-        List<Digital> listaVisitas = new ArrayList<Digital>();       
+        List<Digital> listaVisitas = new ArrayList<Digital>();
         try {
             conecta.executaSQL("SELECT "
                     + "ITENSROL.StatusVisita, "
@@ -176,9 +183,9 @@ public class ControleVisitaInterno {
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE VISITASINTERNO.BiometriaDedo1!='" + pBio + "' "
-                    + "AND ITENSROL.StatusVisita='" + statusVisita  + "' "
-                    + "AND ROLVISITAS.StatusRol='" + statusRol + "'"); 
-            while (conecta.rs.next()) {                      
+                    + "AND ITENSROL.StatusVisita='" + statusVisita + "' "
+                    + "AND ROLVISITAS.StatusRol='" + statusRol + "'");
+            while (conecta.rs.next()) {
                 Digital pDigi = new Digital();
                 pDigi.setIdRol(conecta.rs.getInt("IdRol"));
                 pDigi.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
@@ -186,7 +193,7 @@ public class ControleVisitaInterno {
                 pDigi.setRegime(conecta.rs.getString("Regime"));
                 pDigi.setIdPav(conecta.rs.getInt("IdPav"));
                 pDigi.setPavilhao(conecta.rs.getString("DescricaoPav"));
-                pDigi.setIdVisita(conecta.rs.getInt("IdVisita"));                
+                pDigi.setIdVisita(conecta.rs.getInt("IdVisita"));
                 pDigi.setNomeVisita(conecta.rs.getString("NomeVisita"));
                 pDigi.setCaminhoFotoVisita(conecta.rs.getString("ImagemVisita"));
                 pDigi.setGrauParentesco(conecta.rs.getString("ParentescoVisita"));
@@ -195,8 +202,8 @@ public class ControleVisitaInterno {
                 pDigi.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
                 pDigi.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
                 pDigi.setImagemFrenteVI(conecta.rs.getBytes("ImagemFrenteVI"));
-                listaVisitas.add(pDigi);       
-                qtdVisitas ++;
+                listaVisitas.add(pDigi);
+                qtdVisitas++;
             }
             return listaVisitas;
         } catch (SQLException ex) {
@@ -205,5 +212,193 @@ public class ControleVisitaInterno {
             conecta.desconecta();
         }
         return null;
+    }
+
+    //CRIADO EM (22/12/2020)
+    public List<PesquisaInternosRolVisitasPortaria> INTERNOS_read() throws Exception {
+        pVARIOS_INTERNOS_POR_visita = 0;
+        conecta.abrirConexao();
+        List<PesquisaInternosRolVisitasPortaria> listaInternos = new ArrayList<PesquisaInternosRolVisitasPortaria>();
+        try {
+            conecta.executaSQL("SELECT ITENSROL.IdRol, "
+                    + "ROLVISITAS.StatusRol,"
+                    + "ITENSROL.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "DADOSPENAISINTERNOS.Regime, "
+                    + "CELAS.IdPav, "
+                    + "PAVILHAO.DescricaoPav, "
+                    + "ITENSROL.IdVisita, "
+                    + "VISITASINTERNO.NomeVisita, "
+                    + "ITENSROL.StatusVisita, "
+                    + "VISITASINTERNO.ImagemVisita, "
+                    + "ITENSROL.ParentescoVisita, "
+                    + "VISITASINTERNO.BiometriaDedo1, "
+                    + "VISITASINTERNO.BiometriaDedo2, "
+                    + "VISITASINTERNO.BiometriaDedo3, "
+                    + "VISITASINTERNO.BiometriaDedo4, "
+                    + "VISITASINTERNO.ImagemFrenteVI "
+                    + "FROM ITENSROL "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON VISITASINTERNO.IdVisita=ITENSROL.IdVisita "
+                    + "INNER JOIN ROLVISITAS "
+                    + "ON ITENSROL.IdRol=ROLVISITAS.IdRol "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ROLVISITAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE ITENSROL.IdVisita='" + pDigi.getIdVisita() + "'"
+                    + "AND ITENSROL.StatusVisita='" + statusVisita + "' "
+                    + "AND ROLVISITAS.StatusRol='" + statusRol + "'");
+            while (conecta.rs.next()) {
+                PesquisaInternosRolVisitasPortaria pDigi = new PesquisaInternosRolVisitasPortaria();
+                pDigi.setIdRol(conecta.rs.getInt("IdRol"));
+                pDigi.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                pDigi.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pDigi.setRegime(conecta.rs.getString("Regime"));
+                pDigi.setIdPav(conecta.rs.getInt("IdPav"));
+                pDigi.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
+                pDigi.setIdVisita(conecta.rs.getInt("IdVisita"));
+                pDigi.setNomeVisita(conecta.rs.getString("NomeVisita"));
+                pDigi.setImagemVisita(conecta.rs.getString("ImagemVisita"));
+                pDigi.setParentescoVisita(conecta.rs.getString("ParentescoVisita"));
+                pDigi.setBiometriaDedo1(conecta.rs.getBytes("BiometriaDedo1"));
+                pDigi.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
+                pDigi.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
+                pDigi.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
+                pDigi.setImagemFrenteVI(conecta.rs.getBytes("ImagemFrenteVI"));
+                listaInternos.add(pDigi);
+                pVARIOS_INTERNOS_POR_visita++;
+            }
+            return listaInternos;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleVisitaInterno.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    //CRIADO EM (22/12/2020)
+    public PesquisaInternosRolVisitasPortaria pPESQUISAR_QUANTIDADE_internos(PesquisaInternosRolVisitasPortaria parentescoVisita) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT ITENSROL.IdRol, "
+                    + "ROLVISITAS.StatusRol,"
+                    + "ITENSROL.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "DADOSPENAISINTERNOS.Regime, "
+                    + "CELAS.IdPav, "
+                    + "PAVILHAO.DescricaoPav, "
+                    + "ITENSROL.IdVisita, "
+                    + "VISITASINTERNO.NomeVisita, "
+                    + "ITENSROL.StatusVisita, "
+                    + "VISITASINTERNO.ImagemVisita, "
+                    + "ITENSROL.ParentescoVisita, "
+                    + "VISITASINTERNO.BiometriaDedo1, "
+                    + "VISITASINTERNO.BiometriaDedo2, "
+                    + "VISITASINTERNO.BiometriaDedo3, "
+                    + "VISITASINTERNO.BiometriaDedo4, "
+                    + "VISITASINTERNO.ImagemFrenteVI "
+                    + "FROM ITENSROL "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON VISITASINTERNO.IdVisita=ITENSROL.IdVisita "
+                    + "INNER JOIN ROLVISITAS "
+                    + "ON ITENSROL.IdRol=ROLVISITAS.IdRol "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ROLVISITAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE ITENSROL.IdVisita='" + pDigi.getIdVisita() + "'"
+                    + "AND ITENSROL.StatusVisita='" + statusVisita + "' "
+                    + "AND ROLVISITAS.StatusRol='" + statusRol + "'");
+            while (conecta.rs.next()) {
+                objPesInterno.setIdRol(conecta.rs.getInt("IdRol"));
+                objPesInterno.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                objPesInterno.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                objPesInterno.setRegime(conecta.rs.getString("Regime"));
+                objPesInterno.setIdPav(conecta.rs.getInt("IdPav"));
+                objPesInterno.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
+                objPesInterno.setIdVisita(conecta.rs.getInt("IdVisita"));
+                objPesInterno.setNomeVisita(conecta.rs.getString("NomeVisita"));
+                objPesInterno.setImagemVisita(conecta.rs.getString("ImagemVisita"));
+                objPesInterno.setParentescoVisita(conecta.rs.getString("ParentescoVisita"));
+                objPesInterno.setBiometriaDedo1(conecta.rs.getBytes("BiometriaDedo1"));
+                objPesInterno.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
+                objPesInterno.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
+                objPesInterno.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
+                objPesInterno.setImagemFrenteVI(conecta.rs.getBytes("ImagemFrenteVI"));
+                pVARIOS_INTERNOS_POR_visita++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleVisitaInterno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+        return objPesInterno;
+    }
+
+    public PesquisaInternosRolVisitasPortaria pPESQUISAR_registro(PesquisaInternosRolVisitasPortaria parentescoVisita) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT ITENSROL.IdRol, "
+                    + "ROLVISITAS.StatusRol,"
+                    + "ITENSROL.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "DADOSPENAISINTERNOS.Regime, "
+                    + "CELAS.IdPav, "
+                    + "PAVILHAO.DescricaoPav, "
+                    + "ITENSROL.IdVisita, "
+                    + "VISITASINTERNO.NomeVisita, "
+                    + "ITENSROL.StatusVisita, "
+                    + "VISITASINTERNO.ImagemVisita, "
+                    + "ITENSROL.ParentescoVisita, "
+                    + "VISITASINTERNO.BiometriaDedo1, "
+                    + "VISITASINTERNO.BiometriaDedo2, "
+                    + "VISITASINTERNO.BiometriaDedo3, "
+                    + "VISITASINTERNO.BiometriaDedo4, "
+                    + "VISITASINTERNO.ImagemFrenteVI "
+                    + "FROM ITENSROL "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON VISITASINTERNO.IdVisita=ITENSROL.IdVisita "
+                    + "INNER JOIN ROLVISITAS "
+                    + "ON ITENSROL.IdRol=ROLVISITAS.IdRol "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ROLVISITAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE ITENSROL.IdInternoCrc='" + idInt + "' "
+                    + "AND ITENSROL.IdVisita='" + idVisita + "'");
+            conecta.rs.first();
+            objPesInterno.setIdRol(conecta.rs.getInt("IdRol"));
+            objPesInterno.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+            objPesInterno.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+            objPesInterno.setRegime(conecta.rs.getString("Regime"));
+            objPesInterno.setIdPav(conecta.rs.getInt("IdPav"));
+            objPesInterno.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
+            objPesInterno.setIdVisita(conecta.rs.getInt("IdVisita"));
+            objPesInterno.setNomeVisita(conecta.rs.getString("NomeVisita"));
+            objPesInterno.setImagemVisita(conecta.rs.getString("ImagemVisita"));
+            objPesInterno.setParentescoVisita(conecta.rs.getString("ParentescoVisita"));
+            objPesInterno.setBiometriaDedo1(conecta.rs.getBytes("BiometriaDedo1"));
+            objPesInterno.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
+            objPesInterno.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
+            objPesInterno.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
+            objPesInterno.setImagemFrenteVI(conecta.rs.getBytes("ImagemFrenteVI"));
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objPesInterno;
     }
 }
