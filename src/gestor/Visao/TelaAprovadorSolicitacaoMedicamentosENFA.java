@@ -219,10 +219,11 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaAprovadores.setAutoCreateRowSorter(true);
         jTabelaAprovadores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAprovadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Tipo Aprovação", "Observação"
