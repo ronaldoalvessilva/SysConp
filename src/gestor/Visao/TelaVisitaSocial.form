@@ -351,6 +351,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="jTabelaVisitas">
                   <Properties>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                         <BevelBorder bevelType="1"/>
@@ -1127,7 +1128,7 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="21">
+                      <StringArray count="25">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Companheiro(a)"/>
                         <StringItem index="2" value="Esposo(a)"/>
@@ -1138,17 +1139,21 @@
                         <StringItem index="7" value="Pai"/>
                         <StringItem index="8" value="M&#xe3;e"/>
                         <StringItem index="9" value="Filho(a)"/>
-                        <StringItem index="10" value="M&#xe3;e Adotiva"/>
-                        <StringItem index="11" value="Pai Adotivo"/>
-                        <StringItem index="12" value="Padastro"/>
-                        <StringItem index="13" value="Madastra"/>
-                        <StringItem index="14" value="Cunhado(a)"/>
-                        <StringItem index="15" value="Primo(a)"/>
-                        <StringItem index="16" value="Genro"/>
-                        <StringItem index="17" value="Nora"/>
-                        <StringItem index="18" value="Neto(a)"/>
-                        <StringItem index="19" value="Outros"/>
-                        <StringItem index="20" value=" "/>
+                        <StringItem index="10" value="Filho(a) Adotivo"/>
+                        <StringItem index="11" value="M&#xe3;e Adotiva"/>
+                        <StringItem index="12" value="Pai Adotivo"/>
+                        <StringItem index="13" value="Padastro"/>
+                        <StringItem index="14" value="Madastra"/>
+                        <StringItem index="15" value="Cunhado(a)"/>
+                        <StringItem index="16" value="Primo(a)"/>
+                        <StringItem index="17" value="Genro"/>
+                        <StringItem index="18" value="Nora"/>
+                        <StringItem index="19" value="Neto(a)"/>
+                        <StringItem index="20" value="Enteado(a)"/>
+                        <StringItem index="21" value="Bisneto(a)"/>
+                        <StringItem index="22" value="Namorado(a)"/>
+                        <StringItem index="23" value="Outros"/>
+                        <StringItem index="24" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
