@@ -24,7 +24,7 @@ Cunhado(a)
 Enteado(a)
 Neto(a)
 Bisneto(a)
-
+Namorado(a)
 */
 
 SELECT * FROM VISITASINTERNO
