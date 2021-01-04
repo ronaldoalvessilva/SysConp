@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -82,7 +84,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
-
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaLocacaoInterno objLoca = null;
     private TelaTransCelas objTransCelas = null;
@@ -119,6 +123,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private TelaConsultaInternosIsolamento objConIsola = null;
     private TelaConsultaConfere objConsultaConf = null;
     private BaralhoCrimeUnidadePrisional objBC = null;
+    //
+    private TelaGrupoArmas objGrupoArma = null;
     //
     String pathFoto;
     String dataLanc;
@@ -194,6 +200,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaBloqueioLiberacaoVisitasPortaria = "Movimentação:Bloqueio Liberação Visitas Portaria:Manutenção";
     //
     public static String telaBaralhoCrimeUnidadePrisional = "Movimentação:Organograma do Crime:Manutenção";
+    //CONTROLE DE ARMAS E EPI
+    public static String telaGrupoArmas = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Grupos Armas:Manutenção";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomePA = "";
@@ -240,6 +248,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     //
     String pNomeBC = "";
     //
+    String pNomeGR = "";
+    //
     public static int codigoUser = 0;
     public static int codUserAcesso = 0;
     public static int codigoUserGroup = 0;
@@ -260,6 +270,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem(); // A cada 5 minutos verifica mensagem 
     }
 
@@ -272,7 +283,6 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
         jPainelSeguranca = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -313,7 +323,21 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator21 = new javax.swing.JPopupMenu.Separator();
         jConfere = new javax.swing.JMenuItem();
+        jControleArmasEPI = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jGruposArmas = new javax.swing.JMenuItem();
+        jGruposEPIS = new javax.swing.JMenuItem();
+        jAcessorios = new javax.swing.JMenuItem();
+        jSeparator28 = new javax.swing.JPopupMenu.Separator();
+        jCadastroArmas = new javax.swing.JMenuItem();
+        jCadastroEPIS = new javax.swing.JMenuItem();
+        jSeparator27 = new javax.swing.JPopupMenu.Separator();
+        jMovimentacaoArmas = new javax.swing.JMenu();
+        jEntradasArmas = new javax.swing.JMenuItem();
+        jSaidasArmas = new javax.swing.JMenuItem();
+        jDevolucaoArmas = new javax.swing.JMenuItem();
+        ControlePertences = new javax.swing.JMenu();
         ObjetosInternos = new javax.swing.JMenuItem();
         LocalPertencesInternos = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
@@ -353,7 +377,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMenu7 = new javax.swing.JMenu();
         RelatorioGeralPavilhaoCelas = new javax.swing.JMenuItem();
         ListagemConfere = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jRelatorioConfere2 = new javax.swing.JMenuItem();
         MapaConfere = new javax.swing.JMenuItem();
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         ConferePorOrdemAlfabeticaP1 = new javax.swing.JMenuItem();
@@ -378,8 +402,6 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         Utilitarios = new javax.swing.JMenu();
         CalculadoraPena = new javax.swing.JMenuItem();
         CalculadoraWindows = new javax.swing.JMenuItem();
-
-        jMenuItem1.setText("jMenuItem1");
 
         setClosable(true);
         setIconifiable(true);
@@ -612,7 +634,54 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Consultas);
 
-        jMenu2.setText("Controle Pertences");
+        jControleArmasEPI.setText("Controle de Armas e EPI´s");
+
+        jMenu2.setText("Cadastros Armas, EPI´s e Acessórios");
+
+        jMenu3.setText("Grupos");
+
+        jGruposArmas.setText("Grupos Armas");
+        jGruposArmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGruposArmasActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jGruposArmas);
+
+        jGruposEPIS.setText("Grupos EPI´s");
+        jMenu3.add(jGruposEPIS);
+
+        jMenu2.add(jMenu3);
+
+        jAcessorios.setText("Acessórios");
+        jMenu2.add(jAcessorios);
+        jMenu2.add(jSeparator28);
+
+        jCadastroArmas.setText("Armas");
+        jMenu2.add(jCadastroArmas);
+
+        jCadastroEPIS.setText("EPI´s");
+        jMenu2.add(jCadastroEPIS);
+
+        jControleArmasEPI.add(jMenu2);
+        jControleArmasEPI.add(jSeparator27);
+
+        jMovimentacaoArmas.setText("Movimentação");
+
+        jEntradasArmas.setText("Entradas");
+        jMovimentacaoArmas.add(jEntradasArmas);
+
+        jSaidasArmas.setText("Saídas");
+        jMovimentacaoArmas.add(jSaidasArmas);
+
+        jDevolucaoArmas.setText("Devolução");
+        jMovimentacaoArmas.add(jDevolucaoArmas);
+
+        jControleArmasEPI.add(jMovimentacaoArmas);
+
+        jMenuBar1.add(jControleArmasEPI);
+
+        ControlePertences.setText("Controle Pertences");
 
         ObjetosInternos.setText("Pertences dos Internos");
         ObjetosInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -620,7 +689,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
                 ObjetosInternosActionPerformed(evt);
             }
         });
-        jMenu2.add(ObjetosInternos);
+        ControlePertences.add(ObjetosInternos);
 
         LocalPertencesInternos.setText("Local Estoque Pertences de Internos");
         LocalPertencesInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -628,8 +697,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
                 LocalPertencesInternosActionPerformed(evt);
             }
         });
-        jMenu2.add(LocalPertencesInternos);
-        jMenu2.add(jSeparator20);
+        ControlePertences.add(LocalPertencesInternos);
+        ControlePertences.add(jSeparator20);
 
         EntradaPertences.setText("Entrada de Pertences de Internos");
         EntradaPertences.addActionListener(new java.awt.event.ActionListener() {
@@ -637,7 +706,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
                 EntradaPertencesActionPerformed(evt);
             }
         });
-        jMenu2.add(EntradaPertences);
+        ControlePertences.add(EntradaPertences);
 
         SaidaPertencesInternos.setText("Saida de Pertences de Internos");
         SaidaPertencesInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -645,9 +714,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
                 SaidaPertencesInternosActionPerformed(evt);
             }
         });
-        jMenu2.add(SaidaPertencesInternos);
+        ControlePertences.add(SaidaPertencesInternos);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(ControlePertences);
 
         Movimentacao.setText("Movimentação");
         Movimentacao.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -854,13 +923,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         });
         jMenu7.add(ListagemConfere);
 
-        jMenuItem4.setText("Listagem de Confere II");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jRelatorioConfere2.setText("Listagem de Confere II");
+        jRelatorioConfere2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jRelatorioConfere2ActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem4);
+        jMenu7.add(jRelatorioConfere2);
 
         MapaConfere.setText("Mapa de Confere");
         MapaConfere.addActionListener(new java.awt.event.ActionListener() {
@@ -2492,11 +2561,45 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RelPavilhaoActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jRelatorioConfere2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioConfere2ActionPerformed
         TelaRelatorioConfere2 objRelConfere = new TelaRelatorioConfere2();
         TelaModuloSeguranca.jPainelSeguranca.add(objRelConfere);
         objRelConfere.show();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jRelatorioConfere2ActionPerformed
+
+    private void jGruposArmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGruposArmasActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaGrupoArmas);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaGrupoArmas) && codAbrir == 1) {
+            if (objGrupoArma == null || objBC.isClosed()) {
+                objGrupoArma = new TelaGrupoArmas();
+                jPainelSeguranca.add(objGrupoArma);
+                objGrupoArma.setVisible(true);
+            } else {
+                if (objGrupoArma.isVisible()) {
+                    if (objGrupoArma.isIcon()) { // Se esta minimizado
+                        try {
+                            objGrupoArma.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objGrupoArma.toFront(); // traz para frente
+                        objGrupoArma.pack();//volta frame 
+                    }
+                } else {
+                    objGrupoArma = new TelaGrupoArmas();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objBC);//adicona frame ao JDesktopPane  
+                    objGrupoArma.setVisible(true);
+                }
+            }
+            try {
+                objGrupoArma.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jGruposArmasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2515,6 +2618,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem ConfereRealizadoPorPavilhao;
     private javax.swing.JMenu Consultas;
     private javax.swing.JMenu ControleDisciplinarInternos;
+    private javax.swing.JMenu ControlePertences;
     private javax.swing.JMenuItem ControleSaidaLaborativa;
     private javax.swing.JMenuItem ControleValores;
     private javax.swing.JMenuItem EntradaPertences;
@@ -2564,23 +2668,33 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem TransferenciaPavilhaoCela;
     private javax.swing.JMenu Utilitarios;
     private javax.swing.JMenuItem VisitasInternos;
+    private javax.swing.JMenuItem jAcessorios;
+    private javax.swing.JMenuItem jCadastroArmas;
+    private javax.swing.JMenuItem jCadastroEPIS;
     private javax.swing.JMenuItem jConfere;
     private javax.swing.JMenuItem jConsultaInternosIsolamento;
+    private javax.swing.JMenu jControleArmasEPI;
+    private javax.swing.JMenuItem jDevolucaoArmas;
+    private javax.swing.JMenuItem jEntradasArmas;
+    private javax.swing.JMenuItem jGruposArmas;
+    private javax.swing.JMenuItem jGruposEPIS;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenu jMovimentacaoArmas;
     private javax.swing.JMenuItem jNIM;
     public static javax.swing.JDesktopPane jPainelSeguranca;
+    private javax.swing.JMenuItem jRelatorioConfere2;
     private javax.swing.JMenuItem jRelatorioInternosComSemTornozeleira;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
+    private javax.swing.JMenuItem jSaidasArmas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -2599,6 +2713,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator25;
+    private javax.swing.JPopupMenu.Separator jSeparator27;
+    private javax.swing.JPopupMenu.Separator jSeparator28;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3244,6 +3360,14 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeBC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // CONTROLE DE ARMAS E APIS  
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaGrupoArmas + "'");
+            conecta.rs.first();
+            pNomeGR = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomePA.equals(telaPavilhao) || pNomePA == null || pNomePA.equals("")) {
             buscarCodigoModulo();
@@ -3481,6 +3605,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaBaralhoCrimeUnidadePrisional);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //CONTROLE DE ARMAS E EPI  
+        if (!pNomeGR.equals(telaGrupoArmas) || pNomeGR == null || pNomeGR.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaGrupoArmas);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
@@ -3495,4 +3626,30 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         }
     }
 
+    public void PESQUISAR_LIBERACAO_implementacao() {
+//        PESQUISAR_IMPLEMENTA_SEG_001(telaConsultaKitsEntreguePrincipal_AL);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_SEG_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleArmasEPI.setVisible(!true);
+            jSeparator27.setVisible(!true);
+            jSeparator28.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jControleArmasEPI.setVisible(!true);
+            jSeparator27.setVisible(!true);
+            jSeparator28.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jControleArmasEPI.setVisible(!true);
+            jSeparator27.setVisible(!true);
+            jSeparator28.setVisible(!true);
+        } else {
+            jControleArmasEPI.setVisible(true);
+            jSeparator27.setVisible(true);
+            jSeparator28.setVisible(true);
+        }
+    }
 }
