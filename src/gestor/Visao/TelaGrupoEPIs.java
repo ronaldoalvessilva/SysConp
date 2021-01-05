@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleAcessoGeral;
 import gestor.Controle.ControleGrupoArmas;
+import gestor.Controle.ControleGrupoEPIs;
 import gestor.Controle.ControleLogSistema;
 import gestor.Modelo.CamposAcessos;
 import gestor.Modelo.GrupoArmasEPIs;
@@ -15,6 +16,7 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloSeguranca.telaGrupoArmas;
+import static gestor.Visao.TelaModuloSeguranca.telaGrupoEPIs;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -29,19 +31,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ronaldo.silva7
  */
-public class TelaGrupoArmas extends javax.swing.JInternalFrame {
+public class TelaGrupoEPIs extends javax.swing.JInternalFrame {
 
     //
     ControleAcessoGeral pPESQUISAR_acessos = new ControleAcessoGeral();
     CamposAcessos objCampos = new CamposAcessos();
     //
-    ControleGrupoArmas control = new ControleGrupoArmas();
+    ControleGrupoEPIs control = new ControleGrupoEPIs();
     GrupoArmasEPIs objGrupoArm = new GrupoArmasEPIs();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Segurança:Grupo de Armas:Manutenção";
+    String nomeModuloTela = "Segurança:Grupo de EPI´s:Manutenção";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -54,17 +56,17 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaGrupoArmas
      */
-    public static TelaAuditoriaGrupoArmas pAUDI_gr;
+    public static TelaAuditoriaGrupoEPIs pAUDI_gr_epis;
 
-    public TelaGrupoArmas() {
+    public TelaGrupoEPIs() {
         initComponents();
         formatarCampos();
         corCampos();
     }
 
     public void mostrarAuditoria() {
-        pAUDI_gr = new TelaAuditoriaGrupoArmas(this, true);
-        pAUDI_gr.setVisible(true);
+        pAUDI_gr_epis = new TelaAuditoriaGrupoEPIs(this, true);
+        pAUDI_gr_epis.setVisible(true);
     }
 
     /**
@@ -84,7 +86,7 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
         jCheckBoxPesqTodos = new javax.swing.JCheckBox();
         jBtPesqNomeGrupo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTabelaGrupo = new javax.swing.JTable();
+        jTabelaGrupoEPIs = new javax.swing.JTable();
         jPanel31 = new javax.swing.JPanel();
         jPanel30 = new javax.swing.JPanel();
         jLabel67 = new javax.swing.JLabel();
@@ -114,7 +116,7 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Grupos de Armas :::...");
+        setTitle("...::: Grupos de EPI´s :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -168,9 +170,9 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabelaGrupo.setAutoCreateRowSorter(true);
-        jTabelaGrupo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaGrupo.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaGrupoEPIs.setAutoCreateRowSorter(true);
+        jTabelaGrupoEPIs.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaGrupoEPIs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -186,19 +188,19 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTabelaGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaGrupoEPIs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaGrupoMouseClicked(evt);
+                jTabelaGrupoEPIsMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jTabelaGrupo);
-        if (jTabelaGrupo.getColumnModel().getColumnCount() > 0) {
-            jTabelaGrupo.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaGrupo.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaGrupo.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaGrupo.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaGrupo.getColumnModel().getColumn(2).setMinWidth(250);
-            jTabelaGrupo.getColumnModel().getColumn(2).setMaxWidth(250);
+        jScrollPane2.setViewportView(jTabelaGrupoEPIs);
+        if (jTabelaGrupoEPIs.getColumnModel().getColumnCount() > 0) {
+            jTabelaGrupoEPIs.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaGrupoEPIs.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaGrupoEPIs.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaGrupoEPIs.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaGrupoEPIs.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaGrupoEPIs.getColumnModel().getColumn(2).setMaxWidth(250);
         }
 
         jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -299,7 +301,7 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
         jComboBoxStatus.setEnabled(false);
 
         jComboBoxDescricaoGrupo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDescricaoGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Arma de Fogo", "Arma Branca", "Arma Quimica", "Arma Elétrica", "Arma de Ar Comprimido", "Arma de Cerco", "Bastão" }));
+        jComboBoxDescricaoGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Proteção das Mãos e Membros Superiores", "Proteção dos Membros Inferiores", "Proteção Auricular", "Proteção Respiratória" }));
         jComboBoxDescricaoGrupo.setToolTipText("");
         jComboBoxDescricaoGrupo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDescricaoGrupo.setEnabled(false);
@@ -518,25 +520,25 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaGrupo.getModel();
+            DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaGrupoEPIs.getModel();
             try {
                 for (GrupoArmasEPIs gg : control.TODOS_read()) {
                     jtotalRegistros.setText(Integer.toString(pTOTAL_grupo)); // Converter inteiro em string para exibir na tela 
                     dadosOrigem.addRow(new Object[]{gg.getIdGrupArma(), gg.getStatusArmaEPI(), gg.getDescricaoArma()});
                     // BARRA DE ROLAGEM HORIZONTAL
-                    jTabelaGrupo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    jTabelaGrupoEPIs.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
                     DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                     centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                     //
-                    jTabelaGrupo.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                    jTabelaGrupo.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaGrupoEPIs.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaGrupoEPIs.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 }
                 if (pTOTAL_grupo == 0) {
                     JOptionPane.showMessageDialog(null, "Não existem dados da serem exibidos...");
                 }
             } catch (Exception ex) {
-                Logger.getLogger(TelaGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaGrupoEPIs.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             limparTabela();
@@ -549,31 +551,31 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
         if (jPesqNomeGrupoArma.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome para pesquisa.");
         } else {
-            DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaGrupo.getModel();
+            DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaGrupoEPIs.getModel();
             try {
                 for (GrupoArmasEPIs gg : control.pNOME_GRUPO_read()) {
                     jtotalRegistros.setText(Integer.toString(pTOTAL_grupo)); // Converter inteiro em string para exibir na tela 
                     dadosOrigem.addRow(new Object[]{gg.getIdGrupArma(), gg.getStatusArmaEPI(), gg.getDescricaoArma()});
                     // BARRA DE ROLAGEM HORIZONTAL
-                    jTabelaGrupo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    jTabelaGrupoEPIs.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
                     DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                     centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                     //
-                    jTabelaGrupo.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                    jTabelaGrupo.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaGrupoEPIs.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaGrupoEPIs.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(TelaGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaGrupoEPIs.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jBtPesqNomeGrupoActionPerformed
 
-    private void jTabelaGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaGrupoMouseClicked
+    private void jTabelaGrupoEPIsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaGrupoEPIsMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            pID_grupo = "" + jTabelaGrupo.getValueAt(jTabelaGrupo.getSelectedRow(), 0);
-            String nomeGrupo = "" + jTabelaGrupo.getValueAt(jTabelaGrupo.getSelectedRow(), 2);
+            pID_grupo = "" + jTabelaGrupoEPIs.getValueAt(jTabelaGrupoEPIs.getSelectedRow(), 0);
+            String nomeGrupo = "" + jTabelaGrupoEPIs.getValueAt(jTabelaGrupoEPIs.getSelectedRow(), 2);
             jPesqNomeGrupoArma.setText(nomeGrupo);
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(true);
@@ -590,19 +592,19 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
                     jObservacaoGrupo.setText(gg.getObsercacao());
                 }
             } catch (Exception ex) {
-                Logger.getLogger(TelaGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaGrupoEPIs.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jTabelaGrupoMouseClicked
+    }//GEN-LAST:event_jTabelaGrupoEPIsMouseClicked
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaGrupoArmas);
+        objCampos.setNomeTelaAcesso(telaGrupoEPIs);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoArmas) && objCampos.getCodigoIncluir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoEPIs) && objCampos.getCodigoIncluir() == 1) {
             acao = 1;
             limparCampos();
             bloquearBotoes(!true);
@@ -618,11 +620,11 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaGrupoArmas);
+        objCampos.setNomeTelaAcesso(telaGrupoEPIs);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoArmas) && objCampos.getCodigoAlterar() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoEPIs) && objCampos.getCodigoAlterar() == 1) {
             acao = 2;
             bloquearBotoes(!true);
             Alterar();
@@ -637,11 +639,11 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaGrupoArmas);
+        objCampos.setNomeTelaAcesso(telaGrupoEPIs);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoArmas) && objCampos.getCodigoExcluir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoEPIs) && objCampos.getCodigoExcluir() == 1) {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -669,11 +671,11 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaGrupoArmas);
+        objCampos.setNomeTelaAcesso(telaGrupoEPIs);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoArmas) && objCampos.getCodigoGravar() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaGrupoEPIs) && objCampos.getCodigoGravar() == 1) {
             if (jComboBoxStatus.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o status do registro.");
             } else if (jDataCadastro.getDate() == null) {
@@ -771,7 +773,7 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaGrupo;
+    private javax.swing.JTable jTabelaGrupoEPIs;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -829,8 +831,8 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         // LIMPAR TABELA DE PRODUTOS SELECIONADOS PARA BAIXA
-        while (jTabelaGrupo.getModel().getRowCount() > 0) {
-            ((DefaultTableModel) jTabelaGrupo.getModel()).removeRow(0);
+        while (jTabelaGrupoEPIs.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaGrupoEPIs.getModel()).removeRow(0);
         }
         // LIMPAR O TOTALIZADOR DA TABELA PRODUTOS SELECIONADOS PARA BAIXA
         jtotalRegistros.setText("");

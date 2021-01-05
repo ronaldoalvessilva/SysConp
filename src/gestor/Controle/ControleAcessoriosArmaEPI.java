@@ -7,11 +7,11 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.GrupoArmasEPIs;
-import static gestor.Visao.TelaGrupoArmas.pTOTAL_grupo;
-import static gestor.Visao.TelaGrupoArmas.jPesqNomeGrupoArma;
-import static gestor.Visao.TelaGrupoArmas.pID_grupo;
-import static gestor.Visao.TelaGrupoArmas.pRESPOSTA_grupo;
-import static gestor.Visao.TelaGrupoArmas.jCodigoGrupo;
+import static gestor.Visao.TelaAcessoriosArmasEPIs.pTOTAL_grupo;
+import static gestor.Visao.TelaAcessoriosArmasEPIs.jPesqNomeGrupoArma;
+import static gestor.Visao.TelaAcessoriosArmasEPIs.pID_grupo;
+import static gestor.Visao.TelaAcessoriosArmasEPIs.pRESPOSTA_grupo;
+import static gestor.Visao.TelaAcessoriosArmasEPIs.jCodigoGrupo;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,16 +24,16 @@ import javax.swing.JOptionPane;
  *
  * @author ronaldo.silva7
  */
-public class ControleGrupoArmas {
+public class ControleAcessoriosArmaEPI {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     GrupoArmasEPIs objGrupoArm = new GrupoArmasEPIs();
 
-    public GrupoArmasEPIs incluirGrupoArmas(GrupoArmasEPIs objGrupoArm) {
+    public GrupoArmasEPIs incluirAcessoriosArmas(GrupoArmasEPIs objGrupoArm) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO GRUPO_ARMAS (StatusArma,DataCadastro,DescricaoArma,Obsercacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ACESSORIOS_ARMA_EPIs (StatusACE,DataCadastro,DescricaoArmaACE,Obsercacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
             pst.setString(1, objGrupoArm.getStatusArmaEPI());
             pst.setTimestamp(2, new java.sql.Timestamp(objGrupoArm.getDataCadastro().getTime()));
             pst.setString(3, objGrupoArm.getDescricaoArma());
@@ -51,11 +51,11 @@ public class ControleGrupoArmas {
         return objGrupoArm;
     }
 
-    public GrupoArmasEPIs alterarGrupoArmas(GrupoArmasEPIs objGrupoArm) {
+    public GrupoArmasEPIs alterarAcessoriosArmas(GrupoArmasEPIs objGrupoArm) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE GRUPO_ARMAS SET StatusArma=?,DataCadastro=?,DescricaoArma=?,Obsercacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdGrupoArm='" + objGrupoArm.getIdGrupArma() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA_EPIs SET StatusACE=?,DataCadastro=?,DescricaoArmaACE=?,Obsercacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdArmaACE='" + objGrupoArm.getIdGrupArma() + "'");
             pst.setString(1, objGrupoArm.getStatusArmaEPI());
             pst.setTimestamp(2, new java.sql.Timestamp(objGrupoArm.getDataCadastro().getTime()));
             pst.setString(3, objGrupoArm.getDescricaoArma());
@@ -73,11 +73,11 @@ public class ControleGrupoArmas {
         return objGrupoArm;
     }
 
-    public GrupoArmasEPIs excluirGrupoArmas(GrupoArmasEPIs objGrupoArm) {
+    public GrupoArmasEPIs excluirAcessoriosArmas(GrupoArmasEPIs objGrupoArm) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM GRUPO_ARMAS WHERE IdGrupoArm='" + objGrupoArm.getIdGrupArma() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ACESSORIOS_ARMA_EPIs WHERE IdArmaACE='" + objGrupoArm.getIdGrupArma() + "'");
             pst.executeUpdate();
             pRESPOSTA_grupo = "Sim";
         } catch (SQLException ex) {
@@ -93,24 +93,24 @@ public class ControleGrupoArmas {
         conecta.abrirConexao();
         List<GrupoArmasEPIs> listaGruposArmas = new ArrayList<GrupoArmasEPIs>();
         try {
-            conecta.executaSQL("SELECT IdGrupoArm,StatusArma, "
-                    + "DataCadastro,DescricaoArma, "
+            conecta.executaSQL("SELECT IdArmaACE,StatusACE, "
+                    + "DataCadastro,DescricaoArmaACE, "
                     + "Obsercacao "
-                    + "FROM GRUPO_ARMAS "
-                    + "ORDER BY DescricaoArma");
+                    + "FROM ACESSORIOS_ARMA_EPIs "
+                    + "ORDER BY DescricaoArmaACE");
             while (conecta.rs.next()) {
                 GrupoArmasEPIs pDigi = new GrupoArmasEPIs();
-                pDigi.setIdGrupArma(conecta.rs.getInt("IdGrupoArm"));
-                pDigi.setStatusArmaEPI(conecta.rs.getString("StatusArma"));
+                pDigi.setIdGrupArma(conecta.rs.getInt("IdArmaACE"));
+                pDigi.setStatusArmaEPI(conecta.rs.getString("StatusACE"));
                 pDigi.setDataCadastro(conecta.rs.getDate("DataCadastro"));
-                pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
+                pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArmaACE"));
                 pDigi.setObsercacao(conecta.rs.getString("Obsercacao"));
                 listaGruposArmas.add(pDigi);
                 pTOTAL_grupo++;
             }
             return listaGruposArmas;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleAcessoriosArmaEPI.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }
@@ -122,24 +122,24 @@ public class ControleGrupoArmas {
         conecta.abrirConexao();
         List<GrupoArmasEPIs> listaGruposArmas = new ArrayList<GrupoArmasEPIs>();
         try {
-            conecta.executaSQL("SELECT IdGrupoArm,StatusArma, "
-                    + "DataCadastro,DescricaoArma, "
+            conecta.executaSQL("SELECT IdArmaACE,StatusACE, "
+                    + "DataCadastro,DescricaoArmaACE, "
                     + "Obsercacao "
-                    + "FROM GRUPO_ARMAS "
-                    + "WHERE DescricaoArma LIKE'%" + jPesqNomeGrupoArma.getText() + "%' ");
+                    + "FROM ACESSORIOS_ARMA_EPIs "
+                    + "WHERE DescricaoArmaACE LIKE'%" + jPesqNomeGrupoArma.getText() + "%' ");
             while (conecta.rs.next()) {
                 GrupoArmasEPIs pDigi = new GrupoArmasEPIs();
-                pDigi.setIdGrupArma(conecta.rs.getInt("IdGrupoArm"));
-                pDigi.setStatusArmaEPI(conecta.rs.getString("StatusArma"));
+                pDigi.setIdGrupArma(conecta.rs.getInt("IdArmaACE"));
+                pDigi.setStatusArmaEPI(conecta.rs.getString("StatusACE"));
                 pDigi.setDataCadastro(conecta.rs.getDate("DataCadastro"));
-                pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
+                pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArmaACE"));
                 pDigi.setObsercacao(conecta.rs.getString("Obsercacao"));
                 listaGruposArmas.add(pDigi);
                 pTOTAL_grupo++;
             }
             return listaGruposArmas;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleAcessoriosArmaEPI.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }
@@ -151,24 +151,24 @@ public class ControleGrupoArmas {
         conecta.abrirConexao();
         List<GrupoArmasEPIs> listaGruposArmas = new ArrayList<GrupoArmasEPIs>();
         try {
-            conecta.executaSQL("SELECT IdGrupoArm,StatusArma, "
-                    + "DataCadastro,DescricaoArma, "
+            conecta.executaSQL("SELECT IdArmaACE,StatusACE, "
+                    + "DataCadastro,DescricaoArmaACE, "
                     + "Obsercacao "
-                    + "FROM GRUPO_ARMAS "
-                    + "WHERE IdGrupoArm='" + pID_grupo.toString().trim() + "' ");
+                    + "FROM ACESSORIOS_ARMA_EPIs "
+                    + "WHERE IdArmaACE='" + pID_grupo.toString().trim() + "' ");
             while (conecta.rs.next()) {
                 GrupoArmasEPIs pDigi = new GrupoArmasEPIs();
-                pDigi.setIdGrupArma(conecta.rs.getInt("IdGrupoArm"));
-                pDigi.setStatusArmaEPI(conecta.rs.getString("StatusArma"));
+                pDigi.setIdGrupArma(conecta.rs.getInt("IdArmaACE"));
+                pDigi.setStatusArmaEPI(conecta.rs.getString("StatusACE"));
                 pDigi.setDataCadastro(conecta.rs.getDate("DataCadastro"));
-                pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
+                pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArmaACE"));
                 pDigi.setObsercacao(conecta.rs.getString("Obsercacao"));
                 listaGruposArmas.add(pDigi);
                 pTOTAL_grupo++;
             }
             return listaGruposArmas;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleAcessoriosArmaEPI.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }
@@ -180,10 +180,10 @@ public class ControleGrupoArmas {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdGrupoArm "
-                    + "FROM GRUPO_ARMAS");
+                    + "IdArmaACE "
+                    + "FROM ACESSORIOS_ARMA_EPIs");
             conecta.rs.last();
-            jCodigoGrupo.setText(String.valueOf(conecta.rs.getInt("IdGrupoArm")));
+            jCodigoGrupo.setText(String.valueOf(conecta.rs.getInt("IdArmaACE")));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ENCONTRAR os Dados.\nERRO: " + ex);
         }

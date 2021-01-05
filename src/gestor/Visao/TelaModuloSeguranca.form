@@ -263,6 +263,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Grupos EPI&#xb4;s"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jGruposEPISActionPerformed"/>
+                      </Events>
                     </MenuItem>
                   </SubComponents>
                 </Menu>
@@ -270,6 +273,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Acess&#xf3;rios"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAcessoriosActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator28">
                 </MenuItem>
@@ -277,6 +283,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Armas"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCadastroArmasActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jCadastroEPIS">
                   <Properties>
