@@ -232,10 +232,12 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     String pNomeTPC = "";
     String pNomeCV = "";
     String pNomeCVI = "";
+    //
     String pNomeROP = "";
     String pNomeROPP = "";
-    String pNomeROO = "";
-    String pNomeROA = "";
+    String pNomeROPO = "";
+    String pNomeROPA = "";
+    //
     String pNomeRED = "";
     String pNomeREDA = "";
     String pNomeREDV = "";
@@ -3364,14 +3366,14 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRegistroObjetoObjetos + "'");
             conecta.rs.first();
-            pNomeROO = conecta.rs.getString("NomeTela");
+            pNomeROPO = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRegistroObjetoAgentes + "'");
             conecta.rs.first();
-            pNomeROA = conecta.rs.getString("NomeTela");
+            pNomeROPA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
@@ -3650,13 +3652,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaRegistroObjetoProcedimentoPavilhao);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeROO.equals(telaRegistroObjetoObjetos) || pNomeROO == null || pNomeROO.equals("")) {
+        if (!pNomeROPO.equals(telaRegistroObjetoObjetos) || pNomeROPO == null || pNomeROPO.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroObjetoObjetos);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeROA.equals(telaRegistroObjetoAgentes) || pNomeROA == null || pNomeROA.equals("")) {
+        if (!pNomeROPA.equals(telaRegistroObjetoAgentes) || pNomeROPA == null || pNomeROPA.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroObjetoAgentes);
@@ -3792,7 +3794,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     }
 
     public void PESQUISAR_LIBERACAO_implementacao() {
-//        PESQUISAR_IMPLEMENTA_SEG_001(telaConsultaKitsEntreguePrincipal_AL);
+        PESQUISAR_IMPLEMENTA_SEG_001(telaGrupoArmas);
     }
 
     public void PESQUISAR_IMPLEMENTA_SEG_001(String pNOME_tela) {
