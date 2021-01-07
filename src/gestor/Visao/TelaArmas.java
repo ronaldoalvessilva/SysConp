@@ -17,10 +17,20 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloSeguranca.telaArmas;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Currency;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -54,14 +64,24 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     public static String dataInicial;
     public static String dataFinal;
     String pDATA_Registros = "";
+    //
+    public static String caminho = "";
+    byte[] persona_imagem = null;
 
     /**
      * Creates new form TelaArmas
      */
+    public static TelaQRCode_Arama pQRCode;
+
     public TelaArmas() {
         initComponents();
         formatarCampos();
         corCampos();
+    }
+
+    public void mostrarQRCode() {
+        pQRCode = new TelaQRCode_Arama(this, true);
+        pQRCode.setVisible(true);
     }
 
     /**
@@ -349,11 +369,11 @@ public class TelaArmas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Data Cadastro", "Status", "Descrição do Grupo", "Modelo"
+                "Código", "Data Cadastro", "Status", "Descrição da Arma", "Modelo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -634,6 +654,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Mira");
 
+        jPesoArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPesoArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPesoArma.setEnabled(false);
 
@@ -652,15 +673,19 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("Comprim. Total");
 
+        jAlturaArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jAlturaArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAlturaArma.setEnabled(false);
 
+        jLarguraArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jLarguraArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLarguraArma.setEnabled(false);
 
+        jComprimentoCanoArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jComprimentoCanoArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComprimentoCanoArma.setEnabled(false);
 
+        jComprimentoTotalArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jComprimentoTotalArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComprimentoTotalArma.setEnabled(false);
 
@@ -719,7 +744,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLocalizacaoArma.setEnabled(false);
 
         jCustoArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCustoArma.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCustoArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jCustoArma.setText("0");
         jCustoArma.setEnabled(false);
 
@@ -727,10 +752,11 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLabel27.setText("Estoque");
 
         jEstoqueArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jEstoqueArma.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstoqueArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jEstoqueArma.setText("0");
         jEstoqueArma.setEnabled(false);
 
+        jBtAessorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/composer-preferences-icone-5121-16.png"))); // NOI18N
         jBtAessorios.setText("Acessórios");
         jBtAessorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -738,6 +764,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtQRCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/codigo-qr_16.png"))); // NOI18N
         jBtQRCode.setText("QRCode");
         jBtQRCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1025,7 +1052,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         jFotoArma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jFotoArma.setText("jLabel28");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1033,7 +1059,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jFotoArma, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addComponent(jFotoArma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1046,22 +1072,21 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "QRCode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jQRCodeArma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jQRCodeArma.setText("jLabel29");
+        jQRCodeArma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/codigo-qr_256.png"))); // NOI18N
+        jQRCodeArma.setEnabled(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jQRCodeArma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jQRCodeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jQRCodeArma, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jQRCodeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 245, Short.MAX_VALUE)
+                .addGap(3, 3, 3))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Código Barra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
@@ -1075,7 +1100,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCodigoBarraArma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCodigoBarraArma, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -1110,7 +1135,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         setBounds(300, 60, 914, 659);
@@ -1285,14 +1310,19 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (flag == 1) {
             pID_grupo = "" + jTabelaArmas.getValueAt(jTabelaArmas.getSelectedRow(), 0);
-            String nomeGrupo = "" + jTabelaArmas.getValueAt(jTabelaArmas.getSelectedRow(), 2);
-            jPesqDescricaoArma.setText(nomeGrupo);
-            jBtNovo.setEnabled(!true);
+            String nomeArma = "" + jTabelaArmas.getValueAt(jTabelaArmas.getSelectedRow(), 3);
+            jPesqDescricaoArma.setText(nomeArma);
+            //
+            bloquearBotoes(!true);
+            //
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
-            jBtSalvar.setEnabled(!true);
-            jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtHistorico.setEnabled(true);
+            jBtAessorios.setEnabled(true);
+            jBtQRCode.setEnabled(true);
+            jComboBoxGrupoArma.removeAllItems();
             try {
                 for (Arma aa : CONTROL.pCODIGO_GRUPO_read()) {
                     jIdArma.setText(String.valueOf(aa.getIdArma()));
@@ -1301,7 +1331,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     jDataCadastroArma.setDate(aa.getDataCadastroArma());
                     jComboBoxStatusArma.setSelectedItem(aa.getStatusArma());
                     jDescricaoArma.setText(aa.getDescricaoArma());
-                    jComboBoxGrupoArma.setSelectedItem(aa.getGrupoArma());
+                    jComboBoxGrupoArma.addItem(aa.getGrupoArma());
                     jMarcaArma.setText(aa.getMarcaArma());
                     jModeloArma.setText(aa.getModeloArma());
                     jCalibreArma.setText(aa.getCalibreArma());
@@ -1321,9 +1351,21 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     jDataLicencaArma.setDate(aa.getDataLicencaArma());
                     jComboBoxUnidadeArma.setSelectedItem(aa.getUnidadeArma());
                     jLocalizacaoArma.setText(aa.getLocalizacaoArma());
-                    jCustoArma.setText(aa.getCustoArma());
+                    jCustoArma.setText(Float.valueOf(aa.getCustoArma()).toString());
                     jEstoqueArma.setText(aa.getEstoqueArma());
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] imgBytes = ((byte[]) aa.getFotoArma());
+                    if (imgBytes != null) {
+                        ImageIcon pic = null;
+                        pic = new ImageIcon(imgBytes);
+                        Image scaled = pic.getImage().getScaledInstance(jFotoArma.getWidth(), jFotoArma.getHeight(), Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(scaled);
+                        jFotoArma.setIcon(icon);
+                    }
                 }
+//                if(){
+//                    
+//                }
             } catch (Exception ex) {
                 Logger.getLogger(TelaGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1413,6 +1455,8 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição da arma.");
             } else if (jComboBoxGrupoArma.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grupo que a arma pertence.");
+            }else if(caminho == null){
+                JOptionPane.showMessageDialog(rootPane, "Informe a foto da arma.");
             } else {
                 pBEANS_armas();
                 if (acao == 1) {
@@ -1443,6 +1487,9 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     CONTROL.alterarArmas(objArma);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos(!true);
+                    bloquearBotoes(!true);
+                    Salvar();
                     if (pRESPOSTA_grupo.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     } else {
@@ -1475,10 +1522,32 @@ public class TelaArmas extends javax.swing.JInternalFrame {
 
     private void jBtQRCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtQRCodeActionPerformed
         // TODO add your handling code here:
+        mostrarQRCode();
     }//GEN-LAST:event_jBtQRCodeActionPerformed
 
     private void jBtFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFotoActionPerformed
         // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            caminho = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminho).getImage().getScaledInstance(jFotoArma.getWidth(), jFotoArma.getHeight(), Image.SCALE_SMOOTH));
+            jFotoArma.setIcon(imagemicon);
+            try {
+                File image = new File(caminho);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem = bos.toByteArray();
+            } catch (Exception e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
+        }
     }//GEN-LAST:event_jBtFotoActionPerformed
 
     private void jBtHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtHistoricoActionPerformed
@@ -1491,7 +1560,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jAcabamentoArma;
+    public static javax.swing.JTextField jAcabamentoArma;
     private javax.swing.JTextField jAlturaArma;
     private javax.swing.JButton jBtAessorios;
     private javax.swing.JButton jBtAlterar;
@@ -1508,8 +1577,8 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtQRCode;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
-    private javax.swing.JTextField jCalibreArma;
-    private javax.swing.JTextField jCanoArma;
+    public static javax.swing.JTextField jCalibreArma;
+    public static javax.swing.JTextField jCanoArma;
     private javax.swing.JCheckBox jCheckBoxPesqTodos;
     private javax.swing.JLabel jCodigoBarraArma;
     private javax.swing.JTextField jCodigoPesquisaArma;
@@ -1523,7 +1592,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataLicencaArma;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
-    private javax.swing.JTextField jDescricaoArma;
+    public static javax.swing.JTextField jDescricaoArma;
     private javax.swing.JTextArea jDispositivoSegurancaArma;
     private javax.swing.JFormattedTextField jEstoqueArma;
     private javax.swing.JLabel jFotoArma;
@@ -1564,11 +1633,11 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jLarguraArma;
     private javax.swing.JTextField jLicencaArma;
     private javax.swing.JTextField jLocalizacaoArma;
-    private javax.swing.JTextField jMarcaArma;
-    private javax.swing.JTextField jMiraArma;
-    private javax.swing.JTextField jModeloArma;
+    public static javax.swing.JTextField jMarcaArma;
+    public static javax.swing.JTextField jMiraArma;
+    public static javax.swing.JTextField jModeloArma;
     private javax.swing.JTextField jNCMArma;
-    private javax.swing.JTextField jNumeroTirosArma;
+    public static javax.swing.JTextField jNumeroTirosArma;
     private javax.swing.JTextArea jOutrasCaracteristicasArma;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1581,14 +1650,14 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JTextField jPesoArma;
+    public static javax.swing.JTextField jPesoArma;
     public static javax.swing.JTextField jPesqDescricaoArma;
     private javax.swing.JLabel jQRCodeArma;
     private javax.swing.JTextField jRegistroArma;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jSerieArma;
+    public static javax.swing.JTextField jSerieArma;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaArmas;
     private javax.swing.JLabel jtotalRegistros;
@@ -1749,11 +1818,17 @@ public class TelaArmas extends javax.swing.JInternalFrame {
 
     public void Novo() {
         jDataCadastroArma.setCalendar(Calendar.getInstance());
+        //
+        jBtFoto.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
 
     public void Alterar() {
+        jBtFoto.setEnabled(true);
+        jBtCodigoBarra.setEnabled(true);
+        jBtAessorios.setEnabled(true);
+        jBtQRCode.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
@@ -1763,6 +1838,9 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     }
 
     public void Salvar() {
+        jBtCodigoBarra.setEnabled(true);
+        jBtAessorios.setEnabled(true);
+        jBtQRCode.setEnabled(true);
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
@@ -1794,6 +1872,8 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     }
 
     public void pBEANS_armas() {
+        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
         objArma.setSerieArma(jSerieArma.getText());
         objArma.setnCMArma(jNCMArma.getText());
         objArma.setDataCadastroArma(jDataCadastroArma.getDate());
@@ -1819,7 +1899,13 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         objArma.setDataLicencaArma(jDataLicencaArma.getDate());
         objArma.setUnidadeArma((String) jComboBoxUnidadeArma.getSelectedItem());
         objArma.setLocalizacaoArma(jLocalizacaoArma.getText());
-        objArma.setCustoArma(jCustoArma.getText());
+        objArma.setFotoArma(persona_imagem);
+        try {
+            objArma.setCustoArma(valorReal.parse(jCustoArma.getText()).floatValue());
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaArmas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         objArma.setEstoqueArma(jEstoqueArma.getText());
     }
 

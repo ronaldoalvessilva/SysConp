@@ -269,9 +269,11 @@
                     </MenuItem>
                   </SubComponents>
                 </Menu>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator26">
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jAcessorios">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Acess&#xf3;rios"/>
+                    <Property name="text" type="java.lang.String" value="Acess&#xf3;rios para Armas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAcessoriosActionPerformed"/>
@@ -286,6 +288,11 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCadastroArmasActionPerformed"/>
                   </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jEquipamentosSeguranca">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Equipamentos de Seguran&#xe7;a"/>
+                  </Properties>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jCadastroEPIS">
                   <Properties>

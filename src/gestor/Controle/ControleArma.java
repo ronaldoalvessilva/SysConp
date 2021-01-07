@@ -39,7 +39,7 @@ public class ControleArma {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ARMAS (SerieArma,NCMArma,DataCadastroArma,StatusArma,"
                     + "DescricaoArma,IdGrupoArm,MarcaArma,ModeloArma,CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma,PesoArma,MiraArma,AlturaArma,"
                     + "LarguraArma,ComprimentoCanoArma,ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma,RegistroArma,LicencaArma,"
-                    + "DataLicencaArma,UnidadeArma,LocalizacaoArma,CustoArma,EstoqueArma,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "DataLicencaArma,UnidadeArma,LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objArma.getSerieArma());
             pst.setString(2, objArma.getnCMArma());
             pst.setTimestamp(3, new java.sql.Timestamp(objArma.getDataCadastroArma().getTime()));
@@ -69,11 +69,12 @@ public class ControleArma {
             }
             pst.setString(24, objArma.getUnidadeArma());
             pst.setString(25, objArma.getLocalizacaoArma());
-            pst.setString(26, objArma.getCustoArma());
+            pst.setFloat(26, objArma.getCustoArma());
             pst.setString(27, objArma.getEstoqueArma());
-            pst.setString(28, objArma.getUsuarioInsert());
-            pst.setString(29, objArma.getDataInsert());
-            pst.setString(30, objArma.getHorarioInsert());
+            pst.setBytes(28, objArma.getFotoArma());
+            pst.setString(29, objArma.getUsuarioInsert());
+            pst.setString(30, objArma.getDataInsert());
+            pst.setString(31, objArma.getHorarioInsert());
             pst.execute();
             pRESPOSTA_grupo = "Sim";
         } catch (SQLException ex) {
@@ -92,7 +93,7 @@ public class ControleArma {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ARMAS SET SerieArma=?,NCMArma=?,DataCadastroArma=?,StatusArma=?,"
                     + "DescricaoArma=?,IdGrupoArm=?,MarcaArma=?,ModeloArma=?,CalibreArma=?,CanoArma=?,NumeroTirosArma=?,AcabamentoArma=?,PesoArma=?,MiraArma=?,AlturaArma=?,"
                     + "LarguraArma=?,ComprimentoCanoArma=?,ComprimentoTotalArma=?,DispositivoSegurancaArma=?,OutrasCaracteristicasArma=?,RegistroArma=?,LicencaArma=?,"
-                    + "DataLicencaArma=?,UnidadeArma=?,LocalizacaoArma=?,CustoArma=?,EstoqueArma=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdArma='" + objArma.getIdArma() + "'");
+                    + "DataLicencaArma=?,UnidadeArma=?,LocalizacaoArma=?,CustoArma=?,EstoqueArma=?,FotoArma=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdArma='" + objArma.getIdArma() + "'");
             pst.setString(1, objArma.getSerieArma());
             pst.setString(2, objArma.getnCMArma());
             pst.setTimestamp(3, new java.sql.Timestamp(objArma.getDataCadastroArma().getTime()));
@@ -122,11 +123,12 @@ public class ControleArma {
             }
             pst.setString(24, objArma.getUnidadeArma());
             pst.setString(25, objArma.getLocalizacaoArma());
-            pst.setString(26, objArma.getCustoArma());
+            pst.setFloat(26, objArma.getCustoArma());
             pst.setString(27, objArma.getEstoqueArma());
-            pst.setString(28, objArma.getUsuarioUp());
-            pst.setString(29, objArma.getDataUp());
-            pst.setString(30, objArma.getHorarioUp());
+            pst.setBytes(28, objArma.getFotoArma());
+            pst.setString(29, objArma.getUsuarioUp());
+            pst.setString(30, objArma.getDataUp());
+            pst.setString(31, objArma.getHorarioUp());
             pst.executeUpdate();
             pRESPOSTA_grupo = "Sim";
         } catch (SQLException ex) {
@@ -136,6 +138,23 @@ public class ControleArma {
         conecta.desconecta();
         return objArma;
     }
+    
+    public Arma alterarQRCodeArmas(Arma objArma) {        
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ARMAS SET QRCode=? WHERE IdArma='" + objArma.getIdArma() + "'");           
+            pst.setBytes(1, objArma.getqRCodeArma());
+            pst.executeUpdate();
+            pRESPOSTA_grupo = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_grupo = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
 
     public Arma excluirArmas(Arma objArma) {
 
@@ -159,15 +178,15 @@ public class ControleArma {
         try {
             conecta.executaSQL("SELECT IdArma,SerieArma, "
                     + "NCMArma,DataCadastro,StatusArma,DescricaoArma, "
-                    + "IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
+                    + "ARMAS.IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
                     + "CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma, "
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
-                    + "DispositivoSegurancaArma,OutrasCaracteristicasArma, "
+                    + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
-                    + "ON ARMAS.IdGrupoArm=ARMAS.IdGrupoArm "
+                    + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
                     + "ORDER BY DescricaoArma");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
@@ -198,8 +217,9 @@ public class ControleArma {
                 pArmas.setDataLicencaArma(conecta.rs.getDate("DataLicencaArma"));
                 pArmas.setUnidadeArma(conecta.rs.getString("UnidadeArma"));
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
-                pArmas.setCustoArma(conecta.rs.getString("CustoArma"));
+                pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));               
                 LISTAR_TODAS_Armas.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -219,15 +239,15 @@ public class ControleArma {
         try {
             conecta.executaSQL("SELECT IdArma,SerieArma, "
                     + "NCMArma,DataCadastro,StatusArma,DescricaoArma, "
-                    + "IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
+                    + "ARMAS.IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
                     + "CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma, "
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
-                    + "DispositivoSegurancaArma,OutrasCaracteristicasArma, "
+                    + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
-                    + "ON ARMAS.IdGrupoArm=ARMAS.IdGrupoArm "
+                    + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
                     + "WHERE DescricaoArma LIKE'%" + jPesqDescricaoArma.getText() + "%' ");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
@@ -258,8 +278,9 @@ public class ControleArma {
                 pArmas.setDataLicencaArma(conecta.rs.getDate("DataLicencaArma"));
                 pArmas.setUnidadeArma(conecta.rs.getString("UnidadeArma"));
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
-                pArmas.setCustoArma(conecta.rs.getString("CustoArma"));
+                pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma")); 
                 LISTAR_NOMES_armas.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -279,15 +300,15 @@ public class ControleArma {
         try {
             conecta.executaSQL("SELECT IdArma,SerieArma, "
                     + "NCMArma,DataCadastro,StatusArma,DescricaoArma, "
-                    + "IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
+                    + "ARMAS.IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
                     + "CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma, "
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
-                    + "DispositivoSegurancaArma,OutrasCaracteristicasArma, "
+                    + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
-                    + "ON ARMAS.IdGrupoArm=ARMAS.IdGrupoArm "
+                    + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
                     + "WHERE IdArma='" + pID_grupo.toString().trim() + "' ");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
@@ -318,8 +339,9 @@ public class ControleArma {
                 pArmas.setDataLicencaArma(conecta.rs.getDate("DataLicencaArma"));
                 pArmas.setUnidadeArma(conecta.rs.getString("UnidadeArma"));
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
-                pArmas.setCustoArma(conecta.rs.getString("CustoArma"));
+                pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma")); 
                 LISTAR_ARAMAS_codigo.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -339,15 +361,15 @@ public class ControleArma {
         try {
             conecta.executaSQL("SELECT IdArma,SerieArma, "
                     + "NCMArma,DataCadastro,StatusArma,DescricaoArma, "
-                    + "IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
+                    + "ARMAS.IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
                     + "CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma, "
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
-                    + "DispositivoSegurancaArma,OutrasCaracteristicasArma, "
+                    + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
-                    + "ON ARMAS.IdGrupoArm=ARMAS.IdGrupoArm "
+                    + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
                     + "WHERE DataCadastro='" + pID_grupo.toString().trim() + "' ");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
@@ -378,8 +400,9 @@ public class ControleArma {
                 pArmas.setDataLicencaArma(conecta.rs.getDate("DataLicencaArma"));
                 pArmas.setUnidadeArma(conecta.rs.getString("UnidadeArma"));
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
-                pArmas.setCustoArma(conecta.rs.getString("CustoArma"));
+                pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma")); 
                 LISTAR_ARAMAS_codigo.add(pArmas);
                 pTOTAL_grupo++;
             }

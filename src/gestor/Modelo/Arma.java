@@ -41,7 +41,7 @@ public class Arma {
     private Date dataLicencaArma;
     private String unidadeArma;
     private String localizacaoArma;
-    private String custoArma;
+    private float custoArma;
     private String estoqueArma;
     private String usuarioInsert;
     private String dataInsert;
@@ -49,11 +49,13 @@ public class Arma {
     private String usuarioUp;
     private String dataUp;
     private String horarioUp;
+    private byte[] fotoArma;
+    private byte[] qRCodeArma;
 
     public Arma() {
     }
 
-    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, String custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma) {
         this.idArma = idArma;
         this.serieArma = serieArma;
         this.nCMArma = nCMArma;
@@ -89,6 +91,8 @@ public class Arma {
         this.usuarioUp = usuarioUp;
         this.dataUp = dataUp;
         this.horarioUp = horarioUp;
+        this.fotoArma = fotoArma;
+        this.qRCodeArma = qRCodeArma;
     }
 
     /**
@@ -472,14 +476,14 @@ public class Arma {
     /**
      * @return the custoArma
      */
-    public String getCustoArma() {
+    public float getCustoArma() {
         return custoArma;
     }
 
     /**
      * @param custoArma the custoArma to set
      */
-    public void setCustoArma(String custoArma) {
+    public void setCustoArma(float custoArma) {
         this.custoArma = custoArma;
     }
 
@@ -581,11 +585,39 @@ public class Arma {
         this.horarioUp = horarioUp;
     }
 
+    /**
+     * @return the fotoArma
+     */
+    public byte[] getFotoArma() {
+        return fotoArma;
+    }
+
+    /**
+     * @param fotoArma the fotoArma to set
+     */
+    public void setFotoArma(byte[] fotoArma) {
+        this.fotoArma = fotoArma;
+    }
+
+    /**
+     * @return the qRCodeArma
+     */
+    public byte[] getqRCodeArma() {
+        return qRCodeArma;
+    }
+
+    /**
+     * @param qRCodeArma the qRCodeArma to set
+     */
+    public void setqRCodeArma(byte[] qRCodeArma) {
+        this.qRCodeArma = qRCodeArma;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.idArma);
-        hash = 23 * hash + Objects.hashCode(this.idGrupoArma);
+        hash = 67 * hash + Objects.hashCode(this.idArma);
+        hash = 67 * hash + Objects.hashCode(this.idGrupoArma);
         return hash;
     }
 
@@ -609,5 +641,4 @@ public class Arma {
         }
         return true;
     }
-    
 }

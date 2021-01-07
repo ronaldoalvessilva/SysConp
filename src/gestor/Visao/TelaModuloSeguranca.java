@@ -339,9 +339,11 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMenu3 = new javax.swing.JMenu();
         jGruposArmas = new javax.swing.JMenuItem();
         jGruposEPIS = new javax.swing.JMenuItem();
+        jSeparator26 = new javax.swing.JPopupMenu.Separator();
         jAcessorios = new javax.swing.JMenuItem();
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
         jCadastroArmas = new javax.swing.JMenuItem();
+        jEquipamentosSeguranca = new javax.swing.JMenuItem();
         jCadastroEPIS = new javax.swing.JMenuItem();
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jMovimentacaoArmas = new javax.swing.JMenu();
@@ -668,8 +670,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMenu3.add(jGruposEPIS);
 
         jMenu2.add(jMenu3);
+        jMenu2.add(jSeparator26);
 
-        jAcessorios.setText("Acessórios");
+        jAcessorios.setText("Acessórios para Armas");
         jAcessorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAcessoriosActionPerformed(evt);
@@ -685,6 +688,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(jCadastroArmas);
+
+        jEquipamentosSeguranca.setText("Equipamentos de Segurança");
+        jMenu2.add(jEquipamentosSeguranca);
 
         jCadastroEPIS.setText("EPI´s");
         jMenu2.add(jCadastroEPIS);
@@ -2804,6 +2810,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jControleArmasEPI;
     private javax.swing.JMenuItem jDevolucaoArmas;
     private javax.swing.JMenuItem jEntradasArmas;
+    private javax.swing.JMenuItem jEquipamentosSeguranca;
     private javax.swing.JMenuItem jGruposArmas;
     private javax.swing.JMenuItem jGruposEPIS;
     private javax.swing.JLabel jLabel1;
@@ -2841,6 +2848,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator25;
+    private javax.swing.JPopupMenu.Separator jSeparator26;
     private javax.swing.JPopupMenu.Separator jSeparator27;
     private javax.swing.JPopupMenu.Separator jSeparator28;
     private javax.swing.JPopupMenu.Separator jSeparator3;
