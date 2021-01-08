@@ -208,6 +208,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaGrupoEPIs = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Grupos EPI´s:Manutenção";
     public static String telaAcessoriosAREPIs = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Acessórios:Manutenção";
     public static String telaArmas = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Armas:Manutenção";
+    public static String telaArmasQRCode = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Armas:QRCode";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomePA = "";
@@ -260,6 +261,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     String pNomeGEPIs = "";
     String pNomeACESS = "";
     String pNomeARMAs = "";
+    String pNomeQRCode = "";
     //
     public static int codigoUser = 0;
     public static int codUserAcesso = 0;
@@ -3525,6 +3527,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeARMAs = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaArmasQRCode + "'");
+            conecta.rs.first();
+            pNomeQRCode = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomePA.equals(telaPavilhao) || pNomePA == null || pNomePA.equals("")) {
             buscarCodigoModulo();
@@ -3785,6 +3794,12 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaArmas);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeQRCode.equals(telaArmasQRCode) || pNomeQRCode == null || pNomeQRCode.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaArmasQRCode);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

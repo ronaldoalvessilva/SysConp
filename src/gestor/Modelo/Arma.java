@@ -51,11 +51,15 @@ public class Arma {
     private String horarioUp;
     private byte[] fotoArma;
     private byte[] qRCodeArma;
+    private String textoQRCode;
+    private Integer idQrCodeArma;
+    private Integer idAcesArma;
+    private int quantidade;   
 
     public Arma() {
     }
 
-    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma) {
+    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma, String textoQRCode, Integer idQrCodeArma, Integer idAcesArma, int quantidade) {
         this.idArma = idArma;
         this.serieArma = serieArma;
         this.nCMArma = nCMArma;
@@ -93,6 +97,10 @@ public class Arma {
         this.horarioUp = horarioUp;
         this.fotoArma = fotoArma;
         this.qRCodeArma = qRCodeArma;
+        this.textoQRCode = textoQRCode;
+        this.idQrCodeArma = idQrCodeArma;
+        this.idAcesArma = idAcesArma;
+        this.quantidade = quantidade;
     }
 
     /**
@@ -613,11 +621,69 @@ public class Arma {
         this.qRCodeArma = qRCodeArma;
     }
 
+    /**
+     * @return the textoQRCode
+     */
+    public String getTextoQRCode() {
+        return textoQRCode;
+    }
+
+    /**
+     * @param textoQRCode the textoQRCode to set
+     */
+    public void setTextoQRCode(String textoQRCode) {
+        this.textoQRCode = textoQRCode;
+    }
+
+    /**
+     * @return the idQrCodeArma
+     */
+    public Integer getIdQrCodeArma() {
+        return idQrCodeArma;
+    }
+
+    /**
+     * @param idQrCodeArma the idQrCodeArma to set
+     */
+    public void setIdQrCodeArma(Integer idQrCodeArma) {
+        this.idQrCodeArma = idQrCodeArma;
+    }
+
+    /**
+     * @return the idAcesArma
+     */
+    public Integer getIdAcesArma() {
+        return idAcesArma;
+    }
+
+    /**
+     * @param idAcesArma the idAcesArma to set
+     */
+    public void setIdAcesArma(Integer idAcesArma) {
+        this.idAcesArma = idAcesArma;
+    }
+
+    /**
+     * @return the quantidade
+     */
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    /**
+     * @param quantidade the quantidade to set
+     */
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.idArma);
-        hash = 67 * hash + Objects.hashCode(this.idGrupoArma);
+        int hash = 5;
+        hash = 19 * hash + Objects.hashCode(this.idArma);
+        hash = 19 * hash + Objects.hashCode(this.idGrupoArma);
+        hash = 19 * hash + Objects.hashCode(this.idQrCodeArma);
+        hash = 19 * hash + Objects.hashCode(this.idAcesArma);
         return hash;
     }
 
@@ -637,6 +703,12 @@ public class Arma {
             return false;
         }
         if (!Objects.equals(this.idGrupoArma, other.idGrupoArma)) {
+            return false;
+        }
+        if (!Objects.equals(this.idQrCodeArma, other.idQrCodeArma)) {
+            return false;
+        }
+        if (!Objects.equals(this.idAcesArma, other.idAcesArma)) {
             return false;
         }
         return true;

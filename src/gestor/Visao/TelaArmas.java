@@ -16,8 +16,13 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloSeguranca.telaArmas;
+import static gestor.Visao.TelaModuloSeguranca.telaArmasQRCode;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +34,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -36,6 +42,12 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
+import net.sourceforge.barbecue.Barcode;
+import net.sourceforge.barbecue.BarcodeException;
+import net.sourceforge.barbecue.BarcodeFactory;
+import net.sourceforge.barbecue.BarcodeImageHandler;
 
 /**
  *
@@ -1072,27 +1084,25 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "QRCode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jQRCodeArma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jQRCodeArma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/codigo-qr_256.png"))); // NOI18N
         jQRCodeArma.setEnabled(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jQRCodeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jQRCodeArma, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jQRCodeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 245, Short.MAX_VALUE)
+                .addComponent(jQRCodeArma, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addGap(3, 3, 3))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Código Barra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jCodigoBarraArma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCodigoBarraArma.setText("jLabel30");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1319,6 +1329,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             jBtExcluir.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //
+            jBtCodigoBarra.setEnabled(true);
             jBtHistorico.setEnabled(true);
             jBtAessorios.setEnabled(true);
             jBtQRCode.setEnabled(true);
@@ -1362,10 +1373,19 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                         ImageIcon icon = new ImageIcon(scaled);
                         jFotoArma.setIcon(icon);
                     }
+                    byte[] imgBytes1 = ((byte[]) aa.getqRCodeArma());
+                    if (imgBytes1 != null) {
+                        ImageIcon pic1 = null;
+                        pic1 = new ImageIcon(imgBytes1);
+                        Image scaled1 = pic1.getImage().getScaledInstance(jQRCodeArma.getWidth(), jQRCodeArma.getHeight(), Image.SCALE_SMOOTH);
+                        ImageIcon icon1 = new ImageIcon(scaled1);
+                        jQRCodeArma.setIcon(icon1);
+                        jQRCodeArma.setEnabled(true);
+                    } else if (imgBytes1 == null) {
+                        jQRCodeArma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/codigo-qr_256.png")));
+                        jQRCodeArma.setEnabled(!true);
+                    }
                 }
-//                if(){
-//                    
-//                }
             } catch (Exception ex) {
                 Logger.getLogger(TelaGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1426,6 +1446,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
+                bloquearBotoes(!true);
                 objArma.setIdArma(Integer.valueOf(jIdArma.getText()));
                 CONTROL.excluirArmas(objArma);
                 if (pRESPOSTA_grupo.equals("Sim")) {
@@ -1433,6 +1454,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Não foi possível excluir os dados, tente novamente.");
                 }
+                Excluir();
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1455,7 +1477,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição da arma.");
             } else if (jComboBoxGrupoArma.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grupo que a arma pertence.");
-            }else if(caminho == null){
+            } else if (caminho == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a foto da arma.");
             } else {
                 pBEANS_armas();
@@ -1521,8 +1543,19 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAessoriosActionPerformed
 
     private void jBtQRCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtQRCodeActionPerformed
-        // TODO add your handling code here:
-        mostrarQRCode();
+        // TODO add your handling code here: 
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaArmasQRCode);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaArmasQRCode) && objCampos.getCodigoAbrir() == 1) {
+            if (!jIdArma.getText().equals("")) {
+                mostrarQRCode();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtQRCodeActionPerformed
 
     private void jBtFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFotoActionPerformed
@@ -1555,7 +1588,23 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtHistoricoActionPerformed
 
     private void jBtCodigoBarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCodigoBarraActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: jSerieArma
+        GeraCodigoBarras(jSerieArma.getText());
+//        try {
+//            Barcode barcode = BarcodeFactory.createCode128("1");
+//            jCodigoBarraArma.setIcon((Icon) barcode);
+//            PrinterJob printerJob = PrinterJob.getPrinterJob();
+//            printerJob.setPrintable(barcode);
+//            if(printerJob.printDialog()){
+//                try {
+//                    printerJob.print();
+//                } catch (PrinterException ex) {
+//                    Logger.getLogger(TelaArmas.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        } catch (BarcodeException ex) {
+//            Logger.getLogger(TelaArmas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jBtCodigoBarraActionPerformed
 
 
@@ -1580,7 +1629,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCalibreArma;
     public static javax.swing.JTextField jCanoArma;
     private javax.swing.JCheckBox jCheckBoxPesqTodos;
-    private javax.swing.JLabel jCodigoBarraArma;
+    public static javax.swing.JLabel jCodigoBarraArma;
     private javax.swing.JTextField jCodigoPesquisaArma;
     public static javax.swing.JComboBox<String> jComboBoxGrupoArma;
     private javax.swing.JComboBox<String> jComboBoxStatusArma;
@@ -1652,7 +1701,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     public static javax.swing.JTextField jPesoArma;
     public static javax.swing.JTextField jPesqDescricaoArma;
-    private javax.swing.JLabel jQRCodeArma;
+    public static javax.swing.JLabel jQRCodeArma;
     private javax.swing.JTextField jRegistroArma;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1943,5 +1992,38 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdArma.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void GeraCodigoBarras(String value) {
+
+        try {
+            Barcode barcode = BarcodeFactory.createCode128(value);
+            barcode.setDrawingText(true); //NÃO ESCREVE O CÓDIGO JUNTO COM AS BARRAS
+            // CRIANDO O DESENHO DAS BARRAS
+            BufferedImage image = new BufferedImage(100, 150, BufferedImage.TYPE_BYTE_GRAY);
+            Graphics2D g = (Graphics2D) image.getGraphics();
+            g.setBackground(Color.BLUE);
+            barcode.draw(g, 10, 56);        
+            //SALVANDO ARQUIVO NO DISCO
+            File f = new File("C:\\SysConp\\Fotos\\CodigoBarra\\" + jIdArma.getText() + ".jpg");
+            BarcodeImageHandler.savePNG(barcode, f);
+            //MOSTRAR O CÓDIGO DE BARRA NA TELA
+            caminho = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminho).getImage().getScaledInstance(jCodigoBarraArma.getWidth(), jCodigoBarraArma.getHeight(), Image.SCALE_SMOOTH));
+            jCodigoBarraArma.setIcon(imagemicon);
+            try {
+                File image1 = new File(caminho);
+                FileInputStream fis = new FileInputStream(image1);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem = bos.toByteArray();
+            } catch (Exception e) {
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
     }
 }

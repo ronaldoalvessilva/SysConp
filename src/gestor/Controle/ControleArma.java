@@ -13,6 +13,7 @@ import static gestor.Visao.TelaArmas.jPesqDescricaoArma;
 import static gestor.Visao.TelaArmas.pID_grupo;
 import static gestor.Visao.TelaArmas.pRESPOSTA_grupo;
 import static gestor.Visao.TelaArmas.pTOTAL_grupo;
+import static gestor.Visao.TelaQRCode_Arama.pCODIGO_QRCode;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class ControleArma {
             pst.setString(2, objArma.getnCMArma());
             pst.setTimestamp(3, new java.sql.Timestamp(objArma.getDataCadastroArma().getTime()));
             pst.setString(4, objArma.getStatusArma());
-            pst.setString(5, objArma.getDescricaoArma()); 
+            pst.setString(5, objArma.getDescricaoArma());
             pst.setInt(6, pCODIGO_grupo);
             pst.setString(7, objArma.getMarcaArma());
             pst.setString(8, objArma.getModeloArma());
@@ -98,7 +99,7 @@ public class ControleArma {
             pst.setString(2, objArma.getnCMArma());
             pst.setTimestamp(3, new java.sql.Timestamp(objArma.getDataCadastroArma().getTime()));
             pst.setString(4, objArma.getStatusArma());
-            pst.setString(5, objArma.getDescricaoArma()); 
+            pst.setString(5, objArma.getDescricaoArma());
             pst.setInt(6, pCODIGO_grupo);
             pst.setString(7, objArma.getMarcaArma());
             pst.setString(8, objArma.getModeloArma());
@@ -138,12 +139,12 @@ public class ControleArma {
         conecta.desconecta();
         return objArma;
     }
-    
-    public Arma alterarQRCodeArmas(Arma objArma) {        
+
+    public Arma alterarQRCodeArmas(Arma objArma) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ARMAS SET QRCode=? WHERE IdArma='" + objArma.getIdArma() + "'");           
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ARMAS SET QRCode=? WHERE IdArma='" + objArma.getIdArma() + "'");
             pst.setBytes(1, objArma.getqRCodeArma());
             pst.executeUpdate();
             pRESPOSTA_grupo = "Sim";
@@ -154,7 +155,6 @@ public class ControleArma {
         conecta.desconecta();
         return objArma;
     }
-
 
     public Arma excluirArmas(Arma objArma) {
 
@@ -183,7 +183,7 @@ public class ControleArma {
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
                     + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
                     + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
@@ -219,7 +219,8 @@ public class ControleArma {
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
                 pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
-                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));               
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
+                pArmas.setqRCodeArma(conecta.rs.getBytes("QRCode"));
                 LISTAR_TODAS_Armas.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -244,7 +245,7 @@ public class ControleArma {
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
                     + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
                     + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
@@ -280,7 +281,8 @@ public class ControleArma {
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
                 pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
-                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma")); 
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
+                pArmas.setqRCodeArma(conecta.rs.getBytes("QRCode"));
                 LISTAR_NOMES_armas.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -305,7 +307,7 @@ public class ControleArma {
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
                     + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
                     + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
@@ -341,7 +343,8 @@ public class ControleArma {
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
                 pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
-                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma")); 
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
+                pArmas.setqRCodeArma(conecta.rs.getBytes("QRCode"));
                 LISTAR_ARAMAS_codigo.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -366,7 +369,7 @@ public class ControleArma {
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
                     + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
                     + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
@@ -402,7 +405,8 @@ public class ControleArma {
                 pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
                 pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
-                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma")); 
+                pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
+                pArmas.setqRCodeArma(conecta.rs.getBytes("QRCode"));
                 LISTAR_ARAMAS_codigo.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -461,5 +465,100 @@ public class ControleArma {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+    //-------------------------------------- QRCode ---------------------------------------------------------
+
+    public Arma incluirQRCode(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO QRCODE_ARMA (IdArma,TextoQRCode,QRCode) VALUES(?,?,?)");
+            pst.setInt(1, objArma.getIdArma());
+            pst.setString(2, objArma.getTextoQRCode());
+            pst.setBytes(3, objArma.getqRCodeArma());
+            pst.execute();
+            pRESPOSTA_grupo = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_grupo = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma alterarQRCode(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE QRCODE_ARMA SET TextoQRCode=?,QRCode=? WHERE IdQrCodeArma='" + objArma.getIdQrCodeArma() + "'");
+            pst.setString(1, objArma.getTextoQRCode());
+            pst.setBytes(2, objArma.getqRCodeArma());
+            pst.executeUpdate();
+            pRESPOSTA_grupo = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_grupo = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+    
+    public Arma excluirQRCode(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM QRCODE_ARMA WHERE IdQrCodeArma='" + objArma.getIdQrCodeArma() + "'");
+            pst.executeUpdate();
+            pRESPOSTA_grupo = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_grupo = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma pBUSCAR_QRCode_codigo(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdQrCodeArma "
+                    + "FROM QRCODE_ARMA");
+            conecta.rs.last();
+            pCODIGO_QRCode = conecta.rs.getInt("IdQrCodeArma");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ENCONTRAR o código do QRCode.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+    
+    public List<Arma> pPESQUISAR_QRCode_read() throws Exception {
+        pTOTAL_grupo = 0;
+        conecta.abrirConexao();
+        List<Arma> LISTAR_ARAMAS_codigo = new ArrayList<Arma>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdArma, "
+                    + "TextoQRCode, "
+                    + "QRCode "                   
+                    + "FROM QRCODE_ARMA "
+                    + "WHERE IdArma='" + jIdArma.getText().toString().trim() + "'");
+            while (conecta.rs.next()) {
+                Arma pArmas = new Arma();
+                pArmas.setIdArma(conecta.rs.getInt("IdArma"));
+                pArmas.setTextoQRCode(conecta.rs.getString("TextoQRCode"));
+                pArmas.setqRCodeArma(conecta.rs.getBytes("QRCode"));
+                LISTAR_ARAMAS_codigo.add(pArmas);
+                pTOTAL_grupo++;
+            }
+            return LISTAR_ARAMAS_codigo;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }
