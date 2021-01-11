@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author ronaldo.silva7
  */
 public class Arma {
-   
+
     private Integer idArma;
     private String serieArma;
     private String nCMArma;
@@ -54,12 +54,14 @@ public class Arma {
     private String textoQRCode;
     private Integer idQrCodeArma;
     private Integer idAcesArma;
-    private int quantidade;   
+    private int quantidade;
+    private Integer idCodigoBarraArma;
+    private byte[] codigoBarra;
 
     public Arma() {
     }
 
-    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma, String textoQRCode, Integer idQrCodeArma, Integer idAcesArma, int quantidade) {
+    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma, String textoQRCode, Integer idQrCodeArma, Integer idAcesArma, int quantidade, Integer idCodigoBarraArma, byte[] codigoBarra) {
         this.idArma = idArma;
         this.serieArma = serieArma;
         this.nCMArma = nCMArma;
@@ -101,6 +103,8 @@ public class Arma {
         this.idQrCodeArma = idQrCodeArma;
         this.idAcesArma = idAcesArma;
         this.quantidade = quantidade;
+        this.idCodigoBarraArma = idCodigoBarraArma;
+        this.codigoBarra = codigoBarra;
     }
 
     /**
@@ -677,13 +681,41 @@ public class Arma {
         this.quantidade = quantidade;
     }
 
+    /**
+     * @return the idCodigoBarraArma
+     */
+    public Integer getIdCodigoBarraArma() {
+        return idCodigoBarraArma;
+    }
+
+    /**
+     * @param idCodigoBarraArma the idCodigoBarraArma to set
+     */
+    public void setIdCodigoBarraArma(Integer idCodigoBarraArma) {
+        this.idCodigoBarraArma = idCodigoBarraArma;
+    }
+
+    /**
+     * @return the codigoBarra
+     */
+    public byte[] getCodigoBarra() {
+        return codigoBarra;
+    }
+
+    /**
+     * @param codigoBarra the codigoBarra to set
+     */
+    public void setCodigoBarra(byte[] codigoBarra) {
+        this.codigoBarra = codigoBarra;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + Objects.hashCode(this.idArma);
-        hash = 19 * hash + Objects.hashCode(this.idGrupoArma);
-        hash = 19 * hash + Objects.hashCode(this.idQrCodeArma);
-        hash = 19 * hash + Objects.hashCode(this.idAcesArma);
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.idArma);
+        hash = 47 * hash + Objects.hashCode(this.idGrupoArma);
+        hash = 47 * hash + Objects.hashCode(this.idAcesArma);
+        hash = 47 * hash + Objects.hashCode(this.idCodigoBarraArma);
         return hash;
     }
 
@@ -705,10 +737,10 @@ public class Arma {
         if (!Objects.equals(this.idGrupoArma, other.idGrupoArma)) {
             return false;
         }
-        if (!Objects.equals(this.idQrCodeArma, other.idQrCodeArma)) {
+        if (!Objects.equals(this.idAcesArma, other.idAcesArma)) {
             return false;
         }
-        if (!Objects.equals(this.idAcesArma, other.idAcesArma)) {
+        if (!Objects.equals(this.idCodigoBarraArma, other.idCodigoBarraArma)) {
             return false;
         }
         return true;

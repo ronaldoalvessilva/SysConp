@@ -13,6 +13,8 @@ import static gestor.Visao.TelaArmas.jPesqDescricaoArma;
 import static gestor.Visao.TelaArmas.pID_grupo;
 import static gestor.Visao.TelaArmas.pRESPOSTA_grupo;
 import static gestor.Visao.TelaArmas.pTOTAL_grupo;
+import static gestor.Visao.TelaCodigoBarraArma.pRESPOSTA_codigo;
+import static gestor.Visao.TelaCodigoBarraArma.pCODIGO_BArra;
 import static gestor.Visao.TelaQRCode_Arama.pCODIGO_QRCode;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -300,18 +302,20 @@ public class ControleArma {
         conecta.abrirConexao();
         List<Arma> LISTAR_ARAMAS_codigo = new ArrayList<Arma>();
         try {
-            conecta.executaSQL("SELECT IdArma,SerieArma, "
+            conecta.executaSQL("SELECT ARMAS.IdArma,SerieArma, "
                     + "NCMArma,DataCadastro,StatusArma,DescricaoArma, "
                     + "ARMAS.IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
                     + "CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma, "
                     + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
                     + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
                     + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode "
+                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode,CodigoBarra "
                     + "FROM ARMAS "
                     + "INNER JOIN GRUPO_ARMAS "
                     + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
-                    + "WHERE IdArma='" + pID_grupo.toString().trim() + "' ");
+                    + "INNER JOIN CODIGO_BARRA_ARMA "
+                    + "ON ARMAS.IdArma=CODIGO_BARRA_ARMA.IdArma "
+                    + "WHERE ARMAS.IdArma='" + pID_grupo.toString().trim() + "' ");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
                 pArmas.setIdArma(conecta.rs.getInt("IdArma"));
@@ -345,6 +349,7 @@ public class ControleArma {
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
                 pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
                 pArmas.setqRCodeArma(conecta.rs.getBytes("QRCode"));
+                pArmas.setCodigoBarra(conecta.rs.getBytes("CodigoBarra"));
                 LISTAR_ARAMAS_codigo.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -490,7 +495,7 @@ public class ControleArma {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE QRCODE_ARMA SET TextoQRCode=?,QRCode=? WHERE IdQrCodeArma='" + objArma.getIdQrCodeArma() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE QRCODE_ARMA SET TextoQRCode=?,QRCode=? WHERE IdArma='" + objArma.getIdArma() + "'");
             pst.setString(1, objArma.getTextoQRCode());
             pst.setBytes(2, objArma.getqRCodeArma());
             pst.executeUpdate();
@@ -502,12 +507,12 @@ public class ControleArma {
         conecta.desconecta();
         return objArma;
     }
-    
+
     public Arma excluirQRCode(Arma objArma) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM QRCODE_ARMA WHERE IdQrCodeArma='" + objArma.getIdQrCodeArma() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM QRCODE_ARMA WHERE IdArma='" + objArma.getIdArma() + "'");
             pst.executeUpdate();
             pRESPOSTA_grupo = "Sim";
         } catch (SQLException ex) {
@@ -533,7 +538,7 @@ public class ControleArma {
         conecta.desconecta();
         return objArma;
     }
-    
+
     public List<Arma> pPESQUISAR_QRCode_read() throws Exception {
         pTOTAL_grupo = 0;
         conecta.abrirConexao();
@@ -542,7 +547,7 @@ public class ControleArma {
             conecta.executaSQL("SELECT "
                     + "IdArma, "
                     + "TextoQRCode, "
-                    + "QRCode "                   
+                    + "QRCode "
                     + "FROM QRCODE_ARMA "
                     + "WHERE IdArma='" + jIdArma.getText().toString().trim() + "'");
             while (conecta.rs.next()) {
@@ -554,6 +559,105 @@ public class ControleArma {
                 pTOTAL_grupo++;
             }
             return LISTAR_ARAMAS_codigo;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    //---------------------------------------- CÓDIGO DE BARRAS ------------------------------------------------
+    public Arma incluirCODIGO_barra(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO CODIGO_BARRA_ARMA (IdArma,NumeroSerie,CodigoBarra) VALUES(?,?,?)");
+            pst.setInt(1, objArma.getIdArma());
+            pst.setString(2, objArma.getSerieArma());
+            pst.setBytes(3, objArma.getCodigoBarra());
+            pst.execute();
+            pRESPOSTA_codigo = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_codigo = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma alterarCODIGO_barra(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE CODIGO_BARRA_ARMA SET NumeroSerie=?,CodigoBarra=? WHERE IdArma='" + objArma.getIdArma() + "'");
+            pst.setString(1, objArma.getSerieArma());
+            pst.setBytes(2, objArma.getCodigoBarra());
+            pst.executeUpdate();
+            pRESPOSTA_codigo = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_codigo = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma excluirCODIGO_barra(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM CODIGO_BARRA_ARMA WHERE IdArma='" + objArma.getIdArma() + "'");
+            pst.executeUpdate();
+            pRESPOSTA_codigo = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_codigo = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma pBUSCAR_CODIGO_barra(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdCodigoBarraArma "
+                    + "FROM CODIGO_BARRA_ARMA");
+            conecta.rs.last();
+            pCODIGO_BArra = conecta.rs.getInt("IdCodigoBarraArma");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ENCONTRAR o código de barra.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public List<Arma> pPESQUISAR_CODIGO_barras_read() throws Exception {
+        pTOTAL_grupo = 0;
+        conecta.abrirConexao();
+        List<Arma> LISTAR_CODIGO_barra = new ArrayList<Arma>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "ARMAS.IdArma, "
+                    + "NumeroSerie, "
+                    + "DescricaoArma, "
+                    + "CodigoBarra "
+                    + "FROM CODIGO_BARRA_ARMA "
+                    + "INNER JOIN ARMAS "
+                    + "ON CODIGO_BARRA_ARMA.IdArma=ARMAS.IdArma "
+                    + "WHERE ARMAS.IdArma='" + jIdArma.getText().toString().trim() + "'");
+            while (conecta.rs.next()) {
+                Arma pArmas = new Arma();
+                pArmas.setIdArma(conecta.rs.getInt("IdArma"));
+                pArmas.setSerieArma(conecta.rs.getString("NumeroSerie"));
+                pArmas.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
+                pArmas.setCodigoBarra(conecta.rs.getBytes("CodigoBarra"));                
+                LISTAR_CODIGO_barra.add(pArmas);
+                pTOTAL_grupo++;
+            }
+            return LISTAR_CODIGO_barra;
         } catch (SQLException ex) {
             Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -30,6 +30,8 @@ import static gestor.Visao.TelaArmas.jQRCodeArma;
 import static gestor.Visao.TelaArmas.jSerieArma;
 import static gestor.Visao.TelaArmas.pRESPOSTA_grupo;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloSeguranca.telaArmas;
 import static gestor.Visao.TelaModuloSeguranca.telaArmasQRCode;
 import java.awt.Color;
@@ -353,6 +355,10 @@ public class TelaQRCode_Arama extends javax.swing.JDialog {
             if (jTextoQRCode.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe os dados para geraro QRCode da arma.");
             } else {
+                statusMov = "Inclui";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                //
                 int size = 125; //TAMANHO DEFAULT DO QRCode
                 ByteArrayOutputStream out = QRCode.from(jTextoQRCode.getText()).to(ImageType.PNG).withSize(size, size).stream();
                 pQRCode_imagem = out.toByteArray();
@@ -385,6 +391,9 @@ public class TelaQRCode_Arama extends javax.swing.JDialog {
             acao = 4;
             BloquearBotoes(!true);
             AlterarTexto();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -401,6 +410,9 @@ public class TelaQRCode_Arama extends javax.swing.JDialog {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
                 bloquearCampos();
                 BloquearBotoes(!true);
                 objArma.setIdArma(Integer.valueOf(jIdArma.getText()));
@@ -569,7 +581,7 @@ public class TelaQRCode_Arama extends javax.swing.JDialog {
 
     public void limparCampos() {
         jTextoQRCode.setText("");
-        jQRCode.setIcon(null);        
+        jQRCode.setIcon(null);
         jQRCodeArma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/codigo-qr_256.png")));
         jQRCodeArma.setEnabled(!true);
         //

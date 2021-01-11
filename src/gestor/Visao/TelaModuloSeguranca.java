@@ -209,6 +209,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaAcessoriosAREPIs = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Acessórios:Manutenção";
     public static String telaArmas = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Armas:Manutenção";
     public static String telaArmasQRCode = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Armas:QRCode";
+    public static String telaArmasCODIGO_barras = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Armas:Código Barras";
+    public static String telaArmasAcessorios = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Armas:Acessórios";
+    public static String telaArmasHistorico = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Armas:Histórico";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomePA = "";
@@ -262,6 +265,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     String pNomeACESS = "";
     String pNomeARMAs = "";
     String pNomeQRCode = "";
+    String pNomeCB = "";
+    String pNomeACES = "";
+    String pNomeHIST = "";
     //
     public static int codigoUser = 0;
     public static int codUserAcesso = 0;
@@ -3534,6 +3540,27 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeQRCode = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaArmasCODIGO_barras + "'");
+            conecta.rs.first();
+            pNomeCB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaArmasAcessorios + "'");
+            conecta.rs.first();
+            pNomeACES = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaArmasHistorico + "'");
+            conecta.rs.first();
+            pNomeHIST = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomePA.equals(telaPavilhao) || pNomePA == null || pNomePA.equals("")) {
             buscarCodigoModulo();
@@ -3800,6 +3827,24 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaArmasQRCode);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCB.equals(telaArmasCODIGO_barras) || pNomeCB == null || pNomeCB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaArmasCODIGO_barras);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeACES.equals(telaArmasAcessorios) || pNomeACES == null || pNomeACES.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaArmasAcessorios);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeHIST.equals(telaArmasHistorico) || pNomeHIST == null || pNomeHIST.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaArmasHistorico);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
