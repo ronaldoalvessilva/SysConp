@@ -57,11 +57,14 @@ public class Arma {
     private int quantidade;
     private Integer idCodigoBarraArma;
     private byte[] codigoBarra;
+    private Integer idArmaACE;
+    private String descricaoAcessorio;
+    private String observacao;        
 
     public Arma() {
     }
 
-    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma, String textoQRCode, Integer idQrCodeArma, Integer idAcesArma, int quantidade, Integer idCodigoBarraArma, byte[] codigoBarra) {
+    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma, String textoQRCode, Integer idQrCodeArma, Integer idAcesArma, int quantidade, Integer idCodigoBarraArma, byte[] codigoBarra, Integer idArmaACE, String descricaoAcessorio, String observacao) {
         this.idArma = idArma;
         this.serieArma = serieArma;
         this.nCMArma = nCMArma;
@@ -105,6 +108,9 @@ public class Arma {
         this.quantidade = quantidade;
         this.idCodigoBarraArma = idCodigoBarraArma;
         this.codigoBarra = codigoBarra;
+        this.idArmaACE = idArmaACE;
+        this.descricaoAcessorio = descricaoAcessorio;
+        this.observacao = observacao;
     }
 
     /**
@@ -709,16 +715,48 @@ public class Arma {
         this.codigoBarra = codigoBarra;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + Objects.hashCode(this.idArma);
-        hash = 47 * hash + Objects.hashCode(this.idGrupoArma);
-        hash = 47 * hash + Objects.hashCode(this.idAcesArma);
-        hash = 47 * hash + Objects.hashCode(this.idCodigoBarraArma);
-        return hash;
+    /**
+     * @return the idArmaACE
+     */
+    public Integer getIdArmaACE() {
+        return idArmaACE;
     }
 
+    /**
+     * @param idArmaACE the idArmaACE to set
+     */
+    public void setIdArmaACE(Integer idArmaACE) {
+        this.idArmaACE = idArmaACE;
+    }
+
+    /**
+     * @return the descricaoAcessorio
+     */
+    public String getDescricaoAcessorio() {
+        return descricaoAcessorio;
+    }
+
+    /**
+     * @param descricaoAcessorio the descricaoAcessorio to set
+     */
+    public void setDescricaoAcessorio(String descricaoAcessorio) {
+        this.descricaoAcessorio = descricaoAcessorio;
+    }
+
+    /**
+     * @return the observacao
+     */
+    public String getObservacao() {
+        return observacao;
+    }
+
+    /**
+     * @param observacao the observacao to set
+     */
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -734,13 +772,16 @@ public class Arma {
         if (!Objects.equals(this.idArma, other.idArma)) {
             return false;
         }
-        if (!Objects.equals(this.idGrupoArma, other.idGrupoArma)) {
+        if (!Objects.equals(this.idQrCodeArma, other.idQrCodeArma)) {
             return false;
         }
         if (!Objects.equals(this.idAcesArma, other.idAcesArma)) {
             return false;
         }
         if (!Objects.equals(this.idCodigoBarraArma, other.idCodigoBarraArma)) {
+            return false;
+        }
+        if (!Objects.equals(this.idArmaACE, other.idArmaACE)) {
             return false;
         }
         return true;

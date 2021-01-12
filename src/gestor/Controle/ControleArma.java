@@ -7,15 +7,23 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.Arma;
+import static gestor.Visao.TelaAcessoriosArma.jComboBoxDescricaoAcessorio;
 import static gestor.Visao.TelaArmas.jComboBoxGrupoArma;
 import static gestor.Visao.TelaArmas.jIdArma;
 import static gestor.Visao.TelaArmas.jPesqDescricaoArma;
+import static gestor.Visao.TelaArmas.jSerieArma;
 import static gestor.Visao.TelaArmas.pID_grupo;
 import static gestor.Visao.TelaArmas.pRESPOSTA_grupo;
 import static gestor.Visao.TelaArmas.pTOTAL_grupo;
+import static gestor.Visao.TelaArmas.pID_arma;
+import static gestor.Visao.TelaArmas.pSERIE_arma;
 import static gestor.Visao.TelaCodigoBarraArma.pRESPOSTA_codigo;
 import static gestor.Visao.TelaCodigoBarraArma.pCODIGO_BArra;
 import static gestor.Visao.TelaQRCode_Arama.pCODIGO_QRCode;
+import static gestor.Visao.TelaAcessoriosArma.pCODIGO_ACESSORIOS_arma;
+import static gestor.Visao.TelaAcessoriosArma.pID_ACESSORIO_arma;
+import static gestor.Visao.TelaAcessoriosArma.pID_acessorio;
+import static gestor.Visao.TelaAcessoriosArma.pRESPOSTA_acessorio;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +42,7 @@ public class ControleArma {
     Arma objArma = new Arma();
 
     Integer pCODIGO_grupo = 0;
+    Integer pCODIGO_acessorio = 0;
 
     public Arma incluirArmas(Arma objArma) {
         PESQUISAR_grupo(objArma.getGrupoArma());
@@ -471,6 +480,24 @@ public class ControleArma {
         }
         conecta.desconecta();
     }
+
+    public Arma pPESQUISAR_serie(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdArma,SerieArma "
+                    + "FROM ARMAS "
+                    + "WHERE SerieArma='" + jSerieArma.getText() + "'");
+            conecta.rs.first();
+            pID_arma = conecta.rs.getString("IdArma");
+            pSERIE_arma = conecta.rs.getString("SerieArma");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ENCONTRAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
     //-------------------------------------- QRCode ---------------------------------------------------------
 
     public Arma incluirQRCode(Arma objArma) {
@@ -653,7 +680,7 @@ public class ControleArma {
                 pArmas.setIdArma(conecta.rs.getInt("IdArma"));
                 pArmas.setSerieArma(conecta.rs.getString("NumeroSerie"));
                 pArmas.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
-                pArmas.setCodigoBarra(conecta.rs.getBytes("CodigoBarra"));                
+                pArmas.setCodigoBarra(conecta.rs.getBytes("CodigoBarra"));
                 LISTAR_CODIGO_barra.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -664,5 +691,188 @@ public class ControleArma {
             conecta.desconecta();
         }
         return null;
+    }
+
+    //---------------------------------------------- ACESSÓRIOS --------------------------------------------------------------
+    public Arma incluirACESSORIOS(Arma objArma) {
+        PESQUISAR_CODIGO_acessorio(objArma.getDescricaoAcessorio());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ACESSORIOS_ARMA (IdArma,IdArmaACE,Quant,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            pst.setInt(1, objArma.getIdArma());
+            pst.setInt(2, pCODIGO_acessorio);
+            pst.setInt(3, objArma.getQuantidade());
+            pst.setString(4, objArma.getObservacao());
+            pst.setString(5, objArma.getUsuarioInsert());
+            pst.setString(6, objArma.getDataInsert());
+            pst.setString(7, objArma.getHorarioInsert());
+            pst.execute();
+            pRESPOSTA_acessorio = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_acessorio = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma alterarACESSORIOS(Arma objArma) {
+        PESQUISAR_CODIGO_acessorio(objArma.getDescricaoAcessorio());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA SET Quant=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAcesArma='" + objArma.getIdArmaACE() + "'");
+            pst.setInt(1, objArma.getQuantidade());
+            pst.setInt(2, pCODIGO_acessorio);
+            pst.setString(3, objArma.getUsuarioUp());
+            pst.setString(4, objArma.getDataUp());
+            pst.setString(5, objArma.getHorarioUp());
+            pst.executeUpdate();
+            pRESPOSTA_acessorio = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_acessorio = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma excluirACESSORIOS(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ACESSORIOS_ARMA WHERE IdAcesArma='" + objArma.getIdArmaACE() + "'");
+            pst.executeUpdate();
+            pRESPOSTA_acessorio = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_acessorio = "Não";
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma pBUSCAR_CODIGO_acessorio(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdAcesArma "
+                    + "FROM ACESSORIOS_ARMA");
+            conecta.rs.last();
+            pCODIGO_ACESSORIOS_arma = conecta.rs.getInt("IdAcesArma");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ENCONTRAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public List<Arma> ACESSORIOS_read() throws Exception {
+        pTOTAL_grupo = 0;
+        conecta.abrirConexao();
+        List<Arma> LISTAR_acessorios = new ArrayList<Arma>();
+        try {
+            conecta.executaSQL("SELECT ACESSORIOS_ARMA.IdArma, "
+                    + "ACESSORIOS_ARMA.IdArmaACE, "
+                    + "ACESSORIOS_ARMA_EPIs.DescricaoArmaACE, "
+                    + "ACESSORIOS_ARMA.Quant, "
+                    + "ACESSORIOS_ARMA.Observacao "
+                    + "FROM ACESSORIOS_ARMA "
+                    + "INNER JOIN ARMAS "
+                    + "ON ACESSORIOS_ARMA.IdArma=ARMAS.IdArma "
+                    + "INNER JOIN ACESSORIOS_ARMA_EPIs "
+                    + "ON ACESSORIOS_ARMA.IdArmaACE=ACESSORIOS_ARMA_EPIs.IdArmaACE "
+                    + "WHERE ACESSORIOS_ARMA.IdArma='" + jIdArma.getText() + "'");
+            while (conecta.rs.next()) {
+                Arma pArmas = new Arma();
+                pArmas.setIdArma(conecta.rs.getInt("IdArma"));
+                pArmas.setIdArmaACE(conecta.rs.getInt("IdArmaACE"));
+                pArmas.setDescricaoAcessorio(conecta.rs.getString("DescricaoArmaACE"));
+                pArmas.setQuantidade(conecta.rs.getInt("Quant"));
+                pArmas.setObservacao(conecta.rs.getString("Observacao"));
+                LISTAR_acessorios.add(pArmas);
+                pTOTAL_grupo++;
+            }
+            return LISTAR_acessorios;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    //
+    public List<Arma> ACESSORIOS_CODIGO_read() throws Exception {
+
+        conecta.abrirConexao();
+        List<Arma> LISTAR_acessorios = new ArrayList<Arma>();
+        try {
+            conecta.executaSQL("SELECT ACESSORIOS_ARMA.IdAcesArma, "
+                    + "ACESSORIOS_ARMA.IdArma, "
+                    + "ACESSORIOS_ARMA.IdArmaACE, "
+                    + "ACESSORIOS_ARMA_EPIs.DescricaoArmaACE, "
+                    + "ACESSORIOS_ARMA.Quant, "
+                    + "ACESSORIOS_ARMA.Observacao, "
+                    + "ARMAS.SerieArma,ARMAS.DescricaoArma "
+                    + "FROM ACESSORIOS_ARMA "
+                    + "INNER JOIN ARMAS "
+                    + "ON ACESSORIOS_ARMA.IdArma=ARMAS.IdArma "
+                    + "INNER JOIN ACESSORIOS_ARMA_EPIs "
+                    + "ON ACESSORIOS_ARMA.IdArmaACE=ACESSORIOS_ARMA_EPIs.IdArmaACE "
+                    + "WHERE ACESSORIOS_ARMA.IdArma='" + pID_ACESSORIO_arma + "' "
+                    + "AND ACESSORIOS_ARMA.IdAcesArma='" + pID_acessorio + "'");
+            while (conecta.rs.next()) {
+                Arma pArmas = new Arma();
+                pArmas.setIdAcesArma(conecta.rs.getInt("IdAcesArma"));
+                pArmas.setIdArma(conecta.rs.getInt("IdArma"));
+                pArmas.setIdArmaACE(conecta.rs.getInt("IdArmaACE"));
+                pArmas.setDescricaoAcessorio(conecta.rs.getString("DescricaoArmaACE"));               
+                pArmas.setDescricaoArma(conecta.rs.getString("DescricaoArma"));                                                
+                pArmas.setQuantidade(conecta.rs.getInt("Quant"));
+                pArmas.setObservacao(conecta.rs.getString("Observacao"));
+                 pArmas.setSerieArma(conecta.rs.getString("SerieArma"));
+                LISTAR_acessorios.add(pArmas);
+            }
+            return LISTAR_acessorios;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleGrupoArmas.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public Arma PESQUISAR_acessorios(Arma objArma) {
+        jComboBoxDescricaoAcessorio.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdArmaACE,"
+                    + "DescricaoArmaACE "
+                    + "FROM ACESSORIOS_ARMA_EPIs "
+                    + "ORDER BY DescricaoArmaACE");
+            conecta.rs.first();
+            do {
+                jComboBoxDescricaoAcessorio.addItem(conecta.rs.getString("DescricaoArmaACE"));
+            } while (conecta.rs.next());
+            jComboBoxDescricaoAcessorio.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public void PESQUISAR_CODIGO_acessorio(String nome) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT IdArmaACE,"
+                    + "DescricaoArmaACE "
+                    + "FROM ACESSORIOS_ARMA_EPIs "
+                    + "WHERE DescricaoArmaACE='" + nome + "'");
+            conecta.rs.first();
+            pCODIGO_acessorio = conecta.rs.getInt("IdArmaACE");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

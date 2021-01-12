@@ -33,7 +33,7 @@ public class ControleAcessoriosArmaEPI {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ACESSORIOS_ARMA_EPIs (StatusACE,DataCadastro,DescricaoArmaACE,Obsercacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ACESSORIOS_ARMA_EPIs (StatusACE,DataCadastro,DescricaoArmaACE,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
             pst.setString(1, objGrupoArm.getStatusArmaEPI());
             pst.setTimestamp(2, new java.sql.Timestamp(objGrupoArm.getDataCadastro().getTime()));
             pst.setString(3, objGrupoArm.getDescricaoArma());
@@ -55,7 +55,7 @@ public class ControleAcessoriosArmaEPI {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA_EPIs SET StatusACE=?,DataCadastro=?,DescricaoArmaACE=?,Obsercacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdArmaACE='" + objGrupoArm.getIdGrupArma() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA_EPIs SET StatusACE=?,DataCadastro=?,DescricaoArmaACE=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdArmaACE='" + objGrupoArm.getIdGrupArma() + "'");
             pst.setString(1, objGrupoArm.getStatusArmaEPI());
             pst.setTimestamp(2, new java.sql.Timestamp(objGrupoArm.getDataCadastro().getTime()));
             pst.setString(3, objGrupoArm.getDescricaoArma());
@@ -104,7 +104,7 @@ public class ControleAcessoriosArmaEPI {
                 pDigi.setStatusArmaEPI(conecta.rs.getString("StatusACE"));
                 pDigi.setDataCadastro(conecta.rs.getDate("DataCadastro"));
                 pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArmaACE"));
-                pDigi.setObsercacao(conecta.rs.getString("Obsercacao"));
+                pDigi.setObsercacao(conecta.rs.getString("Observacao"));
                 listaGruposArmas.add(pDigi);
                 pTOTAL_grupo++;
             }
@@ -133,7 +133,7 @@ public class ControleAcessoriosArmaEPI {
                 pDigi.setStatusArmaEPI(conecta.rs.getString("StatusACE"));
                 pDigi.setDataCadastro(conecta.rs.getDate("DataCadastro"));
                 pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArmaACE"));
-                pDigi.setObsercacao(conecta.rs.getString("Obsercacao"));
+                pDigi.setObsercacao(conecta.rs.getString("Observacao"));
                 listaGruposArmas.add(pDigi);
                 pTOTAL_grupo++;
             }
@@ -162,7 +162,7 @@ public class ControleAcessoriosArmaEPI {
                 pDigi.setStatusArmaEPI(conecta.rs.getString("StatusACE"));
                 pDigi.setDataCadastro(conecta.rs.getDate("DataCadastro"));
                 pDigi.setDescricaoArma(conecta.rs.getString("DescricaoArmaACE"));
-                pDigi.setObsercacao(conecta.rs.getString("Obsercacao"));
+                pDigi.setObsercacao(conecta.rs.getString("Observacao"));
                 listaGruposArmas.add(pDigi);
                 pTOTAL_grupo++;
             }
