@@ -122,8 +122,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jPanel37 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jCodigoRegistroATM = new javax.swing.JTextField();
-        jBtAlterarRegistroATM = new javax.swing.JButton();
-        jBtConfirmarRegistroATM = new javax.swing.JButton();
+        jBtAlterarRegistroCRC = new javax.swing.JButton();
+        jBtConfirmarRegistroCRC = new javax.swing.JButton();
         GteOperacional = new javax.swing.JPanel();
         jPanel36 = new javax.swing.JPanel();
         jPanel38 = new javax.swing.JPanel();
@@ -321,6 +321,13 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jBtAlterarSOLICITACAO_compras_far = new javax.swing.JButton();
         jBtConfirmarSOLICITACAO_compras_far = new javax.swing.JButton();
         jCodigoRegistroSOLICITACAO_compras_far = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel77 = new javax.swing.JPanel();
+        jPanel78 = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        jCodigoRegistroAGE = new javax.swing.JTextField();
+        jBtAlterarRegistroAGE = new javax.swing.JButton();
+        jBtConfirmarRegistroAGE = new javax.swing.JButton();
         Rodape = new javax.swing.JPanel();
         jBtCancelar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
@@ -1263,20 +1270,20 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroATM.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoRegistroATM.setEnabled(false);
 
-        jBtAlterarRegistroATM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarRegistroATM.setText("Alterar");
-        jBtAlterarRegistroATM.addActionListener(new java.awt.event.ActionListener() {
+        jBtAlterarRegistroCRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarRegistroCRC.setText("Alterar");
+        jBtAlterarRegistroCRC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarRegistroATMActionPerformed(evt);
+                jBtAlterarRegistroCRCActionPerformed(evt);
             }
         });
 
-        jBtConfirmarRegistroATM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
-        jBtConfirmarRegistroATM.setText("Confirmar");
-        jBtConfirmarRegistroATM.setEnabled(false);
-        jBtConfirmarRegistroATM.addActionListener(new java.awt.event.ActionListener() {
+        jBtConfirmarRegistroCRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarRegistroCRC.setText("Confirmar");
+        jBtConfirmarRegistroCRC.setEnabled(false);
+        jBtConfirmarRegistroCRC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtConfirmarRegistroATMActionPerformed(evt);
+                jBtConfirmarRegistroCRCActionPerformed(evt);
             }
         });
 
@@ -1293,13 +1300,13 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCodigoRegistroATM))
                     .addGroup(jPanel37Layout.createSequentialGroup()
-                        .addComponent(jBtAlterarRegistroATM)
+                        .addComponent(jBtAlterarRegistroCRC)
                         .addGap(2, 2, 2)
-                        .addComponent(jBtConfirmarRegistroATM)))
+                        .addComponent(jBtConfirmarRegistroCRC)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel37Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarRegistroATM, jBtConfirmarRegistroATM});
+        jPanel37Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarRegistroCRC, jBtConfirmarRegistroCRC});
 
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1309,8 +1316,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                     .addComponent(jCodigoRegistroATM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtAlterarRegistroATM)
-                    .addComponent(jBtConfirmarRegistroATM))
+                    .addComponent(jBtAlterarRegistroCRC)
+                    .addComponent(jBtConfirmarRegistroCRC))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -3923,6 +3930,104 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
         PainelPrincipal.addTab("Farmácia", Farmacia);
 
+        jPanel77.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jPanel78.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Agendamento Escolta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jLabel51.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel51.setText("Código Registro:");
+
+        jCodigoRegistroAGE.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroAGE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroAGE.setEnabled(false);
+
+        jBtAlterarRegistroAGE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarRegistroAGE.setText("Alterar");
+        jBtAlterarRegistroAGE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarRegistroAGEActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmarRegistroAGE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarRegistroAGE.setText("Confirmar");
+        jBtConfirmarRegistroAGE.setEnabled(false);
+        jBtConfirmarRegistroAGE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarRegistroAGEActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel78Layout = new javax.swing.GroupLayout(jPanel78);
+        jPanel78.setLayout(jPanel78Layout);
+        jPanel78Layout.setHorizontalGroup(
+            jPanel78Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel78Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel78Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel78Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel51)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCodigoRegistroAGE))
+                    .addGroup(jPanel78Layout.createSequentialGroup()
+                        .addComponent(jBtAlterarRegistroAGE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jBtConfirmarRegistroAGE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel78Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarRegistroAGE, jBtConfirmarRegistroAGE});
+
+        jPanel78Layout.setVerticalGroup(
+            jPanel78Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel78Layout.createSequentialGroup()
+                .addGroup(jPanel78Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51)
+                    .addComponent(jCodigoRegistroAGE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel78Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAlterarRegistroAGE)
+                    .addComponent(jBtConfirmarRegistroAGE))
+                .addGap(0, 9, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel77Layout = new javax.swing.GroupLayout(jPanel77);
+        jPanel77.setLayout(jPanel77Layout);
+        jPanel77Layout.setHorizontalGroup(
+            jPanel77Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel77Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel78, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(481, Short.MAX_VALUE))
+        );
+        jPanel77Layout.setVerticalGroup(
+            jPanel77Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel77Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel78, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(317, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel77, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel77, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        PainelPrincipal.addTab("CRC", jPanel1);
+
         Rodape.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
@@ -4470,15 +4575,15 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
     }//GEN-LAST:event_jBtAlterarRegistroChegadaActionPerformed
 
-    private void jBtAlterarRegistroATMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroATMActionPerformed
+    private void jBtAlterarRegistroCRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroCRCActionPerformed
         // TODO add your handling code here:
-        jBtAlterarRegistroATM.setEnabled(!true);
+        jBtAlterarRegistroCRC.setEnabled(!true);
         jCodigoRegistroATM.setEnabled(true);
-        jBtConfirmarRegistroATM.setEnabled(true);
+        jBtConfirmarRegistroCRC.setEnabled(true);
         jBtCancelar.setEnabled(true);
-    }//GEN-LAST:event_jBtAlterarRegistroATMActionPerformed
+    }//GEN-LAST:event_jBtAlterarRegistroCRCActionPerformed
 
-    private void jBtConfirmarRegistroATMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroATMActionPerformed
+    private void jBtConfirmarRegistroCRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroCRCActionPerformed
         // TODO add your handling code here:confirmarATIVIDADE_MENSAL()
         if (jCodigoRegistroATM.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
@@ -4493,7 +4598,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
             }
         }
-    }//GEN-LAST:event_jBtConfirmarRegistroATMActionPerformed
+    }//GEN-LAST:event_jBtConfirmarRegistroCRCActionPerformed
 
     private void jBtAlterarLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarLocacaoActionPerformed
         // TODO add your handling code here:
@@ -5446,6 +5551,31 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtConfirmarPopulacaoActionPerformed
 
+    private void jBtAlterarRegistroAGEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroAGEActionPerformed
+        // TODO add your handling code here:
+        jBtAlterarRegistroAGE.setEnabled(!true);
+        jCodigoRegistroAGE.setEnabled(true);
+        jBtConfirmarRegistroAGE.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }//GEN-LAST:event_jBtAlterarRegistroAGEActionPerformed
+
+    private void jBtConfirmarRegistroAGEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroAGEActionPerformed
+        // TODO add your handling code here:
+         if (jCodigoRegistroAGE.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroAGE.getText()));
+                control.alterar_AGENDA_ESCOLTA(objAbriNov);
+                confirmarAGENDA_escoltaCRC();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarRegistroAGEActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Almoxarifado;
@@ -5493,7 +5623,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterarPessoasPE;
     private javax.swing.JButton jBtAlterarPopulacao;
     private javax.swing.JButton jBtAlterarREQUISICAO_avulsa_far;
-    private javax.swing.JButton jBtAlterarRegistroATM;
+    private javax.swing.JButton jBtAlterarRegistroAGE;
+    private javax.swing.JButton jBtAlterarRegistroCRC;
     private javax.swing.JButton jBtAlterarRegistroChegada;
     private javax.swing.JButton jBtAlterarRequisicao;
     private javax.swing.JButton jBtAlterarRevista;
@@ -5545,7 +5676,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtConfirmarPertencesGTE;
     private javax.swing.JButton jBtConfirmarPopulacao;
     private javax.swing.JButton jBtConfirmarREQUISICAO_avulsa_far;
-    private javax.swing.JButton jBtConfirmarRegistroATM;
+    private javax.swing.JButton jBtConfirmarRegistroAGE;
+    private javax.swing.JButton jBtConfirmarRegistroCRC;
     private javax.swing.JButton jBtConfirmarRegistroChegada;
     private javax.swing.JButton jBtConfirmarRegistroInternos;
     private javax.swing.JButton jBtConfirmarRequisicao;
@@ -5566,6 +5698,7 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jCodigoPessoa;
     private javax.swing.JTextField jCodigoPessoaPE;
     private javax.swing.JTextField jCodigoRegInternos;
+    private javax.swing.JTextField jCodigoRegistroAGE;
     private javax.swing.JTextField jCodigoRegistroATM;
     private javax.swing.JTextField jCodigoRegistroBloqueio;
     private javax.swing.JTextField jCodigoRegistroCancelaPK;
@@ -5664,10 +5797,12 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel162;
     private javax.swing.JPanel jPanel174;
@@ -5731,6 +5866,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel74;
     private javax.swing.JPanel jPanel75;
     private javax.swing.JPanel jPanel76;
+    private javax.swing.JPanel jPanel77;
+    private javax.swing.JPanel jPanel78;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
@@ -5801,6 +5938,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroTRANSFERENCIAS_far.setBackground(Color.white);
         jCodigoRegistroREQUISICAO_avulsa_far.setBackground(Color.white);
         jCodigoRegistroESTORNO_far.setBackground(Color.white);
+        //CRC
+        
     }
 
     public void Cancelar() {
@@ -5849,8 +5988,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jBtConfirmarRegistroChegada.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
         jCodigoRegistroATM.setEnabled(!true);
-        jBtAlterarRegistroATM.setEnabled(true);
-        jBtConfirmarRegistroATM.setEnabled(!true);
+        jBtAlterarRegistroCRC.setEnabled(true);
+        jBtConfirmarRegistroCRC.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
         jCodigoRegistroLocacao.setEnabled(!true);
         jBtAlterarLocacao.setEnabled(true);
@@ -6065,8 +6204,8 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     //---------------------------------- GERÊNCIA ADMINISTRATIVA -----------------------------------
     public void confirmarATIVIDADE_MENSAL() {
         jCodigoRegistroATM.setEnabled(!true);
-        jBtAlterarRegistroATM.setEnabled(true);
-        jBtConfirmarRegistroATM.setEnabled(!true);
+        jBtAlterarRegistroCRC.setEnabled(true);
+        jBtConfirmarRegistroCRC.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
     }
 
@@ -6304,6 +6443,14 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroSOLICITACAO_compras_far.setEnabled(!true);
         jBtAlterarSOLICITACAO_compras_far.setEnabled(true);
         jBtConfirmarSOLICITACAO_compras_far.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+    
+    //------------------------------------------- CRC ----------------------------------------
+    public void confirmarAGENDA_escoltaCRC() {
+        jCodigoRegistroSOLICITACAO_compras_far.setEnabled(!true);
+        jBtAlterarRegistroAGE.setEnabled(true);
+        jBtConfirmarRegistroAGE.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
     }
 }

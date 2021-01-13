@@ -59,6 +59,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
      * Creates new form TelaAcessoriosArma
      */
     public static TelaArmas pARMAS_acessorias;
+    public static TelaAuditoriaAcessoriosArma pAUDI_acess;
 
     public TelaAcessoriosArma(TelaArmas parent, boolean modal) {
         this.pARMAS_acessorias = parent;
@@ -68,6 +69,12 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
         corCampos();
         formatarCampos();
         pMOSTRAR_DADOS_acessorios();
+    }
+    
+    
+    public void mostrarAud(){
+        pAUDI_acess = new TelaAuditoriaAcessoriosArma(this, true);
+        pAUDI_acess.setVisible(true);
     }
 
     /**
@@ -234,7 +241,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código Arma", "Cód.Acessório", "Descrição Acessório", "Observação"
+                "Registro", "Cód.Acessório", "Descrição Acessório", "Observação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -252,8 +259,8 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(jTabelaAcessorios);
         if (jTabelaAcessorios.getColumnModel().getColumnCount() > 0) {
-            jTabelaAcessorios.getColumnModel().getColumn(0).setMinWidth(100);
-            jTabelaAcessorios.getColumnModel().getColumn(0).setMaxWidth(100);
+            jTabelaAcessorios.getColumnModel().getColumn(0).setMinWidth(80);
+            jTabelaAcessorios.getColumnModel().getColumn(0).setMaxWidth(80);
             jTabelaAcessorios.getColumnModel().getColumn(1).setMinWidth(100);
             jTabelaAcessorios.getColumnModel().getColumn(1).setMaxWidth(100);
             jTabelaAcessorios.getColumnModel().getColumn(2).setMinWidth(200);
@@ -455,7 +462,11 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
                 bloquearCampos(!true);
                 bloquearBotoes(!true);
                 objArma.setIdAcesArma(pCODIGO_ACESSORIOS_arma);
-                CONTROL.excluirQRCode(objArma);
+                CONTROL.excluirACESSORIOS(objArma);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                limparTabela();
+                pMOSTRAR_DADOS_acessorios();
                 if (pRESPOSTA_acessorio.equals("Sim")) {
                     JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                 } else {
@@ -485,6 +496,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
                 objArma.setQuantidade(Integer.valueOf(jQuantidade.getText()));
                 objArma.setObservacao(jObservacaoAcessorio.getText());
                 if (acao == 7) {
+                    bloquearCampos(!true);
                     bloquearBotoes(!true);
                     Salvar();
                     objArma.setUsuarioInsert(nameUser);
@@ -494,7 +506,9 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
                     pBUSCAR_codigo();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    limparTabela();
                     pMOSTRAR_DADOS_acessorios();
+                    limparCampos();
                     if (pRESPOSTA_acessorio.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     } else if (pRESPOSTA_acessorio.equals("Não")) {
@@ -502,6 +516,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
                     }
                 }
                 if (acao == 8) {
+                    bloquearCampos(!true);
                     bloquearBotoes(!true);
                     Salvar();
                     objArma.setUsuarioUp(nameUser);
@@ -511,7 +526,9 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
                     CONTROL.alterarACESSORIOS(objArma);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    limparTabela();
                     pMOSTRAR_DADOS_acessorios();
+                    limparCampos();
                     if (pRESPOSTA_acessorio.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     } else if (pRESPOSTA_acessorio.equals("Não")) {
@@ -536,6 +553,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        mostrarAud();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jTabelaAcessoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAcessoriosMouseClicked
@@ -552,6 +570,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
             jComboBoxDescricaoAcessorio.removeAllItems();
             try {
                 for (Arma pp : CONTROL.ACESSORIOS_CODIGO_read()) {
+                    pCODIGO_ACESSORIOS_arma = pp.getIdAcesArma();
                     jCodigoArma.setText(String.valueOf(pp.getIdArma()));
                     jNumeroSerie.setText(pp.getSerieArma());
                     jDescricaoArma.setText(pp.getDescricaoArma());
@@ -727,7 +746,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaAcessorios.getModel();
         try {
             for (Arma dd : CONTROL.ACESSORIOS_read()) {
-                dadosOrigem.addRow(new Object[]{dd.getIdArma(), dd.getIdArmaACE(), dd.getDescricaoAcessorio(), dd.getObservacao()});
+                dadosOrigem.addRow(new Object[]{dd.getIdAcesArma(), dd.getIdArmaACE(), dd.getDescricaoAcessorio(), dd.getObservacao()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaAcessorios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO

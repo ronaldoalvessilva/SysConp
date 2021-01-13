@@ -720,12 +720,13 @@ public class ControleArma {
         PESQUISAR_CODIGO_acessorio(objArma.getDescricaoAcessorio());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA SET Quant=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAcesArma='" + objArma.getIdArmaACE() + "'");
-            pst.setInt(1, objArma.getQuantidade());
-            pst.setInt(2, pCODIGO_acessorio);
-            pst.setString(3, objArma.getUsuarioUp());
-            pst.setString(4, objArma.getDataUp());
-            pst.setString(5, objArma.getHorarioUp());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA SET IdArmaACE=?,Quant=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAcesArma='" + objArma.getIdAcesArma() + "'");            
+            pst.setInt(1, pCODIGO_acessorio);
+            pst.setInt(2, objArma.getQuantidade());
+            pst.setString(3, objArma.getObservacao());
+            pst.setString(4, objArma.getUsuarioUp());
+            pst.setString(5, objArma.getDataUp());
+            pst.setString(6, objArma.getHorarioUp());
             pst.executeUpdate();
             pRESPOSTA_acessorio = "Sim";
         } catch (SQLException ex) {
@@ -740,7 +741,7 @@ public class ControleArma {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ACESSORIOS_ARMA WHERE IdAcesArma='" + objArma.getIdArmaACE() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ACESSORIOS_ARMA WHERE IdAcesArma='" + objArma.getIdAcesArma() + "'");
             pst.executeUpdate();
             pRESPOSTA_acessorio = "Sim";
         } catch (SQLException ex) {
@@ -772,7 +773,8 @@ public class ControleArma {
         conecta.abrirConexao();
         List<Arma> LISTAR_acessorios = new ArrayList<Arma>();
         try {
-            conecta.executaSQL("SELECT ACESSORIOS_ARMA.IdArma, "
+            conecta.executaSQL("SELECT ACESSORIOS_ARMA.IdAcesArma, "
+                    + "ACESSORIOS_ARMA.IdArma, "
                     + "ACESSORIOS_ARMA.IdArmaACE, "
                     + "ACESSORIOS_ARMA_EPIs.DescricaoArmaACE, "
                     + "ACESSORIOS_ARMA.Quant, "
@@ -785,6 +787,7 @@ public class ControleArma {
                     + "WHERE ACESSORIOS_ARMA.IdArma='" + jIdArma.getText() + "'");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
+                pArmas.setIdAcesArma(conecta.rs.getInt("IdAcesArma"));
                 pArmas.setIdArma(conecta.rs.getInt("IdArma"));
                 pArmas.setIdArmaACE(conecta.rs.getInt("IdArmaACE"));
                 pArmas.setDescricaoAcessorio(conecta.rs.getString("DescricaoArmaACE"));
@@ -820,18 +823,17 @@ public class ControleArma {
                     + "ON ACESSORIOS_ARMA.IdArma=ARMAS.IdArma "
                     + "INNER JOIN ACESSORIOS_ARMA_EPIs "
                     + "ON ACESSORIOS_ARMA.IdArmaACE=ACESSORIOS_ARMA_EPIs.IdArmaACE "
-                    + "WHERE ACESSORIOS_ARMA.IdArma='" + pID_ACESSORIO_arma + "' "
-                    + "AND ACESSORIOS_ARMA.IdAcesArma='" + pID_acessorio + "'");
+                    + "WHERE ACESSORIOS_ARMA.IdAcesArma='" + pID_acessorio + "'");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
                 pArmas.setIdAcesArma(conecta.rs.getInt("IdAcesArma"));
-                pArmas.setIdArma(conecta.rs.getInt("IdArma"));
                 pArmas.setIdArmaACE(conecta.rs.getInt("IdArmaACE"));
-                pArmas.setDescricaoAcessorio(conecta.rs.getString("DescricaoArmaACE"));               
-                pArmas.setDescricaoArma(conecta.rs.getString("DescricaoArma"));                                                
+                pArmas.setDescricaoAcessorio(conecta.rs.getString("DescricaoArmaACE"));
+                pArmas.setIdArma(conecta.rs.getInt("IdArma"));
+                pArmas.setSerieArma(conecta.rs.getString("SerieArma"));
+                pArmas.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
                 pArmas.setQuantidade(conecta.rs.getInt("Quant"));
                 pArmas.setObservacao(conecta.rs.getString("Observacao"));
-                 pArmas.setSerieArma(conecta.rs.getString("SerieArma"));
                 LISTAR_acessorios.add(pArmas);
             }
             return LISTAR_acessorios;
