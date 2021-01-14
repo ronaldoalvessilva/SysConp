@@ -877,4 +877,6 @@ public class ControleArma {
         }
         conecta.desconecta();
     }
+    
+    //-------------------------------------- HISTÓRICO --------------------------------------
 }
