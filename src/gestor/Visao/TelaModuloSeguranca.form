@@ -289,15 +289,13 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCadastroArmasActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jEquipamentosSeguranca">
+                <MenuItem class="javax.swing.JMenuItem" name="jEquipamentosSegurancaEPI">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Equipamentos de Seguran&#xe7;a"/>
+                    <Property name="text" type="java.lang.String" value="Equipamentos de Seguran&#xe7;a/EPI"/>
                   </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jCadastroEPIS">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="EPI&#xb4;s"/>
-                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEquipamentosSegurancaEPIActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -308,6 +306,11 @@
                 <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
               </Properties>
               <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jInventario">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Invent&#xe1;rio"/>
+                  </Properties>
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jEntradasArmas">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Entradas"/>

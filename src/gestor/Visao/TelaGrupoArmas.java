@@ -694,6 +694,8 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
                     bloquearCampos(!true);
                     Salvar();
                     pBUSCAR_codigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     if (pRESPOSTA_grupo.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     } else {
@@ -706,6 +708,8 @@ public class TelaGrupoArmas extends javax.swing.JInternalFrame {
                     objGrupoArm.setHorarioUp(horaMov);
                     objGrupoArm.setIdGrupArma(Integer.valueOf(jCodigoGrupo.getText()));
                     control.alterarGrupoArmas(objGrupoArm);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes(!true);
                     bloquearCampos(!true);
                     Salvar();
