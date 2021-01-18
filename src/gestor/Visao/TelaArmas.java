@@ -1809,11 +1809,11 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private void jBtHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtHistoricoActionPerformed
         // TODO add your handling code here:
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaArmasCODIGO_barras);
+        objCampos.setNomeTelaAcesso(telaArmasHistorico);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaArmasCODIGO_barras) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaArmasHistorico) && objCampos.getCodigoAbrir() == 1) {
             mostrarHistorico();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1823,11 +1823,11 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private void jBtCodigoBarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCodigoBarraActionPerformed
         // TODO add your handling code here: 
         objCampos.setNomeUsuario(nameUser);
-        objCampos.setNomeTelaAcesso(telaArmasHistorico);
+        objCampos.setNomeTelaAcesso(telaArmasCODIGO_barras);
         pPESQUISAR_acessos.pesquisarUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaArmasHistorico) && objCampos.getCodigoAbrir() == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaArmasCODIGO_barras) && objCampos.getCodigoAbrir() == 1) {
             mostrarCODIGOBarra();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");

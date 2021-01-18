@@ -15,7 +15,9 @@ import static gestor.Visao.TelaArmas.caminho;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.telaEquipamentosCODIGO_barras;
 import static gestor.Visao.TelaModuloSeguranca.telaEquipamentosEPI;
+import static gestor.Visao.TelaModuloSeguranca.telaEquipamentosQRCode;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.ByteArrayOutputStream;
@@ -68,6 +70,8 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
      * Creates new form TelaEquipamentosEPI
      */
     public static TelaAuditoriaEquipamentoSeguranca pAUDITORIA_epi;
+    public static TelaQRCode_epi pQRCode_epi;
+    public static TelaCodigoBarraEpi pCODIGO_barra_epi;
 
     public TelaEquipamentosEPI() {
         initComponents();
@@ -78,6 +82,16 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     public void mostrarAuditoria() {
         pAUDITORIA_epi = new TelaAuditoriaEquipamentoSeguranca(this, true);
         pAUDITORIA_epi.setVisible(true);
+    }
+
+    public void mostrarQRCode_epi() {
+        pQRCode_epi = new TelaQRCode_epi(this, true);
+        pQRCode_epi.setVisible(true);
+    }
+
+    public void mostrarCODBARRA_epi() {
+        pCODIGO_barra_epi = new TelaCodigoBarraEpi(this, true);
+        pCODIGO_barra_epi.setVisible(true);
     }
 
     /**
@@ -139,6 +153,8 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jCorEquipamento = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jNumeroCodigoBarras = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jBtQRCode = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
@@ -339,13 +355,13 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -528,10 +544,11 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Comprimento");
 
+        jComprimentoEquipamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jComprimentoEquipamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComprimentoEquipamento.setEnabled(false);
 
-        jPesoEquipamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPesoEquipamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPesoEquipamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPesoEquipamento.setEnabled(false);
 
@@ -552,6 +569,13 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
 
         jCorEquipamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCorEquipamento.setEnabled(false);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setText("Nº Código de Barras");
+
+        jNumeroCodigoBarras.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroCodigoBarras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroCodigoBarras.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -579,22 +603,25 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                             .addComponent(jModeloEquipamento)
                             .addComponent(jTipoMaterialEquipamento)
                             .addComponent(jCorEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jCodigoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(4, 4, 4)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(jComboBoxStatusEquipamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jCodigoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jComboBoxStatusEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel14))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jDataCadastroEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3)))
-                        .addComponent(jDescricaoEquipamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jNumeroCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jDescricaoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -603,21 +630,24 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jNumeroCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataCadastroEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxStatusEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataCadastroEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jCodigoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDescricaoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -627,7 +657,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jMarcaEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jModeloEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(5, 5, 5)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComprimentoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -635,7 +665,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTipoMaterialEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel11))
@@ -643,11 +673,11 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPesoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCorEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "QRCode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
@@ -803,9 +833,9 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(137, 137, 137))
+                .addGap(2, 2, 2))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel11, jPanel12, jPanel13, jPanel8, jPanel9});
@@ -820,7 +850,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+            .addComponent(jFotoEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -835,11 +865,11 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jQRCodeEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+            .addComponent(jQRCodeEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jQRCodeEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+            .addComponent(jQRCodeEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Código Barra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
@@ -852,12 +882,12 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCodigoBarraEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addComponent(jCodigoBarraEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jCodigoBarraEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jCodigoBarraEquipamento, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -867,29 +897,28 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel5, jPanel6, jPanel7});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1))
+                .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel5, jPanel6});
-
-        setBounds(300, 60, 723, 541);
+        setBounds(300, 60, 707, 517);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabelaEquipamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEquipamentosMouseClicked
@@ -909,9 +938,10 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                     jCodigoEquipamento.setText(String.valueOf(gg.getIdEquipamento()));
                     jComboBoxStatusEquipamento.setSelectedItem((String) gg.getStatusEquipamento());
                     jDataCadastroEquipamento.setDate(gg.getDataCadastroEquipamento());
+                    jNumeroCodigoBarras.setText(gg.getNumeroCodigoBarras());
                     jDescricaoEquipamento.setText(gg.getDescricaoEquipamento());
-                    jMarcaEquipamento.setText(gg.getDescricaoEquipamento());
-                    jModeloEquipamento.setText(gg.getMarcaEquipamento());
+                    jMarcaEquipamento.setText(gg.getMarcaEquipamento());
+                    jModeloEquipamento.setText(gg.getModeloEquipamento());
                     jComprimentoEquipamento.setText(gg.getComprimentoEquipamento());
                     jTipoMaterialEquipamento.setText(gg.getTipoMaterialEquipamento());
                     qtdItem = gg.getPesoEquipamento();
@@ -920,7 +950,38 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                     jPesoEquipamento.setText(vqtdItem);
                     jCorEquipamento.setText(gg.getCorEquipamento());
                     jObservacaoEquipamento.setText(gg.getObservacao());
-                }
+                    // BUSCAR A FOTO NO BANCO DE DADOS
+                    byte[] imgBytes = ((byte[]) gg.getFotoEquipamento());
+                    if (imgBytes != null) {
+                        ImageIcon pic = null;
+                        pic = new ImageIcon(imgBytes);
+                        Image scaled = pic.getImage().getScaledInstance(jFotoEquipamento.getWidth(), jFotoEquipamento.getHeight(), Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(scaled);
+                        jFotoEquipamento.setIcon(icon);
+                    }
+                    //QRCODE
+                    byte[] imgBytes1 = ((byte[]) gg.getqRCodeEquipamento());
+                    if (imgBytes1 != null) {
+                        ImageIcon pic1 = null;
+                        pic1 = new ImageIcon(imgBytes1);
+                        Image scaled1 = pic1.getImage().getScaledInstance(jQRCodeEquipamento.getWidth(), jQRCodeEquipamento.getHeight(), Image.SCALE_SMOOTH);
+                        ImageIcon icon1 = new ImageIcon(scaled1);
+                        jQRCodeEquipamento.setIcon(icon1);
+                        jQRCodeEquipamento.setEnabled(true);
+                    } else if (imgBytes1 == null) {
+                        jQRCodeEquipamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/codigo-qr_64.png")));
+                        jQRCodeEquipamento.setEnabled(!true);
+                    }
+                    //CÓDIGO DE BARRA
+                    byte[] imgBytes2 = ((byte[]) gg.getCodigoBarra());
+                    if (imgBytes2 != null) {
+                        ImageIcon pic2 = null;
+                        pic2 = new ImageIcon(imgBytes2);
+                        Image scaled2 = pic2.getImage().getScaledInstance(jCodigoBarraEquipamento.getWidth(), jCodigoBarraEquipamento.getHeight(), Image.SCALE_SMOOTH);
+                        ImageIcon icon2 = new ImageIcon(scaled2);
+                        jCodigoBarraEquipamento.setIcon(icon2);
+                    }
+                }                
             } catch (Exception ex) {
                 Logger.getLogger(TelaEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1081,6 +1142,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                 objEquipa.setFotoEquipamento(persona_imagem);
                 objEquipa.setStatusEquipamento((String) jComboBoxStatusEquipamento.getSelectedItem());
                 objEquipa.setDataCadastroEquipamento(jDataCadastroEquipamento.getDate());
+                objEquipa.setNumeroCodigoBarras(jNumeroCodigoBarras.getText());
                 objEquipa.setDescricaoEquipamento(jDescricaoEquipamento.getText());
                 objEquipa.setMarcaEquipamento(jMarcaEquipamento.getText());
                 objEquipa.setModeloEquipamento(jModeloEquipamento.getText());
@@ -1150,19 +1212,40 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
 
     private void jBtQRCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtQRCodeActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaEquipamentosQRCode);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEquipamentosQRCode) && objCampos.getCodigoAbrir() == 1) {
+            mostrarQRCode_epi();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtQRCodeActionPerformed
 
     private void jBtCodigoBarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCodigoBarraActionPerformed
         // TODO add your handling code here:
+        objCampos.setNomeUsuario(nameUser);
+        objCampos.setNomeTelaAcesso(telaEquipamentosCODIGO_barras);
+        pPESQUISAR_acessos.pesquisarUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
+        pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEquipamentosCODIGO_barras) && objCampos.getCodigoAbrir() == 1) {
+            mostrarCODBARRA_epi();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtCodigoBarraActionPerformed
 
     private void jBtHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtHistoricoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBtHistoricoActionPerformed
 
     private void jBtFotoEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFotoEquipamentoActionPerformed
         // TODO add your handling code here:
-         JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
@@ -1201,20 +1284,21 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JCheckBox jCheckBoxPesqTodos;
-    private javax.swing.JLabel jCodigoBarraEquipamento;
+    public static javax.swing.JLabel jCodigoBarraEquipamento;
     public static javax.swing.JTextField jCodigoEquipamento;
     public static javax.swing.JTextField jCodigoPesquisa;
     private javax.swing.JComboBox<String> jComboBoxStatusEquipamento;
-    private javax.swing.JTextField jComprimentoEquipamento;
-    private javax.swing.JTextField jCorEquipamento;
+    public static javax.swing.JTextField jComprimentoEquipamento;
+    public static javax.swing.JTextField jCorEquipamento;
     private com.toedter.calendar.JDateChooser jDataCadastroEquipamento;
-    private javax.swing.JTextField jDescricaoEquipamento;
-    private javax.swing.JLabel jFotoEquipamento;
+    public static javax.swing.JTextField jDescricaoEquipamento;
+    public static javax.swing.JLabel jFotoEquipamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1224,8 +1308,9 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jMarcaEquipamento;
-    private javax.swing.JTextField jModeloEquipamento;
+    public static javax.swing.JTextField jMarcaEquipamento;
+    public static javax.swing.JTextField jModeloEquipamento;
+    public static javax.swing.JTextField jNumeroCodigoBarras;
     private javax.swing.JTextArea jObservacaoEquipamento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1243,14 +1328,14 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jPesoEquipamento;
+    public static javax.swing.JTextField jPesoEquipamento;
     public static javax.swing.JTextField jPesqNomeEquipamento;
-    private javax.swing.JLabel jQRCodeEquipamento;
+    public static javax.swing.JLabel jQRCodeEquipamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaEquipamentos;
-    private javax.swing.JTextField jTipoMaterialEquipamento;
+    public static javax.swing.JTextField jTipoMaterialEquipamento;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -1263,6 +1348,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jCodigoEquipamento.setBackground(Color.white);
         jComboBoxStatusEquipamento.setBackground(Color.white);
         jDataCadastroEquipamento.setBackground(Color.white);
+        jNumeroCodigoBarras.setBackground(Color.white);
         jDescricaoEquipamento.setBackground(Color.white);
         jMarcaEquipamento.setBackground(Color.white);
         jModeloEquipamento.setBackground(Color.white);
@@ -1277,6 +1363,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jCodigoEquipamento.setText("");
         jComboBoxStatusEquipamento.setSelectedItem("Selecione...");
         jDataCadastroEquipamento.setDate(null);
+        jNumeroCodigoBarras.setText("");
         jDescricaoEquipamento.setText("");
         jMarcaEquipamento.setText("");
         jModeloEquipamento.setText("");
@@ -1300,6 +1387,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jCodigoEquipamento.setEnabled(opcao);
         jComboBoxStatusEquipamento.setEnabled(opcao);
         jDataCadastroEquipamento.setEnabled(opcao);
+        jNumeroCodigoBarras.setEnabled(opcao);
         jDescricaoEquipamento.setEnabled(opcao);
         jMarcaEquipamento.setEnabled(opcao);
         jModeloEquipamento.setEnabled(opcao);
@@ -1313,6 +1401,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
 
     public void habilitarCampos(boolean opcao) {
         jComboBoxStatusEquipamento.setEnabled(opcao);
+        jNumeroCodigoBarras.setEnabled(opcao);
         jDescricaoEquipamento.setEnabled(opcao);
         jMarcaEquipamento.setEnabled(opcao);
         jModeloEquipamento.setEnabled(opcao);
