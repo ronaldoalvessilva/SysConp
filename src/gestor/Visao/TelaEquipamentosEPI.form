@@ -1184,6 +1184,7 @@
                       <Image iconType="3" name="/gestor/Imagens/2998131-camera-photo-photography_99870.png"/>
                     </Property>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
                   <Events>

@@ -57,7 +57,7 @@ public class TelaQRCode_epi extends javax.swing.JDialog {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Segurança:QRCode de Armas:Manutenção";
+    String nomeModuloTela = "Segurança:QRCode de EPI:Manutenção";
     //
     int acao = 0;
     String statusMov;
@@ -66,6 +66,7 @@ public class TelaQRCode_epi extends javax.swing.JDialog {
     public static String caminho = "";
     byte[] pQRCode_imagem = null;
     public static Integer pCODIGO_QRCode = 0;
+    public static String pNUMERO_EQUIP_epi = "";
 
     /**
      * Creates new form TelaQRCode_Arama
@@ -363,7 +364,7 @@ public class TelaQRCode_epi extends javax.swing.JDialog {
                     ImageIcon icon = new ImageIcon(scaled);
                     jQRCode.setIcon(icon);
                 }
-                //MOSTRAR A IMAGEM TAMBÉM NO FOMULÁRIO DA ARMA
+                //MOSTRAR A IMAGEM TAMBÉM NO FOMULÁRIO 
                 mMOSTRAR_QRCode();
                 BloquearBotoes(!true);
                 GerarQRCode();
@@ -438,23 +439,29 @@ public class TelaQRCode_epi extends javax.swing.JDialog {
                 objEquipa.setTextoQRCode(jTextoQRCode.getText());
                 objEquipa.setqRCodeEquipamento(pQRCode_imagem);
                 if (acao == 3) {
-                    BloquearBotoes(!true);
-                    CONTROL.incluirQRCode(objEquipa);
-                    pBUSCAR_QRCode();
-                    CONTROL.alterarQRCodeEpi(objEquipa);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    if (pRESPOSTA_epi.equals("Sim")) {
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    } else if (pRESPOSTA_epi.equals("Não")) {
-                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    //VERIFICAR A EXISTÊNCIA OU NÃO DO QRCODE
+                    CONTROL.pVERIFICAR_QRCode_codigo(objEquipa);
+                    if (jCodigoEquipamento.getText().equals(pNUMERO_EQUIP_epi)) {
+                        JOptionPane.showMessageDialog(rootPane, "Já existe um QRCode para esse material.");
+                    } else {
+                        BloquearBotoes(!true);
+                        CONTROL.incluirQRCode(objEquipa);
+                        pBUSCAR_QRCode();
+                        CONTROL.alterarQRCodeEpi(objEquipa);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        if (pRESPOSTA_epi.equals("Sim")) {
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        } else if (pRESPOSTA_epi.equals("Não")) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                        }
+                        SalvarQRCode();
                     }
-                    SalvarQRCode();
                 }
                 if (acao == 4) {
                     BloquearBotoes(!true);
                     CONTROL.alterarQRCode(objEquipa);
-                    CONTROL.alterarQRCode(objEquipa);
+                    CONTROL.alterarQRCodeEpi(objEquipa);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     if (pRESPOSTA_epi.equals("Sim")) {

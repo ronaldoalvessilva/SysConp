@@ -19,9 +19,10 @@ import static gestor.Visao.TelaArmas.pID_arma;
 import static gestor.Visao.TelaArmas.pSERIE_arma;
 import static gestor.Visao.TelaCodigoBarraArma.pRESPOSTA_codigo;
 import static gestor.Visao.TelaCodigoBarraArma.pCODIGO_BArra;
+import static gestor.Visao.TelaQRCode_Arama.pCODIGO_QRCODE_arma;
 import static gestor.Visao.TelaQRCode_Arama.pCODIGO_QRCode;
 import static gestor.Visao.TelaAcessoriosArma.pCODIGO_ACESSORIOS_arma;
-import static gestor.Visao.TelaAcessoriosArma.pID_ACESSORIO_arma;
+import static gestor.Visao.TelaCodigoBarraArma.pCODIGO_BARRA_arma;
 import static gestor.Visao.TelaAcessoriosArma.pID_acessorio;
 import static gestor.Visao.TelaAcessoriosArma.pRESPOSTA_acessorio;
 import java.sql.PreparedStatement;
@@ -566,6 +567,22 @@ public class ControleArma {
         return objArma;
     }
 
+    public Arma pVERIFICAR_QRCode_codigo(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdArma "
+                    + "FROM QRCODE_ARMA "
+                    + "WHERE IdArma='" + jIdArma.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_QRCODE_arma = conecta.rs.getString("IdArma");
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
     public List<Arma> pPESQUISAR_QRCode_read() throws Exception {
         pTOTAL_grupo = 0;
         conecta.abrirConexao();
@@ -661,6 +678,22 @@ public class ControleArma {
         return objArma;
     }
 
+    public Arma pVERIFICAR_CODIGO_barra(Arma objArma) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdArma "
+                    + "FROM CODIGO_BARRA_ARMA "
+                    + "WHERE IdArma='" + jIdArma.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_BARRA_arma = conecta.rs.getString("IdArma");
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
     public List<Arma> pPESQUISAR_CODIGO_barras_read() throws Exception {
         pTOTAL_grupo = 0;
         conecta.abrirConexao();
@@ -720,7 +753,7 @@ public class ControleArma {
         PESQUISAR_CODIGO_acessorio(objArma.getDescricaoAcessorio());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA SET IdArmaACE=?,Quant=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAcesArma='" + objArma.getIdAcesArma() + "'");            
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACESSORIOS_ARMA SET IdArmaACE=?,Quant=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAcesArma='" + objArma.getIdAcesArma() + "'");
             pst.setInt(1, pCODIGO_acessorio);
             pst.setInt(2, objArma.getQuantidade());
             pst.setString(3, objArma.getObservacao());
@@ -877,6 +910,6 @@ public class ControleArma {
         }
         conecta.desconecta();
     }
-    
+
     //-------------------------------------- HISTÓRICO --------------------------------------
 }

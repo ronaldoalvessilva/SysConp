@@ -71,6 +71,7 @@ public class TelaQRCode_Arama extends javax.swing.JDialog {
     public static String caminho = "";
     byte[] pQRCode_imagem = null;
     public static Integer pCODIGO_QRCode = 0;
+    public static String pCODIGO_QRCODE_arma = "";
 
     /**
      * Creates new form TelaQRCode_Arama
@@ -445,18 +446,24 @@ public class TelaQRCode_Arama extends javax.swing.JDialog {
                 objArma.setTextoQRCode(jTextoQRCode.getText());
                 objArma.setqRCodeArma(pQRCode_imagem);
                 if (acao == 3) {
-                    BloquearBotoes(!true);
-                    CONTROL.incluirQRCode(objArma);
-                    pBUSCAR_QRCode();
-                    CONTROL.alterarQRCodeArmas(objArma);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    if (pRESPOSTA_grupo.equals("Sim")) {
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    } else if (pRESPOSTA_grupo.equals("Não")) {
-                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    //VERIFICAR A EXISTENCIA DE QRCODE
+                    CONTROL.pVERIFICAR_CODIGO_barra(objArma);
+                    if (jIdArma.getText().equals(pCODIGO_QRCODE_arma)) {
+                        JOptionPane.showMessageDialog(rootPane, "Já existe um QRCode para essa arma.");
+                    } else {
+                        BloquearBotoes(!true);
+                        CONTROL.incluirQRCode(objArma);
+                        pBUSCAR_QRCode();
+                        CONTROL.alterarQRCodeArmas(objArma);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        if (pRESPOSTA_grupo.equals("Sim")) {
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        } else if (pRESPOSTA_grupo.equals("Não")) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                        }
+                        SalvarQRCode();
                     }
-                    SalvarQRCode();
                 }
                 if (acao == 4) {
                     BloquearBotoes(!true);

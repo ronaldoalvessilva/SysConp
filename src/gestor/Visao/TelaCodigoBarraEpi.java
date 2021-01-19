@@ -16,6 +16,7 @@ import static gestor.Visao.TelaEquipamentosEPI.jCodigoBarraEquipamento;
 import static gestor.Visao.TelaEquipamentosEPI.jCodigoEquipamento;
 import static gestor.Visao.TelaEquipamentosEPI.jDescricaoEquipamento;
 import static gestor.Visao.TelaEquipamentosEPI.jNumeroCodigoBarras;
+import static gestor.Visao.TelaEquipamentosEPI.pRESPOSTA_epi;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -51,12 +52,13 @@ public class TelaCodigoBarraEpi extends javax.swing.JDialog {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Segurança:Código de Barra de Armas:Manutenção";
+    String nomeModuloTela = "Segurança:Código de Barra de EPI:Manutenção";
     //
     byte[] pCODIGO_barra = null;
     int acao = 0;
     public static String pRESPOSTA_codigo = "";
     public static Integer pCODIGO_BArra = 0;
+    public static String pNUMERO_equipamento = "";
     //
     String statusMov;
     String horaMov;
@@ -442,21 +444,28 @@ public class TelaCodigoBarraEpi extends javax.swing.JDialog {
                 objEquipa.setNumeroCodigoBarras(jNumeroCodigoBarras.getText());
                 objEquipa.setCodigoBarra(pCODIGO_barra);
                 if (acao == 1) {
-                    CONTROL.incluirCODIGO_barra(objEquipa);
-                    pBUSCAR_codigo();
-                    CONTROL.alterarCodigoBarraEpi(objEquipa);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Salvar();
-                    if (pRESPOSTA_codigo.equals("Sim")) {
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    //VERIFICAR SE JÁ EXISTE UM REGISTRO GRAVADO
+                    CONTROL.pVERIFICAR_CODIGO_barra(objEquipa);
+                    if (jCodigoEquipamento.getText().equals(pNUMERO_equipamento)) {
+                        JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado um código de barras para esse EPI.");
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "não foi possível gravar o registro, tente novamente ou entre em contato com o administrador do sistema.");
+                        CONTROL.incluirCODIGO_barra(objEquipa);
+                        pBUSCAR_codigo();
+                        CONTROL.alterarCodigoBarraEpi(objEquipa);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        if (pRESPOSTA_epi.equals("Sim")) {
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        } else if (pRESPOSTA_epi.equals("Não")) {
+                            JOptionPane.showMessageDialog(rootPane, "não foi possível gravar o registro, tente novamente ou entre em contato com o administrador do sistema.");
+                        }
                     }
                 }
                 if (acao == 2) {
                     objEquipa.setIdEquipamento(Integer.valueOf(jCodigoEquipamento.getText()));
                     CONTROL.alterarCODIGO_barra(objEquipa);
+                    CONTROL.alterarCodigoBarraEpi(objEquipa);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
@@ -539,7 +548,7 @@ public class TelaCodigoBarraEpi extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jNUMERO_serie;
+    public static javax.swing.JTextField jNUMERO_serie;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

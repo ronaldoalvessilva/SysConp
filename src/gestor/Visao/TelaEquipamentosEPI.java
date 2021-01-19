@@ -736,6 +736,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
 
         jBtFotoEquipamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/2998131-camera-photo-photography_99870.png"))); // NOI18N
         jBtFotoEquipamento.setContentAreaFilled(false);
+        jBtFotoEquipamento.setEnabled(false);
         jBtFotoEquipamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtFotoEquipamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -933,6 +934,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            limparCampos();
             try {
                 for (EquipamentoSegurancaEPI gg : CONTROL.pCODIGO_EQUIPAMENTO_read()) {
                     jCodigoEquipamento.setText(String.valueOf(gg.getIdEquipamento()));
@@ -981,7 +983,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                         ImageIcon icon2 = new ImageIcon(scaled2);
                         jCodigoBarraEquipamento.setIcon(icon2);
                     }
-                }                
+                }
             } catch (Exception ex) {
                 Logger.getLogger(TelaEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1138,6 +1140,8 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do cadastro.");
             } else if (jDescricaoEquipamento.getText().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição do grupo de armas.");
+            } else if (jFotoEquipamento.getIcon() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a foto do equipamento.");
             } else {
                 objEquipa.setFotoEquipamento(persona_imagem);
                 objEquipa.setStatusEquipamento((String) jComboBoxStatusEquipamento.getSelectedItem());
@@ -1218,7 +1222,11 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEquipamentosQRCode) && objCampos.getCodigoAbrir() == 1) {
-            mostrarQRCode_epi();
+            if (jCodigoEquipamento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário ter o registro gravado para cadastrar o QRCode.");
+            } else {
+                mostrarQRCode_epi();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1232,7 +1240,11 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarGrupoUsuario(objCampos);
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaEquipamentosCODIGO_barras) && objCampos.getCodigoAbrir() == 1) {
-            mostrarCODBARRA_epi();
+            if (jCodigoEquipamento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário ter o registro gravado para cadastrar o código de barras.");
+            } else {
+                mostrarCODBARRA_epi();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1240,7 +1252,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
 
     private void jBtHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtHistoricoActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jBtHistoricoActionPerformed
 
     private void jBtFotoEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFotoEquipamentoActionPerformed
@@ -1360,6 +1372,9 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     }
 
     public void limparCampos() {
+        jFotoEquipamento.setIcon(null);
+        jQRCodeEquipamento.setIcon(null);
+        jCodigoBarraEquipamento.setIcon(null);
         jCodigoEquipamento.setText("");
         jComboBoxStatusEquipamento.setSelectedItem("Selecione...");
         jDataCadastroEquipamento.setDate(null);
@@ -1375,6 +1390,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     }
 
     public void bloquearBotoes(boolean opcao) {
+        jBtFotoEquipamento.setEnabled(opcao);
         jBtNovo.setEnabled(opcao);
         jBtAlterar.setEnabled(opcao);
         jBtExcluir.setEnabled(opcao);
@@ -1415,11 +1431,14 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
 
     public void Novo() {
         jDataCadastroEquipamento.setCalendar(Calendar.getInstance());
+        //
+        jBtFotoEquipamento.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
 
     public void Alterar() {
+        jBtFotoEquipamento.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }

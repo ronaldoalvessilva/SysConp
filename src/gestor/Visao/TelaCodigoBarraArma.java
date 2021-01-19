@@ -57,6 +57,7 @@ public class TelaCodigoBarraArma extends javax.swing.JDialog {
     int acao = 0;
     public static String pRESPOSTA_codigo = "";
     public static Integer pCODIGO_BArra = 0;
+    public static String pCODIGO_BARRA_arma = "";
     //
     String statusMov;
     String horaMov;
@@ -443,15 +444,21 @@ public class TelaCodigoBarraArma extends javax.swing.JDialog {
                 objArma.setCodigoBarra(pCODIGO_barra);
                 objArma.setSerieArma(jNUMERO_serie.getText());
                 if (acao == 1) {
-                    CONTROL.incluirCODIGO_barra(objArma);
-                    pBUSCAR_codigo();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Salvar();
-                    if (pRESPOSTA_codigo.equals("Sim")) {
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    //VERIFICAR A EXISTENCIA DO CÓDIGO DE BARRAS
+                    CONTROL.pVERIFICAR_CODIGO_barra(objArma);
+                    if (jIdArma.getText().equals(pCODIGO_BARRA_arma)) {
+                        JOptionPane.showMessageDialog(rootPane, "Já existe um código de barra para essa arma.");
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "não foi possível gravar o registro, tente novamente ou entre em contato com o administrador do sistema.");
+                        CONTROL.incluirCODIGO_barra(objArma);
+                        pBUSCAR_codigo();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        if (pRESPOSTA_codigo.equals("Sim")) {
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "não foi possível gravar o registro, tente novamente ou entre em contato com o administrador do sistema.");
+                        }
                     }
                 }
                 if (acao == 2) {
@@ -607,13 +614,13 @@ public class TelaCodigoBarraArma extends javax.swing.JDialog {
                 jDESCRICAO_arma.setText(cc.getDescricaoArma());
                 //
                 byte[] imgBytes2 = ((byte[]) cc.getCodigoBarra());
-                    if (imgBytes2 != null) {
-                        ImageIcon pic2 = null;
-                        pic2 = new ImageIcon(imgBytes2);
-                        Image scaled2 = pic2.getImage().getScaledInstance(jFOTO_CODIGO_barra.getWidth(), jFOTO_CODIGO_barra.getHeight(), Image.SCALE_SMOOTH);
-                        ImageIcon icon2 = new ImageIcon(scaled2);
-                        jFOTO_CODIGO_barra.setIcon(icon2);
-                    }
+                if (imgBytes2 != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(imgBytes2);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFOTO_CODIGO_barra.getWidth(), jFOTO_CODIGO_barra.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFOTO_CODIGO_barra.setIcon(icon2);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaCodigoBarraArma.class.getName()).log(Level.SEVERE, null, ex);

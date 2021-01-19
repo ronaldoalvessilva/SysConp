@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EquipamentoSegurancaEPI;
+import static gestor.Visao.TelaQRCode_epi.pNUMERO_EQUIP_epi;
 import static gestor.Visao.TelaEquipamentosEPI.jCodigoEquipamento;
 import static gestor.Visao.TelaEquipamentosEPI.jPesqNomeEquipamento;
 import static gestor.Visao.TelaEquipamentosEPI.pID_equipamento;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static gestor.Visao.TelaCodigoBarraEpi.pNUMERO_equipamento;
 
 /**
  *
@@ -331,6 +333,22 @@ public class ControleEquipamentoEPI {
         return objEquipa;
     }
 
+     public EquipamentoSegurancaEPI pVERIFICAR_QRCode_codigo(EquipamentoSegurancaEPI objEquipa) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdEquipamento "
+                    + "FROM QRCODE_EPI "
+                    + "WHERE IdEquipamento='" + jCodigoEquipamento.getText() + "'");
+            conecta.rs.first();
+            pNUMERO_EQUIP_epi = conecta.rs.getString("IdEquipamento");
+        } catch (SQLException ex) {            
+        }
+        conecta.desconecta();
+        return objEquipa;
+    }
+    
     public List<EquipamentoSegurancaEPI> pPESQUISAR_QRCode_read() throws Exception {
         pTOTAL_epi = 0;
         conecta.abrirConexao();
@@ -437,6 +455,22 @@ public class ControleEquipamentoEPI {
             pCODIGO_BArra = conecta.rs.getInt("IdCodigoBarraEpi");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ENCONTRAR o código de barra.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEquipa;
+    }
+
+    public EquipamentoSegurancaEPI pVERIFICAR_CODIGO_barra(EquipamentoSegurancaEPI objEquipa) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdEquipamento "
+                    + "FROM CODIGO_BARRA_EPI "
+                    + "WHERE IdEquipamento='" + jCodigoEquipamento.getText() + "'");
+            conecta.rs.first();
+            pNUMERO_equipamento = conecta.rs.getString("IdEquipamento");
+        } catch (SQLException ex) {            
         }
         conecta.desconecta();
         return objEquipa;

@@ -1624,7 +1624,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição da arma.");
             } else if (jComboBoxGrupoArma.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grupo que a arma pertence.");
-            } else if (caminho == null) {
+            } else if (caminho == null || jFotoArma.getIcon() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a foto da arma.");
             } else if (jSerieArma.getText().equals("")) {
                 jSerieArma.requestFocus();
