@@ -756,7 +756,6 @@ public class Arma {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

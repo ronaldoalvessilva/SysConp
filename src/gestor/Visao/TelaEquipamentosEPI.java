@@ -155,6 +155,8 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jCorEquipamento = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jNumeroCodigoBarras = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jComboBoxUnidade = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jBtQRCode = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
@@ -577,32 +579,50 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jNumeroCodigoBarras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNumeroCodigoBarras.setEnabled(false);
 
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setText("Unidade");
+
+        jComboBoxUnidade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Cx", "Un", "Pc", "Ml", "Gr", "Kg", "Lt" }));
+        jComboBoxUnidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxUnidade.setEnabled(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel4)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComprimentoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
                             .addComponent(jPesoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jMarcaEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15)
+                            .addComponent(jComboBoxUnidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jModeloEquipamento)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTipoMaterialEquipamento)
-                            .addComponent(jCorEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jCorEquipamento)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jMarcaEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jModeloEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -620,12 +640,12 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jDataCadastroEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jNumeroCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jDescricaoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                                .addComponent(jNumeroCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jDescricaoEquipamento))
+                .addGap(19, 19, 19))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComprimentoEquipamento, jMarcaEquipamento, jPesoEquipamento});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComprimentoEquipamento, jPesoEquipamento});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -648,20 +668,22 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDescricaoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jMarcaEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jModeloEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMarcaEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jModeloEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComprimentoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTipoMaterialEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -833,7 +855,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
@@ -1148,6 +1170,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
                 objEquipa.setDataCadastroEquipamento(jDataCadastroEquipamento.getDate());
                 objEquipa.setNumeroCodigoBarras(jNumeroCodigoBarras.getText());
                 objEquipa.setDescricaoEquipamento(jDescricaoEquipamento.getText());
+                objEquipa.setUnidadeArmazenamento((String) jComboBoxUnidade.getSelectedItem());
                 objEquipa.setMarcaEquipamento(jMarcaEquipamento.getText());
                 objEquipa.setModeloEquipamento(jModeloEquipamento.getText());
                 objEquipa.setComprimentoEquipamento(jComprimentoEquipamento.getText());
@@ -1300,6 +1323,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCodigoEquipamento;
     public static javax.swing.JTextField jCodigoPesquisa;
     private javax.swing.JComboBox<String> jComboBoxStatusEquipamento;
+    private javax.swing.JComboBox<String> jComboBoxUnidade;
     public static javax.swing.JTextField jComprimentoEquipamento;
     public static javax.swing.JTextField jCorEquipamento;
     private com.toedter.calendar.JDateChooser jDataCadastroEquipamento;
@@ -1311,6 +1335,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1362,6 +1387,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jDataCadastroEquipamento.setBackground(Color.white);
         jNumeroCodigoBarras.setBackground(Color.white);
         jDescricaoEquipamento.setBackground(Color.white);
+        jComboBoxUnidade.setBackground(Color.white);
         jMarcaEquipamento.setBackground(Color.white);
         jModeloEquipamento.setBackground(Color.white);
         jComprimentoEquipamento.setBackground(Color.white);
@@ -1380,6 +1406,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jDataCadastroEquipamento.setDate(null);
         jNumeroCodigoBarras.setText("");
         jDescricaoEquipamento.setText("");
+        jComboBoxUnidade.setSelectedItem("Selecione...");
         jMarcaEquipamento.setText("");
         jModeloEquipamento.setText("");
         jComprimentoEquipamento.setText("");
@@ -1405,6 +1432,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jDataCadastroEquipamento.setEnabled(opcao);
         jNumeroCodigoBarras.setEnabled(opcao);
         jDescricaoEquipamento.setEnabled(opcao);
+        jComboBoxUnidade.setEnabled(opcao);
         jMarcaEquipamento.setEnabled(opcao);
         jModeloEquipamento.setEnabled(opcao);
         jComprimentoEquipamento.setEnabled(opcao);
@@ -1419,6 +1447,7 @@ public class TelaEquipamentosEPI extends javax.swing.JInternalFrame {
         jComboBoxStatusEquipamento.setEnabled(opcao);
         jNumeroCodigoBarras.setEnabled(opcao);
         jDescricaoEquipamento.setEnabled(opcao);
+        jComboBoxUnidade.setEnabled(opcao);
         jMarcaEquipamento.setEnabled(opcao);
         jModeloEquipamento.setEnabled(opcao);
         jComprimentoEquipamento.setEnabled(opcao);

@@ -37,22 +37,23 @@ public class ControleEquipamentoEPI {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EQUIPAMENTOS_SEGURANCA_EPI (FotoEquipamento,StatusEquipamento,DataCadastroEquipamento,DescricaoEquipamento,MarcaEquipamento,ModeloEquipamento,ComprimentoEquipamento,TipoMaterialEquipamento,PesoEquipamento,CorEquipamento,Observacao,NumeroCodigoBarras,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EQUIPAMENTOS_SEGURANCA_EPI (FotoEquipamento,StatusEquipamento,DataCadastroEquipamento,DescricaoEquipamento,Unidade,MarcaEquipamento,ModeloEquipamento,ComprimentoEquipamento,TipoMaterialEquipamento,PesoEquipamento,CorEquipamento,Observacao,NumeroCodigoBarras,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setBytes(1, objEquipa.getFotoEquipamento());
             pst.setString(2, objEquipa.getStatusEquipamento());
             pst.setTimestamp(3, new java.sql.Timestamp(objEquipa.getDataCadastroEquipamento().getTime()));
             pst.setString(4, objEquipa.getDescricaoEquipamento());
-            pst.setString(5, objEquipa.getMarcaEquipamento());
-            pst.setString(6, objEquipa.getModeloEquipamento());
-            pst.setString(7, objEquipa.getComprimentoEquipamento());
-            pst.setString(8, objEquipa.getTipoMaterialEquipamento());
-            pst.setFloat(9, objEquipa.getPesoEquipamento());
-            pst.setString(10, objEquipa.getCorEquipamento());
-            pst.setString(11, objEquipa.getObservacao());
-            pst.setString(12, objEquipa.getNumeroCodigoBarras());
-            pst.setString(13, objEquipa.getUsuarioInsert());
-            pst.setString(14, objEquipa.getDataInsert());
-            pst.setString(15, objEquipa.getHorarioInsert());
+            pst.setString(5, objEquipa.getUnidadeArmazenamento());
+            pst.setString(6, objEquipa.getMarcaEquipamento());
+            pst.setString(7, objEquipa.getModeloEquipamento());
+            pst.setString(8, objEquipa.getComprimentoEquipamento());
+            pst.setString(9, objEquipa.getTipoMaterialEquipamento());
+            pst.setFloat(10, objEquipa.getPesoEquipamento());
+            pst.setString(11, objEquipa.getCorEquipamento());
+            pst.setString(12, objEquipa.getObservacao());
+            pst.setString(13, objEquipa.getNumeroCodigoBarras());
+            pst.setString(14, objEquipa.getUsuarioInsert());
+            pst.setString(15, objEquipa.getDataInsert());
+            pst.setString(16, objEquipa.getHorarioInsert());
             pst.execute();
             pRESPOSTA_epi = "Sim";
         } catch (SQLException ex) {
@@ -67,22 +68,23 @@ public class ControleEquipamentoEPI {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EQUIPAMENTOS_SEGURANCA_EPI SET FotoEquipamento=?,StatusEquipamento=?,DataCadastroEquipamento=?,DescricaoEquipamento=?,MarcaEquipamento=?,ModeloEquipamento=?,ComprimentoEquipamento=?,TipoMaterialEquipamento=?,PesoEquipamento=?,CorEquipamento=?,Observacao=?,NumeroCodigoBarras=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdEquipamento='" + objEquipa.getIdEquipamento() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EQUIPAMENTOS_SEGURANCA_EPI SET FotoEquipamento=?,StatusEquipamento=?,DataCadastroEquipamento=?,DescricaoEquipamento=?,Unidade=?,MarcaEquipamento=?,ModeloEquipamento=?,ComprimentoEquipamento=?,TipoMaterialEquipamento=?,PesoEquipamento=?,CorEquipamento=?,Observacao=?,NumeroCodigoBarras=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdEquipamento='" + objEquipa.getIdEquipamento() + "'");
             pst.setBytes(1, objEquipa.getFotoEquipamento());
             pst.setString(2, objEquipa.getStatusEquipamento());
             pst.setTimestamp(3, new java.sql.Timestamp(objEquipa.getDataCadastroEquipamento().getTime()));
             pst.setString(4, objEquipa.getDescricaoEquipamento());
-            pst.setString(5, objEquipa.getMarcaEquipamento());
-            pst.setString(6, objEquipa.getModeloEquipamento());
-            pst.setString(7, objEquipa.getComprimentoEquipamento());
-            pst.setString(8, objEquipa.getTipoMaterialEquipamento());
-            pst.setFloat(9, objEquipa.getPesoEquipamento());
-            pst.setString(10, objEquipa.getCorEquipamento());
-            pst.setString(11, objEquipa.getObservacao());
-            pst.setString(12, objEquipa.getNumeroCodigoBarras());
-            pst.setString(13, objEquipa.getUsuarioUp());
-            pst.setString(14, objEquipa.getDataUp());
-            pst.setString(15, objEquipa.getHorarioUp());
+            pst.setString(5, objEquipa.getUnidadeArmazenamento());
+            pst.setString(6, objEquipa.getMarcaEquipamento());
+            pst.setString(7, objEquipa.getModeloEquipamento());
+            pst.setString(8, objEquipa.getComprimentoEquipamento());
+            pst.setString(9, objEquipa.getTipoMaterialEquipamento());
+            pst.setFloat(10, objEquipa.getPesoEquipamento());
+            pst.setString(11, objEquipa.getCorEquipamento());
+            pst.setString(12, objEquipa.getObservacao());
+            pst.setString(13, objEquipa.getNumeroCodigoBarras());
+            pst.setString(14, objEquipa.getUsuarioUp());
+            pst.setString(15, objEquipa.getDataUp());
+            pst.setString(16, objEquipa.getHorarioUp());
             pst.executeUpdate();
             pRESPOSTA_epi = "Sim";
         } catch (SQLException ex) {

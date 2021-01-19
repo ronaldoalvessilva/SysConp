@@ -18,6 +18,7 @@ public class EquipamentoSegurancaEPI {
     private String statusEquipamento;
     private Date dataCadastroEquipamento;
     private String descricaoEquipamento;
+    private String unidadeArmazenamento;
     private String marcaEquipamento;
     private String modeloEquipamento;
     private String comprimentoEquipamento;
@@ -37,16 +38,17 @@ public class EquipamentoSegurancaEPI {
     private String dataInsert;
     private String dataUp;
     private String horarioInsert;
-    private String horarioUp;   
+    private String horarioUp;          
 
     public EquipamentoSegurancaEPI() {
     }
 
-    public EquipamentoSegurancaEPI(Integer idEquipamento, String statusEquipamento, Date dataCadastroEquipamento, String descricaoEquipamento, String marcaEquipamento, String modeloEquipamento, String comprimentoEquipamento, String tipoMaterialEquipamento, Float pesoEquipamento, String corEquipamento, String observacao, byte[] fotoEquipamento, byte[] qRCodeEquipamento, String textoQRCode, Integer idQrCodeEquipamento, Integer idCodigoBarraEquipamento, byte[] codigoBarra, String numeroCodigoBarras, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public EquipamentoSegurancaEPI(Integer idEquipamento, String statusEquipamento, Date dataCadastroEquipamento, String descricaoEquipamento, String unidadeArmazenamento, String marcaEquipamento, String modeloEquipamento, String comprimentoEquipamento, String tipoMaterialEquipamento, Float pesoEquipamento, String corEquipamento, String observacao, byte[] fotoEquipamento, byte[] qRCodeEquipamento, String textoQRCode, Integer idQrCodeEquipamento, Integer idCodigoBarraEquipamento, byte[] codigoBarra, String numeroCodigoBarras, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idEquipamento = idEquipamento;
         this.statusEquipamento = statusEquipamento;
         this.dataCadastroEquipamento = dataCadastroEquipamento;
         this.descricaoEquipamento = descricaoEquipamento;
+        this.unidadeArmazenamento = unidadeArmazenamento;
         this.marcaEquipamento = marcaEquipamento;
         this.modeloEquipamento = modeloEquipamento;
         this.comprimentoEquipamento = comprimentoEquipamento;
@@ -123,6 +125,20 @@ public class EquipamentoSegurancaEPI {
      */
     public void setDescricaoEquipamento(String descricaoEquipamento) {
         this.descricaoEquipamento = descricaoEquipamento;
+    }
+
+    /**
+     * @return the unidadeArmazenamento
+     */
+    public String getUnidadeArmazenamento() {
+        return unidadeArmazenamento;
+    }
+
+    /**
+     * @param unidadeArmazenamento the unidadeArmazenamento to set
+     */
+    public void setUnidadeArmazenamento(String unidadeArmazenamento) {
+        this.unidadeArmazenamento = unidadeArmazenamento;
     }
 
     /**
@@ -404,7 +420,6 @@ public class EquipamentoSegurancaEPI {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-
     @Override
     public int hashCode() {
         int hash = 3;

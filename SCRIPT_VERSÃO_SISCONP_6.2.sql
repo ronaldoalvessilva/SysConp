@@ -416,6 +416,7 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('EQUIPAMENTOS_SE
 	StatusEquipamento VARCHAR(50) NULL,
 	DataCadastroEquipamento DATETIME NULL,
 	DescricaoEquipamento VARCHAR(300) NULL,
+	Unidade VARCHAR(50) NULL,
 	MarcaEquipamento VARCHAR(150) NULL,
 	ModeloEquipamento VARCHAR(150) NULL,
 	ComprimentoEquipamento VARCHAR(150) NULL,
@@ -464,3 +465,126 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('CODIGO_BARRA_EP
 	HorarioInsert VARCHAR(10) NULL,
 	HorarioUp VARCHAR(10) NULL,
 	)
+
+
+
+-- TABELA DE INVENTÁRIO DE ARMAS E EPIS E LOCAL DE ARMAZENAMENTO
+
+USE [DB_SOCIALIZA_VC]
+GO
+
+/****** Object:  Table [dbo].[LOCAL_ARMAZENAMENTO_AC]    Script Date: 19/01/2021 14:41:06 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[LOCAL_ARMAZENAMENTO_ARMAS_EPI](
+	[IdLocal] [int] IDENTITY(1,1) NOT NULL,
+	[StatusLocal] [varchar](20) NULL,
+	[DescricaoLocal] [varchar](200) NULL,
+	[NivelLocal] [int] NULL,
+	[UsuarioInsert] [varchar](50) NULL,
+	[UsuarioUp] [varchar](50) NULL,
+	[DataInsert] [varchar](20) NULL,
+	[DataUp] [varchar](20) NULL,
+	[HorarioInsert] [varchar](10) NULL,
+	[HorarioUp] [varchar](10) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdLocal] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [DB_SOCIALIZA_VC]
+GO
+
+/****** Object:  Table [dbo].[INVENTARIO_AC]    Script Date: 19/01/2021 14:39:47 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[INVENTARIO_ARMAS_EPI](
+	[IdLanc] [int] IDENTITY(1,1) NOT NULL,
+	[StatusLanc] [varchar](20) NULL,
+	[TipoInventario] [varchar](30) NULL,
+	[IdLocal] [int] NOT NULL,
+	[Responsavel] [varchar](250) NULL,
+	[DataInicio] [date] NULL,
+	[DataTermino] [date] NULL,
+	[HorarioInicio] [varchar](20) NULL,
+	[HorarioTermino] [varchar](20) NULL,
+	[Observacao] [varchar](max) NULL,
+	[UsuarioInsert] [varchar](50) NULL,
+	[UsuarioUp] [varchar](50) NULL,
+	[UsuarioDelete] [varchar](50) NULL,
+	[DataInsert] [varchar](20) NULL,
+	[DataUp] [varchar](20) NULL,
+	[DataDelete] [varchar](20) NULL,
+	[HorarioInsert] [varchar](10) NULL,
+	[HorarioUp] [varchar](10) NULL,
+	[Modulo] [varchar](1) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdLanc] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[INVENTARIO_ARMAS_EPI]  WITH CHECK ADD FOREIGN KEY([IdLocal])
+REFERENCES [dbo].[LOCAL_ARMAZENAMENTO_ARMAS_EPI] ([IdLocal])
+GO
+
+
+USE [DB_SOCIALIZA_VC]
+GO
+
+/****** Object:  Table [dbo].[ITENS_INVENTARIO_AC]    Script Date: 19/01/2021 14:38:06 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ITENS_INVENTARIO_ARMAS_EPI](
+	[IdItem] [int] IDENTITY(1,1) NOT NULL,
+	[IdLanc] [int] NOT NULL,
+	[IdProd] [int] NOT NULL,
+	[IdLocal] [int] NOT NULL,
+	[QtdItem] [float] NULL,
+	[ValorCusto] [money] NULL,
+	[Lote] [varchar](50) NULL,
+	[DataLote] [date] NULL,
+	[UsuarioInsert] [varchar](50) NULL,
+	[UsuarioUp] [varchar](50) NULL,
+	[UsuarioDelete] [varchar](50) NULL,
+	[DataInsert] [varchar](20) NULL,
+	[DataUp] [varchar](20) NULL,
+	[DataDelete] [varchar](20) NULL,
+	[HorarioInsert] [varchar](10) NULL,
+	[HorarioUp] [varchar](10) NULL,
+	[Modulo] [varchar](1) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdItem] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[ITENS_INVENTARIO_ARMAS_EPI]  WITH CHECK ADD FOREIGN KEY([IdLanc])
+REFERENCES [dbo].[INVENTARIO_ARMAS_EPI] ([IdLanc])
+GO
+
+ALTER TABLE [dbo].[ITENS_INVENTARIO_ARMAS_EPI]  WITH CHECK ADD FOREIGN KEY([IdLocal])
+REFERENCES [dbo].[LOCAL_ARMAZENAMENTO_ARMAS_EPI] ([IdLocal])
+GO
+/*
+ALTER TABLE [dbo].[ITENS_INVENTARIO_ARMAS_EPI]  WITH CHECK ADD FOREIGN KEY([IdProd])
+REFERENCES [dbo].[PRODUTOS_AC] ([IdProd])
+*/
+GO
