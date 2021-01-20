@@ -152,13 +152,10 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jUsuarioResponsavel = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jDataTermino = new com.toedter.calendar.JDateChooser();
-        jBtAuditoriaInventario = new javax.swing.JButton();
-        jBtResultadoInventario = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jHorarioInicio = new javax.swing.JTextField();
         jHorarioTermino = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jComboBoxTipoInventario = new javax.swing.JComboBox();
         jBtEfetivar = new javax.swing.JButton();
@@ -171,6 +168,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jBtExcluir = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
         jBtNovo = new javax.swing.JButton();
+        jBtResultadoInventario = new javax.swing.JButton();
+        jBtAuditoriaInventario = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaItensProdutoInvent = new javax.swing.JTable();
@@ -297,20 +296,20 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel19)
                     .addComponent(jIDPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtIDPesq)
                     .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel22)
                     .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
                     .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqDatas))
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
 
         jTabelaInventarioEstoque.setAutoCreateRowSorter(true);
@@ -406,15 +405,15 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -467,7 +466,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jIdLocal.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Observação:");
+        jLabel6.setText("Observação");
 
         jObservacao.setColumns(20);
         jObservacao.setRows(5);
@@ -488,25 +487,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jDataTermino.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataTermino.setEnabled(false);
 
-        jBtAuditoriaInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaInventario.setContentAreaFilled(false);
-        jBtAuditoriaInventario.setEnabled(false);
-        jBtAuditoriaInventario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaInventarioActionPerformed(evt);
-            }
-        });
-
-        jBtResultadoInventario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtResultadoInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtResultadoInventario.setText("Resultado");
-        jBtResultadoInventario.setEnabled(false);
-        jBtResultadoInventario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtResultadoInventarioActionPerformed(evt);
-            }
-        });
-
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 255));
         jLabel15.setText("H. Inicio");
@@ -515,18 +495,12 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jLabel20.setForeground(new java.awt.Color(255, 0, 0));
         jLabel20.setText("H. Final");
 
+        jHorarioInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jHorarioInicio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jHorarioInicio.setEnabled(false);
 
         jHorarioTermino.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jHorarioTermino.setEnabled(false);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
-        jButton2.setToolTipText("Ajuda");
-        jButton2.setContentAreaFilled(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel24.setText("Tipo Inventário");
@@ -564,20 +538,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtAuditoriaInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane2))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jIdLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLocalArmazenamento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqLocalArmazenamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -593,55 +555,57 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                             .addComponent(jLabel24)
                             .addComponent(jComboBoxTipoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtEfetivar)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel17)
+                                .addGap(132, 132, 132))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(320, 320, 320))
+                            .addComponent(jUsuarioResponsavel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jScrollPane2))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel26))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(78, 78, 78)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel14)
-                                    .addGap(22, 22, 22)
-                                    .addComponent(jLabel17)
-                                    .addGap(18, 18, 18))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                    .addGap(283, 283, 283)
-                                    .addComponent(jBtResultadoInventario)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(320, 320, 320))
-                            .addComponent(jUsuarioResponsavel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdLanc, jIdLocal});
 
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jHorarioInicio, jHorarioTermino});
+
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel26))
@@ -676,36 +640,22 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 .addComponent(jUsuarioResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel16)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel15)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBtResultadoInventario)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtAuditoriaInventario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jIdLanc, jIdLocal});
@@ -717,10 +667,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelar.setText("Cancelar");
-        jBtCancelar.setContentAreaFilled(false);
+        jBtCancelar.setToolTipText("Cancelar");
         jBtCancelar.setEnabled(false);
-        jBtCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtCancelar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -730,9 +678,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         });
 
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.setText("Sair");
-        jBtSair.setContentAreaFilled(false);
-        jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtSair.setToolTipText("Sair");
         jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtSair.addActionListener(new java.awt.event.ActionListener() {
@@ -742,10 +688,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         });
 
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvar.setText("Gravar");
-        jBtSalvar.setContentAreaFilled(false);
+        jBtSalvar.setToolTipText("Gravar");
         jBtSalvar.setEnabled(false);
-        jBtSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSalvar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -755,10 +699,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         });
 
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluir.setText("Excluir");
-        jBtExcluir.setContentAreaFilled(false);
+        jBtExcluir.setToolTipText("Excluir");
         jBtExcluir.setEnabled(false);
-        jBtExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtExcluir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -768,10 +710,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         });
 
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterar.setText("Alterar");
-        jBtAlterar.setContentAreaFilled(false);
+        jBtAlterar.setToolTipText("Alterar");
         jBtAlterar.setEnabled(false);
-        jBtAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAlterar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtAlterar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -781,9 +721,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         });
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovo.setText("Novo");
-        jBtNovo.setContentAreaFilled(false);
-        jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtNovo.setToolTipText("Novo");
         jBtNovo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -792,35 +730,67 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             }
         });
 
+        jBtResultadoInventario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtResultadoInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtResultadoInventario.setToolTipText("Resultado");
+        jBtResultadoInventario.setEnabled(false);
+        jBtResultadoInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtResultadoInventarioActionPerformed(evt);
+            }
+        });
+
+        jBtAuditoriaInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaInventario.setContentAreaFilled(false);
+        jBtAuditoriaInventario.setEnabled(false);
+        jBtAuditoriaInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaInventarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jBtResultadoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jBtAuditoriaInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel8Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtResultadoInventario, jBtSair, jBtSalvar});
+
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtNovo)
-            .addComponent(jBtAlterar)
-            .addComponent(jBtExcluir)
-            .addComponent(jBtSalvar)
-            .addComponent(jBtCancelar)
-            .addComponent(jBtSair)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtAuditoriaInventario)
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtCancelar)
+                    .addComponent(jBtSair)
+                    .addComponent(jBtResultadoInventario))
+                .addContainerGap())
         );
 
-        jPanel8Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
+        jPanel8Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtResultadoInventario, jBtSair, jBtSalvar});
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -829,19 +799,17 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -968,18 +936,18 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(10, 10, 10)
+                            .addComponent(jLabel8)
+                            .addComponent(jIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                                 .addComponent(jBtPesqProdutoInve, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 9, Short.MAX_VALUE))
+                                .addGap(0, 10, Short.MAX_VALUE))
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1171,21 +1139,21 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jBtNovoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
                 .addGap(4, 4, 4)
-                .addComponent(jBtExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtBuscarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtNovoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtSalvarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtCancelarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jBtBuscarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jBtImpressaoItens)
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtAuditoriaItens, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1193,14 +1161,14 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtImpressaoItens)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtNovoItem)
                     .addComponent(jBtAlterarItem)
                     .addComponent(jBtExcluirItem)
                     .addComponent(jBtSalvarItem)
                     .addComponent(jBtCancelarItem)
                     .addComponent(jBtBuscarProduto)
+                    .addComponent(jBtImpressaoItens)
                     .addComponent(jBtAuditoriaItens))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1223,17 +1191,16 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Contagem", jPanel6);
 
         getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(0, 0, 440, 460);
+        jTabbedPane1.setBounds(0, 0, 440, 430);
 
-        setBounds(300, 20, 456, 489);
+        setBounds(300, 20, 456, 461);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
@@ -1244,8 +1211,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
         } else {
-            preencherTabelaInventario("SELECT * FROM INVENTARIO_AC "
-                    + "WHERE IdLanc='" + jIDPesq.getText() + "'");
+            pPREENCHER_TABELA_codigo();
         }
     }//GEN-LAST:event_jBtIDPesqActionPerformed
 
@@ -1270,9 +1236,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherTabelaInventario("SELECT * FROM INVENTARIO_AC "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                        pPREENCHER_TABELA_data();
                     }
                 }
             }
@@ -1291,9 +1255,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherTabelaInventario("SELECT * FROM INVENTARIO_AC "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                                + "AND '" + dataFinal + "'");
+                        pPREENCHER_TABELA_data();
                     }
                 }
             }
@@ -1359,17 +1321,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             if (jStatusLanc.getText().equals("EFETIVADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser excluído, o mesmo encontra-se EFETIVADO");
             } else {
-
-//                conecta.abrirConexao();
-//                try {
-//                    conecta.executaSQL("SELECT * FROM ITENS_INVENTARIO_AC WHERE IdLanc='" + jIdLanc.getText() + "'");
-//                    conecta.rs.first();
-//                    codInventario = conecta.rs.getString("IdLanc");
-//                    if (jIdLanc.getText().equals(codInventario)) {
-//                        JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os itens relacionados a esse registro.");
-//                    }
-//                    conecta.desconecta();
-//                } catch (SQLException ex) {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
@@ -1417,6 +1368,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 jComboBoxTipoInventario.requestFocus();
                 jComboBoxTipoInventario.setBackground(Color.red);
             } else {
+                objInventEstoque.setTipoProduto((String) jComboBoxTipoProduto.getSelectedItem());
                 objInventEstoque.setStatusLanc(jStatusLanc.getText());
                 objInventEstoque.setTipoInventario((String) jComboBoxTipoInventario.getSelectedItem());
                 objInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
@@ -1435,11 +1387,15 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         objInventEstoque.setDataInsert(dataModFinal);
                         objInventEstoque.setHorarioInsert(horaMov);
                         CONTROL.incluirInventarioAC(objInventEstoque);
-                        buscarIDIvt();
+                        pBUSCAR_codigo();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         Salvar();
+                        if (pRESPOSTA_inv.equals("Sim")) {
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        } else if (pRESPOSTA_inv.equals("Não")) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                        }
                     }
                 }
                 if (acao == 2) {
@@ -1450,8 +1406,12 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     CONTROL.alterarInventarioAC(objInventEstoque);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
+                    if (pRESPOSTA_inv.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_inv.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro, tente novamente.");
+                    }
                 }
             }
         } else {
@@ -1783,15 +1743,35 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-        count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInventario("SELECT * FROM INVENTARIO_AC "
-                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                    + "ON INVENTARIO_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal");
+            DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInventarioEstoque.getModel();
+            try {
+                for (InventarioArmaEPI pp : CONTROL.pPESQUISAR_INVENTARIO_todos()) {
+                    dataEntrada = String.valueOf(pp.getDataInicio());
+                    String dia = dataEntrada.substring(8, 10);
+                    String mes = dataEntrada.substring(5, 7);
+                    String ano = dataEntrada.substring(0, 4);
+                    dataEntrada = dia + "/" + mes + "/" + ano;
+                    jtotalRegistros.setText(Integer.toString(pTOTAL_inve)); // Converter inteiro em string para exibir na tela
+                    dadosOrigem.addRow(new Object[]{pp.getIdLanc(), dataEntrada, pp.getStatusLanc(), pp.getObservacao()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaInventarioEstoque.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaInventarioEstoque.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaInventarioEstoque.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                }
+                if (pTOTAL_inve == 0) {
+                    JOptionPane.showMessageDialog(null, "Não existem dados da serem exibidos...");
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaInventarioArmasEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            jtotalRegistros.setText("");
-            limparTabelaInventario();
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -1954,7 +1934,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     public static javax.swing.JButton jBtSalvarItem;
-    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     public static javax.swing.JFormattedTextField jCodigoBarra;
     public static javax.swing.JComboBox jComboBoxTipoInventario;
@@ -2369,15 +2348,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jBtBuscarProduto.setEnabled(true);
     }
 
-    public void buscarIDIvt() {
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL("SELECT * FROM INVENTARIO_AC");
-//            conecta.rs.last();
-//            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o ID do lançamento");
-//        }
+    public void pBUSCAR_codigo() {
+        CONTROL.pPESQUISAR_CODIGO_invent(objInventEstoque);
     }
 
     public void verificarTipoInventario() {
@@ -2407,77 +2379,72 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 //        conecta.desconecta();
     }
 
-    public void preencherTabelaInventario(String sql) {
-//        ArrayList dados = new ArrayList();
-//        String[] Colunas = new String[]{"Código", "Data", "Status", "Observação"};
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL(sql);
-//            conecta.rs.first();
-//            do {
-//                count = count + 1;
-//                // Formatar a data Entrada
-//                dataEntrada = conecta.rs.getString("DataInicio");
-//                String diae = dataEntrada.substring(8, 10);
-//                String mese = dataEntrada.substring(5, 7);
-//                String anoe = dataEntrada.substring(0, 4);
-//                dataEntrada = diae + "/" + mese + "/" + anoe;
-//                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-//                dados.add(new Object[]{conecta.rs.getInt("IdLanc"), dataEntrada, conecta.rs.getString("StatusLanc"), conecta.rs.getString("Observacao")});
-//            } while (conecta.rs.next());
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-//        jTabelaInventarioEstoque.setModel(modelo);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(0).setPreferredWidth(50);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(0).setResizable(false);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(1).setPreferredWidth(70);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(1).setResizable(false);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(2).setPreferredWidth(80);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(2).setResizable(false);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(3).setPreferredWidth(335);
-//        jTabelaInventarioEstoque.getColumnModel().getColumn(3).setResizable(false);
-//        jTabelaInventarioEstoque.getTableHeader().setReorderingAllowed(false);
-//        jTabelaInventarioEstoque.setAutoResizeMode(jTabelaInventarioEstoque.AUTO_RESIZE_OFF);
-//        jTabelaInventarioEstoque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        alinharCamposTabelaInventarioEst();
-//        conecta.desconecta();
+    public void pPREENCHER_TABELA_codigo() {
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInventarioEstoque.getModel();
+        try {
+            for (InventarioArmaEPI pp : CONTROL.pPESQUISAR_INVENTARIO_codigo()) {
+                dataEntrada = String.valueOf(pp.getDataInicio());
+                String dia = dataEntrada.substring(8, 10);
+                String mes = dataEntrada.substring(5, 7);
+                String ano = dataEntrada.substring(0, 4);
+                dataEntrada = dia + "/" + mes + "/" + ano;
+                jtotalRegistros.setText(Integer.toString(pTOTAL_inve)); // Converter inteiro em string para exibir na tela
+                dadosOrigem.addRow(new Object[]{pp.getIdLanc(), dataEntrada, pp.getStatusLanc(), pp.getObservacao()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaInventarioEstoque.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaInventarioEstoque.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInventarioEstoque.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            }
+            if (pTOTAL_inve == 0) {
+                JOptionPane.showMessageDialog(null, "Não existem dados da serem exibidos...");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaInventarioArmasEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void alinharCamposTabelaInventarioEst() {
-        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-        //
-        jTabelaInventarioEstoque.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    public void pPREENCHER_TABELA_data() {
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInventarioEstoque.getModel();
+        try {
+            for (InventarioArmaEPI pp : CONTROL.pPESQUISAR_INVENTARIO_data()) {
+                dataEntrada = String.valueOf(pp.getDataInicio());
+                String dia = dataEntrada.substring(8, 10);
+                String mes = dataEntrada.substring(5, 7);
+                String ano = dataEntrada.substring(0, 4);
+                dataEntrada = dia + "/" + mes + "/" + ano;
+                jtotalRegistros.setText(Integer.toString(pTOTAL_inve)); // Converter inteiro em string para exibir na tela
+                dadosOrigem.addRow(new Object[]{pp.getIdLanc(), dataEntrada, pp.getStatusLanc(), pp.getObservacao()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaInventarioEstoque.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaInventarioEstoque.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInventarioEstoque.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            }
+            if (pTOTAL_inve == 0) {
+                JOptionPane.showMessageDialog(null, "Não existem dados da serem exibidos...");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaInventarioArmasEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void limparTabelaInventario() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Observação"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaInventarioEstoque.setModel(modelo);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(2).setPreferredWidth(80);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(3).setPreferredWidth(335);
-        jTabelaInventarioEstoque.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInventarioEstoque.getTableHeader().setReorderingAllowed(false);
-        jTabelaInventarioEstoque.setAutoResizeMode(jTabelaInventarioEstoque.AUTO_RESIZE_OFF);
-        jTabelaInventarioEstoque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
+    public void limparTabela() {
+        // LIMPAR TABELA DE PRODUTOS SELECIONADOS PARA BAIXA
+        while (jTabelaInventarioEstoque.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInventarioEstoque.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA PRODUTOS SELECIONADOS PARA BAIXA
+        jtotalRegistros.setText("");
     }
 
-    public void preencherTabelaItensInventario(String sql) {
+        public void preencherTabelaItensInventario(String sql) {
 //        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaItensProdutoInvent.getModel();
 //        try {
 //            for (InventarioArmaEPI gg : CONTROL.TODOS_read()) {
@@ -2497,24 +2464,11 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 //        }
     }
 
-    public void alinharCamposTabelaItens() {
-        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-        //
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(4).setCellRenderer(centralizado);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setCellRenderer(direita);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setCellRenderer(direita);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setCellRenderer(centralizado);
-    }
-
     public void limparProdutosInventario() {
+         // LIMPAR TABELA DE PRODUTOS SELECIONADOS PARA BAIXA
+        while (jTabelaItensProdutoInvent.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaItensProdutoInvent.getModel()).removeRow(0);
+        }
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Lote", "Data Validade"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);

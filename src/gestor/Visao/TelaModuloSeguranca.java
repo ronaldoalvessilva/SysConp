@@ -373,8 +373,10 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jMovimentacaoArmas = new javax.swing.JMenu();
         jInventario = new javax.swing.JMenuItem();
+        jSeparator30 = new javax.swing.JPopupMenu.Separator();
         jEntradasArmas = new javax.swing.JMenuItem();
         jSaidasArmas = new javax.swing.JMenuItem();
+        jSeparator31 = new javax.swing.JPopupMenu.Separator();
         jDevolucaoArmas = new javax.swing.JMenuItem();
         ControlePertences = new javax.swing.JMenu();
         ObjetosInternos = new javax.swing.JMenuItem();
@@ -739,6 +741,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             }
         });
         jMovimentacaoArmas.add(jInventario);
+        jMovimentacaoArmas.add(jSeparator30);
 
         jEntradasArmas.setText("Entradas");
         jEntradasArmas.addActionListener(new java.awt.event.ActionListener() {
@@ -755,6 +758,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             }
         });
         jMovimentacaoArmas.add(jSaidasArmas);
+        jMovimentacaoArmas.add(jSeparator31);
 
         jDevolucaoArmas.setText("Devolução");
         jDevolucaoArmas.addActionListener(new java.awt.event.ActionListener() {
@@ -2989,6 +2993,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator28;
     private javax.swing.JPopupMenu.Separator jSeparator29;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator30;
+    private javax.swing.JPopupMenu.Separator jSeparator31;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;

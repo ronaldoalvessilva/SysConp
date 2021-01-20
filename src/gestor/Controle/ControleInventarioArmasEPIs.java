@@ -281,6 +281,21 @@ public class ControleInventarioArmasEPIs {
         conecta.desconecta();
         return objEquipa;
     }
+    
+    public InventarioArmaEPI pPESQUISAR_CODIGO_invent(InventarioArmaEPI objEquipa) {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdLanc "
+                    + "FROM ITENS_INVENTARIO_ARMAS_EPI ");                    
+            conecta.rs.last();
+             jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objEquipa;
+    }
 
     //---------------------------------------------- PRODUTOS ---------------------------------------------------------------------------
     public InventarioArmaEPI incluirItensInventarioAC(InventarioArmaEPI objInventEstoque) {

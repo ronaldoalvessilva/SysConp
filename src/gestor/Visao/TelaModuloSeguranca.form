@@ -321,6 +321,8 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jInventarioActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator30">
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jEntradasArmas">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Entradas"/>
@@ -336,6 +338,8 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaidasArmasActionPerformed"/>
                   </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator31">
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jDevolucaoArmas">
                   <Properties>
