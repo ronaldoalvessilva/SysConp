@@ -217,7 +217,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInternos("SELECT IdItem,DataEntrada,NomeInternoCrc, "
+            this.preencherTabelaInternos("SELECT IdItem,DataEntrada, "
                     + "NomeInternoCrc,ConfirmaEntrada "
                     + "FROM ITENSENTRADAPORTARIA "
                     + "WHERE ConfirmaEntrada='" + confirmaEntrada + "' "
