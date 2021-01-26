@@ -259,6 +259,23 @@ public class ControleObitoInterno {
         return objItemSaida;
     }
 
+    //--------------ÓBITO SAIDA MÉDICO 
+    
+    public ItensSaidaInterno alterarObitoInternoSaidaMedico(ItensSaidaInterno objItemSaida) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET Obito=?,ConfirmaObito=? WHERE IdInternoCrc='" + objItemSaida.getIdInternoSaida() + "'AND DocumentoSaida='" + objItemSaida.getDocumento() + "'");
+            pst.setString(1, objItemSaida.getObito());
+            pst.setString(2, objItemSaida.getConfirmaObito());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR óbito do Interno\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItemSaida;
+    }
+    
     public ItensSaidaInterno alterarObitoInternoSaidaPD(ItensSaidaInterno objItemSaida) {
 
         conecta.abrirConexao();

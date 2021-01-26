@@ -1863,12 +1863,12 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             // SAIDA PARA MÉDICO
             // INCLUIR NA TABELA (MOVIMENTOCRC)
             objEvadidoInd.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-            controlMov.alterarMovEvasaoSaidaAudiencia(objEvadidoInd);
+            controlMov.incluirMovEvasaoSaidaMedico(objEvadidoInd);
             // UPDATE NA TABELA ITENSSAIDA NO CAMPOS "ConfirmaSaida" e "SaidaConfirmada"
             objItemSaida.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
             objItemSaida.setObito(pObito);
             objItemSaida.setConfirmaObito(confirmaEvasao);
-            control.alterarObitoInternoSaidaAudiencia(objItemSaida);
+            control.alterarObitoInternoSaidaMedico(objItemSaida);
         } else if (tipoObito == 4) {
             // SAÍDA AUDIÊNCIA NA TABELA (MOVIMENTOCRC)              
             objEvadidoInd.setIdLanc(Integer.valueOf(jIdLanc.getText()));
