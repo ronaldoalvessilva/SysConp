@@ -6,6 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.ItensEntradaLote;
 import gestor.Modelo.RegistroCanceladoCrc;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -76,6 +77,20 @@ public class ControleRegCancelado_SAIDAS {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO" + ex);
+        }
+        conecta.desconecta();
+        return objRecCancel;
+    }
+    
+
+    public RegistroCanceladoCrc alterarDataMOV(RegistroCanceladoCrc objRecCancel) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSCRCPORTARIA SET DataSaida=CONVERT(DATE, DataSaida,103)");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objRecCancel;
