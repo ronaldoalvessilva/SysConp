@@ -10,16 +10,16 @@ import gestor.Modelo.Cidades;
 import gestor.Modelo.Paises;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.ProntuarioFisicosPenaisInternos;
-import static gestor.Visao.TelaProntuarioCrc.jIdInterno;
-import static gestor.Visao.TelaProntuarioCrc.jMaeInterno;
-import static gestor.Visao.TelaProntuarioCrc.jNomeInterno;
-import static gestor.Visao.TelaProntuarioCrc.nomeInternoCrc;
-import static gestor.Visao.TelaProntuarioCrc.nomeMaeInterno;
-import static gestor.Visao.TelaProntuarioCrc.codInternoCrc;
-import static gestor.Visao.TelaProntuarioCrc.nomeInterno;
-import static gestor.Visao.TelaProntuarioCrc.codParametrosEntrada;
-import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_gravacao;
-import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_EXCLUSÃO_prontuario;
+import static gestor.Visao.TelaProntuarioTriagem.jIdInterno;
+import static gestor.Visao.TelaProntuarioTriagem.jMaeInterno;
+import static gestor.Visao.TelaProntuarioTriagem.jNomeInterno;
+import static gestor.Visao.TelaProntuarioTriagem.nomeInternoCrc;
+import static gestor.Visao.TelaProntuarioTriagem.nomeMaeInterno;
+import static gestor.Visao.TelaProntuarioTriagem.codInternoCrc;
+import static gestor.Visao.TelaProntuarioTriagem.nomeInterno;
+import static gestor.Visao.TelaProntuarioTriagem.codParametrosEntrada;
+import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_gravacao;
+import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_EXCLUSÃO_prontuario;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -31,7 +31,7 @@ import static gestor.Visao.TelaProntuarioCrc.CODIGO_INTERNO_TABELA_penal;
  *
  * @author Ronaldo
  */
-public class ControleInternoCrc {
+public class ControleInternoCrc_TRIAGEM {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -89,7 +89,7 @@ public class ControleInternoCrc {
             pRESPOSTA_gravacao = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_gravacao = "Não";
-            Logger.getLogger(ControleInternoCrc.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleInternoCrc_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objProCrc;
@@ -143,7 +143,7 @@ public class ControleInternoCrc {
             pRESPOSTA_gravacao = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_gravacao = "Não";
-            Logger.getLogger(ControleInternoCrc.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleInternoCrc_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objProCrc;
@@ -158,7 +158,7 @@ public class ControleInternoCrc {
             pRESPOSTA_EXCLUSÃO_prontuario = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_EXCLUSÃO_prontuario = "Não";
-            Logger.getLogger(ControleInternoCrc.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleInternoCrc_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objProCrc;
@@ -175,7 +175,7 @@ public class ControleInternoCrc {
             pRESPOSTA_gravacao = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_gravacao = "Não";
-            Logger.getLogger(ControleInternoCrc.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleInternoCrc_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objProCrc;
@@ -191,7 +191,7 @@ public class ControleInternoCrc {
             pRESPOSTA_gravacao = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_gravacao = "Não";
-            Logger.getLogger(ControleInternoCrc.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleInternoCrc_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return pPront;

@@ -107,7 +107,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
         jTabelaPais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome País"

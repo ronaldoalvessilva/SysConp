@@ -4840,17 +4840,13 @@ public final class TelaConsultaProntuarioInternoCrcBKP extends javax.swing.JInte
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir PRONTUÁRIO selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                try {
-                    controlPenais.excluirDadosPenais(objDadosPena);
-                    controlFisicos.excluirDadosFisicos(objDadosFis);
-                    control.excluirInternoCrc(objProCrc);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso...");
-                    Excluir();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel excluir o registro\nERRO: " + ex);
-                }
+                controlPenais.excluirDadosPenais(objDadosPena);
+                controlFisicos.excluirDadosFisicos(objDadosFis);
+                control.excluirInternoCrc(objProCrc);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso...");
+                Excluir();
             }
         }
     }

@@ -8,7 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_DADOS_fisicos;
+import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_DADOS_fisicos;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Ronaldo
  */
-public class ControleDadosFisicos {
+public class ControleDadosFisicos_TRIAGEM {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -58,7 +58,7 @@ public class ControleDadosFisicos {
             pRESPOSTA_DADOS_fisicos = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_DADOS_fisicos = "Não";
-            Logger.getLogger(ControleDadosFisicos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleDadosFisicos_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDafis;
@@ -94,7 +94,7 @@ public class ControleDadosFisicos {
             pRESPOSTA_DADOS_fisicos = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_DADOS_fisicos = "Não";
-            Logger.getLogger(ControleDadosFisicos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleDadosFisicos_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDafis;
@@ -108,7 +108,7 @@ public class ControleDadosFisicos {
             pRESPOSTA_DADOS_fisicos = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_DADOS_fisicos = "Não";
-            Logger.getLogger(ControleDadosFisicos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleDadosFisicos_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDafis;

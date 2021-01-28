@@ -57,9 +57,9 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
 
         jPesNomePais.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa por Nome");
-        jBtNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -104,21 +104,32 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
 
         jTabelaPais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "ID", "Nome  Pais"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaPais.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaPaisMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTabelaPais);
+        if (jTabelaPais.getColumnModel().getColumnCount() > 0) {
+            jTabelaPais.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaPais.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaPais.getColumnModel().getColumn(1).setMinWidth(340);
+            jTabelaPais.getColumnModel().getColumn(1).setMaxWidth(340);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -146,46 +157,44 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addGap(2, 2, 2))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 346, 243);
+        setBounds(300, 150, 438, 261);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -263,9 +272,9 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPais.setModel(modelo);
-        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaPais.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(260);
+        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaPais.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPais.getTableHeader().setReorderingAllowed(false);
         jTabelaPais.setAutoResizeMode(jTabelaPais.AUTO_RESIZE_OFF);
@@ -288,9 +297,9 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPais.setModel(modelo);
-        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaPais.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaPais.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPais.getTableHeader().setReorderingAllowed(false);
         jTabelaPais.setAutoResizeMode(jTabelaPais.AUTO_RESIZE_OFF);

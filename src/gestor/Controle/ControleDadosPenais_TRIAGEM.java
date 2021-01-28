@@ -8,8 +8,8 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_DADOS_penais;
-import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_EXCLUSÃO_fisicos;
+import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_DADOS_penais;
+import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_EXCLUSÃO_fisicos;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author Ronaldo
  */
-public class ControleDadosPenais {
+public class ControleDadosPenais_TRIAGEM {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -118,7 +118,7 @@ public class ControleDadosPenais {
             pRESPOSTA_DADOS_penais = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_DADOS_penais = "Não";
-            Logger.getLogger(ControleDadosPenais.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleDadosPenais_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDadosPena;

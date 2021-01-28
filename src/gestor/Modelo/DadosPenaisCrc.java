@@ -16,6 +16,7 @@ public class DadosPenaisCrc {
     private int IdPenais;
     private int IdInternoCrc;
     private String nomeInternoCrc;
+    private String nomeMaeInternoCrc;
     private String nomeUnidade;
     private Date DataEntrada;
     private Date DataCrime;
@@ -68,15 +69,16 @@ public class DadosPenaisCrc {
     private String dataInsert;
     private String dataUp;
     private String horarioInsert;
-    private String horarioUp;
+    private String horarioUp;   
 
     public DadosPenaisCrc() {
     }
 
-    public DadosPenaisCrc(int IdPenais, int IdInternoCrc, String nomeInternoCrc, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoPerfil, String FotoCorpo, String FotoCorpo1, String FotoCorpo2, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada, byte[] imagemPerfil, byte[] imagemCorpo, byte[] imagemCorpo1, byte[] imagemCorpo2, int idEntrada, int idItem, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public DadosPenaisCrc(int IdPenais, int IdInternoCrc, String nomeInternoCrc, String nomeMaeInternoCrc, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoPerfil, String FotoCorpo, String FotoCorpo1, String FotoCorpo2, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada, byte[] imagemPerfil, byte[] imagemCorpo, byte[] imagemCorpo1, byte[] imagemCorpo2, int idEntrada, int idItem, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.IdPenais = IdPenais;
         this.IdInternoCrc = IdInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
+        this.nomeMaeInternoCrc = nomeMaeInternoCrc;
         this.nomeUnidade = nomeUnidade;
         this.DataEntrada = DataEntrada;
         this.DataCrime = DataCrime;
@@ -172,6 +174,20 @@ public class DadosPenaisCrc {
      */
     public void setNomeInternoCrc(String nomeInternoCrc) {
         this.nomeInternoCrc = nomeInternoCrc;
+    }
+
+    /**
+     * @return the nomeMaeInternoCrc
+     */
+    public String getNomeMaeInternoCrc() {
+        return nomeMaeInternoCrc;
+    }
+
+    /**
+     * @param nomeMaeInternoCrc the nomeMaeInternoCrc to set
+     */
+    public void setNomeMaeInternoCrc(String nomeMaeInternoCrc) {
+        this.nomeMaeInternoCrc = nomeMaeInternoCrc;
     }
 
     /**
