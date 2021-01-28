@@ -246,12 +246,15 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT ITENSNOVAENTRADA.IdInternoCrc,ITENSNOVAENTRADA.DataEntrada "
-                        + "PRONTUARIOSCRC.NomeInternoCrc,ITENSNOVAENTRADA.NrOficio "
+                conecta.executaSQL("SELECT "
+                        + "ITENSNOVAENTRADA.IdInternoCrc, "
+                        + "ITENSNOVAENTRADA.DataEntrada, "
+                        + "ITENSNOVAENTRADA.NrOficio, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc "
                         + "FROM ITENSNOVAENTRADA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND ITENSNOVAENTRADA.IdInternoCrc='" + idItem + "'");
                 conecta.rs.first();
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
