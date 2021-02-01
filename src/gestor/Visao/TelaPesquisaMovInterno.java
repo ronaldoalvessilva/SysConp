@@ -89,8 +89,9 @@ public class TelaPesquisaMovInterno extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Pesquisa por Matricula:");
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq_atv.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa Por Nome");
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -300,7 +301,7 @@ public class TelaPesquisaMovInterno extends javax.swing.JInternalFrame {
             idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
             //
             nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 1);
-            jPesqNome.setText(nomeInterno);            
+            jPesqNome.setText(nomeInterno);
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -311,25 +312,44 @@ public class TelaPesquisaMovInterno extends javax.swing.JInternalFrame {
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
-         if (jPesqNome.getText().isEmpty()) {
+        if (jPesqNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
         } else {
+            limparCampos();
+            limparTabela();
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.FotoInternoCrc, "
+                        + "PRONTUARIOSCRC.ImagemFrente,PRONTUARIOSCRC.DataNasciCrc,"
+                        + "PRONTUARIOSCRC.MatriculaCrc,DADOSPENAISINTERNOS.Regime, "
+                        + "DADOSPENAISINTERNOS.TerminoPena,UNIDADE.DescricaoUnid "
+                        + "FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN UNIDADE "
                         + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "'AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInterno.setIcon(i);
-                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInterno.setIcon(i);
+                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO INTERNO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jUnidadePenal.setText(conecta.rs.getString("DescricaoUnid"));
                 jMatriculaPenalInterno.setText(conecta.rs.getString("MatriculaCrc"));
@@ -339,7 +359,9 @@ public class TelaPesquisaMovInterno extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
             }
-            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "' ORDER BY DataMov");
+            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "ORDER BY DataMov");
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -596,5 +618,35 @@ public class TelaPesquisaMovInterno extends javax.swing.JInternalFrame {
         //
         jTabelaMovimentacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+    }
+    
+    public void limnparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Data Mov.", "Documento", "Descrição da Operação", "Origem/Destino do Interno"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaMovimentacao.setModel(modelo);
+        jTabelaMovimentacao.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTabelaMovimentacao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaMovimentacao.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaMovimentacao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaMovimentacao.getColumnModel().getColumn(2).setPreferredWidth(200);
+        jTabelaMovimentacao.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaMovimentacao.getColumnModel().getColumn(3).setPreferredWidth(260);
+        jTabelaMovimentacao.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaMovimentacao.getTableHeader().setReorderingAllowed(false);
+        jTabelaMovimentacao.setAutoResizeMode(jTabelaMovimentacao.AUTO_RESIZE_OFF);
+        jTabelaMovimentacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void limparCampos() {
+        jIdInterno.setText("");
+        jNomeInterno.setText("");
+        jMatriculaPenalInterno.setText("");
+        jDataNascimento.setDate(null);
+        jUnidadePenal.setText("");
+        jRegime.setText("");
+        jDataPena.setDate(null);
+        jFotoInterno.setIcon(null);
     }
 }

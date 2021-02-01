@@ -10,6 +10,7 @@ import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaRolVisitas.FotoVisita;
+import static gestor.Visao.TelaRolVisitas.jComboBoxParentesco;
 import static gestor.Visao.TelaRolVisitas.jDataCadaVisita;
 import static gestor.Visao.TelaRolVisitas.jDataValiAntecedente;
 import static gestor.Visao.TelaRolVisitas.jIDVisita;
@@ -258,7 +259,7 @@ public class TelaPesquisaVisitasRol extends javax.swing.JInternalFrame {
                 conecta.rs.first();
                 jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
-//                jParentescoVisita.setText(conecta.rs.getString("ParentescoVisita"));
+                jComboBoxParentesco.setSelectedItem(conecta.rs.getString("ParentescoVisita"));
                 //   jRGVisita.setText(conecta.rs.getString("RgVisita"));                
                 caminho = conecta.rs.getString("ImagemVisita");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);

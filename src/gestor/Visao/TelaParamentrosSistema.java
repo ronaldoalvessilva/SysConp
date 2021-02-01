@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.Criptografia;
 import gestor.Controle.ControleImplementacoes;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleParamentrosCrc;
@@ -24,7 +25,10 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -70,12 +74,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public static String pCOD_tel;
     public static String pMOD;
     public static String pTELA;
+    //VALIDAR ACESSO A MODIFICAR OS ITENS IMPLEMENTADOS
+    public static String pVALIDACAO_acesso = "";
 
     /**
      * Creates new form TelaParamentrosCrc
      */
-    
     public static TelaPesquisaModuloTela_CONF pTELA_MODULO_telas;
+    public static TelaLiberacaoImplementacao pTELA_LIBERACAO_imp;
 
     public TelaParamentrosSistema() {
         initComponents();
@@ -89,6 +95,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pPESQUISAR_MODULO_tela() {
         pTELA_MODULO_telas = new TelaPesquisaModuloTela_CONF(this, true);
         pTELA_MODULO_telas.setVisible(true);
+    }
+
+    public void pLIBERAR_ACESSOS_customizado() {
+        pTELA_LIBERACAO_imp = new TelaLiberacaoImplementacao(this, true);
+        pTELA_LIBERACAO_imp.setVisible(true);
     }
 
     /**
@@ -3187,41 +3198,46 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private void jBtNovoImpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoImpActionPerformed
         // TODO add your handling code here:
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            pACAO = 1;
-            //SE FOR O ADMINISTRADOR DO SISTEMA, SOLICITAR BIOMETRIA - FAZER
-            if (pACAO == 1) {
-                if (jComboBoxHabilitar.getSelectedItem() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Campo Habilirar/Desabilitar, não pode ser vazio.");
-                } else if (jComboBoxHabilitar.getSelectedItem().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Campo Habilirar/Desabilitar, não pode ser vazio.");
-                } else if (jComboBoxHabilitar.getSelectedItem().equals("Selecione...")) {
-                    JOptionPane.showMessageDialog(rootPane, "Selecione um opção.");
-                } else {
-                    DefaultTableModel DTM_imp = (DefaultTableModel) jTabelaImplementacoes.getModel();
-                    objParCrc.setIdModulo(pCODIGO_modulo);
-                    objParCrc.setIdPar(Integer.valueOf(IDLanc));
-                    objParCrc.setNomeModulo((String) jComboBoxModuloImplementacao.getSelectedItem());
-                    objParCrc.setHabilitarImp((String) jComboBoxHabilitar.getSelectedItem());
-                    objParCrc.setNomeTela((String) jComboBoxTelaImplementacao.getSelectedItem());
-                    control.pPESQUISAR_modulo(objParCrc);
-                    control.pPESQUISAR_tela(objParCrc);
-                    control.pPESQUISAR_registro(objParCrc);
-                    objParCrc.getIdTelas();
-                    if (pCODIGO_PESQUISA_modulo == objParCrc.getIdModulo() && pCODIGO_PESQUISA_tela == objParCrc.getIdTelas()) {
-                        JOptionPane.showMessageDialog(rootPane, "Registro já foi adicionado, tente outro.");
+            pLIBERAR_ACESSOS_customizado();
+            if (pVALIDACAO_acesso.equals("Não")) {
+                JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, senha incorreta, tente novamente.");
+            } else {
+                pACAO = 1;
+                //SE FOR O ADMINISTRADOR DO SISTEMA, SOLICITAR BIOMETRIA - FAZER
+                if (pACAO == 1) {
+                    if (jComboBoxHabilitar.getSelectedItem() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Campo Habilirar/Desabilitar, não pode ser vazio.");
+                    } else if (jComboBoxHabilitar.getSelectedItem().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Campo Habilirar/Desabilitar, não pode ser vazio.");
+                    } else if (jComboBoxHabilitar.getSelectedItem().equals("Selecione...")) {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione um opção.");
                     } else {
-                        Object campos[] = {objParCrc.getIdModulo(), objParCrc.getNomeModulo(), objParCrc.getHabilitarImp(), objParCrc.getIdTelas(), objParCrc.getNomeTela()};
-                        DTM_imp.addRow(campos);
-                        // BARRA DE ROLAGEM HORIZONTAL
-                        jTabelaImplementacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                        //
-                        jTabelaImplementacoes.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                        jTabelaImplementacoes.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-                        pGRAVAR_imp();
-                        pLIMPAR_CAMPOS_imp();
+                        DefaultTableModel DTM_imp = (DefaultTableModel) jTabelaImplementacoes.getModel();
+                        objParCrc.setIdModulo(pCODIGO_modulo);
+                        objParCrc.setIdPar(Integer.valueOf(IDLanc));
+                        objParCrc.setNomeModulo((String) jComboBoxModuloImplementacao.getSelectedItem());
+                        objParCrc.setHabilitarImp((String) jComboBoxHabilitar.getSelectedItem());
+                        objParCrc.setNomeTela((String) jComboBoxTelaImplementacao.getSelectedItem());
+                        control.pPESQUISAR_modulo(objParCrc);
+                        control.pPESQUISAR_tela(objParCrc);
+                        control.pPESQUISAR_registro(objParCrc);
+                        objParCrc.getIdTelas();
+                        if (pCODIGO_PESQUISA_modulo == objParCrc.getIdModulo() && pCODIGO_PESQUISA_tela == objParCrc.getIdTelas()) {
+                            JOptionPane.showMessageDialog(rootPane, "Registro já foi adicionado, tente outro.");
+                        } else {
+                            Object campos[] = {objParCrc.getIdModulo(), objParCrc.getNomeModulo(), objParCrc.getHabilitarImp(), objParCrc.getIdTelas(), objParCrc.getNomeTela()};
+                            DTM_imp.addRow(campos);
+                            // BARRA DE ROLAGEM HORIZONTAL
+                            jTabelaImplementacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                            // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                            //
+                            jTabelaImplementacoes.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                            jTabelaImplementacoes.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                            pGRAVAR_imp();
+                            pLIMPAR_CAMPOS_imp();
+                        }
                     }
                 }
             }
@@ -3233,18 +3249,23 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private void jBtExcluirImpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirImpActionPerformed
         // TODO add your handling code here:
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            if (jTabelaImplementacoes.getSelectedRow() != -1) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o item selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    DefaultTableModel dtm = (DefaultTableModel) jTabelaImplementacoes.getModel();
-                    dtm.removeRow(jTabelaImplementacoes.getSelectedRow());
-                    objParCrc.setIdImp(pCODIGO_registro);
-                    control.excluirImp(objParCrc);
-                    pLIMPAR_CAMPOS_imp();
-                }
+            pLIBERAR_ACESSOS_customizado();
+            if (pVALIDACAO_acesso.equals("Não")) {
+                JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, senha incorreta, tente novamente.");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
+                if (jTabelaImplementacoes.getSelectedRow() != -1) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o item selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        DefaultTableModel dtm = (DefaultTableModel) jTabelaImplementacoes.getModel();
+                        dtm.removeRow(jTabelaImplementacoes.getSelectedRow());
+                        objParCrc.setIdImp(pCODIGO_registro);
+                        control.excluirImp(objParCrc);
+                        pLIMPAR_CAMPOS_imp();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso para modificar essa funcionalidade.");
@@ -3254,23 +3275,28 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private void jTabelaImplementacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaImplementacoesMouseClicked
         // TODO add your handling code here:
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            flag = 1;
-            if (jTabelaImplementacoes.isEnabled()) {
-                jBtExcluirImp.setEnabled(true);
-                jBtAlterarImp.setEnabled(true);
-                jBtPesquisar.setEnabled(true);
-                pCOD_mod = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 0);
-                pMOD = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 1);
-                jComboBoxModuloImplementacao.setSelectedItem(pMOD);
-                String pHABILITA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 2);
-                jComboBoxHabilitar.setSelectedItem(pHABILITA);
-                pCOD_tel = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 3);
-                pTELA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 4);
-                jComboBoxTelaImplementacao.setSelectedItem(pTELA);
-                control.pPESQUISAR_registro(objParCrc);
-                jComboBoxHabilitar.addItem(objParCrc.getHabilitarImp());
-                jComboBoxModuloImplementacao.addItem(objParCrc.getNomeModulo());
-                jComboBoxTelaImplementacao.addItem(objParCrc.getNomeTela());
+            pLIBERAR_ACESSOS_customizado();
+            if (pVALIDACAO_acesso.equals("Não")) {
+                JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, senha incorreta, tente novamente.");
+            } else {
+                flag = 1;
+                if (jTabelaImplementacoes.isEnabled()) {
+                    jBtExcluirImp.setEnabled(true);
+                    jBtAlterarImp.setEnabled(true);
+                    jBtPesquisar.setEnabled(true);
+                    pCOD_mod = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 0);
+                    pMOD = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 1);
+                    jComboBoxModuloImplementacao.setSelectedItem(pMOD);
+                    String pHABILITA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 2);
+                    jComboBoxHabilitar.setSelectedItem(pHABILITA);
+                    pCOD_tel = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 3);
+                    pTELA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 4);
+                    jComboBoxTelaImplementacao.setSelectedItem(pTELA);
+                    control.pPESQUISAR_registro(objParCrc);
+                    jComboBoxHabilitar.addItem(objParCrc.getHabilitarImp());
+                    jComboBoxModuloImplementacao.addItem(objParCrc.getNomeModulo());
+                    jComboBoxTelaImplementacao.addItem(objParCrc.getNomeTela());
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso para modificar essa funcionalidade.");
@@ -3332,10 +3358,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
-    private javax.swing.JButton jBtAlterarImp;
+    public static javax.swing.JButton jBtAlterarImp;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtExcluirImp;
+    public static javax.swing.JButton jBtExcluirImp;
     private javax.swing.JButton jBtNovoImp;
     private javax.swing.JButton jBtPesqColaboradorCRC;
     private javax.swing.JButton jBtPesqColaboradorCRCSEG;
@@ -3370,7 +3396,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxDocTrans;
     private javax.swing.JComboBox<String> jComboBoxEducacaoFisica;
     private javax.swing.JComboBox jComboBoxEnfermeiros;
-    private javax.swing.JComboBox<String> jComboBoxHabilitar;
+    public static javax.swing.JComboBox<String> jComboBoxHabilitar;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB1;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB2;
     private javax.swing.JComboBox<String> jComboBoxHabilitarVisitantesBaseI;

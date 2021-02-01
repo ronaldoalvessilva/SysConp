@@ -143,40 +143,40 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="ControleAprovacaoCompras">
+        <Menu class="javax.swing.JMenu" name="jControleAprovacaoCompras">
           <Properties>
             <Property name="text" type="java.lang.String" value="Controle de Compras"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="AprovadoresSolicitacaoCompras">
+            <MenuItem class="javax.swing.JMenuItem" name="jAprovadoresSolicitacaoCompras">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Aprovadores de Solicita&#xe7;&#xf5;es de Compras"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AprovadoresSolicitacaoComprasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAprovadoresSolicitacaoComprasActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="SolicitantesCompras">
+            <MenuItem class="javax.swing.JMenuItem" name="jSolicitantesCompras">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Solicitantes de Compras"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SolicitantesComprasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSolicitantesComprasActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="SolicitacaoComprasAdm">
+            <MenuItem class="javax.swing.JMenuItem" name="jSolicitacaoComprasAdm">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Solicita&#xe7;&#xe3;o de Compras"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SolicitacaoComprasAdmActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSolicitacaoComprasAdmActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="AprovarSolicitacoesCompras">
+            <MenuItem class="javax.swing.JMenuItem" name="jAprovarSolicitacoesCompras">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -184,10 +184,10 @@
                 <Property name="text" type="java.lang.String" value="Aprovar Solicita&#xe7;&#xf5;es Compras"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AprovarSolicitacoesComprasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAprovarSolicitacoesComprasActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="AprovarPedidosCompras">
+            <MenuItem class="javax.swing.JMenuItem" name="jAprovarPedidosCompras">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="0" red="0" type="rgb"/>
@@ -195,7 +195,7 @@
                 <Property name="text" type="java.lang.String" value="Aprovar Pedidos de Compras"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AprovarPedidosComprasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAprovarPedidosComprasActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -494,17 +494,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel1" alignment="0" pref="824" max="32767" attributes="0"/>
+              <Component id="jPainelSolicitantesCompras" alignment="0" pref="824" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel1" alignment="0" pref="602" max="32767" attributes="0"/>
+              <Component id="jPainelSolicitantesCompras" alignment="1" pref="602" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jPainelSolicitantesCompras">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">

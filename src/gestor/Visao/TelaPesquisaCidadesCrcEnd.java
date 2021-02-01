@@ -107,7 +107,7 @@ public class TelaPesquisaCidadesCrcEnd extends javax.swing.JInternalFrame {
         jTabelaCidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome Cidade", "DDD"

@@ -254,7 +254,8 @@ public class TelaPesqInternosObitoManualMedico extends javax.swing.JInternalFram
             if (tipoServidor == null || tipoServidor.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
             } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-                preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+                preencherTabelaEvadidoSaidaTemporaria("SELECT "
+                        + "DISTINCT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
                         + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
                         + "MOVISR.DataSaida,DataPrevRetorno "
@@ -269,7 +270,8 @@ public class TelaPesqInternosObitoManualMedico extends javax.swing.JInternalFram
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
                         + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-                preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+                preencherTabelaEvadidoSaidaTemporaria("SELECT "
+                        + "DISTINCT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
                         + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
                         + "MOVISR.DataSaida,DataPrevRetorno "

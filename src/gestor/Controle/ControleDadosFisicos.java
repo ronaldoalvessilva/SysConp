@@ -8,7 +8,10 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.ProntuarioCrc;
+import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_DADOS_fisicos;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class ControleDadosFisicos {
 
-    ConexaoBancoDados conecta = new ConexaoBancoDados();   
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     DadosFisicosInternos objDafis = new DadosFisicosInternos();
 
@@ -25,21 +28,10 @@ public class ControleDadosFisicos {
     int codUnid;
 
     // Incluir DADOS FISICOS INTERNO CRC
-    public DadosFisicosInternos incluirDadosFisicos(DadosFisicosInternos objDafis) throws SQLException {
-        
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC");
-            conecta.rs.last();
-            codIntCrc = conecta.rs.getInt("IdInternoCrc");
-            objProCrc.setIdInterno(codIntCrc);
-            conecta.desconecta();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados (FISICOS) a serem exibidos !!!");
-        }
-
-        conecta.abrirConexao();
+    public DadosFisicosInternos incluirDadosFisicos(DadosFisicosInternos objDafis) {
+        BUSCAR_CODIGO_interno(objDafis.getNomeInternoCrc(), objDafis.getNomeMaeInternoCrc());
         // Incluir Registro na tabela de INTERNOS CRC
+        conecta.abrirConexao();
         try (PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO DADOSFISICOSINTERNOS (Cutis,Olhos,Cabelos,"
                 + "Barba,Bigode,Nariz,Boca,Rosto,Labios,Camisa,Calca,Sapato,Peso,"
                 + "Altura,Sinais,Orelhas,Pescoco,Compleicao,IdInternoCrc) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
@@ -61,15 +53,19 @@ public class ControleDadosFisicos {
             pst.setString(16, objDafis.getOrelha());
             pst.setString(17, objDafis.getPescoco());
             pst.setString(18, objDafis.getCompleicao());
-            pst.setInt(19, codIntCrc);            
+            pst.setInt(19, codIntCrc);
             pst.executeUpdate();
+            pRESPOSTA_DADOS_fisicos = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_DADOS_fisicos = "Não";
+            Logger.getLogger(ControleDadosFisicos.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDafis;
     }
 
     //Método para Alterar DADOS FISICOS INTERNO CRC
-    public DadosFisicosInternos alterarDadosFisicos(DadosFisicosInternos objDafis) throws SQLException {  
+    public DadosFisicosInternos alterarDadosFisicos(DadosFisicosInternos objDafis) {
         conecta.abrirConexao();
         // Alterar Registro na tabela de INTERNOS CRC
         try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE DADOSFISICOSINTERNOS SET Cutis=?,Olhos=?,Cabelos=?,"
@@ -92,21 +88,48 @@ public class ControleDadosFisicos {
             pst.setString(15, objDafis.getSinais());
             pst.setString(16, objDafis.getOrelha());
             pst.setString(17, objDafis.getPescoco());
-            pst.setString(18, objDafis.getCompleicao());                  
-            pst.setInt(19, objDafis.getIdInternoCrc());         
+            pst.setString(18, objDafis.getCompleicao());
+            pst.setInt(19, objDafis.getIdInternoCrc());
             pst.executeUpdate();
+            pRESPOSTA_DADOS_fisicos = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_DADOS_fisicos = "Não";
+            Logger.getLogger(ControleDadosFisicos.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDafis;
     }
 
     // EXCLUIR registro do DADOS FISICOS DO INTERNO CRC
-    public DadosFisicosInternos excluirDadosFisicos(DadosFisicosInternos objDafis) throws SQLException {
+    public DadosFisicosInternos excluirDadosFisicos(DadosFisicosInternos objDafis) {
         conecta.abrirConexao();
         try (PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM DADOSFISICOSINTERNOS WHERE IdInternoCrc='" + objDafis.getIdInternoCrc() + "'")) {
             pst.executeUpdate();
+            pRESPOSTA_DADOS_fisicos = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_DADOS_fisicos = "Não";
+            Logger.getLogger(ControleDadosFisicos.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDafis;
-    }  
+    }
+
+    public void BUSCAR_CODIGO_interno(String nomeInterno, String nomeMae) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc, "
+                    + "NomeInternoCrc, "
+                    + "MaeInternoCrc "
+                    + "FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                    + "AND MaeInternoCrc='" + nomeMae + "'");
+            conecta.rs.last();
+            codIntCrc = conecta.rs.getInt("IdInternoCrc");
+            objProCrc.setIdInterno(codIntCrc);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados (FISICOS) a serem exibidos !!!");
+        }
+        conecta.desconecta();
+    }
 }

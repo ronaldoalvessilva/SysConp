@@ -4,13 +4,17 @@ import gestor.Controle.ControleParamentrosCrc;
 import gestor.Controle.ControlePesquisaParametrosImplementacoes;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ParametrosCrc;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Vector;
+import static gestor.Visao.TelaParamentrosSistema.jComboBoxModuloImplementacao;
+import static gestor.Visao.TelaParamentrosSistema.jComboBoxTelaImplementacao;
+import static gestor.Visao.TelaParamentrosSistema.jComboBoxHabilitar;
+import static gestor.Visao.TelaParamentrosSistema.jBtAlterarImp;
+import static gestor.Visao.TelaParamentrosSistema.jBtExcluirImp;
+import static gestor.Visao.TelaParamentrosSistema.pCOD_mod;
+import static gestor.Visao.TelaParamentrosSistema.pCOD_tel;
+import static gestor.Visao.TelaParamentrosSistema.pCODIGO_registro;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -34,10 +38,10 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
     ControlePesquisaParametrosImplementacoes controle = new ControlePesquisaParametrosImplementacoes();
 
     int flag = 1;
-    public static String pCOD_mod;
-    public static String pCOD_tel;
-    public static String pMOD;
-    public static String pTELA;
+    public static String pCOD_modp;
+    public static String pCOD_telp;
+    public static String pMODp;
+    public static String pTELAp;
 
     /**
      * Creates new form TelaPesquisaModuloTela_CONF
@@ -49,6 +53,7 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(pTELA_parametros);
         initComponents();
+        corCampos();
     }
 
     /**
@@ -63,12 +68,14 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBoxModuloImplementacao = new javax.swing.JComboBox<>();
         jTelaModuloImplementacao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jCodigoModulo = new javax.swing.JTextField();
         jCodigoTela = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jHabilitarPesquisa = new javax.swing.JTextField();
+        jModuloPesquisa = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jBtConfirmar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
@@ -85,11 +92,9 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Tela");
 
-        jComboBoxModuloImplementacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxModuloImplementacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxModuloImplementacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
+        jTelaModuloImplementacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTelaModuloImplementacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTelaModuloImplementacao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTelaModuloImplementacao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTelaModuloImplementacaoKeyReleased(evt);
@@ -102,11 +107,30 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Código Tela");
 
+        jCodigoModulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCodigoModulo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoModulo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoModulo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jCodigoModulo.setEnabled(false);
 
+        jCodigoTela.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCodigoTela.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoTela.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoTela.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jCodigoTela.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Habilitar");
+
+        jHabilitarPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jHabilitarPesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHabilitarPesquisa.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jHabilitarPesquisa.setEnabled(false);
+
+        jModuloPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jModuloPesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jModuloPesquisa.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jModuloPesquisa.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,47 +138,56 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jCodigoModulo)
+                    .addComponent(jModuloPesquisa))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBoxModuloImplementacao, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTelaModuloImplementacao, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jCodigoModulo))
-                        .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jCodigoTela, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jCodigoTela, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(176, 176, 176))
+                            .addComponent(jHabilitarPesquisa)))
+                    .addComponent(jTelaModuloImplementacao))
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoModulo, jCodigoTela, jComboBoxModuloImplementacao});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoModulo, jCodigoTela, jModuloPesquisa});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCodigoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoTela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jHabilitarPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoTela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxModuloImplementacao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jModuloPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTelaModuloImplementacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7))
+                .addGap(6, 6, 6))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -201,6 +234,7 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
 
+        jTabelaPesquisaImplementacoes.setAutoCreateRowSorter(true);
         jTabelaPesquisaImplementacoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesquisaImplementacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -218,7 +252,6 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jTabelaPesquisaImplementacoes.setEnabled(false);
         jTabelaPesquisaImplementacoes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaPesquisaImplementacoesMouseClicked(evt);
@@ -247,7 +280,7 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -256,34 +289,44 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
                 .addGap(7, 7, 7)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabelaPesquisaImplementacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesquisaImplementacoesMouseClicked
         // TODO add your handling code here:
         flag = 1;
-        pCOD_mod = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 0);
-        pMOD = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 1);
-        jComboBoxModuloImplementacao.setSelectedItem(pMOD);
+        pCOD_modp = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 0);
+        jCodigoModulo.setText(pCOD_modp);
+        pMODp = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 1);
+        jModuloPesquisa.setText(pMODp);
         String pHABILITA = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 2);
-        pCOD_tel = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 3);
-        pTELA = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 4);
-        jTelaModuloImplementacao.setText(pTELA);
-        control.pPESQUISAR_registro(objParCrc);
-        jComboBoxModuloImplementacao.addItem(objParCrc.getNomeModulo());
-        jTelaModuloImplementacao.setText(objParCrc.getNomeTela());
-
+        jHabilitarPesquisa.setText(pHABILITA);
+        pCOD_telp = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 3);
+        jCodigoTela.setText(pCOD_telp);
+        pTELAp = "" + jTabelaPesquisaImplementacoes.getValueAt(jTabelaPesquisaImplementacoes.getSelectedRow(), 4);
+        jTelaModuloImplementacao.setText(pTELAp);
+        control.pPESQUISAR_REGISTRO_selecionado(objParCrc);
     }//GEN-LAST:event_jTabelaPesquisaImplementacoesMouseClicked
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-
+        pCODIGO_registro = objParCrc.getIdImp();
+        pCOD_mod = jCodigoModulo.getText();
+        pCOD_tel = jCodigoTela.getText();
+        jComboBoxHabilitar.setSelectedItem(jHabilitarPesquisa.getText());
+        jComboBoxModuloImplementacao.setSelectedItem(jModuloPesquisa.getText());
+        jComboBoxTelaImplementacao.setSelectedItem(jTelaModuloImplementacao.getText());
+        //
+        jBtAlterarImp.setEnabled(true);
+        jBtExcluirImp.setEnabled(true);
+        dispose();
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -345,11 +388,13 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
     private javax.swing.JButton jBtSair;
     private javax.swing.JTextField jCodigoModulo;
     private javax.swing.JTextField jCodigoTela;
-    public static javax.swing.JComboBox<String> jComboBoxModuloImplementacao;
+    private javax.swing.JTextField jHabilitarPesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField jModuloPesquisa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -357,12 +402,20 @@ public class TelaPesquisaModuloTela_CONF extends javax.swing.JDialog {
     public static javax.swing.JTextField jTelaModuloImplementacao;
     // End of variables declaration//GEN-END:variables
 
+    public void corCampos() {
+        jCodigoModulo.setBackground(Color.white);
+        jCodigoTela.setBackground(Color.white);
+        jHabilitarPesquisa.setBackground(Color.white);
+        jModuloPesquisa.setBackground(Color.white);
+        jTelaModuloImplementacao.setBackground(Color.white);
+    }
+
     public void pBUSCAR_DADOS_imp() {
 
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaPesquisaImplementacoes.getModel();
         while (jTabelaPesquisaImplementacoes.getModel().getRowCount() > 0) {
-                    ((DefaultTableModel) jTabelaPesquisaImplementacoes.getModel()).removeRow(0);
-                }
+            ((DefaultTableModel) jTabelaPesquisaImplementacoes.getModel()).removeRow(0);
+        }
         try {
             for (ParametrosCrc pp : controle.read()) {
                 dadosOrigem.addRow(new Object[]{pp.getIdModulo(), pp.getNomeModulo(), pp.getHabilitarImp(), pp.getIdTelas(), pp.getNomeTela()});

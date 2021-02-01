@@ -61,7 +61,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         jBtSair = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("...::: Pesquisa Registro Entrada Internos - ENTRADA 1ª VEZ :::...");
+        setTitle("...::: Pesquisa Registro Entrada Internos - NOVA ENTRADA :::...");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -224,7 +224,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaInternos("SELECT ITENSNOVAENTRADA.IdInternoCrc, "
-                    + "ITENSNOVAENTRADA.DataEntrada,ITENSNOVAENTRADA.UtilizadoCrc "
+                    + "ITENSNOVAENTRADA.DataEntrada,ITENSNOVAENTRADA.UtilizadoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,ITENSNOVAENTRADA.NrOficio "
                     + "FROM ITENSNOVAENTRADA "
                     + "INNER JOIN PRONTUARIOSCRC "
@@ -246,12 +246,15 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT ITENSNOVAENTRADA.IdInternoCrc,ITENSNOVAENTRADA.DataEntrada "
-                        + "PRONTUARIOSCRC.NomeInternoCrc,ITENSNOVAENTRADA.NrOficio "
+                conecta.executaSQL("SELECT "
+                        + "ITENSNOVAENTRADA.IdInternoCrc, "
+                        + "ITENSNOVAENTRADA.DataEntrada, "
+                        + "ITENSNOVAENTRADA.NrOficio, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc "
                         + "FROM ITENSNOVAENTRADA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND ITENSNOVAENTRADA.IdInternoCrc='" + idItem + "'");
                 conecta.rs.first();
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
@@ -323,7 +326,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Nr. Oficio"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternos.setModel(modelo);
         jTabelaPesqInternos.getColumnModel().getColumn(0).setPreferredWidth(60);

@@ -87,23 +87,22 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     DadosPenaisCrc objDadosPena = new DadosPenaisCrc();
     DadosFisicosInternos objDadosFis = new DadosFisicosInternos();
-    ControleInternoCrc control = new ControleInternoCrc();
-    ControleDadosFisicos controlFisicos = new ControleDadosFisicos();
-    ControleDadosPenais controlPenais = new ControleDadosPenais();
+    ControleInternoCrc CONTROLE_DADOS_civil = new ControleInternoCrc();
+    ControleDadosFisicos CONTROLE_DADOS_fisicos = new ControleDadosFisicos();
+    ControleDadosPenais CONTROLE_DADOS_penais = new ControleDadosPenais();
     //
+    DadosFisicosInternos objDafis = new DadosFisicosInternos();
     ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
     // GRAVAR DOCUMENTOS DO INTERNO FALTANDO.
-    ControleDocInternosFaltando controleDoc = new ControleDocInternosFaltando();
+    ControleDocInternosFaltando CONTROLE_DADOS_documentos = new ControleDocInternosFaltando();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
-    public static int acao;
+    //
     int flag;
-    String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
     String nomePais;
     String dataEntrada;
     String dataCadastro;
-    public static String caminho = "";
     String caminhoFotoPerfil = "";
     String caminhoFotoCorpo = "";
     String caminhoFotoCorpo1 = "";
@@ -120,8 +119,17 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String caminhoAnularEsquerdo;
     String caminhoMininoEsquerdo;
     // 
-    String nomeInternoCrc;
-    String nomeMaeInterno;
+    public static int acao;
+    public static String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
+    public static String nomeInternoCrc;
+    public static String nomeMaeInterno;
+    public static String caminho = "";
+    public static String pRESPOSTA_gravacao = "";
+    public static String pRESPOSTA_EXCLUSÃO_prontuario = "";
+    public static String pRESPOSTA_DADOS_fisicos = "";
+    public static String pRESPOSTA_EXCLUSÃO_fisicos = "";
+    public static String pRESPOSTA_DADOS_penais = "";
+    public static String pRESPOSTA_EXCLUSÃO_penais = "";
     // Variáveis para gravar o log
     String nomeModuloTela = "CRC:Prontuário de Internos";
     String statusMov;
@@ -130,9 +138,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     //
     String nomeUsuarioCrc = "ADMINISTRADOR DO SISTEMA"; // Para poder alterar a situação do interno
     String usuarioAutorizado;
-    String nomeInterno; // Para pesquisa do interno no registroda portaria, bloquear.
+    public static String nomeInterno; // Para pesquisa do interno no registroda portaria, bloquear.
     String confirmaEntrada = "Sim"; // Confirma a utilização do registro do interno iniciado na portaria.
-    String codParametrosEntrada;
+    public static String codParametrosEntrada;
     int count = 0;
     String situacaoEnt = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
@@ -163,7 +171,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String dataFicha, dataAmparo, dataInicial, dataFinal, dataDoc, dataInicioProcesso, dataTerminoProcesso;
     String codigoFichaJuridica;
     String codigoInterno;
-    String codIntPenal;
+    public static String CODIGO_INTERNO_TABELA_penal;
     //
     String confirmarTransf = "Sim";
     //DOCUMENTAÇÃO DO INTERNO
@@ -1327,7 +1335,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
         jRGInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         try {
-            jRGInterno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########################")));
+            jRGInterno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -4664,7 +4672,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:   
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codIncluirCRC == 1) {
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 1;
             Novo();
             corCampos();
@@ -4691,7 +4699,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
             } catch (SQLException ex) {
             }
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 2;
             Alterar();
             corCampos();
@@ -4710,7 +4718,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codExcluirCRC == 1) {
-            verificarEntradaInterno();
+            pVERIFICAR_ENTRADA_internos();
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4881,18 +4889,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 objProCrc.setUsuarioInsert(nameUser);
                 objProCrc.setDataInsert(jDataSistema.getText());
                 objProCrc.setHoraInsert(jHoraSistema.getText());
-                try {
-                    // Verificar se o interno já foi cadastrado, se foi avisa
-                    conecta.abrirConexao();
-                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                            + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
-                            + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                    conecta.rs.first();
-                    nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                    nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                    conecta.desconecta();
-                } catch (SQLException | HeadlessException | NumberFormatException e) {
-                }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
                 if (jLabelFotoInterno.getIcon() != null) {//                                                                   
                     objProCrc.setImagemInterno(persona_imagem);
@@ -4913,41 +4909,50 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (jFotoCorpo2.getIcon() != null) {//                                                                    
                     objDadosPena.setImagemCorpo2(persona_imagem4);
                 }
+                //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
+                PESQUISAR_EXISTENCIA_interno();
                 if (acao == 1) {
                     if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                         JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
                         conecta.desconecta();
                     } else {
-                        try {
-                            //GRAVA NA TABELA PRONTUARIOSCRC
-                            control.incluirInternoCrc(objProCrc);
-                            buscarCodInt();
-                            // TABELA DADOSFISICOSINTERNOS
-                            controlFisicos.incluirDadosFisicos(objDadosFis);
-                            // TABELA DADOSPENAISINTERNOS
-                            controlPenais.incluirDadosPenais(objDadosPena);
-                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                            verificarGravacaoInterno();
-                            if (jIdInterno.getText().equals(codIntPenal)) {
-                                // Confirma a utilização do registro do interno iniciado pela portaria.
-                                objProCrc.setNomeInterno(jNomeInterno.getText());
-                                objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                control.confirmarRegInternoCrc(objProCrc);
-                                //
-                                gravarDocumentos();
-                                //
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
-                            } else {
-                                apagarRegistroInterno();
+                        //GRAVA NA TABELA PRONTUARIOSCRC
+                        CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
+                        BUSCAR_CODIGO_interno();
+                        // TABELA NA TABELA DADOSFISICOSINTERNOS
+                        objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
+                        objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
+                        CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
+                        // GRAVA NA TABELA DADOSPENAISINTERNOS
+                        objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                        objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
+                        CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
+                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
+                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                        VERIFICAR_GRAVACAO_interno();
+                        if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
+                                && pRESPOSTA_gravacao.equals("Sim")
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                            // Confirma a utilização do registro do interno iniciado pela portaria.
+                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                            objProCrc.setConfirmaEntrada(confirmaEntrada);
+                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                            //
+                            GRAVAR_DOCUMENTOS_internos();
+                            //
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        } else {
+                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                            DELETAR_REGISTRO_interno();
+                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
                                 JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
                             }
-
-                        } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
                         }
                     }
                 }
@@ -4959,11 +4964,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
                         objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
                         objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                        control.alterarInternoCrc(objProCrc);
-                        controlFisicos.alterarDadosFisicos(objDadosFis);
-                        controlPenais.alterarDadosPenais(objDadosPena);
+                        CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
+                        CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
+                        CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
                         //
-                        gravarDocumentos();
+                        GRAVAR_DOCUMENTOS_internos();
                         //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
@@ -5003,7 +5008,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5035,7 +5040,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_INTERNOS_matricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5270,7 +5275,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jRegiaoCorpo2.setText(conecta.rs.getString("RegiaoCorpo2"));
                 lerDigitaisCadastradas();
                 limparTabela();
-                consultaDocumentos();
+                CONSULTAR_DOCUMENTOS_interno();
                 conecta.desconecta();
             } catch (SQLException e) {
                 // JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
@@ -5289,7 +5294,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
             //
             if (jIdInterno.getText().equals(codigoInterno)) {
-                preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
+                PREENCHER_TABELA_processos("SELECT * FROM PROCESSOS_JURIDICOS "
                         + "INNER JOIN FICHA_JURIDICA "
                         + "ON PROCESSOS_JURIDICOS.IdFicha=FICHA_JURIDICA.IdFicha "
                         + "WHERE PROCESSOS_JURIDICOS.IdFicha='" + codigoFichaJuridica + "'");
@@ -5502,7 +5507,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTodosInternos("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            this.PREENCHER_TODOS_internos("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5623,7 +5628,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codIncluirCRC == 1) {
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 1;
             Novo();
             corCampos();
@@ -5646,7 +5651,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
             } catch (SQLException ex) {
             }
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 2;
             Alterar();
             corCampos();
@@ -5666,7 +5671,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codExcluirCRC == 1) {
-            verificarEntradaInterno();
+            pVERIFICAR_ENTRADA_internos();
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -5837,18 +5842,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 objProCrc.setUsuarioInsert(nameUser);
                 objProCrc.setDataInsert(jDataSistema.getText());
                 objProCrc.setHoraInsert(jHoraSistema.getText());
-                try {
-                    // Verificar se o interno já foi cadastrado, se foi avisa
-                    conecta.abrirConexao();
-                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                            + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
-                            + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                    conecta.rs.first();
-                    nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                    nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                    conecta.desconecta();
-                } catch (SQLException | HeadlessException | NumberFormatException e) {
-                }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
                 if (jLabelFotoInterno.getIcon() != null) {//                                                                   
                     objProCrc.setImagemInterno(persona_imagem);
@@ -5869,41 +5862,50 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (jFotoCorpo2.getIcon() != null) {//                                                                    
                     objDadosPena.setImagemCorpo2(persona_imagem4);
                 }
+                //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
+                PESQUISAR_EXISTENCIA_interno();
                 if (acao == 1) {
                     if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                         JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
                         conecta.desconecta();
                     } else {
-                        try {
-                            //GRAVA NA TABELA PRONTUARIOSCRC
-                            control.incluirInternoCrc(objProCrc);
-                            buscarCodInt();
-                            // TABELA DADOSFISICOSINTERNOS
-                            controlFisicos.incluirDadosFisicos(objDadosFis);
-                            // TABELA DADOSPENAISINTERNOS
-                            controlPenais.incluirDadosPenais(objDadosPena);
-                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                            verificarGravacaoInterno();
-                            if (jIdInterno.getText().equals(codIntPenal)) {
-                                // Confirma a utilização do registro do interno iniciado pela portaria.
-                                objProCrc.setNomeInterno(jNomeInterno.getText());
-                                objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                control.confirmarRegInternoCrc(objProCrc);
-                                //
-                                gravarDocumentos();
-                                //
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
-                            } else {
-                                apagarRegistroInterno();
+                        //GRAVA NA TABELA PRONTUARIOSCRC
+                        CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
+                        BUSCAR_CODIGO_interno();
+                        // TABELA NA TABELA DADOSFISICOSINTERNOS
+                        objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
+                        objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
+                        CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
+                        // GRAVA NA TABELA DADOSPENAISINTERNOS
+                        objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                        objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
+                        CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
+                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
+                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                        VERIFICAR_GRAVACAO_interno();
+                        if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
+                                && pRESPOSTA_gravacao.equals("Sim")
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                            // Confirma a utilização do registro do interno iniciado pela portaria.
+                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                            objProCrc.setConfirmaEntrada(confirmaEntrada);
+                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                            //
+                            GRAVAR_DOCUMENTOS_internos();
+                            //
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        } else {
+                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                            DELETAR_REGISTRO_interno();
+                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
                                 JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
                             }
-
-                        } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
                         }
                     }
                 }
@@ -5915,11 +5917,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
                         objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
                         objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                        control.alterarInternoCrc(objProCrc);
-                        controlFisicos.alterarDadosFisicos(objDadosFis);
-                        controlPenais.alterarDadosPenais(objDadosPena);
+                        CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
+                        CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
+                        CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
                         //
-                        gravarDocumentos();
+                        GRAVAR_DOCUMENTOS_internos();
+                        //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
@@ -6015,7 +6018,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         if (jPesqAlcunha.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a alcunha para pesquisa.");
         } else {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -6066,7 +6069,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         if (jPesqCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
         } else {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -6096,7 +6099,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -6117,7 +6120,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + pSAIDA_TEMPORARIA + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc LIKE'%" + pSAIDA_PRISAO_DOMICILIAR + "%'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Inativos")) {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -6138,7 +6141,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoCon + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoReg + "'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Evadidos")) {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -6173,7 +6176,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesquisaCNC.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_INTERNOS_matricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -6328,7 +6331,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jComboBoxQuaisDocumentosFaltam.setEnabled(true);
                 jBtAdicionarDocumento.setEnabled(true);
 //                jBtExcluirRegistro.setEnabled(true);
-                preencherCheckBoxDocumentos();
+                PREENCHER_CHECKBOX_documentos();
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
                 jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
@@ -6412,7 +6415,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     dtm.removeRow(jTabelaDocumentos.getSelectedRow());
                     objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
                     objProCrc.setIdChek(Integer.valueOf(codigoCheck));
-                    controleDoc.excluirDocumentoInternoCrc(objProCrc);
+                    CONTROLE_DADOS_documentos.excluirDocumentoInternoCrc(objProCrc);
                     JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                 }
             } else {
@@ -6885,44 +6888,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistrosPDC;
     private javax.swing.JLabel jtotalRegistrosTMP;
     // End of variables declaration//GEN-END:variables
-
-    public void verificarGravacaoInterno() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM DADOSPENAISINTERNOS WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
-            conecta.rs.first();
-            codIntPenal = conecta.rs.getString("IdInternoCrc");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
-    public void apagarRegistroInterno() {
-        DadosFisicosInternos objDafis = new DadosFisicosInternos();
-        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-        objDafis.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-        try {
-            controlFisicos.excluirDadosFisicos(objDadosFis);
-            control.excluirInternoCrc(objProCrc);
-        } catch (Exception e) {
-        }
-    }
-
-    public void preencherCheckBoxDocumentos() {
-        jComboBoxQuaisDocumentosFaltam.removeAllItems();
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM CHECK_LIST_DOCUMENTOS_INTERNO_CRC "
-                    + "ORDER BY DescricaoDocumentos");
-            conecta.rs.first();
-            do {
-                jComboBoxQuaisDocumentosFaltam.addItem(conecta.rs.getString("DescricaoDocumentos"));
-            } while (conecta.rs.next());
-            jComboBoxQuaisDocumentosFaltam.updateUI();
-        } catch (SQLException ex) {
-        }
-        conecta.desconecta();
-    }
 
     public void bloquearCamposEdicao() {
         jMatriculaPenal.setEnabled(!true);
@@ -8125,21 +8090,49 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jVaraCondenacao.setDocument(new LimiteDigitosAlfa(70));
         } catch (Exception e) {
         }
+    }
 
+    public void VERIFICAR_GRAVACAO_interno() {
+        CONTROLE_DADOS_civil.LOCALIZAR_DADOS_PENAIS_interno(pPront);
+    }
+
+    public void DELETAR_REGISTRO_interno() {
+        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+        objDafis.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+        try {
+            CONTROLE_DADOS_fisicos.excluirDadosFisicos(objDadosFis);
+            CONTROLE_DADOS_civil.excluirInternoCrc(objProCrc);
+        } catch (Exception e) {
+        }
+    }
+
+    public void PREENCHER_CHECKBOX_documentos() {
+        jComboBoxQuaisDocumentosFaltam.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT DescricaoDocumentos "
+                    + "FROM CHECK_LIST_DOCUMENTOS_INTERNO_CRC "
+                    + "ORDER BY DescricaoDocumentos");
+            conecta.rs.first();
+            do {
+                jComboBoxQuaisDocumentosFaltam.addItem(conecta.rs.getString("DescricaoDocumentos"));
+            } while (conecta.rs.next());
+            jComboBoxQuaisDocumentosFaltam.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void PESQUISAR_EXISTENCIA_interno() {
+        CONTROLE_DADOS_civil.pPESQUISA_EXISTENCIA_interno(pPront);
     }
 
     // Verificar se o interno já tem movimentação, não deixar excluir    
-    public void verificarEntradaInterno() {
+    public void pVERIFICAR_ENTRADA_internos() {
         statusMov = "Excluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADA WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
-            conecta.rs.first();
-            codInternoCrc = conecta.rs.getString("IdInternoCrc");
-        } catch (SQLException ex) {
-        }
+        CONTROLE_DADOS_civil.pPESQUISA_ENTRADA_LOTE_interno(pPront);
         if (jIdInterno.getText().equals(codInternoCrc)) {
             JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser excluído, existe movimentação para o mesmo!!!");
         } else {
@@ -8149,35 +8142,31 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir PRONTUÁRIO selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                try {
-                    controlPenais.excluirDadosPenais(objDadosPena);
-                    controlFisicos.excluirDadosFisicos(objDadosFis);
-                    control.excluirInternoCrc(objProCrc);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso...");
-                    Excluir();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel excluir o registro\nERRO: " + ex);
-                }
+                CONTROLE_DADOS_penais.excluirDadosPenais(objDadosPena);
+                CONTROLE_DADOS_fisicos.excluirDadosFisicos(objDadosFis);
+                CONTROLE_DADOS_civil.excluirInternoCrc(objProCrc);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso...");
+                Excluir();
             }
         }
     }
 
-    public void buscarCodInt() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC");
-            conecta.rs.last();
-            jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possivel identificar o número do prontuario... \nERRO: " + e);
-        }
-        conecta.desconecta();
+    public void BUSCAR_CODIGO_interno() {
+        CONTROLE_DADOS_civil.pPESQUISA_CODIGO_interno(pPront);
+    }
+
+    public void CONFIRMAR_REGISTRO_portaria() {
+        CONTROLE_DADOS_civil.pPESQUISA_INTERNO_portaria(pPront);
+    }
+
+    public void VERIFICAR_PARAMETROS_crc() {
+        CONTROLE_DADOS_civil.CONSULTAR_PARAMETROS_crc(pPront);
     }
 
     // Método de pesquisa pela Descrição
-    public void preencherTabelaNome(String sql) {
+    public void PREENCHER_TABELA_nome(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
@@ -8274,7 +8263,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     }
 
     //Preencher tabela com todos os INTERNOS
-    public void preencherTodosInternos(String sql) {
+    public void PREENCHER_TODOS_internos(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
@@ -8348,7 +8337,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     }
 
     // Método de pesquisa pela Matricula
-    public void buscarInternosMatricula(String sql) {
+    public void PREENCHER_TABELA_INTERNOS_matricula(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
@@ -8470,17 +8459,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
-    public void confirmarRegistroPortaria() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
-                    + "WHERE NomeInterno='" + jNomeInterno.getText() + "'");
-            conecta.rs.first();
-            nomeInterno = conecta.rs.getString("NomeInternoCrc");
-        } catch (SQLException ex) {
-        }
-    }
-
     // Executar programa externo da webcam
     public void webCam() {
         try {
@@ -8489,16 +8467,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 System.out.println("Programa terminou normalmente");
             }
         } catch (Exception e) {
-        }
-    }
-
-    public void verificarParamentrosCrc() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
-            conecta.rs.first();
-            codParametrosEntrada = conecta.rs.getString("EntradasPortaria");
-        } catch (SQLException ex) {
         }
     }
 
@@ -8614,7 +8582,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     }
 
     // FICHA JURÍDICA
-    public void preencherTabelaProcessos(String sql) {
+    public void PREENCHER_TABELA_processos(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nr. Processo", "Nr. Inquérito", "Regime", "Anos", "Meses", "Dias", "Data Inicio", "Data Término"};
         conecta.abrirConexao();
@@ -8976,7 +8944,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     }
 
     //GRAVAR OS DOCUMENTOS REFERENTE AO INTERNO
-    public void gravarDocumentos() {
+    public void GRAVAR_DOCUMENTOS_internos() {
 
         for (int i = 0; i < jTabelaDocumentos.getRowCount(); i++) {
             objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
@@ -8985,19 +8953,19 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             objProCrc.setDescricaoDoc((String) jTabelaDocumentos.getValueAt(i, 1));
             verificarInternoBancoDados(objProCrc.getIdInterno(), objProCrc.getIdChek());
             if (c_INTERNO == 0) {
-                controleDoc.incluirDocumentoInternoCrc(objProCrc);
+                CONTROLE_DADOS_documentos.incluirDocumentoInternoCrc(objProCrc);
             } else if (c_INTERNO == objProCrc.getIdInterno() && c_REGISTRO != objProCrc.getIdChek()) {
-                controleDoc.incluirDocumentoInternoCrc(objProCrc);
+                CONTROLE_DADOS_documentos.incluirDocumentoInternoCrc(objProCrc);
             }
         }
     }
 
-    public void consultaDocumentos() {
+    public void CONSULTAR_DOCUMENTOS_interno() {
 
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaDocumentos.getModel();
         ProntuarioCrc d = new ProntuarioCrc();
         try {
-            for (ProntuarioCrc dd : controleDoc.read()) {
+            for (ProntuarioCrc dd : CONTROLE_DADOS_documentos.read()) {
                 dadosOrigem.addRow(new Object[]{dd.getIdChek(), dd.getDescricaoDoc()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaDocumentos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

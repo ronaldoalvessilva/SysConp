@@ -7,6 +7,9 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleItensRegistroCanceladoCrc_SAIDAS;
+import gestor.Controle.ControleRegCancelado_SAIDAS;
+import gestor.Modelo.RegistroCanceladoCrc;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jIdInternoReg;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jNomeInternoReg;
 import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.jNrDocumento;
@@ -29,7 +32,9 @@ import static gestor.Visao.TelaCancelRegistroSaidas_PORTARIA_CRC.pCODIGO_SAIDA_c
 public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-
+    ControleRegCancelado_SAIDAS CONTROLE = new ControleRegCancelado_SAIDAS();
+    RegistroCanceladoCrc objRecCancel = new RegistroCanceladoCrc();
+    //
     int flag;
     String pRETORNO_CRC = "Não";
     String pRETORNO_PORTARIA_RetPort = "Sim";
@@ -58,6 +63,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
      */
     public TelaPesqRegInternoPortaria_SAIDAS() {
         initComponents();
+        UPDATE_tabela();
     }
 
     /**
@@ -249,7 +255,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "AND ITENSCRCPORTARIA.SaidaConfirmada='" + pCONFIRMACAO_SAIDA_CRC + "' "
                         + "AND ITENSCRCPORTARIA.DestinoSaida='" + pTIPO_SAIDA_TEMPORARIA + "' "
                         + "AND ITENSCRCPORTARIA.RegistroCancelado IS NULL");
-            }else if(jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")){
+            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")) {
                 preencherTabelaInternos("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                         + "ITENSCRCPORTARIA.DestinoSaida,ITENSCRCPORTARIA.SaidaConfirmada,ITENSCRCPORTARIA.DocumentoSaida, "
                         + "ITENSCRCPORTARIA.RegistroCancelado "
@@ -260,7 +266,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "AND ITENSCRCPORTARIA.SaidaConfirmada='" + pCONFIRMACAO_SAIDA_CRC + "' "
                         + "AND ITENSCRCPORTARIA.DestinoSaida='" + pTIPO_SAIDA_OUTRAS_SAIDAS + "' "
                         + "AND ITENSCRCPORTARIA.RegistroCancelado IS NULL");
-            }else if(jComboBoxTipoSaida.getSelectedItem().equals("Fuga da Unidade")){
+            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Fuga da Unidade")) {
                 preencherTabelaInternos("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                         + "ITENSCRCPORTARIA.DestinoSaida,ITENSCRCPORTARIA.SaidaConfirmada,ITENSCRCPORTARIA.DocumentoSaida, "
                         + "ITENSCRCPORTARIA.RegistroCancelado "
@@ -271,7 +277,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "AND ITENSCRCPORTARIA.SaidaConfirmada='" + pCONFIRMACAO_SAIDA_CRC + "' "
                         + "AND ITENSCRCPORTARIA.DestinoSaida='" + pTIPO_SAIDA_FUGA + "' "
                         + "AND ITENSCRCPORTARIA.RegistroCancelado IS NULL");
-            }else if(jComboBoxTipoSaida.getSelectedItem().equals("Óbito")){
+            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Óbito")) {
                 preencherTabelaInternos("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                         + "ITENSCRCPORTARIA.DestinoSaida,ITENSCRCPORTARIA.SaidaConfirmada,ITENSCRCPORTARIA.DocumentoSaida, "
                         + "ITENSCRCPORTARIA.RegistroCancelado "
@@ -364,7 +370,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "AND ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
                         + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_TEMPORARIA + "' "
                         + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
-            }else if(jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")){
+            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")) {
                 preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                         + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
                         + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
@@ -375,8 +381,8 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "AND ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
                         + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_OUTRAS_SAIDAS + "' "
                         + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
-            }else if(jComboBoxTipoSaida.getSelectedItem().equals("Fuga da Unidade")){
-                 preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Fuga da Unidade")) {
+                preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                         + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
                         + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
                         + "FROM ITENSREGSAIDA "
@@ -386,7 +392,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                         + "AND ITENSREGSAIDA.ConfirmaSaida='" + pCONFIRMACAO_SAIDA_PORTARIA + "' "
                         + "AND ITENSREGSAIDA.DestinoSaida='" + pTIPO_SAIDA_FUGA + "' "
                         + "AND ITENSREGSAIDA.RegistroCancelado IS NULL");
-            }else if(jComboBoxTipoSaida.getSelectedItem().equals("Óbito")){                
+            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Óbito")) {
                 preencherTabelaInternos("SELECT ITENSREGSAIDA.IdItem,ITENSREGSAIDA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                         + "ITENSREGSAIDA.IdSaida,ITENSREGSAIDA.DestinoSaida,ITENSREGSAIDA.ConfirmaSaida, "
                         + "ITENSREGSAIDA.DataSaida,ITENSREGSAIDA.DocumentoSaida,ITENSREGSAIDA.RegistroCancelado "
@@ -569,6 +575,20 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                 } else {
                     limparTabela();
                 }
+            } else if (jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")) {
+                if (evt.getStateChange() == evt.SELECTED) {
+                    this.preencherTabelaInternos("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSCRCPORTARIA.DestinoSaida,ITENSCRCPORTARIA.SaidaConfirmada,ITENSCRCPORTARIA.DocumentoSaida, "
+                            + "ITENSCRCPORTARIA.RegistroCancelado "
+                            + "FROM ITENSCRCPORTARIA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSCRCPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENSCRCPORTARIA.SaidaConfirmada='" + pCONFIRMACAO_SAIDA_CRC + "' "
+                            + "AND ITENSCRCPORTARIA.DestinoSaida='" + pTIPO_SAIDA_OUTRAS_SAIDAS + "' "
+                            + "AND ITENSCRCPORTARIA.RegistroCancelado IS NULL");
+                } else {
+                    limparTabela();
+                }
             }
             //PORTARIA INTERNA
         } else if (jComboBoxSetor.getSelectedItem().equals("Portaria Interna")) {
@@ -688,7 +708,7 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT ITENSCRCPORTARIA.IdItem,ITENSCRCPORTARIA.DataSaida, "
-                            + "ITENSCRCPORTARIA.IdSaida, ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "ITENSCRCPORTARIA.IdSaida,ITENSCRCPORTARIA.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                             + "ITENSCRCPORTARIA.DestinoSaida,ITENSCRCPORTARIA.DocumentoSaida, "
                             + "ITENSCRCPORTARIA.SaidaConfirmada,ITENSCRCPORTARIA.DocumentoSaida, "
                             + "ITENSCRCPORTARIA.RegistroCancelado "
@@ -842,5 +862,9 @@ public class TelaPesqRegInternoPortaria_SAIDAS extends javax.swing.JInternalFram
         //
         jTabelaPesqInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+    }
+
+    public void UPDATE_tabela() {
+        CONTROLE.alterarDataMOV(objRecCancel);
     }
 }

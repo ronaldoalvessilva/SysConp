@@ -57,9 +57,9 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
 
         jPesNomeCidade.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa por Nome");
-        jBtNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -102,15 +102,13 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1))
         );
 
+        jTabelaCidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "ID", "Nome Cidade", "DDD"
             }
         ));
         jTabelaCidade.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,6 +117,14 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaCidade);
+        if (jTabelaCidade.getColumnModel().getColumnCount() > 0) {
+            jTabelaCidade.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaCidade.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaCidade.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaCidade.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaCidade.getColumnModel().getColumn(2).setMinWidth(50);
+            jTabelaCidade.getColumnModel().getColumn(2).setMaxWidth(50);
+        }
 
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtEnviar.setText("Enviar");
@@ -145,27 +151,28 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)
+                        .addGap(0, 229, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,7 +180,7 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,7 +188,7 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 346, 243);
+        setBounds(300, 150, 447, 265);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -261,7 +268,7 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
         jTabelaCidade.setModel(modelo);
         jTabelaCidade.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaCidade.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaCidade.getColumnModel().getColumn(1).setResizable(false);
         jTabelaCidade.getColumnModel().getColumn(2).setPreferredWidth(50);
         jTabelaCidade.getColumnModel().getColumn(2).setResizable(false);
@@ -288,7 +295,7 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
         jTabelaCidade.setModel(modelo);
         jTabelaCidade.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaCidade.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaCidade.getColumnModel().getColumn(1).setResizable(false);
         jTabelaCidade.getColumnModel().getColumn(2).setPreferredWidth(50);
         jTabelaCidade.getColumnModel().getColumn(2).setResizable(false);

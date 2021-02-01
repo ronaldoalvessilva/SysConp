@@ -133,7 +133,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
     String pTIPO_SAIDA_OBITO = "OBITO";
     //
     String pORIGEM_DESTINO = "SAIDA CANCELADA";
-    int pCODIGO_ITENSCRCPORTARIA_item = 0;
+    public static int pCODIGO_ITENSCRCPORTARIA_item = 0;
     //
     String pUTILIZADO_portaria = "";
     //
@@ -1339,7 +1339,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                 jDataSaida.requestFocus();
                 jDataSaida.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é maior que a data do cancelamento, não é permitido realizar cancelamento futuro.");
-            } else if (jDataSaida.getDate().before(jDataLanc.getDate())) {
+            } else if (jDataLanc.getDate().before(jDataSaida.getDate())) {
                 jDataSaida.requestFocus();
                 jDataSaida.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "A data de saída do interno é menor que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
@@ -1805,7 +1805,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                 objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_SAIDA_crc);
                                 controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
                                 //EXCLUI DA TABELA ITENSCRCPORTARIA
                                 controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
@@ -1826,7 +1826,7 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
                                 objItensEntIntPort.setIdEntraSaida(pCODIGO_ENTRADA_SAIDA);
                                 objItensEntIntPort.setIdRetorno(pCODIGO_SAIDA_crc);
                                 objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
-                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_ITENSCRCPORTARIA_item);
+                                objItensEntIntPort.setIdItem_SAIDA(pCODIGO_SAIDA_crc);
                                 controleReg.alterar_ITENSSAIDA_CANCELADO(objItensEntIntPort);
                                 //EXCLUI DA TABELA ITENSCRCPORTARIA
                                 controleReg.excluir_SAIDA_PortariaCrc(objItensEntIntPort);
@@ -2804,6 +2804,49 @@ public class TelaCancelRegistroSaidas_PORTARIA_CRC extends javax.swing.JInternal
             } catch (Exception e) {
             }
             conecta.desconecta();
+        } else if (jComboBoxTipoSaida.getSelectedItem().equals("Outras Saídas")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT IdInternoCrc,SaidaConfirmada, "
+                        + "IdSaida,DestinoSaida "
+                        + "FROM ITENSCRCPORTARIA "
+                        + "WHERE IdInternoCrc='" + jIdInternoReg.getText() + "' "
+                        + "AND IdSaida='" + pCODIGO_SAIDA_crc + "' "
+                        + "AND DestinoSaida='" + pTIPO_SAIDA_OUTRAS_SAIDAS + "'");
+                conecta.rs.first();
+                pUTILIZADO_portaria = conecta.rs.getString("SaidaConfirmada");
+                pCODIGO_ITENSCRCPORTARIA_item = conecta.rs.getInt("IdSaida");
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+        } else if (jComboBoxTipoSaida.getSelectedItem().equals("Fuga da Unidade")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT IdInternoCrc,SaidaConfirmada, "
+                        + "IdSaida,DestinoSaida "
+                        + "FROM ITENSCRCPORTARIA "
+                        + "WHERE IdInternoCrc='" + jIdInternoReg.getText() + "' "
+                        + "AND IdSaida='" + pCODIGO_SAIDA_crc + "' "
+                        + "AND DestinoSaida='" + pTIPO_SAIDA_FUGA + "'");
+                conecta.rs.first();
+                pUTILIZADO_portaria = conecta.rs.getString("SaidaConfirmada");
+                pCODIGO_ITENSCRCPORTARIA_item = conecta.rs.getInt("IdSaida");
+            } catch (Exception e) {
+            }
+        } else if (jComboBoxTipoSaida.getSelectedItem().equals("Óbito")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT IdInternoCrc,SaidaConfirmada, "
+                        + "IdSaida,DestinoSaida "
+                        + "FROM ITENSCRCPORTARIA "
+                        + "WHERE IdInternoCrc='" + jIdInternoReg.getText() + "' "
+                        + "AND IdSaida='" + pCODIGO_SAIDA_crc + "' "
+                        + "AND DestinoSaida='" + pTIPO_SAIDA_OBITO + "'");
+                conecta.rs.first();
+                pUTILIZADO_portaria = conecta.rs.getString("SaidaConfirmada");
+                pCODIGO_ITENSCRCPORTARIA_item = conecta.rs.getInt("IdSaida");
+            } catch (Exception e) {
+            }
         }
     }
 

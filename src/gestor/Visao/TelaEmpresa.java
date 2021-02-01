@@ -1507,7 +1507,13 @@ public class TelaEmpresa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione o regime da unidade penal.");
         } else if (jCapacidadeTotal.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a capacidade populacional da unidade penal.");
-        } else if(jComboBoxSigla.getSelectedItem().equals("Selecione...")){
+        } else if (jComboBoxSigla.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma sigla para a unidade.");
+        } else if (jComboBoxSigla.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma sigla para a unidade.");
+        } else if (jComboBoxSigla.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma sigla para a unidade.");
+        } else if (jComboBoxSigla.getSelectedItem().equals(null)) {
             JOptionPane.showMessageDialog(rootPane, "Selecione uma sigla para a unidade.");
         } else {
             objEmpUni.setDescricaoUnidade(jDescricaoUnidade.getText());

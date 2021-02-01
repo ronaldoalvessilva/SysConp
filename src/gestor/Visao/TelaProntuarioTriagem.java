@@ -5,9 +5,6 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleDadosFisicos;
-import gestor.Controle.ControleDadosPenais;
-import gestor.Controle.ControleInternoCrc;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitos;
@@ -15,6 +12,9 @@ import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.LimiteDigitosSoNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleDadosFisicos_TRIAGEM;
+import gestor.Controle.ControleDadosPenais_TRIAGEM;
+import gestor.Controle.ControleInternoCrc_TRIAGEM;
 import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.LogSistema;
@@ -33,7 +33,6 @@ import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioPecCosTRI;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioPecFreTRI;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioPrintTRI;
 import java.awt.Color;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -84,18 +83,18 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     DadosPenaisCrc objDadosPena = new DadosPenaisCrc();
     DadosFisicosInternos objDadosFis = new DadosFisicosInternos();
-    ControleInternoCrc control = new ControleInternoCrc();
-    ControleDadosFisicos controlFisicos = new ControleDadosFisicos();
-    ControleDadosPenais controlPenais = new ControleDadosPenais();
+    ControleInternoCrc_TRIAGEM CONTROLE_DADOS_civil = new ControleInternoCrc_TRIAGEM();
+    ControleDadosFisicos_TRIAGEM CONTROLE_DADOS_fisicos = new ControleDadosFisicos_TRIAGEM();
+    ControleDadosPenais_TRIAGEM CONTROLE_DADOS_penais = new ControleDadosPenais_TRIAGEM();
     //
     ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
+    DadosFisicosInternos objDafis = new DadosFisicosInternos();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     //
     int acao;
     int flag;
-    String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
     String nomePais;
     String dataEntrada;
     String dataCadastro;
@@ -116,8 +115,17 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     String caminhoAnularEsquerdo;
     String caminhoMininoEsquerdo;
     //
-    String nomeInternoCrc;
-    String nomeMaeInterno;
+    public static String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
+    public static String nomeInternoCrc;
+    public static String nomeMaeInterno;
+    public static String CODIGO_INTERNO_TABELA_penal;
+    public static String caminho = "";
+    public static String pRESPOSTA_gravacao = "";
+    public static String pRESPOSTA_EXCLUSÃO_prontuario = "";
+    public static String pRESPOSTA_DADOS_fisicos = "";
+    public static String pRESPOSTA_EXCLUSÃO_fisicos = "";
+    public static String pRESPOSTA_DADOS_penais = "";
+    public static String pRESPOSTA_EXCLUSÃO_penais = "";
     // Variáveis para gravar o log
     String nomeModuloTela = "CRC:Prontuário de Internos";
     String statusMov;
@@ -126,9 +134,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     //
     String nomeUsuarioCrc = "ADMINISTRADOR DO SISTEMA"; // Para poder alterar a situação do interno
     String usuarioAutorizado;
-    String nomeInterno; // Para pesquisa do interno no registroda portaria, bloquear.
+    public static String nomeInterno; // Para pesquisa do interno no registroda portaria, bloquear.
     String confirmaEntrada = "Sim"; // Confirma a utilização do registro do interno iniciado na portaria.
-    String codParametrosEntrada;
+    public static String codParametrosEntrada;
     int count = 0;
     String situacaoEnt = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
@@ -992,7 +1000,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1244,12 +1252,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                             .addComponent(jMaeInterno)
                             .addComponent(jNomeInterno)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jAlcunha)
-                                    .addComponent(jRGInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jAlcunha)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel4))
                                     .addComponent(jLabel14))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1261,7 +1268,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jMatriculaPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                                 .addComponent(jLabel162)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1280,6 +1287,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jRGInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1392,8 +1402,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jRGInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.CENTER)
+                            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel14)
+                                .addComponent(jRGInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jCPFInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtZoonFoto, javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jBtNovaFoto, javax.swing.GroupLayout.Alignment.CENTER)
@@ -1565,35 +1576,35 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtBuscarRegPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAuditoriaPronCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtImportarProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(jBtImportarProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtExcluir)
                     .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAlterar)
+                    .addComponent(jBtExcluir)
                     .addComponent(jBtSalvar)
                     .addComponent(jBtCancelar)
                     .addComponent(jBtSair)
@@ -1698,7 +1709,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTelefone, jTelefone1});
@@ -1741,15 +1752,16 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1757,9 +1769,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -2512,8 +2524,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2569,7 +2581,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                         .addComponent(jBtNovaFotoCorpo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtExcluirCorpo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel12, jPanel14, jPanel15, jPanel16});
@@ -2789,7 +2801,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                         .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(24, Short.MAX_VALUE))
+                        .addContainerGap(36, Short.MAX_VALUE))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel17Layout.createSequentialGroup()
@@ -3007,37 +3019,37 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
                 .addComponent(jBtNovo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtImpressao1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtObservacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtBuscarRegPortaria1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAuditoriaPronCrc1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtBiometria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jBtSair1)
                 .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jBtAlterar1)
                 .addComponent(jBtExcluir1)
                 .addComponent(jBtSalvar1)
                 .addComponent(jBtCancelar1)
-                .addComponent(jBtSair1)
                 .addComponent(jBtImpressao1)
                 .addComponent(jBtObservacao1)
                 .addComponent(jBtBuscarRegPortaria1)
@@ -3051,11 +3063,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3063,9 +3075,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Dados Fisicos/Penais", jPanel8);
@@ -3453,7 +3465,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                         .addComponent(jBtPeculiaridadeFrente)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                        .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -3701,7 +3713,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 55, Short.MAX_VALUE)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
@@ -3757,10 +3769,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setBounds(300, 15, 649, 585);
+        setBounds(300, 15, 649, 582);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxCabelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCabelosActionPerformed
@@ -3771,7 +3785,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 1;
             Novo();
             corCampos();
@@ -3795,7 +3809,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
             } catch (SQLException ex) {
             }
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 2;
             Alterar();
             corCampos();
@@ -3814,7 +3828,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
-            verificarEntradaInterno();
+            pVERIFICAR_ENTRADA_internos();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
@@ -3960,18 +3974,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                 objProCrc.setUsuarioInsert(nameUser);
                                                                 objProCrc.setDataInsert(jDataSistema.getText());
                                                                 objProCrc.setHoraInsert(jHoraSistema.getText());
-                                                                try {
-                                                                    // Verificar se o interno já foi cadastrado, se foi avisa
-                                                                    conecta.abrirConexao();
-                                                                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                                                                            + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
-                                                                            + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                                                                    conecta.rs.first();
-                                                                    nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                                                                    nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                                                                    conecta.desconecta();
-                                                                } catch (SQLException | HeadlessException | NumberFormatException e) {
-                                                                }
                                                                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
                                                                 if (jLabelFotoInterno.getIcon() != null) {//                                                                   
                                                                     objProCrc.setImagemInterno(persona_imagem);
@@ -3992,43 +3994,48 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                 if (jFotoCorpo2.getIcon() != null) {//                                                                    
                                                                     objDadosPena.setImagemCorpo2(persona_imagem4);
                                                                 }
+                                                                //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
+                                                                PESQUISAR_EXISTENCIA_interno();
                                                                 if (acao == 1) {
                                                                     if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                                                                         JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
                                                                         conecta.desconecta();
                                                                     } else {
-                                                                        try {
-                                                                            //GRAVA NA TABELA PRONTUARIOSCRC
-                                                                            control.incluirInternoCrc(objProCrc);
-                                                                            buscarCodInt();
-                                                                            // TABELA DADOSFISICOSINTERNOS
-                                                                            controlFisicos.incluirDadosFisicos(objDadosFis);
-                                                                            // TABELA DADOSPENAISINTERNOS
-                                                                            controlPenais.incluirDadosPenais(objDadosPena);
-                                                                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                                                                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                                                                            verificarGravacaoInterno();
-                                                                            if (jIdInterno.getText().equals(codIntPenal)) {
-                                                                                // Confirma a utilização do registro do interno iniciado pela portaria.
-                                                                                objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                                                objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                                                                control.confirmarRegInternoCrc(objProCrc);
-                                                                                //QUANDO O PRONTUARIO VEM DE OUTRA UNIDADE PENAL A SER TRANSFERIDO
-                                                                                pPront.setNomeInterno(jNomeInterno.getText());
-                                                                                pPront.setMaeInterno(jMaeInterno.getText());
-                                                                                pPront.setTransConf(confirmarTransf);
-                                                                                control.confirmarCadastroInterno(pPront);
-                                                                                objLog();
-                                                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                                                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                                                                Salvar();
-                                                                            } else {
-                                                                                apagarRegistroInterno();
+                                                                        //GRAVA NA TABELA PRONTUARIOSCRC
+                                                                        CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
+                                                                        BUSCAR_CODIGO_interno();
+                                                                        // TABELA NA TABELA DADOSFISICOSINTERNOS
+                                                                        objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
+                                                                        objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
+                                                                        CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
+                                                                        // GRAVA NA TABELA DADOSPENAISINTERNOS
+                                                                        objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                                                                        objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
+                                                                        CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
+                                                                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
+                                                                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                                                                        VERIFICAR_GRAVACAO_interno();
+                                                                        if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
+                                                                                && pRESPOSTA_gravacao.equals("Sim")
+                                                                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                                                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                                                                            // Confirma a utilização do registro do interno iniciado pela portaria.
+                                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                                                                            objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                                                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                                                                            //
+                                                                            objLog();
+                                                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                                                            Salvar();
+                                                                        } else {
+                                                                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                                                                            DELETAR_REGISTRO_interno();
+                                                                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
                                                                                 JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                                                                            } else {
+                                                                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
                                                                             }
-
-                                                                        } catch (SQLException ex) {
-                                                                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
                                                                         }
                                                                     }
                                                                 }
@@ -4040,9 +4047,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                         objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
                                                                         objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
                                                                         objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                        control.alterarInternoCrc(objProCrc);
-                                                                        controlFisicos.alterarDadosFisicos(objDadosFis);
-                                                                        controlPenais.alterarDadosPenais(objDadosPena);
+                                                                        CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
+                                                                        CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
+                                                                        CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
                                                                         objLog();
                                                                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
                                                                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
@@ -4585,7 +4592,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 1;
             Novo();
             corCampos();
@@ -4608,7 +4615,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
             } catch (SQLException ex) {
             }
-            verificarParamentrosCrc();
+            VERIFICAR_PARAMETROS_crc();
             acao = 2;
             Alterar();
             corCampos();
@@ -4628,7 +4635,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
-            verificarEntradaInterno();
+            pVERIFICAR_ENTRADA_internos();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
@@ -4674,7 +4681,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                 JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
                                                 jDataCondenacao.requestFocus();
                                             } else {
-
                                                 if (jComboBoxUnid.getText().equals("")) {
                                                     JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
                                                     jComboBoxUnid.requestFocus();
@@ -4775,18 +4781,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                 objProCrc.setUsuarioInsert(nameUser);
                                                                 objProCrc.setDataInsert(jDataSistema.getText());
                                                                 objProCrc.setHoraInsert(jHoraSistema.getText());
-                                                                try {
-                                                                    // Verificar se o interno já foi cadastrado, se foi avisa
-                                                                    conecta.abrirConexao();
-                                                                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                                                                            + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
-                                                                            + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                                                                    conecta.rs.first();
-                                                                    nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                                                                    nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                                                                    conecta.desconecta();
-                                                                } catch (SQLException | HeadlessException | NumberFormatException e) {
-                                                                }
                                                                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
                                                                 if (jLabelFotoInterno.getIcon() != null) {//                                                                   
                                                                     objProCrc.setImagemInterno(persona_imagem);
@@ -4807,64 +4801,65 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                 if (jFotoCorpo2.getIcon() != null) {//                                                                    
                                                                     objDadosPena.setImagemCorpo2(persona_imagem4);
                                                                 }
+                                                                //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
+                                                                PESQUISAR_EXISTENCIA_interno();
                                                                 if (acao == 1) {
                                                                     if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                                                                         JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
                                                                         conecta.desconecta();
                                                                     } else {
-                                                                        try {
-                                                                            //GRAVA NA TABELA PRONTUARIOSCRC
-                                                                            control.incluirInternoCrc(objProCrc);
-                                                                            buscarCodInt();
-                                                                            // TABELA DADOSFISICOSINTERNOS
-                                                                            controlFisicos.incluirDadosFisicos(objDadosFis);
-                                                                            // TABELA DADOSPENAISINTERNOS
-                                                                            controlPenais.incluirDadosPenais(objDadosPena);
-                                                                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                                                                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                                                                            verificarGravacaoInterno();
-                                                                            if (jIdInterno.getText().equals(codIntPenal)) {
-                                                                                // Confirma a utilização do registro do interno iniciado pela portaria.
-                                                                                objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                                                objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                                                                control.confirmarRegInternoCrc(objProCrc);
-                                                                                //QUANDO O PRONTUARIO VEM DE OUTRA UNIDADE PENAL A SER TRANSFERIDO
-                                                                                pPront.setNomeInterno(jNomeInterno.getText());
-                                                                                pPront.setMaeInterno(jMaeInterno.getText());
-                                                                                pPront.setTransConf(confirmarTransf);
-                                                                                control.confirmarCadastroInterno(pPront);
-                                                                                objLog();
-                                                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                                                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                                                                Salvar();
-                                                                            } else {
-                                                                                apagarRegistroInterno();
+                                                                        //GRAVA NA TABELA PRONTUARIOSCRC
+                                                                        CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
+                                                                        BUSCAR_CODIGO_interno();
+                                                                        // TABELA NA TABELA DADOSFISICOSINTERNOS
+                                                                        objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
+                                                                        objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
+                                                                        CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
+                                                                        // GRAVA NA TABELA DADOSPENAISINTERNOS
+                                                                        objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                                                                        objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
+                                                                        CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
+                                                                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
+                                                                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                                                                        VERIFICAR_GRAVACAO_interno();
+                                                                        if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
+                                                                                && pRESPOSTA_gravacao.equals("Sim")
+                                                                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                                                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                                                                            // Confirma a utilização do registro do interno iniciado pela portaria.
+                                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                                                                            objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                                                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                                                                            //
+                                                                            objLog();
+                                                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                                                            Salvar();
+                                                                        } else {
+                                                                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                                                                            DELETAR_REGISTRO_interno();
+                                                                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
                                                                                 JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                                                                            } else {
+                                                                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
                                                                             }
-
-                                                                        } catch (SQLException ex) {
-                                                                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
                                                                         }
                                                                     }
                                                                 }
                                                                 if (acao == 2) {
-                                                                    try {
-                                                                        objProCrc.setUsuarioUp(nameUser);
-                                                                        objProCrc.setDataUp(jDataSistema.getText());
-                                                                        objProCrc.setHoraUp(jHoraSistema.getText());
-                                                                        objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                                                                        objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                        objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                        control.alterarInternoCrc(objProCrc);
-                                                                        controlFisicos.alterarDadosFisicos(objDadosFis);
-                                                                        controlPenais.alterarDadosPenais(objDadosPena);
-                                                                        objLog();
-                                                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
-                                                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                                                                        Salvar();
-                                                                    } catch (Exception e) {
-                                                                        JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
-                                                                    }
+                                                                    objProCrc.setUsuarioUp(nameUser);
+                                                                    objProCrc.setDataUp(jDataSistema.getText());
+                                                                    objProCrc.setHoraUp(jHoraSistema.getText());
+                                                                    objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                                                                    objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                                                                    objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                                                                    CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
+                                                                    CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
+                                                                    CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
+                                                                    objLog();
+                                                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
+                                                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                                                                    Salvar();
                                                                 }
                                                             }
                                                         }
@@ -5011,7 +5006,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5043,7 +5038,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_INTERNOS_matricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5073,7 +5068,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTodosInternos("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            this.PREENCHER_TODOS_internos("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5112,7 +5107,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         if (jPesqAlcunha.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a alcunha para pesquisa.");
         } else {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5143,7 +5138,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         if (jPesqCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
         } else {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5173,7 +5168,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         pTOTAL_ATIVOS = 0;
         flag = 1;
         if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5194,7 +5189,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + pSAIDA_TEMPORARIA + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc LIKE'%" + pSAIDA_PRISAO_DOMICILIAR + "%'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Inativos")) {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5215,7 +5210,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoCon + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoReg + "'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Evadidos")) {
-            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_nome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5249,7 +5244,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesquisaCNC.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+            PREENCHER_TABELA_INTERNOS_matricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
                     + "PRONTUARIOSCRC.Cnc, "
@@ -5643,28 +5638,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistrosPDC;
     private javax.swing.JLabel jtotalRegistrosTMP;
     // End of variables declaration//GEN-END:variables
-
-    public void verificarGravacaoInterno() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM DADOSPENAISINTERNOS "
-                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
-            conecta.rs.first();
-            codIntPenal = conecta.rs.getString("IdInternoCrc");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
-    public void apagarRegistroInterno() {
-        objDadosFis.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-        try {
-            controlFisicos.excluirDadosFisicos(objDadosFis);
-            control.excluirInternoCrc(objProCrc);
-        } catch (Exception e) {
-        }
-    }
 
     public void bloquearCamposEdicao() {
         jMatriculaPenal.setEnabled(!true);
@@ -6867,18 +6840,30 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     }
 
+    public void VERIFICAR_GRAVACAO_interno() {
+        CONTROLE_DADOS_civil.LOCALIZAR_DADOS_PENAIS_interno(pPront);
+    }
+
+    public void DELETAR_REGISTRO_interno() {
+        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+        objDafis.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+        try {
+            CONTROLE_DADOS_fisicos.excluirDadosFisicos(objDadosFis);
+            CONTROLE_DADOS_civil.excluirInternoCrc(objProCrc);
+        } catch (Exception e) {
+        }
+    }
+
+    public void PESQUISAR_EXISTENCIA_interno() {
+        CONTROLE_DADOS_civil.pPESQUISA_EXISTENCIA_interno(pPront);
+    }
+
     // Verificar se o interno já tem movimentação, não deixar excluir    
-    public void verificarEntradaInterno() {
+    public void pVERIFICAR_ENTRADA_internos() {
         statusMov = "Excluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADA WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
-            conecta.rs.first();
-            codInternoCrc = conecta.rs.getString("IdInternoCrc");
-        } catch (SQLException ex) {
-        }
+        CONTROLE_DADOS_civil.pPESQUISA_ENTRADA_LOTE_interno(pPront);
         if (jIdInterno.getText().equals(codInternoCrc)) {
             JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser excluído, existe movimentação para o mesmo!!!");
         } else {
@@ -6888,35 +6873,31 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir PRONTUÁRIO selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                try {
-                    controlPenais.excluirDadosPenais(objDadosPena);
-                    controlFisicos.excluirDadosFisicos(objDadosFis);
-                    control.excluirInternoCrc(objProCrc);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso...");
-                    Excluir();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel excluir o registro\nERRO: " + ex);
-                }
+                CONTROLE_DADOS_penais.excluirDadosPenais(objDadosPena);
+                CONTROLE_DADOS_fisicos.excluirDadosFisicos(objDadosFis);
+                CONTROLE_DADOS_civil.excluirInternoCrc(objProCrc);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso...");
+                Excluir();
             }
         }
     }
 
-    public void buscarCodInt() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC");
-            conecta.rs.last();
-            jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possivel identificar o número do prontuario... \nERRO: " + e);
-        }
-        conecta.desconecta();
+    public void BUSCAR_CODIGO_interno() {
+        CONTROLE_DADOS_civil.pPESQUISA_CODIGO_interno(pPront);
+    }
+
+    public void CONFIRMAR_REGISTRO_portaria() {
+        CONTROLE_DADOS_civil.pPESQUISA_INTERNO_portaria(pPront);
+    }
+
+    public void VERIFICAR_PARAMETROS_crc() {
+        CONTROLE_DADOS_civil.CONSULTAR_PARAMETROS_crc(pPront);
     }
 
     // Método de pesquisa pela Descrição
-    public void preencherTabelaNome(String sql) {
+    public void PREENCHER_TABELA_nome(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
@@ -7013,7 +6994,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     }
 
     //Preencher tabela com todos os INTERNOS
-    public void preencherTodosInternos(String sql) {
+    public void PREENCHER_TODOS_internos(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
@@ -7085,7 +7066,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     }
 
     // Método de pesquisa pela Matricula
-    public void buscarInternosMatricula(String sql) {
+    public void PREENCHER_TABELA_INTERNOS_matricula(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
@@ -7216,22 +7197,13 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     }
 
     // Executar programa externo da webcam
-//    public void webCam() {
-//        try {
-//            Process p = Runtime.getRuntime().exec("C:\\SysConp\\MyCam/MyCam.exe");
-//            if (p.exitValue() == 0) {
-//                System.out.println("Programa terminou normalmente");
-//            }
-//        } catch (Exception e) {
-//        }
-//    }
-    public void verificarParamentrosCrc() {
-        conecta.abrirConexao();
+    public void webCam() {
         try {
-            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
-            conecta.rs.first();
-            codParametrosEntrada = conecta.rs.getString("EntradasPortaria");
-        } catch (SQLException ex) {
+            Process p = Runtime.getRuntime().exec("C:\\SysConp\\MyCam/MyCam.exe");
+            if (p.exitValue() == 0) {
+                System.out.println("Programa terminou normalmente");
+            }
+        } catch (Exception e) {
         }
     }
 

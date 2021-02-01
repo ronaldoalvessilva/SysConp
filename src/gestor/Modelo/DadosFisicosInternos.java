@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gestor.Modelo;
 
 /**
@@ -11,31 +10,38 @@ package gestor.Modelo;
  * @author Ronaldo
  */
 public class DadosFisicosInternos {
-    
- private int IdDados;
-private int IdInternoCrc;
-private String Cutis;
-private String Olhos;
-private String Cabelos;
-private String Barba;
-private String Bigode;
-private String Nariz;
-private String Boca;
-private String Rosto;
-private String Labios;
-private String Camisa;
-private String Calca;
-private String Sapato;
-private String Peso;
-private String Altura;
-private String Sinais;
-private String pescoco;
-private String orelha;
-private String compleicao;    
 
-    public DadosFisicosInternos(int IdDados, int IdInternoCrc, String Cutis, String Olhos, String Cabelos, String Barba, String Bigode, String Nariz, String Boca, String Rosto, String Labios, String Camisa, String Calca, String Sapato, String Peso, String Altura, String Sinais, String pescoco, String orelha, String compleicao) {
+    private int IdDados;
+    private int IdInternoCrc;
+    private String nomeInternoCrc;
+    private String nomeMaeInternoCrc;
+    private String Cutis;
+    private String Olhos;
+    private String Cabelos;
+    private String Barba;
+    private String Bigode;
+    private String Nariz;
+    private String Boca;
+    private String Rosto;
+    private String Labios;
+    private String Camisa;
+    private String Calca;
+    private String Sapato;
+    private String Peso;
+    private String Altura;
+    private String Sinais;
+    private String pescoco;
+    private String orelha;
+    private String compleicao;
+
+    public DadosFisicosInternos() {
+    }
+
+    public DadosFisicosInternos(int IdDados, int IdInternoCrc, String nomeInternoCrc, String nomeMaeInternoCrc, String Cutis, String Olhos, String Cabelos, String Barba, String Bigode, String Nariz, String Boca, String Rosto, String Labios, String Camisa, String Calca, String Sapato, String Peso, String Altura, String Sinais, String pescoco, String orelha, String compleicao) {
         this.IdDados = IdDados;
         this.IdInternoCrc = IdInternoCrc;
+        this.nomeInternoCrc = nomeInternoCrc;
+        this.nomeMaeInternoCrc = nomeMaeInternoCrc;
         this.Cutis = Cutis;
         this.Olhos = Olhos;
         this.Cabelos = Cabelos;
@@ -54,9 +60,6 @@ private String compleicao;
         this.pescoco = pescoco;
         this.orelha = orelha;
         this.compleicao = compleicao;
-    }
-
-    public DadosFisicosInternos() {
     }
 
     /**
@@ -85,6 +88,34 @@ private String compleicao;
      */
     public void setIdInternoCrc(int IdInternoCrc) {
         this.IdInternoCrc = IdInternoCrc;
+    }
+
+    /**
+     * @return the nomeInternoCrc
+     */
+    public String getNomeInternoCrc() {
+        return nomeInternoCrc;
+    }
+
+    /**
+     * @param nomeInternoCrc the nomeInternoCrc to set
+     */
+    public void setNomeInternoCrc(String nomeInternoCrc) {
+        this.nomeInternoCrc = nomeInternoCrc;
+    }
+
+    /**
+     * @return the nomeMaeInternoCrc
+     */
+    public String getNomeMaeInternoCrc() {
+        return nomeMaeInternoCrc;
+    }
+
+    /**
+     * @param nomeMaeInternoCrc the nomeMaeInternoCrc to set
+     */
+    public void setNomeMaeInternoCrc(String nomeMaeInternoCrc) {
+        this.nomeMaeInternoCrc = nomeMaeInternoCrc;
     }
 
     /**

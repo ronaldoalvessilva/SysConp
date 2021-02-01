@@ -394,6 +394,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
 
         jPanel13Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtPesqData, jBtPesqNomeInterno});
 
+        jTabelaPesquisaRol.setAutoCreateRowSorter(true);
         jTabelaPesquisaRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesquisaRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -485,7 +486,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 149, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1001,7 +1002,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jCombBoxStatusVisita.setEnabled(false);
 
         jComboBoxParentesco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", "Neto(a)", "Outros" }));
+        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Filho(a) Adotivo", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", "Neto(a)", "Enteado(a)", "Bisneto(a)", "Namorado(a)", "Outross" }));
         jComboBoxParentesco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxParentesco.setEnabled(false);
 
@@ -1206,6 +1207,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 .addComponent(jBtAuditoriaVisitas))
         );
 
+        jTabelaVisita.setAutoCreateRowSorter(true);
         jTabelaVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisita.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1403,6 +1405,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jTabelaItensInternas.setAutoCreateRowSorter(true);
         jTabelaItensInternas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensInternas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

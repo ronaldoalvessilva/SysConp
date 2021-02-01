@@ -247,7 +247,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPainelAdmPessoal = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
+        jPainelSolicitantesCompras = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Cadastros = new javax.swing.JMenu();
         jDepartamentos = new javax.swing.JMenuItem();
@@ -271,14 +271,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jPopulacaoCarcerariaAgentes = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jConsultaGlobalColaboradores = new javax.swing.JMenuItem();
-        ControleAprovacaoCompras = new javax.swing.JMenu();
-        AprovadoresSolicitacaoCompras = new javax.swing.JMenuItem();
-        SolicitantesCompras = new javax.swing.JMenuItem();
+        jControleAprovacaoCompras = new javax.swing.JMenu();
+        jAprovadoresSolicitacaoCompras = new javax.swing.JMenuItem();
+        jSolicitantesCompras = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        SolicitacaoComprasAdm = new javax.swing.JMenuItem();
+        jSolicitacaoComprasAdm = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        AprovarSolicitacoesCompras = new javax.swing.JMenuItem();
-        AprovarPedidosCompras = new javax.swing.JMenuItem();
+        jAprovarSolicitacoesCompras = new javax.swing.JMenuItem();
+        jAprovarPedidosCompras = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         jEntradasSaidaColaboradores = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
@@ -324,20 +324,20 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
 
         jPainelAdmPessoal.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
+        jPainelSolicitantesCompras.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPainelSolicitantesCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
 
-        jPainelAdmPessoal.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPainelAdmPessoal.setLayer(jPainelSolicitantesCompras, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelAdmPessoalLayout = new javax.swing.GroupLayout(jPainelAdmPessoal);
         jPainelAdmPessoal.setLayout(jPainelAdmPessoalLayout);
         jPainelAdmPessoalLayout.setHorizontalGroup(
             jPainelAdmPessoalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
+            .addComponent(jPainelSolicitantesCompras, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
         );
         jPainelAdmPessoalLayout.setVerticalGroup(
             jPainelAdmPessoalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(jPainelSolicitantesCompras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastro");
@@ -459,53 +459,53 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Consultas);
 
-        ControleAprovacaoCompras.setText("Controle de Compras");
+        jControleAprovacaoCompras.setText("Controle de Compras");
 
-        AprovadoresSolicitacaoCompras.setText("Aprovadores de Solicitações de Compras");
-        AprovadoresSolicitacaoCompras.addActionListener(new java.awt.event.ActionListener() {
+        jAprovadoresSolicitacaoCompras.setText("Aprovadores de Solicitações de Compras");
+        jAprovadoresSolicitacaoCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AprovadoresSolicitacaoComprasActionPerformed(evt);
+                jAprovadoresSolicitacaoComprasActionPerformed(evt);
             }
         });
-        ControleAprovacaoCompras.add(AprovadoresSolicitacaoCompras);
+        jControleAprovacaoCompras.add(jAprovadoresSolicitacaoCompras);
 
-        SolicitantesCompras.setText("Solicitantes de Compras");
-        SolicitantesCompras.addActionListener(new java.awt.event.ActionListener() {
+        jSolicitantesCompras.setText("Solicitantes de Compras");
+        jSolicitantesCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SolicitantesComprasActionPerformed(evt);
+                jSolicitantesComprasActionPerformed(evt);
             }
         });
-        ControleAprovacaoCompras.add(SolicitantesCompras);
-        ControleAprovacaoCompras.add(jSeparator9);
+        jControleAprovacaoCompras.add(jSolicitantesCompras);
+        jControleAprovacaoCompras.add(jSeparator9);
 
-        SolicitacaoComprasAdm.setText("Solicitação de Compras");
-        SolicitacaoComprasAdm.addActionListener(new java.awt.event.ActionListener() {
+        jSolicitacaoComprasAdm.setText("Solicitação de Compras");
+        jSolicitacaoComprasAdm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SolicitacaoComprasAdmActionPerformed(evt);
+                jSolicitacaoComprasAdmActionPerformed(evt);
             }
         });
-        ControleAprovacaoCompras.add(SolicitacaoComprasAdm);
-        ControleAprovacaoCompras.add(jSeparator3);
+        jControleAprovacaoCompras.add(jSolicitacaoComprasAdm);
+        jControleAprovacaoCompras.add(jSeparator3);
 
-        AprovarSolicitacoesCompras.setForeground(new java.awt.Color(255, 0, 0));
-        AprovarSolicitacoesCompras.setText("Aprovar Solicitações Compras");
-        AprovarSolicitacoesCompras.addActionListener(new java.awt.event.ActionListener() {
+        jAprovarSolicitacoesCompras.setForeground(new java.awt.Color(255, 0, 0));
+        jAprovarSolicitacoesCompras.setText("Aprovar Solicitações Compras");
+        jAprovarSolicitacoesCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AprovarSolicitacoesComprasActionPerformed(evt);
+                jAprovarSolicitacoesComprasActionPerformed(evt);
             }
         });
-        ControleAprovacaoCompras.add(AprovarSolicitacoesCompras);
+        jControleAprovacaoCompras.add(jAprovarSolicitacoesCompras);
 
-        AprovarPedidosCompras.setForeground(new java.awt.Color(0, 0, 255));
-        AprovarPedidosCompras.setText("Aprovar Pedidos de Compras");
-        AprovarPedidosCompras.addActionListener(new java.awt.event.ActionListener() {
+        jAprovarPedidosCompras.setForeground(new java.awt.Color(0, 0, 255));
+        jAprovarPedidosCompras.setText("Aprovar Pedidos de Compras");
+        jAprovarPedidosCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AprovarPedidosComprasActionPerformed(evt);
+                jAprovarPedidosComprasActionPerformed(evt);
             }
         });
-        ControleAprovacaoCompras.add(AprovarPedidosCompras);
+        jControleAprovacaoCompras.add(jAprovarPedidosCompras);
 
-        jMenuBar1.add(ControleAprovacaoCompras);
+        jMenuBar1.add(jControleAprovacaoCompras);
 
         Movimentacao.setText("Movimentação");
 
@@ -1081,7 +1081,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         relFreqInternosLabExt.show();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
-    private void AprovadoresSolicitacaoComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprovadoresSolicitacaoComprasActionPerformed
+    private void jAprovadoresSolicitacaoComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAprovadoresSolicitacaoComprasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAprovadoresSC_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadoresSC_ADM) && codAbrirADM == 1) {
@@ -1113,9 +1113,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_AprovadoresSolicitacaoComprasActionPerformed
+    }//GEN-LAST:event_jAprovadoresSolicitacaoComprasActionPerformed
 
-    private void SolicitacaoComprasAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolicitacaoComprasAdmActionPerformed
+    private void jSolicitacaoComprasAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSolicitacaoComprasAdmActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoC_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitacaoC_ADM) && codAbrirADM == 1) {
@@ -1147,9 +1147,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_SolicitacaoComprasAdmActionPerformed
+    }//GEN-LAST:event_jSolicitacaoComprasAdmActionPerformed
 
-    private void SolicitantesComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolicitantesComprasActionPerformed
+    private void jSolicitantesComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSolicitantesComprasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitantesC_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesC_ADM) && codAbrirADM == 1) {
@@ -1181,7 +1181,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_SolicitantesComprasActionPerformed
+    }//GEN-LAST:event_jSolicitantesComprasActionPerformed
 
     private void AgendaCompromissosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaCompromissosActionPerformed
         // TODO add your handling code here:
@@ -1212,7 +1212,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_AgendaCompromissosActionPerformed
 
-    private void AprovarSolicitacoesComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprovarSolicitacoesComprasActionPerformed
+    private void jAprovarSolicitacoesComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAprovarSolicitacoesComprasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAprovadorSC_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadorSC_ADM) && codAbrirADM == 1) {
@@ -1244,9 +1244,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_AprovarSolicitacoesComprasActionPerformed
+    }//GEN-LAST:event_jAprovarSolicitacoesComprasActionPerformed
 
-    private void AprovarPedidosComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprovarPedidosComprasActionPerformed
+    private void jAprovarPedidosComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAprovarPedidosComprasActionPerformed
         // TODO add your handling code here:
 //        buscarAcessoUsuario(telaSolicitantesC_ADM);
 //        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesC_ADM) && codAbrirADM == 1) {
@@ -1254,7 +1254,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
 //        } else {
 //            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
 //        }
-    }//GEN-LAST:event_AprovarPedidosComprasActionPerformed
+    }//GEN-LAST:event_jAprovarPedidosComprasActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         // TODO add your handling code here:
@@ -1557,13 +1557,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
-    private javax.swing.JMenuItem AprovadoresSolicitacaoCompras;
-    private javax.swing.JMenuItem AprovarPedidosCompras;
-    private javax.swing.JMenuItem AprovarSolicitacoesCompras;
     private javax.swing.JMenu Cadastros;
     private javax.swing.JMenu Colaborador;
     private javax.swing.JMenu Consultas;
-    private javax.swing.JMenu ControleAprovacaoCompras;
     private javax.swing.JMenuItem FichaCadastral;
     private javax.swing.JMenuItem FrequenciaColaboradoresPorDepartamento;
     private javax.swing.JMenuItem ListagemColaboradores;
@@ -1575,18 +1571,19 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioIndividualColaboradorFrequencia;
     private javax.swing.JMenuItem RelatorioPaises;
     private javax.swing.JMenu Relatorios;
-    private javax.swing.JMenuItem SolicitacaoComprasAdm;
-    private javax.swing.JMenuItem SolicitantesCompras;
     private javax.swing.JMenuItem jAgendaRecados;
+    private javax.swing.JMenuItem jAprovadoresSolicitacaoCompras;
+    private javax.swing.JMenuItem jAprovarPedidosCompras;
+    private javax.swing.JMenuItem jAprovarSolicitacoesCompras;
     private javax.swing.JMenuItem jAtividadesMensalUnidade;
     private javax.swing.JMenuItem jCargos;
     private javax.swing.JMenuItem jCidades;
     private javax.swing.JMenuItem jConsultaGlobalColaboradores;
+    private javax.swing.JMenu jControleAprovacaoCompras;
     private javax.swing.JMenuItem jDepartamentos;
     private javax.swing.JMenu jDiversos;
     private javax.swing.JMenuItem jEntradasSaidaColaboradores;
     private javax.swing.JMenuItem jEscalaTrabalho;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1599,6 +1596,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItemPRORES;
     private javax.swing.JMenu jMenuPRORES;
     public static javax.swing.JDesktopPane jPainelAdmPessoal;
+    private javax.swing.JLabel jPainelSolicitantesCompras;
     private javax.swing.JMenuItem jPais;
     private javax.swing.JMenuItem jPopulacaoCarcerariaAgentes;
     private javax.swing.JMenuItem jRelatorioAtividadesMensalUnidade;
@@ -1624,6 +1622,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
+    private javax.swing.JMenuItem jSolicitacaoComprasAdm;
+    private javax.swing.JMenuItem jSolicitantesCompras;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -2414,6 +2414,13 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         PESQUISAR_IMPLEMENTA_GTA_001(telaEntradasSaidasColaboradoresManu_ADM);
         PESQUISAR_IMPLEMENTA_GTA_002(telaEscala_ADM);
         PESQUISAR_IMPLEMENTA_GTA_003(telaPesquisaGlobalColaboradores_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_004(telaPesquisaGlobalColaboradores_ADM);
+        
+//        telaPesquisaGlobalColaboradores_ADM
+//        String telaSolicitacaoC_ADM
+//        telaSolicitacaoC_ADM    
+//        telaAprovadorSC_ADM  
+//          menu principal ControleAprovacaoCompras
     }
 
     public void PESQUISAR_IMPLEMENTA_GTA_001(String pNOME_tela) {
@@ -2462,6 +2469,48 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         } else {
             jConsultaGlobalColaboradores.setVisible(true);
             jSeparator2.setVisible(true);
+        }
+    }
+    public void PESQUISAR_IMPLEMENTA_GTA_004(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleAprovacaoCompras.setVisible(!true);
+            jAprovadoresSolicitacaoCompras.setVisible(!true);
+            jSolicitantesCompras.setVisible(!true);
+            jSolicitacaoComprasAdm.setVisible(!true);
+            jAprovarSolicitacoesCompras.setVisible(!true);
+            jAprovarPedidosCompras.setVisible(!true);
+            jSeparator3.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jControleAprovacaoCompras.setVisible(!true);
+            jAprovadoresSolicitacaoCompras.setVisible(!true);
+            jSolicitantesCompras.setVisible(!true);
+            jSolicitacaoComprasAdm.setVisible(!true);
+            jAprovarSolicitacoesCompras.setVisible(!true);
+            jAprovarPedidosCompras.setVisible(!true);
+            jSeparator3.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jControleAprovacaoCompras.setVisible(!true);
+            jAprovadoresSolicitacaoCompras.setVisible(!true);
+            jSolicitantesCompras.setVisible(!true);
+            jSolicitacaoComprasAdm.setVisible(!true);
+            jAprovarSolicitacoesCompras.setVisible(!true);
+            jAprovarPedidosCompras.setVisible(!true);
+            jSeparator3.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else {
+            jControleAprovacaoCompras.setVisible(true);
+            jAprovadoresSolicitacaoCompras.setVisible(true);
+            jSolicitantesCompras.setVisible(true);
+            jSolicitacaoComprasAdm.setVisible(true);
+            jAprovarSolicitacoesCompras.setVisible(true);
+            jAprovarPedidosCompras.setVisible(true);
+            jSeparator3.setVisible(true);
+            jSeparator9.setVisible(true);
         }
     }
 }

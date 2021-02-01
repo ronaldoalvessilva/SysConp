@@ -8,7 +8,11 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
+import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_DADOS_penais;
+import static gestor.Visao.TelaProntuarioCrc.pRESPOSTA_EXCLUSÃO_fisicos;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,9 +30,9 @@ public class ControleDadosPenais {
     String tipo = "ENTRADA NA UNIDADE";
 
     // Incluir DADOS PENAIS INTERNO CRC
-    public DadosPenaisCrc incluirDadosPenais(DadosPenaisCrc objDadosPena) throws SQLException {
-        buscarIdInternoCrc();
-        buscarUnid(objDadosPena.getNomeUnidade());
+    public DadosPenaisCrc incluirDadosPenais(DadosPenaisCrc objDadosPena) {
+        BUSCAR_CODIGO_interno(objDadosPena.getNomeInternoCrc(), objDadosPena.getNomeMaeInternoCrc());
+        BUSCAR_CODIGO_unidade(objDadosPena.getNomeUnidade());
         conecta.abrirConexao();
         // Incluir Registro na tabela de INTERNOS CRC
         try (PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO DADOSPENAISINTERNOS (DataEntrada,DataCrime,DataPrisao,"
@@ -111,6 +115,10 @@ public class ControleDadosPenais {
             pst.setBytes(34, objDadosPena.getImagemCorpo1());
             pst.setBytes(35, objDadosPena.getImagemCorpo2());
             pst.execute();
+            pRESPOSTA_DADOS_penais = "Sim";
+        } catch (SQLException ex) {
+            pRESPOSTA_DADOS_penais = "Não";
+            Logger.getLogger(ControleDadosPenais.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         return objDadosPena;
@@ -118,7 +126,7 @@ public class ControleDadosPenais {
 
     //Método para Alterar DADOS PENAIS INTERNO CRC
     public DadosPenaisCrc alterarDadosPenais(DadosPenaisCrc objDadosPena) {
-        buscarUnid(objDadosPena.getNomeUnidade());
+        BUSCAR_CODIGO_unidade(objDadosPena.getNomeUnidade());
         conecta.abrirConexao();
         // Alterar Registro na tabela de INTERNOS CRC
         try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE DADOSPENAISINTERNOS SET DataEntrada=?,DataCrime=?,DataPrisao=?,"
@@ -202,7 +210,9 @@ public class ControleDadosPenais {
             pst.setBytes(34, objDadosPena.getImagemCorpo1());
             pst.setBytes(35, objDadosPena.getImagemCorpo2());
             pst.executeUpdate();
+            pRESPOSTA_DADOS_penais = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_DADOS_penais = "Não";
             JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados !!!");
         }
         conecta.desconecta();
@@ -211,7 +221,7 @@ public class ControleDadosPenais {
 
     //Método para Alterar DADOS PENAIS ENTRADA EM LOTE (ENTRADA DE INTERNOS)
     public DadosPenaisCrc alterarDadosPenaisLote(DadosPenaisCrc objDadosPena) {
-        buscarUnid(objDadosPena.getNomeUnidade());
+        BUSCAR_CODIGO_unidade(objDadosPena.getNomeUnidade());
         conecta.abrirConexao();
         // Alterar Registro na tabela de INTERNOS CRC
         try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE DADOSPENAISINTERNOS SET DataEntrada=?,DataCrime=?,DataPrisao=?,"
@@ -237,7 +247,9 @@ public class ControleDadosPenais {
             pst.setInt(14, codUnid);
             pst.setInt(15, objDadosPena.getIdInternoCrc());
             pst.executeUpdate();
+            pRESPOSTA_DADOS_penais = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_DADOS_penais = "Não";
             JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados !!!");
         }
         conecta.desconecta();
@@ -249,17 +261,25 @@ public class ControleDadosPenais {
         conecta.abrirConexao();
         try (PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM DADOSPENAISINTERNOS WHERE IdInternoCrc='" + objDadosPena.getIdInternoCrc() + "'")) {
             pst.executeUpdate();
+            pRESPOSTA_EXCLUSÃO_fisicos = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_EXCLUSÃO_fisicos = "Não";
             JOptionPane.showMessageDialog(null, "Não Existe dados (UNIDADE) a serem exibidos !!!");
         }
         conecta.desconecta();
         return objDadosPena;
     }
 
-    public void buscarIdInternoCrc() {
+    public void BUSCAR_CODIGO_interno(String nomeInterno, String nomeMae) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC");
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc, "
+                    + "NomeInternoCrc, "
+                    + "MaeInternoCrc "
+                    + "FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                    + "AND MaeInternoCrc='" + nomeMae + "'");
             conecta.rs.last();
             codIntCrc = conecta.rs.getInt("IdInternoCrc");
             objProCrc.setIdInterno(codIntCrc);
@@ -270,10 +290,14 @@ public class ControleDadosPenais {
     }
 
     // Buscar o código da UNIDADE PENAL para incluir junto com os dados fisicos (RELACIONAMENTO)
-    public void buscarUnid(String nome) {
+    public void BUSCAR_CODIGO_unidade(String nome) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM UNIDADE WHERE DescricaoUnid='" + nome + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdUnid, "
+                    + "DescricaoUnid "
+                    + "FROM UNIDADE "
+                    + "WHERE DescricaoUnid='" + nome + "'");
             conecta.rs.first();
             codUnid = conecta.rs.getInt("IdUnid");
         } catch (SQLException ex) {

@@ -174,9 +174,10 @@
             <Component class="javax.swing.JButton" name="jBtNome">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gestor/Imagens/pesq_atv.png"/>
+                  <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Pesquisa Por Nome"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNomeActionPerformed"/>
