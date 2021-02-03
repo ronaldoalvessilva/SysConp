@@ -176,7 +176,7 @@
                                   <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
                                   <Component id="jUnidadePenal" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="10" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="jLabel7" alignment="2" min="-2" max="-2" attributes="0"/>
                                   <Component id="jRegime" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -247,12 +247,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jFotoInterno" alignment="0" pref="131" max="32767" attributes="0"/>
+                      <Component id="jFotoInterno" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jFotoInterno" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jFotoInterno" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

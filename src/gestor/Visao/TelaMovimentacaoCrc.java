@@ -104,11 +104,11 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+            .addComponent(jFotoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jFotoInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -255,7 +255,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel6)
                             .addComponent(jUnidadePenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel7)
                             .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,7 +346,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
         if (jNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado, pesquise\n antes e caso necessário atualize a tela");
         } else {
-            limnparTabela();
+            limparTabela();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
@@ -387,7 +387,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
                 jDataPena.setDate(conecta.rs.getDate("TerminoPena"));
                 conecta.desconecta();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possível exibir os dados!!! \nERRO :" + ex);
+//                JOptionPane.showMessageDialog(rootPane, "Não foi possível exibir os dados!!! \nERRO :" + ex);
             }
             //ZERAR HORARIOS DAS DATAS
             controle.alterarDataMovimentacao(objItens);
@@ -483,7 +483,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
         jTabelaMovimentacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
 
-    public void limnparTabela() {
+    public void limparTabela() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Data Mov.", "Documento", "Descrição da Operação", "Origem/Destino do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
@@ -501,6 +501,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
         jTabelaMovimentacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
+
 
     public void limparCampos() {
         jIdInterno.setText("");
