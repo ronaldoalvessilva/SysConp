@@ -34,11 +34,11 @@ public class ControleInventarioArmasEPIs {
     int codLocal;
     int codProd;
 
-    public InventarioArmaEPI incluirInventarioAC(InventarioArmaEPI objInventEstoque) {
-        buscarLocalArmazenamento(objInventEstoque.getNomeLocalArmazenamento());
+    public InventarioArmaEPI incluirInventarioAE(InventarioArmaEPI objInventEstoque) {
+        pBUSCAR_LOCAL_armazenamento(objInventEstoque.getNomeLocalArmazenamento());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INVENTARIO_AC (TipoProduto,StatusLanc,TipoInventario,IdLocal,Responsavel,DataInicio,DataTermino,HorarioInicio,HorarioTermino,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INVENTARIO_ARMAS_EPI (TipoProduto,StatusLanc,TipoInventario,IdLocal,Responsavel,DataInicio,DataTermino,HorarioInicio,HorarioTermino,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objInventEstoque.getTipoProduto());
             pst.setString(2, objInventEstoque.getStatusLanc());
             pst.setString(3, objInventEstoque.getTipoInventario());
@@ -66,11 +66,11 @@ public class ControleInventarioArmasEPIs {
         return objInventEstoque;
     }
 
-    public InventarioArmaEPI alterarInventarioAC(InventarioArmaEPI objInventEstoque) {
-        buscarLocalArmazenamento(objInventEstoque.getNomeLocalArmazenamento());
+    public InventarioArmaEPI alterarInventarioAE(InventarioArmaEPI objInventEstoque) {
+        pBUSCAR_LOCAL_armazenamento(objInventEstoque.getNomeLocalArmazenamento());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INVENTARIO_AC SET TipoProduto=?,StatusLanc=?,TipoInventario=?,IdLocal=?,Responsavel=?,DataInicio=?,DataTermino=?,HorarioInicio=?,HorarioTermino=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objInventEstoque.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INVENTARIO_ARMAS_EPI SET TipoProduto=?,StatusLanc=?,TipoInventario=?,IdLocal=?,Responsavel=?,DataInicio=?,DataTermino=?,HorarioInicio=?,HorarioTermino=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objInventEstoque.getIdLanc() + "'");
             pst.setString(1, objInventEstoque.getTipoProduto());
             pst.setString(2, objInventEstoque.getStatusLanc());
             pst.setString(3, objInventEstoque.getTipoInventario());
@@ -98,10 +98,10 @@ public class ControleInventarioArmasEPIs {
         return objInventEstoque;
     }
 
-    public InventarioArmaEPI excluirInventarioAC(InventarioArmaEPI objInventEstoque) {
+    public InventarioArmaEPI excluirInventarioAE(InventarioArmaEPI objInventEstoque) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INVENTARIO_AC WHERE IdLanc='" + objInventEstoque.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INVENTARIO_ARMAS_EPI WHERE IdLanc='" + objInventEstoque.getIdLanc() + "'");
             pst.executeUpdate();
             pRESPOSTA_inv = "Sim";
         } catch (SQLException ex) {
@@ -112,10 +112,10 @@ public class ControleInventarioArmasEPIs {
         return objInventEstoque;
     }
 
-    public InventarioArmaEPI efetivarInventarioAC(InventarioArmaEPI objInventEstoque) {
+    public InventarioArmaEPI efetivarInventarioAE(InventarioArmaEPI objInventEstoque) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INVENTARIO_AC SET StatusLanc=?,DataTermino=?,HorarioTermino=? WHERE IdLanc='" + objInventEstoque.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INVENTARIO_ARMAS_EPI SET StatusLanc=?,DataTermino=?,HorarioTermino=? WHERE IdLanc='" + objInventEstoque.getIdLanc() + "'");
             pst.setString(1, objInventEstoque.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objInventEstoque.getDataTermino().getTime()));
             pst.setString(3, objInventEstoque.getHorarioTermino());
@@ -129,10 +129,11 @@ public class ControleInventarioArmasEPIs {
         return objInventEstoque;
     }
 
-    public void buscarLocalArmazenamento(String nomeLocal) {
+    public void pBUSCAR_LOCAL_armazenamento(String nomeLocal) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * "
+            conecta.executaSQL("SELECT "
+                    + "DescricaoLocal "
                     + "FROM LOCAL_ARMAZENAMENTO_AC "
                     + "WHERE DescricaoLocal='" + nomeLocal + "'");
             conecta.rs.first();
@@ -281,16 +282,16 @@ public class ControleInventarioArmasEPIs {
         conecta.desconecta();
         return objEquipa;
     }
-    
+
     public InventarioArmaEPI pPESQUISAR_CODIGO_invent(InventarioArmaEPI objEquipa) {
 
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
                     + "IdLanc "
-                    + "FROM ITENS_INVENTARIO_ARMAS_EPI ");                    
+                    + "FROM ITENS_INVENTARIO_ARMAS_EPI ");
             conecta.rs.last();
-             jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -298,11 +299,11 @@ public class ControleInventarioArmasEPIs {
     }
 
     //---------------------------------------------- PRODUTOS ---------------------------------------------------------------------------
-    public InventarioArmaEPI incluirItensInventarioAC(InventarioArmaEPI objInventEstoque) {
-        buscarProduto(objInventEstoque.getNomeProduto());
+    public InventarioArmaEPI incluirItensInventarioAE(InventarioArmaEPI objInventEstoque) {
+        pBUSCAR_arma(objInventEstoque.getNomeProduto());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INVENTARIO_AC (IdLanc,IdProd,QtdItem,ValorCusto,IdLocal,Lote,DataLote,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INVENTARIO_ARMAS_EPI (IdLanc,IdProd,QtdItem,ValorCusto,IdLocal,Lote,DataLote,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objInventEstoque.getIdLanc());
             pst.setInt(2, codProd);
             pst.setFloat(3, objInventEstoque.getQtdItem());
@@ -327,11 +328,11 @@ public class ControleInventarioArmasEPIs {
         return objInventEstoque;
     }
 
-    public InventarioArmaEPI alterarItensInventarioAC(InventarioArmaEPI objInventEstoque) {
-        buscarProduto(objInventEstoque.getNomeProduto());
+    public InventarioArmaEPI alterarItensInventarioAE(InventarioArmaEPI objInventEstoque) {
+        pBUSCAR_arma(objInventEstoque.getNomeProduto());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_INVENTARIO_AC SET IdLanc=?,IdProd=?,QtdItem=?,ValorCusto=?,IdLocal=?,Lote=?,DataLote=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_INVENTARIO_ARMAS_EPI SET IdLanc=?,IdProd=?,QtdItem=?,ValorCusto=?,IdLocal=?,Lote=?,DataLote=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
             pst.setInt(1, objInventEstoque.getIdLanc());
             pst.setInt(2, codProd);
             pst.setFloat(3, objInventEstoque.getQtdItem());
@@ -356,11 +357,11 @@ public class ControleInventarioArmasEPIs {
         return objInventEstoque;
     }
 
-    public InventarioArmaEPI excluirItensInventarioAC(InventarioArmaEPI objInventEstoque) {
+    public InventarioArmaEPI excluirItensInventarioAE(InventarioArmaEPI objInventEstoque) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_INVENTARIO_AC WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_INVENTARIO_ARMAS_EPI WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\nERRO: " + ex);
@@ -369,14 +370,32 @@ public class ControleInventarioArmasEPIs {
         return objInventEstoque;
     }
 
-    public void buscarProduto(String nome) {
+    public void pBUSCAR_arma(String nome) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRODUTOS_AC WHERE DescricaoProd='" + nome + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdArma "
+                    + "FROM ARMAS "
+                    + "WHERE DescricaoArma='" + nome + "'");
             conecta.rs.first();
-            codProd = conecta.rs.getInt("IdProd");
+            codProd = conecta.rs.getInt("IdArma");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados (PRODUTO) a serem exibidos !!!");
+            JOptionPane.showMessageDialog(null, "Não Existe dados (ARMAS) a serem exibidos !!!");
+        }
+        conecta.desconecta();
+    }
+
+    public void pBUSCAR_epi(String descricao) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdEquipamento "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI "
+                    + "WHERE DescricaoEquipamento='" + descricao + "'");
+            conecta.rs.first();
+            codProd = conecta.rs.getInt("IdEquipamento");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados (EQUIPAMENTOS_SEGURANCA_EPI) a serem exibidos !!!");
         }
         conecta.desconecta();
     }
@@ -388,9 +407,9 @@ public class ControleInventarioArmasEPIs {
         try {
             conecta.executaSQL("SELECT "
                     + ""
-                    + "FROM ITENS_INVENTARIO_AC "
+                    + "FROM ITENS_INVENTARIO_ARMAS_EPI "
                     + "INNER JOIN PRODUTOS_AC "
-                    + "ON ITENS_INVENTARIO_AC.IdProd=PRODUTOS_AC.IdProd "
+                    + "ON ITENS_INVENTARIO_ARMAS_EPI.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "' "
                     + "ORDER BY DescricaoProd");
             while (conecta.rs.next()) {
@@ -399,7 +418,7 @@ public class ControleInventarioArmasEPIs {
                 pInventaEPI.setIdProduto(conecta.rs.getInt("IdProd"));
                 pInventaEPI.setNomeProduto(conecta.rs.getString("NomeProduto"));
                 pInventaEPI.setUnidade(conecta.rs.getString("Unidade"));
-                pInventaEPI.setQtdItem(conecta.rs.getInt("QtdItem"));                
+                pInventaEPI.setQtdItem(conecta.rs.getInt("QtdItem"));
                 LISTAR_inventario.add(pInventaEPI);
                 pTOTAL_inve++;
             }
