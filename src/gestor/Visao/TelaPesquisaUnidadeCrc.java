@@ -24,13 +24,14 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
+    String NomeCidade = "";
 
     /**
      * Creates new form TelaPesquisaCidade
      */
     public TelaPesquisaUnidadeCrc() {
         initComponents();
-        jPesNomeUnidade.setDocument(new LimiteDigitosAlfa(50));
+//        jPesNomeUnidade.setDocument(new LimiteDigitosAlfa(50));
     }
 
     /**
@@ -105,13 +106,14 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
                 .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
         );
 
+        jTabelaUnidadePenal.setAutoCreateRowSorter(true);
         jTabelaUnidadePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUnidadePenal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome da Unidade"
+                "Código", "Classificação", "Nome da Unidade"
             }
         ));
         jTabelaUnidadePenal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,8 +125,10 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
         if (jTabelaUnidadePenal.getColumnModel().getColumnCount() > 0) {
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMinWidth(60);
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(300);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(100);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(100);
+            jTabelaUnidadePenal.getColumnModel().getColumn(2).setMinWidth(300);
+            jTabelaUnidadePenal.getColumnModel().getColumn(2).setMaxWidth(300);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -159,35 +163,39 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
-                    .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtSair)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 398, 243);
+        setBounds(550, 250, 499, 265);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -197,16 +205,19 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesNomeUnidade.requestFocus();
         } else {
-            preencherTabelaNome("SELECT * FROM UNIDADE "
-                    + "WHERE DescricaoUnid LIKE'" + jPesNomeUnidade.getText() + "%'");
+            preencherTabelaNome("SELECT "
+                    + "IdUnid, "
+                    + "ClassUnid, "
+                    + "DescricaoUnid "
+                    + "FROM UNIDADE "
+                    + "WHERE DescricaoUnid LIKE'%" + jPesNomeUnidade.getText() + "%'");
         }
-
     }//GEN-LAST:event_jBtNomeActionPerformed
 
     private void jTabelaUnidadePenalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaUnidadePenalMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String NomeCidade = "" + jTabelaUnidadePenal.getValueAt(jTabelaUnidadePenal.getSelectedRow(), 1);
+            NomeCidade = "" + jTabelaUnidadePenal.getValueAt(jTabelaUnidadePenal.getSelectedRow(), 2);
             jPesNomeUnidade.setText(NomeCidade);
         }
     }//GEN-LAST:event_jTabelaUnidadePenalMouseClicked
@@ -214,10 +225,13 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         if (jPesNomeUnidade.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o nome da UNIDADE e clique no botão ENVIAR");
+            JOptionPane.showMessageDialog(rootPane, "Selecione o nome da UNIDADE e clique no botão ENVIAR.");
+        }else if(!jPesNomeUnidade.getText().isEmpty() && NomeCidade.equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa da unidade prisional.");
+        } else {
+            jComboBoxUnid.setText(NomeCidade);
+            dispose();
         }
-        jComboBoxUnid.setText(jPesNomeUnidade.getText());
-        dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -229,7 +243,12 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabela("SELECT * FROM UNIDADE ORDER BY DescricaoUnid");
+            this.preencherTabela("SELECT "
+                    + "IdUnid, "
+                    + "ClassUnid, "
+                    + "DescricaoUnid "
+                    + "FROM UNIDADE "
+                    + "ORDER BY DescricaoUnid");
         } else {
             limparTabela();
         }
@@ -251,13 +270,13 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
 
     public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome da Unidade"};
+        String[] Colunas = new String[]{"Codigo", "Classificação", "Nome da Unidade"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("DescricaoUnid")});
+                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("ClassUnid"), conecta.rs.getString("DescricaoUnid")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -266,8 +285,10 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(100);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
         jTabelaUnidadePenal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -277,13 +298,13 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Codigo", "Nome da Unidade"};
+        String[] Colunas = new String[]{"Codigo", "Classificação", "Nome da Unidade"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("DescricaoUnid")});
+                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("ClassUnid"), conecta.rs.getString("DescricaoUnid")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -292,8 +313,10 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(100);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
         jTabelaUnidadePenal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -303,13 +326,15 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome Unidade"};
+        String[] Colunas = new String[]{"Codigo", "Classificação", "Nome da Unidade"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaUnidadePenal.setModel(modelo);
-        jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(100);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
         jTabelaUnidadePenal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
