@@ -65,7 +65,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
     String nomeModuloTela = "Gerencia Operacional:Inventário de Produtos:Manutenção";
-    String nomeModuloTela2 = "Gerencia Operacional:Inventário de Produtos:Contagem itens";
+    String nomeModuloTela2 = "Gerencia Operacional:Inventário de Produtos:Contagem Itens";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -285,13 +285,13 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         .addComponent(jCheckBox1))
                     .addGroup(jPanel37Layout.createSequentialGroup()
                         .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
                         .addComponent(jBtPesqDatas, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,18 +556,17 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                             .addComponent(jComboBoxTipoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtEfetivar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(132, 132, 132))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel17)
-                                .addGap(132, 132, 132))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(320, 320, 320))
-                            .addComponent(jUsuarioResponsavel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jUsuarioResponsavel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -589,6 +588,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         .addComponent(jScrollPane2))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
@@ -798,10 +798,10 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -945,11 +945,11 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                                 .addComponent(jBtPesqProdutoInve, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 10, Short.MAX_VALUE))
+                                .addGap(0, 15, Short.MAX_VALUE))
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
+                                .addGap(34, 34, 34)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel18)
                                     .addComponent(jDataVctoLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -962,11 +962,11 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(jCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 125, Short.MAX_VALUE))
                             .addComponent(jComboBoxUnidProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -983,9 +983,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                             .addComponent(jLote, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
-
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoBarra, jLote});
-
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
@@ -1011,13 +1008,14 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxUnidProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxUnidProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jValorCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel4)
+                    .addComponent(jLabel18)
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -1025,10 +1023,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     .addComponent(jDataVctoLote, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtotalItens, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 9, Short.MAX_VALUE))
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jLabel18)
-                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCodigoBarra, jComboBoxUnidProduto, jLote, jQtd});
@@ -1140,17 +1134,17 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jBtNovoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(jBtNovoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(jBtAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(jBtExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtSalvarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE)
+                .addComponent(jBtSalvarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtCancelarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(jBtCancelarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtBuscarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
+                .addComponent(jBtBuscarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtImpressaoItens)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1200,7 +1194,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         getContentPane().add(jTabbedPane1);
         jTabbedPane1.setBounds(0, 0, 440, 430);
 
-        setBounds(300, 20, 456, 461);
+        setBounds(300, 20, 455, 461);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
@@ -1329,7 +1323,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os itens relacionados a esse registro.");
                     } else {
                         objInventEstoque.setIdLanc(Integer.parseInt(jIdLanc.getText()));
-                        CONTROL.excluirInventarioAC(objInventEstoque);
+                        CONTROL.excluirInventarioAE(objInventEstoque);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
                         Excluir();
@@ -1386,7 +1380,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         objInventEstoque.setUsuarioInsert(nameUser);
                         objInventEstoque.setDataInsert(dataModFinal);
                         objInventEstoque.setHorarioInsert(horaMov);
-                        CONTROL.incluirInventarioAC(objInventEstoque);
+                        CONTROL.incluirInventarioAE(objInventEstoque);
                         pBUSCAR_codigo();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1403,7 +1397,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     objInventEstoque.setDataUp(dataModFinal);
                     objInventEstoque.setHorarioUp(horaMov);
                     objInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    CONTROL.alterarInventarioAC(objInventEstoque);
+                    CONTROL.alterarInventarioAE(objInventEstoque);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
@@ -1436,7 +1430,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             if (jStatusLanc.getText().equals("EFETIVADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse inventário encontra-se EFETIVADO");
             } else {
-                TelaEfetuarInventariosAC objEfetuarInvAC = new TelaEfetuarInventariosAC();
+                TelaEfetuarInventariosAE objEfetuarInvAC = new TelaEfetuarInventariosAE();
                 TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objEfetuarInvAC);
                 objEfetuarInvAC.show();
                 jDataTermino.setCalendar(Calendar.getInstance());
@@ -1523,7 +1517,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
 //                        objInventEstoque.setIdItem(Integer.valueOf(idItem));
-//                        CONTROL.excluirItensInventarioAC(objInventEstoque);
+//                        CONTROL.excluirItensInventarioAE(objInventEstoque);
 //                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
 //                        ExcluirItem();
 //                        preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_AC "
@@ -1584,7 +1578,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         //
                         objInventEstoque.setNomeProduto(jDescricaoProduto.getText());
                         objInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        CONTROL.incluirItensInventarioAC(objInventEstoque);
+                        CONTROL.incluirItensInventarioAE(objInventEstoque);
                         preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_AC "
                                 + "INNER JOIN PRODUTOS_AC "
                                 + "ON ITENS_INVENTARIO_AC.IdProd=PRODUTOS_AC.IdProd "
@@ -1602,7 +1596,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     objInventEstoque.setNomeProduto(jDescricaoProduto.getText());
                     objInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objInventEstoque.setIdItem(Integer.valueOf(idItem));
-                    CONTROL.alterarItensInventarioAC(objInventEstoque);
+                    CONTROL.alterarItensInventarioAE(objInventEstoque);
                     preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_AC "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON ITENS_INVENTARIO_AC.IdProd=PRODUTOS_AC.IdProd "
@@ -1624,8 +1618,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 
     private void jBtPesqProdutoInveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqProdutoInveActionPerformed
         // TODO add your handling code here:
-        TelaPesqProdutoInventarioAC objPesqProdAC = new TelaPesqProdutoInventarioAC();
-        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesqProdAC);
+        TelaPesqProdutoInventarioAE objPesqProdAC = new TelaPesqProdutoInventarioAE();
+        TelaModuloSeguranca.jPainelSeguranca.add(objPesqProdAC);
         objPesqProdAC.show();
     }//GEN-LAST:event_jBtPesqProdutoInveActionPerformed
 
@@ -1736,8 +1730,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 
     private void jBtPesqLocalArmazenamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqLocalArmazenamentoActionPerformed
         // TODO add your handling code here:
-        TelaPesqLocalArmazenamentoAC objLocalArmaAC = new TelaPesqLocalArmazenamentoAC();
-        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objLocalArmaAC);
+        TelaPesqLocalArmazenamentoAE objLocalArmaAC = new TelaPesqLocalArmazenamentoAE();
+        TelaModuloSeguranca.jPainelSeguranca.add(objLocalArmaAC);
         objLocalArmaAC.show();
     }//GEN-LAST:event_jBtPesqLocalArmazenamentoActionPerformed
 
@@ -1869,15 +1863,15 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 
     private void jBtAuditoriaInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInventarioActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaInventarioAC objAudiInvAC = new TelaAuditoriaInventarioAC();
-        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiInvAC);
+        TelaAuditoriaInventarioAE objAudiInvAC = new TelaAuditoriaInventarioAE();
+        TelaModuloSeguranca.jPainelSeguranca.add(objAudiInvAC);
         objAudiInvAC.show();
     }//GEN-LAST:event_jBtAuditoriaInventarioActionPerformed
 
     private void jBtAuditoriaItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaItensActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaItensInventarioAC objAudiItensInvAC = new TelaAuditoriaItensInventarioAC();
-        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiItensInvAC);
+        TelaAuditoriaItensInventarioAE objAudiItensInvAC = new TelaAuditoriaItensInventarioAE();
+        TelaModuloSeguranca.jPainelSeguranca.add(objAudiItensInvAC);
         objAudiItensInvAC.show();
     }//GEN-LAST:event_jBtAuditoriaItensActionPerformed
 

@@ -8,10 +8,13 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.ModeloTabela;
+import static gestor.Visao.TelaProntuarioTriagem.jComboBoxUnid;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -21,13 +24,14 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
+    String NomeCidade = "";
 
     /**
      * Creates new form TelaPesquisaCidade
      */
     public TelaPesquisaUnidadeTriagem() {
         initComponents();
-        jPesNomeUnidade.setDocument(new LimiteDigitosAlfa(50));
+//        jPesNomeUnidade.setDocument(new LimiteDigitosAlfa(50));
     }
 
     /**
@@ -59,6 +63,7 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
 
         jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa por Nome");
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -104,10 +109,10 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUnidadePenal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
-                "ID", "Nome Unidade"
+                "Código", "Classifisicação", "Nome Unidade"
             }
         ));
         jTabelaUnidadePenal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,8 +124,10 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
         if (jTabelaUnidadePenal.getColumnModel().getColumnCount() > 0) {
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(500);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(500);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(100);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(100);
+            jTabelaUnidadePenal.getColumnModel().getColumn(2).setMinWidth(300);
+            jTabelaUnidadePenal.getColumnModel().getColumn(2).setMaxWidth(300);
         }
 
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
@@ -145,15 +152,14 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(0, 297, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -161,11 +167,11 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
@@ -176,16 +182,14 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 150, 515, 277);
+        setBounds(500, 150, 507, 288);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -195,16 +199,19 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesNomeUnidade.requestFocus();
         } else {
-            jTabelaUnidadePenal.setVisible(true);
-            preencherTabelaNome("SELECT * FROM UNIDADE WHERE DescricaoUnid LIKE  '" + jPesNomeUnidade.getText() + "%'");
+            preencherTabelaNome("SELECT "
+                    + "IdUnid, "
+                    + "ClassUnid, "
+                    + "DescricaoUnid "
+                    + "FROM UNIDADE "
+                    + "WHERE DescricaoUnid LIKE'%" + jPesNomeUnidade.getText() + "%'");
         }
-
     }//GEN-LAST:event_jBtNomeActionPerformed
 
     private void jTabelaUnidadePenalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaUnidadePenalMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String NomeCidade = "" + jTabelaUnidadePenal.getValueAt(jTabelaUnidadePenal.getSelectedRow(), 1);
+            NomeCidade = "" + jTabelaUnidadePenal.getValueAt(jTabelaUnidadePenal.getSelectedRow(), 2);
             jPesNomeUnidade.setText(NomeCidade);
         }
     }//GEN-LAST:event_jTabelaUnidadePenalMouseClicked
@@ -212,10 +219,13 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         if (jPesNomeUnidade.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o nome da UNIDADE e clique no botão ENVIAR");
+            JOptionPane.showMessageDialog(rootPane, "Selecione o nome da UNIDADE e clique no botão ENVIAR.");
+        } else if (!jPesNomeUnidade.getText().isEmpty() && NomeCidade.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa da unidade prisional.");
+        } else {
+            jComboBoxUnid.setText(NomeCidade);
+            dispose();
         }
-        TelaProntuarioTriagem.jComboBoxUnid.setText(jPesNomeUnidade.getText());
-        dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -227,10 +237,14 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaUnidadePenal.setVisible(true);
-            this.preencherTabela();
+            this.preencherTabela("SELECT "
+                    + "IdUnid, "
+                    + "ClassUnid, "
+                    + "DescricaoUnid "
+                    + "FROM UNIDADE "
+                    + "ORDER BY DescricaoUnid");
         } else {
-            jTabelaUnidadePenal.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -248,40 +262,15 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaUnidadePenal;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabela() {
+    public void preencherTabela(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Unidade"};
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM UNIDADE ORDER BY DescricaoUnid");
-            conecta.rs.first();
-            do {
-                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("DescricaoUnid")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaUnidadePenal.setModel(modelo);
-        jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(500);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);        
-        jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
-        jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
-        jTabelaUnidadePenal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conecta.desconecta();
-    }
-
-    public void preencherTabelaNome(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Unidade"};
+        String[] Colunas = new String[]{"Codigo", "Classificação", "Nome da Unidade"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("DescricaoUnid")});
+                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("ClassUnid"), conecta.rs.getString("DescricaoUnid")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -290,11 +279,70 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(500);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);        
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
         jTabelaUnidadePenal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaUnidade();
         conecta.desconecta();
+    }
+
+    public void preencherTabelaNome(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Codigo", "Classificação", "Nome da Unidade"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getInt("IdUnid"), conecta.rs.getString("ClassUnid"), conecta.rs.getString("DescricaoUnid")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS.");
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaUnidadePenal.setModel(modelo);
+        jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
+        jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
+        jTabelaUnidadePenal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaUnidade();
+        conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Codigo", "Classificação", "Nome da Unidade"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaUnidadePenal.setModel(modelo);
+        jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaUnidadePenal.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
+        jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
+        jTabelaUnidadePenal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaUnidade() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaUnidadePenal.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }
