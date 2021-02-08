@@ -2375,7 +2375,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jLDente28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B2855.png"))); // NOI18N
 
-        jLDente31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B3155png.png"))); // NOI18N
+        jLDente31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B3155.png"))); // NOI18N
 
         jLDente32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B3255.png"))); // NOI18N
 
@@ -3445,7 +3445,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jLabel93.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B2855.png"))); // NOI18N
 
-        jLabel103.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B3155png.png"))); // NOI18N
+        jLabel103.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B3155.png"))); // NOI18N
 
         jLabel104.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B3255.png"))); // NOI18N
 

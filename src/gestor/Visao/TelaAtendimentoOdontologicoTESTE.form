@@ -4110,7 +4110,7 @@
                         <Component class="javax.swing.JLabel" name="jLDente31">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/gestor/Imagens/DenteP&amp;B3155png.png"/>
+                              <Image iconType="3" name="/gestor/Imagens/DenteP&amp;B3155.png"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -5998,7 +5998,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel103">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/DenteP&amp;B3155png.png"/>
+                      <Image iconType="3" name="/gestor/Imagens/DenteP&amp;B3155.png"/>
                     </Property>
                   </Properties>
                 </Component>
