@@ -542,9 +542,9 @@ public class ControleAtividadesUnidade {
             pst.setInt(2, objAtividade.getInternoFamiliaSAJ());
             pst.setInt(3, objAtividade.getAlvaraSolturaRecebido());
             pst.setInt(4, objAtividade.getAlvaraSolturaCumprido());
-            pst.setInt(5, objAtividade.getAudienciaProvocada());
-            pst.setInt(6, objAtividade.getAudienciaCumprida());
-            pst.setInt(7, objAtividade.getLivramentoCondicionalRequerido());
+            pst.setInt(5, objAtividade.getLivramentoCondicionalRequerido());
+            pst.setInt(6, objAtividade.getAudienciaProvocada());
+            pst.setInt(7, objAtividade.getAudienciaCumprida());
             pst.setInt(8, objAtividade.getJuriProvocado());
             pst.setInt(9, objAtividade.getJuriCumprido());
             pst.setInt(10, objAtividade.getLiberdadeProvisoriaRequerida());
@@ -586,9 +586,9 @@ public class ControleAtividadesUnidade {
             pst.setInt(1, objAtividade.getInternoFamiliaSAJ());
             pst.setInt(2, objAtividade.getAlvaraSolturaRecebido());
             pst.setInt(3, objAtividade.getAlvaraSolturaCumprido());
-            pst.setInt(4, objAtividade.getAudienciaProvocada());
-            pst.setInt(5, objAtividade.getAudienciaCumprida());
-            pst.setInt(6, objAtividade.getLivramentoCondicionalRequerido());
+            pst.setInt(4, objAtividade.getLivramentoCondicionalRequerido());
+            pst.setInt(5, objAtividade.getAudienciaProvocada());
+            pst.setInt(6, objAtividade.getAudienciaCumprida());
             pst.setInt(7, objAtividade.getJuriProvocado());
             pst.setInt(8, objAtividade.getJuriCumprido());
             pst.setInt(9, objAtividade.getLiberdadeProvisoriaRequerida());

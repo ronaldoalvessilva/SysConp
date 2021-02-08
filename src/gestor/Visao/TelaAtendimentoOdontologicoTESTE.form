@@ -2420,6 +2420,7 @@
                               <Color blue="cc" green="0" red="0" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Distal"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[57, 20]"/>
                             </Property>
@@ -2443,6 +2444,7 @@
                               <Color blue="33" green="66" red="0" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Palatal"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jRBFaceUmMouseClicked"/>
@@ -2458,6 +2460,7 @@
                               <Color blue="0" green="0" red="99" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Oclusal"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBFaceTresActionPerformed"/>
@@ -2472,6 +2475,7 @@
                               <Color blue="33" green="33" red="33" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Mesial"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBFaceQuatroActionPerformed"/>
@@ -2486,6 +2490,7 @@
                               <Color blue="0" green="66" red="cc" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Vestibular"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBFaceCincoActionPerformed"/>
@@ -2497,6 +2502,7 @@
                               <Font name="Tahoma" size="11" style="1"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Todas"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBFaceTodasActionPerformed"/>
@@ -4309,7 +4315,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jRBFaceTodas1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jRBExtracao" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="10" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -4318,14 +4324,14 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jRBFaceTodas1" min="-2" pref="18" max="-2" attributes="0"/>
+                                  <Component id="jRBExtracao" min="-2" pref="18" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="jRBFaceTodas1">
+                        <Component class="javax.swing.JCheckBox" name="jRBExtracao">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -4334,9 +4340,10 @@
                               <Color blue="cc" green="33" red="ff" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Extra&#xe7;&#xe3;o"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBFaceTodas1ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRBExtracaoActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>

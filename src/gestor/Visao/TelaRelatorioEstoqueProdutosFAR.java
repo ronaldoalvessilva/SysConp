@@ -187,7 +187,7 @@ public class TelaRelatorioEstoqueProdutosFAR extends javax.swing.JInternalFrame 
                             + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
                             + "INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR "
                             + "ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd "
-                            + "WHERE DataMov='" + dataInicial + "'AND PRODUTOS_AC.Modulo='" + modulo + "'");
+                            + "WHERE CONVERT(DATE, DataMov)='" + dataInicial + "'AND PRODUTOS_AC.Modulo='" + modulo + "'");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("modulo", modulo);
@@ -219,7 +219,7 @@ public class TelaRelatorioEstoqueProdutosFAR extends javax.swing.JInternalFrame 
                             + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
                             + "INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR "
                             + "ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd "
-                            + "WHERE DataMov='" + dataInicial + "'AND PRODUTOS_AC.Modulo='" + modulo + "'");
+                            + "WHERE CONVERT(DATE, DataMov)='" + dataInicial + "'AND PRODUTOS_AC.Modulo='" + modulo + "'");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("modulo", modulo);
