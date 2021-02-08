@@ -663,7 +663,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jTabelaOdontologia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOdontologia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome Completo do Interno", "Tipo de Atendimento"
@@ -3098,7 +3098,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jTabelaProcedimentos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProcedimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Evolução"
@@ -4147,7 +4147,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jTabelaPrescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPrescricao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Prescrição de Medicamentos"

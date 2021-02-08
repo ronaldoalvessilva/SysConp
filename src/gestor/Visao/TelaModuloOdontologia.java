@@ -872,37 +872,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
 
     private void AtendimentoOdontologicoTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoOdontologicoTesteActionPerformed
         // TODO add your handling code here:
-
         MENU_ODONTO_teste();
-//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-//            if (objAtendOdonT == null || objAtendOdonT.isClosed()) {
-//                objAtendOdonT = new TelaAtendimentoOdontologicoTESTE(); // EM CONSTRUÇÃO, PARADO PARA IMPLANTAÇÃO SDR BAR (27/09/2017)
-//                jPainelOdontologia.add(objAtendOdonT);
-//                objAtendOdonT.setVisible(true);
-//            } else {
-//                if (objAtendOdonT.isVisible()) {
-//                    if (objAtendOdonT.isIcon()) { // Se esta minimizado
-//                        try {
-//                            objAtendOdonT.setIcon(false); // maximiniza
-//                        } catch (PropertyVetoException ex) {
-//                        }
-//                    } else {
-//                        objAtendOdonT.toFront(); // traz para frente
-//                        objAtendOdonT.pack();//volta frame 
-//                    }
-//                } else {
-//                    objAtendOdonT = new TelaAtendimentoOdontologicoTESTE();
-//                    TelaModuloOdontologia.jPainelOdontologia.add(objAtendOdonT);//adicona frame ao JDesktopPane  
-//                    objAtendOdonT.setVisible(true);
-//                }
-//            }
-//            try {
-//                objAtendOdonT.setSelected(true);
-//            } catch (java.beans.PropertyVetoException e) {
-//            }
-//        } else if (!nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-//            AtendimentoOdontologicoTeste.setVisible(!true);
-//        }        
     }//GEN-LAST:event_AtendimentoOdontologicoTesteActionPerformed
 
 
