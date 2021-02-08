@@ -2247,6 +2247,11 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtDente16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBtDente16.setContentAreaFilled(false);
         jBtDente16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtDente16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtDente16MouseClicked(evt);
+            }
+        });
         jBtDente16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtDente16ActionPerformed(evt);
@@ -7406,11 +7411,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente18MouseClicked
          if (jLDente18.getIcon().equals(dente18)) 
          {
+            habilitaSelecionarFaces(false);
             jLDente18.setIcon(dente18c);
             jNumeroDente.setText("");
          } 
          else 
          {
+            habilitaSelecionarFaces(true); 
             jLDente18.setIcon(dente18);
             jNumeroDente.setText(jLNumDente18.getText());
         }
@@ -7425,11 +7432,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente26MouseClicked
         if (jLDente26.getIcon().equals(dente26))
         {
+            habilitaSelecionarFaces(false);
             jLDente26.setIcon(dente26c);
             jNumeroDente.setText("");
         }
         else 
         {
+            habilitaSelecionarFaces(true); 
             jLDente26.setIcon(dente26);
             jNumeroDente.setText(jLNumDente26.getText());
         }
@@ -7478,11 +7487,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente21MouseClicked
         if (jLDente21.getIcon().equals(dente21)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente21.setIcon(dente21c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente21.setIcon(dente21);
             jNumeroDente.setText(jLNumDente21.getText());
         }
@@ -7493,11 +7504,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente22MouseClicked
         if (jLDente22.getIcon().equals(dente22)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente22.setIcon(dente22c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true); 
             jLDente22.setIcon(dente22);
             jNumeroDente.setText(jLNumDente22.getText());
         }
@@ -7508,11 +7521,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente23MouseClicked
       if (jLDente23.getIcon().equals(dente23))
         {
+            habilitaSelecionarFaces(false); 
             jLDente23.setIcon(dente23c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true); 
             jLDente23.setIcon(dente23);
             jNumeroDente.setText(jLNumDente23.getText());
         }
@@ -7523,11 +7538,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente24MouseClicked
       if (jLDente24.getIcon().equals(dente24)) 
         {
+            habilitaSelecionarFaces(false); 
             jLDente24.setIcon(dente24c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente24.setIcon(dente24);
             jNumeroDente.setText(jLNumDente24.getText());
         }  
@@ -7538,11 +7555,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente25MouseClicked
        if (jLDente25.getIcon().equals(dente25)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente25.setIcon(dente25c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true); 
             jLDente25.setIcon(dente25);
             jNumeroDente.setText(jLNumDente25.getText());
         }  
@@ -7553,11 +7572,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente27MouseClicked
         if (jLDente27.getIcon().equals(dente27)) 
         {
+            habilitaSelecionarFaces(false); 
             jLDente27.setIcon(dente27c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente27.setIcon(dente27);
             jNumeroDente.setText(jLNumDente27.getText());
         }  
@@ -7568,11 +7589,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente28MouseClicked
        if (jLDente28.getIcon().equals(dente28)) 
         {
+            habilitaSelecionarFaces(false); 
             jLDente28.setIcon(dente28c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente28.setIcon(dente28);
             jNumeroDente.setText(jLNumDente28.getText());
         }  
@@ -7581,18 +7604,18 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     Icon dente11 = new ImageIcon(getClass().getResource("/gestor/Imagens/Dente1155.png"));
     Icon dente11c = new ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B1155.png"));
     private void jBtDente11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente11MouseClicked
-            if (jLDente11.getIcon().equals(dente11)) 
+        if (jLDente11.getIcon().equals(dente11)) 
         {
             habilitaSelecionarFaces(false);
             jLDente11.setIcon(dente11c);
-            jNumeroDente.setText("");            
+            jNumeroDente.setText("");
         } 
         else 
         {
             habilitaSelecionarFaces(true);
             jLDente11.setIcon(dente11);
-            jNumeroDente.setText(jLNumDente11.getText());           
-        }          
+            jNumeroDente.setText(jLNumDente11.getText());
+        }
     }//GEN-LAST:event_jBtDente11MouseClicked
 
     Icon dente12 = new ImageIcon(getClass().getResource("/gestor/Imagens/Dente1255.png"));
@@ -7600,11 +7623,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente12MouseClicked
        if (jLDente12.getIcon().equals(dente12)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente12.setIcon(dente12c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente12.setIcon(dente12);
             jNumeroDente.setText(jLNumDente12.getText());
         }  
@@ -7615,11 +7640,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente13MouseClicked
         if (jLDente13.getIcon().equals(dente13)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente13.setIcon(dente13c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente13.setIcon(dente13);
             jNumeroDente.setText(jLNumDente13.getText());
         }  
@@ -7630,11 +7657,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente14MouseClicked
          if (jLDente14.getIcon().equals(dente14)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente14.setIcon(dente14c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente14.setIcon(dente14);
             jNumeroDente.setText(jLNumDente14.getText());
         }  
@@ -7645,29 +7674,20 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente15MouseClicked
         if (jLDente15.getIcon().equals(dente15)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente15.setIcon(dente15c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente15.setIcon(dente15);
             jNumeroDente.setText(jLNumDente15.getText());
         }  
     }//GEN-LAST:event_jBtDente15MouseClicked
-
-     Icon dente16 = new ImageIcon(getClass().getResource("/gestor/Imagens/Dente1655.png"));
-    Icon dente16c = new ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B1655.png"));
+   
     private void jBtDente16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDente16ActionPerformed
-        if (jLDente16.getIcon().equals(dente16)) 
-        {
-            jLDente16.setIcon(dente16c);
-            jNumeroDente.setText("");
-        } 
-        else 
-        {
-            jLDente16.setIcon(dente16);
-            jNumeroDente.setText(jLNumDente16.getText());
-        }  
+       
     }//GEN-LAST:event_jBtDente16ActionPerformed
 
     Icon dente17 = new ImageIcon(getClass().getResource("/gestor/Imagens/Dente1755.png"));
@@ -7675,11 +7695,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente17MouseClicked
         if (jLDente17.getIcon().equals(dente17)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente17.setIcon(dente17c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente17.setIcon(dente17);
             jNumeroDente.setText(jLNumDente17.getText());
         }  
@@ -8027,6 +8049,23 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jBtFaceCentral1.setEnabled(false);
         }
     }//GEN-LAST:event_jRBFaceTodasActionPerformed
+
+    Icon dente16 = new ImageIcon(getClass().getResource("/gestor/Imagens/Dente1655.png"));
+    Icon dente16c = new ImageIcon(getClass().getResource("/gestor/Imagens/DenteP&B1655.png"));
+    private void jBtDente16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente16MouseClicked
+        if (jLDente16.getIcon().equals(dente16)) 
+        {
+            habilitaSelecionarFaces(false);
+            jLDente16.setIcon(dente16c);
+            jNumeroDente.setText("");
+        } 
+        else 
+        {
+            habilitaSelecionarFaces(true);
+            jLDente16.setIcon(dente16);
+            jNumeroDente.setText(jLNumDente16.getText());
+        }  
+    }//GEN-LAST:event_jBtDente16MouseClicked
 
     private Icon denteUm(String pDente)
     {
