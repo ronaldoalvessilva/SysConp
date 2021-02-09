@@ -13,7 +13,11 @@ import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Modelo.Usuarios;
+import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaTrocaSenha_MD5.pRESPOSTA_senha;
+import static gestor.Visao.TelaTrocaSenha.pCODIGO_usuario;
+import static gestor.Visao.TelaTrocaSenha.pSENHA_anterior;
+import static gestor.Visao.TelaTrocaSenha.pACESSO_TODAS_UNIDADES;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -118,7 +122,7 @@ public class ControleUsuarios {
             pst.setString(2, Criptografia.criptografar(objUser.getSenha1()));
             pst.setString(3, Criptografia.criptografar(objUser.getSenha2()));
             pst.executeUpdate(); // Executa a inserção
-            pRESPOSTA_senha= "Sim";
+            pRESPOSTA_senha = "Sim";
         } catch (SQLException ex) {
             pRESPOSTA_senha = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
@@ -127,8 +131,27 @@ public class ControleUsuarios {
         return objUser;
     }
 
+    public Usuarios pBUSCAR_usuario(Usuarios objUser) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "SenhaUsuario, "
+                    + "NomeUsuario, "
+                    + "AcessoTodasUnidades "
+                    + "FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            pCODIGO_usuario = conecta.rs.getInt("IdUsuario");
+            pSENHA_anterior = conecta.rs.getString("SenhaUsuario");
+            pACESSO_TODAS_UNIDADES = conecta.rs.getString("AcessoTodasUnidades");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objUser;
+    }
+
     //------------------------------------------ MANTER USUARIOS DO SISTEMA PARA OUTRAS UNIDADES ---------------------------------------
-    
     //------------------------------------------    LAURO DE FREITAS ---------------------------------------------------------------
     public Usuarios incluirUsuariosLF(Usuarios objUser) {
 

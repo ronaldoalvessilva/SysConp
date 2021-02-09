@@ -13,6 +13,7 @@ import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovo;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jStatusComp;
@@ -185,6 +186,7 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
             JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso...");
+            jBtNovo.setEnabled(true);
             dispose();
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed

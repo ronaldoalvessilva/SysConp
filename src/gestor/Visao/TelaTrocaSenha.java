@@ -5,10 +5,10 @@
  */
 package gestor.Visao;
 
+import Utilitarios.Criptografia;
 import gestor.Controle.ControleUsuarios;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.Usuarios;
-import static gestor.Visao.TelaLoginSenha.nameUser;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
@@ -20,11 +20,12 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Usuarios objUser = new Usuarios();
-    ControleUsuarios control = new ControleUsuarios();
+    ControleUsuarios CONTROLE = new ControleUsuarios();
     //
-    int codigoUsuario;
-    String senhaAnterior;
-    String pACESSO_TODAS_UNIDADES = null;
+    String pSENHA1_CRIPTOGRAFA;
+    public static int pCODIGO_usuario;
+    public static String pSENHA_anterior;
+    public static String pACESSO_TODAS_UNIDADES = null;
 
     /**
      * Creates new form TelaTrocaSenha
@@ -286,7 +287,7 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        buscarCodigoUsuario();
+        CONTROLE.pBUSCAR_usuario(objUser);
         if (jSenhaAtual.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a senha atual.");
         } else if (jNovaSenha.getText().equals("")) {
@@ -297,16 +298,17 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
             objUser.setDataCadastro(jDataCadastro.getDate());
             objUser.setSenha1(jNovaSenha.getText());
             objUser.setSenha2(jConfirmaSenha.getText());
-            if (!jSenhaAtual.getText().equals(senhaAnterior)) {
+            pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jSenhaAtual.getText());
+            if (!pSENHA1_CRIPTOGRAFA.equals(pSENHA_anterior)) {
                 JOptionPane.showMessageDialog(rootPane, "A senha atual não confere");
             } else if (jConfirmaSenha.getText() == null ? jNovaSenha.getText() == null : jConfirmaSenha.getText().equals(jNovaSenha.getText())) {
-                objUser.setIdUsuario(codigoUsuario);
-                control.trocarSenhaUsuario(objUser);
+                objUser.setIdUsuario(pCODIGO_usuario);
+                CONTROLE.trocarSenhaUsuario(objUser);
                 if (pACESSO_TODAS_UNIDADES.equals("Sim")) {
                     mostrarAviso();
                 } else {
-                    objUser.setIdUsuario(codigoUsuario);
-                    control.trocarSenhaUsuario(objUser);
+                    objUser.setIdUsuario(pCODIGO_usuario);
+                    CONTROLE.trocarSenhaUsuario(objUser);
                     JOptionPane.showMessageDialog(rootPane, "A senha foi trocada com sucesso.");
                     limparCampos();
                 }
@@ -390,18 +392,6 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
     private javax.swing.JPasswordField jSenhaAtual;
     // End of variables declaration//GEN-END:variables
 
-    public void buscarCodigoUsuario() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM USUARIOS WHERE NomeUsuario='" + nameUser + "'");
-            conecta.rs.first();
-            codigoUsuario = conecta.rs.getInt("IdUsuario");
-            senhaAnterior = conecta.rs.getString("SenhaUsuario");
-            pACESSO_TODAS_UNIDADES = conecta.rs.getString("AcessoTodasUnidades");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
 
     public void limparCampos() {
         jSenhaAtual.setText("");
