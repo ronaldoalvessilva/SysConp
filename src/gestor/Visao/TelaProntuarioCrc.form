@@ -881,9 +881,13 @@
                                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="jRGInterno" max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jComboBoxEscolaridade" pref="189" max="32767" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jRGInterno" min="-2" pref="138" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                          <Component id="jComboBoxUF" max="32767" attributes="0"/>
+                                                      </Group>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -911,8 +915,8 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jMatriculaPenal" min="-2" pref="83" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jMatriculaPenal" min="-2" pref="69" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jLabel162" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jCNC" max="32767" attributes="0"/>
@@ -1050,15 +1054,11 @@
                               <Component id="jPanel13" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jRGInterno" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCPFInterno" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxUF" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jLabel14" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtZoonFoto" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtNovaFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtExcluirFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtWebCam" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCPFInterno" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -1091,6 +1091,17 @@
                               <Component id="jProfissao" linkSize="30" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="2" attributes="0">
+                          <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jBtWebCam" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtExcluirFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtNovaFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtZoonFoto" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1276,6 +1287,8 @@
                       </Border>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="99999999999"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Esse campo tem validador de CPF. Utilize os n&#xfa;meros 99999999999 quando o interno n&#xe3;o tiver CPF."/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
@@ -1396,7 +1409,7 @@
                 <Component class="javax.swing.JButton" name="jBtNovaFoto">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                      <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Nova Foto"/>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -1697,6 +1710,52 @@
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBoxUF">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="26">
+                        <StringItem index="0" value="AC"/>
+                        <StringItem index="1" value="AL"/>
+                        <StringItem index="2" value="AM"/>
+                        <StringItem index="3" value="BA"/>
+                        <StringItem index="4" value="CE"/>
+                        <StringItem index="5" value="DF"/>
+                        <StringItem index="6" value="ES"/>
+                        <StringItem index="7" value="GO"/>
+                        <StringItem index="8" value="MA"/>
+                        <StringItem index="9" value="MT"/>
+                        <StringItem index="10" value="MS"/>
+                        <StringItem index="11" value="MG"/>
+                        <StringItem index="12" value="PA"/>
+                        <StringItem index="13" value="PB"/>
+                        <StringItem index="14" value="PR"/>
+                        <StringItem index="15" value="PE"/>
+                        <StringItem index="16" value="PI"/>
+                        <StringItem index="17" value="RJ"/>
+                        <StringItem index="18" value="RN"/>
+                        <StringItem index="19" value="RS"/>
+                        <StringItem index="20" value="RO"/>
+                        <StringItem index="21" value="RR"/>
+                        <StringItem index="22" value="SC"/>
+                        <StringItem index="23" value="SP"/>
+                        <StringItem index="24" value="SE"/>
+                        <StringItem index="25" value="TO"/>
+                      </StringArray>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -4241,7 +4300,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoPerfil">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
@@ -4263,7 +4322,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoCorpo">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
@@ -4285,7 +4344,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoCorpo1">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
@@ -4307,7 +4366,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoCorpo2">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>

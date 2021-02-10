@@ -16,6 +16,7 @@ import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.LimiteDigitosSoNum;
 import Utilitarios.ModeloTabela;
+import Utilitarios.ValidaCPF;
 import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.LogSistema;
@@ -201,7 +202,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     int pATIVOS_ENTRADA = 0;
     int pATIVOS_RETORNO = 0;
     int pTOTAL_ATIVOS = 0;
-
+    //
+    public static boolean pNUMERO_cpf;
     /**
      * Creates new form TelaTriagem
      */
@@ -360,6 +362,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jLabel162 = new javax.swing.JLabel();
         jCNC = new javax.swing.JTextField();
         jRGInterno = new javax.swing.JFormattedTextField();
+        jComboBoxUF = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -1185,6 +1188,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
         jCPFInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCPFInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCPFInterno.setText("99999999999");
+        jCPFInterno.setToolTipText("Esse campo tem validador de CPF. Utilize os números 99999999999 quando o interno não tiver CPF.");
         jCPFInterno.setEnabled(false);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1211,7 +1216,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxEstadoCivil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEstadoCivil.setEnabled(false);
 
-        jBtNovaFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/2998132-camera-photo-photography_99870.png"))); // NOI18N
         jBtNovaFoto.setToolTipText("Nova Foto");
         jBtNovaFoto.setEnabled(false);
         jBtNovaFoto.addActionListener(new java.awt.event.ActionListener() {
@@ -1342,6 +1347,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jRGInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jRGInterno.setEnabled(false);
 
+        jComboBoxUF.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        jComboBoxUF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxUF.setEnabled(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -1358,9 +1368,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel4))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jRGInterno)
-                                            .addComponent(jComboBoxEscolaridade, 0, 189, Short.MAX_VALUE))
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jComboBoxEscolaridade, 0, 189, Short.MAX_VALUE)
+                                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addComponent(jRGInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(2, 2, 2)
+                                                .addComponent(jComboBoxUF, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1381,8 +1394,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jMatriculaPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jMatriculaPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel162)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCNC))))
@@ -1495,15 +1508,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                 .addComponent(jCartaoSus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jRGInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCPFInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtZoonFoto, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtNovaFoto, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtWebCam, javax.swing.GroupLayout.Alignment.CENTER))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jRGInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(jCPFInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel16)
@@ -1531,6 +1540,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jLabel21)
                     .addComponent(jProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel4Layout.createSequentialGroup()
+                .addGap(164, 164, 164)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtWebCam, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtNovaFoto, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtZoonFoto, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.CENTER))
+                .addGap(117, 117, 117))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCPFInterno, jCartaoSus, jComboBoxEscolaridade, jComboBoxEstadoCivil, jLabel16, jLabel17});
@@ -2693,7 +2711,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPerfil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPerfil.setEnabled(false);
 
-        jBtNovaFotoPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/2998132-camera-photo-photography_99870.png"))); // NOI18N
         jBtNovaFotoPerfil.setEnabled(false);
         jBtNovaFotoPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2709,7 +2727,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovaFotoCorpo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoCorpo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/2998132-camera-photo-photography_99870.png"))); // NOI18N
         jBtNovaFotoCorpo.setEnabled(false);
         jBtNovaFotoCorpo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2725,7 +2743,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovaFotoCorpo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoCorpo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/2998132-camera-photo-photography_99870.png"))); // NOI18N
         jBtNovaFotoCorpo1.setEnabled(false);
         jBtNovaFotoCorpo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2741,7 +2759,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovaFotoCorpo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoCorpo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/2998132-camera-photo-photography_99870.png"))); // NOI18N
         jBtNovaFotoCorpo2.setEnabled(false);
         jBtNovaFotoCorpo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4728,7 +4746,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:hh
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codGravarCRC == 1) {
-            validaCpf(jCPFInterno.getText());
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -4806,178 +4823,182 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             } else if (jFotoCorpo2.getIcon() == null || caminhoFotoCorpo2 == null || caminhoFotoCorpo2.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a quarta foto do perfil do interno.");
             } else {
-                objProCrc.setMatricula(jMatriculaPenal.getText());
-                objProCrc.setDataCadast(jDataCadastro.getDate());
-                objProCrc.setDataNasci(jDataNascimento.getDate());
-                objProCrc.setNomeInterno(jNomeInterno.getText());
-                objProCrc.setMaeInterno(jMaeInterno.getText());
-                objProCrc.setPaiInterno(jPaiInterno.getText());
-                objProCrc.setAlcunha(jAlcunha.getText());
-                objProCrc.setRgInterno(jRGInterno.getText());
-                objProCrc.setCpfInterno(jCPFInterno.getText());
-                objProCrc.setCartoaSus(jCartaoSus.getText());
-                objProCrc.setFotoInterno(caminho);
-                objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
-                objProCrc.setSituacao(jSituacao.getText());
-                objProCrc.setNomePais(jComboBoxPais.getText());
-                objProCrc.setNomeCidade(jComboBoxCidade.getText());
-                objProCrc.setReligiao(jReligiao.getText());
-                objProCrc.setProfissao(jProfissao.getText());
-                objProCrc.setEndereco(jEndereco.getText());
-                objProCrc.setBairro(jBairro.getText());
-                objProCrc.setCidade(jCidade.getText());
-                objProCrc.setEstado(jEstado.getText());
-                objProCrc.setTelefone(jTelefone.getText());
-                objProCrc.setTelefone1(jTelefone1.getText());
-                objProCrc.setCelular(jCelular.getText());
-                objProCrc.setCnc(jCNC.getText());
-                objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
-                objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
-                objProCrc.setTornozeleira((String) jComboBoxTornozeleira.getSelectedItem());
-                // Classe Dados Fisicos
-                objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
-                objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
-                objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
-                objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
-                objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
-                objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
-                objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
-                objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
-                objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
-                objDadosFis.setCamisa(jCamisa.getText());
-                objDadosFis.setCalca(jCalca.getText());
-                objDadosFis.setSapato(jSapato.getText());
-                objDadosFis.setPeso(jPeso.getText());
-                objDadosFis.setAltura(jAltura.getText());
-                objDadosFis.setSinais(jParticularidade.getText());
-                objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
-                objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
-                objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
-                // Dados Penais
-                objDadosPena.setDataEntrada(jDataEntrada.getDate());
-                objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
-                objDadosPena.setDataCrime(jDataCrime.getDate());
-                objDadosPena.setDataPrisao(jDataPrisao.getDate());
-                objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
-                objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
-                objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
-                objDadosPena.setPena(jPena.getText());
-                objDadosPena.setArtigo1(jArtigo1.getText());
-                objDadosPena.setArtigo2(jArtigo2.getText());
-                objDadosPena.setArtigo3(jArtigo3.getText());
-                objDadosPena.setParagrafo1(jParagrafo1.getText());
-                objDadosPena.setParagrafo2(jParagrafo2.getText());
-                objDadosPena.setParagrafo3(jParagrafo3.getText());
-                objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
-                objDadosPena.setTerminoPena(jDataTerPena.getDate());
-                objDadosPena.setIdentificador(jIdentificador.getText());
-                objDadosPena.setIdentificador1(jIdentificador1.getText());
-                objDadosPena.setIdentificador2(jIdentificador2.getText());
-                objDadosPena.setIdentificador3(jIdentificador3.getText());
-                objDadosPena.setPerfil(jPerfil.getText());
-                objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
-                objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
-                objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
-                objDadosPena.setFotoPerfil(caminhoFotoPerfil);
-                objDadosPena.setFotoCorpo(caminhoFotoCorpo);
-                objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
-                objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
-                objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
-                objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
-                objProCrc.setUsuarioInsert(nameUser);
-                objProCrc.setDataInsert(jDataSistema.getText());
-                objProCrc.setHoraInsert(jHoraSistema.getText());
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
-                if (jLabelFotoInterno.getIcon() != null) {//                                                                   
-                    objProCrc.setImagemInterno(persona_imagem);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
-                if (jFotoPerfil.getIcon() != null) {//                                                                
-                    objDadosPena.setImagemPerfil(persona_imagem1);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
-                if (jFotoCorpo.getIcon() != null) {
-                    objDadosPena.setImagemCorpo(persona_imagem2);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
-                if (jFotoCorpo1.getIcon() != null) {//                                                                  
-                    objDadosPena.setImagemCorpo1(persona_imagem3);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
-                if (jFotoCorpo2.getIcon() != null) {//                                                                    
-                    objDadosPena.setImagemCorpo2(persona_imagem4);
-                }
-                //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
-                PESQUISAR_EXISTENCIA_interno();
-                if (acao == 1) {
-                    if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                        conecta.desconecta();
-                    } else {
-                        //GRAVA NA TABELA PRONTUARIOSCRC
-                        CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
-                        BUSCAR_CODIGO_interno();
-                        // TABELA NA TABELA DADOSFISICOSINTERNOS
-                        objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
-                        objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
-                        CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
-                        // GRAVA NA TABELA DADOSPENAISINTERNOS
-                        objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
-                        objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
-                        CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
-                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
-                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                        VERIFICAR_GRAVACAO_interno();
-                        if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                && pRESPOSTA_gravacao.equals("Sim")
-                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
-                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
-                            // Confirma a utilização do registro do interno iniciado pela portaria.
-                            objProCrc.setNomeInterno(jNomeInterno.getText());
-                            objProCrc.setConfirmaEntrada(confirmaEntrada);
-                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                if (ValidaCPF.isCPF(jCPFInterno.getText()) == true) {
+                    objProCrc.setMatricula(jMatriculaPenal.getText());
+                    objProCrc.setDataCadast(jDataCadastro.getDate());
+                    objProCrc.setDataNasci(jDataNascimento.getDate());
+                    objProCrc.setNomeInterno(jNomeInterno.getText());
+                    objProCrc.setMaeInterno(jMaeInterno.getText());
+                    objProCrc.setPaiInterno(jPaiInterno.getText());
+                    objProCrc.setAlcunha(jAlcunha.getText());
+                    objProCrc.setRgInterno(jRGInterno.getText());
+                    objProCrc.setuFRg((String) jComboBoxUF.getSelectedItem());
+                    objProCrc.setCpfInterno(jCPFInterno.getText());
+                    objProCrc.setCartoaSus(jCartaoSus.getText());
+                    objProCrc.setFotoInterno(caminho);
+                    objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                    objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                    objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                    objProCrc.setSituacao(jSituacao.getText());
+                    objProCrc.setNomePais(jComboBoxPais.getText());
+                    objProCrc.setNomeCidade(jComboBoxCidade.getText());
+                    objProCrc.setReligiao(jReligiao.getText());
+                    objProCrc.setProfissao(jProfissao.getText());
+                    objProCrc.setEndereco(jEndereco.getText());
+                    objProCrc.setBairro(jBairro.getText());
+                    objProCrc.setCidade(jCidade.getText());
+                    objProCrc.setEstado(jEstado.getText());
+                    objProCrc.setTelefone(jTelefone.getText());
+                    objProCrc.setTelefone1(jTelefone1.getText());
+                    objProCrc.setCelular(jCelular.getText());
+                    objProCrc.setCnc(jCNC.getText());
+                    objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
+                    objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                    objProCrc.setTornozeleira((String) jComboBoxTornozeleira.getSelectedItem());
+                    // Classe Dados Fisicos
+                    objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
+                    objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
+                    objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
+                    objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
+                    objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
+                    objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
+                    objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
+                    objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
+                    objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
+                    objDadosFis.setCamisa(jCamisa.getText());
+                    objDadosFis.setCalca(jCalca.getText());
+                    objDadosFis.setSapato(jSapato.getText());
+                    objDadosFis.setPeso(jPeso.getText());
+                    objDadosFis.setAltura(jAltura.getText());
+                    objDadosFis.setSinais(jParticularidade.getText());
+                    objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
+                    objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
+                    objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
+                    // Dados Penais
+                    objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                    objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
+                    objDadosPena.setDataCrime(jDataCrime.getDate());
+                    objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                    objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                    objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
+                    objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                    objDadosPena.setPena(jPena.getText());
+                    objDadosPena.setArtigo1(jArtigo1.getText());
+                    objDadosPena.setArtigo2(jArtigo2.getText());
+                    objDadosPena.setArtigo3(jArtigo3.getText());
+                    objDadosPena.setParagrafo1(jParagrafo1.getText());
+                    objDadosPena.setParagrafo2(jParagrafo2.getText());
+                    objDadosPena.setParagrafo3(jParagrafo3.getText());
+                    objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
+                    objDadosPena.setTerminoPena(jDataTerPena.getDate());
+                    objDadosPena.setIdentificador(jIdentificador.getText());
+                    objDadosPena.setIdentificador1(jIdentificador1.getText());
+                    objDadosPena.setIdentificador2(jIdentificador2.getText());
+                    objDadosPena.setIdentificador3(jIdentificador3.getText());
+                    objDadosPena.setPerfil(jPerfil.getText());
+                    objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
+                    objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
+                    objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
+                    objDadosPena.setFotoPerfil(caminhoFotoPerfil);
+                    objDadosPena.setFotoCorpo(caminhoFotoCorpo);
+                    objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
+                    objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
+                    objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
+                    objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
+                    objProCrc.setUsuarioInsert(nameUser);
+                    objProCrc.setDataInsert(jDataSistema.getText());
+                    objProCrc.setHoraInsert(jHoraSistema.getText());
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
+                    if (jLabelFotoInterno.getIcon() != null) {//                                                                   
+                        objProCrc.setImagemInterno(persona_imagem);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
+                    if (jFotoPerfil.getIcon() != null) {//                                                                
+                        objDadosPena.setImagemPerfil(persona_imagem1);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
+                    if (jFotoCorpo.getIcon() != null) {
+                        objDadosPena.setImagemCorpo(persona_imagem2);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
+                    if (jFotoCorpo1.getIcon() != null) {//                                                                  
+                        objDadosPena.setImagemCorpo1(persona_imagem3);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
+                    if (jFotoCorpo2.getIcon() != null) {//                                                                    
+                        objDadosPena.setImagemCorpo2(persona_imagem4);
+                    }
+                    //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
+                    PESQUISAR_EXISTENCIA_interno();
+                    if (acao == 1) {
+                        if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
+                            JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
+                            conecta.desconecta();
+                        } else {
+                            //GRAVA NA TABELA PRONTUARIOSCRC
+                            CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
+                            BUSCAR_CODIGO_interno();
+                            // TABELA NA TABELA DADOSFISICOSINTERNOS
+                            objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
+                            objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
+                            CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
+                            // GRAVA NA TABELA DADOSPENAISINTERNOS
+                            objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                            objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
+                            CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
+                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
+                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                            VERIFICAR_GRAVACAO_interno();
+                            if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
+                                    && pRESPOSTA_gravacao.equals("Sim")
+                                    && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                    && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                                // Confirma a utilização do registro do interno iniciado pela portaria.
+                                objProCrc.setNomeInterno(jNomeInterno.getText());
+                                objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                                //
+                                GRAVAR_DOCUMENTOS_internos();
+                                //
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                Salvar();
+                            } else {
+                                //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                                DELETAR_REGISTRO_interno();
+                                if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
+                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                                } else {
+                                    JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
+                                }
+                            }
+                        }
+                    }
+                    if (acao == 2) {
+                        try {
+                            objProCrc.setUsuarioUp(nameUser);
+                            objProCrc.setDataUp(jDataSistema.getText());
+                            objProCrc.setHoraUp(jHoraSistema.getText());
+                            objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                            objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                            objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                            CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
+                            CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
+                            CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
                             //
                             GRAVAR_DOCUMENTOS_internos();
                             //
                             objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
                             Salvar();
-                        } else {
-                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
-                            DELETAR_REGISTRO_interno();
-                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
-                                JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                            } else {
-                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
-                            }
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
                         }
                     }
-                }
-                if (acao == 2) {
-                    try {
-                        objProCrc.setUsuarioUp(nameUser);
-                        objProCrc.setDataUp(jDataSistema.getText());
-                        objProCrc.setHoraUp(jHoraSistema.getText());
-                        objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                        objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                        objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                        CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
-                        CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
-                        CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
-                        //
-                        GRAVAR_DOCUMENTOS_internos();
-                        //
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                        Salvar();
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
-                    }
-
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "CPF invalido !!!");
                 }
             }
         } else {
@@ -5130,6 +5151,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jPaiInterno.setText(conecta.rs.getString("PaiInternoCrc"));
                 jAlcunha.setText(conecta.rs.getString("AlcunhaCrc"));
                 jRGInterno.setText(conecta.rs.getString("RgInternoCrc"));
+                jComboBoxUF.setSelectedItem(conecta.rs.getString("UfRG"));
                 jCPFInterno.setText(conecta.rs.getString("CpfInternoCrc"));
                 jCartaoSus.setText(conecta.rs.getString("CartaoSus"));
                 // Capturando foto
@@ -5681,7 +5703,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codGravarCRC == 1) {
-            validaCpf(jCPFInterno.getText());
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -5759,178 +5780,183 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             } else if (jFotoCorpo2.getIcon() == null || caminhoFotoCorpo2 == null || caminhoFotoCorpo2.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a quarta foto do perfil do interno.");
             } else {
-                objProCrc.setMatricula(jMatriculaPenal.getText());
-                objProCrc.setDataCadast(jDataCadastro.getDate());
-                objProCrc.setDataNasci(jDataNascimento.getDate());
-                objProCrc.setNomeInterno(jNomeInterno.getText());
-                objProCrc.setMaeInterno(jMaeInterno.getText());
-                objProCrc.setPaiInterno(jPaiInterno.getText());
-                objProCrc.setAlcunha(jAlcunha.getText());
-                objProCrc.setRgInterno(jRGInterno.getText());
-                objProCrc.setCpfInterno(jCPFInterno.getText());
-                objProCrc.setCartoaSus(jCartaoSus.getText());
-                objProCrc.setFotoInterno(caminho);
-                objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
-                objProCrc.setSituacao(jSituacao.getText());
-                objProCrc.setNomePais(jComboBoxPais.getText());
-                objProCrc.setNomeCidade(jComboBoxCidade.getText());
-                objProCrc.setReligiao(jReligiao.getText());
-                objProCrc.setProfissao(jProfissao.getText());
-                objProCrc.setEndereco(jEndereco.getText());
-                objProCrc.setBairro(jBairro.getText());
-                objProCrc.setCidade(jCidade.getText());
-                objProCrc.setEstado(jEstado.getText());
-                objProCrc.setTelefone(jTelefone.getText());
-                objProCrc.setTelefone1(jTelefone1.getText());
-                objProCrc.setCelular(jCelular.getText());
-                objProCrc.setCnc(jCNC.getText());
-                objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
-                objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
-                objProCrc.setTornozeleira((String) jComboBoxTornozeleira.getSelectedItem());
-                // Classe Dados Fisicos
-                objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
-                objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
-                objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
-                objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
-                objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
-                objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
-                objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
-                objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
-                objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
-                objDadosFis.setCamisa(jCamisa.getText());
-                objDadosFis.setCalca(jCalca.getText());
-                objDadosFis.setSapato(jSapato.getText());
-                objDadosFis.setPeso(jPeso.getText());
-                objDadosFis.setAltura(jAltura.getText());
-                objDadosFis.setSinais(jParticularidade.getText());
-                objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
-                objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
-                objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
-                // Dados Penais
-                objDadosPena.setDataEntrada(jDataEntrada.getDate());
-                objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
-                objDadosPena.setDataCrime(jDataCrime.getDate());
-                objDadosPena.setDataPrisao(jDataPrisao.getDate());
-                objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
-                objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
-                objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
-                objDadosPena.setPena(jPena.getText());
-                objDadosPena.setArtigo1(jArtigo1.getText());
-                objDadosPena.setArtigo2(jArtigo2.getText());
-                objDadosPena.setArtigo3(jArtigo3.getText());
-                objDadosPena.setParagrafo1(jParagrafo1.getText());
-                objDadosPena.setParagrafo2(jParagrafo2.getText());
-                objDadosPena.setParagrafo3(jParagrafo3.getText());
-                objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
-                objDadosPena.setTerminoPena(jDataTerPena.getDate());
-                objDadosPena.setIdentificador(jIdentificador.getText());
-                objDadosPena.setIdentificador1(jIdentificador1.getText());
-                objDadosPena.setIdentificador2(jIdentificador2.getText());
-                objDadosPena.setIdentificador3(jIdentificador3.getText());
-                objDadosPena.setPerfil(jPerfil.getText());
-                objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
-                objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
-                objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
-                objDadosPena.setFotoPerfil(caminhoFotoPerfil);
-                objDadosPena.setFotoCorpo(caminhoFotoCorpo);
-                objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
-                objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
-                objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
-                objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
-                objProCrc.setUsuarioInsert(nameUser);
-                objProCrc.setDataInsert(jDataSistema.getText());
-                objProCrc.setHoraInsert(jHoraSistema.getText());
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
-                if (jLabelFotoInterno.getIcon() != null) {//                                                                   
-                    objProCrc.setImagemInterno(persona_imagem);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
-                if (jFotoPerfil.getIcon() != null) {//                                                                
-                    objDadosPena.setImagemPerfil(persona_imagem1);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
-                if (jFotoCorpo.getIcon() != null) {
-                    objDadosPena.setImagemCorpo(persona_imagem2);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
-                if (jFotoCorpo1.getIcon() != null) {//                                                                  
-                    objDadosPena.setImagemCorpo1(persona_imagem3);
-                }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
-                if (jFotoCorpo2.getIcon() != null) {//                                                                    
-                    objDadosPena.setImagemCorpo2(persona_imagem4);
-                }
-                //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
-                PESQUISAR_EXISTENCIA_interno();
-                if (acao == 1) {
-                    if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                        conecta.desconecta();
-                    } else {
-                        //GRAVA NA TABELA PRONTUARIOSCRC
-                        CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
-                        BUSCAR_CODIGO_interno();
-                        // TABELA NA TABELA DADOSFISICOSINTERNOS
-                        objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
-                        objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
-                        CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
-                        // GRAVA NA TABELA DADOSPENAISINTERNOS
-                        objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
-                        objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
-                        CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
-                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
-                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                        VERIFICAR_GRAVACAO_interno();
-                        if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                && pRESPOSTA_gravacao.equals("Sim")
-                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
-                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
-                            // Confirma a utilização do registro do interno iniciado pela portaria.
-                            objProCrc.setNomeInterno(jNomeInterno.getText());
-                            objProCrc.setConfirmaEntrada(confirmaEntrada);
-                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                if (ValidaCPF.isCPF(jCPFInterno.getText()) == true) {
+                    objProCrc.setMatricula(jMatriculaPenal.getText());
+                    objProCrc.setDataCadast(jDataCadastro.getDate());
+                    objProCrc.setDataNasci(jDataNascimento.getDate());
+                    objProCrc.setNomeInterno(jNomeInterno.getText());
+                    objProCrc.setMaeInterno(jMaeInterno.getText());
+                    objProCrc.setPaiInterno(jPaiInterno.getText());
+                    objProCrc.setAlcunha(jAlcunha.getText());
+                    objProCrc.setRgInterno(jRGInterno.getText());
+                    objProCrc.setuFRg((String) jComboBoxUF.getSelectedItem());
+                    objProCrc.setCpfInterno(jCPFInterno.getText());
+                    objProCrc.setCartoaSus(jCartaoSus.getText());
+                    objProCrc.setFotoInterno(caminho);
+                    objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                    objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                    objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                    objProCrc.setSituacao(jSituacao.getText());
+                    objProCrc.setNomePais(jComboBoxPais.getText());
+                    objProCrc.setNomeCidade(jComboBoxCidade.getText());
+                    objProCrc.setReligiao(jReligiao.getText());
+                    objProCrc.setProfissao(jProfissao.getText());
+                    objProCrc.setEndereco(jEndereco.getText());
+                    objProCrc.setBairro(jBairro.getText());
+                    objProCrc.setCidade(jCidade.getText());
+                    objProCrc.setEstado(jEstado.getText());
+                    objProCrc.setTelefone(jTelefone.getText());
+                    objProCrc.setTelefone1(jTelefone1.getText());
+                    objProCrc.setCelular(jCelular.getText());
+                    objProCrc.setCnc(jCNC.getText());
+                    objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
+                    objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                    objProCrc.setTornozeleira((String) jComboBoxTornozeleira.getSelectedItem());
+                    // Classe Dados Fisicos
+                    objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
+                    objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
+                    objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
+                    objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
+                    objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
+                    objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
+                    objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
+                    objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
+                    objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
+                    objDadosFis.setCamisa(jCamisa.getText());
+                    objDadosFis.setCalca(jCalca.getText());
+                    objDadosFis.setSapato(jSapato.getText());
+                    objDadosFis.setPeso(jPeso.getText());
+                    objDadosFis.setAltura(jAltura.getText());
+                    objDadosFis.setSinais(jParticularidade.getText());
+                    objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
+                    objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
+                    objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
+                    // Dados Penais
+                    objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                    objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
+                    objDadosPena.setDataCrime(jDataCrime.getDate());
+                    objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                    objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                    objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
+                    objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                    objDadosPena.setPena(jPena.getText());
+                    objDadosPena.setArtigo1(jArtigo1.getText());
+                    objDadosPena.setArtigo2(jArtigo2.getText());
+                    objDadosPena.setArtigo3(jArtigo3.getText());
+                    objDadosPena.setParagrafo1(jParagrafo1.getText());
+                    objDadosPena.setParagrafo2(jParagrafo2.getText());
+                    objDadosPena.setParagrafo3(jParagrafo3.getText());
+                    objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
+                    objDadosPena.setTerminoPena(jDataTerPena.getDate());
+                    objDadosPena.setIdentificador(jIdentificador.getText());
+                    objDadosPena.setIdentificador1(jIdentificador1.getText());
+                    objDadosPena.setIdentificador2(jIdentificador2.getText());
+                    objDadosPena.setIdentificador3(jIdentificador3.getText());
+                    objDadosPena.setPerfil(jPerfil.getText());
+                    objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
+                    objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
+                    objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
+                    objDadosPena.setFotoPerfil(caminhoFotoPerfil);
+                    objDadosPena.setFotoCorpo(caminhoFotoCorpo);
+                    objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
+                    objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
+                    objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
+                    objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
+                    objProCrc.setUsuarioInsert(nameUser);
+                    objProCrc.setDataInsert(jDataSistema.getText());
+                    objProCrc.setHoraInsert(jHoraSistema.getText());
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
+                    if (jLabelFotoInterno.getIcon() != null) {//                                                                   
+                        objProCrc.setImagemInterno(persona_imagem);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
+                    if (jFotoPerfil.getIcon() != null) {//                                                                
+                        objDadosPena.setImagemPerfil(persona_imagem1);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
+                    if (jFotoCorpo.getIcon() != null) {
+                        objDadosPena.setImagemCorpo(persona_imagem2);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
+                    if (jFotoCorpo1.getIcon() != null) {//                                                                  
+                        objDadosPena.setImagemCorpo1(persona_imagem3);
+                    }
+                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
+                    if (jFotoCorpo2.getIcon() != null) {//                                                                    
+                        objDadosPena.setImagemCorpo2(persona_imagem4);
+                    }
+                    //VERIFICAR SE O INTERNO JÁ EXISTE PARA NÃO CADASTRAR EM DUPLICIDADE
+                    PESQUISAR_EXISTENCIA_interno();
+                    if (acao == 1) {
+                        if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
+                            JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
+                            conecta.desconecta();
+                        } else {
+                            //GRAVA NA TABELA PRONTUARIOSCRC
+                            CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
+                            BUSCAR_CODIGO_interno();
+                            // TABELA NA TABELA DADOSFISICOSINTERNOS
+                            objDadosFis.setNomeInternoCrc(jNomeInterno.getText());
+                            objDadosFis.setNomeMaeInternoCrc(jMaeInterno.getText());
+                            CONTROLE_DADOS_fisicos.incluirDadosFisicos(objDadosFis);
+                            // GRAVA NA TABELA DADOSPENAISINTERNOS
+                            objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                            objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
+                            CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
+                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
+                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                            VERIFICAR_GRAVACAO_interno();
+                            if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
+                                    && pRESPOSTA_gravacao.equals("Sim")
+                                    && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                    && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                                // Confirma a utilização do registro do interno iniciado pela portaria.
+                                objProCrc.setNomeInterno(jNomeInterno.getText());
+                                objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                                //
+                                GRAVAR_DOCUMENTOS_internos();
+                                //
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                Salvar();
+                            } else {
+                                //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                                DELETAR_REGISTRO_interno();
+                                if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
+                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                                } else {
+                                    JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
+                                }
+                            }
+                        }
+                    }
+                    if (acao == 2) {
+                        try {
+                            objProCrc.setUsuarioUp(nameUser);
+                            objProCrc.setDataUp(jDataSistema.getText());
+                            objProCrc.setHoraUp(jHoraSistema.getText());
+                            objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                            objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                            objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                            CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
+                            CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
+                            CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
                             //
                             GRAVAR_DOCUMENTOS_internos();
                             //
                             objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
                             Salvar();
-                        } else {
-                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
-                            DELETAR_REGISTRO_interno();
-                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
-                                JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                            } else {
-                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
-                            }
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
                         }
-                    }
-                }
-                if (acao == 2) {
-                    try {
-                        objProCrc.setUsuarioUp(nameUser);
-                        objProCrc.setDataUp(jDataSistema.getText());
-                        objProCrc.setHoraUp(jHoraSistema.getText());
-                        objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                        objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                        objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                        CONTROLE_DADOS_civil.alterarInternoCrc(objProCrc);
-                        CONTROLE_DADOS_fisicos.alterarDadosFisicos(objDadosFis);
-                        CONTROLE_DADOS_penais.alterarDadosPenais(objDadosPena);
-                        //
-                        GRAVAR_DOCUMENTOS_internos();
-                        //
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                        Salvar();
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
-                    }
 
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "CPF invalido !!!");
                 }
             }
         } else {
@@ -6542,6 +6568,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxSituacaoPresoProcesso;
     private javax.swing.JComboBox jComboBoxTipoSentencaCondenatoria;
     private javax.swing.JComboBox<String> jComboBoxTornozeleira;
+    private javax.swing.JComboBox<String> jComboBoxUF;
     public static javax.swing.JTextField jComboBoxUnid;
     public static com.toedter.calendar.JDateChooser jDataCadastro;
     public static com.toedter.calendar.JDateChooser jDataCondenacao;
@@ -6898,6 +6925,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setEnabled(!true);
         jAlcunha.setEnabled(!true);
         jRGInterno.setEnabled(!true);
+        jComboBoxUF.setEnabled(!true);
         jCPFInterno.setEnabled(!true);
         jCartaoSus.setEnabled(!true);
         jComboBoxEscolaridade.setEnabled(!true);
@@ -6997,6 +7025,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setBackground(Color.white);
         jAlcunha.setBackground(Color.white);
         jRGInterno.setBackground(Color.white);
+        jComboBoxUF.setBackground(Color.white);
         jCartaoSus.setBackground(Color.white);
         jCPFInterno.setBackground(Color.white);
         jComboBoxEscolaridade.setBackground(Color.white);
@@ -7105,6 +7134,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setText("");
         jAlcunha.setText("");
         jRGInterno.setText("");
+        jComboBoxUF.setSelectedItem("AC");
         jCPFInterno.setText("");
         jCartaoSus.setText("");
         jComboBoxEscolaridade.setSelectedItem("Selecione...");
@@ -7174,6 +7204,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setEnabled(true);
         jAlcunha.setEnabled(true);
         jRGInterno.setEnabled(true);
+        jComboBoxUF.setEnabled(true);
         jCPFInterno.setEnabled(true);
         jCartaoSus.setEnabled(true);
         jComboBoxEscolaridade.setEnabled(true);
@@ -7295,6 +7326,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setEnabled(true);
         jAlcunha.setEnabled(true);
         jRGInterno.setEnabled(true);
+        jComboBoxUF.setEnabled(true);
         jCPFInterno.setEnabled(true);
         jCartaoSus.setEnabled(true);
         jComboBoxEscolaridade.setEnabled(true);
@@ -7405,6 +7437,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setText("");
         jAlcunha.setText("");
         jRGInterno.setText("");
+        jComboBoxUF.setSelectedItem("AC");
         jCPFInterno.setText("");
         jCartaoSus.setText("");
         jLabelFotoInterno.setIcon(null);
@@ -7476,6 +7509,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setEnabled(!true);
         jAlcunha.setEnabled(!true);
         jRGInterno.setEnabled(!true);
+        jComboBoxUF.setEnabled(!true);
         jCPFInterno.setEnabled(!true);
         jCartaoSus.setEnabled(!true);
         jComboBoxEscolaridade.setEnabled(!true);
@@ -7593,6 +7627,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPaiInterno.setEnabled(!true);
         jAlcunha.setEnabled(!true);
         jRGInterno.setEnabled(!true);
+        jComboBoxUF.setEnabled(!true);
         jCPFInterno.setEnabled(!true);
         jCartaoSus.setEnabled(!true);
         jComboBoxEscolaridade.setEnabled(!true);
@@ -7743,6 +7778,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jPaiInterno.setText("");
             jAlcunha.setText("");
             jRGInterno.setText("");
+            jComboBoxUF.setSelectedItem("AC");
             jCPFInterno.setText("");
             jCartaoSus.setText("");
             jComboBoxEscolaridade.setSelectedItem("Selecione...");
@@ -7815,6 +7851,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jPaiInterno.setEnabled(!true);
             jAlcunha.setEnabled(!true);
             jRGInterno.setEnabled(!true);
+            jComboBoxUF.setEnabled(!true);
             jCPFInterno.setEnabled(!true);
             jCartaoSus.setEnabled(!true);
             jComboBoxEscolaridade.setEnabled(!true);
@@ -7933,6 +7970,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jPaiInterno.setEnabled(!true);
             jAlcunha.setEnabled(!true);
             jRGInterno.setEnabled(!true);
+            jComboBoxUF.setEnabled(!true);
             jCPFInterno.setEnabled(!true);
             jCartaoSus.setEnabled(!true);
             jComboBoxEscolaridade.setEnabled(!true);
@@ -8854,68 +8892,23 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jHoraDocumento.setText("");
     }
 
-    /**
-     * Método para verifica se determinado cpf é válido.
-     *
-     * @param xCPF
-     * @param cpf - Uma String contendo o cpf.
-     * @return true se o cpf é válido e false se não é válido.
-     * @author FONTE: www.guj.com.br
-     */
-    public static boolean validaCpf(String xCPF) {
-        try {
-            int d1, d4, xx, nCount, resto, digito1, digito2;
-            String Check;
-            String Separadores = "/-.";
-            d1 = 0;
-            d4 = 0;
-            xx = 1;
-            for (nCount = 0; nCount < xCPF.length() - 2; nCount++) {
-                String s_aux = xCPF.substring(nCount, nCount + 1);
-
-                if (Separadores.indexOf(s_aux) == -1) {
-                    d1 = d1 + (11 - xx) * Integer.valueOf(s_aux).intValue();
-                    d4 = d4 + (12 - xx) * Integer.valueOf(s_aux).intValue();
-                    xx++;
-                }
-            }
-            resto = (d1 % 11);
-            if (resto < 2) {
-                digito1 = 0;
-            } else {
-                digito1 = 11 - resto;
-            }
-            d4 = d4 + 2 * digito1;
-            resto = (d4 % 11);
-
-            if (resto < 2) {
-                digito2 = 0;
-            } else {
-                digito2 = 11 - resto;
-            }
-            Check = String.valueOf(digito1) + String.valueOf(digito2);
-            String s_aux2 = xCPF.substring(xCPF.length() - 2, xCPF.length());
-            if (s_aux2.compareTo(Check) != 0) {
-                JOptionPane.showMessageDialog(null, "CPF digitado é inválido.");
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
             codigoUserCRC = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+            conecta.executaSQL("SELECT "
+                    + "USUARIOS_GRUPOS.IdUsuario, "
+                    + "USUARIOS_GRUPOS.IdGrupo, "
+                    + "GRUPOUSUARIOS.NomeGrupo "
+                    + "FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                     + "WHERE IdUsuario='" + codigoUserCRC + "'");
@@ -8926,7 +8919,16 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "Abrir, "
+                    + "Incluir, "
+                    + "Alterar, "
+                    + "Excluir, "
+                    + "Gravar, "
+                    + "Consultar, "
+                    + "NomeTela "
+                    + "FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserCRC + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
@@ -8998,7 +9000,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public void verificarInternoBancoDados(int codigoInterno, int codDocumento) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LISTA_DOCUMENTOS_INTERNO_CRC "
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc, "
+                    + "IdChek "
+                    + "FROM LISTA_DOCUMENTOS_INTERNO_CRC "
                     + "WHERE IdInternoCrc='" + codigoInterno + "' "
                     + "AND IdChek='" + codDocumento + "'");
             conecta.rs.last();
@@ -9012,7 +9017,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public void documentosInterno(String descricaoDoc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM CHECK_LIST_DOCUMENTOS_INTERNO_CRC "
+            conecta.executaSQL("SELECT "
+                    + "IdChek, "
+                    + "DescricaoDocumentos "
+                    + "FROM CHECK_LIST_DOCUMENTOS_INTERNO_CRC "
                     + "WHERE DescricaoDocumentos='" + descricaoDoc + "'");
             conecta.rs.first();
             idChek = conecta.rs.getInt("IdChek");
