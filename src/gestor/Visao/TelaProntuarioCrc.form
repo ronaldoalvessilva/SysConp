@@ -882,7 +882,7 @@
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jComboBoxEscolaridade" pref="189" max="32767" attributes="0"/>
+                                                      <Component id="jComboBoxEscolaridade" max="32767" attributes="0"/>
                                                       <Group type="102" attributes="0">
                                                           <Component id="jRGInterno" min="-2" pref="138" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -915,11 +915,12 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jMatriculaPenal" min="-2" pref="69" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jMatriculaPenal" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel162" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jCNC" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                          <Component id="jCNC" min="-2" pref="119" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1019,7 +1020,7 @@
                                       <Component id="jLabel162" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jCNC" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel7" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jDataCadastro" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
@@ -1055,10 +1056,15 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jBtZoonFoto" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jRGInterno" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxUF" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel14" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jCPFInterno" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtNovaFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtExcluirFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtWebCam" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -1091,17 +1097,6 @@
                               <Component id="jProfissao" linkSize="30" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="2" attributes="0">
-                          <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jBtWebCam" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtExcluirFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtNovaFoto" linkSize="26" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtZoonFoto" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1299,6 +1294,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Sexo:"/>
                   </Properties>
@@ -1680,7 +1678,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="CNC:"/>
+                    <Property name="text" type="java.lang.String" value="CNC/PN:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jCNC">
@@ -2110,7 +2108,7 @@
                               <Component id="jLabel42" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jCelular" linkSize="20" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <EmptySpace pref="24" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2311,7 +2309,7 @@
                       <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTabbedPane2" pref="292" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Component id="jPanel33" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
