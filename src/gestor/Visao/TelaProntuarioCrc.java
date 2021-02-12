@@ -1340,11 +1340,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jCNC.setEnabled(false);
 
         jRGInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        try {
-            jRGInterno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
         jRGInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jRGInterno.setEnabled(false);
 
