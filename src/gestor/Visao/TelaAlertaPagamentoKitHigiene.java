@@ -68,11 +68,11 @@ public class TelaAlertaPagamentoKitHigiene extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Registro", "Composição", "Data Previsão", "Tipo Kit", "Código", "Descrição do Produto", "Qtd."
+                "Registro", "Data Previsão", "Tipo Kit", "Código", "Descrição do Produto", "Qtd."
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -83,18 +83,16 @@ public class TelaAlertaPagamentoKitHigiene extends javax.swing.JInternalFrame {
         if (jTabelaProdutosKitCompleto.getColumnModel().getColumnCount() > 0) {
             jTabelaProdutosKitCompleto.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaProdutosKitCompleto.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(3).setMinWidth(90);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(3).setMaxWidth(90);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(4).setMinWidth(70);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(4).setMaxWidth(70);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(5).setMinWidth(250);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(5).setMaxWidth(250);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(6).setMinWidth(80);
-            jTabelaProdutosKitCompleto.getColumnModel().getColumn(6).setMaxWidth(80);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(2).setMinWidth(90);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(2).setMaxWidth(90);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(3).setMinWidth(70);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(3).setMaxWidth(70);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(4).setMinWidth(350);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(4).setMaxWidth(350);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaProdutosKitCompleto.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -103,7 +101,7 @@ public class TelaAlertaPagamentoKitHigiene extends javax.swing.JInternalFrame {
         jPanel36.setLayout(jPanel36Layout);
         jPanel36Layout.setHorizontalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,13 +144,13 @@ public class TelaAlertaPagamentoKitHigiene extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +209,7 @@ public class TelaAlertaPagamentoKitHigiene extends javax.swing.JInternalFrame {
                     pNOME_kit = "Kit Anual";
                 }
                 jtotalRegistros.setText(Integer.toString(pTOTAL_produtos)); // Converter inteiro em string para exibir na tela 
-                dadosProduto.addRow(new Object[]{pp.getIdRegProdutoKC(), pp.getIdRegistroComp(), pDATA_previsao, pNOME_kit, pp.getCodigoProduto(), pp.getDescricaoProduto(), pp.getQuantProd()});
+                dadosProduto.addRow(new Object[]{pp.getIdRegProdutoKC(),pDATA_previsao, pNOME_kit, pp.getCodigoProduto(), pp.getDescricaoProduto(), pp.getQuantProd()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaProdutosKitCompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -220,9 +218,8 @@ public class TelaAlertaPagamentoKitHigiene extends javax.swing.JInternalFrame {
                 //
                 jTabelaProdutosKitCompleto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                 jTabelaProdutosKitCompleto.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                jTabelaProdutosKitCompleto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-                jTabelaProdutosKitCompleto.getColumnModel().getColumn(4).setCellRenderer(centralizado);
-                jTabelaProdutosKitCompleto.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+                jTabelaProdutosKitCompleto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                jTabelaProdutosKitCompleto.getColumnModel().getColumn(5).setCellRenderer(centralizado);               
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAlertaPagamentoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);

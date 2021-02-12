@@ -39,32 +39,33 @@ public class ControleListaKitsAgendado {
             conecta.abrirConexao();
             List<AlertaKitHigiente> listaInternosKitComp = new ArrayList<AlertaKitHigiente>();
             try {
-                conecta.executaSQL("SELECT DISTINCT IdRegProdutosKC,IdRegistroComp, "
+                conecta.executaSQL("SELECT DISTINCT "
+                        + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.KitPago, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit, "
-                        + "KITS_HIGIENE_INTERNO.KitInicial,KITS_HIGIENE_INTERNO.KitDecendial, "
-                        + "KITS_HIGIENE_INTERNO.KitQuinzenal,KITS_HIGIENE_INTERNO.KitMensal, "
-                        + "KITS_HIGIENE_INTERNO.KitSemestral,KITS_HIGIENE_INTERNO.KitAnual, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd, "
-                        + "PRODUTOS_AC.DescricaoProd,ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.QuantProd "
-                        + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd=PRODUTOS_AC.IdProd "
+                        + "KITS_HIGIENE_INTERNO.KitInicial, "
+                        + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                        + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                        + "KITS_HIGIENE_INTERNO.KitMensal, "
+                        + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                        + "KITS_HIGIENE_INTERNO.KitAnual, "
+                        + "PRODUTOS_AC.IdProd, "
+                        + "PRODUTOS_AC.DescricaoProd, "
+                        + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_HIGIENE_INTERNO "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                        + "ON KITS_HIGIENE_INTERNO.IdKit=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit "
-                        + "WHERE QuantProd>0 "
-                        + "AND KitPago='" + pKIT_pago + "' "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                        + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_AC  "
+                        + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                        + "WHERE KitPago='" + pKIT_pago + "' "
                         + "AND DataPrevisao='" + dataSisConvert + "'");
                 while (conecta.rs.next()) {
                     AlertaKitHigiente pDigi = new AlertaKitHigiente();
-                    pDigi.setIdRegProdutoKC(conecta.rs.getInt("IdRegProdutosKC"));
-                    pDigi.setIdRegistroComp(conecta.rs.getInt("IdRegistroComp"));
+                    pDigi.setIdRegProdutoKC(conecta.rs.getInt("IdPROG"));
                     pDigi.setDataPrevisao(conecta.rs.getDate("DataPrevisao"));
                     pDigi.setKitPago(conecta.rs.getString("KitPago"));
-                    pDigi.setIdKit(conecta.rs.getInt("IdKit"));
                     pDigi.setKitInicial(conecta.rs.getInt("KitInicial"));
                     pDigi.setKitDecendial(conecta.rs.getInt("KitDecendial"));
                     pDigi.setKitQuinzenal(conecta.rs.getInt("KitQuinzenal"));
@@ -73,7 +74,7 @@ public class ControleListaKitsAgendado {
                     pDigi.setKitAnual(conecta.rs.getInt("KitAnual"));
                     pDigi.setCodigoProduto(conecta.rs.getInt("IdProd"));
                     pDigi.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
-                    pDigi.setQuantProd(conecta.rs.getInt("QuantProd"));
+                    pDigi.setQuantProd(conecta.rs.getInt("QuantItem"));
                     listaInternosKitComp.add(pDigi);
                     ++pTOTAL_produtos;
                 }
@@ -87,29 +88,31 @@ public class ControleListaKitsAgendado {
             conecta.abrirConexao();
             List<AlertaKitHigiente> listaInternosKitComp = new ArrayList<AlertaKitHigiente>();
             try {
-                conecta.executaSQL("SELECT DISTINCT IdRegProdutosKC,IdRegistroComp, "
+                conecta.executaSQL("SELECT DISTINCT "
+                        + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.KitPago, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit, "
-                        + "KITS_HIGIENE_INTERNO.KitInicial,KITS_HIGIENE_INTERNO.KitDecendial, "
-                        + "KITS_HIGIENE_INTERNO.KitQuinzenal,KITS_HIGIENE_INTERNO.KitMensal, "
-                        + "KITS_HIGIENE_INTERNO.KitSemestral,KITS_HIGIENE_INTERNO.KitAnual, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd, "
-                        + "PRODUTOS_AC.DescricaoProd,ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.QuantProd "
-                        + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd=PRODUTOS_AC.IdProd "
+                        + "KITS_HIGIENE_INTERNO.KitInicial, "
+                        + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                        + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                        + "KITS_HIGIENE_INTERNO.KitMensal, "
+                        + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                        + "KITS_HIGIENE_INTERNO.KitAnual, "
+                        + "PRODUTOS_AC.IdProd, "
+                        + "PRODUTOS_AC.DescricaoProd, "
+                        + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_HIGIENE_INTERNO "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                        + "ON KITS_HIGIENE_INTERNO.IdKit=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit "
-                        + "WHERE QuantProd>0 "
-                        + "AND KitPago='" + pKIT_pago + "' "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                        + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_AC  "
+                        + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                        + "WHERE KitPago='" + pKIT_pago + "' "
                         + "AND DataPrevisao='" + jDataSistema.getText() + "'");
                 while (conecta.rs.next()) {
                     AlertaKitHigiente pDigi = new AlertaKitHigiente();
-                    pDigi.setIdRegProdutoKC(conecta.rs.getInt("IdRegProdutosKC"));
-                    pDigi.setIdRegistroComp(conecta.rs.getInt("IdRegistroComp"));
+                    pDigi.setIdRegProdutoKC(conecta.rs.getInt("IdPROG"));
                     pDigi.setDataPrevisao(conecta.rs.getDate("DataPrevisao"));
                     pDigi.setKitPago(conecta.rs.getString("KitPago"));
                     pDigi.setIdKit(conecta.rs.getInt("IdKit"));
@@ -121,7 +124,7 @@ public class ControleListaKitsAgendado {
                     pDigi.setKitAnual(conecta.rs.getInt("KitAnual"));
                     pDigi.setCodigoProduto(conecta.rs.getInt("IdProd"));
                     pDigi.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
-                    pDigi.setQuantProd(conecta.rs.getInt("QuantProd"));
+                    pDigi.setQuantProd(conecta.rs.getInt("QuantItem"));
                     listaInternosKitComp.add(pDigi);
                     ++pTOTAL_produtos;
                 }
@@ -142,26 +145,27 @@ public class ControleListaKitsAgendado {
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
-               conecta.executaSQL("SELECT DISTINCT "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegProdutosKC, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp, "
+                conecta.executaSQL("SELECT DISTINCT "
+                        + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.KitPago, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit, "
-                        + "KITS_HIGIENE_INTERNO.KitInicial,KITS_HIGIENE_INTERNO.KitDecendial, "
-                        + "KITS_HIGIENE_INTERNO.KitQuinzenal,KITS_HIGIENE_INTERNO.KitMensal, "
-                        + "KITS_HIGIENE_INTERNO.KitSemestral,KITS_HIGIENE_INTERNO.KitAnual, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd, "
-                        + "PRODUTOS_AC.DescricaoProd,ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.QuantProd "
-                        + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd=PRODUTOS_AC.IdProd "
+                        + "KITS_HIGIENE_INTERNO.KitInicial, "
+                        + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                        + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                        + "KITS_HIGIENE_INTERNO.KitMensal, "
+                        + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                        + "KITS_HIGIENE_INTERNO.KitAnual, "
+                        + "PRODUTOS_AC.IdProd, "
+                        + "PRODUTOS_AC.DescricaoProd, "
+                        + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_HIGIENE_INTERNO "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                        + "ON KITS_HIGIENE_INTERNO.IdKit=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit "
-                        + "WHERE QuantProd>0 "
-                        + "AND KitPago='" + pKIT_pago + "' "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                        + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_AC  "
+                        + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                        + "WHERE KitPago='" + pKIT_pago + "' "
                         + "AND DataPrevisao='" + dataSisConvert + "'");
                 conecta.rs.first();
                 objComp.setDataPrevisao(conecta.rs.getDate("DataPrevisao"));
@@ -172,25 +176,26 @@ public class ControleListaKitsAgendado {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT DISTINCT "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegProdutosKC, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp, "
+                        + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.KitPago, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit, "
-                        + "KITS_HIGIENE_INTERNO.KitInicial,KITS_HIGIENE_INTERNO.KitDecendial, "
-                        + "KITS_HIGIENE_INTERNO.KitQuinzenal,KITS_HIGIENE_INTERNO.KitMensal, "
-                        + "KITS_HIGIENE_INTERNO.KitSemestral,KITS_HIGIENE_INTERNO.KitAnual, "
-                        + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd, "
-                        + "PRODUTOS_AC.DescricaoProd,ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.QuantProd "
-                        + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd=PRODUTOS_AC.IdProd "
+                        + "KITS_HIGIENE_INTERNO.KitInicial, "
+                        + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                        + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                        + "KITS_HIGIENE_INTERNO.KitMensal, "
+                        + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                        + "KITS_HIGIENE_INTERNO.KitAnual, "
+                        + "PRODUTOS_AC.IdProd, "
+                        + "PRODUTOS_AC.DescricaoProd, "
+                        + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_HIGIENE_INTERNO "
-                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                        + "ON KITS_HIGIENE_INTERNO.IdKit=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit "
-                        + "WHERE QuantProd>0 "
-                        + "AND KitPago='" + pKIT_pago + "' "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                        + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+                        + "INNER JOIN PRODUTOS_AC  "
+                        + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                        + "WHERE KitPago='" + pKIT_pago + "' "
                         + "AND DataPrevisao='" + jDataSistema.getText() + "'");
                 conecta.rs.first();
                 objComp.setDataPrevisao(conecta.rs.getDate("DataPrevisao"));
