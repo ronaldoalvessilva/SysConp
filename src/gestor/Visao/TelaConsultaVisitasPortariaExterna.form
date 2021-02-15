@@ -109,7 +109,7 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="1">
+              <Table columnCount="2" rowCount="0">
                 <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                 <Column editable="true" title="Nome do Interno" type="java.lang.Object"/>
               </Table>
@@ -154,7 +154,7 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="1">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="true" title="Data Chegada" type="java.lang.Object"/>
                 <Column editable="true" title="Hora Chegada" type="java.lang.Object"/>
                 <Column editable="true" title="Ordem" type="java.lang.Object"/>

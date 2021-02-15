@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleImplementacoes;
+import gestor.Modelo.ParametrosCrc;
 import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
@@ -79,6 +81,9 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaRecadosEnfermaria objRecEnfermaria = null;
     private TelaConsultaAgendaEscolta objConAgenEscolta = null;
@@ -357,6 +362,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem(); // A cada 5 minutos verifica mensagem  
     }
 
@@ -3852,11 +3858,83 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public void buscarCodigoModulo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM MODULOS "
+            conecta.executaSQL("SELECT "
+                    + "IdModulo, "
+                    + "NomeModulo "
+                    + "FROM MODULOS "
                     + "WHERE NomeModulo='" + nomeModuloENFER + "'");
             conecta.rs.first();
             pCodModulo = conecta.rs.getInt("IdModulo");
         } catch (SQLException ex) {
+        }
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_ENF_001(telaTipoTratamentoManu);
+        PESQUISAR_IMPLEMENTA_ENF_002(telaIndAtendimentoGrupoENF_Manu);
+        PESQUISAR_IMPLEMENTA_ENF_003(telaAprazaMedManuENF);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_ENF_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jTiposTratameto.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jTiposTratameto.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jTiposTratameto.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jTiposTratameto.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jTiposTratameto.setVisible(!true);
+        } else {
+            jTiposTratameto.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_ENF_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoEnfermagemGrupo.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoEnfermagemGrupo.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoEnfermagemGrupo.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAtendimentoEnfermagemGrupo.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAtendimentoEnfermagemGrupo.setVisible(!true);
+        } else {
+            jAtendimentoEnfermagemGrupo.setVisible(true);
+        }
+    }
+    
+    public void PESQUISAR_IMPLEMENTA_ENF_003(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            Aprazementomedicoes.setVisible(!true);
+            jSeparator4.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            Aprazementomedicoes.setVisible(true);
+            jSeparator4.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            Aprazementomedicoes.setVisible(true);
+            jSeparator4.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            Aprazementomedicoes.setVisible(!true);
+            jSeparator4.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            Aprazementomedicoes.setVisible(!true);
+            jSeparator4.setVisible(!true);
+        } else {
+            Aprazementomedicoes.setVisible(true);
+            jSeparator4.setVisible(true);
         }
     }
 }

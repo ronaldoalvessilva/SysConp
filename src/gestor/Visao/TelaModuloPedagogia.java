@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -79,6 +81,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaRecadosProfessores objRecados = null;
     private TelaConsultaLocalInternoProfessores objConsultaLocalInterProf = null;
@@ -176,6 +181,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //TEMPO FORMATIVO
     public static String telaTempoFormativoManu_PEDA = "Cadastro:Tempo Formativo:Manutenção";
     public static String telaTempoFormativoDisc_PEDA = "Cadastro:Tempo Formativo:Disciplina";
+    //AGENDA DE ATENDIMENTO AOS INTERNOS
+    public static String telaAgendamentoAtendimentoInternos_PEDA = "Cadastro:Agendamento Atendimento a Internos:Manutenção";
     //ATENDIMENTO BIOMETRIA DE INTERNOS
     public static String telaRegistroAtendimentoBio_PEDA = "Cadastro:Registro de Atendimento Internos Biometria Pedagogia:Manutenção";
     public static String telaRegistroAtendimentoImpressaoBio_PEDA = "Cadastro:Registro de Autorização Impressa Pedagogia:Liberação";
@@ -388,6 +395,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem(); // A cada 5 minutos verifica mensagem    
     }
 
@@ -464,7 +472,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         ControleFrequencia = new javax.swing.JMenuItem();
         BaixaAlunos = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
-        jMenu5 = new javax.swing.JMenu();
+        jControleFrequenciaCursosAtividadesComplementares = new javax.swing.JMenu();
         jControleCursosAtividades = new javax.swing.JMenuItem();
         jFrequenciaCursos = new javax.swing.JMenuItem();
         jSeparator25 = new javax.swing.JPopupMenu.Separator();
@@ -874,7 +882,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Movimentacao.add(BaixaAlunos);
         Movimentacao.add(jSeparator20);
 
-        jMenu5.setText("Controle e Frequência Cursos e Atividades Complementares");
+        jControleFrequenciaCursosAtividadesComplementares.setText("Controle e Frequência Cursos e Atividades Complementares");
 
         jControleCursosAtividades.setText("Controle de Cursos/Atividades Complementares");
         jControleCursosAtividades.addActionListener(new java.awt.event.ActionListener() {
@@ -882,7 +890,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                 jControleCursosAtividadesActionPerformed(evt);
             }
         });
-        jMenu5.add(jControleCursosAtividades);
+        jControleFrequenciaCursosAtividadesComplementares.add(jControleCursosAtividades);
 
         jFrequenciaCursos.setText("Controle de Frequência dos Cursos/Atividades Complementares");
         jFrequenciaCursos.addActionListener(new java.awt.event.ActionListener() {
@@ -890,9 +898,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                 jFrequenciaCursosActionPerformed(evt);
             }
         });
-        jMenu5.add(jFrequenciaCursos);
+        jControleFrequenciaCursosAtividadesComplementares.add(jFrequenciaCursos);
 
-        Movimentacao.add(jMenu5);
+        Movimentacao.add(jControleFrequenciaCursosAtividadesComplementares);
         Movimentacao.add(jSeparator25);
 
         jRegistroLeituraResenhaInternos.setText("Remissão pela Educação/Leitura");
@@ -2162,30 +2170,35 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
     private void jAgendaAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAgendaAtendimentoInternosActionPerformed
         // TODO add your handling code here:
-        if (objAgendaAtendIntPED == null || objAgendaAtendIntPED.isClosed()) {
-            objAgendaAtendIntPED = new TelaAgendamentoAtendimentoInternosPedagogia();
-            jPainelPedagogia.add(objAgendaAtendIntPED);
-            objAgendaAtendIntPED.setVisible(true);
-        } else {
-            if (objAgendaAtendIntPED.isVisible()) {
-                if (objAgendaAtendIntPED.isIcon()) { // Se esta minimizado
-                    try {
-                        objAgendaAtendIntPED.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaAdmissaoManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoManu_PEDA) && codAbrirPEDA == 1) {
+            if (objAgendaAtendIntPED == null || objAgendaAtendIntPED.isClosed()) {
+                objAgendaAtendIntPED = new TelaAgendamentoAtendimentoInternosPedagogia();
+                jPainelPedagogia.add(objAgendaAtendIntPED);
+                objAgendaAtendIntPED.setVisible(true);
+            } else {
+                if (objAgendaAtendIntPED.isVisible()) {
+                    if (objAgendaAtendIntPED.isIcon()) { // Se esta minimizado
+                        try {
+                            objAgendaAtendIntPED.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAgendaAtendIntPED.toFront(); // traz para frente
+                        objAgendaAtendIntPED.pack();//volta frame 
                     }
                 } else {
-                    objAgendaAtendIntPED.toFront(); // traz para frente
-                    objAgendaAtendIntPED.pack();//volta frame 
+                    objAgendaAtendIntPED = new TelaAgendamentoAtendimentoInternosPedagogia();
+                    TelaModuloPedagogia.jPainelPedagogia.add(objAgendaAtendIntPED);//adicona frame ao JDesktopPane  
+                    objAgendaAtendIntPED.setVisible(true);
                 }
-            } else {
-                objAgendaAtendIntPED = new TelaAgendamentoAtendimentoInternosPedagogia();
-                TelaModuloPedagogia.jPainelPedagogia.add(objAgendaAtendIntPED);//adicona frame ao JDesktopPane  
-                objAgendaAtendIntPED.setVisible(true);
             }
-        }
-        try {
-            objAgendaAtendIntPED.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAgendaAtendIntPED.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jAgendaAtendimentoInternosActionPerformed
 
@@ -2668,6 +2681,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JMenuItem jConcluirMatricula;
     private javax.swing.JMenuItem jControleCursosAtividades;
+    private javax.swing.JMenu jControleFrequenciaCursosAtividadesComplementares;
     private javax.swing.JMenuItem jFrequenciaCursos;
     private javax.swing.JMenuItem jHistoricoMovimentacao;
     private javax.swing.JLabel jLabel1;
@@ -2675,7 +2689,6 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -4061,5 +4074,86 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_PEDA_001(telaPlanejamentoAtividadesManu_PEDA);
+        PESQUISAR_IMPLEMENTA_PEDA_002(telaAgendamentoAtendimentoInternos_PEDA);
+        PESQUISAR_IMPLEMENTA_PEDA_003(telaCCAC_TPS_ManuPEDA);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_PEDA_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAgendaAtendimentoInternos.setVisible(!true);
+            jSeparator27.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAgendaAtendimentoInternos.setVisible(true);
+            jSeparator27.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAgendaAtendimentoInternos.setVisible(true);
+            jSeparator27.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAgendaAtendimentoInternos.setVisible(!true);
+            jSeparator27.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAgendaAtendimentoInternos.setVisible(!true);
+            jSeparator27.setVisible(!true);
+        } else {
+            jAgendaAtendimentoInternos.setVisible(true);
+            jSeparator27.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_PEDA_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoGrupo.setVisible(!true);
+            jSeparator13.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoGrupo.setVisible(true);
+            jSeparator13.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoGrupo.setVisible(true);
+            jSeparator13.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAtendimentoGrupo.setVisible(!true);
+            jSeparator13.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAtendimentoGrupo.setVisible(!true);
+            jSeparator13.setVisible(!true);
+        } else {
+            jAtendimentoGrupo.setVisible(true);
+            jSeparator13.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_PEDA_003(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleFrequenciaCursosAtividadesComplementares.setVisible(!true);
+            jSeparator25.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleFrequenciaCursosAtividadesComplementares.setVisible(true);
+            jSeparator25.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleFrequenciaCursosAtividadesComplementares.setVisible(true);
+            jSeparator25.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jControleFrequenciaCursosAtividadesComplementares.setVisible(!true);
+            jSeparator25.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jControleFrequenciaCursosAtividadesComplementares.setVisible(!true);
+            jSeparator25.setVisible(!true);
+        } else {
+            jControleFrequenciaCursosAtividadesComplementares.setVisible(true);
+            jSeparator25.setVisible(!true);
+        }
     }
 }

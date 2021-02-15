@@ -2653,9 +2653,15 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jConsultaKits.setVisible(!true);
             jSeparator16.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaKits.setVisible(true);
+            jSeparator16.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaKits.setVisible(true);
+            jSeparator16.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jConsultaKits.setVisible(!true);
             jSeparator16.setVisible(!true);
@@ -2667,14 +2673,20 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             jSeparator16.setVisible(true);
         }
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_ALM_002(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jCancelarPagamentoKit.setVisible(!true);
             jSeparator14.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelarPagamentoKit.setVisible(true);
+            jSeparator14.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelarPagamentoKit.setVisible(true);
+            jSeparator14.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jCancelarPagamentoKit.setVisible(!true);
             jSeparator14.setVisible(!true);

@@ -459,7 +459,7 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="jMenu3">
+            <Menu class="javax.swing.JMenu" name="jCancelamentoEntradasRetornosInternos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelamento de Entradas e Retornos de Internos"/>
               </Properties>

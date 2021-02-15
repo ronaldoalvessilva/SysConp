@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -83,7 +85,10 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
-    //   
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
+    //  
     private TelaRecadosBaseSegurancaAuxiliar objRecaSeguAux = null;
     private TelaPopulacaoBaseSeguranca objPop = null;
     private TelaMovHistoricoTecBaseSegurancaAuxiliar objHistMovSegAux = null;
@@ -199,6 +204,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem(); // A cada 5 minutos verifica mensagem 
     }
 
@@ -2034,6 +2040,61 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pCodModulo = conecta.rs.getInt("IdModulo");
         } catch (SQLException ex) {
+        }
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_BASE1_001(telaEntregaMaterialUsoB2);
+        PESQUISAR_IMPLEMENTA_BASE1_002(telaEscoltaInternoPSP_B2);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_BASE1_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            EntregaMaterialUsoPessoal.setVisible(!true);
+            jSeparator8.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            EntregaMaterialUsoPessoal.setVisible(true);
+            jSeparator8.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            EntregaMaterialUsoPessoal.setVisible(true);
+            jSeparator8.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            EntregaMaterialUsoPessoal.setVisible(!true);
+            jSeparator8.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            EntregaMaterialUsoPessoal.setVisible(!true);
+            jSeparator8.setVisible(!true);
+        } else {
+            EntregaMaterialUsoPessoal.setVisible(true);
+            jSeparator8.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_BASE1_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEscoltaInternoPSP.setVisible(!true);
+            jSeparator15.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEscoltaInternoPSP.setVisible(true);
+            jSeparator15.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEscoltaInternoPSP.setVisible(true);
+            jSeparator15.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jEscoltaInternoPSP.setVisible(!true);
+            jSeparator15.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jEscoltaInternoPSP.setVisible(!true);
+            jSeparator15.setVisible(!true);
+        } else {
+            jEscoltaInternoPSP.setVisible(true);
+            jSeparator15.setVisible(true);
         }
     }
 }

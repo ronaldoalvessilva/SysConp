@@ -501,13 +501,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         EvasaoInternos = new javax.swing.JMenuItem();
         jLancamentoObitoInterno = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jCumprimentoAlvara = new javax.swing.JMenuItem();
         jSeparator29 = new javax.swing.JPopupMenu.Separator();
-        jMenu9 = new javax.swing.JMenu();
+        jEmissaoValidacaoAtestadoReclusao = new javax.swing.JMenu();
         jEmissaoAtestadoReclusao = new javax.swing.JMenuItem();
         jValidacaoAtestadoReclusao = new javax.swing.JMenuItem();
         jRevalidarAtestadoReclusao = new javax.swing.JMenuItem();
-        jMenu10 = new javax.swing.JMenu();
+        jSolicitacaoEmissaoAtestadiReclusao = new javax.swing.JMenu();
         jSolicitacaoAtestadoReclusaoCRC = new javax.swing.JMenuItem();
         jEmissaoAtestadoReclusaoCRC = new javax.swing.JMenuItem();
         jMenuRelatorios = new javax.swing.JMenu();
@@ -966,17 +966,17 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuMovimentacao.add(jLancamentoObitoInterno);
         jMenuMovimentacao.add(jSeparator17);
 
-        jMenuItem4.setText("Cumprimento/Não Cumprimento Alvará");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jCumprimentoAlvara.setText("Cumprimento/Não Cumprimento Alvará");
+        jCumprimentoAlvara.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jCumprimentoAlvaraActionPerformed(evt);
             }
         });
-        jMenuMovimentacao.add(jMenuItem4);
+        jMenuMovimentacao.add(jCumprimentoAlvara);
         jMenuMovimentacao.add(jSeparator29);
 
-        jMenu9.setForeground(new java.awt.Color(204, 0, 0));
-        jMenu9.setText("Emissão/Validação do Atestado de Reclusão - Serviço Social/CRC");
+        jEmissaoValidacaoAtestadoReclusao.setForeground(new java.awt.Color(204, 0, 0));
+        jEmissaoValidacaoAtestadoReclusao.setText("Emissão/Validação do Atestado de Reclusão - Serviço Social/CRC");
 
         jEmissaoAtestadoReclusao.setForeground(new java.awt.Color(204, 0, 0));
         jEmissaoAtestadoReclusao.setText("Emissão de Atestado de Reclusão Carcerária");
@@ -985,7 +985,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 jEmissaoAtestadoReclusaoActionPerformed(evt);
             }
         });
-        jMenu9.add(jEmissaoAtestadoReclusao);
+        jEmissaoValidacaoAtestadoReclusao.add(jEmissaoAtestadoReclusao);
 
         jValidacaoAtestadoReclusao.setForeground(new java.awt.Color(0, 0, 204));
         jValidacaoAtestadoReclusao.setText("Validação do Atestado de Reclusão Carcerária");
@@ -994,7 +994,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 jValidacaoAtestadoReclusaoActionPerformed(evt);
             }
         });
-        jMenu9.add(jValidacaoAtestadoReclusao);
+        jEmissaoValidacaoAtestadoReclusao.add(jValidacaoAtestadoReclusao);
 
         jRevalidarAtestadoReclusao.setForeground(new java.awt.Color(0, 153, 0));
         jRevalidarAtestadoReclusao.setText("Revalidar Atestado de Reclusão (INSS)");
@@ -1003,12 +1003,12 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 jRevalidarAtestadoReclusaoActionPerformed(evt);
             }
         });
-        jMenu9.add(jRevalidarAtestadoReclusao);
+        jEmissaoValidacaoAtestadoReclusao.add(jRevalidarAtestadoReclusao);
 
-        jMenuMovimentacao.add(jMenu9);
+        jMenuMovimentacao.add(jEmissaoValidacaoAtestadoReclusao);
 
-        jMenu10.setForeground(new java.awt.Color(0, 0, 204));
-        jMenu10.setText("Solicitação/Emissão Atestado Reclusão - CRC");
+        jSolicitacaoEmissaoAtestadiReclusao.setForeground(new java.awt.Color(0, 0, 204));
+        jSolicitacaoEmissaoAtestadiReclusao.setText("Solicitação/Emissão Atestado Reclusão - CRC");
 
         jSolicitacaoAtestadoReclusaoCRC.setText("Solicitação de Atestado de Reclusão - CRC");
         jSolicitacaoAtestadoReclusaoCRC.addActionListener(new java.awt.event.ActionListener() {
@@ -1016,7 +1016,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 jSolicitacaoAtestadoReclusaoCRCActionPerformed(evt);
             }
         });
-        jMenu10.add(jSolicitacaoAtestadoReclusaoCRC);
+        jSolicitacaoEmissaoAtestadiReclusao.add(jSolicitacaoAtestadoReclusaoCRC);
 
         jEmissaoAtestadoReclusaoCRC.setText("Emissão de Atestado de Reclusão - CRC");
         jEmissaoAtestadoReclusaoCRC.addActionListener(new java.awt.event.ActionListener() {
@@ -1024,9 +1024,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 jEmissaoAtestadoReclusaoCRCActionPerformed(evt);
             }
         });
-        jMenu10.add(jEmissaoAtestadoReclusaoCRC);
+        jSolicitacaoEmissaoAtestadiReclusao.add(jEmissaoAtestadoReclusaoCRC);
 
-        jMenuMovimentacao.add(jMenu10);
+        jMenuMovimentacao.add(jSolicitacaoEmissaoAtestadiReclusao);
 
         jMenuBar1.add(jMenuMovimentacao);
 
@@ -2867,7 +2867,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_EvasaoInternosActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jCumprimentoAlvaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCumprimentoAlvaraActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCumprimentoManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCumprimentoManuCRC) && codAbrirCRC == 1) {
@@ -2899,7 +2899,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jCumprimentoAlvaraActionPerformed
 
     private void RelatorioPorCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioPorCidadeActionPerformed
         // TODO add your handling code here:
@@ -3972,8 +3972,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCancelarRegistro_RETORNOS;
     private javax.swing.JMenuItem jCidades;
     private javax.swing.JMenuItem jConsultaGeralInternosExterna;
+    private javax.swing.JMenuItem jCumprimentoAlvara;
     private javax.swing.JMenuItem jEmissaoAtestadoReclusao;
     private javax.swing.JMenuItem jEmissaoAtestadoReclusaoCRC;
+    private javax.swing.JMenu jEmissaoValidacaoAtestadoReclusao;
     private javax.swing.JMenuItem jEntradaInternos;
     private javax.swing.JMenuItem jInternosTornozeleiras;
     private javax.swing.JLabel jLabel1;
@@ -3985,7 +3987,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jListagemUnidadePenal;
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
@@ -3996,10 +3997,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastros;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenu jMenuMovimentacao;
     private javax.swing.JMenu jMenuRelatorios;
@@ -4057,6 +4056,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JMenuItem jSolicitacaoAtestadoReclusaoCRC;
+    private javax.swing.JMenu jSolicitacaoEmissaoAtestadiReclusao;
     private javax.swing.JMenuItem jTipoOperacao;
     private javax.swing.JMenuItem jTransferenciaInternos;
     private javax.swing.JMenuItem jUnidadePenal;
@@ -5854,15 +5854,24 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     public void PESQUISAR_LIBERACAO_implementacao() {
         PESQUISAR_IMPLEMENTA_CRC_001(telaSaidaSimbolicaManu_CRC);
+        PESQUISAR_IMPLEMENTA_CRC_002(telaConsultaGerencialInternosExternaCRC);
+        PESQUISAR_IMPLEMENTA_CRC_003(telaEmissaoAtestadoReclusao);
+        PESQUISAR_IMPLEMENTA_CRC_004(solicitaAtestaReclusoCRC);
     }
 
     public void PESQUISAR_IMPLEMENTA_CRC_001(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jSaidaSimbolica.setVisible(!true);
             jSeparator34.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSaidaSimbolica.setVisible(true);
+            jSeparator34.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSaidaSimbolica.setVisible(true);
+            jSeparator34.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jSaidaSimbolica.setVisible(!true);
             jSeparator34.setVisible(!true);
@@ -5872,6 +5881,75 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } else {
             jSaidaSimbolica.setVisible(true);
             jSeparator34.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CRC_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaGeralInternosExterna.setVisible(!true);
+            jSeparator26.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaGeralInternosExterna.setVisible(true);
+            jSeparator26.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaGeralInternosExterna.setVisible(true);
+            jSeparator26.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jConsultaGeralInternosExterna.setVisible(!true);
+            jSeparator26.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jConsultaGeralInternosExterna.setVisible(!true);
+            jSeparator26.setVisible(!true);
+        } else {
+            jConsultaGeralInternosExterna.setVisible(true);
+            jSeparator26.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CRC_003(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEmissaoValidacaoAtestadoReclusao.setVisible(!true);
+            jSeparator29.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEmissaoValidacaoAtestadoReclusao.setVisible(true);
+            jSeparator29.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEmissaoValidacaoAtestadoReclusao.setVisible(true);
+            jSeparator29.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jEmissaoValidacaoAtestadoReclusao.setVisible(!true);
+            jSeparator29.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jEmissaoValidacaoAtestadoReclusao.setVisible(!true);
+            jSeparator29.setVisible(!true);
+        } else {
+            jEmissaoValidacaoAtestadoReclusao.setVisible(true);
+            jSeparator29.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_CRC_004(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitacaoEmissaoAtestadiReclusao.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitacaoEmissaoAtestadiReclusao.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitacaoEmissaoAtestadiReclusao.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jSolicitacaoEmissaoAtestadiReclusao.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jSolicitacaoEmissaoAtestadiReclusao.setVisible(!true);
+        } else {
+            jSolicitacaoEmissaoAtestadiReclusao.setVisible(true);
         }
     }
 

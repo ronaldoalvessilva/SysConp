@@ -400,7 +400,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu5">
+            <Menu class="javax.swing.JMenu" name="jControleFrequenciaCursosAtividadesComplementares">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Controle e Frequ&#xea;ncia Cursos e Atividades Complementares"/>
               </Properties>
