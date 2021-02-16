@@ -151,10 +151,6 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jIDInterno = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jNomeInterno = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jFotoInterno = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jMaeInterno = new javax.swing.JTextField();
         jBtPesqInterno = new javax.swing.JButton();
@@ -164,6 +160,8 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jDataNascInterno = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         jDataEntradaInterno = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jNomeInterno = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -209,8 +207,6 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtAuditoriaVisitas = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaVisita = new javax.swing.JTable();
-        jPanel10 = new javax.swing.JPanel();
-        FotoVisita = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -225,7 +221,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jLabel27 = new javax.swing.JLabel();
         jDataValidade = new com.toedter.calendar.JDateChooser();
         jLabel28 = new javax.swing.JLabel();
-        jGrauParentescoInterno = new javax.swing.JTextField();
+        jComboBoxGrauParentescoInterno = new javax.swing.JComboBox<>();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTabelaItensInternas = new javax.swing.JTable();
         jPanel16 = new javax.swing.JPanel();
@@ -235,6 +231,10 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtSalvarItem = new javax.swing.JButton();
         jBtCancelarItem = new javax.swing.JButton();
         jBtAuditoriaItens = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jFotoInterno = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        FotoVisita = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jFotoInternoLista = new javax.swing.JLabel();
 
@@ -322,7 +322,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -331,19 +331,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jNomeVisitaInterna, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtPesqNomeVisitaInterna, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jIDPesqRol, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqIDRol, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -351,23 +339,34 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(4, 4, 4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
-                .addGap(23, 23, 23))
+                                .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jNomeVisitaInterna, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPesqNomeInterno))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jBtPesqNomeVisitaInterna, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jIDPesqRol, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesqIDRol, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1)))
+                .addGap(49, 49, 49))
         );
 
         jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDataPesqInicial, jIDPesqRol});
 
         jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtPesqData, jBtPesqNomeInterno});
 
-        jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNomeVisitaInterna, jPesqNomeInterno});
-
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jCheckBox1)
                     .addComponent(jBtPesqIDRol)
                     .addComponent(jIDPesqRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
@@ -380,14 +379,13 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesqNomeInterno)
+                    .addComponent(jLabel5)
                     .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jBtPesqNomeInterno))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jBtPesqNomeVisitaInterna)
                     .addComponent(jNomeVisitaInterna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqNomeVisitaInterna)
                     .addComponent(jLabel22))
                 .addContainerGap())
         );
@@ -473,14 +471,16 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -534,12 +534,12 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jStatusRol)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jStatusRol, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDataRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,10 +551,10 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel12)
                     .addComponent(jStatusRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Código");
@@ -563,27 +563,8 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jIDInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIDInterno.setEnabled(false);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Nome Completo do Interno");
-
-        jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInterno.setEnabled(false);
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 51))); // NOI18N
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Mãe:");
+        jLabel6.setText("Nome da Mãe");
 
         jMaeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jMaeInterno.setEnabled(false);
@@ -598,22 +579,28 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Pai:");
+        jLabel7.setText("Nome do Pai");
 
         jPaiInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPaiInterno.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Dt. Nasc:");
+        jLabel8.setText("Dt. Nascimento");
 
         jDataNascInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataNascInterno.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Data Entrada:");
+        jLabel9.setText("Data Entrada");
 
         jDataEntradaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataEntradaInterno.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Nome Completo do Interno");
+
+        jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInterno.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -622,69 +609,64 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIDInterno, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addGap(6, 6, 6)))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPaiInterno)
+                    .addComponent(jMaeInterno)
+                    .addComponent(jNomeInterno)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jDataNascInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                                .addComponent(jLabel9)
+                                .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDataEntradaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPaiInterno)
-                            .addComponent(jMaeInterno)
-                            .addComponent(jNomeInterno, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jDataNascInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDataEntradaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
+
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDataEntradaInterno, jLabel9});
+
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesqInterno))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jPaiInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel9)
-                            .addComponent(jDataNascInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(jDataEntradaInterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(5, 5, 5))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqInterno)
+                    .addComponent(jDataNascInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataEntradaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPaiInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -814,21 +796,21 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir)
                 .addGap(2, 2, 2)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAuditoriaManu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -849,7 +831,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                             .addComponent(jBtAuditoriaManu)
                             .addComponent(jBtImpressao)
                             .addComponent(jBtFinalizar))))
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Observações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -870,15 +852,15 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Portaria", jPanel18);
@@ -894,15 +876,15 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addGap(4, 4, 4))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Serviço Social", jPanel19);
@@ -913,28 +895,25 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(2, 2, 2)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -1002,7 +981,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jCombBoxStatusVisita.setEnabled(false);
 
         jComboBoxParentesco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Filho(a) Adotivo", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", "Neto(a)", "Enteado(a)", "Bisneto(a)", "Namorado(a)", "Outross" }));
+        jComboBoxParentesco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Filho(a) Adotivo", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", "Neto(a)", "Enteado(a)", "Bisneto(a)", "Namorado(a)", "Madrinha", "Padrinho", "Outros" }));
         jComboBoxParentesco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxParentesco.setEnabled(false);
 
@@ -1011,53 +990,54 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel10)))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jComboBoxParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCombBoxStatusVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDataNascVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel10)))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel11))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel18)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jDataValiAntecedente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jDataNascVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel18)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jDataValiAntecedente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                                .addComponent(jLabel16)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jDataCadaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addComponent(jLabel16)
+                                        .addComponent(jComboBoxParentesco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jDataCadaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel11)))
-                .addGap(143, 143, 143))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jIDVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jNomeVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtPesqVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(135, 135, 135))
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jCombBoxStatusVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jIDVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNomeVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesqVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jPanel9Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCombBoxStatusVisita, jDataCadaVisita, jDataValiAntecedente});
@@ -1075,8 +1055,8 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jIDVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel13)
                     .addComponent(jComboBoxParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
                     .addComponent(jLabel14)
                     .addComponent(jCombBoxStatusVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1087,10 +1067,10 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     .addComponent(jDataCadaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel18)
-                    .addComponent(jDataValiAntecedente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
                     .addComponent(jDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
+                    .addComponent(jLabel18)
+                    .addComponent(jDataValiAntecedente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -1184,15 +1164,15 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jBtNovoVisita)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterarVisita)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluirVisita)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvarVisita)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelarVisita)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaVisitas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1236,22 +1216,6 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             jTabelaVisita.getColumnModel().getColumn(4).setMaxWidth(80);
         }
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(FotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1259,21 +1223,16 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1335,8 +1294,10 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel28.setText("Grau Parentesco");
 
-        jGrauParentescoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jGrauParentescoInterno.setEnabled(false);
+        jComboBoxGrauParentescoInterno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxGrauParentescoInterno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Companheiro(a)", "Esposo(a)", "Irmão(ã)", "Tio(a)", "Sobrinho(a)", "Avô(ó)", "Pai", "Mãe", "Filho(a)", "Filho(a) Adotivo", "Mãe Adotiva", "Pai Adotivo", "Padastro", "Madastra", "Cunhado(a)", "Primo(a)", "Genro", "Nora", "Neto(a)", "Enteado(a)", "Bisneto(a)", "Namorado(a)", "Madrinha", "Padrinho", "Outros" }));
+        jComboBoxGrauParentescoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxGrauParentescoInterno.setEnabled(false);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1350,7 +1311,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                             .addGroup(jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel28)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jGrauParentescoInterno))
+                            .addComponent(jComboBoxGrauParentescoInterno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel27)
@@ -1401,7 +1362,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jGrauParentescoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxGrauParentescoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1521,16 +1482,16 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addComponent(jBtNovoItem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterarItem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluirItem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvarItem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelarItem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaItens, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAuditoriaItens, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
@@ -1544,21 +1505,6 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 .addComponent(jBtNovoItem))
         );
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jFotoInternoLista, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoLista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -1566,44 +1512,98 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Internos", jPanel11);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 51))); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+        );
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(FotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addComponent(jFotoInternoLista, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoLista, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBounds(250, 20, 575, 493);
+        setBounds(250, 20, 674, 493);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1684,22 +1684,26 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     if (acao == 1) {
                         verificarInterno();
                         if (jIDInterno.getText().equals(codInternoCrc)) {
-                            JOptionPane.showMessageDialog(rootPane, "Interno já foi lançado no Rol.");
-                        } else {
-                            objRol.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                            objRol.setNomeInternoCrc(jNomeInterno.getText());
-                            control.incluirRolVisitas(objRol);
-                            buscarIDRol();
-                            // SE O INTERNO EXISITIR NA ATENDIMENTO, MUDAR O CAMPO PARA "Sim"
-                            if (jIDInterno.getText().equals(codInternoSocial)) {
-                                objRol.setRecebeVisita(recebeVisita);
+                            int resposta = JOptionPane.showConfirmDialog(this, "Esse interno já foi cadastrado no Rol, deseja fazer outro cadastro do ROL desse mesmo interno?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
                                 objRol.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                control.alterarRecebeVisitaAtendimentoSocial(objRol);
+                                objRol.setNomeInternoCrc(jNomeInterno.getText());
+                                control.incluirRolVisitas(objRol);
+                                buscarIDRol();
+                                // SE O INTERNO EXISITIR NA ATENDIMENTO, MUDAR O CAMPO PARA "Sim"
+                                if (jIDInterno.getText().equals(codInternoSocial)) {
+                                    objRol.setRecebeVisita(recebeVisita);
+                                    objRol.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                    control.alterarRecebeVisitaAtendimentoSocial(objRol);
+                                }
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                Salvar();
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Inclusão do novo registro foi cancelado pelo usuário.");
                             }
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            Salvar();
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         }
                     }
                     if (acao == 2) {
@@ -1968,9 +1972,20 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 jPaiInterno.setText(conecta.rs.getString("PaiInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInterno.setIcon(i);
-                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInterno.setIcon(i);
+                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
                 jDataNascInterno.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jDataEntradaInterno.setDate(conecta.rs.getDate("DataEntrada"));
                 jObsRol.setText(conecta.rs.getString("ObsRol"));
@@ -2278,7 +2293,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 jFotoInternoLista.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoLista.getWidth(), jFotoInternoLista.getHeight(), Image.SCALE_DEFAULT)));
                 jSituacaoInternoLista.setText(conecta.rs.getString("SituacaoCrc"));
                 jDataValidade.setDate(conecta.rs.getDate("DataValidade"));
-                jGrauParentescoInterno.setText(conecta.rs.getString("GrauParentesco"));
+                jComboBoxGrauParentescoInterno.setSelectedItem(conecta.rs.getString("GrauParentesco"));
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem alterado!!!" + ex);
@@ -2376,7 +2391,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                         objItensLista.setNomeInterno(jNomeInterna.getText());
                         objItensLista.setStatusInterno((String) jComboBoxStatusInterno.getSelectedItem());
                         objItensLista.setDataValidade(jDataValidade.getDate());
-                        objItensLista.setGrauParentescoInterno(jGrauParentescoInterno.getText());
+                        objItensLista.setGrauParentescoInterno((String) jComboBoxGrauParentescoInterno.getSelectedItem());
                         objItensLista.setIdLista(Integer.valueOf(jIDRol.getText()));
                         if (acao == 3) {
                             objItensLista.setUsuarioInsert(nameUser);
@@ -2487,6 +2502,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvarVisita;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jCombBoxStatusVisita;
+    private javax.swing.JComboBox<String> jComboBoxGrauParentescoInterno;
     public static javax.swing.JComboBox<String> jComboBoxParentesco;
     private javax.swing.JComboBox jComboBoxStatusInterno;
     public static com.toedter.calendar.JDateChooser jDataCadaVisita;
@@ -2501,7 +2517,6 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataValidade;
     public static javax.swing.JLabel jFotoInterno;
     public static javax.swing.JLabel jFotoInternoLista;
-    private javax.swing.JTextField jGrauParentescoInterno;
     public static javax.swing.JTextField jIDInterno;
     private javax.swing.JTextField jIDPesqRol;
     public static javax.swing.JTextField jIDRol;
@@ -2609,7 +2624,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jDataCadaVisita.setBackground(Color.white);
         jDataInicio.setBackground(Color.white);
         jDataValiAntecedente.setBackground(Color.white);
-        jGrauParentescoInterno.setBackground(Color.white);
+        jComboBoxGrauParentescoInterno.setBackground(Color.white);
         //
         jIdInternoLista.setBackground(Color.white);
         jComboBoxStatusInterno.setBackground(Color.white);
@@ -2678,12 +2693,12 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Desabilita/Habilita botões quando necessario
         jBtNovoItem.setEnabled(!true);
         jBtAlterarItem.setEnabled(!true);
@@ -2741,12 +2756,12 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Desabilita/Habilita botões quando necessario
         jBtNovoItem.setEnabled(!true);
         jBtAlterarItem.setEnabled(!true);
@@ -2812,12 +2827,12 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Desabilita/Habilita botões quando necessario
         jBtNovoItem.setEnabled(!true);
         jBtAlterarItem.setEnabled(!true);
@@ -2890,7 +2905,9 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
     public void buscarIDRol() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ROLVISITAS");
+            conecta.executaSQL("SELECT "
+                    + "IdRol "
+                    + "FROM ROLVISITAS");
             conecta.rs.last();
             jIDRol.setText(String.valueOf(conecta.rs.getInt("IdRol")));
             conecta.desconecta();
@@ -2902,7 +2919,11 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
     public void verificarVisitaRol() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSROL WHERE IdRol='" + jIDRol.getText() + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdRol, "
+                    + "IdInternoCrc "
+                    + "FROM ITENSROL "
+                    + "WHERE IdRol='" + jIDRol.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
             codigoRol = conecta.rs.getString("IdRol");
@@ -2914,7 +2935,10 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
     public void verificarInternoAtendimentoSS() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc "
+                    + "FROM ATENDIMENTOSOCIAL "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
             conecta.rs.first();
             codInternoSocial = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {
@@ -2970,7 +2994,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Desabilita/Habilita botões quando necessario
         jBtNovoItem.setEnabled(!true);
         jBtAlterarItem.setEnabled(!true);
@@ -3017,12 +3041,12 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Desabilita/Habilita botões quando necessario
         jBtNovoItem.setEnabled(!true);
         jBtAlterarItem.setEnabled(!true);
@@ -3058,13 +3082,13 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jComboBoxParentesco.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Desabilita/Habilita botões quando necessario
         jBtNovoItem.setEnabled(true);
         jBtAlterarItem.setEnabled(!true);
@@ -3182,7 +3206,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setCalendar(Calendar.getInstance());
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -3201,7 +3225,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtPesqInterna.setEnabled(true);
         jComboBoxStatusInterno.setEnabled(true);
         jDataValidade.setEnabled(true);
-        jGrauParentescoInterno.setEnabled(true);
+        jComboBoxGrauParentescoInterno.setEnabled(true);
         jTabelaItensInternas.setVisible(true);
         // Visita externa
         jIDVisita.setText("");
@@ -3250,7 +3274,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jComboBoxStatusInterno.setEnabled(true);
         jBtPesqInterna.setEnabled(true);
         jDataValidade.setEnabled(true);
-        jGrauParentescoInterno.setEnabled(true);
+        jComboBoxGrauParentescoInterno.setEnabled(true);
         jTabelaItensInternas.setVisible(true);
         // Visita externa
         jIDVisita.setText("");
@@ -3286,7 +3310,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -3305,7 +3329,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Visita externa
         jIDVisita.setText("");
         jNomeVisita.setText("");
@@ -3338,7 +3362,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -3357,7 +3381,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // Visita externa
         jIDVisita.setText("");
         jNomeVisita.setText("");
@@ -3391,7 +3415,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jSituacaoInternoLista.setText("");
         jFotoInternoLista.setIcon(null);
         jDataValidade.setDate(null);
-        jGrauParentescoInterno.setText("");
+        jComboBoxGrauParentescoInterno.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -3412,7 +3436,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtPesqInterna.setEnabled(!true);
         jComboBoxStatusInterno.setEnabled(!true);
         jDataValidade.setEnabled(!true);
-        jGrauParentescoInterno.setEnabled(!true);
+        jComboBoxGrauParentescoInterno.setEnabled(!true);
         // jTabelaInternosLista.setVisible(true);
     }
 
@@ -3766,7 +3790,10 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
     public void verificarInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ROLVISITAS WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc "
+                    + "FROM ROLVISITAS "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "'");
             conecta.rs.first();
             codInternoCrc = conecta.rs.getString("IdInternoCrc");
         } catch (SQLException ex) {
@@ -3776,14 +3803,21 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
     public void buscarAcessoUsuario(String nomeTela) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "NomeUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
             codigoUserSS = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+            conecta.executaSQL("SELECT "
+                    + "USUARIOS_GRUPOS.IdUsuario, "
+                    + "USUARIOS_GRUPOS.IdGrupo,  "
+                    + "GRUPOUSUARIOS.NomeGrupo "
+                    + "FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                     + "WHERE IdUsuario='" + codigoUserSS + "'");
@@ -3794,7 +3828,16 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "Abrir, "
+                    + "Incluir, "
+                    + "Alterar, "
+                    + "Excluir, "
+                    + "Gravar, "
+                    + "Consultar, "
+                    + "NomeTela "
+                    + "FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserSS + "' "
                     + "AND NomeTela='" + nomeTela + "'");
             conecta.rs.first();
