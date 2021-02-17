@@ -58,7 +58,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Ronaldo
  */
 public class TelaRolVisitas extends javax.swing.JInternalFrame {
-
+    
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     RolVisitas objRol = new RolVisitas();
     ControleRolVisitas control = new ControleRolVisitas();
@@ -1684,26 +1684,22 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                     if (acao == 1) {
                         verificarInterno();
                         if (jIDInterno.getText().equals(codInternoCrc)) {
-                            int resposta = JOptionPane.showConfirmDialog(this, "Esse interno já foi cadastrado no Rol, deseja fazer outro cadastro do ROL desse mesmo interno?", "Confirmação",
-                                    JOptionPane.YES_NO_OPTION);
-                            if (resposta == JOptionPane.YES_OPTION) {
+                            JOptionPane.showMessageDialog(rootPane, "Interno já foi cadastrado no Rol de visitas.");
+                        } else {                            
+                            objRol.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                            objRol.setNomeInternoCrc(jNomeInterno.getText());
+                            control.incluirRolVisitas(objRol);
+                            buscarIDRol();
+                            // SE O INTERNO EXISITIR NA ATENDIMENTO, MUDAR O CAMPO PARA "Sim"
+                            if (jIDInterno.getText().equals(codInternoSocial)) {
+                                objRol.setRecebeVisita(recebeVisita);
                                 objRol.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                objRol.setNomeInternoCrc(jNomeInterno.getText());
-                                control.incluirRolVisitas(objRol);
-                                buscarIDRol();
-                                // SE O INTERNO EXISITIR NA ATENDIMENTO, MUDAR O CAMPO PARA "Sim"
-                                if (jIDInterno.getText().equals(codInternoSocial)) {
-                                    objRol.setRecebeVisita(recebeVisita);
-                                    objRol.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                    control.alterarRecebeVisitaAtendimentoSocial(objRol);
-                                }
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                Salvar();
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            } else {
-                                JOptionPane.showMessageDialog(rootPane, "Inclusão do novo registro foi cancelado pelo usuário.");
+                                control.alterarRecebeVisitaAtendimentoSocial(objRol);
                             }
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         }
                     }
                     if (acao == 2) {
@@ -2602,7 +2598,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jObservacaoPortaria.setLineWrap(true);
         jObservacaoPortaria.setWrapStyleWord(true);
     }
-
+    
     public void corCampo() {
         // 
         jIDRol.setBackground(Color.white);
@@ -2633,7 +2629,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jFotoInternoLista.setBackground(Color.white);
         jDataValidade.setBackground(Color.white);
     }
-
+    
     public void Novo() {
         // Limpar os campos para inclusão
         jIDRol.setText("");
@@ -2707,7 +2703,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelarItem.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
     }
-
+    
     public void Alterar() {
         // Habilitar/Desabilitar botões
         if (jIDRol.getText().equals(codigoRol) && jIDInterno.getText().equals(codigoInterno)) {
@@ -2770,7 +2766,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelarItem.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
     }
-
+    
     public void Excluir() {
         // Limpar os campos para inclusão
         jIDRol.setText("");
@@ -2841,7 +2837,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelarItem.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
     }
-
+    
     public void Salvar() {
         // Habilitar/Desabilitar botões
         jBtPesqInterno.setEnabled(!true);
@@ -2860,7 +2856,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtNovoVisita.setEnabled(true);
         jBtNovoItem.setEnabled(true);
     }
-
+    
     public void Cancelar() {
         if (jIDRol.getText().equals("")) {
             jDataRol.setDate(null);
@@ -2915,7 +2911,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar LANÇAMENTO DE ROL \nERRO: " + ex);
         }
     }
-
+    
     public void verificarVisitaRol() {
         conecta.abrirConexao();
         try {
@@ -2931,7 +2927,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-
+    
     public void verificarInternoAtendimentoSS() {
         conecta.abrirConexao();
         try {
@@ -2945,7 +2941,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-
+    
     public void NovaVisita() {
         // Limpar os campos para inclusão
         jIDVisita.setText("");
@@ -3003,9 +2999,9 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelarItem.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
     }
-
+    
     public void AlterarVisita() {
-
+        
         jBtPesqVisita.setEnabled(true);
         jComboBoxParentesco.setEnabled(true);
         jDataInicio.setEnabled(true);
@@ -3055,7 +3051,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelarItem.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
     }
-
+    
     public void ExcluirVisita() {
         // Limpar os campos para inclusão
         jIDVisita.setText("");
@@ -3104,7 +3100,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtFinalizar.setEnabled(true);
     }
-
+    
     public void SalvarVisita() {
 
         // Limpar os campos para inclusão
@@ -3153,9 +3149,9 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtFinalizar.setEnabled(true);
     }
-
+    
     public void CancelarVisita() {
-
+        
         jIDVisita.setText("");
         jNomeVisita.setText("");
         jComboBoxParentesco.removeItem(null);
@@ -3198,7 +3194,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtFinalizar.setEnabled(true);
     }
-
+    
     public void NovoItem() {
         jIdInternoLista.setText("");
         jComboBoxStatusInterno.setSelectedItem("Ativo");
@@ -3254,7 +3250,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         // Campos para preenchimento
         jDataInicio.setEnabled(!true);
     }
-
+    
     public void AlterarItem() {
         //
         jBtNovo.setEnabled(!true);
@@ -3302,7 +3298,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         // Campos para preenchimento
         jDataInicio.setEnabled(!true);
     }
-
+    
     public void ExcluirItem() {
         jIdInternoLista.setText("");
         jComboBoxStatusInterno.setSelectedItem(null);
@@ -3354,7 +3350,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtAuditoriaVisitas.setEnabled(!true);
         jBtImpressao.setEnabled(!true);
     }
-
+    
     public void SalvarItem() {
         jIdInternoLista.setText("");
         jComboBoxStatusInterno.setSelectedItem(null);
@@ -3406,7 +3402,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jBtAuditoriaVisitas.setEnabled(!true);
         jBtImpressao.setEnabled(!true);
     }
-
+    
     public void CancelarItem() {
         //
         jIdInternoLista.setText("");
@@ -3477,7 +3473,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         alinharCamposTabelaItensVisita();
         conecta.desconecta();
     }
-
+    
     public void alinharCamposTabelaItensVisita() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -3490,7 +3486,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jTabelaVisita.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTabelaVisita.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
-
+    
     public void limparTabelaVisitas() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome da Visita", "Data Inicio", "Parentesco", "Status"};
@@ -3511,7 +3507,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jTabelaVisita.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
-
+    
     public void preencherTabelaInternas(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Seq.", "Código", "Nome do Interno ", "Data Validade ", "Status"};
@@ -3548,7 +3544,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         alinharCamposItensInternas();
         conecta.desconecta();
     }
-
+    
     public void limparTabelaItensInternas() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Seq.", "Código", "Nome do Interno ", "Data Validade ", "Status"};
@@ -3569,7 +3565,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jTabelaItensInternas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
-
+    
     public void alinharCamposItensInternas() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -3583,7 +3579,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jTabelaItensInternas.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaItensInternas.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
-
+    
     public void preencherTodosRols(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Nome do Interno", "Observação"};
@@ -3621,7 +3617,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         alinharColunasTabelaRol();
         conecta.desconecta();
     }
-
+    
     public void preencherRolsData(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Nome do Interno", "Observação"};
@@ -3698,7 +3694,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         alinharColunasTabelaRol();
         conecta.desconecta();
     }
-
+    
     public void limparTabelaRol() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Nome do Interno ", "Observação "};
@@ -3717,7 +3713,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jTabelaPesquisaRol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
-
+    
     public void alinharColunasTabelaRol() {
         //
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
@@ -3730,7 +3726,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         jTabelaPesquisaRol.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaPesquisaRol.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
-
+    
     public void verificarItens() {
         statusMov = "Excluiu";
         horaMov = jHoraSistema.getText();
@@ -3759,7 +3755,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -3768,7 +3764,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-
+    
     public void objLog2() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -3777,7 +3773,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-
+    
     public void objLog3() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -3786,7 +3782,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-
+    
     public void verificarInterno() {
         conecta.abrirConexao();
         try {
@@ -3799,7 +3795,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
         }
     }
-
+    
     public void buscarAcessoUsuario(String nomeTela) {
         conecta.abrirConexao();
         try {
