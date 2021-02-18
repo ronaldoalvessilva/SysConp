@@ -1397,6 +1397,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             jTipoSaida.setText("");
             jNrDocumento.setText("");
             jHorarioSaida.setText("");
+            jComboBoxUnidadeDestino.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
@@ -1430,7 +1431,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                 idSaidTransfTmp = conecta.rs.getString("IdSaidaTmp"); // Item da tabela ITENSTRANSFERENCIA gravado na tabela ITENSREGSAIDA
                 jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                 jTipoSaida.setText(conecta.rs.getString("DestinoSaida"));
-                jComboBoxUnidadeDestino.setSelectedItem(conecta.rs.getString("LocalSaida"));
+                jComboBoxUnidadeDestino.addItem(conecta.rs.getString("LocalSaida"));
                 jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                 jHorarioSaida.setText(conecta.rs.getString("HoraSaida"));
                 assinaturaDigital = conecta.rs.getBytes("AssinaturaSaida");
