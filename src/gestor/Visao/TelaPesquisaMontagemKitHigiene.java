@@ -11,6 +11,7 @@ import gestor.Controle.ControleListaProdutosKitCompleto;
 import gestor.Controle.ControleProdutosKitLote;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.PavilhaoInternosSelecionados;
 import gestor.Modelo.ProdutoInternosKitLote;
@@ -56,6 +57,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosSelec;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosKitComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProdutosKitComo;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -101,6 +103,10 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     String idKit;
     String caminhoFoto;
     String tipoKit = "";
+    //
+    String pDESCRICAO_pavilhao = "";
+    String pNOME_pavilhao = "";
+    public static int pTOTAL_KITS_registrados = 0;
 
     /**
      * Creates new form TelaPesquisaMontagemKitHigiene
@@ -112,6 +118,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(motaPagtoKit);
         initComponents();
+        corCampo();
     }
 
     /**
@@ -134,6 +141,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         jDataPesFinal = new com.toedter.calendar.JDateChooser();
         jBtPesquisaData = new javax.swing.JButton();
         jCheckBoxTodos = new javax.swing.JCheckBox();
+        jLabel6 = new javax.swing.JLabel();
+        jDescricaoPavilhao = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaRegistrosMontagemKits = new javax.swing.JTable();
         jBtConfirmar = new javax.swing.JButton();
@@ -201,46 +210,63 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Pavilhão:");
+
+        jDescricaoPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDescricaoPavilhao.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
+                .addGap(60, 60, 60)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCodigoRegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesquisaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jCodigoRegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDescricaoPavilhao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCheckBoxTodos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jLabel1)
+                        .addComponent(jCodigoRegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtPesquisaCodigo)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtPesquisaData))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jCheckBoxTodos)))
+                .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(jCodigoRegistroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisaCodigo)
-                    .addComponent(jLabel2)
-                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisaData)
-                    .addComponent(jCheckBoxTodos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDescricaoPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(5, 5, 5))
         );
 
         TabelaRegistrosMontagemKits.setAutoCreateRowSorter(true);
@@ -254,7 +280,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -474,19 +500,19 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtConfirmar)
                     .addComponent(jBtSair))
@@ -503,8 +529,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         if (jCodigoRegistroPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do Registro para pesquisa.");
         } else {
-            preencherTabelaRegistrosMontagemKits("SELECT "
-                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -514,24 +540,12 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                    + "COLABORADOR.NomeFunc, "
-                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                    + "PAVILHAO.DescricaoPav "
+                    + "COLABORADOR.NomeFunc "
                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                     + "INNER JOIN COLABORADOR "
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                    + "INNER JOIN DEPARTAMENTOS "
-                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + jCodigoRegistroPesquisa.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesquisaCodigoActionPerformed
@@ -558,8 +572,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         if (jComboBoxSelecionarKit.getSelectedItem().equals("Selecione...")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -569,29 +583,17 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "'");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Inicial")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -601,30 +603,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitInicial=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Decendial")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -634,30 +624,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitDecendial=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Quinzenal")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -667,30 +645,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitQuinzenal=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Mensal")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -700,30 +666,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitMensal=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Semestral")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -733,30 +687,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitSemestral=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Anual")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -766,24 +708,12 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitAnual=1");
@@ -807,8 +737,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         if (jComboBoxSelecionarKit.getSelectedItem().equals("Selecione...")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -818,29 +748,17 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "'");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Inicial")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -850,30 +768,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitInicial=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Decendial")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -883,30 +789,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitDecendial=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Quinzenal")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -916,30 +810,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitQuinzenal=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Mensal")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -949,30 +831,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitMensal=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Semestral")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -982,30 +852,18 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitSemestral=1");
                         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Anual")) {
-                            preencherTabelaRegistrosMontagemKits("SELECT "
-                                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                                     + "KITS_HIGIENE_INTERNO.IdKit, "
                                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -1015,24 +873,12 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                                    + "COLABORADOR.NomeFunc, "
-                                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                                    + "PAVILHAO.DescricaoPav "
+                                    + "COLABORADOR.NomeFunc "
                                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                                     + "INNER JOIN KITS_HIGIENE_INTERNO "
                                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                                    + "INNER JOIN PAVILHAO "
-                                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                                     + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
                                     + "AND KITS_HIGIENE_INTERNO.KitAnual=1");
@@ -1049,8 +895,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         count1 = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaRegistrosMontagemKits("SELECT "
-                    + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+            this.preencherTabelaRegistrosMontagemKits("SELECT DISTINCT "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
                     + "KITS_HIGIENE_INTERNO.KitInicial, "
@@ -1060,24 +906,12 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     + "KITS_HIGIENE_INTERNO.KitSemestral, "
                     + "KITS_HIGIENE_INTERNO.KitAnual, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
-                    + "COLABORADOR.NomeFunc, "
-                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
-                    + "PAVILHAO.DescricaoPav "
+                    + "COLABORADOR.NomeFunc "
                     + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                     + "INNER JOIN COLABORADOR "
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                    + "INNER JOIN DEPARTAMENTOS "
-                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN KITS_HIGIENE_INTERNO "
-                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem=PRODUTOS_KITS_HIGIENE_INTERNO.IdItem "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
-                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit  "
                     + "ORDER BY DataComp");
         } else {
             limparTabela();
@@ -1094,6 +928,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             idKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 2);
             codigoPesquisaKit = Integer.valueOf(idKit);
             tipoKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 3);
+            String pPAVILHAO = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 6);
+            jDescricaoPavilhao.setText(pPAVILHAO);
             //
             if (tipoKit.equals("Kit Inicial")) {
                 kitInicial = 1;
@@ -1109,7 +945,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jRBtKitSemestraPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Anual")) {
                 jRBtKitAnualPesquisa.setSelected(!true);
-            }
+            }            
         }
     }//GEN-LAST:event_TabelaRegistrosMontagemKitsMouseClicked
 
@@ -1136,7 +972,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jRBtKitInicial.setSelected(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    conecta.executaSQL("SELECT * "
+                            + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                             + "INNER JOIN KITS_HIGIENE_INTERNO ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
@@ -1444,7 +1281,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         if (jComboBoxSelecionarKit.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de kit para pesquisar.");
         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Inicial") && jDataPesqInicial.getDate() == null || jComboBoxSelecionarKit.getSelectedItem().equals("Kit Inicial") && jDataPesFinal.getDate() == null) {
-            preencherTabelaRegistrosMontagemKits("SELECT "
+            preencherTabelaRegistrosMontagemKits2("SELECT "
                     + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1482,7 +1319,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1519,7 +1356,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1554,7 +1391,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         + "ORDER BY DataComp");
             }
         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Decendial") && jDataPesqInicial.getDate() == null || jComboBoxSelecionarKit.getSelectedItem().equals("Kit Decendial") && jDataPesFinal.getDate() == null) {
-            preencherTabelaRegistrosMontagemKits("SELECT "
+            preencherTabelaRegistrosMontagemKits2("SELECT "
                     + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1592,7 +1429,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1629,7 +1466,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1664,7 +1501,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         + "ORDER BY DataComp");
             }
         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Quinzenal") && jDataPesqInicial.getDate() == null || jComboBoxSelecionarKit.getSelectedItem().equals("Kit Quibzenal") && jDataPesFinal.getDate() == null) {
-            preencherTabelaRegistrosMontagemKits("SELECT "
+            preencherTabelaRegistrosMontagemKits2("SELECT "
                     + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1702,7 +1539,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1739,7 +1576,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1774,7 +1611,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         + "ORDER BY DataComp");
             }
         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Mensal") && jDataPesqInicial.getDate() == null || jComboBoxSelecionarKit.getSelectedItem().equals("Kit Mensal") && jDataPesFinal.getDate() == null) {
-            preencherTabelaRegistrosMontagemKits("SELECT "
+            preencherTabelaRegistrosMontagemKits2("SELECT "
                     + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1812,7 +1649,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1849,7 +1686,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1884,7 +1721,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         + "ORDER BY DataComp");
             }
         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Semestral") && jDataPesqInicial.getDate() == null || jComboBoxSelecionarKit.getSelectedItem().equals("Kit Semestral") && jDataPesFinal.getDate() == null) {
-            preencherTabelaRegistrosMontagemKits("SELECT "
+            preencherTabelaRegistrosMontagemKits2("SELECT "
                     + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1922,7 +1759,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1959,7 +1796,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -1994,7 +1831,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                         + "ORDER BY DataComp");
             }
         } else if (jComboBoxSelecionarKit.getSelectedItem().equals("Kit Anual") && jDataPesqInicial.getDate() == null || jComboBoxSelecionarKit.getSelectedItem().equals("Kit Anual") && jDataPesFinal.getDate() == null) {
-            preencherTabelaRegistrosMontagemKits("SELECT "
+            preencherTabelaRegistrosMontagemKits2("SELECT "
                     + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                     + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                     + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -2032,7 +1869,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -2069,7 +1906,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                preencherTabelaRegistrosMontagemKits("SELECT "
+                preencherTabelaRegistrosMontagemKits2("SELECT "
                         + "DISTINCT COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
                         + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                         + "KITS_HIGIENE_INTERNO.IdKit, "
@@ -2159,15 +1996,17 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     private javax.swing.JButton jBtPesquisaTipoKit;
     private javax.swing.JButton jBtSair;
     private javax.swing.JCheckBox jCheckBoxTodos;
-    private javax.swing.JTextField jCodigoRegistroPesquisa;
+    public static javax.swing.JTextField jCodigoRegistroPesquisa;
     private javax.swing.JComboBox<String> jComboBoxSelecionarKit;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private javax.swing.JTextField jDescricaoPavilhao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -2185,7 +2024,73 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     public static javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void corCampo() {
+        jDescricaoPavilhao.setBackground(Color.white);
+    }
+
     public void preencherTabelaRegistrosMontagemKits(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            count = 0;
+            do {
+                count = count + 1;
+                dataEmissao = conecta.rs.getString("DataComp");
+                String dia = dataEmissao.substring(8, 10);
+                String mes = dataEmissao.substring(5, 7);
+                String ano = dataEmissao.substring(0, 4);
+                dataEmissao = dia + "/" + mes + "/" + ano;
+                //
+                kitInicial = conecta.rs.getInt("KitInicial");
+                kitDecendial = conecta.rs.getInt("KitDecendial");
+                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
+                kitMensal = conecta.rs.getInt("KitMensal");
+                kitSemestral = conecta.rs.getInt("KitSemestral");
+                kitAnual = conecta.rs.getInt("KitAnual");
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                }
+                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistroComp"), dataEmissao, conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getString("IdFunc"), conecta.rs.getString("NomeFunc")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        TabelaRegistrosMontagemKits.setModel(modelo);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setPreferredWidth(70);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setPreferredWidth(80);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setPreferredWidth(60);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setPreferredWidth(70);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(3).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setPreferredWidth(60);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setResizable(false);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setPreferredWidth(350);
+        TabelaRegistrosMontagemKits.getColumnModel().getColumn(5).setResizable(false);
+        TabelaRegistrosMontagemKits.getTableHeader().setReorderingAllowed(false);
+        TabelaRegistrosMontagemKits.setAutoResizeMode(TabelaRegistrosMontagemKits.AUTO_RESIZE_OFF);
+        TabelaRegistrosMontagemKits.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaRegistrosMontagemKits();
+        conecta.desconecta();
+    }
+
+    public void preencherTabelaRegistrosMontagemKits2(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador", "Pavilhão/Galeria"};
         conecta.abrirConexao();
@@ -2220,6 +2125,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } else if (kitSemestral == 1) {
                     nomeKit = "Kit Semestral";
                 }
+                jDescricaoPavilhao.setText(conecta.rs.getString("DescricaoPav"));
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
                 dados.add(new Object[]{conecta.rs.getInt("IdRegistroComp"), dataEmissao, conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getString("IdFunc"), conecta.rs.getString("NomeFunc"), conecta.rs.getString("DescricaoPav")});
             } while (conecta.rs.next());
@@ -2311,6 +2217,57 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         }
     }
 
+    public void pMOSTRAR_KIT_codigo() {
+        count = 0;
+        pDESCRICAO_pavilhao = "";
+        DefaultTableModel dadosProduto = (DefaultTableModel) TabelaRegistrosMontagemKits.getModel();
+        ComposicaoKit p = new ComposicaoKit();
+        try {
+            for (ComposicaoKit i : controle.pCODIGO_read()) {
+                count = count + 1;
+                dataEmissao = i.getDataComp().toString();
+                String dia = dataEmissao.substring(8, 10);
+                String mes = dataEmissao.substring(5, 7);
+                String ano = dataEmissao.substring(0, 4);
+                dataEmissao = dia + "/" + mes + "/" + ano;
+                //
+                kitInicial = i.getKitInicial();
+                kitDecendial = i.getKitDecendial();
+                kitQuinzenal = i.getKitQuinzenal();
+                kitMensal = i.getKitMensal();
+                kitSemestral = i.getKitSemestral();
+                kitAnual = i.getKitAnual();
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                }
+                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{i.getIdRegistroComp(), dataEmissao, i.getIdKit(), nomeKit, i.getIdFunc(), i.getNomeColaborador(), pDESCRICAO_pavilhao});
+                // BARRA DE ROLAGEM HORIZONTAL
+                TabelaRegistrosMontagemKits.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                TabelaRegistrosMontagemKits.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaMontagemKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void mostrarProdutosSelecionados() {
         qtdProd = 0;
         DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaProdutos.getModel();
@@ -2331,7 +2288,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jTabelaProdutos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaMontagemKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -2352,7 +2309,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jTabelaInternosKitCompleto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaMontagemKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -2373,7 +2330,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jTabelaProdutosKitCompleto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaMontagemKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -23,6 +23,12 @@ public class ComposicaoKit {
     private String observacao;
     private String progGerada;
     private Date dataProgramacao;
+    private int kitInicial;
+    private int kitDecendial;
+    private int kitQuinzenal;
+    private int kitMensal;
+    private int kitSemestral;
+    private int kitAnual;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -30,12 +36,12 @@ public class ComposicaoKit {
     private String horarioInsert;
     private String horarioUp;
     private String kitPago;
-    private Date dataPagamentoKit;
+    private Date dataPagamentoKit;   
 
     public ComposicaoKit() {
     }
 
-    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, int idKit, int idItem, int idFunc, String nomeColaborador, String observacao, String progGerada, Date dataProgramacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String kitPago, Date dataPagamentoKit) {
+    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, int idKit, int idItem, int idFunc, String nomeColaborador, String observacao, String progGerada, Date dataProgramacao, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String kitPago, Date dataPagamentoKit) {
         this.idRegistroComp = idRegistroComp;
         this.statusComp = statusComp;
         this.dataComp = dataComp;
@@ -46,6 +52,12 @@ public class ComposicaoKit {
         this.observacao = observacao;
         this.progGerada = progGerada;
         this.dataProgramacao = dataProgramacao;
+        this.kitInicial = kitInicial;
+        this.kitDecendial = kitDecendial;
+        this.kitQuinzenal = kitQuinzenal;
+        this.kitMensal = kitMensal;
+        this.kitSemestral = kitSemestral;
+        this.kitAnual = kitAnual;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -194,6 +206,90 @@ public class ComposicaoKit {
      */
     public void setDataProgramacao(Date dataProgramacao) {
         this.dataProgramacao = dataProgramacao;
+    }
+
+    /**
+     * @return the kitInicial
+     */
+    public int getKitInicial() {
+        return kitInicial;
+    }
+
+    /**
+     * @param kitInicial the kitInicial to set
+     */
+    public void setKitInicial(int kitInicial) {
+        this.kitInicial = kitInicial;
+    }
+
+    /**
+     * @return the kitDecendial
+     */
+    public int getKitDecendial() {
+        return kitDecendial;
+    }
+
+    /**
+     * @param kitDecendial the kitDecendial to set
+     */
+    public void setKitDecendial(int kitDecendial) {
+        this.kitDecendial = kitDecendial;
+    }
+
+    /**
+     * @return the kitQuinzenal
+     */
+    public int getKitQuinzenal() {
+        return kitQuinzenal;
+    }
+
+    /**
+     * @param kitQuinzenal the kitQuinzenal to set
+     */
+    public void setKitQuinzenal(int kitQuinzenal) {
+        this.kitQuinzenal = kitQuinzenal;
+    }
+
+    /**
+     * @return the kitMensal
+     */
+    public int getKitMensal() {
+        return kitMensal;
+    }
+
+    /**
+     * @param kitMensal the kitMensal to set
+     */
+    public void setKitMensal(int kitMensal) {
+        this.kitMensal = kitMensal;
+    }
+
+    /**
+     * @return the kitSemestral
+     */
+    public int getKitSemestral() {
+        return kitSemestral;
+    }
+
+    /**
+     * @param kitSemestral the kitSemestral to set
+     */
+    public void setKitSemestral(int kitSemestral) {
+        this.kitSemestral = kitSemestral;
+    }
+
+    /**
+     * @return the kitAnual
+     */
+    public int getKitAnual() {
+        return kitAnual;
+    }
+
+    /**
+     * @param kitAnual the kitAnual to set
+     */
+    public void setKitAnual(int kitAnual) {
+        this.kitAnual = kitAnual;
     }
 
     /**

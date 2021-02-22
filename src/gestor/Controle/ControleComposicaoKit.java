@@ -10,6 +10,8 @@ import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.PavilhaoInternosSelecionados;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosSelec;
+import static gestor.Visao.TelaPesquisaMontagemKitHigiene.jCodigoRegistroPesquisa;
+import static gestor.Visao.TelaPesquisaMontagemKitHigiene.pTOTAL_KITS_registrados;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -100,8 +102,8 @@ public class ControleComposicaoKit {
         conecta.desconecta();
         return objComp;
     }
-    
-     public ComposicaoKit confirmarProgramacaoKit(ComposicaoKit objComp) {
+
+    public ComposicaoKit confirmarProgramacaoKit(ComposicaoKit objComp) {
 
         conecta.abrirConexao();
         try {
@@ -116,8 +118,8 @@ public class ControleComposicaoKit {
         conecta.desconecta();
         return objComp;
     }
-     
-     public ComposicaoKit confirmarPagamentoKit(ComposicaoKit objComp) {
+
+    public ComposicaoKit confirmarPagamentoKit(ComposicaoKit objComp) {
 
         conecta.abrirConexao();
         try {
@@ -148,7 +150,8 @@ public class ControleComposicaoKit {
         conecta.abrirConexao();
         List<PavilhaoInternosSelecionados> listaInternosPavilhaoSelecionados = new ArrayList<PavilhaoInternosSelecionados>();
         try {
-            conecta.executaSQL("SELECT DISTINCT INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp, "
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp, "
                     + "INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc,PRONTUARIOSCRC.Cnc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc "
                     + "FROM INTERNOS_PAVILHAO_KIT_LOTE "
@@ -166,6 +169,54 @@ public class ControleComposicaoKit {
                 qtdInternosSelec = qtdInternosSelec + 1;
             }
             return listaInternosPavilhaoSelecionados;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePavilhaoInternosMontaKitInicial.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public List<ComposicaoKit> pCODIGO_read() throws Exception {
+        pTOTAL_KITS_registrados = 0;
+        conecta.abrirConexao();
+        List<ComposicaoKit> listaRegistrosKitCodigo = new ArrayList<ComposicaoKit>();
+        try {
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                    + "KITS_HIGIENE_INTERNO.IdKit, "
+                    + "KITS_HIGIENE_INTERNO.KitInicial, "
+                    + "KITS_HIGIENE_INTERNO.KitDecendial, "
+                    + "KITS_HIGIENE_INTERNO.KitQuinzenal, "
+                    + "KITS_HIGIENE_INTERNO.KitMensal, "
+                    + "KITS_HIGIENE_INTERNO.KitSemestral, "
+                    + "KITS_HIGIENE_INTERNO.KitAnual, "
+                    + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                    + "COLABORADOR.NomeFunc "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + jCodigoRegistroPesquisa.getText() + "'");
+            while (conecta.rs.next()) {
+                ComposicaoKit pDigiSelec = new ComposicaoKit();
+                pDigiSelec.setIdRegistroComp(conecta.rs.getInt("IdRegistroComp"));
+                pDigiSelec.setDataComp(conecta.rs.getDate("DataComp"));
+                pDigiSelec.setIdKit(conecta.rs.getInt("IdKit"));
+                pDigiSelec.setKitInicial(conecta.rs.getInt("KitInicial"));
+                pDigiSelec.setKitDecendial(conecta.rs.getInt("KitDecendial"));
+                pDigiSelec.setKitQuinzenal(conecta.rs.getInt("KitQuinzenal"));
+                pDigiSelec.setKitMensal(conecta.rs.getInt("KitMensal"));
+                pDigiSelec.setKitSemestral(conecta.rs.getInt("KitSemestral"));
+                pDigiSelec.setKitAnual(conecta.rs.getInt("KitAnual"));
+                pDigiSelec.setIdFunc(conecta.rs.getInt("IdFunc"));
+                pDigiSelec.setNomeColaborador(conecta.rs.getString("NomeFunc"));
+                listaRegistrosKitCodigo.add(pDigiSelec);
+                ++pTOTAL_KITS_registrados;
+            }
+            return listaRegistrosKitCodigo;
         } catch (SQLException ex) {
             Logger.getLogger(ControlePavilhaoInternosMontaKitInicial.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
