@@ -542,6 +542,16 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtFaceEsquerda2 = new javax.swing.JButton();
         jBtFaceCentral2 = new javax.swing.JButton();
         jBTFaceDireita2 = new javax.swing.JButton();
+        jPanel22 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jToggleBtDenteModelo1 = new javax.swing.JToggleButton();
+        jButton9 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -1649,11 +1659,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jRBFaceUm.setForeground(new java.awt.Color(0, 102, 51));
         jRBFaceUm.setText("Palatal");
         jRBFaceUm.setEnabled(false);
-        jRBFaceUm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRBFaceUmMouseClicked(evt);
-            }
-        });
         jRBFaceUm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBFaceUmActionPerformed(evt);
@@ -2064,6 +2069,9 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtDente33.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtDente33MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBtDente33MouseEntered(evt);
             }
         });
 
@@ -4251,12 +4259,54 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBTFaceDireita2.setContentAreaFilled(false);
         jPanel17.add(jBTFaceDireita2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 30, 60));
 
+        jPanel22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lingual-PalatalVermelho.png"))); // NOI18N
+        jButton2.setContentAreaFilled(false);
+        jButton2.setOpaque(false);
+        jPanel22.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 50, -1));
+
+        jButton3.setText("jButton2");
+        jPanel22.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, -1, -1));
+
+        jButton4.setText("jButton2");
+        jPanel22.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
+
+        jButton5.setText("jButton2");
+        jPanel22.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
+
+        jButton6.setText("jButton2");
+        jPanel22.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lingual-PalatalVermelho2.png"))); // NOI18N
+        jButton7.setContentAreaFilled(false);
+        jButton7.setOpaque(false);
+        jPanel22.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 50, -1));
+
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lingual-PalatalVermelho3.png"))); // NOI18N
+        jButton10.setContentAreaFilled(false);
+        jButton10.setOpaque(false);
+        jPanel22.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 30, 50, -1));
+
+        jToggleBtDenteModelo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
+        jToggleBtDenteModelo1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleBtDenteModelo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jToggleBtDenteModelo1ItemStateChanged(evt);
+            }
+        });
+        jPanel22.add(jToggleBtDenteModelo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 28, -1));
+
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lingual-PalatalP&B24.png"))); // NOI18N
+        jPanel22.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 50, -1));
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(191, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jComboBoxParcialTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4283,8 +4333,10 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                         .addComponent(jBtRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(224, 224, 224)
-                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(329, Short.MAX_VALUE))
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4308,8 +4360,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxParcialTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(98, 98, 98))
         );
 
@@ -7706,11 +7763,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente31MouseClicked
        if (jLDente31.getIcon().equals(dente31)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente31.setIcon(dente31c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente31.setIcon(dente31);
             jNumeroDente.setText(jLNumDente31.getText());
         }  
@@ -7721,11 +7780,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente32MouseClicked
         if (jLDente32.getIcon().equals(dente32)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente32.setIcon(dente32c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente32.setIcon(dente32);
             jNumeroDente.setText(jLNumDente32.getText());
         }
@@ -7736,11 +7797,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente33MouseClicked
         if (jLDente33.getIcon().equals(dente33)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente33.setIcon(dente33c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente33.setIcon(dente33);
             jNumeroDente.setText(jLNumDente33.getText());
         }
@@ -7751,11 +7814,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente34MouseClicked
       if (jLDente34.getIcon().equals(dente34)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente34.setIcon(dente34c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente34.setIcon(dente34);
             jNumeroDente.setText(jLNumDente34.getText());
         }
@@ -7766,11 +7831,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente35MouseClicked
         if (jLDente35.getIcon().equals(dente35)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente35.setIcon(dente35c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente35.setIcon(dente35);
             jNumeroDente.setText(jLNumDente35.getText());
         }
@@ -7781,11 +7848,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDente36ActionPerformed
         if (jLDente36.getIcon().equals(dente36)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente36.setIcon(dente36c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente36.setIcon(dente36);
             jNumeroDente.setText(jLNumDente36.getText());
         }
@@ -7796,11 +7865,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente37MouseClicked
        if (jLDente37.getIcon().equals(dente37)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente37.setIcon(dente37c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente37.setIcon(dente37);
             jNumeroDente.setText(jLNumDente37.getText());
         }
@@ -7811,11 +7882,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente38MouseClicked
        if (jLDente38.getIcon().equals(dente38)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente38.setIcon(dente38c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente38.setIcon(dente38);
             jNumeroDente.setText(jLNumDente38.getText());
         }
@@ -7831,11 +7904,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente41MouseClicked
         if (jLDente41.getIcon().equals(dente41)) 
         {
+            habilitaSelecionarFaces(false); 
             jLDente41.setIcon(dente41c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente41.setIcon(dente41);
             jNumeroDente.setText(jLNumDente41.getText());
         }
@@ -7846,11 +7921,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente42MouseClicked
         if (jLDente42.getIcon().equals(dente42)) 
         {
+            habilitaSelecionarFaces(false); 
             jLDente42.setIcon(dente42c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente42.setIcon(dente42);
             jNumeroDente.setText(jLNumDente42.getText());
         }
@@ -7861,11 +7938,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente43MouseClicked
         if (jLDente43.getIcon().equals(dente43)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente43.setIcon(dente43c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente43.setIcon(dente43);
             jNumeroDente.setText(jLNumDente43.getText());
         }
@@ -7876,11 +7955,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente44MouseClicked
         if (jLDente44.getIcon().equals(dente44)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente44.setIcon(dente44c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente44.setIcon(dente44);
             jNumeroDente.setText(jLNumDente44.getText());
         }
@@ -7891,11 +7972,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente45MouseClicked
         if (jLDente45.getIcon().equals(dente45)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente45.setIcon(dente45c);
             jNumeroDente.setText("");
         }
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente45.setIcon(dente45);
             jNumeroDente.setText(jLNumDente45.getText());
         }
@@ -7906,11 +7989,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente46MouseClicked
         if (jLDente46.getIcon().equals(dente46)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente46.setIcon(dente46c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente46.setIcon(dente46);
             jNumeroDente.setText(jLNumDente46.getText());
         }
@@ -7921,11 +8006,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente47MouseClicked
         if (jLDente47.getIcon().equals(dente47)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente47.setIcon(dente47c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente47.setIcon(dente47);
             jNumeroDente.setText(jLNumDente47.getText());
         }
@@ -7936,11 +8023,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private void jBtDente48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente48MouseClicked
         if (jLDente48.getIcon().equals(dente48)) 
         {
+            habilitaSelecionarFaces(false);
             jLDente48.setIcon(dente48c);
             jNumeroDente.setText("");
         } 
         else 
         {
+            habilitaSelecionarFaces(true);
             jLDente48.setIcon(dente48);
             jNumeroDente.setText(jLNumDente48.getText());
         }
@@ -7960,10 +8049,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jBtFaceSuperior1.setEnabled(false);
         }
     }//GEN-LAST:event_jRBFaceUmActionPerformed
-
-    private void jRBFaceUmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBFaceUmMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRBFaceUmMouseClicked
     
     private void jRBFaceDoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFaceDoisActionPerformed
         if (jRBFaceDois.isSelected()) 
@@ -8060,6 +8145,14 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jNumeroDente.setText(jLNumDente16.getText());
         }  
     }//GEN-LAST:event_jBtDente16MouseClicked
+
+    private void jBtDente33MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtDente33MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtDente33MouseEntered
+
+    private void jToggleBtDenteModelo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleBtDenteModelo1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleBtDenteModelo1ItemStateChanged
 
     private Icon denteUm(String pDente)
     {
@@ -8199,6 +8292,14 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JButton jBtSalvarEvolucao;
     private javax.swing.JButton jBtSalvarPrescricao;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxAlegria;
     private javax.swing.JComboBox jComboBoxAsma;
@@ -8440,6 +8541,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
@@ -8488,6 +8590,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JSpinner jTempoGestacao;
     private javax.swing.JTextArea jTextoDoenca;
     private javax.swing.JToggleButton jToggleBtDenteModelo;
+    private javax.swing.JToggleButton jToggleBtDenteModelo1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
@@ -10766,22 +10869,22 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 selecionaNumeroDentePalatal(jBtDente12);
                 break;
             case "13":
-                selecionaNumeroDentePalatal(jBtDente11);
+                selecionaNumeroDentePalatal(jBtDente13);
                 break;
             case "14":
-                selecionaNumeroDentePalatal(jBtDente12);
+                selecionaNumeroDentePalatal(jBtDente14);
                 break;
             case "15":
-                selecionaNumeroDentePalatal(jBtDente11);
+                selecionaNumeroDentePalatal(jBtDente15);
                 break;
             case "16":
-                selecionaNumeroDentePalatal(jBtDente12);
+                selecionaNumeroDentePalatal(jBtDente16);
                 break;
             case "17":
-                selecionaNumeroDentePalatal(jBtDente11);
+                selecionaNumeroDentePalatal(jBtDente17);
                 break;
             case "18":
-                selecionaNumeroDentePalatal(jBtDente12);
+                selecionaNumeroDentePalatal(jBtDente18);
                 break;
         }
         return dente;
