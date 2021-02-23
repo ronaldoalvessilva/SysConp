@@ -2415,20 +2415,24 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         PESQUISAR_IMPLEMENTA_GTA_002(telaEscala_ADM);
         PESQUISAR_IMPLEMENTA_GTA_003(telaPesquisaGlobalColaboradores_ADM);
         PESQUISAR_IMPLEMENTA_GTA_004(telaPesquisaGlobalColaboradores_ADM);
-        
-//        telaPesquisaGlobalColaboradores_ADM
-//        String telaSolicitacaoC_ADM
-//        telaSolicitacaoC_ADM    
-//        telaAprovadorSC_ADM  
-//          menu principal ControleAprovacaoCompras
+        PESQUISAR_IMPLEMENTA_GTA_005(telaAprovadoresSC_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_006(telaSolicitantesC_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_007(telaSolicitacaoC_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_008(telaAprovadorSC_ADM);
+        PESQUISAR_IMPLEMENTA_GTA_009(jControleAprovacaoCompras.getText());
+        PESQUISAR_IMPLEMENTA_GTA_010(telaAtividadeMensalManu_ADM);
     }
 
     public void PESQUISAR_IMPLEMENTA_GTA_001(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             Movimentacao.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            Movimentacao.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            Movimentacao.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             Movimentacao.setVisible(!true);
         } else if (objParCrc.getHabilitarImp().equals("")) {
@@ -2442,8 +2446,12 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jEscalaTrabalho.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEscalaTrabalho.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEscalaTrabalho.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jEscalaTrabalho.setVisible(!true);
         } else if (objParCrc.getHabilitarImp().equals("")) {
@@ -2457,9 +2465,15 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jConsultaGlobalColaboradores.setVisible(!true);
             jSeparator2.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaGlobalColaboradores.setVisible(true);
+            jSeparator2.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jConsultaGlobalColaboradores.setVisible(true);
+            jSeparator2.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jConsultaGlobalColaboradores.setVisible(!true);
             jSeparator2.setVisible(!true);
@@ -2471,11 +2485,12 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             jSeparator2.setVisible(true);
         }
     }
+
     public void PESQUISAR_IMPLEMENTA_GTA_004(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jControleAprovacaoCompras.setVisible(!true);
             jAprovadoresSolicitacaoCompras.setVisible(!true);
             jSolicitantesCompras.setVisible(!true);
@@ -2484,6 +2499,24 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             jAprovarPedidosCompras.setVisible(!true);
             jSeparator3.setVisible(!true);
             jSeparator9.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleAprovacaoCompras.setVisible(true);
+            jAprovadoresSolicitacaoCompras.setVisible(true);
+            jSolicitantesCompras.setVisible(true);
+            jSolicitacaoComprasAdm.setVisible(true);
+            jAprovarSolicitacoesCompras.setVisible(true);
+            jAprovarPedidosCompras.setVisible(true);
+            jSeparator3.setVisible(true);
+            jSeparator9.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleAprovacaoCompras.setVisible(true);
+            jAprovadoresSolicitacaoCompras.setVisible(true);
+            jSolicitantesCompras.setVisible(true);
+            jSolicitacaoComprasAdm.setVisible(true);
+            jAprovarSolicitacoesCompras.setVisible(true);
+            jAprovarPedidosCompras.setVisible(true);
+            jSeparator3.setVisible(true);
+            jSeparator9.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jControleAprovacaoCompras.setVisible(!true);
             jAprovadoresSolicitacaoCompras.setVisible(!true);
@@ -2511,6 +2544,144 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             jAprovarPedidosCompras.setVisible(true);
             jSeparator3.setVisible(true);
             jSeparator9.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_005(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAprovadoresSolicitacaoCompras.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAprovadoresSolicitacaoCompras.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAprovadoresSolicitacaoCompras.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAprovadoresSolicitacaoCompras.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAprovadoresSolicitacaoCompras.setVisible(!true);
+        } else {
+            jAprovadoresSolicitacaoCompras.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_006(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitantesCompras.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitantesCompras.setVisible(true);
+            jSeparator9.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitantesCompras.setVisible(true);
+            jSeparator9.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jSolicitantesCompras.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jSolicitantesCompras.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else {
+            jSolicitantesCompras.setVisible(true);
+            jSeparator9.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_007(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitacaoComprasAdm.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitacaoComprasAdm.setVisible(true);
+            jSeparator9.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jSolicitacaoComprasAdm.setVisible(true);
+            jSeparator9.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jSolicitacaoComprasAdm.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jSolicitacaoComprasAdm.setVisible(!true);
+            jSeparator9.setVisible(!true);
+        } else {
+            jSolicitacaoComprasAdm.setVisible(true);
+            jSeparator9.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_008(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAprovarSolicitacoesCompras.setVisible(!true);
+            jSeparator3.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAprovarSolicitacoesCompras.setVisible(true);
+            jSeparator3.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAprovarSolicitacoesCompras.setVisible(true);
+            jSeparator3.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAprovarSolicitacoesCompras.setVisible(!true);
+            jSeparator3.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAprovarSolicitacoesCompras.setVisible(!true);
+            jSeparator3.setVisible(!true);
+        } else {
+            jAprovarSolicitacoesCompras.setVisible(true);
+            jSeparator3.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_009(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleAprovacaoCompras.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleAprovacaoCompras.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jControleAprovacaoCompras.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jControleAprovacaoCompras.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jControleAprovacaoCompras.setVisible(!true);
+        } else {
+            jControleAprovacaoCompras.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_GTA_010(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtividadesMensalUnidade.setVisible(!true);
+            jSeparator14.setVisible(true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtividadesMensalUnidade.setVisible(true);
+            jSeparator14.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtividadesMensalUnidade.setVisible(true);
+            jSeparator14.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAtividadesMensalUnidade.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAtividadesMensalUnidade.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else {
+            jAtividadesMensalUnidade.setVisible(true);
+            jSeparator14.setVisible(!true);
         }
     }
 }

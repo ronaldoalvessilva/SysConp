@@ -52,7 +52,7 @@ public class ControleImplementacoes {
             conecta.rs.first();
             objParCrc.setIdModulo(conecta.rs.getInt("IdModulo"));
             objParCrc.setIdTelas(conecta.rs.getInt("IdTelas"));
-            objParCrc.setHabilitarImp(conecta.rs.getString("NomeTela"));
+            objParCrc.setNomeTela(conecta.rs.getString("NomeTela"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();

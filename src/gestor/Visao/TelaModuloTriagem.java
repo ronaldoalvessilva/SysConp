@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -81,6 +83,9 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     String pathFoto;
     //
@@ -215,6 +220,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem(); // A cada 5 minutos verifica mensagem  
     }
 
@@ -2275,5 +2281,60 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_TRI_001(telaEntregaMaterialUsoTRI);
+        PESQUISAR_IMPLEMENTA_TRI_002(telaPreLocacaoInternosManuTRI);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_TRI_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            EntregaMaterialUsoPessoal.setVisible(!true);
+            jSeparator11.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            EntregaMaterialUsoPessoal.setVisible(true);
+            jSeparator11.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            EntregaMaterialUsoPessoal.setVisible(true);
+            jSeparator11.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            EntregaMaterialUsoPessoal.setVisible(!true);
+            jSeparator11.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            EntregaMaterialUsoPessoal.setVisible(!true);
+            jSeparator11.setVisible(!true);
+        } else {
+            EntregaMaterialUsoPessoal.setVisible(true);
+            jSeparator11.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_TRI_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPreLocacaoInternos.setVisible(!true);
+            jSeparator13.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPreLocacaoInternos.setVisible(true);
+            jSeparator13.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPreLocacaoInternos.setVisible(true);
+            jSeparator13.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jPreLocacaoInternos.setVisible(!true);
+            jSeparator13.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jPreLocacaoInternos.setVisible(!true);
+            jSeparator13.setVisible(!true);
+        } else {
+            jPreLocacaoInternos.setVisible(true);
+            jSeparator13.setVisible(true);
+        }
     }
 }

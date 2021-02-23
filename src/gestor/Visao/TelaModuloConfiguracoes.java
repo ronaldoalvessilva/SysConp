@@ -1036,9 +1036,16 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jFechamentoSistema.setVisible(!true);
             jSeparator5.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jFechamentoSistema.setVisible(true);
+            jSeparator5.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jFechamentoSistema.setVisible(true);
+            jSeparator5.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jFechamentoSistema.setVisible(!true);
             jSeparator5.setVisible(!true);
@@ -1055,9 +1062,15 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jAbrirMovimentoSistema.setVisible(!true);
             jSeparator6.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAbrirMovimentoSistema.setVisible(true);
+            jSeparator6.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAbrirMovimentoSistema.setVisible(true);
+            jSeparator6.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jAbrirMovimentoSistema.setVisible(!true);
             jSeparator6.setVisible(!true);
@@ -1074,9 +1087,15 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jApagarPopulacaoCRC.setVisible(!true);
             jSeparator7.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jApagarPopulacaoCRC.setVisible(true);
+            jSeparator7.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jApagarPopulacaoCRC.setVisible(true);
+            jSeparator7.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jApagarPopulacaoCRC.setVisible(!true);
             jSeparator7.setVisible(!true);
@@ -1093,9 +1112,15 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jAlertaEntradas.setVisible(!true);
             jSeparator8.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAlertaEntradas.setVisible(true);
+            jSeparator8.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAlertaEntradas.setVisible(true);
+            jSeparator8.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jAlertaEntradas.setVisible(!true);
             jSeparator8.setVisible(!true);

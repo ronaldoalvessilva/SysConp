@@ -130,7 +130,7 @@ public class TelaPesquisaInternoRol extends javax.swing.JInternalFrame {
                         .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                         .addComponent(jCheckBox1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqNome)
@@ -157,7 +157,7 @@ public class TelaPesquisaInternoRol extends javax.swing.JInternalFrame {
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
@@ -250,7 +250,7 @@ public class TelaPesquisaInternoRol extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0))
         );
 
-        setBounds(200, 10, 538, 328);
+        setBounds(200, 10, 596, 328);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed

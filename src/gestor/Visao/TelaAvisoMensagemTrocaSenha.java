@@ -36,20 +36,20 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Usuarios objUser = new Usuarios();
-    ControleUsuarios control = new ControleUsuarios();
-    ControleGrupoUsuarios controle = new ControleGrupoUsuarios();
+    ControleUsuarios CONTROL = new ControleUsuarios();
+    ControleGrupoUsuarios CONTROLE = new ControleGrupoUsuarios();
     ControleModulosUsuariosGrupos controleMod = new ControleModulosUsuariosGrupos();
     //
     TelaAcessos objTelaAcesso = new TelaAcessos();
-    ControleTelaAcesso controlaAcess = new ControleTelaAcesso();
+    ControleTelaAcesso CONTROLA_acessos = new ControleTelaAcesso();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
-    ConexaoBancoDadosLF conectaLF = new ConexaoBancoDadosLF();
-    ConexaoBancoDadosSSA conectaSSA = new ConexaoBancoDadosSSA();
-    ConexaoBancoDadosITB conectaITB = new ConexaoBancoDadosITB();
-    ConexaoBancoDadosVC conectaVC = new ConexaoBancoDadosVC();
-    ConexaoBancoDadosBAR conectaBAR = new ConexaoBancoDadosBAR();
+    ConexaoBancoDadosLF CONECTA_lauro = new ConexaoBancoDadosLF();
+    ConexaoBancoDadosSSA CONECTA_salvador = new ConexaoBancoDadosSSA();
+    ConexaoBancoDadosITB CONECTA_itabuna = new ConexaoBancoDadosITB();
+    ConexaoBancoDadosVC CONECTA_vitoria = new ConexaoBancoDadosVC();
+    ConexaoBancoDadosBAR CONECTA_barreiras = new ConexaoBancoDadosBAR();
     //VARIAVEIS DE ACESSO AO CADASTRO DO USUARIO NAS OUTRAS UNIDADES
     String pLOGIN_USUARIO_LF = null;
     String pCODIGO_USUARIO_LF = null;
@@ -290,7 +290,7 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
             objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
             objUser.setSenha1(jNovaSenha.getText());
             objUser.setSenha2(jConfirmaSenha.getText());
-            control.trocarSenhaUsuarioLF(objUser);
+            CONTROL.trocarSenhaUsuarioLF(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
         }
@@ -300,7 +300,7 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
             objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_VC));
             objUser.setSenha1(jNovaSenha.getText());
             objUser.setSenha2(jConfirmaSenha.getText());
-            control.trocarSenhaUsuarioVC(objUser);
+            CONTROL.trocarSenhaUsuarioVC(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
         }
@@ -310,7 +310,7 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
             objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_ITB));
             objUser.setSenha1(jNovaSenha.getText());
             objUser.setSenha2(jConfirmaSenha.getText());
-            control.trocarSenhaUsuarioITB(objUser);
+            CONTROL.trocarSenhaUsuarioITB(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
@@ -320,7 +320,7 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
             objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_SSA));
             objUser.setSenha1(jNovaSenha.getText());
             objUser.setSenha2(jConfirmaSenha.getText());
-            control.trocarSenhaUsuarioSSA(objUser);
+            CONTROL.trocarSenhaUsuarioSSA(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Salvador, não existe. Solicite ajuda do Administrador do Sistema.");
         }
@@ -331,7 +331,7 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
             objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_BAR));
             objUser.setSenha1(jNovaSenha.getText());
             objUser.setSenha2(jConfirmaSenha.getText());
-            control.trocarSenhaUsuarioBAR(objUser);
+            CONTROL.trocarSenhaUsuarioBAR(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Barreiras, não existe. Solicite ajuda do Administrador do Sistema.");
         }
@@ -339,72 +339,87 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
 
     //LAURO DE FREITAS
     public void pesquisarUsuarioUnidadeLF() {
-        conectaLF.abrirConexao();
+        CONECTA_lauro.abrirConexao();
         try {
-            conectaLF.executaSQL("SELECT * FROM USUARIOS "
+            CONECTA_lauro.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "LoginUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
-            conectaLF.rs.first();
-            pCODIGO_USUARIO_LF = conectaLF.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_LF = conectaLF.rs.getString("LoginUsuario");
+            CONECTA_lauro.rs.first();
+            pCODIGO_USUARIO_LF = CONECTA_lauro.rs.getString("IdUsuario");
+            pLOGIN_USUARIO_LF = CONECTA_lauro.rs.getString("LoginUsuario");
         } catch (Exception e) {
         }
-        conectaLF.desconecta();
+        CONECTA_lauro.desconecta();
     }
 
     //VITORIA DA CONQUISTA
     public void pesquisarUsuarioUnidadeVC() {
-        conectaVC.abrirConexao();
+        CONECTA_vitoria.abrirConexao();
         try {
-            conectaVC.executaSQL("SELECT * FROM USUARIOS "
+            CONECTA_vitoria.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "LoginUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
-            conectaVC.rs.first();
-            pCODIGO_USUARIO_VC = conectaVC.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_VC = conectaVC.rs.getString("LoginUsuario");
+            CONECTA_vitoria.rs.first();
+            pCODIGO_USUARIO_VC = CONECTA_vitoria.rs.getString("IdUsuario");
+            pLOGIN_USUARIO_VC = CONECTA_vitoria.rs.getString("LoginUsuario");
         } catch (Exception e) {
         }
-        conectaVC.desconecta();
+        CONECTA_vitoria.desconecta();
     }
 
     //ITABUNA
     public void pesquisarUsuarioUnidadeITB() {
-        conectaITB.abrirConexao();
+        CONECTA_itabuna.abrirConexao();
         try {
-            conectaITB.executaSQL("SELECT * FROM USUARIOS "
+            CONECTA_itabuna.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "LoginUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
-            conectaITB.rs.first();
-            pCODIGO_USUARIO_ITB = conectaITB.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_ITB = conectaITB.rs.getString("LoginUsuario");
+            CONECTA_itabuna.rs.first();
+            pCODIGO_USUARIO_ITB = CONECTA_itabuna.rs.getString("IdUsuario");
+            pLOGIN_USUARIO_ITB = CONECTA_itabuna.rs.getString("LoginUsuario");
         } catch (Exception e) {
         }
-        conectaITB.desconecta();
+        CONECTA_itabuna.desconecta();
     }
 
     //SALVADOR
     public void pesquisarUsuarioUnidadeSSA() {
-        conectaSSA.abrirConexao();
+        CONECTA_salvador.abrirConexao();
         try {
-            conectaSSA.executaSQL("SELECT * FROM USUARIOS "
+            CONECTA_salvador.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "LoginUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
-            conectaSSA.rs.first();
-            pCODIGO_USUARIO_SSA = conectaSSA.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_SSA = conectaSSA.rs.getString("LoginUsuario");
+            CONECTA_salvador.rs.first();
+            pCODIGO_USUARIO_SSA = CONECTA_salvador.rs.getString("IdUsuario");
+            pLOGIN_USUARIO_SSA = CONECTA_salvador.rs.getString("LoginUsuario");
         } catch (Exception e) {
         }
-        conectaSSA.desconecta();
+        CONECTA_salvador.desconecta();
     }
 
     //BARREIRAS
     public void pesquisarUsuarioUnidadeBAR() {
-        conectaBAR.abrirConexao();
+        CONECTA_barreiras.abrirConexao();
         try {
-            conectaBAR.executaSQL("SELECT * FROM USUARIOS "
+            CONECTA_barreiras.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "LoginUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
-            conectaBAR.rs.first();
-            pCODIGO_USUARIO_BAR = conectaBAR.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_BAR = conectaBAR.rs.getString("LoginUsuario");
+            CONECTA_barreiras.rs.first();
+            pCODIGO_USUARIO_BAR = CONECTA_barreiras.rs.getString("IdUsuario");
+            pLOGIN_USUARIO_BAR = CONECTA_barreiras.rs.getString("LoginUsuario");
         } catch (Exception e) {
         }
-        conectaBAR.desconecta();
+        CONECTA_barreiras.desconecta();
     }
 //--------------------------------------------
 }

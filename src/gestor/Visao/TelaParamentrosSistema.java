@@ -4437,8 +4437,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jHabilitarImplementacoes.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jHabilitarImplementacoes.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jHabilitarImplementacoes.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jHabilitarImplementacoes.setVisible(!true);
         } else if (objParCrc.getHabilitarImp().equals("")) {
@@ -4452,8 +4456,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jPainelTabelaImplementacao.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPainelTabelaImplementacao.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPainelTabelaImplementacao.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jPainelTabelaImplementacao.setVisible(!true);
         } else if (objParCrc.getHabilitarImp().equals("")) {
@@ -4467,8 +4475,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
-        if (objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jPainelBotoesImplemenetacoes.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPainelBotoesImplemenetacoes.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPainelBotoesImplemenetacoes.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
             jPainelBotoesImplemenetacoes.setVisible(!true);
         } else if (objParCrc.getHabilitarImp().equals("")) {

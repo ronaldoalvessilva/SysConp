@@ -7,6 +7,7 @@ package gestor.Visao;
 
 //import gestor.Modelo.clsDataHora;
 import Util.Produtividade.Produtividade;
+import gestor.Controle.ControleImplementacoes;
 //import com.sun.glass.events.KeyEvent;
 import java.awt.event.KeyEvent;
 import gestor.Controle.ControleTelasSistema;
@@ -14,6 +15,7 @@ import gestor.Controle.ControleUsuarioConectado;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Dao.ConexaoBancoDados.Computer;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import gestor.Modelo.UsuarioConectado;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.idUserAcesso;
@@ -54,6 +56,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     //
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     public static String hostName;
     public static String ipHost;
@@ -115,8 +120,12 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     //
     public static String nomeModuloPRINCIPAL = "CONFIGURACOES";
     public static String tela_PRODUTIVIDADE = "Tela de Produtividade";
+    //
+    public static String telaEducacaoFisica = "Módulo de Educação Física";
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    //
     String pNomePRO = "";
+
     // ------  FIM DAS VARIÁVEIS -----
     public static int key;
 
@@ -186,6 +195,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
             }
         });
+        PESQUISAR_LIBERACAO_implementacao();
     }
 
     public void mostrarTelaTrocaSenha() {
@@ -4802,6 +4812,38 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         }
     }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_PRI_001(telaEducacaoFisica);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_PRI_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        if(objParCrc.getIdModulo() != null && objParCrc.getIdTelas() != null && objParCrc.getNomeTela() != null){
+            controlImp.pPESQUISAR_liberacao(objParCrc);
+        }        
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jMenuItemEducacaoFisica.setVisible(!true);
+            jBtEducacaoFisica.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jMenuItemEducacaoFisica.setVisible(true);
+            jBtEducacaoFisica.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jMenuItemEducacaoFisica.setVisible(true);
+            jBtEducacaoFisica.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jMenuItemEducacaoFisica.setVisible(!true);
+            jBtEducacaoFisica.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jMenuItemEducacaoFisica.setVisible(!true);
+            jBtEducacaoFisica.setVisible(!true);
+        } else {
+            jMenuItemEducacaoFisica.setVisible(true);
+            jBtEducacaoFisica.setVisible(true);
+        }
+    }
+
 //    public void copyDirectory(File srcPath, File dstPath) throws IOException {
 //
 //        if (srcPath.isDirectory()) {

@@ -1558,7 +1558,9 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
             jBtBiometria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITASINTERNO "
+                conecta.executaSQL("SELECT "
+                        + "* "
+                        + "FROM VISITASINTERNO "
                         + "WHERE NomeVisita='" + nomeVisita + "' "
                         + "AND IdVisita='" + codVisista + "'");
                 conecta.rs.first();

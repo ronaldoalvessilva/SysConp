@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -79,7 +81,9 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
-
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaConsultaProntuarioInternoCrc objIntPsi = null;
     private TelaAdmissaoPsicologica objAdmPsi = null;
@@ -255,6 +259,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem(); // A cada 5 minutos verifica mensagem         
     }
 
@@ -2369,5 +2374,74 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+    
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_ENF_001(telaCadastroAgendaAtendimentoInternoManuPSI);
+        PESQUISAR_IMPLEMENTA_ENF_002(telaPlanejamentoAtividadesManu_PS);
+        PESQUISAR_IMPLEMENTA_ENF_003(telaIndAtendimentoGrupoPSI_Manu);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_ENF_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            AgendaAtendimentoInternos.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            AgendaAtendimentoInternos.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            AgendaAtendimentoInternos.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            AgendaAtendimentoInternos.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            AgendaAtendimentoInternos.setVisible(!true);
+        } else {
+            AgendaAtendimentoInternos.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_ENF_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPlanejamentoAtividades.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPlanejamentoAtividades.setVisible(true);
+            jSeparator6.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPlanejamentoAtividades.setVisible(true);
+            jSeparator6.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jPlanejamentoAtividades.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jPlanejamentoAtividades.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else {
+            jPlanejamentoAtividades.setVisible(true);
+            jSeparator6.setVisible(true);
+        }
+    }
+    
+    public void PESQUISAR_IMPLEMENTA_ENF_003(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoPsicologicoGrupo.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoPsicologicoGrupo.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoPsicologicoGrupo.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAtendimentoPsicologicoGrupo.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAtendimentoPsicologicoGrupo.setVisible(!true);
+        } else {
+            jAtendimentoPsicologicoGrupo.setVisible(true);
+        }
     }
 }

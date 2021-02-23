@@ -37,6 +37,7 @@ public class ProntuarioCrc {
     private String nomePais;
     private String nomeCidade;
     private String Religiao;
+    private String uFRg;
     private String Profissao;
     private String Endereco;
     private String Bairro;
@@ -81,7 +82,7 @@ public class ProntuarioCrc {
     public ProntuarioCrc() {
     }
 
-    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek, String descricaoDoc, String regime, String tornozeleira) {
+    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String uFRg, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek, String descricaoDoc, String regime, String tornozeleira) {
         this.IdInterno = IdInterno;
         this.Matricula = Matricula;
         this.DataCadast = DataCadast;
@@ -105,6 +106,7 @@ public class ProntuarioCrc {
         this.nomePais = nomePais;
         this.nomeCidade = nomeCidade;
         this.Religiao = Religiao;
+        this.uFRg = uFRg;
         this.Profissao = Profissao;
         this.Endereco = Endereco;
         this.Bairro = Bairro;
@@ -467,6 +469,20 @@ public class ProntuarioCrc {
      */
     public void setReligiao(String Religiao) {
         this.Religiao = Religiao;
+    }
+
+    /**
+     * @return the uFRg
+     */
+    public String getuFRg() {
+        return uFRg;
+    }
+
+    /**
+     * @param uFRg the uFRg to set
+     */
+    public void setuFRg(String uFRg) {
+        this.uFRg = uFRg;
     }
 
     /**
@@ -1027,10 +1043,5 @@ public class ProntuarioCrc {
      */
     public void setTornozeleira(String tornozeleira) {
         this.tornozeleira = tornozeleira;
-    }
-
-    @Override
-    public String toString() {
-        return getNomeInterno(); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -635,26 +635,23 @@
                                       </Group>
                                   </Group>
                                   <Component id="jBtPesDescricaoFornecedor" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel8" max="32767" attributes="0"/>
                                       <Component id="jComboBoxTipoDocumento" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jComboBoxFormaPagto" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jComboBoxFormaPagto" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jDataEntrada" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jDataEmissao" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -1049,6 +1046,7 @@
                       <Format format="#########" subtype="-1" type="5"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Tamanho do campo 9 digitos. Se o n&#xfa;mero da Nota Fiscal n&#xe3;o atender a quantidade exigida, preencher com zeros antes do n&#xba; da NF."/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -1068,57 +1066,59 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBaseCalculoICMS" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel11" alignment="0" pref="77" max="32767" attributes="0"/>
-                              <Component id="jValorTotalFrete" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jValorICMS" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel17" max="32767" attributes="0"/>
-                                  <Component id="jValorTotalSeguro" min="-2" pref="72" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="jLabel11" alignment="0" pref="93" max="32767" attributes="0"/>
+                              <Component id="jValorTotalFrete" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jBaseCalculoICMS" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                              <Component id="jValorICMS" alignment="0" pref="85" max="32767" attributes="0"/>
+                              <Component id="jValorTotalSeguro" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBaseCalculoICMSSub" linkSize="7" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel13" max="32767" attributes="0"/>
+                                      <Component id="jBaseCalculoICMSSub" min="-2" pref="86" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                              <Component id="jValorTotalDesconto" linkSize="7" min="-2" pref="71" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jValorTotalDesconto" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jValorICMSSub" linkSize="6" min="-2" pref="85" max="-2" attributes="0"/>
+                                      <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jValorICMSSub" min="-2" pref="99" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jValorTotalIPI" linkSize="6" min="-2" pref="78" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jValorTotalIPI" min="-2" pref="97" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                              <Component id="jValorTotalNota" max="32767" attributes="0"/>
-                              <Component id="jValorTotalProdutos" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jValorTotalProdutos" pref="96" max="32767" attributes="0"/>
+                              <Component id="jValorTotalNota" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

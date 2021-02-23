@@ -5,7 +5,9 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleImplementacoes;
 import gestor.Controle.ControleTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
@@ -79,6 +81,9 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaEntradaSaidaAdvogadosExterna objEntSaiAd = null; // Para abrir uma tela uma unica vez
     private TelaEntradaSaidaVisitasDiversasExterna objEntSaiVisiDiv = null;
@@ -209,7 +214,6 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     String pNomeRCPEP = "";
     String pNomeRCPEB = "";
     String pNomeRCPER = "";
-   
 
     /**
      * Creates new form TelaPortarias
@@ -218,6 +222,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela  
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem();
     }
 
@@ -2251,6 +2256,35 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_P1E_001(telaRegistroChegadaPortExtManuP1E);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_P1E_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            RegistroChegadaVisitasInterno.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            RegistroChegadaVisitasInterno.setVisible(true);
+            jSeparator6.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            RegistroChegadaVisitasInterno.setVisible(true);
+            jSeparator6.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            RegistroChegadaVisitasInterno.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            RegistroChegadaVisitasInterno.setVisible(!true);
+            jSeparator6.setVisible(!true);
+        } else {
+            RegistroChegadaVisitasInterno.setVisible(true);
+            jSeparator6.setVisible(true);
+        }
     }
     // T4ela de Consulta de internos portaria
     //TelaConsultaSaidaInternos();

@@ -108,7 +108,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno"
@@ -131,7 +131,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jTabelaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Data Chegada", "Hora Chegada", "Ordem", "Código", "Nome do Visitante", "Grau de Parentesco"
@@ -476,8 +476,6 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtualizar, jBtSair});
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -539,7 +537,8 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        popularTabelaNomeVisita("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
+        popularTabelaNomeVisita("SELECT * "
+                + "FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
                 + "INNER JOIN VISITASINTERNO "
                 + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita");
     }//GEN-LAST:event_jBtAtualizarActionPerformed

@@ -902,16 +902,16 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jAlcunha" linkSize="27" max="32767" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jAlcunha" max="32767" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="jLabel14" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jCartaoSus" max="32767" attributes="0"/>
-                                              <Component id="jCPFInterno" max="32767" attributes="0"/>
+                                              <Component id="jCartaoSus" linkSize="45" min="-2" pref="135" max="-2" attributes="0"/>
+                                              <Component id="jCPFInterno" linkSize="45" min="-2" pref="135" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -920,7 +920,7 @@
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jMatriculaPenal" min="-2" pref="83" max="-2" attributes="0"/>
-                                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jLabel162" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jCNC" min="-2" pref="125" max="-2" attributes="0"/>
@@ -939,27 +939,10 @@
                                       </Group>
                                       <Component id="jPanel13" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jRGInterno" linkSize="27" pref="128" max="32767" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jComboBoxEscolaridade" min="-2" pref="159" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jComboBoxEstadoCivil" max="32767" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jComboBoxSexo" min="-2" pref="98" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jComboBoxPais" alignment="0" min="-2" pref="247" max="-2" attributes="0"/>
@@ -988,11 +971,29 @@
                                                   </Group>
                                               </Group>
                                           </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jRGInterno" min="-2" pref="120" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jComboBoxUF" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jComboBoxEscolaridade" min="-2" pref="171" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jComboBoxEstadoCivil" linkSize="45" min="-2" pref="133" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jComboBoxSexo" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1088,6 +1089,7 @@
                                       <Group type="103" alignment="2" groupAlignment="3" attributes="0">
                                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jRGInterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxUF" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jCPFInterno" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jBtZoonFoto" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -1107,6 +1109,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
@@ -1137,6 +1142,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Nome:"/>
                   </Properties>
@@ -1181,6 +1189,9 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="M&#xe3;e:"/>
                   </Properties>
                 </Component>
@@ -1188,6 +1199,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Pai:"/>
                   </Properties>
@@ -1271,6 +1285,8 @@
                       </Border>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="99999999999"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Esse campo tem validador de CPF. Utilize os n&#xfa;meros 99999999999 quando o interno n&#xe3;o tiver CPF."/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
@@ -1281,6 +1297,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Sexo:"/>
                   </Properties>
@@ -1391,7 +1410,7 @@
                 <Component class="javax.swing.JButton" name="jBtNovaFoto">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                      <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Nova Foto"/>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -1417,6 +1436,9 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Nacionalidade:"/>
                   </Properties>
                 </Component>
@@ -1424,6 +1446,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Naturalidade:"/>
                   </Properties>
@@ -1519,7 +1544,7 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="33" green="33" red="ff" type="rgb"/>
+                      <Color blue="99" green="0" red="0" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Situa&#xe7;&#xe3;o do Interno"/>
                   </Properties>
@@ -1684,8 +1709,55 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="CNC:"/>
+                    <Property name="text" type="java.lang.String" value="CNC/PN:"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBoxUF">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="27">
+                        <StringItem index="0" value=""/>
+                        <StringItem index="1" value="AC"/>
+                        <StringItem index="2" value="AL"/>
+                        <StringItem index="3" value="AM"/>
+                        <StringItem index="4" value="BA"/>
+                        <StringItem index="5" value="CE"/>
+                        <StringItem index="6" value="DF"/>
+                        <StringItem index="7" value="ES"/>
+                        <StringItem index="8" value="GO"/>
+                        <StringItem index="9" value="MA"/>
+                        <StringItem index="10" value="MT"/>
+                        <StringItem index="11" value="MS"/>
+                        <StringItem index="12" value="MG"/>
+                        <StringItem index="13" value="PA"/>
+                        <StringItem index="14" value="PB"/>
+                        <StringItem index="15" value="PR"/>
+                        <StringItem index="16" value="PE"/>
+                        <StringItem index="17" value="PI"/>
+                        <StringItem index="18" value="RJ"/>
+                        <StringItem index="19" value="RN"/>
+                        <StringItem index="20" value="RS"/>
+                        <StringItem index="21" value="RO"/>
+                        <StringItem index="22" value="RR"/>
+                        <StringItem index="23" value="SC"/>
+                        <StringItem index="24" value="SP"/>
+                        <StringItem index="25" value="SE"/>
+                        <StringItem index="26" value="TO"/>
+                      </StringArray>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -1964,8 +2036,6 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jBairro" linkSize="36" alignment="0" min="-2" pref="499" max="-2" attributes="0"/>
-                                  <Component id="jEndereco" linkSize="36" alignment="0" min="-2" pref="238" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jCidade" min="-2" pref="242" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1975,7 +2045,7 @@
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jCelular" max="32767" attributes="0"/>
+                                              <Component id="jCelular" pref="189" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
@@ -1984,6 +2054,8 @@
                                           </Group>
                                       </Group>
                                   </Group>
+                                  <Component id="jEndereco" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jBairro" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jTelefone" linkSize="19" min="-2" pref="83" max="-2" attributes="0"/>
@@ -1993,7 +2065,7 @@
                                   <Component id="jTelefone1" linkSize="19" min="-2" pref="84" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2079,6 +2151,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Cidade:"/>
                   </Properties>
@@ -3128,6 +3203,9 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="99" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Proced&#xea;ncia:"/>
                       </Properties>
                     </Component>
@@ -3609,7 +3687,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="46" max="32767" attributes="0"/>
+                              <EmptySpace pref="47" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -3908,7 +3986,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoPerfil">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="contentAreaFilled" type="boolean" value="false"/>
                         <Property name="enabled" type="boolean" value="false"/>
@@ -3932,7 +4010,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoCorpo">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="contentAreaFilled" type="boolean" value="false"/>
                         <Property name="enabled" type="boolean" value="false"/>
@@ -3956,7 +4034,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoCorpo1">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="contentAreaFilled" type="boolean" value="false"/>
                         <Property name="enabled" type="boolean" value="false"/>
@@ -3980,7 +4058,7 @@
                     <Component class="javax.swing.JButton" name="jBtNovaFotoCorpo2">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/2998132-camera-photo-photography_99870.png"/>
                         </Property>
                         <Property name="contentAreaFilled" type="boolean" value="false"/>
                         <Property name="enabled" type="boolean" value="false"/>
@@ -4155,7 +4233,7 @@
                                       <Component id="jPanel28" linkSize="40" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jPanel29" linkSize="40" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                                      <EmptySpace pref="37" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -4825,7 +4903,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace pref="31" max="32767" attributes="0"/>
                       <Component id="jLabel74" min="-2" pref="236" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">

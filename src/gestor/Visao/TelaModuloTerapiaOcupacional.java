@@ -10,7 +10,9 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleImplementacoes;
 import gestor.Modelo.CadastroTelasSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -80,6 +82,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+     //
+    ParametrosCrc objParCrc = new ParametrosCrc();
+    ControleImplementacoes controlImp = new ControleImplementacoes();
     //
     private TelaEmpresasLaborativas objEmpLab = null;
     private TelaListaEsperaTO objListaEsperaLab = null;
@@ -301,6 +306,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         pesquisarTelasAcessos();
+        PESQUISAR_LIBERACAO_implementacao();
         threadMensagem();
     }
 
@@ -2957,5 +2963,54 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+    
+    public void PESQUISAR_LIBERACAO_implementacao() {
+        PESQUISAR_IMPLEMENTA_TO_001(telaPlanejamentoAtividadesManu_TO);
+        PESQUISAR_IMPLEMENTA_TO_002(telaIndAtendimentoGrupoTO_Manu);
+    }
+
+    public void PESQUISAR_IMPLEMENTA_TO_001(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPlanejamentoAtividades.setVisible(!true);
+            jSeparator11.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPlanejamentoAtividades.setVisible(true);
+            jSeparator11.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jPlanejamentoAtividades.setVisible(true);
+            jSeparator11.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jPlanejamentoAtividades.setVisible(!true);
+            jSeparator11.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jPlanejamentoAtividades.setVisible(!true);
+            jSeparator11.setVisible(!true);
+        } else {
+            jPlanejamentoAtividades.setVisible(true);
+            jSeparator11.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_TO_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoTOGrupo.setVisible(!true);            
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoTOGrupo.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jAtendimentoTOGrupo.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jAtendimentoTOGrupo.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jAtendimentoTOGrupo.setVisible(!true);
+        } else {
+            jAtendimentoTOGrupo.setVisible(true);
+        }
     }
 }
