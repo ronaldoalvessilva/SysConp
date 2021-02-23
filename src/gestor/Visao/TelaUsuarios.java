@@ -1811,7 +1811,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-
+        // TODO add your handling code here:    
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             acao = 1;
             NovoAdm();
@@ -1828,14 +1828,23 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-        if (jlogin.getText().equals("admin")) {
+        // TODO add your handling code here:    
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jlogin.getText().equals("admin")) {
             JOptionPane.showMessageDialog(null, "Alguns campos do usuário administrador não poderão ser modificados.\nSomente a senha poderá ser modificada. Dúvidas, informe ao Administrador do Sistema.");
             acao = 2;
             AlterarAdm();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
-        } else {
+        }else if(!nameUser.equals("ADMINISTRADOR DO SISTEMA") && jlogin.getText().equals("admin") && jNomeUsuarioCompleto.getText().equals("ADMINISTRADOR DO SISTEMA")){
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para modificar os dados do ADMINISTRADOR DO SISTEMA.");     
+        }else if(nameUser.equals("ADMINISTRADOR DO SISTEMA") && !jlogin.getText().equals("admin")){
+            acao = 2;
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else if (!jlogin.getText().equals("admin")){
             acao = 2;
             Alterar();
             statusMov = "Alterou";
@@ -1845,6 +1854,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        // TODO add your handling code here:    
         verificarUsuarioGrupo(); // VERIFICAR SE O USUÁRIO PERTENCE A ALGUM GRUPO.
         if (jlogin.getText().equals("admin")) {
             JOptionPane.showMessageDialog(null, "O usuário administrador não pode ser excluído.");
@@ -1868,7 +1878,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-
+        // TODO add your handling code here:    
         if (jNomeUsuarioCompleto.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome completo do usuário.");
         } else {
@@ -2943,6 +2953,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jDataCadastro.setEnabled(true);
         jComboBoxDepartamento.setEnabled(true);
         jComboBoxCargo.setEnabled(true);
+        jComboBoxAcessaTodasUnidades.setEnabled(true);
         jlogin.setEnabled(true);
         jSenha.setEnabled(true);
         jSenhaConf.setEnabled(true);
@@ -2973,6 +2984,23 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtPesDepto.setEnabled(!true);
     }
 
+    public void AlterarUser(){
+        jComboBoxStatus.setEnabled(!true);
+        jNomeUsuarioCompleto.setEnabled(!true);
+        jDataCadastro.setEnabled(!true);
+        jComboBoxDepartamento.setEnabled(!true);
+        jComboBoxCargo.setEnabled(!true);
+        jlogin.setEnabled(!true);
+        jComboBoxAcessaTodasUnidades.setEnabled(true);
+        jSenha.setEnabled(true);
+        jSenhaConf.setEnabled(true);
+        // Habilta os botões de manutenção
+        jBtAlterar.setEnabled(false);
+        jBtExcluir.setEnabled(false);
+        jBtSalvar.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+        jBtPesDepto.setEnabled(!true);
+    }
     public void Excluir() {
         //
         IdUsuario.setText("");
