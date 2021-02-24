@@ -1376,7 +1376,7 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="11">
+                      <StringArray count="13">
                         <StringItem index="0" value="Selecione"/>
                         <StringItem index="1" value="N&#xe3;o Alfabetizado"/>
                         <StringItem index="2" value="Alfabetizado"/>
@@ -1388,6 +1388,8 @@
                         <StringItem index="8" value="2&#xba; Grau Incompleto"/>
                         <StringItem index="9" value="Superior Completo"/>
                         <StringItem index="10" value="Superior Incompleto"/>
+                        <StringItem index="11" value="Ensino M&#xe9;dio Incompleto"/>
+                        <StringItem index="12" value="Ensino M&#xe9;dio Completo"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
