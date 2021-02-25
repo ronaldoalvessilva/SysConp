@@ -7081,12 +7081,12 @@
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                       <Component id="jLabel60" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jCodigoRegistroRDR" max="32767" attributes="0"/>
+                                      <Component id="jCodigoRegistroRR" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jBtAlterarRegistroRDR" linkSize="199" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtAlterarRegistroRR" linkSize="199" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                      <Component id="jBtConfirmarRegistroRDR" linkSize="199" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtConfirmarRegistroRR" linkSize="199" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -7098,12 +7098,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel60" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jCodigoRegistroRDR" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCodigoRegistroRR" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jBtAlterarRegistroRDR" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jBtConfirmarRegistroRDR" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jBtAlterarRegistroRR" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jBtConfirmarRegistroRR" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                           </Group>
@@ -7119,7 +7119,7 @@
                         <Property name="text" type="java.lang.String" value="C&#xf3;digo Registro:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jCodigoRegistroRDR">
+                    <Component class="javax.swing.JTextField" name="jCodigoRegistroRR">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="4"/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -7130,7 +7130,7 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jBtAlterarRegistroRDR">
+                    <Component class="javax.swing.JButton" name="jBtAlterarRegistroRR">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/gestor/Imagens/8437_16x16.png"/>
@@ -7138,10 +7138,10 @@
                         <Property name="text" type="java.lang.String" value="Alterar"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAlterarRegistroRDRActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAlterarRegistroRRActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jBtConfirmarRegistroRDR">
+                    <Component class="javax.swing.JButton" name="jBtConfirmarRegistroRR">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/gestor/Imagens/40_16x16.png"/>
@@ -7150,7 +7150,7 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtConfirmarRegistroRDRActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtConfirmarRegistroRRActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

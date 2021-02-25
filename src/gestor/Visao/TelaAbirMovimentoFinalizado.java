@@ -370,9 +370,9 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jBtConfirmarRegistroRCR = new javax.swing.JButton();
         jPanel87 = new javax.swing.JPanel();
         jLabel60 = new javax.swing.JLabel();
-        jCodigoRegistroRDR = new javax.swing.JTextField();
-        jBtAlterarRegistroRDR = new javax.swing.JButton();
-        jBtConfirmarRegistroRDR = new javax.swing.JButton();
+        jCodigoRegistroRR = new javax.swing.JTextField();
+        jBtAlterarRegistroRR = new javax.swing.JButton();
+        jBtConfirmarRegistroRR = new javax.swing.JButton();
         jPanel88 = new javax.swing.JPanel();
         jLabel61 = new javax.swing.JLabel();
         jCodigoRegistroRT = new javax.swing.JTextField();
@@ -4547,24 +4547,24 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jLabel60.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel60.setText("Código Registro:");
 
-        jCodigoRegistroRDR.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCodigoRegistroRDR.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCodigoRegistroRDR.setEnabled(false);
+        jCodigoRegistroRR.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoRegistroRR.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoRegistroRR.setEnabled(false);
 
-        jBtAlterarRegistroRDR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarRegistroRDR.setText("Alterar");
-        jBtAlterarRegistroRDR.addActionListener(new java.awt.event.ActionListener() {
+        jBtAlterarRegistroRR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarRegistroRR.setText("Alterar");
+        jBtAlterarRegistroRR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarRegistroRDRActionPerformed(evt);
+                jBtAlterarRegistroRRActionPerformed(evt);
             }
         });
 
-        jBtConfirmarRegistroRDR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
-        jBtConfirmarRegistroRDR.setText("Confirmar");
-        jBtConfirmarRegistroRDR.setEnabled(false);
-        jBtConfirmarRegistroRDR.addActionListener(new java.awt.event.ActionListener() {
+        jBtConfirmarRegistroRR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarRegistroRR.setText("Confirmar");
+        jBtConfirmarRegistroRR.setEnabled(false);
+        jBtConfirmarRegistroRR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtConfirmarRegistroRDRActionPerformed(evt);
+                jBtConfirmarRegistroRRActionPerformed(evt);
             }
         });
 
@@ -4579,26 +4579,26 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel60)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCodigoRegistroRDR))
+                        .addComponent(jCodigoRegistroRR))
                     .addGroup(jPanel87Layout.createSequentialGroup()
-                        .addComponent(jBtAlterarRegistroRDR)
+                        .addComponent(jBtAlterarRegistroRR)
                         .addGap(2, 2, 2)
-                        .addComponent(jBtConfirmarRegistroRDR)))
+                        .addComponent(jBtConfirmarRegistroRR)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel87Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarRegistroRDR, jBtConfirmarRegistroRDR});
+        jPanel87Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarRegistroRR, jBtConfirmarRegistroRR});
 
         jPanel87Layout.setVerticalGroup(
             jPanel87Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel87Layout.createSequentialGroup()
                 .addGroup(jPanel87Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel60)
-                    .addComponent(jCodigoRegistroRDR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCodigoRegistroRR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel87Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtAlterarRegistroRDR)
-                    .addComponent(jBtConfirmarRegistroRDR))
+                    .addComponent(jBtAlterarRegistroRR)
+                    .addComponent(jBtConfirmarRegistroRR))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -6663,7 +6663,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarRegistroRECActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRECActionPerformed
         // TODO add your handling code here:
-
+        if (jCodigoRegistroREC.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroREC.getText()));
+                control.alterar_RECAPTURA(objAbriNov);
+                confirmarRECAPTURA();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroRECActionPerformed
 
     private void jBtAlterarRegistroRCNEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroRCNEActionPerformed
@@ -6676,7 +6688,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarRegistroRCNEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRCNEActionPerformed
         // TODO add your handling code here:
-
+        if (jCodigoRegistroRCNE.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroRCNE.getText()));
+                control.alterar_CANCELADO_NOVA_entrada(objAbriNov);
+                confirmarREGISTRO_CANCELADO_ne();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroRCNEActionPerformed
 
     private void jBtAlterarRegistroRCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroRCRActionPerformed
@@ -6689,21 +6713,45 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarRegistroRCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRCRActionPerformed
         // TODO add your handling code here:
-
+        if (jCodigoRegistroRCR.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroRCR.getText()));
+                control.alterar_CANCELADO_REGISTRO_retorno(objAbriNov);
+                confirmarREGISTRO_CANCELADO_retorno();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroRCRActionPerformed
 
-    private void jBtAlterarRegistroRDRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroRDRActionPerformed
+    private void jBtAlterarRegistroRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroRRActionPerformed
         // TODO add your handling code here:
-        jBtAlterarRegistroRDR.setEnabled(!true);
-        jCodigoRegistroRDR.setEnabled(true);
-        jBtConfirmarRegistroRDR.setEnabled(true);
+        jBtAlterarRegistroRR.setEnabled(!true);
+        jCodigoRegistroRR.setEnabled(true);
+        jBtConfirmarRegistroRR.setEnabled(true);
         jBtCancelar.setEnabled(true);
-    }//GEN-LAST:event_jBtAlterarRegistroRDRActionPerformed
+    }//GEN-LAST:event_jBtAlterarRegistroRRActionPerformed
 
-    private void jBtConfirmarRegistroRDRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRDRActionPerformed
+    private void jBtConfirmarRegistroRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRRActionPerformed
         // TODO add your handling code here:
-
-    }//GEN-LAST:event_jBtConfirmarRegistroRDRActionPerformed
+        if (jCodigoRegistroRR.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroRR.getText()));
+                control.alterar_CANCELADO_REGRESSAO_regime(objAbriNov);
+                confirmarREGRESSAO_regime();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarRegistroRRActionPerformed
 
     private void jBtAlterarRegistroRTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroRTActionPerformed
         // TODO add your handling code here:
@@ -6715,7 +6763,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarRegistroRTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRTActionPerformed
         // TODO add your handling code here:
-
+        if (jCodigoRegistroRT.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroRT.getText()));
+                control.alterar_CANCELADO_RETORNO_transferencia(objAbriNov);
+                confirmarRETORNO_transferencia();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroRTActionPerformed
 
     private void jBtAlterarRegistroTUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroTUActionPerformed
@@ -6728,7 +6788,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarRegistroTUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroTUActionPerformed
         // TODO add your handling code here:
-
+        if (jCodigoRegistroTU.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroTU.getText()));
+                control.alterar_TRANSFERENCIA_unidade(objAbriNov);
+                confirmarTRANSFERENCIA_unidade();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroTUActionPerformed
 
     private void jBtAlterarRegistroRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroRMActionPerformed
@@ -6741,7 +6813,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarRegistroRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRMActionPerformed
         // TODO add your handling code here:
-
+        if (jCodigoRegistroRM.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroRM.getText()));
+                control.alterar_RETORNO_medico(objAbriNov);
+                confirmarRETORNO_medico();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroRMActionPerformed
 
     private void jBtAlterarRegistroSUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroSUActionPerformed
@@ -6754,7 +6838,19 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarRegistroSUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroSUActionPerformed
         // TODO add your handling code here:
-
+        if (jCodigoRegistroSU.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroSU.getText()));
+                control.alterar_SAIDA_unidade(objAbriNov);
+                confirmarSAIDA_unidade();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroSUActionPerformed
 
     private void jBtAlterarRegistroRAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarRegistroRAActionPerformed
@@ -6766,8 +6862,20 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAlterarRegistroRAActionPerformed
 
     private void jBtConfirmarRegistroRAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarRegistroRAActionPerformed
-        // TODO add your handling code here:
-
+        // TODO add your handling code here: 
+        if (jCodigoRegistroRA.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro a ser aberto.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente abrir o documento?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAbriNov.setStatusLanc(statusMov);
+                objAbriNov.setIdLanc(Integer.valueOf(jCodigoRegistroRA.getText()));
+                control.alterar_RETORNO_audiencia(objAbriNov);
+                confirmarRETORNO_audiencia();
+                JOptionPane.showMessageDialog(rootPane, "Registro foi aberto com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarRegistroRAActionPerformed
 
 
@@ -6828,9 +6936,9 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterarRegistroRA;
     private javax.swing.JButton jBtAlterarRegistroRCNE;
     private javax.swing.JButton jBtAlterarRegistroRCR;
-    private javax.swing.JButton jBtAlterarRegistroRDR;
     private javax.swing.JButton jBtAlterarRegistroREC;
     private javax.swing.JButton jBtAlterarRegistroRM;
+    private javax.swing.JButton jBtAlterarRegistroRR;
     private javax.swing.JButton jBtAlterarRegistroRT;
     private javax.swing.JButton jBtAlterarRegistroSU;
     private javax.swing.JButton jBtAlterarRegistroTU;
@@ -6896,9 +7004,9 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtConfirmarRegistroRA;
     private javax.swing.JButton jBtConfirmarRegistroRCNE;
     private javax.swing.JButton jBtConfirmarRegistroRCR;
-    private javax.swing.JButton jBtConfirmarRegistroRDR;
     private javax.swing.JButton jBtConfirmarRegistroREC;
     private javax.swing.JButton jBtConfirmarRegistroRM;
+    private javax.swing.JButton jBtConfirmarRegistroRR;
     private javax.swing.JButton jBtConfirmarRegistroRT;
     private javax.swing.JButton jBtConfirmarRegistroSU;
     private javax.swing.JButton jBtConfirmarRegistroTU;
@@ -6958,10 +7066,10 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jCodigoRegistroRA;
     private javax.swing.JTextField jCodigoRegistroRCNE;
     private javax.swing.JTextField jCodigoRegistroRCR;
-    private javax.swing.JTextField jCodigoRegistroRDR;
     private javax.swing.JTextField jCodigoRegistroREC;
     private javax.swing.JTextField jCodigoRegistroREQUISICAO_avulsa_far;
     private javax.swing.JTextField jCodigoRegistroRM;
+    private javax.swing.JTextField jCodigoRegistroRR;
     private javax.swing.JTextField jCodigoRegistroRT;
     private javax.swing.JTextField jCodigoRegistroRequisicao;
     private javax.swing.JTextField jCodigoRegistroRevista;
@@ -7750,6 +7858,69 @@ public class TelaAbirMovimentoFinalizado extends javax.swing.JInternalFrame {
         jCodigoRegistroPST.setEnabled(!true);
         jBtAlterarRegistroPST.setEnabled(true);
         jBtConfirmarRegistroPST.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarRECAPTURA() {
+        jCodigoRegistroREC.setEnabled(!true);
+        jBtAlterarRegistroREC.setEnabled(true);
+        jBtConfirmarRegistroREC.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarREGISTRO_CANCELADO_ne() {
+        jCodigoRegistroRCNE.setEnabled(!true);
+        jBtAlterarRegistroRCNE.setEnabled(true);
+        jBtConfirmarRegistroRCNE.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarREGISTRO_CANCELADO_retorno() {
+        jCodigoRegistroRCR.setEnabled(!true);
+        jBtAlterarRegistroRCR.setEnabled(true);
+        jBtConfirmarRegistroRCR.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarREGRESSAO_regime() {
+        jCodigoRegistroRR.setEnabled(!true);
+        jBtAlterarRegistroRR.setEnabled(true);
+        jBtConfirmarRegistroRR.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarRETORNO_audiencia() {
+        jCodigoRegistroRA.setEnabled(!true);
+        jBtAlterarRegistroRA.setEnabled(true);
+        jBtConfirmarRegistroRA.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarRETORNO_transferencia() {
+        jCodigoRegistroRT.setEnabled(!true);
+        jBtAlterarRegistroRT.setEnabled(true);
+        jBtConfirmarRegistroRT.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarTRANSFERENCIA_unidade() {
+        jCodigoRegistroTU.setEnabled(!true);
+        jBtAlterarRegistroTU.setEnabled(true);
+        jBtConfirmarRegistroTU.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarSAIDA_unidade() {
+        jCodigoRegistroSU.setEnabled(!true);
+        jBtAlterarRegistroSU.setEnabled(true);
+        jBtConfirmarRegistroSU.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+    }
+
+    public void confirmarRETORNO_medico() {
+        jCodigoRegistroRM.setEnabled(!true);
+        jBtAlterarRegistroRM.setEnabled(true);
+        jBtConfirmarRegistroRM.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
     }
 }

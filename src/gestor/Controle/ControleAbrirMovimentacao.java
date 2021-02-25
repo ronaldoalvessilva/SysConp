@@ -2026,12 +2026,138 @@ public class ControleAbrirMovimentacao {
         conecta.desconecta();
         return objAbriNov;
     }
-    
+
     public AbrirMovimentos alterar_PRORROGAR_SAIDA_TEMPORARIA(AbrirMovimentos objAbriNov) {
 
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR SET StatusRegistro=? WHERE IdProrroga='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_RECAPTURA(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RECAPTURA SET StatusRet=? WHERE IdRecaptura='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_CANCELADO_NOVA_entrada(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_CANCELADO_NE SET StatusLanc=? WHERE IdRegCancel='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_CANCELADO_REGISTRO_retorno(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_CANCELADO_RETORNOS SET StatusLanc=? WHERE IdRegCancel='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_CANCELADO_REGRESSAO_regime(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGRESSAOREGIME SET StatusLanc=? WHERE IdLanc='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_RETORNO_audiencia(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOAUDIENCIA SET StatusRet=? WHERE IdRetorno='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_CANCELADO_RETORNO_transferencia(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOAUDIENCIA SET StatusRet=? WHERE IdRetorno='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_TRANSFERENCIA_unidade(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TRANSFERENCIACRC SET StatusTran=? WHERE IdTransf='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_SAIDA_unidade(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE SAIDACRC SET StatusSai=? WHERE IdSaida='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+
+    public AbrirMovimentos alterar_RETORNO_medico(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOMEDICO SET StatusRet=? WHERE IdRetorno='" + objAbriNov.getIdLanc() + "'");
             pst.setString(1, objAbriNov.getStatusLanc());
             pst.executeUpdate();
         } catch (SQLException ex) {
