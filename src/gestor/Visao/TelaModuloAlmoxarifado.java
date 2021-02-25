@@ -2742,23 +2742,203 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
         if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jCancelarPagamentoKit.setVisible(!true);
-            jSeparator14.setVisible(!true);
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(!true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
         } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jCancelarPagamentoKit.setVisible(true);
-            jSeparator14.setVisible(true);
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
         } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jCancelarPagamentoKit.setVisible(true);
-            jSeparator14.setVisible(true);
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
         } else if (objParCrc.getHabilitarImp() == null) {
-            jCancelarPagamentoKit.setVisible(!true);
-            jSeparator14.setVisible(!true);
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(!true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
         } else if (objParCrc.getHabilitarImp().equals("")) {
-            jCancelarPagamentoKit.setVisible(!true);
-            jSeparator14.setVisible(!true);
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(!true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
         } else {
-            jCancelarPagamentoKit.setVisible(true);
-            jSeparator14.setVisible(true);
+            if (objComp.getDataPrevisao() != null) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                pDATA_inicial = formatoAmerica.format(objComp.getDataPrevisao());
+                if (pDATA_inicial.equals(jDataSistema.getText())) {
+                    //CHAMA TELA PARA MOSTRAR DADOS DO KIT
+                    if (objAlertaKit == null || objAlertaKit.isClosed()) {
+                        objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                        jPainelAlmoxarifado.add(objAlertaKit);
+                        objAlertaKit.setVisible(true);
+                    } else {
+                        if (objAlertaKit.isVisible()) {
+                            if (objAlertaKit.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaKit.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaKit.toFront(); // traz para frente
+                                objAlertaKit.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaKit = new TelaAlertaPagamentoKitHigiene();
+                            TelaModuloPortarias.jPainelPortarias.add(objAlertaKit);//adicona frame ao JDesktopPane  
+                            objAlertaKit.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaKit.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            }
         }
     }
 }
