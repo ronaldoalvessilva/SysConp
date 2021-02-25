@@ -2166,4 +2166,46 @@ public class ControleAbrirMovimentacao {
         conecta.desconecta();
         return objAbriNov;
     }
+    
+    public AbrirMovimentos alterar_RETORNO_SAIDA_temporaria(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOSCRC SET StatusRet=? WHERE IdRetorno='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+    
+    public AbrirMovimentos alterar_RETORNO_espontaneo(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RETORNOESPONTANEO SET StatusRet=? WHERE IdRetorno='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
+    
+    public AbrirMovimentos alterar_SAIDA_simbolica(AbrirMovimentos objAbriNov) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE SAIDA_SIMBOLICA_CRC SET StatusRegistro=? WHERE IdRegSaida='" + objAbriNov.getIdLanc() + "'");
+            pst.setString(1, objAbriNov.getStatusLanc());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAbriNov;
+    }
 }

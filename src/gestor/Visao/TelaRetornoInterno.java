@@ -480,7 +480,6 @@ public class TelaRetornoInterno extends javax.swing.JInternalFrame {
 
         jStatusRetorno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jStatusRetorno.setForeground(new java.awt.Color(255, 0, 0));
-        jStatusRetorno.setText("FINJALIZADO");
         jStatusRetorno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jStatusRetorno.setEnabled(false);
 

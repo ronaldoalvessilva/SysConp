@@ -1030,7 +1030,10 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM POPULACAOINTERNOS_CRC WHERE DataPop='" + dataGeracao + "'");
+            conecta.executaSQL("SELECT "
+                    + "DataPop "
+                    + "FROM POPULACAOINTERNOS_CRC "
+                    + "WHERE DataPop='" + dataGeracao + "'");
             conecta.rs.first();
             dataBanco = conecta.rs.getDate("DataPop");
         } catch (Exception e) {
@@ -1042,7 +1045,10 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM POPULACAOINTERNOS_CRC WHERE DataPop='" + dataGeracao + "'");
+            conecta.executaSQL("SELECT "
+                    + "DataPop "
+                    + "FROM POPULACAOINTERNOS_CRC "
+                    + "WHERE DataPop='" + dataGeracao + "'");
             conecta.rs.first();
             dataBanco = conecta.rs.getDate("DataPop");
         } catch (Exception e) {
