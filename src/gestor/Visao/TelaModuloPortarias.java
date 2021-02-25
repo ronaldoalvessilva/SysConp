@@ -1999,31 +1999,39 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void RelatorioRolVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioRolVisitasActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/ServicoSocial/RolVisitas.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ROLVISITAS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ROLVISITAS.IdInternoCrc "
-                    + "INNER JOIN ITENSROL "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSROL.IdInternoCrc "
-                    + "INNER JOIN VISITASINTERNO "
-                    + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
-                    + "WHERE StatusRol='" + statusRol + "'");
-            HashMap parametros = new HashMap();
-            parametros.put("statusRol", statusRol);
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Rol de Visitas"); // Titulo do relatório
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO. :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste 
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ServicoSocial/RolVisitas.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN ROLVISITAS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ROLVISITAS.IdInternoCrc "
+                            + "INNER JOIN ITENSROL "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSROL.IdInternoCrc "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE StatusRol='" + statusRol + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("statusRol", statusRol);
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Rol de Visitas"); // Titulo do relatório
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação         
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO. :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioRolVisitasActionPerformed
 
     private void RegistrosSaidasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrosSaidasInternosActionPerformed
@@ -2255,29 +2263,37 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void ListagemInternosRegimePenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListagemInternosRegimePenalActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
-                    + "OR SituacaoCrc='" + situacaoRet + "'ORDER BY NomeInternoCrc");
-            HashMap parametros = new HashMap();
-            parametros.put("situacaoEntrada", situacaoEnt);
-            parametros.put("situacaoRetorno", situacaoRet);
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Listagem de Internos Por Regime Penal");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste 
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                            + "OR SituacaoCrc='" + situacaoRet + "'ORDER BY NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("situacaoEntrada", situacaoEnt);
+                    parametros.put("situacaoRetorno", situacaoRet);
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos Por Regime Penal");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde 
     }//GEN-LAST:event_ListagemInternosRegimePenalActionPerformed
 
     private void RegistroProntuarioInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroProntuarioInternoActionPerformed

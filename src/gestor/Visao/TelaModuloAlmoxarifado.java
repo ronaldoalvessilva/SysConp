@@ -188,6 +188,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public static String telaConsultaKitsEntregueNaoEntregues_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue";
     public static String telaConsultaKitsEntregueNaoEntreguesInternos_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue por Interno";
     public static String telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL = "Consulta:Consulta de Kits de Higiene Entregue não Entregue:Todos";
+    //
+    public static String telaAlertaProgramacaoKitHigiene_AL = "Alerta de Pagamnento de Kit de Higiêne de Internos: Almoxarifado";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCF = "";
@@ -236,6 +238,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     String pNomeCKENE = "";
     String pNomeCKENI = "";
     String pNomeCKENEIT = "";
+    //
+    String pNomeAPKI = "";
     //
     public static int codigoUserAL = 0;
     public static int codUserAcessoAL = 0;
@@ -1125,27 +1129,35 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
 
     private void RelatorioCadastroProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioCadastroProdutosActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/Almoxarifado/RelatorioProdutosCadastradosPorGrupo.jasper";
-            conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
-                    + "INNER JOIN GRUPO_PRODUTOS_AC "
-                    + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
-                    + "ORDER BY GRUPO_PRODUTOS_AC.NomeGrupo,PRODUTOS_AC.DescricaoProd");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            parametros.put("descricaoUnidade", descricaoUnidade);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Produtos Cadastrados Por Grupo");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/Almoxarifado/RelatorioProdutosCadastradosPorGrupo.jasper";
+                    conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
+                            + "INNER JOIN GRUPO_PRODUTOS_AC "
+                            + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
+                            + "ORDER BY GRUPO_PRODUTOS_AC.NomeGrupo,PRODUTOS_AC.DescricaoProd");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Produtos Cadastrados Por Grupo");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
     }//GEN-LAST:event_RelatorioCadastroProdutosActionPerformed
 
     private void SolicitacaoComprasMateriaisInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolicitacaoComprasMateriaisInternosActionPerformed
@@ -1248,27 +1260,35 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/Almoxarifado/RelatorioGeralEstoqueFarmacia.jasper";
-            conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
-                    + "INNER JOIN LOTE_PRODUTOS_AC "
-                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
-                    + "WHERE PRODUTOS_AC.Modulo='" + modulo + "' "
-                    + "AND Qtd>'" + 0 + "'");
-            HashMap parametros = new HashMap();
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório Geral de Estoque de Produtos");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-        }
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste 
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/Almoxarifado/RelatorioGeralEstoqueFarmacia.jasper";
+                    conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
+                            + "INNER JOIN LOTE_PRODUTOS_AC "
+                            + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                            + "WHERE PRODUTOS_AC.Modulo='" + modulo + "' "
+                            + "AND Qtd>'" + 0 + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório Geral de Estoque de Produtos");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação     
+                    carregando.dispose(); //Teste tela aguarde
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void RelatorioEntradaInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioEntradaInternosUnidadeActionPerformed
@@ -1316,6 +1336,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
 
     private void RelatorioPendenciaPagtoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioPendenciaPagtoKitActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento...");
     }//GEN-LAST:event_RelatorioPendenciaPagtoKitActionPerformed
 
     private void MovimentacaoCrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MovimentacaoCrcActionPerformed
@@ -1494,6 +1515,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
 
     private void jRelatorioPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPagamentoKitActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento...");
     }//GEN-LAST:event_jRelatorioPagamentoKitActionPerformed
 
     private void jCancelarPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarPagamentoKitActionPerformed
@@ -2424,6 +2446,14 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             pNomeCKENEIT = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //ALERTA DE PAGAMENTO DE KIT DE HIGIENE
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAlertaProgramacaoKitHigiene_AL + "'");
+            conecta.rs.first();
+            pNomeAPKI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeCF.equals(telaCadastroFornecedoresAL) || pNomeCF == null || pNomeCF.equals("")) {
             buscarCodigoModulo();
@@ -2630,6 +2660,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //ALERTA DE PAGAMENTO DE KIT DE HIGIENE
+        if (!pNomeAPKI.equals(telaConsultaKitsEntregueNaoEntreguesInternosTodos_AL) || pNomeAPKI == null || pNomeAPKI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAlertaProgramacaoKitHigiene_AL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
@@ -2647,6 +2684,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public void PESQUISAR_LIBERACAO_implementacao() {
         PESQUISAR_IMPLEMENTA_ALM_001(telaConsultaKitsEntreguePrincipal_AL);
         PESQUISAR_IMPLEMENTA_ALM_002(telaCancelamentoPagamentoManu);
+        PESQUISAR_IMPLEMENTA_ALM_003(telaAlertaProgramacaoKitHigiene_AL);
     }
 
     public void PESQUISAR_IMPLEMENTA_ALM_001(String pNOME_tela) {
@@ -2675,6 +2713,31 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     }
 
     public void PESQUISAR_IMPLEMENTA_ALM_002(String pNOME_tela) {
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelarPagamentoKit.setVisible(true);
+            jSeparator14.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelarPagamentoKit.setVisible(true);
+            jSeparator14.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jCancelarPagamentoKit.setVisible(!true);
+            jSeparator14.setVisible(!true);
+        } else {
+            jCancelarPagamentoKit.setVisible(true);
+            jSeparator14.setVisible(true);
+        }
+    }
+
+    public void PESQUISAR_IMPLEMENTA_ALM_003(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);

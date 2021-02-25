@@ -201,34 +201,42 @@ public class TelaRelatorioPrevisaoSaidaDiversas extends javax.swing.JInternalFra
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
-                            conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "INNER JOIN DADOSPENAISINTERNOS "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE DataPrevSaida BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' "
-                                    + "AND ConfirmaSaida='" + confirmaSaida + "' "
-                                    + "ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("confirmaSaida", confirmaSaida);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Previsão de Saida de Internos por Período Não Realizadas");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste 
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
+                                    conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA "
+                                            + "INNER JOIN PRONTUARIOSCRC "
+                                            + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                            + "INNER JOIN DADOSPENAISINTERNOS "
+                                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                            + "WHERE DataPrevSaida BETWEEN'" + dataInicial + "' "
+                                            + "AND'" + dataFinal + "' "
+                                            + "AND ConfirmaSaida='" + confirmaSaida + "' "
+                                            + "ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("confirmaSaida", confirmaSaida);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Previsão de Saida de Internos por Período Não Realizadas");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação   
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde 
                     }
                 }
             }
@@ -247,34 +255,42 @@ public class TelaRelatorioPrevisaoSaidaDiversas extends javax.swing.JInternalFra
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
-                            conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "INNER JOIN DADOSPENAISINTERNOS "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE DataPrevSaida BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' "
-                                    + "AND ConfirmaSaida='" + confirmaSaida + "' "
-                                    + "ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("confirmaSaida", confirmaSaida);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Previsão de Saida de Internos por Período Não Realizadas");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste 
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/CRC/RelatorioPrevisaoSaidaInternosDiversos.jasper";
+                                    conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA "
+                                            + "INNER JOIN PRONTUARIOSCRC "
+                                            + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                            + "INNER JOIN DADOSPENAISINTERNOS "
+                                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                            + "WHERE DataPrevSaida BETWEEN'" + dataInicial + "' "
+                                            + "AND'" + dataFinal + "' "
+                                            + "AND ConfirmaSaida='" + confirmaSaida + "' "
+                                            + "ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("confirmaSaida", confirmaSaida);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Previsão de Saida de Internos por Período Não Realizadas");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde 
                     }
                 }
             }

@@ -200,36 +200,44 @@ public class TelaRelatorioConsumoProdutosAvulsoDepartamento extends javax.swing.
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/Almoxarifado/RelatorioConsumoProdutosAvulsoDepartamento.jasper";
-                            conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN REQUISICAO_AVULSA_PRODUTOS "
-                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdReq=REQUISICAO_AVULSA_PRODUTOS.IdReq "
-                                    + "INNER JOIN COLABORADOR "
-                                    + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                                    + "WHERE DataReq BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' "
-                                    + "ORDER BY PRODUTOS_AC.DescricaoProd");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Consumo de Produtos Avulso por Departamento");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste 
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/Almoxarifado/RelatorioConsumoProdutosAvulsoDepartamento.jasper";
+                                    conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS "
+                                            + "INNER JOIN PRODUTOS_AC "
+                                            + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdProd=PRODUTOS_AC.IdProd "
+                                            + "INNER JOIN REQUISICAO_AVULSA_PRODUTOS "
+                                            + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdReq=REQUISICAO_AVULSA_PRODUTOS.IdReq "
+                                            + "INNER JOIN COLABORADOR "
+                                            + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "
+                                            + "INNER JOIN DEPARTAMENTOS "
+                                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                            + "WHERE DataReq BETWEEN'" + dataInicial + "' "
+                                            + "AND'" + dataFinal + "' "
+                                            + "ORDER BY PRODUTOS_AC.DescricaoProd");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Consumo de Produtos Avulso por Departamento");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação    
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde 
                     }
                 }
             }
@@ -248,36 +256,44 @@ public class TelaRelatorioConsumoProdutosAvulsoDepartamento extends javax.swing.
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/Almoxarifado/RelatorioConsumoProdutosAvulsoDepartamento.jasper";
-                            conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS "
-                                    + "INNER JOIN PRODUTOS_AC "
-                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdProd=PRODUTOS_AC.IdProd "
-                                    + "INNER JOIN REQUISICAO_AVULSA_PRODUTOS "
-                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdReq=REQUISICAO_AVULSA_PRODUTOS.IdReq "
-                                    + "INNER JOIN COLABORADOR "
-                                    + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                                    + "WHERE DataReq BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' "
-                                    + "ORDER BY PRODUTOS_AC.DescricaoProd");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Consumo de Produtos Avulso por Departamento");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste 
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/Almoxarifado/RelatorioConsumoProdutosAvulsoDepartamento.jasper";
+                                    conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS "
+                                            + "INNER JOIN PRODUTOS_AC "
+                                            + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdProd=PRODUTOS_AC.IdProd "
+                                            + "INNER JOIN REQUISICAO_AVULSA_PRODUTOS "
+                                            + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS.IdReq=REQUISICAO_AVULSA_PRODUTOS.IdReq "
+                                            + "INNER JOIN COLABORADOR "
+                                            + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "
+                                            + "INNER JOIN DEPARTAMENTOS "
+                                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                            + "WHERE DataReq BETWEEN'" + dataInicial + "' "
+                                            + "AND'" + dataFinal + "' "
+                                            + "ORDER BY PRODUTOS_AC.DescricaoProd");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Consumo de Produtos Avulso por Departamento");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação    
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }
