@@ -172,6 +172,10 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jApagarPopulacaoCRC = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jAlertaEntradas = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        jGerarValidaChaveSistema = new javax.swing.JMenu();
+        jGerarChave = new javax.swing.JMenuItem();
+        jValidarLiberarSistema = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -386,6 +390,29 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jAbrirMovimetacaoSistema.add(jAlertaEntradas);
+        jAbrirMovimetacaoSistema.add(jSeparator10);
+
+        jGerarValidaChaveSistema.setText("Gerar e Validar Chave para Sistema");
+
+        jGerarChave.setForeground(new java.awt.Color(0, 0, 204));
+        jGerarChave.setText("Gerar Chave");
+        jGerarChave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGerarChaveActionPerformed(evt);
+            }
+        });
+        jGerarValidaChaveSistema.add(jGerarChave);
+
+        jValidarLiberarSistema.setForeground(new java.awt.Color(0, 102, 0));
+        jValidarLiberarSistema.setText("Validar e Liberar SISTEMA");
+        jValidarLiberarSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jValidarLiberarSistemaActionPerformed(evt);
+            }
+        });
+        jGerarValidaChaveSistema.add(jValidarLiberarSistema);
+
+        jAbrirMovimetacaoSistema.add(jGerarValidaChaveSistema);
 
         jMenuBar1.add(jAbrirMovimetacaoSistema);
 
@@ -744,6 +771,14 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jAlertaEntradasActionPerformed
 
+    private void jGerarChaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGerarChaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jGerarChaveActionPerformed
+
+    private void jValidarLiberarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValidarLiberarSistemaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jValidarLiberarSistemaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
@@ -761,6 +796,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCalculadoraWindows;
     private javax.swing.JMenuItem jConsultaSQL;
     private javax.swing.JMenuItem jFechamentoSistema;
+    private javax.swing.JMenuItem jGerarChave;
+    private javax.swing.JMenu jGerarValidaChaveSistema;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -776,6 +813,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelConfiguracoes;
     private javax.swing.JMenuItem jParamentosSistema;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -784,6 +822,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
+    private javax.swing.JMenuItem jValidarLiberarSistema;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -1030,6 +1069,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         PESQUISAR_IMPLEMENTA_CONF_002(telaAbrirMovimentoSistema);
         PESQUISAR_IMPLEMENTA_CONF_003(telaApagarPopulacaoCRC);
         PESQUISAR_IMPLEMENTA_CONF_004(telaModificarAlertaEntradas);
+//        PESQUISAR_IMPLEMENTA_CONF_005(telaModificarAlertaEntradas);
     }
 
     public void PESQUISAR_IMPLEMENTA_CONF_001(String pNOME_tela) {
@@ -1131,5 +1171,30 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             jAlertaEntradas.setVisible(true);
             jSeparator8.setVisible(true);
         }
+    }
+    
+    public void PESQUISAR_IMPLEMENTA_CONF_005(String pNOME_tela) {
+//        objParCrc.setNomeTela(pNOME_tela);
+//        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+//        controlImp.pPESQUISAR_liberacao(objParCrc);
+//        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+//            jAlertaEntradas.setVisible(!true);
+//            jSeparator8.setVisible(!true);
+//        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+//            jAlertaEntradas.setVisible(true);
+//            jSeparator8.setVisible(true);
+//        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+//            jAlertaEntradas.setVisible(true);
+//            jSeparator8.setVisible(true);
+//        } else if (objParCrc.getHabilitarImp() == null) {
+//            jAlertaEntradas.setVisible(!true);
+//            jSeparator8.setVisible(!true);
+//        } else if (objParCrc.getHabilitarImp().equals("")) {
+//            jAlertaEntradas.setVisible(!true);
+//            jSeparator8.setVisible(!true);
+//        } else {
+//            jAlertaEntradas.setVisible(true);
+//            jSeparator8.setVisible(true);
+//        }
     }
 }
