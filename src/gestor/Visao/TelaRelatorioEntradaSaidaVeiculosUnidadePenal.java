@@ -239,98 +239,125 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                             SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                             dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                             dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                            try {
-                                conecta.abrirConexao();
-                                String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenal.jasper";
-                                conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
-                                        + "INNER JOIN ITENSVEICULOSUNIDADE "
-                                        + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
-                                        + "INNER JOIN COLABORADOR "
-                                        + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
-                                        + "INNER JOIN VEICULOS "
-                                        + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                                        + "WHERE CONVERT(DATE, DataSaida) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY PlacaVeiculo,CONVERT(DATE, DataSaida),HorarioSaida");
-                                HashMap parametros = new HashMap();
-                                parametros.put("dataInicial", dataInicial);
-                                parametros.put("dataFinal", dataFinal);
-                                parametros.put("nomeUsuario", nameUser);
-                                parametros.put("nomeUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                            } catch (JRException e) {
-                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                            }
+                            //
+                            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenal.jasper";
+                                        conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
+                                                + "INNER JOIN ITENSVEICULOSUNIDADE "
+                                                + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
+                                                + "INNER JOIN COLABORADOR "
+                                                + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
+                                                + "INNER JOIN VEICULOS "
+                                                + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
+                                                + "WHERE CONVERT(DATE, DataSaida) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY PlacaVeiculo,CONVERT(DATE, DataSaida),HorarioSaida");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("dataInicial", dataInicial);
+                                        parametros.put("dataFinal", dataFinal);
+                                        parametros.put("nomeUsuario", nameUser);
+                                        parametros.put("nomeUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação  
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
                         }
                     }
                 }
             } else if (!jPlacaVeiculo.getText().equals("") && jDataPesqInicial.getDate() == null && jDataPesqFinal.getDate() == null) {
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlaca.jasper";
-                    conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
-                            + "INNER JOIN ITENSVEICULOSUNIDADE "
-                            + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
-                            + "INNER JOIN VEICULOS "
-                            + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                            + "WHERE PlacaVeiculo='" + jPlacaVeiculo.getText() + "'ORDER BY DataSaida");
-                    HashMap parametros = new HashMap();
-                    parametros.put("placaVeiculo", jPlacaVeiculo.getText());
-                    parametros.put("nomeUsuario", nameUser);
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade pela Placa do Veículo.");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação            
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                }
+                //
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste                
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlaca.jasper";
+                            conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
+                                    + "INNER JOIN ITENSVEICULOSUNIDADE "
+                                    + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
+                                    + "INNER JOIN COLABORADOR "
+                                    + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
+                                    + "INNER JOIN VEICULOS "
+                                    + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
+                                    + "WHERE PlacaVeiculo='" + jPlacaVeiculo.getText() + "'ORDER BY DataSaida");
+                            HashMap parametros = new HashMap();
+                            parametros.put("placaVeiculo", jPlacaVeiculo.getText());
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade pela Placa do Veículo.");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação        
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             } else if (!jPlacaVeiculo.getText().equals("") && jDataPesqInicial.getDate() != null && jDataPesqFinal.getDate() != null) {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
-                    conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
-                            + "INNER JOIN ITENSVEICULOSUNIDADE "
-                            + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
-                            + "INNER JOIN VEICULOS "
-                            + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                            + "WHERE DataSaida BETWEEN'" + dataInicial + "' "
-                            + "AND'" + dataFinal + "' "
-                            + "AND PlacaVeiculo='" + jPlacaVeiculo.getText() + "' "
-                            + "ORDER BY DataSaida");
-                    HashMap parametros = new HashMap();
-                    parametros.put("dataInicial", dataInicial);
-                    parametros.put("dataFinal", dataFinal);
-                    parametros.put("placaVeiculo", jPlacaVeiculo.getText());
-                    parametros.put("nomeUsuario", nameUser);
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período/Placa do Veículo");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação            
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                }
+                //
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
+                            conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
+                                    + "INNER JOIN ITENSVEICULOSUNIDADE "
+                                    + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
+                                    + "INNER JOIN COLABORADOR "
+                                    + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
+                                    + "INNER JOIN VEICULOS "
+                                    + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
+                                    + "WHERE DataSaida BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "AND PlacaVeiculo='" + jPlacaVeiculo.getText() + "' "
+                                    + "ORDER BY DataSaida");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("placaVeiculo", jPlacaVeiculo.getText());
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período/Placa do Veículo");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação   
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             if (jPlacaVeiculo.getText().equals("")) {
@@ -348,98 +375,125 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                             dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                             dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                            try {
-                                conecta.abrirConexao();
-                               String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenal.jasper";
-                                conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
-                                        + "INNER JOIN ITENSVEICULOSUNIDADE "
-                                        + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
-                                        + "INNER JOIN COLABORADOR "
-                                        + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
-                                        + "INNER JOIN VEICULOS "
-                                        + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                                        + "WHERE CONVERT(DATE, DataSaida) BETWEEN'" + dataInicial + "' "
-                                        + "AND'" + dataFinal + "' "
-                                        + "ORDER BY PlacaVeiculo,CONVERT(DATE, DataSaida),HorarioSaida");
-                                HashMap parametros = new HashMap();
-                                parametros.put("dataInicial", dataInicial);
-                                parametros.put("dataFinal", dataFinal);
-                                parametros.put("nomeUsuario", nameUser);
-                                parametros.put("nomeUnidade", descricaoUnidade);
-                                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período");
-                                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                                conecta.desconecta();
-                            } catch (JRException e) {
-                                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                            }
+                            //
+                            final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                            carregando.setVisible(true);//Teste tela aguarde
+                            Thread t = new Thread() { //Teste tela aguarde
+                                public void run() { //Teste
+                                    try {
+                                        conecta.abrirConexao();
+                                        String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlaca.jasper";
+                                        conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
+                                                + "INNER JOIN ITENSVEICULOSUNIDADE "
+                                                + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
+                                                + "INNER JOIN COLABORADOR "
+                                                + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
+                                                + "INNER JOIN VEICULOS "
+                                                + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
+                                                + "WHERE CONVERT(DATE, DataSaida) BETWEEN'" + dataInicial + "' "
+                                                + "AND'" + dataFinal + "' "
+                                                + "ORDER BY PlacaVeiculo,CONVERT(DATE, DataSaida),HorarioSaida");
+                                        HashMap parametros = new HashMap();
+                                        parametros.put("dataInicial", dataInicial);
+                                        parametros.put("dataFinal", dataFinal);
+                                        parametros.put("nomeUsuario", nameUser);
+                                        parametros.put("nomeUnidade", descricaoUnidade);
+                                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                        jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período");
+                                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                        jv.toFront(); // Traz o relatorio para frente da aplicação     
+                                        carregando.dispose(); //Teste tela aguarde
+                                        conecta.desconecta();
+                                    } catch (JRException e) {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                    }
+                                }
+                            }; //Teste tela aguarde
+                            t.start(); //Teste tela aguarde
                         }
                     }
                 }
             } else if (!jPlacaVeiculo.getText().equals("") && jDataPesqInicial.getDate() == null && jDataPesqFinal.getDate() == null) {
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlaca.jasper";
-                    conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
-                            + "INNER JOIN ITENSVEICULOSUNIDADE "
-                            + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
-                            + "INNER JOIN VEICULOS "
-                            + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                            + "WHERE PlacaVeiculo='" + jPlacaVeiculo.getText() + "'ORDER BY DataSaida");
-                    HashMap parametros = new HashMap();
-                    parametros.put("placaVeiculo", jPlacaVeiculo.getText());
-                    parametros.put("nomeUsuario", nameUser);
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade pela Placa do Veículo.");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação            
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                }
+                //
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlaca.jasper";
+                            conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
+                                    + "INNER JOIN ITENSVEICULOSUNIDADE "
+                                    + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
+                                    + "INNER JOIN COLABORADOR "
+                                    + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
+                                    + "INNER JOIN VEICULOS "
+                                    + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
+                                    + "WHERE PlacaVeiculo='" + jPlacaVeiculo.getText() + "'ORDER BY DataSaida");
+                            HashMap parametros = new HashMap();
+                            parametros.put("placaVeiculo", jPlacaVeiculo.getText());
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade pela Placa do Veículo.");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação      
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             } else if (!jPlacaVeiculo.getText().equals("") && jDataPesqInicial.getDate() != null && jDataPesqFinal.getDate() != null) {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                 dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                 dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
-                    conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
-                            + "INNER JOIN ITENSVEICULOSUNIDADE "
-                            + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
-                            + "INNER JOIN VEICULOS "
-                            + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                            + "WHERE DataSaida BETWEEN'" + dataInicial + "' "
-                            + "AND'" + dataFinal + "' "
-                            + "AND PlacaVeiculo='" + jPlacaVeiculo.getText() + "' "
-                            + "ORDER BY DataSaida");
-                    HashMap parametros = new HashMap();
-                    parametros.put("dataInicial", dataInicial);
-                    parametros.put("dataFinal", dataFinal);
-                    parametros.put("placaVeiculo", jPlacaVeiculo.getText());
-                    parametros.put("nomeUsuario", nameUser);
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período/Placa do Veículo");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação            
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                }
+                //
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/Portarias/RelatorioEntradaSaidaVeiculosUnidadePenalPlacaDataSaida.jasper";
+                            conecta.executaSQL("SELECT * FROM ENTRADAVEICULOSUNIDADE "
+                                    + "INNER JOIN ITENSVEICULOSUNIDADE "
+                                    + "ON ENTRADAVEICULOSUNIDADE.IdLanc=ITENSVEICULOSUNIDADE.Idlanc "
+                                    + "INNER JOIN COLABORADOR "
+                                    + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
+                                    + "INNER JOIN VEICULOS "
+                                    + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
+                                    + "WHERE DataSaida BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "AND PlacaVeiculo='" + jPlacaVeiculo.getText() + "' "
+                                    + "ORDER BY DataSaida");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("placaVeiculo", jPlacaVeiculo.getText());
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Entrada e Saida de Veículos da Unidade por Período/Placa do Veículo");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação    
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed

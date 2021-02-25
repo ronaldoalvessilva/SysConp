@@ -236,34 +236,42 @@ public class TelaRelatorioEntradaSaidaColaboradorPorDepartamento extends javax.s
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaColaboradoresPorDepartamento.jasper";
-                            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
-                                    + "INNER JOIN COLABORADOR "
-                                    + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
-                                    + "INNER JOIN ITENSENTRADASFUNC "
-                                    + "ON COLABORADOR.IdFunc=ITENSENTRADASFUNC.IdFunc "
-                                    + "WHERE DataEntrada>='" + dataInicial + "' "
-                                    + "AND DataEntrada<='" + dataFinal + "' "
-                                    + "AND NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "' "
-                                    + "ORDER BY DEPARTAMENTOS.IdDepartamento,ITENSENTRADASFUNC.DataEntrada");
-                            HashMap parametros = new HashMap();
-                            parametros.put("nomeDepartamento", jComboBoxDepartamento.getSelectedItem());
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Entrada/Saída na Unidade Penal Por Departameto");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaColaboradoresPorDepartamento.jasper";
+                                    conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                                            + "INNER JOIN COLABORADOR "
+                                            + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
+                                            + "INNER JOIN ITENSENTRADASFUNC "
+                                            + "ON COLABORADOR.IdFunc=ITENSENTRADASFUNC.IdFunc "
+                                            + "WHERE DataEntrada>='" + dataInicial + "' "
+                                            + "AND DataEntrada<='" + dataFinal + "' "
+                                            + "AND NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "' "
+                                            + "ORDER BY DEPARTAMENTOS.IdDepartamento,ITENSENTRADASFUNC.DataEntrada");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("nomeDepartamento", jComboBoxDepartamento.getSelectedItem());
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Entrada/Saída na Unidade Penal Por Departameto");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação     
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }
@@ -282,34 +290,42 @@ public class TelaRelatorioEntradaSaidaColaboradorPorDepartamento extends javax.s
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaColaboradoresPorDepartamento.jasper";
-                            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
-                                    + "INNER JOIN COLABORADOR "
-                                    + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
-                                    + "INNER JOIN ITENSENTRADASFUNC "
-                                    + "ON COLABORADOR.IdFunc=ITENSENTRADASFUNC.IdFunc "
-                                    + "WHERE DataEntrada>='" + dataInicial + "' "
-                                    + "AND DataEntrada<='" + dataFinal + "' "
-                                    + "AND NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "' "
-                                    + "ORDER BY DEPARTAMENTOS.IdDepartamento,ITENSENTRADASFUNC.DataEntrada");
-                            HashMap parametros = new HashMap();
-                            parametros.put("nomeDepartamento", jComboBoxDepartamento.getSelectedItem());
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Entrada/Saída na Unidade Penal Por Departameto");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/GerenciaAdministrativa/RelatorioEntradaSaidaColaboradoresPorDepartamento.jasper";
+                                    conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                                            + "INNER JOIN COLABORADOR "
+                                            + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
+                                            + "INNER JOIN ITENSENTRADASFUNC "
+                                            + "ON COLABORADOR.IdFunc=ITENSENTRADASFUNC.IdFunc "
+                                            + "WHERE DataEntrada>='" + dataInicial + "' "
+                                            + "AND DataEntrada<='" + dataFinal + "' "
+                                            + "AND NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "' "
+                                            + "ORDER BY DEPARTAMENTOS.IdDepartamento,ITENSENTRADASFUNC.DataEntrada");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("nomeDepartamento", jComboBoxDepartamento.getSelectedItem());
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório de Entrada/Saída na Unidade Penal Por Departameto");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }
@@ -325,7 +341,11 @@ public class TelaRelatorioEntradaSaidaColaboradorPorDepartamento extends javax.s
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS WHERE NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdDepartamento, "
+                    + "NomeDepartamento "
+                    + "FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "'");
             conecta.rs.first();
             do {
                 // jComboBoxDepartamento.addItem(conecta.rs.getString("NomeDepartamento"));
@@ -340,7 +360,11 @@ public class TelaRelatorioEntradaSaidaColaboradorPorDepartamento extends javax.s
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS WHERE NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdDepartamento, "
+                    + "NomeDepartamento "
+                    + "FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + jComboBoxDepartamento.getSelectedItem() + "'");
             conecta.rs.first();
             do {
                 // jComboBoxDepartamento.addItem(conecta.rs.getString("NomeDepartamento"));
@@ -371,7 +395,11 @@ public class TelaRelatorioEntradaSaidaColaboradorPorDepartamento extends javax.s
     public void preencherComboDepto() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS ORDER BY NomeDepartamento");
+            conecta.executaSQL("SELECT "
+                    + "IdDepartamento, "
+                    + "NomeDepartamento "
+                    + "FROM DEPARTAMENTOS "
+                    + "ORDER BY NomeDepartamento");
             conecta.rs.first();
             do {
                 jComboBoxDepartamento.addItem(conecta.rs.getString("NomeDepartamento"));

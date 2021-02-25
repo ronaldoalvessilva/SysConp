@@ -186,32 +186,40 @@ public class TelaRelatorioEntradaSaidaVisitasPortariaGeral extends javax.swing.J
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/Portarias/RelatorioDepartamentoEntradaSaidaGeral.jasper";
-                            conecta.executaSQL("SELECT * FROM ITENSVISITASDIVERSAS "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON ITENSVISITASDIVERSAS.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                                    + "INNER JOIN VISITASDIVERSAS "
-                                    + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
-                                    + "WHERE DataEntrada>='" + dataInicial + "' "
-                                    + "AND DataEntrada<='" + dataFinal + "' "
-                                    + "ORDER BY NomeDepartamento,ITENSVISITASDIVERSAS.DataEntrada");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório Geral de Visitas a Unidade Penal por Departamento");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/Portarias/RelatorioDepartamentoEntradaSaidaGeral.jasper";
+                                    conecta.executaSQL("SELECT * FROM ITENSVISITASDIVERSAS "
+                                            + "INNER JOIN DEPARTAMENTOS "
+                                            + "ON ITENSVISITASDIVERSAS.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                            + "INNER JOIN VISITASDIVERSAS "
+                                            + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
+                                            + "WHERE DataEntrada>='" + dataInicial + "' "
+                                            + "AND DataEntrada<='" + dataFinal + "' "
+                                            + "ORDER BY NomeDepartamento,ITENSVISITASDIVERSAS.DataEntrada");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório Geral de Visitas a Unidade Penal por Departamento");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação    
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }
@@ -230,32 +238,40 @@ public class TelaRelatorioEntradaSaidaVisitasPortariaGeral extends javax.swing.J
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
-                        try {
-                            conecta.abrirConexao();
-                            String path = "reports/Portarias/RelatorioDepartamentoEntradaSaidaGeral.jasper";
-                            conecta.executaSQL("SELECT * FROM ITENSVISITASDIVERSAS "
-                                    + "INNER JOIN DEPARTAMENTOS "
-                                    + "ON ITENSVISITASDIVERSAS.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                                    + "INNER JOIN VISITASDIVERSAS "
-                                    + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
-                                    + "WHERE DataEntrada>='" + dataInicial + "' "
-                                    + "AND DataEntrada<='" + dataFinal + "' "
-                                    + "ORDER BY NomeDepartamento,ITENSVISITASDIVERSAS.DataEntrada");
-                            HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório Geral de Visitas a Unidade Penal por Departamento");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
+                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                        carregando.setVisible(true);//Teste tela aguarde
+                        Thread t = new Thread() { //Teste tela aguarde
+                            public void run() { //Teste
+                                try {
+                                    conecta.abrirConexao();
+                                    String path = "reports/Portarias/RelatorioDepartamentoEntradaSaidaGeral.jasper";
+                                    conecta.executaSQL("SELECT * FROM ITENSVISITASDIVERSAS "
+                                            + "INNER JOIN DEPARTAMENTOS "
+                                            + "ON ITENSVISITASDIVERSAS.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                            + "INNER JOIN VISITASDIVERSAS "
+                                            + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
+                                            + "WHERE DataEntrada>='" + dataInicial + "' "
+                                            + "AND DataEntrada<='" + dataFinal + "' "
+                                            + "ORDER BY NomeDepartamento,ITENSVISITASDIVERSAS.DataEntrada");
+                                    HashMap parametros = new HashMap();
+                                    parametros.put("dataInicial", dataInicial);
+                                    parametros.put("dataFinal", dataFinal);
+                                    parametros.put("nomeUsuario", nameUser);
+                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                                    jv.setTitle("Relatório Geral de Visitas a Unidade Penal por Departamento");
+                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                                    jv.toFront(); // Traz o relatorio para frente da aplicação     
+                                    carregando.dispose(); //Teste tela aguarde
+                                    conecta.desconecta();
+                                } catch (JRException e) {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                                }
+                            }
+                        }; //Teste tela aguarde
+                        t.start(); //Teste tela aguarde
                     }
                 }
             }
