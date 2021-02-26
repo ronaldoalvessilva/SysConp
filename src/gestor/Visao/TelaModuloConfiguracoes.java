@@ -61,6 +61,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     public static String painelHabilitarImplementacoes = "Parâmetros:Painel Habilitar/Desabilitar Implementações";
     public static String painelTabelaImplementacao = "Parâmetros:Painel da Tabela de Habilitar Implementações";
     public static String painelBotoesImplemenetacoes = "Parâmetros:Painel de Botões de Implementações";
+    // GERADOR E VALIDADOR DE CHAVE PARA O SISTEMA
+    public static String telaGeracaoChave = "Utilitários:Gerar Chave:Manutenção";
     //
     String pNomeFS = "";
     String pNomeAMS = "";
@@ -81,6 +83,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private TelaEmpresa objEmpresa = null;
     private TelaConsultaUsuariosGrupo objConsuGrupo = null;
     private TelaAlertaEntradas objALERTA_entradas = null;
+    private TelaGerarChaveValidacao objChave = null;
     //
     int flag, codUsuario;
     String dataLanc;
@@ -772,7 +775,32 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jAlertaEntradasActionPerformed
 
     private void jGerarChaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGerarChaveActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
+        if (objChave == null || objChave.isClosed()) {
+            objChave = new TelaGerarChaveValidacao();
+            jPainelConfiguracoes.add(objChave);
+            objChave.setVisible(true);
+        } else {
+            if (objChave.isVisible()) {
+                if (objChave.isIcon()) { // Se esta minimizado
+                    try {
+                        objChave.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objChave.toFront(); // traz para frente
+                    objChave.pack();//volta frame 
+                }
+            } else {
+                objChave = new TelaGerarChaveValidacao();
+                TelaModuloConfiguracoes.jPainelConfiguracoes.add(objChave);//adicona frame ao JDesktopPane  
+                objChave.setVisible(true);
+            }
+        }
+        try {
+            objChave.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
     }//GEN-LAST:event_jGerarChaveActionPerformed
 
     private void jValidarLiberarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValidarLiberarSistemaActionPerformed
@@ -1172,7 +1200,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             jSeparator8.setVisible(true);
         }
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_CONF_005(String pNOME_tela) {
 //        objParCrc.setNomeTela(pNOME_tela);
 //        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
