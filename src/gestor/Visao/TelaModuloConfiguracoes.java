@@ -73,6 +73,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     String pNomePTHI = "";
     String pNomePBI = "";
     //
+    String pNomeTGC = "";
+    //
     private TelaGrupoUsuarios tpu = null;
     private TelaUsuarios objUser = null;
     private TelaRecadosAdministrador objRecadoRoot = null;
@@ -1035,6 +1037,14 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             pNomePBI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // GERAR CHAVE       
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaGeracaoChave + "'");
+            conecta.rs.first();
+            pNomeTGC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         if (!pNomeFS.equals(telaFechamentoSistema) || pNomeFS == null || pNomeFS.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -1078,6 +1088,13 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(painelBotoesImplemenetacoes);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //GERAR CHAVE
+        if (!pNomeTGC.equals(telaGeracaoChave) || pNomeTGC == null || pNomeTGC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaGeracaoChave);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
@@ -1097,7 +1114,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         PESQUISAR_IMPLEMENTA_CONF_002(telaAbrirMovimentoSistema);
         PESQUISAR_IMPLEMENTA_CONF_003(telaApagarPopulacaoCRC);
         PESQUISAR_IMPLEMENTA_CONF_004(telaModificarAlertaEntradas);
-//        PESQUISAR_IMPLEMENTA_CONF_005(telaModificarAlertaEntradas);
+        PESQUISAR_IMPLEMENTA_CONF_005(telaGeracaoChave);
     }
 
     public void PESQUISAR_IMPLEMENTA_CONF_001(String pNOME_tela) {
@@ -1181,23 +1198,23 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
         if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jAlertaEntradas.setVisible(!true);
-            jSeparator8.setVisible(!true);
+            jGerarValidaChaveSistema.setVisible(!true);
+            jSeparator10.setVisible(!true);
         } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jAlertaEntradas.setVisible(true);
-            jSeparator8.setVisible(true);
+           jGerarValidaChaveSistema.setVisible(true);
+            jSeparator10.setVisible(true);
         } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jAlertaEntradas.setVisible(true);
-            jSeparator8.setVisible(true);
+            jGerarValidaChaveSistema.setVisible(true);
+            jSeparator10.setVisible(true);
         } else if (objParCrc.getHabilitarImp() == null) {
-            jAlertaEntradas.setVisible(!true);
-            jSeparator8.setVisible(!true);
+            jGerarValidaChaveSistema.setVisible(!true);
+            jSeparator10.setVisible(!true);
         } else if (objParCrc.getHabilitarImp().equals("")) {
-            jAlertaEntradas.setVisible(!true);
-            jSeparator8.setVisible(!true);
+            jGerarValidaChaveSistema.setVisible(!true);
+            jSeparator10.setVisible(!true);
         } else {
-            jAlertaEntradas.setVisible(true);
-            jSeparator8.setVisible(true);
+            jGerarValidaChaveSistema.setVisible(true);
+            jSeparator10.setVisible(true);
         }
     }
 

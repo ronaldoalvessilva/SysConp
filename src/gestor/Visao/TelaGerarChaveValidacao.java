@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.CriptografarDadosChaveSistema;
 import Utilitarios.GeraCpfCnpj;
 import gestor.Controle.ControleGerarChave;
 import gestor.Controle.ControleLogSistema;
@@ -14,7 +15,17 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +50,7 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
     String dataModFinal;
     public static String pRESPOSTA = "";
     public static String pCHAVE_LIBERACAO_criptografada = "";
+    private static byte[] dadosCriptografos = null;
 
     /**
      * Creates new form TelaGerarChaveValidacao
@@ -113,7 +125,8 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jCHAVE_validacao = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setClosable(true);
         setTitle("...::: Gerar Chave de Liberação :::...");
@@ -373,7 +386,7 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,8 +441,8 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel14)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -448,8 +461,8 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                     .addComponent(jID_REGISTRO)
                     .addComponent(jDataLiberacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDataLiberacao, jID_REGISTRO});
@@ -598,36 +611,35 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("Nr. da  Autorização:");
 
-        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jFormattedTextField1.setEnabled(false);
-        jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jCHAVE_validacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jCHAVE_validacao, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13))
-                    .addComponent(jCHAVE_liberacao, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField1))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(jCHAVE_liberacao)
+                    .addComponent(jScrollPane2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCHAVE_liberacao, jCHAVE_validacao, jFormattedTextField1});
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCHAVE_liberacao, jCHAVE_validacao});
 
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -645,11 +657,11 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(jCHAVE_validacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -670,9 +682,10 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(3, 3, 3)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -685,10 +698,10 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 60, 634, 393);
+        setBounds(300, 60, 634, 409);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBt_PESQUISA_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_PESQUISA_codigoActionPerformed
@@ -787,8 +800,9 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                 objChave.setDataLiberacao(jDataLiberacao.getDate());
                 objChave.setRazaoSocial(jRazaoSocial.getText());
                 objChave.setDataValidade(jDataValidade.getDate());
-                pCHAVE_LIBERACAO_criptografada = jDataValidade.getDate().toString();
-                objChave.setcHAVE01_liberacao(pCHAVE_LIBERACAO_criptografada);
+                pCHAVE_LIBERACAO_criptografada = jDataValidade.getDate().toString();                
+//                CRIPOTOGRAR_simetrica();
+//                objChave.setcHAVE01_liberacao(dadosCriptografos.toString());
                 if (acao == 1) {
                     GeraCpfCnpj gerador = new GeraCpfCnpj();
                     if (GeraCpfCnpj.isCNPJ(jCNPJ.getText()) == true) {
@@ -866,7 +880,6 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataValidacaoFinal;
     private com.toedter.calendar.JDateChooser jDataValidacaoInicial;
     private com.toedter.calendar.JDateChooser jDataValidade;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     public static javax.swing.JTextField jID_REGISTRO;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -900,8 +913,10 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField jRazaoSocial;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTABELA_liberacao;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -980,6 +995,28 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
+        }
+    }
+
+    public void CRIPOTOGRAR_simetrica() {
+        try {
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            SecretKey secretKey = keyGenerator.generateKey();
+            Cipher cipher;
+            cipher = Cipher.getInstance("AES");
+            //CRIPTOGRAFANDO OS DADOS  
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            dadosCriptografos = cipher.doFinal(pCHAVE_LIBERACAO_criptografada.getBytes());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(TelaGerarChaveValidacao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchPaddingException ex) {
+            Logger.getLogger(TelaGerarChaveValidacao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(TelaGerarChaveValidacao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(TelaGerarChaveValidacao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(TelaGerarChaveValidacao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

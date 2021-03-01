@@ -5,6 +5,7 @@
  */
 package gestor.Controle;
 
+import Utilitarios.CriptografarDadosChaveSistema;
 import Utilitarios.Criptografia;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ChaveLiberacao;
@@ -42,6 +43,7 @@ public class ControleGerarChave {
                 pst.setDate(4, null);
             }
             pst.setString(5, Criptografia.criptografar(objChave.getcHAVE01_liberacao()));
+//            pst.setString(5, objChave.getcHAVE01_liberacao());
             pst.setString(6, objChave.getUsuarioInsert());
             pst.setString(7, objChave.getDataInsert());
             pst.setString(8, objChave.getHorarioInsert());
