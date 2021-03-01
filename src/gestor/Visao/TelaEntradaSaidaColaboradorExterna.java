@@ -161,8 +161,6 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         jBtPesqFuncionario = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jCargoFunc = new javax.swing.JTextField();
-        jPanel11 = new javax.swing.JPanel();
-        jFotoColaborador = new javax.swing.JLabel();
         jDataSaida = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -184,6 +182,8 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         jBtBuscarFunc = new javax.swing.JButton();
         jBtAuditoriaFunc = new javax.swing.JButton();
         jBtBiometria = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jFotoColaborador = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -204,7 +204,7 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -541,19 +541,6 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         jCargoFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCargoFunc.setEnabled(false);
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-        );
-
         jDataSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataSaida.setEnabled(false);
 
@@ -640,54 +627,46 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                                         .addComponent(jBtZoonColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel11)
                             .addComponent(jCargoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqFuncionario))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSetorFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCargoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jIDFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesqFuncionario))
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel11))
+                            .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSetorFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCargoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jHorarioSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                                    .addComponent(jBtZoonColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jHorarioSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                            .addComponent(jBtZoonColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtZoonColaborador, jHorarioSaida});
@@ -711,8 +690,8 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         if (jTabelaColaborador.getColumnModel().getColumnCount() > 0) {
             jTabelaColaborador.getColumnModel().getColumn(0).setMinWidth(50);
             jTabelaColaborador.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaColaborador.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaColaborador.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaColaborador.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaColaborador.getColumnModel().getColumn(1).setMaxWidth(300);
             jTabelaColaborador.getColumnModel().getColumn(2).setMinWidth(80);
             jTabelaColaborador.getColumnModel().getColumn(2).setMaxWidth(80);
             jTabelaColaborador.getColumnModel().getColumn(3).setMinWidth(50);
@@ -811,25 +790,22 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtBiometria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtExcluirFunc)
-                            .addComponent(jBtSalvarFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtNovoFunc)
-                            .addComponent(jBtAlterarFunc)
-                            .addComponent(jBtSairFunc)
-                            .addComponent(jBtCancelarFunc)
-                            .addComponent(jBtBuscarFunc))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jBtExcluirFunc)
+                    .addComponent(jBtSalvarFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtNovoFunc)
+                    .addComponent(jBtAlterarFunc)
+                    .addComponent(jBtSairFunc)
+                    .addComponent(jBtCancelarFunc)
+                    .addComponent(jBtBuscarFunc))
+                .addGap(5, 5, 5))
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jBtAuditoriaFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel12Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarFunc, jBtBuscarFunc, jBtCancelarFunc, jBtExcluirFunc, jBtNovoFunc, jBtSairFunc, jBtSalvarFunc});
@@ -837,7 +813,7 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtNovoFunc)
                     .addGroup(jPanel12Layout.createSequentialGroup()
@@ -855,32 +831,50 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                 .addComponent(jBtSairFunc)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtBiometria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jBtAuditoriaFunc)
                 .addContainerGap())
         );
 
         jPanel12Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarFunc, jBtAuditoriaFunc, jBtBuscarFunc, jBtCancelarFunc, jBtExcluirFunc, jBtNovoFunc, jBtSairFunc, jBtSalvarFunc});
 
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoColaborador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
@@ -1288,10 +1282,15 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
                         ExcluirFunc();
-                        preencherTabelaItens("SELECT ITENSENTRADASFUNC.IdItem,ITENSENTRADASFUNC.IdLanc, "
-                                + "ITENSENTRADASFUNC.IdFunc,COLABORADOR.NomeFunc, "
-                                + "ITENSENTRADASFUNC.DataEntrada,ITENSENTRADASFUNC.HorarioEntrada, "
-                                + "ITENSENTRADASFUNC.DataSaida,ITENSENTRADASFUNC.HorarioSaida "
+                        preencherTabelaItens("SELECT "
+                                + "ITENSENTRADASFUNC.IdItem, "
+                                + "ITENSENTRADASFUNC.IdLanc, "
+                                + "ITENSENTRADASFUNC.IdFunc, "
+                                + "COLABORADOR.NomeFunc, "
+                                + "ITENSENTRADASFUNC.DataEntrada, "
+                                + "ITENSENTRADASFUNC.HorarioEntrada, "
+                                + "ITENSENTRADASFUNC.DataSaida, "
+                                + "ITENSENTRADASFUNC.HorarioSaida "
                                 + "FROM ITENSENTRADASFUNC "
                                 + "INNER JOIN COLABORADOR "
                                 + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
@@ -1350,10 +1349,15 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                                     controle.incluirItensFunc(objItensFunc);
                                     objLog2();
                                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    preencherTabelaItens("SELECT ITENSENTRADASFUNC.IdItem,ITENSENTRADASFUNC.IdLanc, "
-                                            + "ITENSENTRADASFUNC.IdFunc,COLABORADOR.NomeFunc, "
-                                            + "ITENSENTRADASFUNC.DataEntrada,ITENSENTRADASFUNC.HorarioEntrada, "
-                                            + "ITENSENTRADASFUNC.DataSaida,ITENSENTRADASFUNC.HorarioSaida "
+                                    preencherTabelaItens("SELECT  "
+                                            + "ITENSENTRADASFUNC.IdItem, "
+                                            + "ITENSENTRADASFUNC.IdLanc, "
+                                            + "ITENSENTRADASFUNC.IdFunc, "
+                                            + "COLABORADOR.NomeFunc, "
+                                            + "ITENSENTRADASFUNC.DataEntrada, "
+                                            + "ITENSENTRADASFUNC.HorarioEntrada, "
+                                            + "ITENSENTRADASFUNC.DataSaida, "
+                                            + "ITENSENTRADASFUNC.HorarioSaida "
                                             + "FROM ITENSENTRADASFUNC "
                                             + "INNER JOIN COLABORADOR "
                                             + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
@@ -1374,10 +1378,15 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                                     objLog2();
                                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                     SalvarFunc();
-                                    preencherTabelaItens("SELECT ITENSENTRADASFUNC.IdItem,ITENSENTRADASFUNC.IdLanc, "
-                                            + "ITENSENTRADASFUNC.IdFunc,COLABORADOR.NomeFunc, "
-                                            + "ITENSENTRADASFUNC.DataEntrada,ITENSENTRADASFUNC.HorarioEntrada, "
-                                            + "ITENSENTRADASFUNC.DataSaida,ITENSENTRADASFUNC.HorarioSaida "
+                                    preencherTabelaItens("SELECT "
+                                            + "ITENSENTRADASFUNC.IdItem, "
+                                            + "ITENSENTRADASFUNC.IdLanc, "
+                                            + "ITENSENTRADASFUNC.IdFunc, "
+                                            + "COLABORADOR.NomeFunc, "
+                                            + "ITENSENTRADASFUNC.DataEntrada, "
+                                            + "ITENSENTRADASFUNC.HorarioEntrada, "
+                                            + "ITENSENTRADASFUNC.DataSaida, "
+                                            + "ITENSENTRADASFUNC.HorarioSaida "
                                             + "FROM ITENSENTRADASFUNC "
                                             + "INNER JOIN COLABORADOR "
                                             + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
@@ -2296,7 +2305,7 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         jTabelaColaborador.setModel(modelo);
         jTabelaColaborador.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaColaborador.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaColaborador.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaColaborador.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaColaborador.getColumnModel().getColumn(1).setResizable(false);
         jTabelaColaborador.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaColaborador.getColumnModel().getColumn(2).setResizable(false);
@@ -2320,7 +2329,7 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         jTabelaColaborador.setModel(modelo);
         jTabelaColaborador.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaColaborador.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaColaborador.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaColaborador.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaColaborador.getColumnModel().getColumn(1).setResizable(false);
         jTabelaColaborador.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaColaborador.getColumnModel().getColumn(2).setResizable(false);

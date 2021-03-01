@@ -44,10 +44,11 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     EntradaSaidaFunc objEntSaiFunc = new EntradaSaidaFunc();
     ItensEntSaiFunc objItensFunc = new ItensEntSaiFunc();
-    int flag;   
+    int flag;
     String dataEntrada;
     String dataSaida;
     String caminho;
+
     /**
      * Creates new form TelaPesqColaborador
      */
@@ -82,7 +83,7 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jNomeColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -124,7 +125,7 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
         jTabelaPesqFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Colaborador", "Cargo", "Departamento", "Data Entrada", "Horário", "Data Saída", "Horário"
@@ -214,7 +215,7 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -228,13 +229,13 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if(flag == 1){
-             String nomeFuncionario = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 1);
+        if (flag == 1) {
+            String nomeFuncionario = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 1);
             jNomeColaborador.setText(nomeFuncionario);
             String idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
             jIDFunc.setText(idFunc);
             String horarioEntrada = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 5);
-            jHorarioEntrada.setText(horarioEntrada);       
+            jHorarioEntrada.setText(horarioEntrada);
             jBtNovoFunc.setEnabled(true);
             jBtAlterarFunc.setEnabled(true);
             jBtExcluirFunc.setEnabled(true);
@@ -242,39 +243,64 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
             jBtCancelarFunc.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+                conecta.executaSQL("SELECT "
+                        + "ITENSENTRADASFUNC.IdFunc, "
+                        + "COLABORADOR.NomeFunc, "
+                        + "COLABORADOR.ImagemFunc, "
+                        + "COLABORADOR.ImagemFrenteCO, "
+                        + "ITENSENTRADASFUNC.IdItem, "
+                        + "COLABORADOR.IdDepartamento, "
+                        + "DEPARTAMENTOS.NomeDepartamento, "
+                        + "CARGOS.IdCargo, "
+                        + "CARGOS.NomeCargo, "
+                        + "ITENSENTRADASFUNC.DataEntrada, "
+                        + "ITENSENTRADASFUNC.HorarioEntrada, "
+                        + "ITENSENTRADASFUNC.DataSaida, "
+                        + "ITENSENTRADASFUNC.HorarioSaida "
+                        + "FROM ITENSENTRADASFUNC "
                         + "INNER JOIN COLABORADOR "
                         + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                         + "INNER JOIN CARGOS "
                         + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                         + "INNER JOIN DEPARTAMENTOS "
                         + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "WHERE NomeFunc LIKE'" + jNomeColaborador.getText()+ "%' "
+                        + "WHERE NomeFunc='" + jNomeColaborador.getText() + "' "
                         + "AND IdLanc='" + jIDlanc.getText() + "' "
                         + "AND HorarioEntrada='" + jHorarioEntrada.getText() + "'");
                 conecta.rs.first();
                 // Tabela Funcionarios
-                jIDFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));              
-                jNomeFuncionario.setText(conecta.rs.getString("NomeFunc")); 
+                jIDFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
+                jNomeFuncionario.setText(conecta.rs.getString("NomeFunc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("ImagemFunc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoColaborador.setIcon(i);
-                jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoColaborador.setIcon(i);
+                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoColaborador.setIcon(icon2);
+                }
                 //
                 idItem = conecta.rs.getString("IdItem");
-                jSetorFunc.setText(conecta.rs.getString("NomeDepartamento"));  
+                jSetorFunc.setText(conecta.rs.getString("NomeDepartamento"));
                 jCargoFunc.setText(conecta.rs.getString("NomeCargo"));
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 jHorarioEntrada.setText(conecta.rs.getString("HorarioEntrada"));
                 jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                 jHorarioSaida.setText(conecta.rs.getString("HorarioSaida"));
-                conecta.desconecta();               
+                conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
             }
             dispose();
-        }                   
+        }
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -285,22 +311,36 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
         // TODO add your handling code here:
         // Pesquisar colaborador por nome
-        objEntSaiFunc.setIdLanc(Integer.valueOf(jIDlanc.getText()));      
+        objEntSaiFunc.setIdLanc(Integer.valueOf(jIDlanc.getText()));
         flag = 1;
-        if(jNomeColaborador.getText().equals("")){
+        if (jNomeColaborador.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeColaborador.requestFocus();
-        }else{         
-            buscarFunc("SELECT * FROM ITENSENTRADASFUNC "
+        } else {
+            buscarFunc("SELECT "
+                    + "ITENSENTRADASFUNC.IdFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "COLABORADOR.ImagemFunc, "
+                    + "COLABORADOR.ImagemFrenteCO, "
+                    + "ITENSENTRADASFUNC.IdItem, "
+                    + "COLABORADOR.IdDepartamento, "
+                    + "DEPARTAMENTOS.NomeDepartamento, "
+                    + "CARGOS.IdCargo, "
+                    + "CARGOS.NomeCargo, "
+                    + "ITENSENTRADASFUNC.DataEntrada, "
+                    + "ITENSENTRADASFUNC.HorarioEntrada, "
+                    + "ITENSENTRADASFUNC.DataSaida, "
+                    + "ITENSENTRADASFUNC.HorarioSaida "
+                    + "FROM ITENSENTRADASFUNC "
                     + "INNER JOIN COLABORADOR "
                     + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                    + "WHERE NomeFunc LIKE'%" + jNomeColaborador.getText()+ "%' "
+                    + "WHERE NomeFunc LIKE'%" + jNomeColaborador.getText() + "%' "
                     + "AND IdLanc='" + jIDlanc.getText() + "'");
-        }            
+        }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
 
@@ -320,23 +360,23 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
 //Preencher tabela com todos os COLABORADORES
     public void buscarFunc(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome Colaborador", "Cargo", "Departamento" , "Data Entrada",  "Horário" , "Data Saída" , "Horário"};
+        String[] Colunas = new String[]{"Código", "Nome Colaborador", "Cargo", "Departamento", "Data Entrada", "Horário", "Data Saída", "Horário"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataEntrada");
-                String dia = dataEntrada.substring(8, 10);
-                String mes = dataEntrada.substring(5, 7);
-                String ano = dataEntrada.substring(0, 4);
-                dataEntrada = dia + "/" + mes + "/" + ano;
-                // Fortmatar data de Cadastro          
-                dataSaida = conecta.rs.getString("DataSaida");
-                String day = dataSaida.substring(8, 10);
-                String mesc = dataSaida.substring(5, 7);
-                String anoc = dataSaida.substring(0, 4);
-                dataSaida = day + "/" + mesc + "/" + anoc;
+            dataEntrada = conecta.rs.getString("DataEntrada");
+            String dia = dataEntrada.substring(8, 10);
+            String mes = dataEntrada.substring(5, 7);
+            String ano = dataEntrada.substring(0, 4);
+            dataEntrada = dia + "/" + mes + "/" + ano;
+            // Fortmatar data de Cadastro          
+            dataSaida = conecta.rs.getString("DataSaida");
+            String day = dataSaida.substring(8, 10);
+            String mesc = dataSaida.substring(5, 7);
+            String anoc = dataSaida.substring(0, 4);
+            dataSaida = day + "/" + mesc + "/" + anoc;
             do {
                 dados.add(new Object[]{conecta.rs.getInt("IdFunc"), conecta.rs.getString("NomeFunc"), conecta.rs.getString("NomeCargo"), conecta.rs.getString("NomeDepartamento"), dataEntrada, conecta.rs.getString("HorarioEntrada"), dataSaida, conecta.rs.getString("HorarioSaida")});
             } while (conecta.rs.next());
@@ -352,7 +392,7 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
         jTabelaPesqFunc.getColumnModel().getColumn(2).setPreferredWidth(150);
         jTabelaPesqFunc.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqFunc.getColumnModel().getColumn(3).setPreferredWidth(150);
-        jTabelaPesqFunc.getColumnModel().getColumn(3).setResizable(false);        
+        jTabelaPesqFunc.getColumnModel().getColumn(3).setResizable(false);
         jTabelaPesqFunc.getColumnModel().getColumn(4).setPreferredWidth(80);
         jTabelaPesqFunc.getColumnModel().getColumn(4).setResizable(false);
         jTabelaPesqFunc.getColumnModel().getColumn(5).setPreferredWidth(70);
@@ -367,6 +407,7 @@ public class TelaPesqItensColaboradorExterna extends javax.swing.JInternalFrame 
         alinhaCamposTabelaItens();
         conecta.desconecta();
     }
+
     public void alinhaCamposTabelaItens() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();

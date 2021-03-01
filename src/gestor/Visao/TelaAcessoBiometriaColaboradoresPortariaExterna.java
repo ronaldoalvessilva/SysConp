@@ -466,7 +466,16 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 Salvar();
-                preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
+                preencherTabelaItens("SELECT "
+                        + "ITENSENTRADASFUNC.IdLanc, "
+                        + "ITENSENTRADASFUNC.IdFunc, "
+                        + "COLABORADOR.NomeFunc, "
+                        + "ITENSENTRADASFUNC.DataEntrada, "
+                        + "ITENSENTRADASFUNC.HorarioEntrada, "
+                        + "ITENSENTRADASFUNC.DataSaida, "
+                        + "ITENSENTRADASFUNC.HorarioSaida, "
+                        + "ITENSENTRADASFUNC.IdFunc "
+                        + "FROM ITENSENTRADASFUNC "
                         + "INNER JOIN COLABORADOR "
                         + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                         + "WHERE IdLanc='" + jIDlanc.getText() + "'");
@@ -492,7 +501,16 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 Salvar();
-                preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
+                preencherTabelaItens("SELECT "
+                        + "ITENSENTRADASFUNC.IdLanc, "
+                        + "ITENSENTRADASFUNC.IdFunc, "
+                        + "COLABORADOR.NomeFunc, "
+                        + "ITENSENTRADASFUNC.DataEntrada, "
+                        + "ITENSENTRADASFUNC.HorarioEntrada, "
+                        + "ITENSENTRADASFUNC.DataSaida, "
+                        + "ITENSENTRADASFUNC.HorarioSaida, "
+                        + "ITENSENTRADASFUNC.IdFunc "
+                        + "FROM ITENSENTRADASFUNC "
                         + "INNER JOIN COLABORADOR "
                         + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                         + "WHERE IdLanc='" + jIDlanc.getText() + "'");
@@ -973,6 +991,7 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
     // -----------------------------------------------------------------------------
     public void corCampos() {
         jIdColaborador.setBackground(Color.white);
+        jMatricula.setBackground(Color.white);
         jNomeColaborador.setBackground(Color.white);
         jFuncaoColaborador.setBackground(Color.white);
         jDepartamento.setBackground(Color.white);
@@ -1058,9 +1077,17 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
         String phorarioSaida = "00:00";
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+            conecta.executaSQL("SELECT "
+                    + "IdItem, "
+                    + "IdLanc, "
+                    + "IdFunc, "
+                    + "HorarioEntrada, "
+                    + "HorarioSaida "
+                    + "FROM ITENSENTRADASFUNC  "
                     + "WHERE IdFunc='" + jIdColaborador.getText() + "' "
-                    + "AND IdLanc='" + jIDlanc.getText() + "' AND HorarioEntrada!='" + phorarioEntrada + "' AND HorarioSaida='" + phorarioSaida + "'");
+                    + "AND IdLanc='" + jIDlanc.getText() + "' "
+                    + "AND HorarioEntrada!='" + phorarioEntrada + "' "
+                    + "AND HorarioSaida='" + phorarioSaida + "'");
             conecta.rs.first();
             codigoFuncGrava = conecta.rs.getString("IdFunc");
             codigoRegistroGrava = conecta.rs.getString("IdLanc");
@@ -1077,9 +1104,17 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
         String phorarioSaida = "00:00";
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+            conecta.executaSQL("SELECT "
+                    + "IdItem, "
+                    + "IdLanc, "
+                    + "IdFunc, "
+                    + "HorarioEntrada, "
+                    + "HorarioSaida "
+                    + "FROM ITENSENTRADASFUNC "
                     + "WHERE IdFunc='" + jIdColaborador.getText() + "' "
-                    + "AND IdLanc='" + jIDlanc.getText() + "' AND HorarioEntrada!='" + phorarioEntrada + "' AND HorarioSaida='" + phorarioSaida + "'");
+                    + "AND IdLanc='" + jIDlanc.getText() + "' "
+                    + "AND HorarioEntrada!='" + phorarioEntrada + "' "
+                    + "AND HorarioSaida='" + phorarioSaida + "'");
             conecta.rs.first();
             codigoFuncGrava = conecta.rs.getString("IdFunc");
             codigoRegistroGrava = conecta.rs.getString("IdLanc");
@@ -1095,9 +1130,13 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
         horarioEntrada = "00:00";
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdFunc,IdLanc, "
-                    + "IdItem,HorarioEntrada, "
-                    + "HorarioSaida,AssinaturaSaida "
+            conecta.executaSQL("SELECT "
+                    + "IdItem, "
+                    + "IdLanc, "
+                    + "IdFunc, "
+                    + "HorarioEntrada, "
+                    + "HorarioSaida, "
+                    + "AssinaturaSaida "
                     + "FROM ITENSENTRADASFUNC "
                     + "WHERE IdFunc='" + jIdColaborador.getText() + "' "
                     + "AND IdLanc='" + jIDlanc.getText() + "' "

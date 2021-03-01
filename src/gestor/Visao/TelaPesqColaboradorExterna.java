@@ -69,7 +69,7 @@ public class TelaPesqColaboradorExterna extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jNomeColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -120,7 +120,7 @@ public class TelaPesqColaboradorExterna extends javax.swing.JInternalFrame {
         jTabelaPesqFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome Colaborador", "Cargo", "Departamento"
@@ -221,12 +221,23 @@ public class TelaPesqColaboradorExterna extends javax.swing.JInternalFrame {
                 jIDFunc.setText(idFunc);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    conecta.executaSQL("SELECT "
+                            + "COLABORADOR.IdFunc, "
+                            + "COLABORADOR.StatusFunc, "
+                            + "COLABORADOR.NomeFunc, "
+                            + "COLABORADOR.ImagemFunc, "
+                            + "COLABORADOR.ImagemFrenteCO, "
+                            + "COLABORADOR.IdDepartamento, "
+                            + "DEPARTAMENTOS.NomeDepartamento, "
+                            + "COLABORADOR.IdCargo, "
+                            + "CARGOS.NomeCargo "
+                            + "FROM COLABORADOR "
                             + "INNER JOIN CARGOS "
                             + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                             + "INNER JOIN DEPARTAMENTOS "
                             + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                            + "WHERE NomeFunc='" + nomeFuncionario + "'AND StatusFunc='" + statusFunc + "'");
+                            + "WHERE NomeFunc='" + nomeFuncionario + "' "
+                            + "AND StatusFunc='" + statusFunc + "'");
                     conecta.rs.first();
                     // Tabela Funcionarios
                     jIDFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
@@ -271,12 +282,23 @@ public class TelaPesqColaboradorExterna extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeColaborador.requestFocus();
         } else {
-            buscarFunc("SELECT * FROM COLABORADOR "
+            buscarFunc("SELECT "
+                    + "COLABORADOR.IdFunc, "
+                    + "COLABORADOR.StatusFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "COLABORADOR.ImagemFunc, "
+                    + "COLABORADOR.ImagemFrenteCO, "
+                    + "COLABORADOR.IdDepartamento, "
+                    + "DEPARTAMENTOS.NomeDepartamento, "
+                    + "COLABORADOR.IdCargo, "
+                    + "CARGOS.NomeCargo "
+                    + "FROM COLABORADOR "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                    + "WHERE NomeFunc LIKE'%" + jNomeColaborador.getText() + "%' AND StatusFunc='" + statusFunc + "'");
+                    + "WHERE NomeFunc LIKE'%" + jNomeColaborador.getText() + "%' "
+                    + "AND StatusFunc='" + statusFunc + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -284,7 +306,17 @@ public class TelaPesqColaboradorExterna extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.buscarFunc("SELECT * FROM COLABORADOR "
+            this.buscarFunc("SELECT "
+                    + "COLABORADOR.IdFunc, "
+                    + "COLABORADOR.StatusFunc, "
+                    + "COLABORADOR.NomeFunc, "
+                    + "COLABORADOR.ImagemFunc, "
+                    + "COLABORADOR.ImagemFrenteCO, "
+                    + "COLABORADOR.IdDepartamento, "
+                    + "DEPARTAMENTOS.NomeDepartamento, "
+                    + "COLABORADOR.IdCargo, "
+                    + "CARGOS.NomeCargo "
+                    + "FROM COLABORADOR "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                     + "INNER JOIN DEPARTAMENTOS "
