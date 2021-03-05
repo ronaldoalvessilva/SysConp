@@ -928,8 +928,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             idKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 2);
             codigoPesquisaKit = Integer.valueOf(idKit);
             tipoKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 3);
-            String pPAVILHAO = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 6);
-            jDescricaoPavilhao.setText(pPAVILHAO);
+//            String pPAVILHAO = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 6);
+//            jDescricaoPavilhao.setText(pPAVILHAO);
             //
             if (tipoKit.equals("Kit Inicial")) {
                 kitInicial = 1;
@@ -945,7 +945,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jRBtKitSemestraPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Anual")) {
                 jRBtKitAnualPesquisa.setSelected(!true);
-            }            
+            }
         }
     }//GEN-LAST:event_TabelaRegistrosMontagemKitsMouseClicked
 
@@ -972,12 +972,24 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jRBtKitInicial.setSelected(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * "
+                    conecta.executaSQL("SELECT "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                            + "COLABORADOR.NomeFunc, "
+                            + "DEPARTAMENTOS.NomeDepartamento, "
+                            + "COLABORADOR.ImagemFunc, "
+                            + "COLABORADOR.ImagemFrenteCO, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.Observacao "
                             + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
-                            + "INNER JOIN KITS_HIGIENE_INTERNO ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN DEPARTAMENTOS ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN KITS_HIGIENE_INTERNO "
+                            + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                             + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + idLanc + "' ");
                     conecta.rs.first();
                     jIdRegistroComp.setText(String.valueOf(conecta.rs.getInt("IdRegistroComp")));
@@ -1022,12 +1034,24 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jRBtKitDecendial.setSelected(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    conecta.executaSQL("SELECT "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                            + "COLABORADOR.NomeFunc, "
+                            + "DEPARTAMENTOS.NomeDepartamento, "
+                            + "COLABORADOR.ImagemFunc, "
+                            + "COLABORADOR.ImagemFrenteCO, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.Observacao "
+                            + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                             + "INNER JOIN KITS_HIGIENE_INTERNO "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN DEPARTAMENTOS ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                             + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + idLanc + "' ");
                     conecta.rs.first();
                     jIdRegistroComp.setText(String.valueOf(conecta.rs.getInt("IdRegistroComp")));
@@ -1072,12 +1096,24 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jRBtKitQuinzenal.setSelected(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    conecta.executaSQL("SELECT "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                            + "COLABORADOR.NomeFunc, "
+                            + "DEPARTAMENTOS.NomeDepartamento, "
+                            + "COLABORADOR.ImagemFunc, "
+                            + "COLABORADOR.ImagemFrenteCO, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.Observacao "
+                            + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                             + "INNER JOIN KITS_HIGIENE_INTERNO "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN DEPARTAMENTOS ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                             + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + idLanc + "' ");
                     conecta.rs.first();
                     jIdRegistroComp.setText(String.valueOf(conecta.rs.getInt("IdRegistroComp")));
@@ -1122,12 +1158,24 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 jRBtKitMensal.setSelected(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    conecta.executaSQL("SELECT "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                            + "COLABORADOR.NomeFunc, "
+                            + "DEPARTAMENTOS.NomeDepartamento, "
+                            + "COLABORADOR.ImagemFunc, "
+                            + "COLABORADOR.ImagemFrenteCO, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.Observacao "
+                            + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                             + "INNER JOIN KITS_HIGIENE_INTERNO "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN DEPARTAMENTOS ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                             + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + idLanc + "' ");
                     conecta.rs.first();
                     jIdRegistroComp.setText(String.valueOf(conecta.rs.getInt("IdRegistroComp")));
@@ -1170,12 +1218,24 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             } else if (kitSemestral == 1) {
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    conecta.executaSQL("SELECT "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                            + "COLABORADOR.NomeFunc, "
+                            + "DEPARTAMENTOS.NomeDepartamento, "
+                            + "COLABORADOR.ImagemFunc, "
+                            + "COLABORADOR.ImagemFrenteCO, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.Observacao "
+                            + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                             + "INNER JOIN KITS_HIGIENE_INTERNO "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN DEPARTAMENTOS ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                             + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + idLanc + "' ");
                     conecta.rs.first();
                     jIdRegistroComp.setText(String.valueOf(conecta.rs.getInt("IdRegistroComp")));
@@ -1218,12 +1278,24 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             } else if (kitAnual == 1) {
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    conecta.executaSQL("SELECT "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
+                            + "COLABORADOR.NomeFunc, "
+                            + "DEPARTAMENTOS.NomeDepartamento, "
+                            + "COLABORADOR.ImagemFunc, "
+                            + "COLABORADOR.ImagemFrenteCO, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.Observacao "
+                            + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                             + "INNER JOIN KITS_HIGIENE_INTERNO "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN DEPARTAMENTOS ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                             + "WHERE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp='" + idLanc + "' ");
                     conecta.rs.first();
                     jIdRegistroComp.setText(String.valueOf(conecta.rs.getInt("IdRegistroComp")));

@@ -38,6 +38,10 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
     //
     double qtdItem = 0;
     String qtdItemTab;
+    //
+    double qtdItemKit = 0;
+    String qtdItemTabKit;
+    //
     int count = 0;
     int flag = 0;
     String statusProd = "Ativo";
@@ -49,6 +53,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
     int qdtInterno = 0;
     float qtdTotal = 0;
     String nomeProduto = "";
+    String pCODIGO_kit;
 
     /**
      * Creates new form TelaConsultaEstoqueMontagemKit
@@ -236,7 +241,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Código Barra", "Descrição do Produto", "Un.", "Qtd. Estoque", "Lote"
+                "ID_Kit", "Código", "Código Barra", "Descrição do Produto", "Un.", "Qtd. Estoque", "Qtd.Kit", "Lote"
             }
         ));
         jTabelalProdutosEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -246,18 +251,22 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTabelalProdutosEstoque);
         if (jTabelalProdutosEstoque.getColumnModel().getColumnCount() > 0) {
-            jTabelalProdutosEstoque.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(1).setMinWidth(100);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(1).setMaxWidth(100);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(2).setMinWidth(350);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(2).setMaxWidth(350);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(3).setMinWidth(60);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(3).setMaxWidth(60);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(4).setMinWidth(80);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(4).setMaxWidth(80);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(5).setMinWidth(90);
-            jTabelalProdutosEstoque.getColumnModel().getColumn(5).setMaxWidth(90);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(3).setMinWidth(350);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(3).setMaxWidth(350);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(4).setMinWidth(60);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(4).setMaxWidth(60);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(6).setMinWidth(70);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(6).setMaxWidth(70);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(7).setMinWidth(90);
+            jTabelalProdutosEstoque.getColumnModel().getColumn(7).setMaxWidth(90);
         }
 
         jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -347,16 +356,27 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         if (jCodigoProdPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do produto para pesquisa.");
         } else {
-            preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
-                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                    + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+            preencherTabelaProdutos("SELECT DISTINCT "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.IdKit, "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
+                    + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd, "
+                    + "PRODUTOS_AC.UnidadeProd,LOTE_PRODUTOS_AC.Qtd, "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem, "
+                    + "PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo, "
+                    + "LOTE_PRODUTOS_AC.Lote,PRODUTOS_AC.CompoeKit "
+                    + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "INNER JOIN LOTE_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
-                    + "WHERE PRODUTOS_AC.IdProd='" + jCodigoProdPesquisa.getText() + "' "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdProd='" + jCodigoProdPesquisa.getText() + "' "
                     + "AND LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                     + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
                     + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
-                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
+                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'"
+                    + "AND PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + pTipoKitCI + "'");
         }
     }//GEN-LAST:event_jBtPesquisaCodigoProdActionPerformed
 
@@ -364,9 +384,13 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        preencherTabelaProdutos("SELECT DISTINCT PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
-                + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd,"
-                + "LOTE_PRODUTOS_AC.Qtd,PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo,"
+        preencherTabelaProdutos("SELECT DISTINCT "
+                + "PRODUTOS_KITS_HIGIENE_INTERNO.IdKit, "
+                + "PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
+                + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd, "
+                + "PRODUTOS_AC.UnidadeProd,LOTE_PRODUTOS_AC.Qtd, "
+                + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem, "
+                + "PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo, "
                 + "LOTE_PRODUTOS_AC.Lote,PRODUTOS_AC.CompoeKit "
                 + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                 + "INNER JOIN PRODUTOS_AC "
@@ -388,9 +412,13 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaProdutos("SELECT DISTINCT PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
-                    + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd,"
-                    + "LOTE_PRODUTOS_AC.Qtd,PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo,"
+            this.preencherTabelaProdutos("SELECT DISTINCT "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.IdKit, "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
+                    + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd, "
+                    + "PRODUTOS_AC.UnidadeProd,LOTE_PRODUTOS_AC.Qtd, "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem, "
+                    + "PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo, "
                     + "LOTE_PRODUTOS_AC.Lote,PRODUTOS_AC.CompoeKit "
                     + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
@@ -417,9 +445,13 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         if (jDescricapProdPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto para pesquisa.");
         } else {
-            preencherTabelaProdutos("SELECT DISTINCT PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
-                    + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd,"
-                    + "LOTE_PRODUTOS_AC.Qtd,PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo,"
+            preencherTabelaProdutos("SELECT DISTINCT "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.IdKit, "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
+                    + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd, "
+                    + "PRODUTOS_AC.UnidadeProd,LOTE_PRODUTOS_AC.Qtd, "
+                    + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem, "
+                    + "PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo, "
                     + "LOTE_PRODUTOS_AC.Lote,PRODUTOS_AC.CompoeKit "
                     + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
@@ -441,10 +473,11 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            nomeProduto = "" + jTabelalProdutosEstoque.getValueAt(jTabelalProdutosEstoque.getSelectedRow(), 2);
+            nomeProduto = "" + jTabelalProdutosEstoque.getValueAt(jTabelalProdutosEstoque.getSelectedRow(), 3);
             jDescricapProdPesquisa.setText(nomeProduto);
-            idProd = "" + jTabelalProdutosEstoque.getValueAt(jTabelalProdutosEstoque.getSelectedRow(), 0);
+            idProd = "" + jTabelalProdutosEstoque.getValueAt(jTabelalProdutosEstoque.getSelectedRow(), 1);
             jCodigoProdPesquisa.setText(idProd);
+            pCODIGO_kit = "" + jTabelalProdutosEstoque.getValueAt(jTabelalProdutosEstoque.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelalProdutosEstoqueMouseClicked
 
@@ -459,14 +492,23 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
+                conecta.executaSQL("SELECT "
+                        + "PRODUTOS_KITS_HIGIENE_INTERNO.IdProd, "
+                        + "PRODUTOS_AC.DescricaoProd, "
+                        + "PRODUTOS_AC.UnidadeProd, "
+                        + "PRODUTOS_AC.IdLocal, "
+                        + "PRODUTOS_KITS_HIGIENE_INTERNO.IdKit, "
+                        + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem, "
+                        + "LOTE_PRODUTOS_AC.Qtd "
+                        + "FROM PRODUTOS_AC "
                         + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                         + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                         + "INNER JOIN LOTE_PRODUTOS_AC "
                         + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                         + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
                         + "ON PRODUTOS_AC.IdProd=PRODUTOS_KITS_HIGIENE_INTERNO.IdProd "
-                        + "WHERE PRODUTOS_AC.IdProd='" + idProd + "'");
+                        + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdProd='" + idProd + "' "
+                        + "AND PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + pCODIGO_kit + "'");
                 conecta.rs.first();
                 jCodigoProd.setText(String.valueOf(conecta.rs.getInt("IdProd")));
                 jDescricaoProd.setText(conecta.rs.getString("DescricaoProd"));
@@ -572,7 +614,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
 
     public void preencherTabelaProdutos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Código Barra", "Descrição Produto", "Un.", "Qtd.Estoque", "Lote"};
+        String[] Colunas = new String[]{"ID_Kit", "Código", "Código Barra", "Descrição Produto", "Un.", "Qtd.Estoque", "Qtd.Kit", "Lote"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -585,25 +627,34 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                 String vqtdItem = vi.format(qtdItem);
                 qtdItemTab = vqtdItem;
                 //
+                qtdItemKit = conecta.rs.getFloat("QuantItem");
+                DecimalFormat qti = new DecimalFormat(",###0.00");
+                String vqtdItemKit = qti.format(qtdItemKit);
+                qtdItemTabKit = vqtdItemKit;
+                //
                 jtotalProdutos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-                dados.add(new Object[]{conecta.rs.getInt("IdProd"), conecta.rs.getString("CodigoBarra"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab, conecta.rs.getString("Lote")});
+                dados.add(new Object[]{conecta.rs.getInt("IdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("CodigoBarra"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab, qtdItemTabKit, conecta.rs.getString("Lote")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelalProdutosEstoque.setModel(modelo);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelalProdutosEstoque.getColumnModel().getColumn(0).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelalProdutosEstoque.getColumnModel().getColumn(1).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(2).setPreferredWidth(350);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelalProdutosEstoque.getColumnModel().getColumn(2).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(3).setPreferredWidth(350);
         jTabelalProdutosEstoque.getColumnModel().getColumn(3).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setPreferredWidth(60);
         jTabelalProdutosEstoque.getColumnModel().getColumn(4).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setPreferredWidth(90);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setResizable(false);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(5).setResizable(false);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(6).setPreferredWidth(70);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(6).setResizable(false);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(7).setPreferredWidth(90);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(7).setResizable(false);
         jTabelalProdutosEstoque.getTableHeader().setReorderingAllowed(false);
         jTabelalProdutosEstoque.setAutoResizeMode(jTabelalProdutosEstoque.AUTO_RESIZE_OFF);
         jTabelalProdutosEstoque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -613,21 +664,25 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
 
     public void limparTabelaProdutos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Código Barra", "Descrição Produto", "Un.", "Qtd.Estoque", "Lote"};
+        String[] Colunas = new String[]{"ID_Kit", "Código", "Código Barra", "Descrição Produto", "Un.", "Qtd.Estoque", "Qtd.Kit", "Lote"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelalProdutosEstoque.setModel(modelo);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelalProdutosEstoque.getColumnModel().getColumn(0).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelalProdutosEstoque.getColumnModel().getColumn(1).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(2).setPreferredWidth(350);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelalProdutosEstoque.getColumnModel().getColumn(2).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(3).setPreferredWidth(350);
         jTabelalProdutosEstoque.getColumnModel().getColumn(3).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setPreferredWidth(60);
         jTabelalProdutosEstoque.getColumnModel().getColumn(4).setResizable(false);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setPreferredWidth(90);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(4).setResizable(false);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(5).setResizable(false);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(6).setPreferredWidth(70);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(6).setResizable(false);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(7).setPreferredWidth(90);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(7).setResizable(false);
         jTabelalProdutosEstoque.getTableHeader().setReorderingAllowed(false);
         jTabelalProdutosEstoque.setAutoResizeMode(jTabelalProdutosEstoque.AUTO_RESIZE_OFF);
         jTabelalProdutosEstoque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -644,9 +699,11 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         //
         jTabelalProdutosEstoque.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelalProdutosEstoque.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelalProdutosEstoque.getColumnModel().getColumn(3).setCellRenderer(direita);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(2).setCellRenderer(direita);
         jTabelalProdutosEstoque.getColumnModel().getColumn(4).setCellRenderer(direita);
         jTabelalProdutosEstoque.getColumnModel().getColumn(5).setCellRenderer(direita);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(6).setCellRenderer(direita);
+        jTabelalProdutosEstoque.getColumnModel().getColumn(7).setCellRenderer(direita);
     }
 
 }

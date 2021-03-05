@@ -97,7 +97,8 @@ public class ControleProdutosKitLote {
         conecta.abrirConexao();
         List<ProdutoInternosKitLote> listaInternosPavilhaoSelecionados = new ArrayList<ProdutoInternosKitLote>();
         try {
-            conecta.executaSQL("SELECT DISTINCT ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit, "
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit, "
                     + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit, "
                     + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd, "
                     + "PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd, "
