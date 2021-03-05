@@ -92,6 +92,7 @@ public class ControleListaKitsAgendado {
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao, "
                         + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.KitPago, "
+                        + "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit, "
                         + "KITS_HIGIENE_INTERNO.KitInicial, "
                         + "KITS_HIGIENE_INTERNO.KitDecendial, "
                         + "KITS_HIGIENE_INTERNO.KitQuinzenal, "

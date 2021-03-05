@@ -3798,7 +3798,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 jBtAuditoriaProduto.setEnabled(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                    conecta.executaSQL("SELECT "
+                            + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit, "
+                            + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit, "
+                            + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd, "
+                            + "PRODUTOS_AC.DescricaoProd, "                            
+                            + "PRODUTOS_AC.UnidadeProd, "
+                            + "LOTE_PRODUTOS_AC.Qtd, "
+                            + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem, "
+                            + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.QuantProd "
+                            + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd "
                             + "INNER JOIN LOTE_PRODUTOS_AC "
@@ -3806,8 +3815,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                             + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
                             + "ON PRODUTOS_AC.IdProd=PRODUTOS_KITS_HIGIENE_INTERNO.IdProd "
                             + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
-                            + "AND PRODUTOS_AC.IdProd='" + idProduto + "' "
-                            + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit='" + idItem + "'");
+                            + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd='" + idProduto + "' "
+                            + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit='" + idItem + "' ");
                     conecta.rs.first();
                     jCodigoProd.setText(conecta.rs.getString("IdProd"));
                     jDescricaoProd.setText(conecta.rs.getString("DescricaoProd"));
@@ -3818,8 +3827,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     DecimalFormat vu = new DecimalFormat("##,###0.00");
                     String qtE = vu.format(qtdEstoque);
                     jQuantidadeProdEstoque.setText(qtE);
-                    // QUANTIDADE DO KIT
-                    qtdKit = conecta.rs.getFloat("QuantItem");
+                    // QUANTIDADE DO KIT - QUANDO MODIFICADO A QUANTIDADE ORIGINAL (05/03/2021)
+                    qtdKit = conecta.rs.getFloat("QuantProd");
                     DecimalFormat vti = new DecimalFormat("##,###0.00");
                     String qtk = vti.format(qtdKit);
                     jQuantidadeKit.setText(qtk);
