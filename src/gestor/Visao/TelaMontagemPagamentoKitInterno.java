@@ -192,6 +192,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static int pCodigoAlmxarifado = 0;
     String pcodigoProduto = "";
     String pRegistroComp = "";
+    //
+    public static Integer pPESQUISA_ID_kit = null;
+    String idProduto;
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -3697,7 +3700,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                             bloquearBotoes();
                             limparCamposProdutos();
                             SalvarProduto();
-                            preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                            preencherTabelaProdutos("SELECT "
+                                    + "* "
+                                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                                     + "INNER JOIN PRODUTOS_AC "
                                     + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
                                     + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
@@ -3732,7 +3737,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         bloquearBotoes();
                         limparCamposProdutos();
                         SalvarProduto();
-                        preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                        preencherTabelaProdutos("SELECT "
+                                + "* "
+                                + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                                 + "INNER JOIN PRODUTOS_AC "
                                 + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
                                 + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
@@ -3784,7 +3791,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             if (flag == 1) {
                 String nomeProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 2);
                 jDescricaoProd.setText(nomeProduto);
-                String idProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 1);
+                idProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 1);
                 jCodigoProd.setText(idProduto);
                 idItem = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 0);
                 bloquearBotoes();
@@ -3798,14 +3805,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 jBtAuditoriaProduto.setEnabled(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT "
+                    conecta.executaSQL("SELECT DISTINCT "
                             + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit, "
                             + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit, "
                             + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd, "
-                            + "PRODUTOS_AC.DescricaoProd, "                            
+                            + "PRODUTOS_AC.DescricaoProd, "
                             + "PRODUTOS_AC.UnidadeProd, "
                             + "LOTE_PRODUTOS_AC.Qtd, "
-                            + "PRODUTOS_KITS_HIGIENE_INTERNO.QuantItem, "
                             + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.QuantProd "
                             + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                             + "INNER JOIN PRODUTOS_AC "
@@ -3816,22 +3822,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                             + "ON PRODUTOS_AC.IdProd=PRODUTOS_KITS_HIGIENE_INTERNO.IdProd "
                             + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
                             + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd='" + idProduto + "' "
-                            + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit='" + idItem + "' ");
+                            + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit='" + idItem + "' "
+                            + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit='" + pPESQUISA_ID_kit + "'");
                     conecta.rs.first();
                     jCodigoProd.setText(conecta.rs.getString("IdProd"));
                     jDescricaoProd.setText(conecta.rs.getString("DescricaoProd"));
                     idItem = conecta.rs.getString("IdRegProdKit");
+                    pPESQUISA_ID_kit = conecta.rs.getInt("IdKit");
                     jUnidadeProd.setText(conecta.rs.getString("UnidadeProd"));
                     // QUANTIDADE DO ESTOQUE                                                  
                     qtdEstoque = conecta.rs.getFloat("Qtd");
                     DecimalFormat vu = new DecimalFormat("##,###0.00");
                     String qtE = vu.format(qtdEstoque);
                     jQuantidadeProdEstoque.setText(qtE);
-                    // QUANTIDADE DO KIT - QUANDO MODIFICADO A QUANTIDADE ORIGINAL (05/03/2021)
-                    qtdKit = conecta.rs.getFloat("QuantProd");
-                    DecimalFormat vti = new DecimalFormat("##,###0.00");
-                    String qtk = vti.format(qtdKit);
-                    jQuantidadeKit.setText(qtk);
                     // PEGA QUANTIDADE PARA CALCULAR SE O USUARIO ALTERAR A QUANTIDADE.
                     qtdItemAnterior = conecta.rs.getFloat("QuantProd");
                     qtdItem = conecta.rs.getFloat("QuantProd");
@@ -3841,6 +3844,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     // QUANTIDADE DE INTERNOS
                     jQuantidadeInternos.setText(jtotalInternosSelecionados.getText());
                     conecta.desconecta();
+                    pPESQUISAR_QUANTIDADE_Item();
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
                 }
@@ -4697,7 +4701,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void buscarCodigoDadosIniciais() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE");
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE");
             conecta.rs.last();
             jIdRegistroComp.setText(conecta.rs.getString("IdRegistroComp"));
         } catch (Exception e) {
@@ -4710,7 +4716,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         conecta.abrirConexao();
         //REGISTRO DE INTERNOS PRÉ SELECIONADOS PARA O KIT
         try {
-            conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM INTERNOS_PAVILHAO_KIT_LOTE "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             codRequisicao = conecta.rs.getString("IdRegistroComp");
@@ -4718,7 +4726,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
         //
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             codRequisicao1 = conecta.rs.getString("IdRegistroComp");
@@ -4726,7 +4736,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
         //
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             codRequisicao2 = conecta.rs.getString("IdRegistroComp");
@@ -4734,7 +4746,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
         //
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             codRequisicao3 = conecta.rs.getString("IdRegistroComp");
@@ -4822,7 +4836,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PAVILHAO ORDER BY DescricaoPav");
+            conecta.executaSQL("SELECT "
+                    + "IdPav "
+                    + "DescricaoPav "
+                    + "FROM PAVILHAO ORDER BY DescricaoPav");
             conecta.rs.first();
             do {
                 jComboBoxPavilhoes.addItem(conecta.rs.getString("DescricaoPav"));
@@ -4836,7 +4853,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void buscarCodigoRegistroPavilhaoInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PAVILHAO_INTERNOS_KIT_LOTE");
+            conecta.executaSQL("SELECT "
+                    + "IdRegPavInt "
+                    + "FROM PAVILHAO_INTERNOS_KIT_LOTE");
             conecta.rs.last();
             idRegPavInt = conecta.rs.getInt("IdRegPavInt");
         } catch (Exception ERROR) {
@@ -4895,10 +4914,32 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
     }
 
+    public void pPESQUISAR_QUANTIDADE_Item() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdKit, "
+                    + "IdProd, "
+                    + "QuantItem "
+                    + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "WHERE IdKit='" + pPESQUISA_ID_kit + " '"
+                    + "AND IdProd='" + idProduto + "'");
+            conecta.rs.first();
+            qtdKit = conecta.rs.getFloat("QuantItem");
+            DecimalFormat vti = new DecimalFormat("##,###0.00");
+            String qtk = vti.format(qtdKit);
+            jQuantidadeKit.setText(qtk);
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+    }
+
     public void buscarProdutoKit() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE");
+            conecta.executaSQL("SELECT "
+                    + "IdRegProdKit "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE");
             conecta.rs.last();
             IdRegProdKit = conecta.rs.getInt("IdRegProdKit");
         } catch (Exception ERROR) {
@@ -4909,7 +4950,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void pegarSaldoEstoque(int idProd) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOTE_PRODUTOS_AC WHERE IdProd='" + idProd + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdProd, "
+                    + "IdItem, "
+                    + "Qtd "
+                    + "FROM LOTE_PRODUTOS_AC WHERE IdProd='" + idProd + "'");
             conecta.rs.first();
             codProd = conecta.rs.getInt("IdProd");
             codEstoque = conecta.rs.getInt("IdItem");
@@ -4922,7 +4967,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void verificarProdutoIncluido() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp, "
+                    + "IdProd "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "' "
                     + "AND IdProd='" + jCodigoProd.getText() + "'");
             conecta.rs.first();
@@ -4937,7 +4985,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void verificarInternosDB() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             codigoRegExcluir = conecta.rs.getString("IdRegistroComp");
@@ -4949,7 +4999,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void verificarInternoDBUm() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp, "
+                    + "IdInternoCrc "
+                    + "FROM "
+                    + "ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "' "
                     + "AND IdInternoCrc='" + codigoInternoCrc + "'");
             conecta.rs.first();
@@ -4964,7 +5018,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void verificarTodosProdutosDB() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             codigoRegExcluir = conecta.rs.getString("IdRegistroComp");
@@ -4976,7 +5032,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void verificarUmProdutoDB() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp "
+                    + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             codigoRegExcluir = conecta.rs.getString("IdRegistroComp");
@@ -5251,14 +5309,21 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "NomeUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
             codigoUserAL = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "IdGrupo, "
+                    + "NomeGrupo "
+                    + "FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                     + "WHERE IdUsuario='" + codigoUserAL + "'");
@@ -5269,7 +5334,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "Abrir, "
+                    + "Incluir, "
+                    + "Alterar, "
+                    + "Excluir, "
+                    + "Gravar, "
+                    + "Consultar, "
+                    + "NomeTela "
+                    + "FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserAL + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();

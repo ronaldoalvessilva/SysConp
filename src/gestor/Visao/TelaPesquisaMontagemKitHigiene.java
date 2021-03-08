@@ -57,6 +57,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosSelec;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosKitComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProdutosKitComo;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pPESQUISA_ID_kit;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -977,6 +978,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
                             + "COLABORADOR.NomeFunc, "
                             + "DEPARTAMENTOS.NomeDepartamento, "
@@ -996,6 +998,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
+                    pPESQUISA_ID_kit = conecta.rs.getInt("IdKit");
                     if (kitInicial == 1) {
                         jRBtKitInicial.setSelected(true);
                     } else if (kitInicial == 0) {
@@ -1039,6 +1042,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
                             + "COLABORADOR.NomeFunc, "
                             + "DEPARTAMENTOS.NomeDepartamento, "
@@ -1058,6 +1062,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
+                    pPESQUISA_ID_kit = conecta.rs.getInt("IdKit");
                     kitDecendial = conecta.rs.getInt("KitDecendial");
                     if (kitDecendial == 1) {
                         jRBtKitDecendial.setSelected(true);
@@ -1101,6 +1106,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
                             + "COLABORADOR.NomeFunc, "
                             + "DEPARTAMENTOS.NomeDepartamento, "
@@ -1120,6 +1126,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
+                    pPESQUISA_ID_kit = conecta.rs.getInt("IdKit");
                     kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
                     if (kitQuinzenal == 1) {
                         jRBtKitQuinzenal.setSelected(true);
@@ -1163,6 +1170,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
                             + "COLABORADOR.NomeFunc, "
                             + "DEPARTAMENTOS.NomeDepartamento, "
@@ -1182,6 +1190,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
+                    pPESQUISA_ID_kit = conecta.rs.getInt("IdKit");
                     kitDecendial = conecta.rs.getInt("KitMensal");
                     if (kitMensal == 1) {
                         jRBtKitMensal.setSelected(true);
@@ -1223,6 +1232,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
                             + "COLABORADOR.NomeFunc, "
                             + "DEPARTAMENTOS.NomeDepartamento, "
@@ -1242,6 +1252,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
+                    pPESQUISA_ID_kit = conecta.rs.getInt("IdKit");
                     kitSemestral = conecta.rs.getInt("KitSemestral");
                     if (kitSemestral == 1) {
                         jRBtKitSemestral.setSelected(true);
@@ -1283,6 +1294,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.StatusComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.DataComp, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdItem, "
+                            + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit, "
                             + "COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc, "
                             + "COLABORADOR.NomeFunc, "
                             + "DEPARTAMENTOS.NomeDepartamento, "
@@ -1302,6 +1314,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
+                    pPESQUISA_ID_kit = conecta.rs.getInt("IdKit");
 //                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitAnual = conecta.rs.getInt("KitAnual");
                     if (kitAnual == 1) {
