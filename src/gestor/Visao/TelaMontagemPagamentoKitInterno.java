@@ -4655,7 +4655,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         } else {
             jBtPesquisarKit.setEnabled(true);
         }
-//        jDataComp.setEnabled(true);
         jBtPesquisarColaborador.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -4837,7 +4836,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdPav "
+                    + "IdPav, "
                     + "DescricaoPav "
                     + "FROM PAVILHAO ORDER BY DescricaoPav");
             conecta.rs.first();
@@ -5320,9 +5319,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
         try {
             conecta.executaSQL("SELECT "
-                    + "IdUsuario, "
-                    + "IdGrupo, "
-                    + "NomeGrupo "
+                    + "USUARIOS_GRUPOS.IdUsuario, "
+                    + "USUARIOS_GRUPOS.IdGrupo, "
+                    + "GRUPOUSUARIOS.NomeGrupo "
                     + "FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
