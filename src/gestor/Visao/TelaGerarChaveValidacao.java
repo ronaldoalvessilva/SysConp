@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import Utilitarios.CriptografarDadosChaveSistema;
+import Utilitarios.Criptografia;
 import Utilitarios.GeraCpfCnpj;
 import gestor.Controle.ControleGerarChave;
 import gestor.Controle.ControleLogSistema;
@@ -17,7 +18,9 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
@@ -51,6 +54,8 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
     public static String pRESPOSTA = "";
     public static String pCHAVE_LIBERACAO_criptografada = "";
     private static byte[] dadosCriptografos = null;
+    String date;
+    String hora; // Hora da conexão
 
     /**
      * Creates new form TelaGerarChaveValidacao
@@ -127,6 +132,7 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jBtGerarChave = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("...::: Gerar Chave de Liberação :::...");
@@ -386,7 +392,7 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -616,6 +622,15 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         jTextArea1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPane2.setViewportView(jTextArea1);
 
+        jBtGerarChave.setForeground(new java.awt.Color(0, 102, 0));
+        jBtGerarChave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Base1-18.png"))); // NOI18N
+        jBtGerarChave.setText("Gerar Chave");
+        jBtGerarChave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGerarChaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -633,14 +648,13 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13))
-                    .addComponent(jCHAVE_liberacao)
-                    .addComponent(jScrollPane2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtGerarChave))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jCHAVE_liberacao, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
-
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCHAVE_liberacao, jCHAVE_validacao});
-
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -649,10 +663,10 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addGap(5, 5, 5)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel3)
-                    .addComponent(jCHAVE_liberacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCHAVE_liberacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtGerarChave)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -685,7 +699,7 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -698,10 +712,10 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 60, 634, 409);
+        setBounds(300, 60, 634, 412);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBt_PESQUISA_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBt_PESQUISA_codigoActionPerformed
@@ -800,9 +814,8 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
                 objChave.setDataLiberacao(jDataLiberacao.getDate());
                 objChave.setRazaoSocial(jRazaoSocial.getText());
                 objChave.setDataValidade(jDataValidade.getDate());
-                pCHAVE_LIBERACAO_criptografada = jDataValidade.getDate().toString();                
-//                CRIPOTOGRAR_simetrica();
-//                objChave.setcHAVE01_liberacao(dadosCriptografos.toString());
+                pCHAVE_LIBERACAO_criptografada = jDataValidade.getDate().toString();
+                objChave.setcHAVE01_liberacao(jCHAVE_liberacao.getText());
                 if (acao == 1) {
                     GeraCpfCnpj gerador = new GeraCpfCnpj();
                     if (GeraCpfCnpj.isCNPJ(jCNPJ.getText()) == true) {
@@ -858,11 +871,20 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
+    private void jBtGerarChaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGerarChaveActionPerformed
+        // TODO add your handling code here:
+        pPEGAR_DATA_validade();
+//        pCHAVE_LIBERACAO_criptografada = jDataValidade.getDate().toString();
+//                JOptionPane.showMessageDialog(rootPane, "CHAVE MD5 ANTES DE CRIPTOGRAFAR: " + pCHAVE_LIBERACAO_criptografada);
+        jCHAVE_liberacao.setText(Criptografia.criptografar(pCHAVE_LIBERACAO_criptografada));
+    }//GEN-LAST:event_jBtGerarChaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtGerarChave;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
@@ -927,6 +949,7 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         jRazaoSocial.setBackground(Color.white);
         jDataValidade.setBackground(Color.white);
         jCHAVE_liberacao.setBackground(Color.white);
+        jCHAVE_validacao.setBackground(Color.white);
     }
 
     public void bloquearCampos(boolean opcao) {
@@ -1028,4 +1051,21 @@ public class TelaGerarChaveValidacao extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
+
+    public void pPEGAR_DATA_validade() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss"); // HORAIO DE 24 HORAS, PARA O DE 12 HORAS UTILIZAR hh:mm:ss
+        SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+        hora = formatter.format(data); // Hora da conexão
+        date = formatter2.format(jDataValidade.getDate()); // Data da conexão
+        //
+//        jHoraSistema.setText(String.valueOf(hora));    // no lugar do label, por seu JTextField    
+//        jDataSistema.setText(String.valueOf(date));
+    }
+
+//    dataEmissao = conecta.rs.getString("DataEmissao");
+//                String dia = dataEmissao.substring(8, 10);
+//                String mes = dataEmissao.substring(5, 7);
+//                String ano = dataEmissao.substring(0, 4);
+//                dataEmissao = dia + "/" + mes + "/" + ano;
 }

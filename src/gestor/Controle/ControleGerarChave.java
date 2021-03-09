@@ -42,8 +42,7 @@ public class ControleGerarChave {
             } else {
                 pst.setDate(4, null);
             }
-            pst.setString(5, Criptografia.criptografar(objChave.getcHAVE01_liberacao()));
-//            pst.setString(5, objChave.getcHAVE01_liberacao());
+            pst.setString(5, objChave.getcHAVE01_liberacao());
             pst.setString(6, objChave.getUsuarioInsert());
             pst.setString(7, objChave.getDataInsert());
             pst.setString(8, objChave.getHorarioInsert());
@@ -74,7 +73,7 @@ public class ControleGerarChave {
             } else {
                 pst.setDate(4, null);
             }
-            pst.setString(5, Criptografia.criptografar(objChave.getcHAVE01_liberacao()));
+            pst.setString(5, objChave.getcHAVE01_liberacao());
             pst.setString(6, objChave.getUsuarioUp());
             pst.setString(7, objChave.getDataUp());
             pst.setString(8, objChave.getHorarioUp());
