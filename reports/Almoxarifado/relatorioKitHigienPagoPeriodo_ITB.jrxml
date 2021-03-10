@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioKitHigienPagoPeriodo_ITB" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da76d9e4-1ece-483d-b03a-6fc1e1f06690">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="pNOME_usuario" class="java.lang.String"/>
+	<parameter name="pUNIDADE" class="java.lang.String"/>
+	<parameter name="pDATA_final" class="java.lang.String"/>
+	<parameter name="pDATA_inicial" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     PAGAMENTO_KIT_INTERNOS.IdPagto,
+	 PAGAMENTO_KIT_INTERNOS.DataLanc,
+	 PAGAMENTO_KIT_INTERNOS.TipoKit,
+	 PAVILHAO.IdPav,
+	 PAVILHAO.DescricaoPav,
+	 PRONTUARIOSCRC.IdInternoCrc,
+	 PRONTUARIOSCRC.NomeInternoCrc,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Copo,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Prato,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Colher,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Vasilha,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Garfo,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Absorvente,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Bermuda,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Colchas,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Colchao,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Toalha,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Camisa,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Cueca,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Sandalia,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.CremeDental,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Sabonete,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.PapelHigienico,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Barbeador,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.EscovaDente,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Cobertor,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.BolaFutSal,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.CalcaoJg,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.ParMeiao,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.SabaoPo,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.Desodorante,
+	 ITENS_PAGAMENTO_KIT_INTERNOS.DataEntrega
+	 FROM PAGAMENTO_KIT_INTERNOS
+	 INNER JOIN ITENS_PAGAMENTO_KIT_INTERNOS
+	 ON PAGAMENTO_KIT_INTERNOS.IdPagto=ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto
+	 INNER JOIN PRONTUARIOSCRC
+	 ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
+	 INNER JOIN PAVILHAO
+	 ON PAGAMENTO_KIT_INTERNOS.IdPav=PAVILHAO.IdPav
+           WHERE DataEntrega BETWEEN $P{pDATA_inicial}
+           AND $P{pDATA_final}
+           ORDER BY DataEntrega]]>
+	</queryString>
+	<field name="IdPagto" class="java.lang.Integer"/>
+	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="TipoKit" class="java.lang.String"/>
+	<field name="IdPav" class="java.lang.Integer"/>
+	<field name="DescricaoPav" class="java.lang.String"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="Copo" class="java.lang.Integer"/>
+	<field name="Prato" class="java.lang.Integer"/>
+	<field name="Colher" class="java.lang.Integer"/>
+	<field name="Vasilha" class="java.lang.Integer"/>
+	<field name="Garfo" class="java.lang.Integer"/>
+	<field name="Absorvente" class="java.lang.Integer"/>
+	<field name="Bermuda" class="java.lang.Integer"/>
+	<field name="Colchas" class="java.lang.Integer"/>
+	<field name="Colchao" class="java.lang.Integer"/>
+	<field name="Toalha" class="java.lang.Integer"/>
+	<field name="Camisa" class="java.lang.Integer"/>
+	<field name="Cueca" class="java.lang.Integer"/>
+	<field name="Sandalia" class="java.lang.Integer"/>
+	<field name="CremeDental" class="java.lang.Integer"/>
+	<field name="Sabonete" class="java.lang.Integer"/>
+	<field name="PapelHigienico" class="java.lang.Integer"/>
+	<field name="Barbeador" class="java.lang.Integer"/>
+	<field name="EscovaDente" class="java.lang.Integer"/>
+	<field name="Cobertor" class="java.lang.Integer"/>
+	<field name="BolaFutSal" class="java.lang.Integer"/>
+	<field name="CalcaoJg" class="java.lang.Integer"/>
+	<field name="ParMeiao" class="java.lang.Integer"/>
+	<field name="SabaoPo" class="java.lang.Integer"/>
+	<field name="Desodorante" class="java.lang.Integer"/>
+	<field name="DataEntrega" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="37" y="31" width="37" height="15" forecolor="#736343" uuid="516ff54f-55f1-4a83-9de7-c4de40bdc641"/>
+				<text><![CDATA[IdPagto]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="74" y="31" width="113" height="15" uuid="8909bb91-26ba-4a34-a3d3-08aaf1d524de"/>
+				<textFieldExpression><![CDATA[$F{IdPagto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="37" y="46" width="37" height="15" forecolor="#736343" uuid="db57d892-b30e-4a07-b180-d046efbfc6cd"/>
+				<text><![CDATA[DataLanc]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="74" y="46" width="113" height="15" uuid="004deb09-186e-422b-96de-4eb6ed25ce45"/>
+				<textFieldExpression><![CDATA[$F{DataLanc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="37" y="61" width="37" height="15" forecolor="#736343" uuid="342826af-d9f3-48eb-962d-ddec1f596b4c"/>
+				<text><![CDATA[TipoKit]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="74" y="61" width="113" height="15" uuid="475662e5-f182-4a90-a0bb-4014d72241f0"/>
+				<textFieldExpression><![CDATA[$F{TipoKit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="37" y="76" width="37" height="15" forecolor="#736343" uuid="2908a75d-1a29-4c4a-8993-093fb1aefec8"/>
+				<text><![CDATA[IdPav]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="74" y="76" width="113" height="15" uuid="7ff247de-0dcd-4181-a1c8-562963b9ce8d"/>
+				<textFieldExpression><![CDATA[$F{IdPav}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="37" y="91" width="37" height="15" forecolor="#736343" uuid="440b7957-e5da-46e6-82f5-75552d5078b9"/>
+				<text><![CDATA[DescricaoPav]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="74" y="91" width="113" height="15" uuid="b97c544d-36c0-4890-9dbe-ab21cd64ab14"/>
+				<textFieldExpression><![CDATA[$F{DescricaoPav}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="14" y="106" width="74" height="15" forecolor="#736343" uuid="ad74c5b7-97a1-460b-bdd6-8147864e5656"/>
+				<text><![CDATA[DataEntrega]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="88" y="106" width="63" height="15" uuid="362278a0-f6c1-42be-9210-30a35bf0528a"/>
+				<textFieldExpression><![CDATA[$F{DataEntrega}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="5a08c6fa-beb3-4b6b-bcfd-0d96f46146b8"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="69" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="d2db7dcb-29d6-4540-9224-50d820355c9d"/>
+				<staticText>
+					<reportElement style="Column header" x="14" y="0" width="37" height="15" forecolor="#736343" uuid="86192f64-748c-47ad-8a80-6b3cc71a3e49"/>
+					<text><![CDATA[Absorvente]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="51" y="0" width="37" height="15" uuid="96c34490-b396-427e-8a7e-62f9ff450efc"/>
+					<textFieldExpression><![CDATA[$F{Absorvente}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement style="Column header" x="1" y="15" width="50" height="15" forecolor="#736343" uuid="394d15f3-0b89-4a9a-a151-48d4409d33e5"/>
+				<text><![CDATA[CremeDental]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="14" y="30" width="37" height="15" forecolor="#736343" uuid="437f2e42-9c14-4527-9eaa-16e88c6af72c"/>
+				<text><![CDATA[Sabonete]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="195" y="20" width="37" height="15" forecolor="#736343" uuid="88e70c07-d66f-4ccb-91ab-7f7acb3e01ba"/>
+				<text><![CDATA[Barbeador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="195" y="30" width="37" height="15" forecolor="#736343" uuid="d20afa62-6a31-4636-a883-bf85b02ab024"/>
+				<text><![CDATA[EscovaDente]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="51" y="15" width="37" height="15" uuid="79c76429-6b7f-4b10-945c-d8062df7ce88"/>
+				<textFieldExpression><![CDATA[$F{CremeDental}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="51" y="30" width="37" height="15" uuid="ea463017-ccd2-4861-8239-6807a5d25a3d"/>
+				<textFieldExpression><![CDATA[$F{Sabonete}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="232" y="20" width="37" height="15" uuid="c81f3238-61f7-41a6-9db0-960853089b8e"/>
+				<textFieldExpression><![CDATA[$F{Barbeador}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="232" y="35" width="37" height="15" uuid="b5651712-24bf-4322-b765-dfb1701088e4"/>
+				<textFieldExpression><![CDATA[$F{EscovaDente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="198" y="5" width="37" height="15" forecolor="#736343" uuid="dbec2972-aed4-4714-b7e0-242923bc4854"/>
+				<text><![CDATA[PapelHigienico]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="368" y="25" width="37" height="15" uuid="0879ba2f-1cc3-4d9f-b44b-a02e72f15eb7"/>
+				<textFieldExpression><![CDATA[$F{Desodorante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="331" y="25" width="37" height="15" forecolor="#736343" uuid="62527ab3-9357-4bf8-818b-11161e9154e3"/>
+				<text><![CDATA[Desodorante]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="235" y="5" width="37" height="15" uuid="b7547424-3019-4fb6-a939-15c7e4bcde2d"/>
+				<textFieldExpression><![CDATA[$F{PapelHigienico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="78be0f32-e648-4aba-a978-58b1283ed588"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="23cf8eae-6c69-4f23-a2e8-4fb842118b23"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="9d687fa5-012c-46fa-8bc5-8f55562d7f07"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="2f63aa0d-2147-4a7f-9a35-ce4ea51768d8"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="eef8837f-c133-46f8-8059-f42f438aa8f4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
