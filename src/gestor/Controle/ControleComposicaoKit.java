@@ -153,7 +153,8 @@ public class ControleComposicaoKit {
             conecta.executaSQL("SELECT DISTINCT "
                     + "INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp, "
                     + "INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc,PRONTUARIOSCRC.Cnc, "
-                    + "PRONTUARIOSCRC.NomeInternoCrc "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav "
                     + "FROM INTERNOS_PAVILHAO_KIT_LOTE "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -165,6 +166,7 @@ public class ControleComposicaoKit {
                 pDigiSelec.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pDigiSelec.setCncInternoCrc(conecta.rs.getString("Cnc"));
                 pDigiSelec.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pDigiSelec.setIdPav(conecta.rs.getInt("IdPav"));
                 listaInternosPavilhaoSelecionados.add(pDigiSelec);
                 qtdInternosSelec = qtdInternosSelec + 1;
             }

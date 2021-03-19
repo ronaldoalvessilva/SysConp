@@ -148,7 +148,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static int codigoPesquisaKit = 0;
     public static int codigoPesquisaKitItem = 0;
     // ABA PAVILHÃO/INTERNOS
-    public static int codigoPavilhao = 0;
+    public static int pCODIGO_pavilhao = 0;
     String situacaoEntrada = "ENTRADA NA UNIDADE";
     String situacaoRetorno = "RETORNO A UNIDADE";
     String idInterno;
@@ -195,6 +195,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     //
     public static Integer pPESQUISA_ID_kit = null;
     String idProduto;
+    //CÓDIGO DO PAVILHÃO PARA PESQUISA DOS INTERNOS NA FASE 4 (19/03/2021)
+//    public static int pCODIGO_pavilho = 0;
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -213,6 +215,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaFinalizarKitHigiene finalEstoque;
     public static TelaConsultaPavilhaoKit pavKit;
     public static TelaConsultaProgramacaoKit consulPav;
+    public static TelaEstoqueProdutosKitBaixaLote pBAIXA_ESTOQUE_lote;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -297,6 +300,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         consulPav.setVisible(true);
     }
 
+    public void mostrarBaixaLote(){
+        pBAIXA_ESTOQUE_lote = new TelaEstoqueProdutosKitBaixaLote(this,true);
+        pBAIXA_ESTOQUE_lote.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -413,6 +420,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaProduto = new javax.swing.JButton();
         jBtConsultarEstoque = new javax.swing.JButton();
         jBtSelecionarProdutos = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel19 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -1282,7 +1290,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBtProgramacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(jBtProgramacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtConsultarPavilhao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1759,6 +1767,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jButton1.setText("G.Lote");
+        jButton1.setToolTipText("Consulta e grava todos os produtos do kit de higiêne em lote");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1766,33 +1782,39 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtAlterarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                            .addComponent(jBtExcluirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtSalvarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtCancelarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jBtConsultarEstoque))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jBtSelecionarProdutos))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jBtAuditoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBtNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBtAlterarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                    .addComponent(jBtExcluirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBtSalvarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBtCancelarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jBtConsultarEstoque))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jBtSelecionarProdutos))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jBtAuditoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos});
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos, jButton1});
 
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtSelecionarProdutos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jBtNovoProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterarProduto)
@@ -1802,12 +1824,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtSalvarProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelarProduto)
-                .addGap(85, 85, 85)
+                .addGap(32, 32, 32)
+                .addComponent(jButton1)
+                .addGap(30, 30, 30)
                 .addComponent(jBtConsultarEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtAuditoriaProduto)
                 .addContainerGap())
         );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos, jButton1});
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
@@ -3388,7 +3414,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controle.read()) {
-                        codigoPavilhao = dd.getIdPav();
+                        pCODIGO_pavilhao = dd.getIdPav();
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
@@ -3411,7 +3437,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKD.read()) {
-                        codigoPavilhao = dd.getIdPav();
+                        pCODIGO_pavilhao = dd.getIdPav();
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
@@ -3432,7 +3458,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKQ.read()) {
-                        codigoPavilhao = dd.getIdPav();
+                        pCODIGO_pavilhao = dd.getIdPav();
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
@@ -3453,7 +3479,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKM.read()) {
-                        codigoPavilhao = dd.getIdPav();
+                        pCODIGO_pavilhao = dd.getIdPav();
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
@@ -3474,7 +3500,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKS.read()) {
-                        codigoPavilhao = dd.getIdPav();
+                        pCODIGO_pavilhao = dd.getIdPav();
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
@@ -3495,7 +3521,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKA.read()) {
-                        codigoPavilhao = dd.getIdPav();
+                        pCODIGO_pavilhao = dd.getIdPav();
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
@@ -3640,7 +3666,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         bloquearCampos();
                         bloquearBotoes();
                         ExcluirProduto();
-                        preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                        preencherTabelaProdutos("SELECT "
+                                + "IdRegProdKit, "
+                                + "IdProd, "
+                                + "DescricaoProd, "
+                                + "UnidadeProd, "
+                                + "QuantProd "
+                                + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                                 + "INNER JOIN PRODUTOS_AC "
                                 + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
                                 + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
@@ -3701,7 +3733,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                             limparCamposProdutos();
                             SalvarProduto();
                             preencherTabelaProdutos("SELECT "
-                                    + "* "
+                                    + "IdRegProdKit, "
+                                    + "IdProd, "
+                                    + "DescricaoProd, "
+                                    + "UnidadeProd, "
+                                    + "QuantProd "
                                     + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                                     + "INNER JOIN PRODUTOS_AC "
                                     + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
@@ -3738,7 +3774,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         limparCamposProdutos();
                         SalvarProduto();
                         preencherTabelaProdutos("SELECT "
-                                + "* "
+                                + "IdRegProdKit, "
+                                + "IdProd, "
+                                + "DescricaoProd, "
+                                + "UnidadeProd, "
+                                + "QuantProd "
                                 + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                                 + "INNER JOIN PRODUTOS_AC "
                                 + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
@@ -4319,6 +4359,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
     }//GEN-LAST:event_jBtHelpActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Integer rows = jTabelaInternosSelecionados.getRowCount();
+        if (rows != 0) {
+            mostrarBaixaLote();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Não existe internos para seleção de produtos.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
@@ -4367,6 +4417,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtSelecionarProdutos;
     public static javax.swing.JButton jBtSelecionarTodosInternos;
     public static javax.swing.JButton jBtSelecionarUmInterno;
+    private javax.swing.JButton jButton1;
     public static javax.swing.JTextField jCodigoProd;
     public static javax.swing.JComboBox<String> jComboBoxPavilhoes;
     public static com.toedter.calendar.JDateChooser jDataComp;
@@ -4842,7 +4893,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             conecta.rs.first();
             do {
                 jComboBoxPavilhoes.addItem(conecta.rs.getString("DescricaoPav"));
-                codigoPavilhao = conecta.rs.getInt("IdPav");
+                pCODIGO_pavilhao = conecta.rs.getInt("IdPav");
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }

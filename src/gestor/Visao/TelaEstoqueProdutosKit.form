@@ -98,14 +98,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jCodigoBarraPesquisa" min="-2" pref="131" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
-                                          <Component id="jCheckBoxTodos" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jDescricapProdPesquisa" min="-2" pref="477" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Component id="jCodigoBarraPesquisa" min="-2" pref="131" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                                  <Component id="jCheckBoxTodos" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jDescricapProdPesquisa" min="-2" pref="477" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtPesquisaNomeProd" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
@@ -121,35 +120,29 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jCodigoProdPesquisa" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtPesquisaCodigoProd" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCodigoBarraPesquisa" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jBtConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBoxTodos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtSair" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jBtPesquisaNomeProd" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jDescricapProdPesquisa" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxTodos" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtConfirmar" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCodigoBarraPesquisa" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtPesquisaCodigoProd" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCodigoProdPesquisa" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jBtPesquisaNomeProd" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDescricapProdPesquisa" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="jBtSair" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -296,14 +289,14 @@
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="8" rowCount="0">
-                <Column editable="true" title="ID_Kit" type="java.lang.Object"/>
-                <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
-                <Column editable="true" title="C&#xf3;digo Barra" type="java.lang.Object"/>
-                <Column editable="true" title="Descri&#xe7;&#xe3;o do Produto" type="java.lang.Object"/>
-                <Column editable="true" title="Un." type="java.lang.Object"/>
-                <Column editable="true" title="Qtd. Estoque" type="java.lang.Object"/>
-                <Column editable="true" title="Qtd.Kit" type="java.lang.Object"/>
-                <Column editable="true" title="Lote" type="java.lang.Object"/>
+                <Column editable="false" title="ID_Kit" type="java.lang.Object"/>
+                <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
+                <Column editable="false" title="C&#xf3;digo Barra" type="java.lang.Object"/>
+                <Column editable="false" title="Descri&#xe7;&#xe3;o do Produto" type="java.lang.Object"/>
+                <Column editable="false" title="Un." type="java.lang.Object"/>
+                <Column editable="false" title="Qtd. Estoque" type="java.lang.Object"/>
+                <Column editable="false" title="Qtd.Kit" type="java.lang.Object"/>
+                <Column editable="false" title="Lote" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

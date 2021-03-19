@@ -72,6 +72,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pCODIGO_pavilhao;
 
 /**
  *
@@ -80,6 +81,7 @@ import javax.swing.table.DefaultTableModel;
 public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    PavilhaoInternosSelecionados objPavInternos = new PavilhaoInternosSelecionados();
     ControleComposicaoKit controle = new ControleComposicaoKit();
     ControleProdutosKitLote control = new ControleProdutosKitLote();
     ControleListaInternosKitCompleto controleIC = new ControleListaInternosKitCompleto();
@@ -108,6 +110,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     String pDESCRICAO_pavilhao = "";
     String pNOME_pavilhao = "";
     public static int pTOTAL_KITS_registrados = 0;
+    //
 
     /**
      * Creates new form TelaPesquisaMontagemKitHigiene
@@ -929,8 +932,6 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             idKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 2);
             codigoPesquisaKit = Integer.valueOf(idKit);
             tipoKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 3);
-//            String pPAVILHAO = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 6);
-//            jDescricaoPavilhao.setText(pPAVILHAO);
             //
             if (tipoKit.equals("Kit Inicial")) {
                 kitInicial = 1;
@@ -1354,8 +1355,16 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
-        // TODO add your handling code here:
-        jBtNovo.setEnabled(true);
+        // TODO add your handling code here:        
+        if (jIdRegistroComp.getText().equals("")) {
+            jBtNovo.setEnabled(true);
+        } else {
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+        }
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
@@ -2286,6 +2295,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         PavilhaoInternosSelecionados d = new PavilhaoInternosSelecionados();
         try {
             for (PavilhaoInternosSelecionados dd : controle.read()) {
+                pCODIGO_pavilhao = dd.getIdPav();
                 jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec)); // Converter inteiro em string para exibir na tela 
                 dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL

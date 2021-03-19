@@ -21,6 +21,8 @@ public class ProdutoInternosKitLote {
     private int idInternoCrc;
     private String nomeInternoCrc;
     private int idProd;
+    private String codigoBarras;
+    private String lote;
     private String descricaoProduto;
     private String unidadeProd;
     private int quantidadeProd;
@@ -39,11 +41,13 @@ public class ProdutoInternosKitLote {
     private float qtdKit;
     private Date dataPagto;
     private float qtdEstoque;    
+    private Integer idLocal;
+    private String descricaoLocal;
 
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, int quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String codigoBarras, String lote, String descricaoProduto, String unidadeProd, int quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque, Integer idLocal, String descricaoLocal) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -52,6 +56,8 @@ public class ProdutoInternosKitLote {
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.idProd = idProd;
+        this.codigoBarras = codigoBarras;
+        this.lote = lote;
         this.descricaoProduto = descricaoProduto;
         this.unidadeProd = unidadeProd;
         this.quantidadeProd = quantidadeProd;
@@ -70,6 +76,8 @@ public class ProdutoInternosKitLote {
         this.qtdKit = qtdKit;
         this.dataPagto = dataPagto;
         this.qtdEstoque = qtdEstoque;
+        this.idLocal = idLocal;
+        this.descricaoLocal = descricaoLocal;
     }
 
     /**
@@ -182,6 +190,34 @@ public class ProdutoInternosKitLote {
      */
     public void setIdProd(int idProd) {
         this.idProd = idProd;
+    }
+
+    /**
+     * @return the codigoBarras
+     */
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    /**
+     * @param codigoBarras the codigoBarras to set
+     */
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
+
+    /**
+     * @return the lote
+     */
+    public String getLote() {
+        return lote;
+    }
+
+    /**
+     * @param lote the lote to set
+     */
+    public void setLote(String lote) {
+        this.lote = lote;
     }
 
     /**
@@ -434,5 +470,33 @@ public class ProdutoInternosKitLote {
      */
     public void setQtdEstoque(float qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
+    }
+
+    /**
+     * @return the idLocal
+     */
+    public Integer getIdLocal() {
+        return idLocal;
+    }
+
+    /**
+     * @param idLocal the idLocal to set
+     */
+    public void setIdLocal(Integer idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    /**
+     * @return the descricaoLocal
+     */
+    public String getDescricaoLocal() {
+        return descricaoLocal;
+    }
+
+    /**
+     * @param descricaoLocal the descricaoLocal to set
+     */
+    public void setDescricaoLocal(String descricaoLocal) {
+        this.descricaoLocal = descricaoLocal;
     }
 }

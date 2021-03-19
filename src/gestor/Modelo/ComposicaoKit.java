@@ -20,6 +20,8 @@ public class ComposicaoKit {
     private int idItem;
     private int idFunc;
     private String nomeColaborador;
+    private Integer idPav;
+    private String descricaoPavilhao;
     private String observacao;
     private String progGerada;
     private Date dataProgramacao;
@@ -41,7 +43,7 @@ public class ComposicaoKit {
     public ComposicaoKit() {
     }
 
-    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, int idKit, int idItem, int idFunc, String nomeColaborador, String observacao, String progGerada, Date dataProgramacao, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String kitPago, Date dataPagamentoKit) {
+    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, int idKit, int idItem, int idFunc, String nomeColaborador, Integer idPav, String descricaoPavilhao, String observacao, String progGerada, Date dataProgramacao, int kitInicial, int kitDecendial, int kitQuinzenal, int kitMensal, int kitSemestral, int kitAnual, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String kitPago, Date dataPagamentoKit) {
         this.idRegistroComp = idRegistroComp;
         this.statusComp = statusComp;
         this.dataComp = dataComp;
@@ -49,6 +51,8 @@ public class ComposicaoKit {
         this.idItem = idItem;
         this.idFunc = idFunc;
         this.nomeColaborador = nomeColaborador;
+        this.idPav = idPav;
+        this.descricaoPavilhao = descricaoPavilhao;
         this.observacao = observacao;
         this.progGerada = progGerada;
         this.dataProgramacao = dataProgramacao;
@@ -164,6 +168,34 @@ public class ComposicaoKit {
      */
     public void setNomeColaborador(String nomeColaborador) {
         this.nomeColaborador = nomeColaborador;
+    }
+
+    /**
+     * @return the idPav
+     */
+    public Integer getIdPav() {
+        return idPav;
+    }
+
+    /**
+     * @param idPav the idPav to set
+     */
+    public void setIdPav(Integer idPav) {
+        this.idPav = idPav;
+    }
+
+    /**
+     * @return the descricaoPavilhao
+     */
+    public String getDescricaoPavilhao() {
+        return descricaoPavilhao;
+    }
+
+    /**
+     * @param descricaoPavilhao the descricaoPavilhao to set
+     */
+    public void setDescricaoPavilhao(String descricaoPavilhao) {
+        this.descricaoPavilhao = descricaoPavilhao;
     }
 
     /**

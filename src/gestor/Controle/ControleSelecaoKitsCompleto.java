@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pCODIGO_pavilhao;
 
 /**
  *
@@ -89,16 +90,20 @@ public class ControleSelecaoKitsCompleto {
     }
 
     public List<GravarInternosKitCompleto> read() throws Exception {
-        String pUtili = "Não"; 
+        String pUtili = "Não";
         conecta.abrirConexao();
         List<GravarInternosKitCompleto> listaInternosKitComp = new ArrayList<GravarInternosKitCompleto>();
         try {
-            conecta.executaSQL("SELECT DISTINCT INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc, "
+            conecta.executaSQL("SELECT "
+                    + "DISTINCT "
+                    + "IdRegIntSel,IdRegistroComp,IdPav,"
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,INTERNOS_PAVILHAO_KIT_LOTE.Utili "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc "
                     + "WHERE Utili='" + pUtili + "' "
+                    + "AND IdPav='" + pCODIGO_pavilhao + "'"
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 GravarInternosKitCompleto pDigi = new GravarInternosKitCompleto();
@@ -119,7 +124,12 @@ public class ControleSelecaoKitsCompleto {
     public void buscarInterno(String nome, int codigo) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + nome + "' AND IdInternoCrc='" + codigo + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc, "
+                    + "NomeInternoCrc "
+                    + "FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + nome + "' "
+                    + "AND IdInternoCrc='" + codigo + "'");
             conecta.rs.first();
             codInterno = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException ex) {
