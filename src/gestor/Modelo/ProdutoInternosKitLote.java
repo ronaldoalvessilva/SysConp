@@ -15,6 +15,7 @@ public class ProdutoInternosKitLote {
 
     private int idRegProdKit;
     private int idRegistroComp;
+    private int idItem;
     private int idKit;
     private int idPav;
     private String descricaoPavilhao;
@@ -26,6 +27,7 @@ public class ProdutoInternosKitLote {
     private String descricaoProduto;
     private String unidadeProd;
     private int quantidadeProd;
+    private float quantidadeItem;
     private int tipoKitCI;
     private String agrupado;
     private int gravado;
@@ -47,9 +49,10 @@ public class ProdutoInternosKitLote {
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String codigoBarras, String lote, String descricaoProduto, String unidadeProd, int quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque, Integer idLocal, String descricaoLocal) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idItem, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String codigoBarras, String lote, String descricaoProduto, String unidadeProd, int quantidadeProd, float quantidadeItem, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque, Integer idLocal, String descricaoLocal) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
+        this.idItem = idItem;
         this.idKit = idKit;
         this.idPav = idPav;
         this.descricaoPavilhao = descricaoPavilhao;
@@ -61,6 +64,7 @@ public class ProdutoInternosKitLote {
         this.descricaoProduto = descricaoProduto;
         this.unidadeProd = unidadeProd;
         this.quantidadeProd = quantidadeProd;
+        this.quantidadeItem = quantidadeItem;
         this.tipoKitCI = tipoKitCI;
         this.agrupado = agrupado;
         this.gravado = gravado;
@@ -106,6 +110,20 @@ public class ProdutoInternosKitLote {
      */
     public void setIdRegistroComp(int idRegistroComp) {
         this.idRegistroComp = idRegistroComp;
+    }
+
+    /**
+     * @return the idItem
+     */
+    public int getIdItem() {
+        return idItem;
+    }
+
+    /**
+     * @param idItem the idItem to set
+     */
+    public void setIdItem(int idItem) {
+        this.idItem = idItem;
     }
 
     /**
@@ -260,6 +278,20 @@ public class ProdutoInternosKitLote {
      */
     public void setQuantidadeProd(int quantidadeProd) {
         this.quantidadeProd = quantidadeProd;
+    }
+
+    /**
+     * @return the quantidadeItem
+     */
+    public float getQuantidadeItem() {
+        return quantidadeItem;
+    }
+
+    /**
+     * @param quantidadeItem the quantidadeItem to set
+     */
+    public void setQuantidadeItem(float quantidadeItem) {
+        this.quantidadeItem = quantidadeItem;
     }
 
     /**

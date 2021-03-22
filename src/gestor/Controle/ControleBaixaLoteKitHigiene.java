@@ -13,7 +13,12 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.pTipoKitCI;
 import static gestor.Visao.TelaEstoqueProdutosKitBaixaLote.jCodigoProdPesquisa;
 import static gestor.Visao.TelaEstoqueProdutosKitBaixaLote.jDescricapProdPesquisa;
 import static gestor.Visao.TelaEstoqueProdutosKitBaixaLote.pCODIGO_kit;
+import static gestor.Visao.TelaEstoqueProdutosKitBaixaLote.pTOTAL_REGISTROS_pesquisado;
 import static gestor.Visao.TelaEstoqueProdutosKitBaixaLote.pTOTAL_registros;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.idItem;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pPESQUISA_ID_kit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.idProduto;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +88,6 @@ public class ControleBaixaLoteKitHigiene {
                 pPRODUTOS.setCodigoBarras(conecta.rs.getString("CodigoBarra"));
                 pPRODUTOS.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pPRODUTOS.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
-//                pPRODUTOS.setIdLocal(conecta.rs.getInt("IdLocal"));
                 pPRODUTOS.setIdKit(conecta.rs.getInt("IdKit"));
                 pPRODUTOS.setQtdEstoque(conecta.rs.getFloat("Qtd"));
                 pPRODUTOS.setQuantidadeProd(conecta.rs.getInt("QuantItem"));
@@ -136,7 +140,6 @@ public class ControleBaixaLoteKitHigiene {
                 pPRODUTOS.setCodigoBarras(conecta.rs.getString("CodigoBarra"));
                 pPRODUTOS.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pPRODUTOS.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
-//                pPRODUTOS.setIdLocal(conecta.rs.getInt("IdLocal"));
                 pPRODUTOS.setIdKit(conecta.rs.getInt("IdKit"));
                 pPRODUTOS.setQtdEstoque(conecta.rs.getFloat("Qtd"));
                 pPRODUTOS.setQuantidadeProd(conecta.rs.getInt("QuantItem"));
@@ -189,7 +192,6 @@ public class ControleBaixaLoteKitHigiene {
                 pPRODUTOS.setCodigoBarras(conecta.rs.getString("CodigoBarra"));
                 pPRODUTOS.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pPRODUTOS.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
-//                pPRODUTOS.setIdLocal(conecta.rs.getInt("IdLocal"));
                 pPRODUTOS.setIdKit(conecta.rs.getInt("IdKit"));
                 pPRODUTOS.setQtdEstoque(conecta.rs.getFloat("Qtd"));
                 pPRODUTOS.setQuantidadeProd(conecta.rs.getInt("QuantItem"));
@@ -207,7 +209,7 @@ public class ControleBaixaLoteKitHigiene {
     }
 
     public List<ProdutoInternosKitLote> PESQUISA_PRODUTOS_todos() throws Exception {
-        pTOTAL_registros = 0;
+        pTOTAL_REGISTROS_pesquisado = 0;
         conecta.abrirConexao();
         List<ProdutoInternosKitLote> LISTA_PRODUTO_estoque = new ArrayList<ProdutoInternosKitLote>();
         try {
@@ -241,13 +243,12 @@ public class ControleBaixaLoteKitHigiene {
                 pPRODUTOS.setCodigoBarras(conecta.rs.getString("CodigoBarra"));
                 pPRODUTOS.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pPRODUTOS.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
-//                pPRODUTOS.setIdLocal(conecta.rs.getInt("IdLocal"));
                 pPRODUTOS.setIdKit(conecta.rs.getInt("IdKit"));
                 pPRODUTOS.setQtdEstoque(conecta.rs.getFloat("Qtd"));
                 pPRODUTOS.setQuantidadeProd(conecta.rs.getInt("QuantItem"));
                 pPRODUTOS.setLote(conecta.rs.getString("Lote"));
                 LISTA_PRODUTO_estoque.add(pPRODUTOS);
-                pTOTAL_registros++;
+                pTOTAL_REGISTROS_pesquisado++;
             }
             return LISTA_PRODUTO_estoque;
         } catch (SQLException ex) {
@@ -292,4 +293,131 @@ public class ControleBaixaLoteKitHigiene {
         conecta.desconecta();
         return objProdKit;
     }
+
+    public ProdutoInternosKitLote VERIFICAR_PRODUTOS_incluido(ProdutoInternosKitLote objProdKit) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp, "
+                    + "IdProd "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "' "
+                    + "AND IdProd='" + objProdKit.getIdProd() + "'");
+            conecta.rs.first();
+            objProdKit.setIdProd(conecta.rs.getInt("IdProd"));
+            objProdKit.setIdRegistroComp(conecta.rs.getInt("IdRegistroComp"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
+
+    public ProdutoInternosKitLote VERIFICAR_PRODUTO_estoque(ProdutoInternosKitLote objProdKit) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdProd, "
+                    + "IdItem, "
+                    + "Qtd "
+                    + "FROM LOTE_PRODUTOS_AC "
+                    + "WHERE IdProd='" + idProd + "'");
+            conecta.rs.first();
+            objProdKit.setIdProd(conecta.rs.getInt("IdProd"));
+            objProdKit.setIdItem(conecta.rs.getInt("IdItem"));
+            objProdKit.setQtdEstoque(conecta.rs.getFloat("Qtd"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
+
+    public ProdutoInternosKitLote BUSCAR_CODIGO_PRODUTO_gravado(ProdutoInternosKitLote objProdKit) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdRegProdKit "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE");
+            conecta.rs.last();
+            objProdKit.setIdRegProdKit(conecta.rs.getInt("IdRegProdKit"));
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
+
+    public List<ProdutoInternosKitLote> MOSTRAR_TABELA_PRODUTO_gravado() throws Exception {
+
+        conecta.abrirConexao();
+        List<ProdutoInternosKitLote> LISTA_PRODUTO_gravado = new ArrayList<ProdutoInternosKitLote>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdRegProdKit, "
+                    + "PRODUTOS_AC.IdProd, "
+                    + "PRODUTOS_AC.DescricaoProd, "
+                    + "PRODUTOS_AC.UnidadeProd, "
+                    + "QuantProd "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
+                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            while (conecta.rs.next()) {
+                ProdutoInternosKitLote pPRODUTOS = new ProdutoInternosKitLote();
+                pPRODUTOS.setIdItem(conecta.rs.getInt("IdRegProdKit"));
+                pPRODUTOS.setIdProd(conecta.rs.getInt("IdProd"));
+                pPRODUTOS.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
+                pPRODUTOS.setDescricaoProduto(conecta.rs.getString("UnidadeProd"));
+                pPRODUTOS.setQuantidadeProd(conecta.rs.getInt("QuantProd"));
+                pPRODUTOS.setUnidadeProd(idProd);
+                LISTA_PRODUTO_gravado.add(pPRODUTOS);
+                pTOTAL_REGISTROS_pesquisado++;
+            }
+            return LISTA_PRODUTO_gravado;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleBaixaLoteKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public ProdutoInternosKitLote EXIBIR_PRODUTO_gravado(ProdutoInternosKitLote objProdKit) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit, "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit, "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd, "
+                    + "PRODUTOS_AC.DescricaoProd, "
+                    + "PRODUTOS_AC.UnidadeProd, "
+                    + "LOTE_PRODUTOS_AC.Qtd, "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.QuantProd "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON PRODUTOS_AC.IdProd=PRODUTOS_KITS_HIGIENE_INTERNO.IdProd "
+                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd='" + idProduto + "' "
+                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit='" + idItem + "' "
+                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit='" + pPESQUISA_ID_kit + "'");
+            conecta.rs.first();
+            objProdKit.setIdProd(conecta.rs.getInt("IdProd"));
+            objProdKit.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
+            objProdKit.setIdItem(conecta.rs.getInt("IdRegProdKit"));
+            objProdKit.setIdKit(conecta.rs.getInt("IdKit"));
+            objProdKit.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
+            // QUANTIDADE DO ESTOQUE                                                  
+            objProdKit.setQtdEstoque(conecta.rs.getFloat("Qtd"));
+            objProdKit.setQuantidadeProd(conecta.rs.getInt("QuantProd"));
+            // QUANTIDADE DE INTERNOS
+//                    jQuantidadeInternos.setText(jtotalInternosSelecionados.getText());
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
+
 }
