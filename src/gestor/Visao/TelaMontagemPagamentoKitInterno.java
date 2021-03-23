@@ -101,6 +101,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     ControleProdutosKitLote controleProd = new ControleProdutosKitLote();
     //
     ControleBaixaLoteKitHigiene CONTROLE = new ControleBaixaLoteKitHigiene();
+    ControleProdutosKitLote controles = new ControleProdutosKitLote();
     // FASE - 4
     // GRAVAR OU EXCLUIR REGISTRO DOS INTERNOS NO KIT COMPLETO
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
@@ -257,11 +258,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         montaThread = new TelaThreadInternosSelecionados(this, true);
         montaThread.setVisible(true);
     }
-
-    public void mostrarEstoqueProdutosKit() {
-        estoqueProdkit = new TelaEstoqueProdutosKit(this, true);
-        estoqueProdkit.setVisible(true);
-    }
+     // FOI SUBSTITUIDO PELO PETODO TelaEstoqueProdutosKitBaixaLote - EM 23/03/2021
+//    public void mostrarEstoqueProdutosKit() {
+//        estoqueProdkit = new TelaEstoqueProdutosKit(this, true);
+//        estoqueProdkit.setVisible(true);
+//    }
 
     public void mostrarSelecaoInternos() {
         kitCompleto = new TelaSelecaoInternosKitCompleto(this, true);
@@ -424,7 +425,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaProduto = new javax.swing.JButton();
         jBtConsultarEstoque = new javax.swing.JButton();
         jBtSelecionarProdutos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel19 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -1771,14 +1771,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
-        jButton1.setText("G.Lote");
-        jButton1.setToolTipText("Consulta e grava todos os produtos do kit de higiêne em lote");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1786,32 +1778,26 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBtNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBtAlterarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                                    .addComponent(jBtExcluirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtSalvarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBtCancelarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jBtConsultarEstoque))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jBtSelecionarProdutos))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jBtAuditoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                            .addComponent(jBtNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtAlterarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(jBtExcluirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtSalvarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtCancelarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtConsultarEstoque))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtSelecionarProdutos))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jBtAuditoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos, jButton1});
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos});
 
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1828,16 +1814,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtSalvarProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelarProduto)
-                .addGap(32, 32, 32)
-                .addComponent(jButton1)
-                .addGap(30, 30, 30)
+                .addGap(87, 87, 87)
                 .addComponent(jBtConsultarEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtAuditoriaProduto)
                 .addContainerGap())
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos, jButton1});
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos});
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
@@ -3562,9 +3546,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSelecionarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarProdutosActionPerformed
         // TODO add your handling code here:
+// FOI SUBSTITUIDO PELO METODO ABAIXO mostrarBaixaLote() PARA DA MAIS DINAMICA NA SAIDA DOS PRODUTOS, PRINCIPALMENTE NO KIT INICIAL.
+// OU SEJA DA BAIXA EM VÁRIOS PRODUTOS DE UMA ÚNICA VEZ - EM 23/03/2021
+//            mostrarEstoqueProdutosKit();
         Integer rows = jTabelaInternosSelecionados.getRowCount();
         if (rows != 0) {
-            mostrarEstoqueProdutosKit();
+            mostrarBaixaLote();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Não existe internos para seleção de produtos.");
         }
@@ -4083,7 +4070,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
-//                    qtdInternosKitComp = qtdInternosKitComp - 1;
                             objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
                             objProdKit.setIdProd(codigoProdutoExclui);
                             objProdKit.setTipoKitCI(pTipoKitCI);
@@ -4098,7 +4084,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                             //
                             DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
                             modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
-//                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
                             JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
                         }
                     } else {
@@ -4107,10 +4092,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     }
                 } else {
                     if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
-//                qtdInternos = qtdInternos - 1;
                         DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
                         modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
-//                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
                         //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
@@ -4307,16 +4290,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
     }//GEN-LAST:event_jBtHelpActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Integer rows = jTabelaInternosSelecionados.getRowCount();
-        if (rows != 0) {
-            mostrarBaixaLote();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Não existe internos para seleção de produtos.");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
@@ -4331,7 +4304,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtAuditoriaProduto;
     public static javax.swing.JButton jBtCancelar;
     public static javax.swing.JButton jBtCancelarPavilhaoInterno;
-    private javax.swing.JButton jBtCancelarProduto;
+    public static javax.swing.JButton jBtCancelarProduto;
     private javax.swing.JButton jBtConsultarEstoque;
     private javax.swing.JButton jBtConsultarPavilhao;
     public static javax.swing.JButton jBtExcluir;
@@ -4360,12 +4333,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarInternosSelecionados;
     public static javax.swing.JButton jBtSalvarPavInternos;
-    private javax.swing.JButton jBtSalvarProduto;
+    public static javax.swing.JButton jBtSalvarProduto;
     private javax.swing.JButton jBtSalvarProdutoBanco;
     public static javax.swing.JButton jBtSelecionarProdutos;
     public static javax.swing.JButton jBtSelecionarTodosInternos;
     public static javax.swing.JButton jBtSelecionarUmInterno;
-    private javax.swing.JButton jButton1;
     public static javax.swing.JTextField jCodigoProd;
     public static javax.swing.JComboBox<String> jComboBoxPavilhoes;
     public static com.toedter.calendar.JDateChooser jDataComp;
@@ -5210,64 +5182,30 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     public void PREENCHER_TABELA_Produtos() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutos.getModel();
+        ProdutoInternosKitLote p = new ProdutoInternosKitLote();
         try {
             for (ProdutoInternosKitLote dd : CONTROLE.MOSTRAR_TABELA_PRODUTO_gravado()) {
                 //
-                DecimalFormat vi = new DecimalFormat(",###0.00");
-                String vqtdItem = vi.format(dd.getQuantidadeProd());
-                qtdItemTab = vqtdItem;
+//                DecimalFormat vi = new DecimalFormat(",###0.00");
+//                String vqtdItem = vi.format(dd.getQuantidadeProd());
+//                qtdItemTab = vqtdItem;
                 //              
                 jtotalProdutosKitInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-                dadosOrigem.addRow(new Object[]{dd.getIdRegProdKit(), dd.getIdProd(), dd.getDescricaoProduto(), dd.getUnidadeProd(), qtdItemTab});
+                dadosOrigem.addRow(new Object[]{dd.getIdRegProdKit(), dd.getIdProd(), dd.getDescricaoProduto(), dd.getUnidadeProd(), dd.getQuantidadeProd()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaProdutos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-                esquerda.setHorizontalAlignment(SwingConstants.LEFT);
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                direita.setHorizontalAlignment(SwingConstants.RIGHT);
                 //
                 jTabelaProdutos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                 jTabelaProdutos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                jTabelaProdutos.getColumnModel().getColumn(2).setCellRenderer(direita);
-                jTabelaProdutos.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaProdutos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                jTabelaProdutos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaEstoqueProdutosKitBaixaLote.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        ArrayList dados = new ArrayList();
-//        String[] Colunas = new String[]{"Item", "Código", "Descrição Produto", "Un.", "Quant."};
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL(sql);
-//            conecta.rs.first();
-//            count = 0;
-//            do {
-//                count = count + 1;
-//                jtotalProdutosKitInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-//                dados.add(new Object[]{conecta.rs.getInt("IdRegProdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), conecta.rs.getInt("QuantProd")});
-//            } while (conecta.rs.next());
-//        } catch (SQLException ex) {
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-//        jTabelaProdutos.setModel(modelo);
-//        jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
-//        jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(70);
-//        jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(300);
-//        jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(50);
-//        jTabelaProdutos.getColumnModel().getColumn(3).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(4).setPreferredWidth(70);
-//        jTabelaProdutos.getColumnModel().getColumn(4).setResizable(false);
-//        jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
-//        jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
-//        jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        alinharCamposTabelaProdutos();
-//        conecta.desconecta();
     }
 
     public void LIMPAR_TABELA_Produtos() {
@@ -5275,39 +5213,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         while (jTabelaProdutos.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTabelaProdutos.getModel()).removeRow(0);
         }
-//        ArrayList dados = new ArrayList();
-//        String[] Colunas = new String[]{"Item", "Código", "Descrição Produto", "Un.", "Quant."};
-//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-//        jTabelaProdutos.setModel(modelo);
-//        jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
-//        jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(70);
-//        jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(300);
-//        jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(50);
-//        jTabelaProdutos.getColumnModel().getColumn(3).setResizable(false);
-//        jTabelaProdutos.getColumnModel().getColumn(4).setPreferredWidth(70);
-//        jTabelaProdutos.getColumnModel().getColumn(4).setResizable(false);
-//        jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
-//        jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
-//        jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        modelo.getLinhas().clear();
     }
-
-//    public void alinharCamposTabelaProdutos() {
-//        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-//        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-//        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-//        //
-//        jTabelaProdutos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//        jTabelaProdutos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//        jTabelaProdutos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-//        jTabelaProdutos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
-//    }
 
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);

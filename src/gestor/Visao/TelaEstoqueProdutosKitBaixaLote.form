@@ -396,6 +396,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Excluir"/>
                 <Property name="toolTipText" type="java.lang.String" value="Rxcluir Registro Selecionado"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirSelecaoActionPerformed"/>
@@ -408,6 +409,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gravar"/>
                 <Property name="toolTipText" type="java.lang.String" value="Confirmar Grava&#xe7;&#xe3;o em Lote"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtGravarLoteActionPerformed"/>
@@ -581,17 +583,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTOTAL_REG_COPIADO" alignment="1" pref="60" max="32767" attributes="0"/>
+              <Component id="jTOTAL_REGISTROS_selecionados" alignment="1" pref="60" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTOTAL_REG_COPIADO" alignment="0" pref="14" max="32767" attributes="0"/>
+              <Component id="jTOTAL_REGISTROS_selecionados" alignment="0" pref="14" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jTOTAL_REG_COPIADO">
+        <Component class="javax.swing.JLabel" name="jTOTAL_REGISTROS_selecionados">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -626,6 +628,7 @@
             <BevelBorder bevelType="1"/>
           </Border>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">

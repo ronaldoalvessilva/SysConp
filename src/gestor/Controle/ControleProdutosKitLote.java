@@ -83,7 +83,12 @@ public class ControleProdutosKitLote {
     public void buscarProduto(String nome, int codigo) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRODUTOS_AC WHERE DescricaoProd='" + nome + "'AND IdProd='" + codigo + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdProd, "
+                    + "DescricaoProd "
+                    + "FROM PRODUTOS_AC "
+                    + "WHERE DescricaoProd='" + nome + "' "
+                    + "AND IdProd='" + codigo + "'");
             conecta.rs.first();
             codProd = conecta.rs.getInt("IdProd");
         } catch (SQLException ex) {

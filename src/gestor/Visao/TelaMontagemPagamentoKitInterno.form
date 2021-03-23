@@ -2378,38 +2378,29 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jBtNovoProduto" linkSize="9" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jBtAlterarProduto" linkSize="9" alignment="0" pref="89" max="32767" attributes="0"/>
-                                              <Component id="jBtExcluirProduto" linkSize="9" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
-                                              <Component id="jBtSalvarProduto" linkSize="9" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jBtCancelarProduto" linkSize="9" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jBtConsultarEstoque" linkSize="9" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jBtSelecionarProdutos" linkSize="9" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                          <Component id="jBtAuditoriaProduto" min="-2" pref="31" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jBtNovoProduto" linkSize="9" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jBtAlterarProduto" linkSize="9" alignment="0" pref="89" max="32767" attributes="0"/>
+                                      <Component id="jBtExcluirProduto" linkSize="9" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="jBtSalvarProduto" linkSize="9" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jBtCancelarProduto" linkSize="9" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton1" linkSize="9" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtConsultarEstoque" linkSize="9" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtSelecionarProdutos" linkSize="9" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                  <Component id="jBtAuditoriaProduto" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2428,9 +2419,7 @@
                           <Component id="jBtSalvarProduto" linkSize="12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtCancelarProduto" linkSize="12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="jButton1" linkSize="12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                           <Component id="jBtConsultarEstoque" linkSize="12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaProduto" min="-2" max="-2" attributes="0"/>
@@ -2495,6 +2484,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSalvarProdutoActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtCancelarProduto">
                   <Properties>
@@ -2508,6 +2500,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarProdutoActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtAuditoriaProduto">
                   <Properties>
@@ -2556,15 +2551,6 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="G.Lote"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Consulta e grava todos os produtos do kit de higi&#xea;ne em lote"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
