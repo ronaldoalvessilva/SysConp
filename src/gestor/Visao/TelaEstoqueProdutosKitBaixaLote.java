@@ -612,39 +612,50 @@ public class TelaEstoqueProdutosKitBaixaLote extends javax.swing.JDialog {
 
     private void jBtExcluirSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirSelecaoActionPerformed
         // TODO add your handling code here:
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            jCodigoProdPesquisa.setText("");
-            jCodigoBarraPesquisa.setText("");
-            jDescricapProdPesquisa.setText("");
-            pTOTAL_REGISTROS_pesquisado = pTOTAL_REGISTROS_pesquisado - 1;
-            jTOTAL_REGISTROS_selecionados.setText(String.valueOf(pTOTAL_REGISTROS_pesquisado));
-            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosEstoque.getModel();
-            modelOrigem.removeRow(jTabelaProdutosEstoque.getSelectedRow());
+        if (jCodigoProdPesquisa.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existem produto selecionado para exclusão, selecione priomeiro o produto a ser excluído.");
+        } else if (jDescricapProdPesquisa.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existem produto selecionado para exclusão, selecione priomeiro o produto a ser excluído.");
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Operação abortada pelo usuário.");
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                jCodigoProdPesquisa.setText("");
+                jCodigoBarraPesquisa.setText("");
+                jDescricapProdPesquisa.setText("");
+                pTOTAL_REGISTROS_pesquisado = pTOTAL_REGISTROS_pesquisado - 1;
+                jTOTAL_REGISTROS_selecionados.setText(String.valueOf(pTOTAL_REGISTROS_pesquisado));
+                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosEstoque.getModel();
+                modelOrigem.removeRow(jTabelaProdutosEstoque.getSelectedRow());
+                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Operação abortada pelo usuário.");
+            }
         }
     }//GEN-LAST:event_jBtExcluirSelecaoActionPerformed
 
     private void jBtGravarLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarLoteActionPerformed
         // TODO add your handling code here:
-        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja gravar os registros selecionados?\nDepois de confirmado, essa operação não poderá ser mais paralisada.", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            jCheckBoxTodos.setEnabled(!true);
-            jBtGravarLote.setEnabled(!true);
-            jBtExcluirSelecao.setEnabled(!true);
-            jBtSair.setEnabled(!true);
-            bloquearCamposBotoes(!true);
-            //BOTÕES DA TELA DE MONTAGEM
-            jBtSalvarProduto.setEnabled(!true);
-            jBtCancelarProduto.setEnabled(!true);
-            //IMPEDIR QUE A JANELA SEJA FECHADO NO X NO MOMENTO DA GRAVAÇÃO
-            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            GRAVAR_REGISTRO_BANCO_dados();
+        if (jTabelaProdutosEstoque.getSelectedRowCount() != 0) {
+            int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja gravar os registros selecionados?\nDepois de confirmado, essa operação não poderá ser mais paralisada.", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                jCheckBoxTodos.setEnabled(!true);
+                jBtGravarLote.setEnabled(!true);
+                jBtExcluirSelecao.setEnabled(!true);
+                jBtSair.setEnabled(!true);
+                bloquearCamposBotoes(!true);
+                //BOTÕES DA TELA DE MONTAGEM
+                jBtSalvarProduto.setEnabled(!true);
+                jBtCancelarProduto.setEnabled(!true);
+                //IMPEDIR QUE A JANELA SEJA FECHADO NO X NO MOMENTO DA GRAVAÇÃO
+                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                GRAVAR_REGISTRO_BANCO_dados();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Operação abortada pelo usuário.");
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Operação abortada pelo usuário.");
+            JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem gravados, faça uma pesquisa antes dos produtos desejados para gravar.");
         }
     }//GEN-LAST:event_jBtGravarLoteActionPerformed
 
