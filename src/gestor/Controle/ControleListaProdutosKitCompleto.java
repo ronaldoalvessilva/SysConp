@@ -28,7 +28,13 @@ public class ControleListaProdutosKitCompleto {
         conecta.abrirConexao();
         List<ProdutoInternosKitLote> listaInternosKitComp = new ArrayList<ProdutoInternosKitLote>();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp, "
+                    + "PRODUTOS_AC.IdProd, "
+                    + "PRODUTOS_AC.DescricaoProd, "
+                    + "PRODUTOS_AC.UnidadeProd, "
+                    + "ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.QuantProd "
+                    + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "'");

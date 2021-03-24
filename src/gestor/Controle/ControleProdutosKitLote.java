@@ -47,6 +47,26 @@ public class ControleProdutosKitLote {
         conecta.desconecta();
         return objProdKit;
     }
+     public ProdutoInternosKitLote incluirProdutosKitInternosLote(ProdutoInternosKitLote objProdKit) {
+        buscarProduto(objProdKit.getDescricaoProduto(), objProdKit.getIdProd());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE (IdRegistroComp,IdKit,IdProd,QuantProd,Utili,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
+            pst.setInt(1, objProdKit.getIdRegistroComp());
+            pst.setInt(2, objProdKit.getIdKit());
+            pst.setInt(3, codProd);
+            pst.setFloat(4, objProdKit.getQuantidadeTotal());
+            pst.setString(5, objProdKit.getpUtili());
+            pst.setString(6, objProdKit.getUsuarioInsert());
+            pst.setString(7, objProdKit.getDataInsert());
+            pst.setString(8, objProdKit.getHorarioInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR itens da requisição.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
 
     public ProdutoInternosKitLote alterarProdutosKitInternos(ProdutoInternosKitLote objProdKit) {
         buscarProduto(objProdKit.getDescricaoProduto(), objProdKit.getIdProd());

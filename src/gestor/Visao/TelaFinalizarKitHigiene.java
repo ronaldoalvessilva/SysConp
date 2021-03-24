@@ -277,6 +277,10 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
             objHistMovAC.setIdProd((int) jTabelaProdutos.getValueAt(i, 1));
             // ESTA FUNCIONANDO COM ALGUNS CASOS ANALIASAR COM CALMA.
             objHistMovAC.setQtdItem((int) jTabelaProdutos.getValueAt(i, 4));
+//            try {
+//                objHistMovAC.setQtdItem(valorRealMoed.parse((String) jTabelaProdutos.getValueAt(i, 4)).intValue());
+//            } catch (ParseException ex) {
+//            }
             SomaProdutoLote(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
             objHistMovAC.setSaldoAtual((float) qtdEstoque);
             controlHistAC.incluirHistoricoProdutoAC(objHistMovAC); // SALVAR NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC

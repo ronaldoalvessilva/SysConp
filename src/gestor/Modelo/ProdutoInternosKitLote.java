@@ -45,11 +45,12 @@ public class ProdutoInternosKitLote {
     private float qtdEstoque;    
     private Integer idLocal;
     private String descricaoLocal;
+    private float quantidadeTotal;
 
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idItem, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String codigoBarras, String lote, String descricaoProduto, String unidadeProd, int quantidadeProd, float quantidadeItem, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque, Integer idLocal, String descricaoLocal) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idItem, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String codigoBarras, String lote, String descricaoProduto, String unidadeProd, int quantidadeProd, float quantidadeItem, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque, Integer idLocal, String descricaoLocal, float quantidadeTotal) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idItem = idItem;
@@ -82,6 +83,7 @@ public class ProdutoInternosKitLote {
         this.qtdEstoque = qtdEstoque;
         this.idLocal = idLocal;
         this.descricaoLocal = descricaoLocal;
+        this.quantidadeTotal = quantidadeTotal;
     }
 
     /**
@@ -530,5 +532,19 @@ public class ProdutoInternosKitLote {
      */
     public void setDescricaoLocal(String descricaoLocal) {
         this.descricaoLocal = descricaoLocal;
+    }
+
+    /**
+     * @return the quantidadeTotal
+     */
+    public float getQuantidadeTotal() {
+        return quantidadeTotal;
+    }
+
+    /**
+     * @param quantidadeTotal the quantidadeTotal to set
+     */
+    public void setQuantidadeTotal(float quantidadeTotal) {
+        this.quantidadeTotal = quantidadeTotal;
     }
 }

@@ -635,8 +635,8 @@ public class TelaEstoqueProdutosKitBaixaLote extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtExcluirSelecaoActionPerformed
 
     private void jBtGravarLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarLoteActionPerformed
-        // TODO add your handling code here:
-        if (jTabelaProdutosEstoque.getSelectedRowCount() != 0) {
+        // TODO add your handling code here:     
+        if (pTOTAL_REGISTROS_pesquisado != 0) {
             int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja gravar os registros selecionados?\nDepois de confirmado, essa operação não poderá ser mais paralisada.", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -655,7 +655,7 @@ public class TelaEstoqueProdutosKitBaixaLote extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Operação abortada pelo usuário.");
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem gravados, faça uma pesquisa antes dos produtos desejados para gravar.");
+            JOptionPane.showMessageDialog(rootPane, "Não exite(m) item(ns) a ser(em) gravado(s).");
         }
     }//GEN-LAST:event_jBtGravarLoteActionPerformed
 
@@ -942,17 +942,22 @@ public class TelaEstoqueProdutosKitBaixaLote extends javax.swing.JDialog {
                             objProdKit.setQuantidadeProd(qtdReal.parse((String) jTabelaProdutosEstoque.getValueAt(i, 6)).intValue());
                         } catch (ParseException ex) {
                         }
+                        //CALCULAR A QUANTIDADE TOTAL DE PRODUTOS
+                        qdtKit = objProdKit.getQuantidadeProd();
+                        qdtInterno = Integer.parseInt(jtotalInternosSelecionados.getText());
+                        qtdTotal = qdtInterno * qdtKit;
+                        objProdKit.setQuantidadeTotal(qtdTotal);
                         VERIFICAR_PRODUTOS_incluido();
                         if (!jIdRegistroComp.getText().equals(pRegistroComp)
                                 && objProdKit.getIdProd() != pcodigoProduto) {
                             // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE                       
                             PEGAR_SALDO_estoque(objProdKit.getIdProd());
                             // SE O SALDO DE ESTOQUE FOR MAIOR QUE A QUANTIDADE DO ITEM, GRAVA
-                            if (saldoEstoque >= objProdKit.getQuantidadeItem()) {
+                            if (saldoEstoque >= objProdKit.getQuantidadeTotal()) {
                                 // CALCULA O NOVO SALDO DE ESTOQUE
-                                estoqueAtual = saldoEstoque - objProdKit.getQuantidadeProd();
+                                estoqueAtual = saldoEstoque - qtdTotal;
                                 // TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
-                                CONTROLE_PRODUTOS.incluirProdutosKitInternos(objProdKit);
+                                CONTROLE_PRODUTOS.incluirProdutosKitInternosLote(objProdKit);
                                 BUSCAR_CODIGO_item();
                                 //
                                 objItensReqMatInter.setIdProd(objProdKit.getIdProd());

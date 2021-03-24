@@ -7,6 +7,8 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleComposicaoKit;
+import gestor.Modelo.ComposicaoKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKitItem;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.count;
@@ -33,7 +35,10 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdItemTab;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -45,17 +50,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaPesquisaKitComp extends javax.swing.JDialog {
 
-    ConexaoBancoDados conecta = new ConexaoBancoDados();
-
+//    ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ComposicaoKit objComp = new ComposicaoKit();
+    ControleComposicaoKit CONTROLE = new ControleComposicaoKit();
+    //
     int flag;
-    int kitInicial = 0;
-    int kitAnual = 0;
-    int kitDecendial = 0;
-    int kitQuinzenal = 0;
-    int kitMensal = 0;
-    int kitSemestral = 0;
+    public static int kitInicial = 0;
+    public static int kitAnual = 0;
+    public static int kitDecendial = 0;
+    public static int kitQuinzenal = 0;
+    public static int kitMensal = 0;
+    public static int kitSemestral = 0;
     String nomeKit = "";
-    String IdKit;
+    public static String IdKit;
+    public static int pTOTAL_REGISTROS_kit = 0;
 
     /**
      * Creates new form TelaPesquisaKitComp
@@ -231,7 +239,15 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
             new String [] {
                 "Registro", "Tipo Kit", "Código", "Descrição Produto", "Un.", "Quant."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaPesquisaProdutosKit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaPesquisaProdutosKitMouseClicked(evt);
@@ -313,10 +329,14 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         if (jPesquisaNomeProduto.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto para pesquisa.");
         } else {
-            preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE DescricaoProd LIKE'%" + jPesquisaNomeProduto.getText() + "%'");
+            LIMPAR_TABELA_itens();
+            PREENCHER_TABELA_ITENS_nome();
+//            preencherTabelaItens("SELECT "
+//                    + "* "
+//                    + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+//                    + "INNER JOIN PRODUTOS_AC "
+//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+//                    + "WHERE DescricaoProd LIKE'%" + jPesquisaNomeProduto.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -341,150 +361,71 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos um item do kit e clique no botão CONFIRMAR.");
         } else {
             if (kitInicial == 1) {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KITS_HIGIENE_INTERNO.KitInicial='" + kitInicial + "'");
-                    conecta.rs.first();
-                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitInicial = conecta.rs.getInt("KitInicial");
-                    if (kitInicial == 1) {
-                        jRBtKitInicial.setSelected(true);
-                    } else if (kitInicial == 0) {
-                        jRBtKitInicial.setSelected(!true);
-                    }
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Inicial." + e);
+                CONTROLE.CONFIRMAR_KIT_inicial(objComp);
+                codigoPesquisaKitItem = objComp.getIdItem();
+                codigoPesquisaKit = objComp.getIdKit();
+                kitInicial = objComp.getKitInicial();
+                if (kitInicial == 1) {
+                    jRBtKitInicial.setSelected(true);
+                } else if (kitInicial == 0) {
+                    jRBtKitInicial.setSelected(!true);
                 }
-                conecta.desconecta();
                 dispose();
             } else if (kitDecendial == 1) {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KITS_HIGIENE_INTERNO.KitDecendial='" + kitDecendial + "'");
-                    conecta.rs.first();
-                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitDecendial = conecta.rs.getInt("KitDecendial");
-                    if (kitDecendial == 1) {
-                        jRBtKitDecendial.setSelected(true);
-                    } else if (kitDecendial == 0) {
-                        jRBtKitDecendial.setSelected(!true);
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Decendial." + e);
+                CONTROLE.CONFIRMAR_KIT_decendial(objComp);
+                codigoPesquisaKitItem = objComp.getIdItem();
+                codigoPesquisaKit = objComp.getIdKit();
+                kitDecendial = objComp.getKitDecendial();
+                if (kitDecendial == 1) {
+                    jRBtKitDecendial.setSelected(true);
+                } else if (kitDecendial == 0) {
+                    jRBtKitDecendial.setSelected(!true);
                 }
-                conecta.desconecta();
                 dispose();
             } else if (kitQuinzenal == 1) {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KITS_HIGIENE_INTERNO.KitQuinzenal='" + kitQuinzenal + "'");
-                    conecta.rs.first();
-                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
-                    conecta.desconecta();
-                    dispose();
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Quinzenal." + e);
-                }
+                CONTROLE.CONFIRMAR_KIT_quinzenal(objComp);
+                codigoPesquisaKitItem = objComp.getIdItem();
+                codigoPesquisaKit = objComp.getIdKit();
+                kitQuinzenal = objComp.getKitQuinzenal();
+                dispose();
                 if (kitQuinzenal == 1) {
                     jRBtKitQuinzenal.setSelected(true);
                 } else if (kitQuinzenal == 0) {
                     jRBtKitQuinzenal.setSelected(!true);
                 }
-                conecta.desconecta();
                 dispose();
             } else if (kitMensal == 1) {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KITS_HIGIENE_INTERNO.KitMensal='" + kitMensal + "'");
-                    conecta.rs.first();
-                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitMensal = conecta.rs.getInt("KitMensal");
-                    if (kitMensal == 1) {
-                        jRBtKitMensal.setSelected(true);
-                    } else if (kitMensal == 0) {
-                        jRBtKitMensal.setSelected(!true);
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Mensal." + e);
+                CONTROLE.CONFIRMAR_KIT_mensal(objComp);
+                codigoPesquisaKitItem = objComp.getIdItem();
+                codigoPesquisaKit = objComp.getIdKit();
+                kitMensal = objComp.getKitMensal();
+                if (kitMensal == 1) {
+                    jRBtKitMensal.setSelected(true);
+                } else if (kitMensal == 0) {
+                    jRBtKitMensal.setSelected(!true);
                 }
-                conecta.desconecta();
                 dispose();
             } else if (kitSemestral == 1) {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KITS_HIGIENE_INTERNO.KitSemestral='" + kitSemestral + "'");
-                    conecta.rs.first();
-                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitSemestral = conecta.rs.getInt("KitSemestral");
-                    if (kitSemestral == 1) {
-                        jRBtKitSemestral.setSelected(true);
-                    } else if (kitSemestral == 0) {
-                        jRBtKitSemestral.setSelected(!true);
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Semestral." + e);
+                CONTROLE.CONFIRMAR_KIT_semestral(objComp);
+                codigoPesquisaKitItem = objComp.getIdItem();
+                codigoPesquisaKit = objComp.getIdKit();
+                kitSemestral = objComp.getKitSemestral();
+                if (kitSemestral == 1) {
+                    jRBtKitSemestral.setSelected(true);
+                } else if (kitSemestral == 0) {
+                    jRBtKitSemestral.setSelected(!true);
                 }
-                conecta.desconecta();
                 dispose();
             } else if (kitAnual == 1) {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
-                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KITS_HIGIENE_INTERNO.KitAnual='" + kitAnual + "'");
-                    conecta.rs.first();
-                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitAnual = conecta.rs.getInt("KitAnual");
-                    if (kitAnual == 1) {
-                        jRBtKitAnual.setSelected(true);
-                    } else if (kitAnual == 0) {
-                        jRBtKitAnual.setSelected(!true);
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Anual." + e);
+                CONTROLE.CONFIRMAR_KIT_anual(objComp);
+                codigoPesquisaKitItem = objComp.getIdItem();
+                codigoPesquisaKit = objComp.getIdKit();
+                kitAnual = objComp.getKitAnual();
+                if (kitAnual == 1) {
+                    jRBtKitAnual.setSelected(true);
+                } else if (kitAnual == 0) {
+                    jRBtKitAnual.setSelected(!true);
                 }
-                conecta.desconecta();
                 dispose();
             }
         }
@@ -499,16 +440,19 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            limparTabelaItens();
             kitInicial = 1;
-            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KITS_HIGIENE_INTERNO.KitInicial='" + kitInicial + "'");
+            LIMPAR_TABELA_itens();
+            PREENCHER_TABELA_ITENS_KIT_inicial();
+//            this.preencherTabelaItens("SELECT "
+//                    + "* "
+//                    + "FROM KITS_HIGIENE_INTERNO "
+//                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+//                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+//                    + "INNER JOIN PRODUTOS_AC "
+//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+//                    + "WHERE KITS_HIGIENE_INTERNO.KitInicial='" + kitInicial + "'");
         } else {
-            limparTabelaItens();
+            LIMPAR_TABELA_itens();
         }
     }//GEN-LAST:event_jCheckBoxKitInicialItemStateChanged
 
@@ -516,16 +460,19 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            limparTabelaItens();
             kitQuinzenal = 1;
-            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KITS_HIGIENE_INTERNO.KitQuinzenal='" + kitQuinzenal + "'");
+            LIMPAR_TABELA_itens();
+            PREENCHER_TABELA_ITENS_KIT_quinzenal();
+//            this.preencherTabelaItens("SELECT "
+//                    + "* "
+//                    + "FROM KITS_HIGIENE_INTERNO "
+//                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+//                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+//                    + "INNER JOIN PRODUTOS_AC "
+//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+//                    + "WHERE KITS_HIGIENE_INTERNO.KitQuinzenal='" + kitQuinzenal + "'");
         } else {
-            limparTabelaItens();
+            LIMPAR_TABELA_itens();
         }
     }//GEN-LAST:event_jCheckBoxKitQuinzenalItemStateChanged
 
@@ -533,16 +480,19 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            limparTabelaItens();
             kitMensal = 1;
-            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KITS_HIGIENE_INTERNO.KitMensal='" + kitMensal + "'");
+            LIMPAR_TABELA_itens();
+            PREENCHER_TABELA_ITENS_KIT_mensal();
+//            this.preencherTabelaItens("SELECT "
+//                    + "* "
+//                    + "FROM KITS_HIGIENE_INTERNO "
+//                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+//                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+//                    + "INNER JOIN PRODUTOS_AC "
+//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+//                    + "WHERE KITS_HIGIENE_INTERNO.KitMensal='" + kitMensal + "'");
         } else {
-            limparTabelaItens();
+            LIMPAR_TABELA_itens();
         }
     }//GEN-LAST:event_jCheckBoxKitMensalItemStateChanged
 
@@ -550,16 +500,19 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            limparTabelaItens();
             kitDecendial = 1;
-            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KITS_HIGIENE_INTERNO.KitDecendial='" + kitDecendial + "'");
+            LIMPAR_TABELA_itens();
+            PREENCHER_TABELA_ITENS_KIT_decendial();
+//            this.preencherTabelaItens("SELECT "
+//                    + "* "
+//                    + "FROM KITS_HIGIENE_INTERNO "
+//                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+//                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+//                    + "INNER JOIN PRODUTOS_AC "
+//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+//                    + "WHERE KITS_HIGIENE_INTERNO.KitDecendial='" + kitDecendial + "'");
         } else {
-            limparTabelaItens();
+            LIMPAR_TABELA_itens();
         }
     }//GEN-LAST:event_jCheckBoxKitDecendialItemStateChanged
 
@@ -567,16 +520,19 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            limparTabelaItens();
             kitSemestral = 1;
-            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KITS_HIGIENE_INTERNO.KitSemestral='" + kitSemestral + "'");
+            LIMPAR_TABELA_itens();
+            PREENCHER_TABELA_ITENS_KIT_semestral();
+//            this.preencherTabelaItens("SELECT "
+//                    + "* "
+//                    + "FROM KITS_HIGIENE_INTERNO "
+//                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+//                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+//                    + "INNER JOIN PRODUTOS_AC "
+//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+//                    + "WHERE KITS_HIGIENE_INTERNO.KitSemestral='" + kitSemestral + "'");
         } else {
-            limparTabelaItens();
+            LIMPAR_TABELA_itens();
         }
     }//GEN-LAST:event_jCheckBoxKitSemestralItemStateChanged
 
@@ -584,16 +540,19 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            limparTabelaItens();
             kitAnual = 1;
-            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KITS_HIGIENE_INTERNO.KitAnual='" + kitAnual + "'");
+            LIMPAR_TABELA_itens();
+            PREENCHER_TABELA_ITENS_KIT_anual();
+//            this.preencherTabelaItens("SELECT "
+//                    + "* "
+//                    + "FROM KITS_HIGIENE_INTERNO "
+//                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+//                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+//                    + "INNER JOIN PRODUTOS_AC "
+//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+//                    + "WHERE KITS_HIGIENE_INTERNO.KitAnual='" + kitAnual + "'");
         } else {
-            limparTabelaItens();
+            LIMPAR_TABELA_itens();
         }
     }//GEN-LAST:event_jCheckBoxKitAnualItemStateChanged
 
@@ -644,34 +603,32 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtPesqNome;
     private javax.swing.JButton jBtSair;
-    private javax.swing.JCheckBox jCheckBoxKitAnual;
-    private javax.swing.JCheckBox jCheckBoxKitDecendial;
-    private javax.swing.JCheckBox jCheckBoxKitInicial;
-    private javax.swing.JCheckBox jCheckBoxKitMensal;
-    private javax.swing.JCheckBox jCheckBoxKitQuinzenal;
-    private javax.swing.JCheckBox jCheckBoxKitSemestral;
+    public static javax.swing.JCheckBox jCheckBoxKitAnual;
+    public static javax.swing.JCheckBox jCheckBoxKitDecendial;
+    public static javax.swing.JCheckBox jCheckBoxKitInicial;
+    public static javax.swing.JCheckBox jCheckBoxKitMensal;
+    public static javax.swing.JCheckBox jCheckBoxKitQuinzenal;
+    public static javax.swing.JCheckBox jCheckBoxKitSemestral;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jPesquisaNomeProduto;
+    public static javax.swing.JTextField jPesquisaNomeProduto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaPesquisaProdutosKit;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabelaItens(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Registro", "TipoKit", "Código", "Descrição Produto", "Un.", "Qtd."};
-        conecta.abrirConexao();
+    public void PREENCHER_TABELA_ITENS_nome() {
+        pTOTAL_REGISTROS_kit = 0;
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaPesquisaProdutosKit.getModel();
+        ComposicaoKit p = new ComposicaoKit();
         try {
-            conecta.executaSQL(sql);
-            conecta.rs.first();
-            do {
-                kitInicial = conecta.rs.getInt("KitInicial");
-                kitDecendial = conecta.rs.getInt("KitDecendial");
-                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
-                kitMensal = conecta.rs.getInt("KitMensal");
-                kitSemestral = conecta.rs.getInt("KitSemestral");
-                kitAnual = conecta.rs.getInt("KitAnual");
+            for (ComposicaoKit pp : CONTROLE.PESQUISA_KIT_nome()) {
+                kitInicial = pp.getKitInicial();
+                kitDecendial = pp.getKitDecendial();
+                kitQuinzenal = pp.getKitQuinzenal();
+                kitMensal = pp.getKitMensal();
+                kitSemestral = pp.getKitSemestral();
+                kitAnual = pp.getKitAnual();
                 if (kitInicial == 1) {
                     nomeKit = "Kit Inicial";
                 } else if (kitDecendial == 1) {
@@ -685,94 +642,454 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                 } else if (kitAnual == 1) {
                     nomeKit = "Kit Anual";
                 }
-                qtdItem = conecta.rs.getFloat("QuantItem");
+                qtdItem = pp.getQuantItem();
                 DecimalFormat vi = new DecimalFormat(",###0.00");
                 String vqtdItem = vi.format(qtdItem);
                 qtdItemTab = vqtdItem;
-                //                
-                dados.add(new Object[]{conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
+                jtotalProdutosKitCompleto.setText(Integer.toString(pTOTAL_REGISTROS_kit)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdKit(), nomeKit, pp.getIdProd(), pp.getDescricaoProd(), pp.getUnidadeProd(), qtdItemTab});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaProdutosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                direita.setHorizontalAlignment(SwingConstants.RIGHT);
+                //
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaKitComp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPesquisaProdutosKit.setModel(modelo);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaPesquisaProdutosKit.getTableHeader().setReorderingAllowed(false);
-        jTabelaPesquisaProdutosKit.setAutoResizeMode(jTabelaPesquisaProdutosKit.AUTO_RESIZE_OFF);
-        jTabelaPesquisaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaItens();
-        conecta.desconecta();
     }
 
-    public void limparTabelaItens() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Registro", "TipoKit", "Código", "Descrição Produto", "Un.", "Qtd."};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPesquisaProdutosKit.setModel(modelo);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaPesquisaProdutosKit.getTableHeader().setReorderingAllowed(false);
-        jTabelaPesquisaProdutosKit.setAutoResizeMode(jTabelaPesquisaProdutosKit.AUTO_RESIZE_OFF);
-        jTabelaPesquisaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
+    public void PREENCHER_TABELA_ITENS_KIT_inicial() {
+        pTOTAL_REGISTROS_kit = 0;
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaPesquisaProdutosKit.getModel();
+        ComposicaoKit p = new ComposicaoKit();
+        try {
+            for (ComposicaoKit pp : CONTROLE.PESQUISA_KIT_inicial()) {
+                kitInicial = pp.getKitInicial();
+                kitDecendial = pp.getKitDecendial();
+                kitQuinzenal = pp.getKitQuinzenal();
+                kitMensal = pp.getKitMensal();
+                kitSemestral = pp.getKitSemestral();
+                kitAnual = pp.getKitAnual();
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                }
+                qtdItem = pp.getQuantItem();
+                DecimalFormat vi = new DecimalFormat(",###0.00");
+                String vqtdItem = vi.format(qtdItem);
+                qtdItemTab = vqtdItem;
+                jtotalProdutosKitCompleto.setText(Integer.toString(pTOTAL_REGISTROS_kit)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdKit(), nomeKit, pp.getIdProd(), pp.getDescricaoProd(), pp.getUnidadeProd(), qtdItemTab});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaProdutosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                direita.setHorizontalAlignment(SwingConstants.RIGHT);
+                //
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaKitComp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void alinharCamposTabelaItens() {
-        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-        //
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
-        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+    public void PREENCHER_TABELA_ITENS_KIT_decendial() {
+        pTOTAL_REGISTROS_kit = 0;
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaPesquisaProdutosKit.getModel();
+        ComposicaoKit p = new ComposicaoKit();
+        try {
+            for (ComposicaoKit pp : CONTROLE.PESQUISA_KIT_decendial()) {
+                kitInicial = pp.getKitInicial();
+                kitDecendial = pp.getKitDecendial();
+                kitQuinzenal = pp.getKitQuinzenal();
+                kitMensal = pp.getKitMensal();
+                kitSemestral = pp.getKitSemestral();
+                kitAnual = pp.getKitAnual();
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                }
+                qtdItem = pp.getQuantItem();
+                DecimalFormat vi = new DecimalFormat(",###0.00");
+                String vqtdItem = vi.format(qtdItem);
+                qtdItemTab = vqtdItem;
+                jtotalProdutosKitCompleto.setText(Integer.toString(pTOTAL_REGISTROS_kit)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdKit(), nomeKit, pp.getIdProd(), pp.getDescricaoProd(), pp.getUnidadeProd(), qtdItemTab});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaProdutosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                direita.setHorizontalAlignment(SwingConstants.RIGHT);
+                //
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaKitComp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
+    public void PREENCHER_TABELA_ITENS_KIT_quinzenal() {
+        pTOTAL_REGISTROS_kit = 0;
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaPesquisaProdutosKit.getModel();
+        ComposicaoKit p = new ComposicaoKit();
+        try {
+            for (ComposicaoKit pp : CONTROLE.PESQUISA_KIT_quinzenal()) {
+                kitInicial = pp.getKitInicial();
+                kitDecendial = pp.getKitDecendial();
+                kitQuinzenal = pp.getKitQuinzenal();
+                kitMensal = pp.getKitMensal();
+                kitSemestral = pp.getKitSemestral();
+                kitAnual = pp.getKitAnual();
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                }
+                qtdItem = pp.getQuantItem();
+                DecimalFormat vi = new DecimalFormat(",###0.00");
+                String vqtdItem = vi.format(qtdItem);
+                qtdItemTab = vqtdItem;
+                jtotalProdutosKitCompleto.setText(Integer.toString(pTOTAL_REGISTROS_kit)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdKit(), nomeKit, pp.getIdProd(), pp.getDescricaoProd(), pp.getUnidadeProd(), qtdItemTab});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaProdutosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                direita.setHorizontalAlignment(SwingConstants.RIGHT);
+                //
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaKitComp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void PREENCHER_TABELA_ITENS_KIT_mensal() {
+        pTOTAL_REGISTROS_kit = 0;
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaPesquisaProdutosKit.getModel();
+        ComposicaoKit p = new ComposicaoKit();
+        try {
+            for (ComposicaoKit pp : CONTROLE.PESQUISA_KIT_mensal()) {
+                kitInicial = pp.getKitInicial();
+                kitDecendial = pp.getKitDecendial();
+                kitQuinzenal = pp.getKitQuinzenal();
+                kitMensal = pp.getKitMensal();
+                kitSemestral = pp.getKitSemestral();
+                kitAnual = pp.getKitAnual();
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                }
+                qtdItem = pp.getQuantItem();
+                DecimalFormat vi = new DecimalFormat(",###0.00");
+                String vqtdItem = vi.format(qtdItem);
+                qtdItemTab = vqtdItem;
+                jtotalProdutosKitCompleto.setText(Integer.toString(pTOTAL_REGISTROS_kit)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdKit(), nomeKit, pp.getIdProd(), pp.getDescricaoProd(), pp.getUnidadeProd(), qtdItemTab});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaProdutosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                direita.setHorizontalAlignment(SwingConstants.RIGHT);
+                //
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaKitComp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void PREENCHER_TABELA_ITENS_KIT_semestral() {
+        pTOTAL_REGISTROS_kit = 0;
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaPesquisaProdutosKit.getModel();
+        ComposicaoKit p = new ComposicaoKit();
+        try {
+            for (ComposicaoKit pp : CONTROLE.PESQUISA_KIT_semestral()) {
+                kitInicial = pp.getKitInicial();
+                kitDecendial = pp.getKitDecendial();
+                kitQuinzenal = pp.getKitQuinzenal();
+                kitMensal = pp.getKitMensal();
+                kitSemestral = pp.getKitSemestral();
+                kitAnual = pp.getKitAnual();
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                }
+                qtdItem = pp.getQuantItem();
+                DecimalFormat vi = new DecimalFormat(",###0.00");
+                String vqtdItem = vi.format(qtdItem);
+                qtdItemTab = vqtdItem;
+                jtotalProdutosKitCompleto.setText(Integer.toString(pTOTAL_REGISTROS_kit)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdKit(), nomeKit, pp.getIdProd(), pp.getDescricaoProd(), pp.getUnidadeProd(), qtdItemTab});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaProdutosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                direita.setHorizontalAlignment(SwingConstants.RIGHT);
+                //
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaKitComp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void PREENCHER_TABELA_ITENS_KIT_anual() {
+        pTOTAL_REGISTROS_kit = 0;
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaPesquisaProdutosKit.getModel();
+        ComposicaoKit p = new ComposicaoKit();
+        try {
+            for (ComposicaoKit pp : CONTROLE.PESQUISA_KIT_anual()) {
+                kitInicial = pp.getKitInicial();
+                kitDecendial = pp.getKitDecendial();
+                kitQuinzenal = pp.getKitQuinzenal();
+                kitMensal = pp.getKitMensal();
+                kitSemestral = pp.getKitSemestral();
+                kitAnual = pp.getKitAnual();
+                if (kitInicial == 1) {
+                    nomeKit = "Kit Inicial";
+                } else if (kitDecendial == 1) {
+                    nomeKit = "Kit Decendial";
+                } else if (kitQuinzenal == 1) {
+                    nomeKit = "Kit Quinzenal";
+                } else if (kitMensal == 1) {
+                    nomeKit = "Kit Mensal";
+                } else if (kitSemestral == 1) {
+                    nomeKit = "Kit Semestral";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
+                }
+                qtdItem = pp.getQuantItem();
+                DecimalFormat vi = new DecimalFormat(",###0.00");
+                String vqtdItem = vi.format(qtdItem);
+                qtdItemTab = vqtdItem;
+                jtotalProdutosKitCompleto.setText(Integer.toString(pTOTAL_REGISTROS_kit)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdKit(), nomeKit, pp.getIdProd(), pp.getDescricaoProd(), pp.getUnidadeProd(), qtdItemTab});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaPesquisaProdutosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                direita.setHorizontalAlignment(SwingConstants.RIGHT);
+                //
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+                jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesquisaKitComp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+//    public void preencherTabelaItens(String sql) {
+//        ArrayList dados = new ArrayList();
+//        String[] Colunas = new String[]{"Registro", "TipoKit", "Código", "Descrição Produto", "Un.", "Qtd."};
+//        conecta.abrirConexao();
+//        try {
+//            conecta.executaSQL(sql);
+//            conecta.rs.first();
+//            do {
+//                kitInicial = conecta.rs.getInt("KitInicial");
+//                kitDecendial = conecta.rs.getInt("KitDecendial");
+//                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
+//                kitMensal = conecta.rs.getInt("KitMensal");
+//                kitSemestral = conecta.rs.getInt("KitSemestral");
+//                kitAnual = conecta.rs.getInt("KitAnual");
+//                if (kitInicial == 1) {
+//                    nomeKit = "Kit Inicial";
+//                } else if (kitDecendial == 1) {
+//                    nomeKit = "Kit Decendial";
+//                } else if (kitQuinzenal == 1) {
+//                    nomeKit = "Kit Quinzenal";
+//                } else if (kitMensal == 1) {
+//                    nomeKit = "Kit Mensal";
+//                } else if (kitSemestral == 1) {
+//                    nomeKit = "Kit Semestral";
+//                } else if (kitAnual == 1) {
+//                    nomeKit = "Kit Anual";
+//                }
+//                qtdItem = conecta.rs.getFloat("QuantItem");
+//                DecimalFormat vi = new DecimalFormat(",###0.00");
+//                String vqtdItem = vi.format(qtdItem);
+//                qtdItemTab = vqtdItem;
+//                //                
+//                dados.add(new Object[]{conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab});
+//            } while (conecta.rs.next());
+//        } catch (SQLException ex) {
+//        }
+//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+//        jTabelaPesquisaProdutosKit.setModel(modelo);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getTableHeader().setReorderingAllowed(false);
+//        jTabelaPesquisaProdutosKit.setAutoResizeMode(jTabelaPesquisaProdutosKit.AUTO_RESIZE_OFF);
+//        jTabelaPesquisaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        alinharCamposTabelaItens();
+//        conecta.desconecta();
+//    }
+
+    public void LIMPAR_TABELA_itens() {
+
+        // APAGAR DADOS DA TABELA PAVILHÃO/INTERNOS
+        while (jTabelaPesquisaProdutosKit.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaPesquisaProdutosKit.getModel()).removeRow(0);
+        }
+//        ArrayList dados = new ArrayList();
+//        String[] Colunas = new String[]{"Registro", "TipoKit", "Código", "Descrição Produto", "Un.", "Qtd."};
+//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+//        jTabelaPesquisaProdutosKit.setModel(modelo);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
+//        jTabelaPesquisaProdutosKit.getTableHeader().setReorderingAllowed(false);
+//        jTabelaPesquisaProdutosKit.setAutoResizeMode(jTabelaPesquisaProdutosKit.AUTO_RESIZE_OFF);
+//        jTabelaPesquisaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        modelo.getLinhas().clear();
+    }
+
+//    public void alinharCamposTabelaItens() {
+//        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+//        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+//        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+//        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+//        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+//        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+//        //
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+//        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+//    }
 
     public void limparTabelaItensKit() {
-        count = 0;
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição Produto", "Un.", "Qtd."};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaGeralProdutosKit.setModel(modelo);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(50);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(50);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaGeralProdutosKit.getTableHeader().setReorderingAllowed(false);
-        jTabelaGeralProdutosKit.setAutoResizeMode(jTabelaGeralProdutosKit.AUTO_RESIZE_OFF);
-        jTabelaGeralProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtotalProdutosKit.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-        jtotalProdutosKit.setText("");
-        modelo.getLinhas().clear();
+         while (jTabelaGeralProdutosKit.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaGeralProdutosKit.getModel()).removeRow(0);
+        }
+//        count = 0;
+//        ArrayList dados = new ArrayList();
+//        String[] Colunas = new String[]{"Código", "Descrição Produto", "Un.", "Qtd."};
+//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+//        jTabelaGeralProdutosKit.setModel(modelo);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setResizable(false);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(250);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setResizable(false);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(50);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(2).setResizable(false);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(50);
+//        jTabelaGeralProdutosKit.getColumnModel().getColumn(3).setResizable(false);
+//        jTabelaGeralProdutosKit.getTableHeader().setReorderingAllowed(false);
+//        jTabelaGeralProdutosKit.setAutoResizeMode(jTabelaGeralProdutosKit.AUTO_RESIZE_OFF);
+//        jTabelaGeralProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        jtotalProdutosKit.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
+//        jtotalProdutosKit.setText("");
+//        modelo.getLinhas().clear();
     }
 
     public void limparTabelasAbaPavIntComp() {

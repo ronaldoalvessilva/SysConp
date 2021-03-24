@@ -5186,12 +5186,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         try {
             for (ProdutoInternosKitLote dd : CONTROLE.MOSTRAR_TABELA_PRODUTO_gravado()) {
                 //
-//                DecimalFormat vi = new DecimalFormat(",###0.00");
-//                String vqtdItem = vi.format(dd.getQuantidadeProd());
-//                qtdItemTab = vqtdItem;
+                DecimalFormat vi = new DecimalFormat(",###0.00");
+                String vqtdItem = vi.format(dd.getQuantidadeProd());
+                qtdItemTab = vqtdItem;
                 //              
                 jtotalProdutosKitInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-                dadosOrigem.addRow(new Object[]{dd.getIdRegProdKit(), dd.getIdProd(), dd.getDescricaoProduto(), dd.getUnidadeProd(), dd.getQuantidadeProd()});
+                dadosOrigem.addRow(new Object[]{dd.getIdRegProdKit(), dd.getIdProd(), dd.getDescricaoProduto(), dd.getUnidadeProd(), qtdItemTab});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaProdutos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO

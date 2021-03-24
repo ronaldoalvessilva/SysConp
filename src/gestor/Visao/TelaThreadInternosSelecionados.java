@@ -482,9 +482,11 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
     public void buscarCodigoRegistroPavilhaoInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE");
+            conecta.executaSQL("SELECT "
+                    + "IdPav "
+                    + "FROM INTERNOS_PAVILHAO_KIT_LOTE");
             conecta.rs.last();
-            idRegPavInt = conecta.rs.getInt("IdRegPavInt");
+            idRegPavInt = conecta.rs.getInt("IdPav");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
@@ -495,7 +497,10 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
     public void verificarInternoBancoDados(int codigoReg, int codInternoCrc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
+            conecta.executaSQL("SELECT "
+                    + "IdRegistroComp, "
+                    + "IdInternoCrc "
+                    + "FROM INTERNOS_PAVILHAO_KIT_LOTE "
                     + "WHERE IdRegistroComp='" + codigoReg + "' "
                     + "AND IdInternoCrc='" + codInternoCrc + "'");
             conecta.rs.last();

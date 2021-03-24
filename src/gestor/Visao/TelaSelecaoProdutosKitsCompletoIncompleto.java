@@ -514,7 +514,9 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
     public void calcularTotalInternosKitCompleto() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT "
+                    + "* "
+                    + "FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             do {
