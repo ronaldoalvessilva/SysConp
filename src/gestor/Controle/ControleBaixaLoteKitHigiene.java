@@ -398,9 +398,9 @@ public class ControleBaixaLoteKitHigiene {
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "ON PRODUTOS_AC.IdProd=PRODUTOS_KITS_HIGIENE_INTERNO.IdProd "
-                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
-                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd='" + idProduto + "' "
-                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit='" + idItem + "' "
+                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText().toString() + "' "
+                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd='" + idProduto.toString() + "' "
+                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegProdKit='" + idItem.toString() + "' "
                     + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit='" + pPESQUISA_ID_kit + "'");
             conecta.rs.first();
             objProdKit.setIdProd(conecta.rs.getInt("IdProd"));

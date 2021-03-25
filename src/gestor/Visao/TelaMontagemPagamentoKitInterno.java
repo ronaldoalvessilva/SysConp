@@ -258,7 +258,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         montaThread = new TelaThreadInternosSelecionados(this, true);
         montaThread.setVisible(true);
     }
-     // FOI SUBSTITUIDO PELO PETODO TelaEstoqueProdutosKitBaixaLote - EM 23/03/2021
+    // FOI SUBSTITUIDO PELO PETODO TelaEstoqueProdutosKitBaixaLote - EM 23/03/2021
 //    public void mostrarEstoqueProdutosKit() {
 //        estoqueProdkit = new TelaEstoqueProdutosKit(this, true);
 //        estoqueProdkit.setVisible(true);
@@ -1075,7 +1075,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1095,7 +1095,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1300,8 +1300,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSaldoEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Internos Selecionados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
@@ -1429,8 +1428,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("FASE - 2", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/user-group-forum-icone-3716-16.png")), jPanel2, "Pavilhão e Internos para Entrega do Kit de Higiêne"); // NOI18N
@@ -2718,18 +2717,31 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtPesquisaCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaCompActionPerformed
         // TODO add your handling code here:
-        bloquearBotoes();
-        bloquearCampos();
-        mostrarPesquisas();
-        Integer rows = jTabelaInternosSelecionados.getRowCount();
-        if (rows != 0) {
-            jBtNovoPavInternos.setEnabled(true);
-            jBtExcluirPavInternosTodos.setEnabled(true);
-            jBtExcluirInternosUmaUm.setEnabled(true);
-            //
-            jBtNovoProduto.setEnabled(true);
+        if (jIdRegistroComp.getText().equals("")) {
+            bloquearBotoes();
+            bloquearCampos();
+            mostrarPesquisas();
+            jBtNovo.setEnabled(true);
         } else {
-            jBtNovoPavInternos.setEnabled(true);
+            bloquearBotoes();
+            bloquearCampos();
+            mostrarPesquisas();
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            jBtPesquisaComp.setEnabled(true);
+            Integer rows = jTabelaInternosSelecionados.getRowCount();
+            if (rows != 0) {
+                jBtNovoPavInternos.setEnabled(true);
+                jBtExcluirPavInternosTodos.setEnabled(true);
+                jBtExcluirInternosUmaUm.setEnabled(true);
+                //
+                jBtNovoProduto.setEnabled(true);
+            } else {
+                jBtNovoPavInternos.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_jBtPesquisaCompActionPerformed
 

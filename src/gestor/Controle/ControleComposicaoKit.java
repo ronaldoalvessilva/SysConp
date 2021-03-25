@@ -166,12 +166,15 @@ public class ControleComposicaoKit {
                     + "INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp, "
                     + "INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc,PRONTUARIOSCRC.Cnc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc, "
-                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
                     + "FROM INTERNOS_PAVILHAO_KIT_LOTE "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                     + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp=COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdPav=PAVILHAO.IdPav "
                     + "WHERE INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             while (conecta.rs.next()) {
                 PavilhaoInternosSelecionados pDigiSelec = new PavilhaoInternosSelecionados();
@@ -179,6 +182,7 @@ public class ControleComposicaoKit {
                 pDigiSelec.setCncInternoCrc(conecta.rs.getString("Cnc"));
                 pDigiSelec.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
                 pDigiSelec.setIdPav(conecta.rs.getInt("IdPav"));
+                pDigiSelec.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
                 listaInternosPavilhaoSelecionados.add(pDigiSelec);
                 qtdInternosSelec = qtdInternosSelec + 1;
             }

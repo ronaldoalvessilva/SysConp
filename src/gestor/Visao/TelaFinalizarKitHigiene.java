@@ -8,10 +8,12 @@ package gestor.Visao;
 import gestor.Controle.ControleComposicaoKit;
 import gestor.Controle.ControleHistoricoMovimentacaoAC;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleProdutosKitLote;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.ProdutoInternosKitLote;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovo;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
@@ -24,6 +26,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,6 +40,7 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
     //
     ComposicaoKit objComp = new ComposicaoKit();
     ControleComposicaoKit control = new ControleComposicaoKit();
+    ControleProdutosKitLote CONTROLE = new ControleProdutosKitLote();
     // HISTÓRICO DO PRODUTO DO ALMOXARIFADO   
     HistoricoMovimentacaoEstoque objHistMovAC = new HistoricoMovimentacaoEstoque();
     ControleHistoricoMovimentacaoAC controlHistAC = new ControleHistoricoMovimentacaoAC();
@@ -176,6 +181,7 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
         } else if (rows == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível finalizar, a tabela de produtos esta vazia.");
         } else {
+            LISTAR_PRODUTOS_kit();
             lancarHistorico();
             String statusFim = "FINALIZADO";
             objComp.setStatusComp(statusFim);
@@ -250,7 +256,11 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
         jComboBoxLocalArmazenamento.removeAllItems();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOCAL_ARMAZENAMENTO_AC "
+            conecta.executaSQL("SELECT "
+                    + "IdLocal, "
+                    + "DescricaoLocal, "
+                    + "Modulo "
+                    + "FROM LOCAL_ARMAZENAMENTO_AC "
                     + "WHERE Modulo='" + modelo + "'");
             conecta.rs.first();
             do {
@@ -275,12 +285,10 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
             objHistMovAC.setIdDoc(Integer.valueOf(jIdRegistroComp.getText()));
             objHistMovAC.setDataMov(jDataComp.getDate());
             objHistMovAC.setIdProd((int) jTabelaProdutos.getValueAt(i, 1));
-            // ESTA FUNCIONANDO COM ALGUNS CASOS ANALIASAR COM CALMA.
-            objHistMovAC.setQtdItem((int) jTabelaProdutos.getValueAt(i, 4));
-//            try {
-//                objHistMovAC.setQtdItem(valorRealMoed.parse((String) jTabelaProdutos.getValueAt(i, 4)).intValue());
-//            } catch (ParseException ex) {
-//            }
+            try {
+                objHistMovAC.setQtdItem(valorRealMoed.parse((String) jTabelaProdutos.getValueAt(i, 4)).intValue());
+            } catch (ParseException ex) {
+            }
             SomaProdutoLote(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
             objHistMovAC.setSaldoAtual((float) qtdEstoque);
             controlHistAC.incluirHistoricoProdutoAC(objHistMovAC); // SALVAR NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
@@ -292,13 +300,30 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
         qtdEstoque = 0;
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOTE_PRODUTOS_AC WHERE IdProd='" + objHistMovAC.getIdProd() + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdProd, "
+                    + "Qtd "
+                    + "FROM LOTE_PRODUTOS_AC "
+                    + "WHERE IdProd='" + objHistMovAC.getIdProd() + "'");
             while (conecta.rs.next()) {
                 qtdEstoque = qtdEstoque + conecta.rs.getFloat("Qtd");
             }
             objHistMovAC.setSaldoAtual((float) qtdEstoque);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro na soma do saldo de estoque.\nERRO: " + ex);
+        }
+    }
+
+    public void LISTAR_PRODUTOS_kit() {
+        try {
+            for (ProdutoInternosKitLote pp : CONTROLE.read()) {
+                pp.getIdProd();
+                pp.getDescricaoProduto();
+                pp.getUnidadeProd();
+                pp.getQuantidadeProd();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaFinalizarKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.GravarInternosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -105,8 +106,9 @@ public class ControleSelecaoKitsCompleto {
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc "
-                    + "WHERE Utili='" + pUtili + "' "
-                    + "AND IdPav='" + pCODIGO_pavilhao + "'"
+                    + "WHERE INTERNOS_PAVILHAO_KIT_LOTE.Utili='" + pUtili + "' "
+                    + "AND INTERNOS_PAVILHAO_KIT_LOTE.IdPav='" + pCODIGO_pavilhao + "' "
+                    + "AND INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 GravarInternosKitCompleto pDigi = new GravarInternosKitCompleto();

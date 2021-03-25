@@ -93,9 +93,9 @@ public class ControleListaKitsPagoPorInternoTodos {
             conecta.abrirConexao();
             List<AlertaKitHigiente> listaInternosKitComp = new ArrayList<AlertaKitHigiente>();
             try {
-                conecta.executaSQL("SELECT "
-                        + "PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                conecta.executaSQL("SELECT "                 
                         + "DISTINCT ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto, "
+                        + "PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
                         + "ITENS_PAGAMENTO_KIT_INTERNOS.DataEntrega, "
                         + "PAGAMENTO_KIT_INTERNOS.TipoKit, "
                         + "ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdProd, "

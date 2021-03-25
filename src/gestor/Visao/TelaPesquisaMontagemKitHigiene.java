@@ -10,7 +10,6 @@ import gestor.Controle.ControleComposicaoKit;
 import gestor.Controle.ControleListaInternosKitCompleto;
 import gestor.Controle.ControleListaProdutosKitCompleto;
 import gestor.Controle.ControleProdutosKitLote;
-import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.PavilhaoInternosSelecionados;
@@ -32,6 +31,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSalvar;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtCancelar;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAuditoria;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtFinalizar;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDepartamentoColaborador;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jFotoColaborador;
@@ -1750,6 +1750,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         try {
             for (PavilhaoInternosSelecionados dd : CONTROLE.read()) {
                 pCODIGO_pavilhao = dd.getIdPav();
+                jComboBoxPavilhoes.removeAllItems();
+                jComboBoxPavilhoes.addItem(dd.getDescricaoPav());
                 jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec)); // Converter inteiro em string para exibir na tela 
                 dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL

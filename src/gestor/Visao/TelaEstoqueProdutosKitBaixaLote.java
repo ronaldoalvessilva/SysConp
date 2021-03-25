@@ -978,6 +978,8 @@ public class TelaEstoqueProdutosKitBaixaLote extends javax.swing.JDialog {
                     if (pTOTAL_REGISTROS_gravado == pTOTAL_REGISTROS_pesquisado) {
                         LIMPAR_tabela();
                         JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                        LIMPAR_TABELA_produtos();
+                        MOSTRAR_REGISTROS_GRAVADO_tabela();
                         jCheckBoxTodos.setSelected(!true);
                         jCheckBoxTodos.setEnabled(true);
                         bloquearCamposBotoes(true);
