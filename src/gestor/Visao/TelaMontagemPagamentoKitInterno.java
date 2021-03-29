@@ -3660,6 +3660,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         //
                         bloquearCampos();
                         bloquearBotoes();
+                        limparCamposProdutos();
                         ExcluirProduto();
                         LIMPAR_TABELA_Produtos();
                         PREENCHER_TABELA_Produtos();
@@ -3821,7 +3822,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 idItem = String.valueOf(objProdKit.getIdRegProdKit());
                 pPESQUISA_ID_kit = objProdKit.getIdKit();
                 jUnidadeProd.setText(objProdKit.getUnidadeProd());
-                // QUANTIDADE DO ESTOQUE                                                  
+                // QUANTIDADE DO ESTOQUE
                 qtdEstoque = objProdKit.getQtdEstoque();
                 DecimalFormat vu = new DecimalFormat("##,###0.00");
                 String qtE = vu.format(qtdEstoque);

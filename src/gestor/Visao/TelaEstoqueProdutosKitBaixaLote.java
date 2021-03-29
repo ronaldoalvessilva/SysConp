@@ -32,6 +32,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosSelecionados;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKitInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pPESQUISA_ID_kit;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.text.DecimalFormat;
@@ -1056,6 +1057,7 @@ public class TelaEstoqueProdutosKitBaixaLote extends javax.swing.JDialog {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaProdutos.getModel();
         try {
             for (ProdutoInternosKitLote dd : CONTROLE.MOSTRAR_TABELA_PRODUTO_gravado()) {
+                pPESQUISA_ID_kit = dd.getIdKit();
                 //
                 DecimalFormat vi = new DecimalFormat(",###0.00");
                 String vqtdItem = vi.format(dd.getQuantidadeProd());

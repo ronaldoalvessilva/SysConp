@@ -415,5 +415,4 @@ public class ControleBaixaLoteKitHigiene {
         conecta.desconecta();
         return objProdKit;
     }
-
 }
