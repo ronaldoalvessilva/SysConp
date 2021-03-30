@@ -123,7 +123,7 @@ public class TelaPesqInternoTransfLocacaoBGP extends javax.swing.JInternalFrame 
         jTabelaLocacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLocacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Pavilhão", "Cela"
@@ -207,7 +207,7 @@ public class TelaPesqInternoTransfLocacaoBGP extends javax.swing.JInternalFrame 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -219,7 +219,7 @@ public class TelaPesqInternoTransfLocacaoBGP extends javax.swing.JInternalFrame 
         flag = 1;
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisar.");
-        } else {            
+        } else {
             preencherTabelaInternos("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -257,9 +257,20 @@ public class TelaPesqInternoTransfLocacaoBGP extends javax.swing.JInternalFrame 
                 jIdInterno.setText(conecta.rs.getString("IdInternoCrc")); //Coluna 0
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc")); // Coluna 1 
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoTransLoca.setIcon(i);
-                FotoInternoTransLoca.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoTransLoca.setIcon(i);
+                    FotoInternoTransLoca.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO INTERNO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoTransLoca.setIcon(icon);
+                }
                 codCelaAnt = conecta.rs.getInt("idCela");
                 jPavilhaoOrigem.setText(conecta.rs.getString("DescricaoPav"));
                 jDescricaoCelaOrigem.setText(conecta.rs.getString("EndCelaPav"));
@@ -280,7 +291,7 @@ public class TelaPesqInternoTransfLocacaoBGP extends javax.swing.JInternalFrame 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaInternos("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

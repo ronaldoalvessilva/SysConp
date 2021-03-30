@@ -130,7 +130,7 @@ public class TelaPesqCelasTransInternoBGPA extends javax.swing.JInternalFrame {
         jTabelaCelasPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCelasPavilhao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Pavilhão", "Cela"

@@ -1220,6 +1220,17 @@ public class TelaTransCelas extends javax.swing.JInternalFrame {
     }
 
     public void Cancelar() {
+        if (jIDTran.getText().equals("")) {
+            jIDTran.setText("");
+            jStatusLanc.setText("ABERTO");
+            jDataLanc.setCalendar(Calendar.getInstance());
+            jIdInterno.setText("");
+            FotoInternoTransLoca.setIcon(null);
+            jNomeInterno.setText("");
+            jIdCelaDestino.setText("");
+            jDescricaoCelaDestino.setText("");
+            jDescricaoRaioDestino.setText("");
+        }
         //
         jDataLanc.setEnabled(!true);
         jBtPesqInterno.setEnabled(!true);

@@ -6,10 +6,10 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ControleSaldoInternos;
 import gestor.Controle.ControleTransferenciaLocalInternos;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleSaldoInternosBGPA;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TransferenciaLocalInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -49,7 +49,7 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     TransferenciaLocalInternos objTranLocalInt = new TransferenciaLocalInternos();
     ControleTransferenciaLocalInternos control = new ControleTransferenciaLocalInternos();
-    ControleSaldoInternos controle = new ControleSaldoInternos();
+    ControleSaldoInternosBGPA CONTROLE = new ControleSaldoInternosBGPA();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -64,10 +64,20 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
     String statusLanc;
     String statusTrans = "ABERTO";
     String statusFinal = "FINALIZADO";
-// Finaliza a transferencia, impedindo que seja alterado. Caso tenho realizado o lançamento errado, fazer outro.
+    // Finaliza a transferencia, impedindo que seja alterado. Caso tenho realizado o lançamento errado, fazer outro.
     public static int codCelaAnt;
     String caminho;
     int count = 0;
+    //
+    public static Integer pCODIGO_INTERNO_kit = null;
+    public static String pKIT_pago = "";
+    public static String pUTILIZADO = "";
+    public static String pTIPO_KIT_inicial = "";
+    public static String pTIPO_KIT_decendial = "";
+    public static String pTIPO_KIT_quinzenal = "";
+    public static String pTIPO_KIT_mensal = "";
+    public static String pTIPO_KIT_semestral = "";
+    public static String pTIPO_KIT_anual = "";
 
     /**
      * Creates new form TelaTransCelas
@@ -134,13 +144,10 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         jIdInterno = new javax.swing.JTextField();
         jNomeInterno = new javax.swing.JTextField();
         jBtPesqInterno = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        FotoInternoTransLoca = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPavilhaoOrigem = new javax.swing.JTextField();
         jDescricaoCelaOrigem = new javax.swing.JTextField();
-        jBtZoom = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jDescricaoRaioDestino = new javax.swing.JTextField();
@@ -149,6 +156,10 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         jBtPesqCelaDestino = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jIdCelaDestino = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        FotoInternoTransLoca = new javax.swing.JLabel();
+        jBtZoom = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
 
         jLabel6.setText("jLabel6");
 
@@ -160,7 +171,7 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 0, 0));
@@ -206,7 +217,7 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNomeInternoTran, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -241,7 +252,7 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         jTabelaTransferencias.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTransferencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Nome do Interno", "Cela"
@@ -317,7 +328,7 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -330,9 +341,9 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,7 +384,7 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jIDTran, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jStatusLanc)
@@ -492,19 +503,19 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(1, 1, 1)
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -544,19 +555,6 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInternoTransLoca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInternoTransLoca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-        );
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Cela");
 
@@ -569,17 +567,6 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         jDescricaoCelaOrigem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDescricaoCelaOrigem.setEnabled(false);
 
-        jBtZoom.setForeground(new java.awt.Color(255, 0, 0));
-        jBtZoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
-        jBtZoom.setText("Zoom");
-        jBtZoom.setToolTipText("Ampliar Foto do Interno");
-        jBtZoom.setEnabled(false);
-        jBtZoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtZoomActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -587,15 +574,6 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDescricaoCelaOrigem, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jNomeInterno, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jPavilhaoOrigem))
-                        .addGap(11, 11, 11))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -606,43 +584,39 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 258, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jBtZoom)
-                        .addGap(34, 34, 34))))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(0, 352, Short.MAX_VALUE))
+                            .addComponent(jDescricaoCelaOrigem)
+                            .addComponent(jPavilhaoOrigem)
+                            .addComponent(jNomeInterno, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBtPesqInterno))
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPavilhaoOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDescricaoCelaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtZoom)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesqInterno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPavilhaoOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDescricaoCelaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Local de Destino do Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -736,31 +710,88 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(4, 4, 4)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FotoInternoTransLoca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FotoInternoTransLoca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+        );
+
+        jBtZoom.setForeground(new java.awt.Color(255, 0, 0));
+        jBtZoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
+        jBtZoom.setText("Zoom");
+        jBtZoom.setToolTipText("Ampliar Foto do Interno");
+        jBtZoom.setEnabled(false);
+        jBtZoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtZoomActionPerformed(evt);
+            }
+        });
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jBtZoom, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 36, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtZoom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1))
+                .addContainerGap())
         );
 
-        setBounds(300, 20, 517, 498);
+        setBounds(300, 20, 660, 485);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -823,43 +854,50 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(rootPane, "Não é possível realizar a transferência desse interno,\npois o lançamento de origem ao qual ele pertence\nnão foi FINALIZADO. Finalize o lançamento e só\ndepois faça a transferência do interno.");
                         } else {
                             objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                            if (acao == 1) {
-                                // Para o log do registro
-                                objTranLocalInt.setUsuarioInsert(nameUser);
-                                objTranLocalInt.setDataInsert(dataModFinal);
-                                objTranLocalInt.setHoraInsert(horaMov);
-                                //
-                                objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
-                                objTranLocalInt.setStatusLanc(jStatusLanc.getText());
-                                objTranLocalInt.setDescricaoCelaOrigem(jDescricaoCelaOrigem.getText());
-                                objTranLocalInt.setDescricaoPavilhaoOrigem(jPavilhaoOrigem.getText());
-                                control.incluirTransIntLocal(objTranLocalInt); // INSERT na tabela TRANSFERENCIALOCAL (MELHORADO EM 07/08/2015)
-                                buscarID();
-                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                objTranLocalInt.setIdLanc(Integer.valueOf(idLoca));
-                                controle.transferirInternoLocal(objTranLocalInt); // UPDATE na Tabela ITENSLOCACAOINTERNO
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
-                            }
-                            if (acao == 2) {
-                                objTranLocalInt.setUsuarioUp(nameUser);
-                                objTranLocalInt.setDataUp(dataModFinal);
-                                objTranLocalInt.setHoraUp(horaMov);
-                                objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
-                                objTranLocalInt.setStatusLanc(jStatusLanc.getText());
-                                control.alterarTransIntLocal(objTranLocalInt);
-                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                controle.transferirInternoLocal(objTranLocalInt);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
+                            VERIFICAR_INTERNO_kits();
+                            if (pCODIGO_INTERNO_kit == Integer.parseInt(jIdInterno.getText())
+                                    && pKIT_pago.equals("Não")
+                                    && pUTILIZADO.equals("Sim")) {
+                                JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser transferido de cela, existe(m) pendencia(s) de pagamento dos kits de higiene:\nKit Inicial: '" + pTIPO_KIT_inicial + "'\nKit Decendial: '" + pTIPO_KIT_decendial + "'\nKit Quinzenal: '" + pTIPO_KIT_quinzenal + "'\nKit Mensal: '" + pTIPO_KIT_mensal + "'\nKit Semestral: '" + pTIPO_KIT_semestral + "'\nKit Anual: '" + pTIPO_KIT_anual + "'");
+                            } else {
+                                if (acao == 1) {
+                                    // Para o log do registro
+                                    objTranLocalInt.setUsuarioInsert(nameUser);
+                                    objTranLocalInt.setDataInsert(dataModFinal);
+                                    objTranLocalInt.setHoraInsert(horaMov);
+                                    //
+                                    objTranLocalInt.setDataLanc(jDataLanc.getDate());
+                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                    objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
+                                    objTranLocalInt.setStatusLanc(jStatusLanc.getText());
+                                    objTranLocalInt.setDescricaoCelaOrigem(jDescricaoCelaOrigem.getText());
+                                    objTranLocalInt.setDescricaoPavilhaoOrigem(jPavilhaoOrigem.getText());
+                                    control.incluirTransIntLocal(objTranLocalInt); // INSERT na tabela TRANSFERENCIALOCAL (MELHORADO EM 07/08/2015)
+                                    buscarID();
+                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                    objTranLocalInt.setIdLanc(Integer.valueOf(idLoca));
+                                    CONTROLE.transferirInternoLocal(objTranLocalInt); // UPDATE na Tabela ITENSLOCACAOINTERNO
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    Salvar();
+                                }
+                                if (acao == 2) {
+                                    objTranLocalInt.setUsuarioUp(nameUser);
+                                    objTranLocalInt.setDataUp(dataModFinal);
+                                    objTranLocalInt.setHoraUp(horaMov);
+                                    objTranLocalInt.setDataLanc(jDataLanc.getDate());
+                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                    objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
+                                    objTranLocalInt.setStatusLanc(jStatusLanc.getText());
+                                    control.alterarTransIntLocal(objTranLocalInt);
+                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                    CONTROLE.transferirInternoLocal(objTranLocalInt);
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    Salvar();
+                                }
                             }
                         }
                     }
@@ -946,9 +984,20 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
                 //
                 jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoTransLoca.setIcon(i);
-                FotoInternoTransLoca.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoTransLoca.setIcon(i);
+                    FotoInternoTransLoca.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO INTERNO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoTransLoca.setIcon(icon);
+                }
                 jDescricaoCelaOrigem.setText(conecta.rs.getString("DescricaoCelaOrigem"));
                 jPavilhaoOrigem.setText(conecta.rs.getString("DescricaoPavilhaoOrigem"));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -1054,6 +1103,7 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -1157,6 +1207,17 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
     }
 
     public void Cancelar() {
+        if (jIDTran.getText().equals("")) {
+            jIDTran.setText("");
+            jStatusLanc.setText("ABERTO");
+            jDataLanc.setCalendar(Calendar.getInstance());
+            jIdInterno.setText("");
+            FotoInternoTransLoca.setIcon(null);
+            jNomeInterno.setText("");
+            jIdCelaDestino.setText("");
+            jDescricaoCelaDestino.setText("");
+            jDescricaoRaioDestino.setText("");
+        }
         //
         jDataLanc.setEnabled(!true);
         jBtPesqInterno.setEnabled(!true);
@@ -1258,6 +1319,15 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível localizar status do lançamento.\nERRO: " + ex);
         }
+    }
+
+    public void VERIFICAR_INTERNO_kits() {
+        CONTROLE.VERIFICAR_INTERNO_KIT_inicial(objTranLocalInt);
+        CONTROLE.VERIFICAR_INTERNO_KIT_decendial(objTranLocalInt);
+        CONTROLE.VERIFICAR_INTERNO_KIT_quinzenal(objTranLocalInt);
+        CONTROLE.VERIFICAR_INTERNO_KIT_mensal(objTranLocalInt);
+        CONTROLE.VERIFICAR_INTERNO_KIT_semestral(objTranLocalInt);
+        CONTROLE.VERIFICAR_INTERNO_KIT_anual(objTranLocalInt);
     }
 
     public void objLog() {
