@@ -20,6 +20,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jStatusComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.pCodigoAlmxarifado;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -277,24 +278,23 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
     public void lancarHistorico() {
         DecimalFormat valorRealMoed = new DecimalFormat("###,##00.0");
         valorRealMoed.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        for (int i = 0; i < jTabelaProdutos.getRowCount(); i++) {
+        for (int i = 0; i < jTabelaProdutosKitCompleto.getRowCount(); i++) {
             // LANÇAR HISTÓRICO DA SAIDA DA REQUISIÇÃO.            
             objHistMovAC.setIdLocal(pCodigoAlmxarifado);
             objHistMovAC.setTipoOpe(tipoOpercao);
             objHistMovAC.setNomeOperacao(nomeOperacao);
             objHistMovAC.setIdDoc(Integer.valueOf(jIdRegistroComp.getText()));
             objHistMovAC.setDataMov(jDataComp.getDate());
-            objHistMovAC.setIdProd((int) jTabelaProdutos.getValueAt(i, 1));
-            // ESTA FUNCIONANDO COM ALGUNS CASOS ANALIASAR COM CALMA.
-            objHistMovAC.setQtdItem((int) jTabelaProdutos.getValueAt(i, 4));
-//            try {
-//                objHistMovAC.setQtdItem(valorRealMoed.parse((String) jTabelaProdutos.getValueAt(i, 4)).intValue());
-//            } catch (ParseException ex) {
-//            }
+            objHistMovAC.setIdProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 0));
+            objHistMovAC.setQtdItem((int) jTabelaProdutosKitCompleto.getValueAt(i, 3)); //(* OBS)
             SomaProdutoLote(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
             objHistMovAC.setSaldoAtual((float) qtdEstoque);
             controlHistAC.incluirHistoricoProdutoAC(objHistMovAC); // SALVAR NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
         }
+        //(*) TINHA DIVERGENCIA COM A TABELA DE PRODUTOS POR CAUSA DA FORMATAÇÃO DAS QUANTIDADES
+        //QUANDO INICIA A COMPOSIÇÃO O SISTEMA ESTAVA FORMATANDO AS QUANTIDADES DO KIT 10,00
+        //COM ISSO ESTAVA DANDO ERRO NO CAST, TANTO FLOAT COMO PARA INT. MODIFICADO PARA A TABELA
+        //QUE ESTÁ FORMATADA PARA TRAZER AS QUANTIDADES INTEIRO (10), FOI POSSIVEL GRAVAR SEM ERRO.
     }
 
     // SOMAR QUANTIDADE DE CADA PRODUTO NA TABELA DE LOTEPRODUTOS PARA INSERIR NA TABELA DE HISTORICO MOVIMENTAÇÃO ESTOQUE
