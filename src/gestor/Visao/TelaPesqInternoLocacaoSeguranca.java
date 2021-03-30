@@ -332,9 +332,20 @@ public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame 
                 jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoLocacao.setIcon(i);
-                FotoInternoLocacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoLocacao.getWidth(), FotoInternoLocacao.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoLocacao.setIcon(i);
+                    FotoInternoLocacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoLocacao.getWidth(), FotoInternoLocacao.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO INTERNO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoLocacao.getWidth(), FotoInternoLocacao.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoLocacao.setIcon(icon);
+                }
                 jSituacao.setText(conecta.rs.getString("SituacaoCrc"));
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 jBtZoom.setEnabled(true);

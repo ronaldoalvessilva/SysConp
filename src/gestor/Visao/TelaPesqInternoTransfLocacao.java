@@ -122,7 +122,7 @@ public class TelaPesqInternoTransfLocacao extends javax.swing.JInternalFrame {
         jTabelaLocacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLocacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Pavilhão", "Cela"
@@ -175,24 +175,27 @@ public class TelaPesqInternoTransfLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBtEnviar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtSair)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Pesquisar", jPanel1);
@@ -205,12 +208,10 @@ public class TelaPesqInternoTransfLocacao extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 20, 563, 275);
+        setBounds(300, 20, 563, 299);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -218,7 +219,7 @@ public class TelaPesqInternoTransfLocacao extends javax.swing.JInternalFrame {
         flag = 1;
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisar.");
-        } else {            
+        } else {
             preencherTabelaInternos("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -254,9 +255,20 @@ public class TelaPesqInternoTransfLocacao extends javax.swing.JInternalFrame {
                 jIdInterno.setText(conecta.rs.getString("IdInternoCrc")); //Coluna 0
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc")); // Coluna 1 
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoTransLoca.setIcon(i);
-                FotoInternoTransLoca.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoTransLoca.setIcon(i);
+                    FotoInternoTransLoca.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO INTERNO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoTransLoca.getWidth(), FotoInternoTransLoca.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoTransLoca.setIcon(icon);
+                }
                 codCelaAnt = conecta.rs.getInt("idCela");
                 jPavilhaoOrigem.setText(conecta.rs.getString("DescricaoPav"));
                 jDescricaoCelaOrigem.setText(conecta.rs.getString("EndCelaPav"));
@@ -277,7 +289,7 @@ public class TelaPesqInternoTransfLocacao extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaInternos("SELECT * FROM ITENSLOCACAOINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
