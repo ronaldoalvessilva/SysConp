@@ -31,7 +31,7 @@ public class TelaPesquisaUnidEntradaLote extends javax.swing.JInternalFrame {
      */
     public TelaPesquisaUnidEntradaLote() {
         initComponents();
-        jPesNomeUnidade.setDocument(new LimiteDigitosAlfa(33));
+        formatarCampos();
     }
 
     /**
@@ -58,6 +58,7 @@ public class TelaPesquisaUnidEntradaLote extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Unidade Penal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
+        jPesNomeUnidade.setToolTipText("Tamanho máximo de caracteres (60)");
         jPesNomeUnidade.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
@@ -194,7 +195,7 @@ public class TelaPesquisaUnidEntradaLote extends javax.swing.JInternalFrame {
         if (jPesNomeUnidade.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesNomeUnidade.requestFocus();
-        } else {            
+        } else {
             preencherTabelaNome("SELECT * FROM UNIDADE "
                     + "WHERE DescricaoUnid LIKE'%" + jPesNomeUnidade.getText() + "%'");
         }
@@ -235,7 +236,7 @@ public class TelaPesquisaUnidEntradaLote extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabela();
         } else {
             limparTabela();
@@ -253,6 +254,10 @@ public class TelaPesquisaUnidEntradaLote extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaUnidadePenal;
     // End of variables declaration//GEN-END:variables
+
+    public void formatarCampos() {
+        jPesNomeUnidade.setDocument(new LimiteDigitosAlfa(60));
+    }
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();

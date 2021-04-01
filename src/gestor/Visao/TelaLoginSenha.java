@@ -6,9 +6,7 @@
 package gestor.Visao;
 
 import Utilitarios.Criptografia;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosMin;
 import gestor.Controle.ControlePesquisarEmpresaLogon;
 import gestor.Controle.ControleVerificacaoAcessos;
@@ -20,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
@@ -185,7 +182,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                     }
                 }
             }
-        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de lauro de Freitas - CPLF")) {
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("CPLF - Conjunto Penal de lauro de Freitas")) {
             caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
@@ -255,7 +252,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                     }
                 }
             }
-        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")) {
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("CPMS - Conjunto Penal Masculino de Salvador")) {
             caminhoConecta = "C:\\SysConp\\ConectaSSA.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
@@ -325,7 +322,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                     }
                 }
             }
-        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")) {
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("CPIT - Conjunto Penal de Itabuna")) {
             caminhoConecta = "C:\\SysConp\\ConectaITB.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
@@ -395,7 +392,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                     }
                 }
             }
-        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")) {
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("CPVC - Conjunto Penal de Vitória da Conquista")) {
             caminhoConecta = "C:\\SysConp\\ConectaVC.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
@@ -465,7 +462,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                     }
                 }
             }
-        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")) {
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("CPBA - Conjunto Penal de Barreiras")) {
             caminhoConecta = "C:\\SysConp\\ConectaBAR.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
@@ -535,7 +532,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                     }
                 }
             }
-        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de lauro de Freitas - CPLF")) {
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("CPLF - Conjunto Penal de lauro de Freitas")) {
             caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
@@ -623,6 +620,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jNumeroVersao = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -660,37 +658,46 @@ public class TelaLoginSenha extends javax.swing.JDialog {
 
         jNumeroVersao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNumeroVersao.setForeground(new java.awt.Color(255, 0, 0));
-        jNumeroVersao.setText("6.2-8.2020");
+        jNumeroVersao.setText("6.2-8.2020-F");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Copyright ©  2014 - by R.A.S/S.L.S");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jNumeroVersao)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jNumeroVersao)))
+                        .addGap(0, 28, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Login e Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -760,7 +767,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
 
         jComboBoxUnidadePrisional.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxUnidadePrisional.setForeground(new java.awt.Color(204, 0, 0));
-        jComboBoxUnidadePrisional.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "localhost", "Conjunto Penal de lauro de Freitas - CPLF", "Conjunto Penal Masculino de Salvador - CPMS", "Conjunto Penal de Itabuna - CPIT", "Conjunto Penal de Vitória da Conquista - CPVC", "Conjunto Penal de Barreiras - CPBA" }));
+        jComboBoxUnidadePrisional.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "localhost", "CPLF - Conjunto Penal de lauro de Freitas", "CPMS - Conjunto Penal Masculino de Salvador", "CPIT - Conjunto Penal de Itabuna", "CPVC - Conjunto Penal de Vitória da Conquista", "CPBA - Conjunto Penal de Barreiras" }));
         jComboBoxUnidadePrisional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxUnidadePrisional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -773,30 +780,29 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jBtAcessar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jUsuario)
+                            .addComponent(jPassword))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCancelar))
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jUsuario)
-                                    .addComponent(jPassword))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBoxUnidadePrisional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(jComboBoxUnidadePrisional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtAcessar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCancelar)
+                .addGap(30, 30, 30))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAcessar, jBtCancelar});
@@ -819,11 +825,11 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jComboBoxUnidadePrisional, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtAcessar)
                     .addComponent(jBtCancelar))
-                .addContainerGap())
+                .addGap(13, 13, 13))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAcessar, jBtCancelar});
@@ -965,6 +971,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jNumeroVersao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

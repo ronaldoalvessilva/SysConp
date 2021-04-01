@@ -207,7 +207,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
         jTabelaUnidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUnidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Descrição", "Classificação"
@@ -329,6 +329,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
         jComboBoxClasse.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxClasse.setEnabled(false);
 
+        jDescricao.setToolTipText("Tamanho máximo de caracteres (60)");
         jDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDescricao.setEnabled(false);
 

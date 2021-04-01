@@ -223,12 +223,13 @@ public class TelaOperacaoCrc extends javax.swing.JInternalFrame {
         jIdOp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdOp.setEnabled(false);
 
+        jDescricaoOp.setToolTipText("Tamanho máximo da descrição (150) carcateres");
         jDescricaoOp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDescricaoOp.setEnabled(false);
 
         jComboBoxTipoOp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTipoOp.setForeground(new java.awt.Color(153, 0, 153));
-        jComboBoxTipoOp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Entradas", "Saídas", "Retornos", "Evasões", "Transferências" }));
+        jComboBoxTipoOp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Entradas", "Saídas", "Retornos", "Evasões", "Transferências", "Óbitos" }));
         jComboBoxTipoOp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoOp.setEnabled(false);
 
@@ -372,15 +373,15 @@ public class TelaOperacaoCrc extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir)
-                .addGap(4, 4, 4)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

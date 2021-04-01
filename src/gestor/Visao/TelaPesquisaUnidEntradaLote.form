@@ -116,6 +116,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="jPesNomeUnidade">
               <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Tamanho m&#xe1;ximo de caracteres (60)"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                     <BevelBorder bevelType="1"/>

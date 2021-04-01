@@ -304,6 +304,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jHoraSistema = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuAdministracao = new javax.swing.JMenu();
         jMenuItemGerenciaAdministrativa = new javax.swing.JMenuItem();
@@ -784,7 +785,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel7.setText("Versão: 6.2-8.2020");
+        jLabel7.setText("Versão: 6.2-8.2020-F");
 
         jNomeUnidade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jNomeUnidade.setForeground(new java.awt.Color(0, 153, 0));
@@ -797,7 +798,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addGroup(jPanelNomeSistemaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
@@ -831,7 +832,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanielPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE)
+                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 1407, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanielPrincipalLayout.setVerticalGroup(
@@ -920,6 +921,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Data:  ");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Copyright ©  2014 - by R.A.S/S.L.S");
+
         javax.swing.GroupLayout jPanelRodapeLayout = new javax.swing.GroupLayout(jPanelRodape);
         jPanelRodape.setLayout(jPanelRodapeLayout);
         jPanelRodapeLayout.setHorizontalGroup(
@@ -928,15 +933,17 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(148, 148, 148)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -964,7 +971,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel9)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelRodapeLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel1))
@@ -2428,6 +2436,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -4351,9 +4360,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }
 
     public void pMODULO_gerencial() {
+        String grupoGteUnid = "GERENCIAS DA UNIDADE";
         String grupoAdm = "ADMINISTRADORES";
-        String permissaoGrupoAdm = "Sim";
-        String moduloAdm = "GERENCIAMENTO DAS UNIDADES";
+        String permissaoGrupoGteUnid = "Sim";
+        String moduloGteUnid = "GERENCIAMENTO DAS UNIDADES";
         idGrupo = 0;
         nomeGrupo = "";
         idModulo = 0;
@@ -4382,6 +4392,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            //SE FOR OS ADMINISTRADORES
             if (nomeGrupo.equals(grupoAdministrador)) {
                 TelaModuloPRORES mPRORES = new TelaModuloPRORES();
                 this.jPanielPrincipal.add(mPRORES);
@@ -4392,12 +4403,13 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
+                //GRUPO DE GERENTES DA UNIDADE
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                             + "INNER JOIN GRUPOUSUARIOS "
                             + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoGteUnid + "' "
                             + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
@@ -4408,7 +4420,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
                             + "INNER JOIN MODULOS "
                             + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                            + "WHERE MODULOS.NomeModulo='" + moduloAdm + "' "
+                            + "WHERE MODULOS.NomeModulo='" + moduloGteUnid + "' "
                             + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
@@ -4417,7 +4429,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 } catch (Exception er) {
                 }
                 conecta.desconecta();
-                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoAdm)) {
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoGteUnid)) {
                     TelaModuloPRORES mPRORES = new TelaModuloPRORES();
                     this.jPanielPrincipal.add(mPRORES);
                     mPRORES.show();
@@ -4432,6 +4444,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         }
     }
+    
+    
+    
+    
+    
 //    // Atualizar Versão do sistema quando existir
 //    public void atualizarSistema() throws FileNotFoundException, IOException {
 //        // Arquivos que iremos copiar
@@ -4820,9 +4837,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     public void PESQUISAR_IMPLEMENTA_PRI_001(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
-        if(objParCrc.getIdModulo() != null && objParCrc.getIdTelas() != null && objParCrc.getNomeTela() != null){
+        if (objParCrc.getIdModulo() != null && objParCrc.getIdTelas() != null && objParCrc.getNomeTela() != null) {
             controlImp.pPESQUISAR_liberacao(objParCrc);
-        }        
+        }
         if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             jMenuItemEducacaoFisica.setVisible(!true);
             jBtEducacaoFisica.setVisible(!true);
