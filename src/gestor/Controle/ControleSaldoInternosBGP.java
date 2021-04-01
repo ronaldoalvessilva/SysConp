@@ -9,9 +9,6 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensLocacaoInternos;
 import gestor.Modelo.TransferenciaLocalInternos;
 import static gestor.Visao.TelaTransCelasBGP.jIdInterno;
-import static gestor.Visao.TelaTransCelasBGP.pCODIGO_INTERNO_kit;
-import static gestor.Visao.TelaTransCelasBGP.pKIT_pago;
-import static gestor.Visao.TelaTransCelasBGP.pUTILIZADO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -21,6 +18,10 @@ import static gestor.Visao.TelaTransCelasBGP.pTIPO_KIT_quinzenal;
 import static gestor.Visao.TelaTransCelasBGP.pTIPO_KIT_mensal;
 import static gestor.Visao.TelaTransCelasBGP.pTIPO_KIT_semestral;
 import static gestor.Visao.TelaTransCelasBGP.pTIPO_KIT_anual;
+import static gestor.Visao.TelaTransCelasBGP.pCODIGO_INTERNO_kit;
+import static gestor.Visao.TelaTransCelasBGP.pRESPOSTA_transferencia;
+import static gestor.Visao.TelaTransCelasBGP.pKIT_pago;
+import static gestor.Visao.TelaTransCelasBGP.pUTILIZADO;
 
 /**
  *
@@ -43,7 +44,9 @@ public class ControleSaldoInternosBGP {
             pst.setInt(1, objItensLoca.getIdInternoCrc());
             pst.setInt(2, objItensLoca.getIdCela());
             pst.execute();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();
@@ -58,7 +61,9 @@ public class ControleSaldoInternosBGP {
             pst.setInt(1, objItensLoca.getIdInternoCrc());
             pst.setInt(2, objItensLoca.getIdCela());
             pst.executeUpdate();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();
@@ -71,7 +76,9 @@ public class ControleSaldoInternosBGP {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM LOCALINTERNOS WHERE IdInternoCrc='" + objItensLoca.getIdInternoCrc() + "'");
             pst.executeUpdate();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();
@@ -88,7 +95,9 @@ public class ControleSaldoInternosBGP {
             pst.setInt(2, objTranLocalInt.getIdInternoCrc());
             pst.setInt(3, objTranLocalInt.getIdCela());
             pst.executeUpdate();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();
@@ -113,7 +122,8 @@ public class ControleSaldoInternosBGP {
             pCODIGO_INTERNO_kit = conecta.rs.getInt("IdInternoCrc");
             pKIT_pago = conecta.rs.getString("KitPago");
             pUTILIZADO = conecta.rs.getString("Utilizado");
-            pTIPO_KIT_inicial = "Sim";            
+            //
+            pTIPO_KIT_inicial = "Sim";
         } catch (Exception e) {
             pTIPO_KIT_inicial = "Não";
         }
@@ -136,6 +146,7 @@ public class ControleSaldoInternosBGP {
             pCODIGO_INTERNO_kit = conecta.rs.getInt("IdInternoCrc");
             pKIT_pago = conecta.rs.getString("KitPago");
             pUTILIZADO = conecta.rs.getString("Utilizado");
+            //
             pTIPO_KIT_decendial = "Sim";
         } catch (Exception e) {
             pTIPO_KIT_decendial = "Não";
@@ -159,6 +170,7 @@ public class ControleSaldoInternosBGP {
             pCODIGO_INTERNO_kit = conecta.rs.getInt("IdInternoCrc");
             pKIT_pago = conecta.rs.getString("KitPago");
             pUTILIZADO = conecta.rs.getString("Utilizado");
+            //
             pTIPO_KIT_quinzenal = "Sim";
         } catch (Exception e) {
             pTIPO_KIT_quinzenal = "Não";
@@ -182,9 +194,10 @@ public class ControleSaldoInternosBGP {
             pCODIGO_INTERNO_kit = conecta.rs.getInt("IdInternoCrc");
             pKIT_pago = conecta.rs.getString("KitPago");
             pUTILIZADO = conecta.rs.getString("Utilizado");
+            //
             pTIPO_KIT_mensal = "Sim";
         } catch (Exception e) {
-             pTIPO_KIT_mensal = "Não";
+            pTIPO_KIT_mensal = "Não";
         }
         conecta.desconecta();
         return objTranLocalInt;
@@ -205,9 +218,10 @@ public class ControleSaldoInternosBGP {
             pCODIGO_INTERNO_kit = conecta.rs.getInt("IdInternoCrc");
             pKIT_pago = conecta.rs.getString("KitPago");
             pUTILIZADO = conecta.rs.getString("Utilizado");
+            //
             pTIPO_KIT_semestral = "Sim";
         } catch (Exception e) {
-             pTIPO_KIT_semestral = "Não";
+            pTIPO_KIT_semestral = "Não";
         }
         conecta.desconecta();
         return objTranLocalInt;
@@ -228,6 +242,7 @@ public class ControleSaldoInternosBGP {
             pCODIGO_INTERNO_kit = conecta.rs.getInt("IdInternoCrc");
             pKIT_pago = conecta.rs.getString("KitPago");
             pUTILIZADO = conecta.rs.getString("Utilizado");
+            //
             pTIPO_KIT_anual = "Sim";
         } catch (Exception e) {
             pTIPO_KIT_anual = "Não";

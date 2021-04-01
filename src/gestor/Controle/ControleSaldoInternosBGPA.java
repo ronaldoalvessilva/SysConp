@@ -21,6 +21,7 @@ import static gestor.Visao.TelaTransCelasBGPA.pTIPO_KIT_quinzenal;
 import static gestor.Visao.TelaTransCelasBGPA.pTIPO_KIT_mensal;
 import static gestor.Visao.TelaTransCelasBGPA.pTIPO_KIT_semestral;
 import static gestor.Visao.TelaTransCelasBGPA.pTIPO_KIT_anual;
+import static gestor.Visao.TelaTransCelasBGPA.pRESPOSTA_transferencia;
 
 /**
  *
@@ -43,7 +44,9 @@ public class ControleSaldoInternosBGPA {
             pst.setInt(1, objItensLoca.getIdInternoCrc());
             pst.setInt(2, objItensLoca.getIdCela());
             pst.execute();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();
@@ -58,7 +61,9 @@ public class ControleSaldoInternosBGPA {
             pst.setInt(1, objItensLoca.getIdInternoCrc());
             pst.setInt(2, objItensLoca.getIdCela());
             pst.executeUpdate();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();
@@ -71,7 +76,9 @@ public class ControleSaldoInternosBGPA {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM LOCALINTERNOS WHERE IdInternoCrc='" + objItensLoca.getIdInternoCrc() + "'");
             pst.executeUpdate();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();
@@ -88,7 +95,9 @@ public class ControleSaldoInternosBGPA {
             pst.setInt(2, objTranLocalInt.getIdInternoCrc());
             pst.setInt(3, objTranLocalInt.getIdCela());
             pst.executeUpdate();
+            pRESPOSTA_transferencia = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_transferencia = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
         }
         conecta.desconecta();

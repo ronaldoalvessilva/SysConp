@@ -78,6 +78,8 @@ public class TelaTransCelasBGP extends javax.swing.JInternalFrame {
     public static String pTIPO_KIT_mensal = "";
     public static String pTIPO_KIT_semestral = "";
     public static String pTIPO_KIT_anual = "";
+    //
+    public static String pRESPOSTA_transferencia = "";
 
     /**
      * Creates new form TelaTransCelas
@@ -838,72 +840,39 @@ public class TelaTransCelasBGP extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTransferenciaPavilhaoCelaB1);
         if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaTransferenciaPavilhaoCelaB1) && codGravarB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
+            verificarLancamento();
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento!!!");
                 jDataLanc.requestFocus();
                 jDataLanc.setBackground(Color.red);
-            } else {
-                if (jNomeInterno.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno a ser transferido");
+            } else if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno a ser transferido");
+            } else if (jDescricaoCelaDestino.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o Pavilhão e Cela de destino do interno");
+            } else if (statusLanc == null ? statusTrans == null : statusLanc.equals(statusTrans)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível realizar a transferência desse interno,\npois o lançamento de origem ao qual ele pertence\nnão foi FINALIZADO. Finalize o lançamento e só\ndepois faça a transferência do interno.");
+            } else { //TERCEIRO
+                objTranLocalInt.setDataLanc(jDataLanc.getDate());
+                VERIFICAR_INTERNO_kits();
+                if (pCODIGO_INTERNO_kit == null) {
+                    //GRAVAR OS DADOS NO BANCO
+                    PERSISTENCIA_interno();
+                    pCODIGO_INTERNO_kit = null;
+                    pKIT_pago = "";
+                    pUTILIZADO = "";                   
+                }
+                if (pCODIGO_INTERNO_kit != null && pCODIGO_INTERNO_kit == Integer.parseInt(jIdInterno.getText())
+                        && pKIT_pago.equals("Não")
+                        && pUTILIZADO.equals("Sim")) {                    
+                    pCODIGO_INTERNO_kit = null;
+                    pKIT_pago = "";
+                    pUTILIZADO = "";
+                    JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser transferido de cela, existe(m) pendencia(s) de pagamento dos kits de higiene:\nKit Inicial: '" + pTIPO_KIT_inicial + "'\nKit Decendial: '" + pTIPO_KIT_decendial + "'\nKit Quinzenal: '" + pTIPO_KIT_quinzenal + "'\nKit Mensal: '" + pTIPO_KIT_mensal + "'\nKit Semestral: '" + pTIPO_KIT_semestral + "'\nKit Anual: '" + pTIPO_KIT_anual + "'");
                 } else {
-                    if (jDescricaoCelaDestino.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Informe qual é o Pavilhão e Cela de destino do interno");
-                    } else {
-                        verificarLancamento();
-                        if (statusLanc == null ? statusTrans == null : statusLanc.equals(statusTrans)) {
-                            JOptionPane.showMessageDialog(rootPane, "Não é possível realizar a transferência desse interno,\npois o lançamento de origem ao qual ele pertence\nnão foi FINALIZADO. Finalize o lançamento e só\ndepois faça a transferência do interno.");
-                        } else {
-                            objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                            VERIFICAR_INTERNO_kits();
-                            if (pCODIGO_INTERNO_kit == Integer.parseInt(jIdInterno.getText())
-                                    && pKIT_pago.equals("Não")
-                                    && pUTILIZADO.equals("Sim")) {
-                                JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser transferido de cela, existe(m) pendencia(s) de pagamento dos kits de higiene:\nKit Inicial: '" + pTIPO_KIT_inicial + "'\nKit Decendial: '" + pTIPO_KIT_decendial + "'\nKit Quinzenal: '" + pTIPO_KIT_quinzenal + "'\nKit Mensal: '" + pTIPO_KIT_mensal + "'\nKit Semestral: '" + pTIPO_KIT_semestral + "'\nKit Anual: '" + pTIPO_KIT_anual + "'");
-                            } else {
-                                if (acao == 1) {
-                                    // Para o log do registro
-                                    objTranLocalInt.setUsuarioInsert(nameUser);
-                                    objTranLocalInt.setDataInsert(dataModFinal);
-                                    objTranLocalInt.setHoraInsert(horaMov);
-                                    //
-                                    objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                    objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
-                                    objTranLocalInt.setStatusLanc(jStatusLanc.getText());
-                                    objTranLocalInt.setDescricaoCelaOrigem(jDescricaoCelaOrigem.getText());
-                                    objTranLocalInt.setDescricaoPavilhaoOrigem(jPavilhaoOrigem.getText());
-                                    control.incluirTransIntLocal(objTranLocalInt); // INSERT na tabela TRANSFERENCIALOCAL (MELHORADO EM 07/08/2015)
-                                    buscarID();
-                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                    objTranLocalInt.setIdLanc(Integer.valueOf(idLoca));
-                                    CONTROLE.transferirInternoLocal(objTranLocalInt); // UPDATE na Tabela ITENSLOCACAOINTERNO
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                    Salvar();
-                                }
-                                if (acao == 2) {
-                                    objTranLocalInt.setUsuarioUp(nameUser);
-                                    objTranLocalInt.setDataUp(dataModFinal);
-                                    objTranLocalInt.setHoraUp(horaMov);
-                                    objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                    objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
-                                    objTranLocalInt.setStatusLanc(jStatusLanc.getText());
-                                    control.alterarTransIntLocal(objTranLocalInt);
-                                    objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                    CONTROLE.transferirInternoLocal(objTranLocalInt);
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                    Salvar();
-                                }
-                            }
-                        }
-                    }
+
                 }
             }
-        } else {
+        } else { //PRIMEIRO
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
@@ -1234,7 +1203,9 @@ public class TelaTransCelasBGP extends javax.swing.JInternalFrame {
     public void buscarID() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM TRANSFERENCIALOCAL");
+            conecta.executaSQL("SELECT "
+                    + "IdLanc "
+                    + "FROM TRANSFERENCIALOCAL");
             conecta.rs.last();
             jIDTran.setText(conecta.rs.getString("IdLanc"));
         } catch (SQLException ex) {
@@ -1309,7 +1280,12 @@ public class TelaTransCelasBGP extends javax.swing.JInternalFrame {
         jStatusLanc.setText("FINALIZADO");
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOCACAOINTERNO "
+            conecta.executaSQL("SELECT "
+                    + "LOCACAOINTERNO.IdCela, "
+                    + "IdInternoCrc, "
+                    + "ITENSLOCACAOINTERNO.IdInternoCrc, "
+                    + "LOCACAOINTERNO.StatusLoca "
+                    + "FROM LOCACAOINTERNO "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
                     + "ON LOCACAOINTERNO.IdLoca=ITENSLOCACAOINTERNO.IdLoca "
                     + "WHERE LOCACAOINTERNO.IdCela='" + codCelaAnt + "'"
@@ -1317,7 +1293,7 @@ public class TelaTransCelasBGP extends javax.swing.JInternalFrame {
             conecta.rs.first();
             statusLanc = conecta.rs.getString("StatusLoca");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível localizar status do lançamento.\nERRO: " + ex);
+//            JOptionPane.showMessageDialog(rootPane, "Não foi possível localizar status do lançamento.\nERRO: " + ex);
         }
     }
 
@@ -1328,6 +1304,56 @@ public class TelaTransCelasBGP extends javax.swing.JInternalFrame {
         CONTROLE.VERIFICAR_INTERNO_KIT_mensal(objTranLocalInt);
         CONTROLE.VERIFICAR_INTERNO_KIT_semestral(objTranLocalInt);
         CONTROLE.VERIFICAR_INTERNO_KIT_anual(objTranLocalInt);
+    }
+
+
+    public void PERSISTENCIA_interno() {
+        if (acao == 1) {
+            // Para o log do registro
+            objTranLocalInt.setUsuarioInsert(nameUser);
+            objTranLocalInt.setDataInsert(dataModFinal);
+            objTranLocalInt.setHoraInsert(horaMov);
+            //
+            objTranLocalInt.setDataLanc(jDataLanc.getDate());
+            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+            objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
+            objTranLocalInt.setStatusLanc(jStatusLanc.getText());
+            objTranLocalInt.setDescricaoCelaOrigem(jDescricaoCelaOrigem.getText());
+            objTranLocalInt.setDescricaoPavilhaoOrigem(jPavilhaoOrigem.getText());
+            control.incluirTransIntLocal(objTranLocalInt); // INSERT na tabela TRANSFERENCIALOCAL (MELHORADO EM 07/08/2015)
+            buscarID();
+            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+            objTranLocalInt.setIdLanc(Integer.valueOf(idLoca));
+            CONTROLE.transferirInternoLocal(objTranLocalInt); // UPDATE na Tabela ITENSLOCACAOINTERNO
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            if (pRESPOSTA_transferencia.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            } else if (pRESPOSTA_transferencia.equals("Não")) {
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            Salvar();
+        }
+        if (acao == 2) {
+            objTranLocalInt.setUsuarioUp(nameUser);
+            objTranLocalInt.setDataUp(dataModFinal);
+            objTranLocalInt.setHoraUp(horaMov);
+            objTranLocalInt.setDataLanc(jDataLanc.getDate());
+            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+            objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
+            objTranLocalInt.setStatusLanc(jStatusLanc.getText());
+            control.alterarTransIntLocal(objTranLocalInt);
+            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+            CONTROLE.transferirInternoLocal(objTranLocalInt);
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            if (pRESPOSTA_transferencia.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            } else if (pRESPOSTA_transferencia.equals("Não")) {
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            Salvar();
+        }
     }
 
     public void objLog() {
