@@ -241,7 +241,7 @@ public class TelaSobre extends javax.swing.JDialog {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Copyright© 2013-2020");
+        jLabel16.setText("Copyright© 2014 - R.A.S/S.L.S");
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/logoSocializa.png"))); // NOI18N
 

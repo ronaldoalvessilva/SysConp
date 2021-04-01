@@ -393,7 +393,7 @@
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Copyright&#xa9; 2013-2020"/>
+            <Property name="text" type="java.lang.String" value="Copyright&#xa9; 2014 - R.A.S/S.L.S"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">

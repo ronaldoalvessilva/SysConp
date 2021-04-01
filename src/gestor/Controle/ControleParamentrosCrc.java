@@ -166,7 +166,7 @@ public class ControleParamentrosCrc {
         pBUSCAR_tela(objParCrc.getNomeTela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE IMPLEMENTACAO_SISTEMA SET IdModulo=?,IdTelas=?,Habilitar=? WHERE IdModulo='" + pCOD_mod + "' AND IdTelas='" + pCOD_tel + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE IMPLEMENTACAO_SISTEMA SET IdModulo=?,IdTelas=?,Habilitar=? WHERE IdImp='" + objParCrc.getIdImp() + "'");
             pst.setInt(1, pCODIGO_modulo);
             pst.setInt(2, pCODIGO_tela);
             pst.setString(3, objParCrc.getHabilitarImp());

@@ -1833,11 +1833,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cód.Módulo", "Módulo", "Habilitar", "Cód.Tela", "Funcionalidade"
+                "Registro", "Cód.Módulo", "Módulo", "Habilitar", "Cód.Tela", "Funcionalidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1854,14 +1854,16 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         if (jTabelaImplementacoes.getColumnModel().getColumnCount() > 0) {
             jTabelaImplementacoes.getColumnModel().getColumn(0).setMinWidth(80);
             jTabelaImplementacoes.getColumnModel().getColumn(0).setMaxWidth(80);
-            jTabelaImplementacoes.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaImplementacoes.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaImplementacoes.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaImplementacoes.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaImplementacoes.getColumnModel().getColumn(3).setMinWidth(70);
-            jTabelaImplementacoes.getColumnModel().getColumn(3).setMaxWidth(70);
-            jTabelaImplementacoes.getColumnModel().getColumn(4).setMinWidth(550);
-            jTabelaImplementacoes.getColumnModel().getColumn(4).setMaxWidth(550);
+            jTabelaImplementacoes.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaImplementacoes.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaImplementacoes.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaImplementacoes.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaImplementacoes.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaImplementacoes.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaImplementacoes.getColumnModel().getColumn(4).setMinWidth(70);
+            jTabelaImplementacoes.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTabelaImplementacoes.getColumnModel().getColumn(5).setMinWidth(550);
+            jTabelaImplementacoes.getColumnModel().getColumn(5).setMaxWidth(550);
         }
 
         javax.swing.GroupLayout jPainelTabelaImplementacaoLayout = new javax.swing.GroupLayout(jPainelTabelaImplementacao);
@@ -2284,8 +2286,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel59)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxODON, 0, 46, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jComboBoxODON, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2789,7 +2791,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                             .addGroup(jPanel26Layout.createSequentialGroup()
                                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, 213, Short.MAX_VALUE))
                                 .addGap(10, 10, 10))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
                                 .addComponent(jPanel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -3225,7 +3227,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                         if (pCODIGO_PESQUISA_modulo == objParCrc.getIdModulo() && pCODIGO_PESQUISA_tela == objParCrc.getIdTelas()) {
                             JOptionPane.showMessageDialog(rootPane, "Registro já foi adicionado, tente outro.");
                         } else {
-                            Object campos[] = {objParCrc.getIdModulo(), objParCrc.getNomeModulo(), objParCrc.getHabilitarImp(), objParCrc.getIdTelas(), objParCrc.getNomeTela()};
+                            Object campos[] = {objParCrc.getIdImp(), objParCrc.getIdModulo(), objParCrc.getNomeModulo(), objParCrc.getHabilitarImp(), objParCrc.getIdTelas(), objParCrc.getNomeTela()};
                             DTM_imp.addRow(campos);
                             // BARRA DE ROLAGEM HORIZONTAL
                             jTabelaImplementacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -3234,6 +3236,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                             centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                             //
                             jTabelaImplementacoes.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                            jTabelaImplementacoes.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                             jTabelaImplementacoes.getColumnModel().getColumn(3).setCellRenderer(centralizado);
                             pGRAVAR_imp();
                             pLIMPAR_CAMPOS_imp();
@@ -3259,7 +3262,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     if (resposta == JOptionPane.YES_OPTION) {
                         DefaultTableModel dtm = (DefaultTableModel) jTabelaImplementacoes.getModel();
                         dtm.removeRow(jTabelaImplementacoes.getSelectedRow());
-                        objParCrc.setIdImp(pCODIGO_registro);
+//                        pCOD_mod
+                        objParCrc.setIdImp(Integer.parseInt(pCOD_mod));
                         control.excluirImp(objParCrc);
                         pLIMPAR_CAMPOS_imp();
                     }
@@ -3284,13 +3288,16 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     jBtExcluirImp.setEnabled(true);
                     jBtAlterarImp.setEnabled(true);
                     jBtPesquisar.setEnabled(true);
+                    //
                     pCOD_mod = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 0);
-                    pMOD = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 1);
+//                    pCODIGO_modulo = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 1);
+                    pMOD = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 2);
                     jComboBoxModuloImplementacao.setSelectedItem(pMOD);
-                    String pHABILITA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 2);
+                    String pHABILITA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 3);
                     jComboBoxHabilitar.setSelectedItem(pHABILITA);
-                    pCOD_tel = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 3);
-                    pTELA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 4);
+                    pCOD_tel = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 4);
+                    pTELA = "" + jTabelaImplementacoes.getValueAt(jTabelaImplementacoes.getSelectedRow(), 5);
+                    //
                     jComboBoxTelaImplementacao.setSelectedItem(pTELA);
                     control.pPESQUISAR_registro(objParCrc);
                     jComboBoxHabilitar.addItem(objParCrc.getHabilitarImp());
@@ -3322,6 +3329,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Selecione um opção.");
                 } else {
                     DefaultTableModel DTM_imp = (DefaultTableModel) jTabelaImplementacoes.getModel();
+                    objParCrc.setIdImp(Integer.parseInt(pCOD_mod));
                     objParCrc.setIdModulo(pCODIGO_modulo);
                     objParCrc.setIdPar(Integer.valueOf(IDLanc));
                     objParCrc.setNomeModulo((String) jComboBoxModuloImplementacao.getSelectedItem());
@@ -3331,7 +3339,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     control.pPESQUISAR_tela(objParCrc);
                     control.pPESQUISAR_registro(objParCrc);
                     objParCrc.getIdTelas();
-                    Object campos[] = {objParCrc.getIdModulo(), objParCrc.getNomeModulo(), objParCrc.getHabilitarImp(), objParCrc.getIdTelas(), objParCrc.getNomeTela()};
+                    Object campos[] = {objParCrc.getIdImp(), objParCrc.getIdModulo(), objParCrc.getNomeModulo(), objParCrc.getHabilitarImp(), objParCrc.getIdTelas(), objParCrc.getNomeTela()};
                     DTM_imp.addRow(campos);
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaImplementacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -3340,6 +3348,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                     //
                     jTabelaImplementacoes.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaImplementacoes.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                     jTabelaImplementacoes.getColumnModel().getColumn(3).setCellRenderer(centralizado);
                     pALTERAR_imp();
                     pLIMPAR_CAMPOS_imp();
@@ -4253,7 +4262,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorENCERRA_01() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
+            conecta.executaSQL("SELECT "
+                    + "* "
+                    + "FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaEncerraUm.addItem(conecta.rs.getString("NomeFunc"));
@@ -4369,7 +4380,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setNomeModulo((String) jComboBoxModuloImplementacao.getSelectedItem());
         objParCrc.setIdTelas(pCODIGO_tela);
         objParCrc.setNomeTela((String) jComboBoxTelaImplementacao.getSelectedItem());
-        objParCrc.setIdImp(pCODIGO_registro);
+        objParCrc.setIdImp(Integer.parseInt(pCOD_mod));
         control.alterarImp(objParCrc);
         if (pRESPOSTA_gravado.equals("Sim")) {
             limparTabela();
@@ -4386,7 +4397,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaImplementacoes.getModel();
         try {
             for (ParametrosCrc pp : control.read()) {
-                dadosOrigem.addRow(new Object[]{pp.getIdModulo(), pp.getNomeModulo(), pp.getHabilitarImp(), pp.getIdTelas(), pp.getNomeTela()});
+                dadosOrigem.addRow(new Object[]{pp.getIdImp(), pp.getIdModulo(), pp.getNomeModulo(), pp.getHabilitarImp(), pp.getIdTelas(), pp.getNomeTela()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaImplementacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -4394,6 +4405,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
                 jTabelaImplementacoes.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaImplementacoes.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 jTabelaImplementacoes.getColumnModel().getColumn(3).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
