@@ -849,16 +849,16 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jIdSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
                             .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDocumentoSaida)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jDocumentoSaida)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jLabel10))
                 .addContainerGap())
         );
@@ -868,17 +868,17 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
-                        .addComponent(jLabel13)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(jLabel12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisarInternos)
-                    .addComponent(jIdSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDocumentoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDocumentoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jIdSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisarInternos)
+                    .addComponent(jIdInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1287,7 +1287,10 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OBITOS_INTERNOS_EXTERNO "
+            conecta.executaSQL("SELECT "
+                    + "IdLanc, "
+                    + "StatusLanc "
+                    + "FROM OBITOS_INTERNOS_EXTERNO "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "'");
             conecta.rs.first();
             jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
@@ -1456,7 +1459,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
-        jDocumentoSaida.setDocument(new LimiteDigitosNum(14));
+//        jDocumentoSaida.setDocument(new LimiteDigitosNum(14));
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
     }
@@ -1805,7 +1808,9 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
     public void buscarId() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OBITOS_INTERNOS_EXTERNO");
+            conecta.executaSQL("SELECT "
+                    + "IdLanc "
+                    + "FROM OBITOS_INTERNOS_EXTERNO");
             conecta.rs.last();
             jIdLanc.setText(conecta.rs.getString("IdLanc"));
         } catch (SQLException ex) {
@@ -1906,7 +1911,11 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
 
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ROLVISITAS "
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc, "
+                    + "StatusRol, "
+                    + "ObsPortaria "
+                    + "FROM ROLVISITAS "
                     + "WHERE IdInternoCrc='" + jIdInternoEvadido.getText() + "' "
                     + "AND StatusRol='" + statusRol + "'");
             conecta.rs.first();

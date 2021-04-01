@@ -78,7 +78,6 @@ public class ControleItensLocacaoInternos {
     }
 
     // Excluir o interno da cela quando sair da portaria
-
     public ItensLocacaoInternos deletarInternoLocacaoSaida(ItensLocacaoInternos objItensLoca) {
 
         conecta.abrirConexao();
@@ -95,8 +94,17 @@ public class ControleItensLocacaoInternos {
     public void buscarInternoCrc(String desc, int codigo) {
         conecta.abrirConexao();
         try {
-//            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'AND IdInternoCrc='" + codigo + "'AND SituacaoCrc='" + situacaoEnt + "' OR NomeInternoCrc='" + desc + "'AND IdInternoCrc='" + codigo + "'AND SituacaoCrc='" + situacaoRet + "'");
-             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'AND IdInternoCrc='" + codigo + "' AND SituacaoCrc='" + situacaoEnt  + "'OR NomeInternoCrc='" +  desc  +"'AND IdInternoCrc='" + codigo  + "'AND SituacaoCrc='" + situacaoRet + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc, "
+                    + "NomeInternoCrc, "
+                    + "SituacaoCrc "
+                    + "FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + codigo + "' "
+                    + "AND SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + codigo + "' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
             conecta.rs.first();
             codInterno = conecta.rs.getInt("IdInternoCrc");
         } catch (Exception e) {
