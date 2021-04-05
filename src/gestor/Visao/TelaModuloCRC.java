@@ -138,6 +138,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private TelaCancelRegistroPortaria_RETORNOS objCancel_RETORNOS = null;
     private TelaCancelRegistroSaidas_PORTARIA_CRC objCancel_SAIDAS = null;
     private TelaSaidaSimbolica objSaidaSimb = null;
+    //INICIADO EM 05/04/2021
+    private TelaCancelamentoEvasao objCancelaEvasao = null;
     // 
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -310,6 +312,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     //
     public static String telaSaidaSimbolicaManu_CRC = "Movimentação:Saída Simbólica:Manutenção";
     public static String telaSaidaSimbolicaInt_CRC = "Movimentação:Saída Simbólica:Internos";
+    //
+    public static String telaCancelamentoEvasao_CRC = "Movimentação:Saída Simbólica:Manutenção";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -377,6 +382,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     //CANCELAMENTO DE RETORNO
     String pNomeCRM = "";
     String pNomeCRI = "";
+    //CANCELEMANTO DE EVSÃO
+    String pNomeCEI = "";
     //MUDANÇA DE REGIME PROGRESSÃO *
     String pNomeMRPM = "";
     String pNomeMRPI = "";
@@ -493,6 +500,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jCancelarRegistro_RETORNOS = new javax.swing.JMenuItem();
         jSeparator33 = new javax.swing.JPopupMenu.Separator();
         jCancelamentoSaida_CRC_PORTARIA = new javax.swing.JMenuItem();
+        jCancelamentoEvasao = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         MudancaRegimePenalRegressao = new javax.swing.JMenuItem();
@@ -923,6 +931,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenu12.add(jCancelamentoSaida_CRC_PORTARIA);
+
+        jCancelamentoEvasao.setText("Cancelamento de Evasão de Internos");
+        jCancelamentoEvasao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelamentoEvasaoActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jCancelamentoEvasao);
 
         jMenuMovimentacao.add(jMenu12);
         jMenuMovimentacao.add(jSeparator15);
@@ -3905,6 +3921,40 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jSaidaSimbolicaActionPerformed
 
+    private void jCancelamentoEvasaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelamentoEvasaoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelamentoEvasao_CRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoEvasao_CRC) && codAbrirCRC == 1) {
+            if (objCancelaEvasao == null || objCancelaEvasao.isClosed()) {
+                objCancelaEvasao = new TelaCancelamentoEvasao();
+                jPainelCRC.add(objCancelaEvasao);
+                objCancelaEvasao.setVisible(true);
+            } else {
+                if (objCancelaEvasao.isVisible()) {
+                    if (objCancelaEvasao.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancelaEvasao.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancelaEvasao.toFront(); // traz para frente
+                        objCancelaEvasao.pack();//volta frame 
+                    }
+                } else {
+                    objCancelaEvasao = new TelaCancelamentoEvasao();
+                    TelaModuloCRC.jPainelCRC.add(objCancelaEvasao);//adicona frame ao JDesktopPane  
+                    objCancelaEvasao.setVisible(true);
+                }
+            }
+            try {
+                objCancelaEvasao.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jCancelamentoEvasaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3966,6 +4016,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCalculadoraExecucaoPenal;
     private javax.swing.JMenuItem jCalculadoraPena;
     private javax.swing.JMenuItem jCalculadoraWindows;
+    private javax.swing.JMenuItem jCancelamentoEvasao;
     private javax.swing.JMenuItem jCancelamentoSaida_CRC_PORTARIA;
     private javax.swing.JMenuItem jCancelarRegistro_NOVA_ENTRADA;
     private javax.swing.JMenuItem jCancelarRegistro_PRIMEIRA_VEZ;
@@ -5342,6 +5393,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomeSSI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //CANCELAMENTO DE EVASÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelamentoEvasao_CRC + "'");
+            conecta.rs.first();
+            pNomeCEI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         // TIPO DE OPERAÇÃO
         if (!pNomeOP.equals(telaTipoOPCRC) || pNomeOP == null || pNomeOP.equals("")) {
@@ -5798,6 +5857,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaSaidaSimbolicaInt_CRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //CANCELAMENTO DE EVASÃO
+        if (!pNomeCEI.equals(telaCancelamentoEvasao_CRC) || pNomeCEI == null || pNomeCEI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelamentoEvasao_CRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

@@ -105,7 +105,7 @@ public class ControleAdmissaoEnfermagem {
         buscarInterno(objAdmEnfermagem.getNomeInterno(), objAdmEnfermagem.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAOENFERMEIRA SET StatusLanc=?,DataLanc=?,IdInternoCrc=?,EstadoEmocional=?,SonoRepouso=?,NivelConsciencia=?,PressaoArterial=?,Hemograma=?,Temperatura=?,FrequenciaRespiratoria=?, "
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAOENFERMEIRA SET StatusLanc=?,DataLanc=?,IdInternoCrc=?,EstadoEmocional=?,SonoRepouso=?,NivelConsciencia=?,PressaoArterial=?,Hemograma=?,Temperatura=?,FrequenciaRespiratoria=?,"
                     + "Peso=?,FrequenciaCardiaca=?,UsaMedicamentos=?,QualMedicacao=?,Locomocao=?,AcuidadeVisual=?,AcuidadeAuditiva=?,FuncaoMotora=?,QualFuncaoMotora=?,FalaLinguagem=?,"
                     + "QualFala=?,Pele=?,Mucosa=?,TipoPele=?,Localizacao=?,Cabelos=?,Boca=?,FuncaoRespiratoria=?,Torax=?,FuncaoIntestinal=?,DiasConstipado=?,Abdome=?,"
                     + "FuncaoVesical=?,Genitalia=?,QualGenitalia=?,Vacinado=?,QuaisVacinas=?,Vdrl=?,HepatiteC=?,HepatiteB=?,Hiv=?,Cirurgias=?,QuaisCirurgias=?,UsuarioDrogas=?,QuaisDrogas=?,"
