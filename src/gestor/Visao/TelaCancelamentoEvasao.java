@@ -18,6 +18,7 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -425,7 +426,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,6 +443,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
         grupoBotoes.add(jRBtSaidaTemporaria);
         jRBtSaidaTemporaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBtSaidaTemporaria.setForeground(new java.awt.Color(0, 0, 255));
+        jRBtSaidaTemporaria.setSelected(true);
         jRBtSaidaTemporaria.setText("S. Temporária");
         jRBtSaidaTemporaria.setToolTipText("Saída Temporária");
         jRBtSaidaTemporaria.setEnabled(false);
@@ -720,6 +722,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Data Evasão");
 
+        jIdRegistroEvasao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdRegistroEvasao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdRegistroEvasao.setEnabled(false);
 
@@ -1078,8 +1081,8 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel3);
@@ -1092,12 +1095,10 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addGap(2, 2, 2))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pack();
+        setBounds(300, 30, 483, 484);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesquisaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaCodigoActionPerformed
@@ -1244,6 +1245,8 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
         pPESQUISAR_acessos.pesquisarTelasAcesso(objCampos);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || objCampos.getNomeGrupo().equals("ADMINISTRADORES") || objCampos.getCodigoUsuario() == objCampos.getCodigoUsuarioAcesso() && objCampos.getNomeTelaAcesso().equals(telaCancelamentoEvasao_CRC) && objCampos.getCodigoIncluir() == 1) {
             acao = 1;
+            bloquearBotoes(!true);
+            habilitarCampos(true);
             Novo();
             corCampos();
             statusMov = "Incluiu";
@@ -1268,7 +1271,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             } else {
                 acao = 2;
                 bloquearBotoes(!true);
-                bloquearCampos(!true);
+                habilitarCampos(!true);
                 Alterar();
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
@@ -1380,6 +1383,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                     BUSCAR_codigo();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos(!true);
                     Salvar();
                     if (pRESPOSTA_cancel.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -1396,6 +1400,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                     CONTROLE.alterarCancelamentoEvasaoInTernos(objCancelaEvasao);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos(!true);
                     Salvar();
                     if (pRESPOSTA_cancel.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -1501,13 +1506,13 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     private void jBtPesquisaEvasaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaEvasaoActionPerformed
         // TODO add your handling code here:
         if (jRBtSaidaTemporaria.isSelected()) {
-            TelaPesqInternosEvadidosManual objPesqIntMan = new TelaPesqInternosEvadidosManual();
-            TelaModuloCRC.jPainelCRC.add(objPesqIntMan);
-            objPesqIntMan.show();
+            TelaPesquisaCancelaEvadidos_TMP objPesqCanEvaST = new TelaPesquisaCancelaEvadidos_TMP();
+            TelaModuloCRC.jPainelCRC.add(objPesqCanEvaST);
+            objPesqCanEvaST.show();
         } else if (jRBtSaidaLaborativa.isSelected()) {
-            TelaPesqInternosEvadidosLaborativa objPesqIntEvaLab = new TelaPesqInternosEvadidosLaborativa();
-            TelaModuloCRC.jPainelCRC.add(objPesqIntEvaLab);
-            objPesqIntEvaLab.show();
+            TelaPesquisaCancelaEvadidos_LAB objPesqCanEvaLab = new TelaPesquisaCancelaEvadidos_LAB();
+            TelaModuloCRC.jPainelCRC.add(objPesqCanEvaLab);
+            objPesqCanEvaLab.show();
         } else if (jRBtSaidaEstudos.isSelected()) {
             TelaPesqInternosEvadidosEducacao objPesqIntEvaEdu = new TelaPesqInternosEvadidosEducacao();
             TelaModuloCRC.jPainelCRC.add(objPesqIntEvaEdu);
@@ -1542,7 +1547,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCodigo;
     private javax.swing.JComboBox<String> jComboBoxCargo;
     private com.toedter.calendar.JDateChooser jDataDocumento;
-    private com.toedter.calendar.JDateChooser jDataEvasao;
+    public static com.toedter.calendar.JDateChooser jDataEvasao;
     public static com.toedter.calendar.JDateChooser jDataLanc;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
@@ -1550,7 +1555,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jDocumentoSaida;
     public static javax.swing.JTextField jIdInternoEvadido;
     public static javax.swing.JTextField jIdLanc;
-    private javax.swing.JTextField jIdRegistroEvasao;
+    public static javax.swing.JTextField jIdRegistroEvasao;
     public static javax.swing.JTextField jIdSaida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1604,12 +1609,12 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRBtSaidaTemporaria;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jStatusEvasao;
+    public static javax.swing.JTextField jStatusEvasao;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaCancelamentoEvasao;
-    private javax.swing.JTextField jTipoEvasao;
+    public static javax.swing.JTextField jTipoEvasao;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -1647,6 +1652,11 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
         jStatusLanc.setEnabled(opcao);
         jOperacao.setEnabled(opcao);
         jDataLanc.setEnabled(opcao);
+        jRBtSaidaTemporaria.setEnabled(opcao);
+        jRBtSaidaLaborativa.setEnabled(opcao);
+        jRBtSaidaEstudos.setEnabled(opcao);
+        jRBtSaidaMedico.setEnabled(opcao);
+        jRBtSaidaDomiciliar.setEnabled(opcao);
         //ABA DADOS LIBERAÇÃO
         jNomeResponsavel.setEnabled(opcao);
         jComboBoxCargo.setEnabled(opcao);
@@ -1667,6 +1677,11 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     }
 
     public void habilitarCampos(boolean opcao) {
+        jRBtSaidaTemporaria.setEnabled(opcao);
+        jRBtSaidaLaborativa.setEnabled(opcao);
+        jRBtSaidaEstudos.setEnabled(opcao);
+        jRBtSaidaMedico.setEnabled(opcao);
+        jRBtSaidaDomiciliar.setEnabled(opcao);
         //ABA DADOS LIBERAÇÃO
         jNomeResponsavel.setEnabled(opcao);
         jComboBoxCargo.setEnabled(opcao);
@@ -1712,7 +1727,10 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     }
 
     public void Novo() {
-        jBtSalvar.setEnabled(true);
+        jStatusLanc.setText("ABERTO");
+        jDataLanc.setCalendar(Calendar.getInstance());
+        //
+        jBtSalvar.setEnabled(true);              
         jBtCancelar.setEnabled(true);
         jBtPesquisaEvasao.setEnabled(true);
     }

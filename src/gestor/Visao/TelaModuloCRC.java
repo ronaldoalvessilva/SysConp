@@ -5923,6 +5923,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         PESQUISAR_IMPLEMENTA_CRC_002(telaConsultaGerencialInternosExternaCRC);
         PESQUISAR_IMPLEMENTA_CRC_003(telaEmissaoAtestadoReclusao);
         PESQUISAR_IMPLEMENTA_CRC_004(solicitaAtestaReclusoCRC);
+        PESQUISAR_IMPLEMENTA_CRC_005(telaCancelamentoEvasao_CRC);
     }
 
     public void PESQUISAR_IMPLEMENTA_CRC_001(String pNOME_tela) {
@@ -6018,6 +6019,25 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             jSolicitacaoEmissaoAtestadiReclusao.setVisible(true);
         }
     }
+    public void PESQUISAR_IMPLEMENTA_CRC_005(String pNOME_tela){
+        objParCrc.setNomeTela(pNOME_tela);
+        controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
+        controlImp.pPESQUISAR_liberacao(objParCrc);
+        if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Não") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelamentoEvasao.setVisible(!true);
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelamentoEvasao.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() != null && objParCrc.getHabilitarImp().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jCancelamentoEvasao.setVisible(true);
+        } else if (objParCrc.getHabilitarImp() == null) {
+            jCancelamentoEvasao.setVisible(!true);
+        } else if (objParCrc.getHabilitarImp().equals("")) {
+            jCancelamentoEvasao.setVisible(!true);
+        } else {
+            jCancelamentoEvasao.setVisible(true);
+        }
+    }
+//    TelaCancelamentoEvasao objCancelaEvasao
 
     //  Verificar depois a utilização dessa tela no projeto
 //            TelaConsultaRetornoInternos objConsultaRetornoInterno = new TelaConsultaRetornoInternos();

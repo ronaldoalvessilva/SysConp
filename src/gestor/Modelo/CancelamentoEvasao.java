@@ -65,6 +65,7 @@ public class CancelamentoEvasao {
     private String confirmaEvasao;
     private String confirmaSaida;
     private Date dataEvasaoTmp;
+    private Date dataPrevRetorno;
     private String obito;
     private String confirmaObito;
     //DADOS DO INTERNO E DO KIT
@@ -138,7 +139,7 @@ public class CancelamentoEvasao {
     public CancelamentoEvasao() {
     }
 
-    public CancelamentoEvasao(Integer idCancelaEvasao, String statusCancelarEvasao, Date dataRegistroCancelamento, Date dataCancelaEvasao, int tipoOperacaoCancelar, String descricaoOperacaoCancela, String nomeResponsavel, String cargoResponsavel, String numeroDocumentoCancela, Date dataCancelamento, String motivoCancelamento, String statusLanc, Date dataLanc, String tipoOperacao, String nrDocSaida, int tipoEvasao, int idInternoCrc, String nomeInternoCrc, String maeInterno, String paiInterno, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String internoEvadido, Date dataEvasao, Date dataDocumento, int idItem, String nomeInterno, Date dataEntrada, String horarioEntrada, Date dataSaida, String horarioSaida, int qtdInt, String mesReferencia, String horaInsert, String horaUp, byte[] assinaturaDigital, int idItemSaida, Date dataRetorno, String nomeDestino, String documento, int idInternoSaida, String confirmaRetorno, String confirmaEvasao, String confirmaSaida, Date dataEvasaoTmp, String obito, String confirmaObito, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek, String descricaoDoc, String regime, String tornozeleira, String descricaoCela, int qtdLanc, Date dataRol, String statusRol, String dataFechamento, String horaFechamento, String recebeVisita, int idInstituicao, String nomeInstituicaoRel, int domingo, int segunda, int terca, int quarta, int quinta, int sexta, int sabado, float valorSaque, String favorecido, String reciboSaque, float valorDeposito, String depositante, String efetuado, Date dataLancMov, int idHist, int tipo, float valorLiberado, int idUsuario, String nomeUsuario, float saldoAtual, String tipoTrans, Integer idRegistroEvasao, Integer idRegistroLabor, Integer idRegistroEduca, Integer idSaida, int idDeposito, int idSaque, Integer idLancHist, Integer idLoca, Integer idCela, Integer idRol) {
+    public CancelamentoEvasao(Integer idCancelaEvasao, String statusCancelarEvasao, Date dataRegistroCancelamento, Date dataCancelaEvasao, int tipoOperacaoCancelar, String descricaoOperacaoCancela, String nomeResponsavel, String cargoResponsavel, String numeroDocumentoCancela, Date dataCancelamento, String motivoCancelamento, String statusLanc, Date dataLanc, String tipoOperacao, String nrDocSaida, int tipoEvasao, int idInternoCrc, String nomeInternoCrc, String maeInterno, String paiInterno, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String internoEvadido, Date dataEvasao, Date dataDocumento, int idItem, String nomeInterno, Date dataEntrada, String horarioEntrada, Date dataSaida, String horarioSaida, int qtdInt, String mesReferencia, String horaInsert, String horaUp, byte[] assinaturaDigital, int idItemSaida, Date dataRetorno, String nomeDestino, String documento, int idInternoSaida, String confirmaRetorno, String confirmaEvasao, String confirmaSaida, Date dataEvasaoTmp, Date dataPrevRetorno, String obito, String confirmaObito, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek, String descricaoDoc, String regime, String tornozeleira, String descricaoCela, int qtdLanc, Date dataRol, String statusRol, String dataFechamento, String horaFechamento, String recebeVisita, int idInstituicao, String nomeInstituicaoRel, int domingo, int segunda, int terca, int quarta, int quinta, int sexta, int sabado, float valorSaque, String favorecido, String reciboSaque, float valorDeposito, String depositante, String efetuado, Date dataLancMov, int idHist, int tipo, float valorLiberado, int idUsuario, String nomeUsuario, float saldoAtual, String tipoTrans, Integer idRegistroEvasao, Integer idRegistroLabor, Integer idRegistroEduca, Integer idSaida, int idDeposito, int idSaque, Integer idLancHist, Integer idLoca, Integer idCela, Integer idRol) {
         this.idCancelaEvasao = idCancelaEvasao;
         this.statusCancelarEvasao = statusCancelarEvasao;
         this.dataRegistroCancelamento = dataRegistroCancelamento;
@@ -189,6 +190,7 @@ public class CancelamentoEvasao {
         this.confirmaEvasao = confirmaEvasao;
         this.confirmaSaida = confirmaSaida;
         this.dataEvasaoTmp = dataEvasaoTmp;
+        this.dataPrevRetorno = dataPrevRetorno;
         this.obito = obito;
         this.confirmaObito = confirmaObito;
         this.kitInicial = kitInicial;
@@ -952,6 +954,20 @@ public class CancelamentoEvasao {
      */
     public void setDataEvasaoTmp(Date dataEvasaoTmp) {
         this.dataEvasaoTmp = dataEvasaoTmp;
+    }
+
+    /**
+     * @return the dataPrevRetorno
+     */
+    public Date getDataPrevRetorno() {
+        return dataPrevRetorno;
+    }
+
+    /**
+     * @param dataPrevRetorno the dataPrevRetorno to set
+     */
+    public void setDataPrevRetorno(Date dataPrevRetorno) {
+        this.dataPrevRetorno = dataPrevRetorno;
     }
 
     /**
