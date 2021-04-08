@@ -6,7 +6,6 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleCancelamentoEvasao;
-import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Modelo.CancelamentoEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jDataEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jDataSaida;
@@ -18,8 +17,6 @@ import static gestor.Visao.TelaCancelamentoEvasao.jNomeInternoEvadido;
 import static gestor.Visao.TelaCancelamentoEvasao.jStatusEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jTipoEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.pTOTAL_registros;
-import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
-import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

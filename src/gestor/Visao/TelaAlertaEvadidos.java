@@ -89,8 +89,10 @@ public class TelaAlertaEvadidos extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String idLanc = "" + jTabelaIntEvadidos.getValueAt(jTabelaIntEvadidos.getSelectedRow(), 0);   
             String idInterno = "" + jTabelaIntEvadidos.getValueAt(jTabelaIntEvadidos.getSelectedRow(), 1);         
-            String nomeInterno = "" + jTabelaIntEvadidos.getValueAt(jTabelaIntEvadidos.getSelectedRow(), 2);       
-            TelaEvadidosIndividual objEvaInternos = new TelaEvadidosIndividual();
+            String nomeInterno = "" + jTabelaIntEvadidos.getValueAt(jTabelaIntEvadidos.getSelectedRow(), 2);    
+            TelaEvadidosSaidaTemporariaManual objEvaInternos = new TelaEvadidosSaidaTemporariaManual();
+            //SUBSTITUÍDO PELA TELA ACIMA, POIS A ANTERIOR ESTAVA DESATUALIZADA (08/04/2021)
+//            TelaEvadidosIndividual objEvaInternos = new TelaEvadidosIndividual();
             TelaModuloCRC.jPainelCRC.add(objEvaInternos);
             objEvaInternos.show();
             //

@@ -5,7 +5,6 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
 import gestor.Controle.ControleCancelamentoEvasao;
 import gestor.Modelo.CancelamentoEvasao;
@@ -29,30 +28,21 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame {
+public class TelaPesquisaCancelaEvadidos_EDU extends javax.swing.JInternalFrame {
 
     CancelamentoEvasao objCancelaEvasao = new CancelamentoEvasao();
     ControleCancelamentoEvasao CONTROLE = new ControleCancelamentoEvasao();
-    //
+
     String dataEntrada, dataSaida, dataSaidaTemp;
-    String dataRetorno, dataPrevRetorno;
-    String dataBrasil;
-    String dataEvasao = ""; // Variavel que controla a saida temporaria junto com a evasão
-    String NrDocRetorno = "";
-    String NrDocRetornoNull = null;
-    String evadido = "";
     int flag;
     String nomeInterno;
-    public static String pCODIGO_LB_interno;
-    String horarioEntrada = "00:00";
-    public static int pTOTAL_REGISTROS_laborativa = 0;
-    public static String pCODIGO_LAB_saida;
-    public static String idItem_LAB;
+    String idInt;
+    public static int pTOTAL_REGISTRO_educa = 0;
 
     /**
      * Creates new form TelaPesqInternosEvadidosManual
      */
-    public TelaPesquisaCancelaEvadidos_LAB() {
+    public TelaPesquisaCancelaEvadidos_EDU() {
         initComponents();
     }
 
@@ -67,22 +57,16 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPesqNomeInternoEvadido_LAB = new javax.swing.JTextField();
-        jBtPesqNomeInternoEvadido_LAB = new javax.swing.JButton();
+        jPesqNomeInternoEvadido_EDU = new javax.swing.JTextField();
+        jBtPesqNomeInternoEvadido = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jBtSelecionar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaIntEvadidosSaidaLaborativa = new javax.swing.JTable();
-        jPanel32 = new javax.swing.JPanel();
-        jtotalRegistros = new javax.swing.JLabel();
-        jPanel31 = new javax.swing.JPanel();
-        jPanel30 = new javax.swing.JPanel();
-        jLabel63 = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("...::: Pesquisa de Internos Saída Laborativa {Evadido} :::..");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
+        setTitle("...::: Pesquisa de Internos Saída Educacional {Evadido} :::..");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -90,13 +74,13 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Nome:");
 
-        jPesqNomeInternoEvadido_LAB.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesqNomeInternoEvadido_EDU.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jBtPesqNomeInternoEvadido_LAB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqNomeInternoEvadido_LAB.setContentAreaFilled(false);
-        jBtPesqNomeInternoEvadido_LAB.addActionListener(new java.awt.event.ActionListener() {
+        jBtPesqNomeInternoEvadido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqNomeInternoEvadido.setContentAreaFilled(false);
+        jBtPesqNomeInternoEvadido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqNomeInternoEvadido_LABActionPerformed(evt);
+                jBtPesqNomeInternoEvadidoActionPerformed(evt);
             }
         });
 
@@ -116,21 +100,21 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeInternoEvadido_LAB)
+                .addComponent(jPesqNomeInternoEvadido_EDU)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesqNomeInternoEvadido_LAB, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtPesqNomeInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPesqNomeInternoEvadido_LAB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPesqNomeInternoEvadido_EDU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jBtPesqNomeInternoEvadido_LAB, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqNomeInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -161,11 +145,11 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
 
             },
             new String [] {
-                "Registro", "Código", "Nome do Interno", "Id Doc.", "Data Saída", "Dt. Entrada", "H. Entrada"
+                "Código", "Nome do Interno", "Id Doc.", "Data Saída", "H. Saída", "Data Entrada", "H. Entrada"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -179,66 +163,21 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         });
         jScrollPane1.setViewportView(jTabelaIntEvadidosSaidaLaborativa);
         if (jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumnCount() > 0) {
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setMinWidth(250);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setMaxWidth(250);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMinWidth(50);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMaxWidth(50);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMaxWidth(70);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setMinWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setMaxWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMinWidth(70);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMaxWidth(70);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMinWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMaxWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMinWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMaxWidth(60);
         }
-
-        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-
-        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
-        jPanel32.setLayout(jPanel32Layout);
-        jPanel32Layout.setHorizontalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-        jPanel32Layout.setVerticalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
-        );
-
-        jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-
-        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
-        jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 14, Short.MAX_VALUE)
-        );
-
-        jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-
-        jLabel63.setText("Total de Registros:");
-
-        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
-        jPanel30.setLayout(jPanel30Layout);
-        jPanel30Layout.setHorizontalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel30Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel63))
-        );
-        jPanel30Layout.setVerticalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel63)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -247,19 +186,13 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -271,43 +204,53 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
                     .addComponent(jBtSair))
-                .addGap(3, 3, 3))
+                .addGap(5, 5, 5))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 594, 321);
+        setBounds(300, 20, 636, 286);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido_LAB.getText().equals("")) {
+        if (jPesqNomeInternoEvadido_EDU.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome de interno a ser selecionado.");
-        } else if (pCODIGO_LB_interno == null) {
+        } else if (idInt == null) {
             JOptionPane.showMessageDialog(rootPane, "Selecione corretamente o nome do interno..");
         } else {
             //ABA DADOS DO INTERNO - ITENSLABORINTERNO
-            CONTROLE.PESQUISAR_DADOS_INTERNO_LAB_evasao(objCancelaEvasao);
+            CONTROLE.PESQUISAR_DADOS_INTERNO_EDU_evasao(objCancelaEvasao);
             jIdInternoEvadido.setText(String.valueOf(objCancelaEvasao.getIdInternoCrc()));
             jNomeInternoEvadido.setText(objCancelaEvasao.getNomeInternoCrc());
             jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
             jDataSaida.setDate(objCancelaEvasao.getDataSaida());
             //ABA DADOS LANÇAMENTO DA EVASÃO - EVADIDOIND
-            CONTROLE.ENVIAR_DADOS_REGISTRO_LB_evasao(objCancelaEvasao);
+            CONTROLE.ENVIAR_DADOS_REGISTRO_ED_evasao(objCancelaEvasao);
             jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdItem()));
             jStatusEvasao.setText(objCancelaEvasao.getStatusLanc());
             jDataEvasao.setDate(objCancelaEvasao.getDataEvasao());
             jTipoEvasao.setText(objCancelaEvasao.getTipoOperacao());
+//            try {
+//                conecta.executaSQL("SELECT "
+//                        + "* "
+//                        + "FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
+//                        + "INNER JOIN PRONTUARIOSCRC "
+//                        + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                        + "WHERE NomeInternoCrc='" + nomeInterno + "'");
+//                conecta.rs.first();
+//                jIdInternoEvadido.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+//                jNomeInternoEvadido.setText(conecta.rs.getString("NomeInternoCrc"));
+//                jIdSaida.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+//                jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
+//            } catch (SQLException ex) {
+//                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
+//            }
             dispose();
         }
     }//GEN-LAST:event_jBtSelecionarActionPerformed
@@ -317,15 +260,34 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
+    private void jBtPesqNomeInternoEvadidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadidoActionPerformed
+        // TODO add your handling code here:
+        if (jPesqNomeInternoEvadido_EDU.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+        } else {
+            PREENCHER_TABELA_EVADIDO_EDUCACAO_nome();
+            if (pTOTAL_REGISTRO_educa == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não exitem dados a serem exibidos.");
+            }
+//                PREENCHER_TABELA_EVADIDO_EDUCACAO_todos("SELECT "
+//                        + "* "
+//                        + "FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
+//                        + "INNER JOIN PRONTUARIOSCRC "
+//                        + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                        + "WHERE Evadido='" + evadido + "' "
+//                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+////                        + "AND DataEntrada<'" + dataSisConvert + "' "
+//                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+        }
+    }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
+
     private void jTabelaIntEvadidosSaidaLaborativaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaIntEvadidosSaidaLaborativaMouseClicked
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            idItem_LAB = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 0);            
-            pCODIGO_LB_interno = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 1);
-            nomeInterno = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 2);
-            jPesqNomeInternoEvadido_LAB.setText(nomeInterno);
-            pCODIGO_LAB_saida = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 3);
+            nomeInterno = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 1);
+            jPesqNomeInternoEvadido_EDU.setText(nomeInterno);
+            idInt = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaIntEvadidosSaidaLaborativaMouseClicked
 
@@ -333,47 +295,33 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.PREENCHER_TABELA_EVADIDOS_SLAB_todos();
-            if (pTOTAL_REGISTROS_laborativa == 0) {
-                JOptionPane.showMessageDialog(rootPane, "Não existe registros a serem listados.");
+            this.PREENCHER_TABELA_EVADIDO_EDUCACAO_todos();
+            if (pTOTAL_REGISTRO_educa == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não exitem dados a serem exibidos.");
             }
         } else {
             LIMPAR_tabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
-    private void jBtPesqNomeInternoEvadido_LABActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadido_LABActionPerformed
-        // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido_LAB.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        } else {
-            PREENCHER_TABELA_EVADIDOS_SLAB_nome();
-        }
-    }//GEN-LAST:event_jBtPesqNomeInternoEvadido_LABActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtPesqNomeInternoEvadido_LAB;
+    private javax.swing.JButton jBtPesqNomeInternoEvadido;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSelecionar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel63;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
-    private javax.swing.JPanel jPanel32;
-    public static javax.swing.JTextField jPesqNomeInternoEvadido_LAB;
+    public static javax.swing.JTextField jPesqNomeInternoEvadido_EDU;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaIntEvadidosSaidaLaborativa;
-    private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void PREENCHER_TABELA_EVADIDOS_SLAB_nome() {
+    public void PREENCHER_TABELA_EVADIDO_EDUCACAO_todos() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno ", "Id Doc.", "Data Saída", "H. Saída", "Dt.Entrada", "H.Entrada"};
         try {
-            for (CancelamentoEvasao pp : CONTROLE.LISTA_REGISTROS_EVADIDOS_LB_nome()) {
+            for (CancelamentoEvasao pp : CONTROLE.LISTA_REGISTROS_EVADIDOS_ED_todos()) {
                 // Formatar a data Saida
                 dataSaidaTemp = String.valueOf(pp.getDataSaida());
                 if (dataSaidaTemp != null) {
@@ -392,7 +340,6 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 }
                 dados.add(new Object[]{pp.getIdItem(), pp.getIdInternoCrc(), pp.getNomeInternoCrc(), pp.getIdRegistroLabor(), dataSaidaTemp, pp.getHorarioSaida(), dataEntrada, pp.getHorarioEntrada()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-                jTabelaIntEvadidosSaidaLaborativa.setModel(modelo);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setPreferredWidth(70);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setResizable(false);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(70);
@@ -415,15 +362,15 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 alinhaColunasTabelaEvadidosSaidaLaborativa();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaPesquisaCancelaEvadidos_LAB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaCancelaEvadidos_EDU.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void PREENCHER_TABELA_EVADIDOS_SLAB_todos() {
+    public void PREENCHER_TABELA_EVADIDO_EDUCACAO_nome() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno ", "Id Doc.", "Data Saída", "H. Saída", "Dt.Entrada", "H.Entrada"};
         try {
-            for (CancelamentoEvasao pp : CONTROLE.LISTA_REGISTROS_EVADIDOS_LB_todos()) {
+            for (CancelamentoEvasao pp : CONTROLE.LISTA_REGISTROS_EVADIDOS_ED_nome()) {
                 // Formatar a data Saida
                 dataSaidaTemp = String.valueOf(pp.getDataSaida());
                 if (dataSaidaTemp != null) {
@@ -442,7 +389,6 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 }
                 dados.add(new Object[]{pp.getIdItem(), pp.getIdInternoCrc(), pp.getNomeInternoCrc(), pp.getIdRegistroLabor(), dataSaidaTemp, pp.getHorarioSaida(), dataEntrada, pp.getHorarioEntrada()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-                jTabelaIntEvadidosSaidaLaborativa.setModel(modelo);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setPreferredWidth(70);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setResizable(false);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(70);
@@ -465,7 +411,7 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 alinhaColunasTabelaEvadidosSaidaLaborativa();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaPesquisaCancelaEvadidos_LAB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaCancelaEvadidos_EDU.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

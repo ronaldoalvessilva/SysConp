@@ -4236,7 +4236,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void buscarUsuario(String nomeUser) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "NomeUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nomeUser + "'");
             conecta.rs.first();
             codUsuario = conecta.rs.getInt("IdUsuario");
@@ -4785,11 +4788,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
-                        + "WHERE DataEntrada='" + jDataSistema.getText() + "' "
-                        + "AND RetCrc='" + confirmacaoCrc + "' "
-                        + "OR DataEntrada!='" + jDataSistema.getText() + "' "
-                        + "AND RetCrc='" + confirmacaoCrc + "'");
+                conecta.executaSQL("SELECT "
+                        + "v.DataEntrada, "
+                        + "v.RetCrc "
+                        + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS AS v "
+                        + "WHERE v.DataEntrada='" + jDataSistema.getText() + "' "
+                        + "AND v.RetCrc='" + confirmacaoCrc + "' "
+                        + "OR v.DataEntrada!='" + jDataSistema.getText() + "' "
+                        + "AND v.RetCrc='" + confirmacaoCrc + "'");
                 conecta.rs.first();
                 dataEntradaV = conecta.rs.getString("DataEntrada");
                 // Formatar a data Saida
@@ -4817,11 +4823,18 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Doc.Retorno", "Data Retorno", "Hora", "Código", "Nome do Interno "};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE RetCrc='" + confirmacaoCrc + "' "
-                    + "AND HoraEntrada!='" + horaRetorno + "'");
+            conecta.executaSQL("SELECT "
+                    + "v.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "v.RetCrc, "
+                    + "v.DocEntrada, "
+                    + "v.HoraEntrada, "
+                    + "v.HoraEntrada, "
+                    + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS AS v"
+                    + "INNER JOIN PRONTUARIOSCRC AS p"
+                    + "ON v.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE v.RetCrc='" + confirmacaoCrc + "' "
+                    + "AND v.HoraEntrada!='" + horaRetorno + "'");
             conecta.rs.first();
             do {
                 count = count + 1;
@@ -4875,7 +4888,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // CADASTRO
         // TIPO OPERAÇÃO
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaTipoOPCRC + "'");
             conecta.rs.first();
             pNomeOP = conecta.rs.getString("NomeTela");
@@ -4883,7 +4896,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // UNIDADE PRISIONAL
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaUnidadePrisionalCRC + "'");
             conecta.rs.first();
             pNomeUP = conecta.rs.getString("NomeTela");
@@ -4891,7 +4904,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // PAISES
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaPaisCRC + "'");
             conecta.rs.first();
             pNomePA = conecta.rs.getString("NomeTela");
@@ -4899,7 +4912,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // CIDADES
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCidadeCRC + "'");
             conecta.rs.first();
             pNomeCI = conecta.rs.getString("NomeTela");
@@ -4907,56 +4920,56 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // CADASTRO PRONTUARIOS
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioManuCRC + "'");
             conecta.rs.first();
             pNomePM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioPrintCRC + "'");
             conecta.rs.first();
             pNomePP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioImportCRC + "'");
             conecta.rs.first();
             pNomePI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioObsCRC + "'");
             conecta.rs.first();
             pNomeOB = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioBuscarEntCRC + "'");
             conecta.rs.first();
             pNomeBE = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioDocCRC + "'");
             conecta.rs.first();
             pNomeDO = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioPecFreCRC + "'");
             conecta.rs.first();
             pNomePF = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCadastroProntuarioPecCosCRC + "'");
             conecta.rs.first();
             pNomePC = conecta.rs.getString("NomeTela");
@@ -4964,7 +4977,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // CONSULTA
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaConsultaGerencialInternosExternaCRC + "'");
             conecta.rs.first();
             pNomeCGIE = conecta.rs.getString("NomeTela");
@@ -4973,14 +4986,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // MOVIMENTAÇÃO
         //ENTRADA DE INTERNOS NA UNIDADE
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaEntradaIntManuCRC + "'");
             conecta.rs.first();
             pNomeEIM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaEntradaIntIntCRC + "'");
             conecta.rs.first();
             pNomeEII = conecta.rs.getString("NomeTela");
@@ -4989,14 +5002,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // RETORNOS  
         // TRANSFERENCIA
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoTransManuCRC + "'");
             conecta.rs.first();
             pNomeRTM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoTransInteCRC + "'");
             conecta.rs.first();
             pNomeRTI = conecta.rs.getString("NomeTela");
@@ -5004,14 +5017,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //RETORNO ESPONTANEO   
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoRecapManuCRC + "'");
             conecta.rs.first();
             pNomeRRM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoRecapIntCRC + "'");
             conecta.rs.first();
             pNomeRRI = conecta.rs.getString("NomeTela");
@@ -5019,14 +5032,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // RETORNO MÉDICO
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoMedManuCRC + "'");
             conecta.rs.first();
             pNomeRMM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoMedInterCRC + "'");
             conecta.rs.first();
             pNomeRMI = conecta.rs.getString("NomeTela");
@@ -5034,14 +5047,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // RETORNO DE AUDIÊNCIA
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoAudManuCRC + "'");
             conecta.rs.first();
             pNomeRAM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoAudInteCRC + "'");
             conecta.rs.first();
             pNomeRAI = conecta.rs.getString("NomeTela");
@@ -5049,14 +5062,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // RETORNO ESPONTANEO
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoEspManuCRC + "'");
             conecta.rs.first();
             pNomeREM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoEspInteCRC + "'");
             conecta.rs.first();
             pNomeREI = conecta.rs.getString("NomeTela");
@@ -5064,14 +5077,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // RETORNO DE SAIDA TEMPORARIA
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoTmpManuCrc + "'");
             conecta.rs.first();
             pNomeRTMP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaRetornoTmpInteCrc + "'");
             conecta.rs.first();
             pNomeRTPI = conecta.rs.getString("NomeTela");
@@ -5079,14 +5092,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // PREVISÃO DE SAÍDA
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaPrevisaoSaidaManuCRC + "'");
             conecta.rs.first();
             pNomePSIM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaPrevisaoSaidaInteCRC + "'");
             conecta.rs.first();
             pNomePSII = conecta.rs.getString("NomeTela");
@@ -5094,28 +5107,28 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // SAIDA DE INTERNOS
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaSaidaInternosManuCRC + "'");
             conecta.rs.first();
             pNomeSIM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaSaidaInternosInteCRC + "'");
             conecta.rs.first();
             pNomeSII = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaSaidaInternosAgenCRC + "'");
             conecta.rs.first();
             pNomeSIA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaSaidaInternosPrevCRC + "'");
             conecta.rs.first();
             pNomeSIP = conecta.rs.getString("NomeTela");
@@ -5123,21 +5136,21 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // TRANSFERÊNCIA  
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaTransInternosManuCRC + "'");
             conecta.rs.first();
             pNomeTIM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaTransInternosInteCRC + "'");
             conecta.rs.first();
             pNomeTII = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaTransInternosExpoCRC + "'");
             conecta.rs.first();
             pNomeTIE = conecta.rs.getString("NomeTela");
@@ -5145,14 +5158,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // LISTA PASSAGEM ALBERGADOS 
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaListaPassagemManuCRC + "'");
             conecta.rs.first();
             pNomeLPM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaListaPassagemInteCRC + "'");
             conecta.rs.first();
             pNomeLPI = conecta.rs.getString("NomeTela");
@@ -5160,14 +5173,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //AGENDAMENTO DE ESCOLTA 
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaEscoltaManuCRC + "'");
             conecta.rs.first();
             pNomeEM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaEscoltaIntCRC + "'");
             conecta.rs.first();
             pNomeEI = conecta.rs.getString("NomeTela");
@@ -5175,14 +5188,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //CANCELAMENTO NOVA ENTRADA
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoRegEntManuCRC + "'");
             conecta.rs.first();
             pNomeCREM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoRegEntManuCRC + "'");
             conecta.rs.first();
             pNomeCREI = conecta.rs.getString("NomeTela");
@@ -5190,14 +5203,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //CANCELAMENTO PRIMEIRA ENTRADA
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoPrimeiraEntradaManu_CRC + "'");
             conecta.rs.first();
             pNomeCPEM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoPrimeiraEntradaInte_CRC + "'");
             conecta.rs.first();
             pNomeCPEI = conecta.rs.getString("NomeTela");
@@ -5205,14 +5218,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //CANCELAMENTO RETORNOS
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoRetornosManu_CRC + "'");
             conecta.rs.first();
             pNomeCRM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoRetornosInte_CRC + "'");
             conecta.rs.first();
             pNomeCRI = conecta.rs.getString("NomeTela");
@@ -5220,14 +5233,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //CANCELAMENTO DE SAÍDAS CRC E PORTARIA   
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoSaidaManu_CRC + "'");
             conecta.rs.first();
             pNomeCSM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoSaidaInte_CRC + "'");
             conecta.rs.first();
             pNomeCSI = conecta.rs.getString("NomeTela");
@@ -5235,14 +5248,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //MUDANÇA DE REGIME PROGRESSÃO *   
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaMudancaRegimeProManuCRC + "'");
             conecta.rs.first();
             pNomeMRPM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaMudancaRegimeProIntCRC + "'");
             conecta.rs.first();
             pNomeMRPI = conecta.rs.getString("NomeTela");
@@ -5250,14 +5263,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //MUDANÇA DE REGIME REGRESSÃO 
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaMudancaRegimeRegManuCRC + "'");
             conecta.rs.first();
             pNomeMaRRM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaMudancaRegimeRegIntCRC + "'");
             conecta.rs.first();
             pNomeMRRI = conecta.rs.getString("NomeTela");
@@ -5265,7 +5278,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //LANÇAMENTO DE INTERNOS EVADIDOS
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaLancarEvasaoManuCRC + "'");
             conecta.rs.first();
             pNomeLEM = conecta.rs.getString("NomeTela");
@@ -5273,7 +5286,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //LANÇAMENTO DE ÓBITO DE INTERNOS    
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaLancarObitoManuCRC + "'");
             conecta.rs.first();
             pNomeLOM = conecta.rs.getString("NomeTela");
@@ -5281,7 +5294,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //CUMPRIMENTO/NÃO CUMPRIMENTO DE ALVARÁ
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCumprimentoManuCRC + "'");
             conecta.rs.first();
             pNomeCM = conecta.rs.getString("NomeTela");
@@ -5289,105 +5302,105 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         // EMISSÃO/VALIDAÇÃO DE ATESTADO DE RECLUSÃO
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaEmissaoAtestadoReclusao + "'");
             conecta.rs.first();
             pNomeEAR = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + liberacaoAtestadoCRC + "'");
             conecta.rs.first();
             pNomeLA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + impressaoAtestadoCRC + "'");
             conecta.rs.first();
             pNomeIA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + validadorAtestadoCRC + "'");
             conecta.rs.first();
             pNomeVA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + revalidarAtestadoCRC + "'");
             conecta.rs.first();
             pNomeRAR = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + liberacaoRevAtestadoCRC + "'");
             conecta.rs.first();
             pNomeLRA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + impressaoRevalidarAtCRC + "'");
             conecta.rs.first();
             pNomeIRV = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + emissaoAtestaRecCRC + "'");
             conecta.rs.first();
             pNomeEARC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + liberacaoAtestado_CRC + "'");
             conecta.rs.first();
             pNomeLARC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + impressaoAtestado_CRC + "'");
             conecta.rs.first();
             pNomeIARC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + validadorAtestado_CRC + "'");
             conecta.rs.first();
             pNomeVARC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaProrrogracaoSaidaTMPPDManu_CRC + "'");
             conecta.rs.first();
             pNomePSTPM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaProrrogracaoSaidaTMPPDInt_CRC + "'");
             conecta.rs.first();
             pNomePSTPI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaSaidaSimbolicaManu_CRC + "'");
             conecta.rs.first();
             pNomeSSM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaSaidaSimbolicaInt_CRC + "'");
             conecta.rs.first();
             pNomeSSI = conecta.rs.getString("NomeTela");
@@ -5395,7 +5408,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
         //CANCELAMENTO DE EVASÃO
         try {
-            conecta.executaSQL("SELECT * FROM TELAS "
+            conecta.executaSQL("SELECT NomeTela FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelamentoEvasao_CRC + "'");
             conecta.rs.first();
             pNomeCEI = conecta.rs.getString("NomeTela");
@@ -5846,13 +5859,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaSaidaSimbolicaManu_CRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaSaidaSimbolicaInt_CRC + "'");
-            conecta.rs.first();
-            pNomeSSI = conecta.rs.getString("NomeTela");
-        } catch (SQLException ex) {
-        }
+        //SAIDA SIMBOLICA    
         if (!pNomeSSI.equals(telaSaidaSimbolicaInt_CRC) || pNomeSSI == null || pNomeSSI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -5883,14 +5890,16 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
+            conecta.executaSQL("SELECT NomeUsuario FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
             codigoUserCRC = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+            conecta.executaSQL("SELECT "
+                    + "* "
+                    + "FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                     + "WHERE IdUsuario='" + codigoUserCRC + "'");
@@ -5901,7 +5910,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+            conecta.executaSQL("SELECT "
+                    + "* "
+                    + "FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserCRC + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();

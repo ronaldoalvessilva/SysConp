@@ -1016,19 +1016,19 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
@@ -1041,14 +1041,14 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jBtAlterar)
-                    .addComponent(jBtExcluir)
-                    .addComponent(jBtSalvar)
-                    .addComponent(jBtCancelar)
-                    .addComponent(jBtFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtAuditoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtAuditoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(jBtSair, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addGap(4, 4, 4))
         );
 
@@ -1347,7 +1347,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o código da evasão que irá ser cancelada.");
             } else if (jIdInternoEvadido.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o código do interno que foi lançado a evasão.");
-            }else if(jMotivo.getText().equals("")){
+            } else if (jMotivo.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "O motivo do cancelmento da evasão do interno, não de ser em branco.\nA descrição do motivo do cancelamento da evasão, será lançada na observação do interno.");
             } else {
                 objCancelaEvasao.setStatusLanc(statusEva);
@@ -1442,8 +1442,6 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(!true);
-            jDataSaida.setEnabled(!true);
         }
     }//GEN-LAST:event_jRBtSaidaTemporariaMouseClicked
 
@@ -1456,8 +1454,6 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(true);
-            jDataSaida.setEnabled(true);
         }
     }//GEN-LAST:event_jRBtSaidaLaborativaMouseClicked
 
@@ -1470,8 +1466,6 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(true);
-            jDataSaida.setEnabled(true);
         }
     }//GEN-LAST:event_jRBtSaidaEstudosMouseClicked
 
@@ -1484,8 +1478,6 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(true);
-            jDataSaida.setEnabled(true);
         }
     }//GEN-LAST:event_jRBtSaidaMedicoMouseClicked
 
@@ -1498,8 +1490,6 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(true);
-            jDataSaida.setEnabled(true);
         }
     }//GEN-LAST:event_jRBtSaidaDomiciliarMouseClicked
 
@@ -1514,13 +1504,15 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             TelaModuloCRC.jPainelCRC.add(objPesqCanEvaLab);
             objPesqCanEvaLab.show();
         } else if (jRBtSaidaEstudos.isSelected()) {
-            TelaPesqInternosEvadidosEducacao objPesqIntEvaEdu = new TelaPesqInternosEvadidosEducacao();
-            TelaModuloCRC.jPainelCRC.add(objPesqIntEvaEdu);
-            objPesqIntEvaEdu.show();
+//            TelaPesqInternosEvadidosEducacao objPesqIntEvaEdu = new TelaPesqInternosEvadidosEducacao();
+            TelaPesquisaCancelaEvadidos_EDU objPesqCanEvaEdu = new TelaPesquisaCancelaEvadidos_EDU();
+            TelaModuloCRC.jPainelCRC.add(objPesqCanEvaEdu);
+            objPesqCanEvaEdu.show();
         } else if (jRBtSaidaMedico.isSelected()) {
-            TelaPesqInternosEvadidosManualMedico objPesqIntEvaMedico = new TelaPesqInternosEvadidosManualMedico();
-            TelaModuloCRC.jPainelCRC.add(objPesqIntEvaMedico);
-            objPesqIntEvaMedico.show();
+//            TelaPesqInternosEvadidosManualMedico objPesqIntEvaMedico = new TelaPesqInternosEvadidosManualMedico();
+            TelaPesquisaCancelaEvadidos_MED objPesqCanEvaMed = new TelaPesquisaCancelaEvadidos_MED();
+            TelaModuloCRC.jPainelCRC.add(objPesqCanEvaMed);
+            objPesqCanEvaMed.show();
         } else if (jRBtSaidaDomiciliar.isSelected()) {
             TelaPesqInternosEvadidosPrisaoDomiciliar objPesqIntEvaDomiciliar = new TelaPesqInternosEvadidosPrisaoDomiciliar();
             TelaModuloCRC.jPainelCRC.add(objPesqIntEvaDomiciliar);
@@ -1730,7 +1722,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
         jStatusLanc.setText("ABERTO");
         jDataLanc.setCalendar(Calendar.getInstance());
         //
-        jBtSalvar.setEnabled(true);              
+        jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
         jBtPesquisaEvasao.setEnabled(true);
     }

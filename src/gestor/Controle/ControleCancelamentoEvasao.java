@@ -17,8 +17,18 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import static gestor.Visao.TelaCancelamentoEvasao.pRESPOSTA_cancel;
 import static gestor.Visao.TelaCancelamentoEvasao.pTOTAL_registros;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_EDU.jPesqNomeInternoEvadido_EDU;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_EDU.pTOTAL_REGISTRO_educa;
 import static gestor.Visao.TelaPesquisaCancelaEvadidos_LAB.jPesqNomeInternoEvadido_LAB;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_LAB.pCODIGO_LAB_saida;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_LAB.pCODIGO_LB_interno;
 import static gestor.Visao.TelaPesquisaCancelaEvadidos_LAB.pTOTAL_REGISTROS_laborativa;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_MED.idItem_CESMedico;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_MED.jPesqNomeInternoEvadido_MED;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_MED.nomeInterno_SM;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_MED.pCODIGO_INTERNO_medico;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_MED.pCODIGO_SAIDA_medico;
+import static gestor.Visao.TelaPesquisaCancelaEvadidos_MED.pTOTAL_REGISTROS_medico;
 import static gestor.Visao.TelaPesquisaCancelaEvadidos_TMP.idItem_CE;
 import static gestor.Visao.TelaPesquisaCancelaEvadidos_TMP.jPesqNomeInternoEvadido;
 import static gestor.Visao.TelaPesquisaCancelaEvadidos_TMP.nomeInterno;
@@ -40,12 +50,13 @@ public class ControleCancelamentoEvasao {
     CancelamentoEvasao objCancelaEvasao = new CancelamentoEvasao();
     //SAIDA TEMPORAIA
     String pTIPO_SAIDA = "SAIDA TEMPORARIA";
+    String pTIPO_SAIDA_medico = "SAIDA PARA MEDICO";
     String pCONFIRMAR_EVASAO_sim = "Sim";
     String dataEvasao = ""; // Variavel que controla a saida temporaria junto com a evasão
     String NrDocRetorno = "";
     //SAIDA LABORATIVA
     String horarioEntrada = "00:00";
-    String evadido = "Sim";
+    String evadido = "EVADIDO";
 
     public CancelamentoEvasao incluirCancelamentoEvasaoInTernos(CancelamentoEvasao objCancelaEvasao) {
 
@@ -473,7 +484,7 @@ public class ControleCancelamentoEvasao {
         return objCancelaEvasao;
     }
 
-    //ABA DADOS DO INTERNO
+    //ABA DADOS DO EVASÃO
     public CancelamentoEvasao ENVIAR_DADOS_REGISTRO_ST_evasao(CancelamentoEvasao objCancelaEvasao) {
         conecta.abrirConexao();
         try {
@@ -504,6 +515,7 @@ public class ControleCancelamentoEvasao {
         List<CancelamentoEvasao> LISTA_REGISTROS_nome = new ArrayList<CancelamentoEvasao>();
         try {
             conecta.executaSQL("SELECT "
+                    + "i.IdItem, "
                     + "i.IdLanc, "
                     + "i.IdInternoCrc, "
                     + "p.NomeInternoCrc, "
@@ -520,6 +532,7 @@ public class ControleCancelamentoEvasao {
                     + "AND HorarioEntrada='" + horarioEntrada + "'");
             while (conecta.rs.next()) {
                 CancelamentoEvasao pLISTA_registros = new CancelamentoEvasao();
+                pLISTA_registros.setIdItem(conecta.rs.getInt("IdItem"));
                 pLISTA_registros.setIdRegistroLabor(conecta.rs.getInt("IdLanc"));
                 pLISTA_registros.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pLISTA_registros.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
@@ -539,12 +552,38 @@ public class ControleCancelamentoEvasao {
         return null;
     }
 
+    //ABA DADOS DO EVASÃO
+    public CancelamentoEvasao ENVIAR_DADOS_REGISTRO_LB_evasao(CancelamentoEvasao objCancelaEvasao) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdSaida, "
+                    + "IdLanc, "
+                    + "StatusLanc, "
+                    + "DataLanc, "
+                    + "IdInternoCrc, "
+                    + "TipoOp "
+                    + "FROM EVADIDOSIND "
+                    + "WHERE IdInternoCrc='" + pCODIGO_LB_interno + "' "
+                    + "AND IdSaida='" + pCODIGO_LAB_saida + "'");
+            conecta.rs.first();
+            objCancelaEvasao.setIdRegistroEvasao(conecta.rs.getInt("IdSaida"));
+            objCancelaEvasao.setStatusLanc(conecta.rs.getString("StatusLanc"));
+            objCancelaEvasao.setDataEvasao(conecta.rs.getDate("DataLanc"));
+            objCancelaEvasao.setTipoOperacao(conecta.rs.getString("TipoOp"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objCancelaEvasao;
+    }
+
     public List<CancelamentoEvasao> LISTA_REGISTROS_EVADIDOS_LB_todos() throws Exception {
         pTOTAL_REGISTROS_laborativa = 0;
         conecta.abrirConexao();
         List<CancelamentoEvasao> LISTA_REGISTROS_todos = new ArrayList<CancelamentoEvasao>();
         try {
             conecta.executaSQL("SELECT "
+                    + "i.IdItem, "
                     + "i.IdLanc, "
                     + "i.IdInternoCrc, "
                     + "p.NomeInternoCrc, "
@@ -560,6 +599,7 @@ public class ControleCancelamentoEvasao {
                     + "AND HorarioEntrada='" + horarioEntrada + "'");
             while (conecta.rs.next()) {
                 CancelamentoEvasao pLISTA_registros = new CancelamentoEvasao();
+                pLISTA_registros.setIdItem(conecta.rs.getInt("IdItem"));
                 pLISTA_registros.setIdRegistroLabor(conecta.rs.getInt("IdLanc"));
                 pLISTA_registros.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pLISTA_registros.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
@@ -584,27 +624,319 @@ public class ControleCancelamentoEvasao {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "i.IdItem, "
                     + "i.IdLanc, "
                     + "i.IdInternoCrc, "
                     + "p.NomeInternoCrc, "
                     + "i.DataSaida, "
-                    + "i.HorarioSaida "
+                    + "i.HorarioSaida, "
+                    + "i.Evadido "
                     + "FROM ITENSLABORINTERNO AS i "
                     + "INNER JOIN PRONTUARIOSCRC AS p "
                     + "ON i.IdInternoCrc=p.IdInternoCrc "
-                    + "WHERE p.NomeInternoCrc='" + jPesqNomeInternoEvadido_LAB.getText() + "' ");
+                    + "WHERE p.NomeInternoCrc='" + jPesqNomeInternoEvadido_LAB.getText() + "' "
+                    + "AND i.Evadido='" + evadido + "'");
             conecta.rs.first();
+            objCancelaEvasao.setIdItem(conecta.rs.getInt("IdItem"));
             objCancelaEvasao.setIdSaida(conecta.rs.getInt("IdLanc"));
             objCancelaEvasao.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
             objCancelaEvasao.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
             objCancelaEvasao.setDataSaida(conecta.rs.getDate("DataSaida"));
-            objCancelaEvasao.setNrDocSaida(conecta.rs.getString("HorarioSaida"));
+            objCancelaEvasao.setHorarioSaida(conecta.rs.getString("HorarioSaida"));
         } catch (Exception e) {
         }
         conecta.desconecta();
         return objCancelaEvasao;
     }
 
+    //ABA DADOS DO EVASÃO
+    public CancelamentoEvasao ENVIAR_DADOS_REGISTRO_ED_evasao(CancelamentoEvasao objCancelaEvasao) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdSaida, "
+                    + "IdLanc, "
+                    + "StatusLanc, "
+                    + "DataLanc, "
+                    + "IdInternoCrc, "
+                    + "TipoOp "
+                    + "FROM EVADIDOSIND "
+                    + "WHERE IdInternoCrc='" + pCODIGO_LB_interno + "' "
+                    + "AND IdSaida='" + pCODIGO_LAB_saida + "'");
+            conecta.rs.first();
+            objCancelaEvasao.setIdRegistroEvasao(conecta.rs.getInt("IdSaida"));
+            objCancelaEvasao.setStatusLanc(conecta.rs.getString("StatusLanc"));
+            objCancelaEvasao.setDataEvasao(conecta.rs.getDate("DataLanc"));
+            objCancelaEvasao.setTipoOperacao(conecta.rs.getString("TipoOp"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objCancelaEvasao;
+    }
+    
+    // ----------------------------------------------- PESQUISAS EVASÃO DE EDUCAÇÃO -----------------------------------
+    public List<CancelamentoEvasao> LISTA_REGISTROS_EVADIDOS_ED_todos() throws Exception {
+        pTOTAL_REGISTRO_educa = 0;
+        conecta.abrirConexao();
+        List<CancelamentoEvasao> LISTA_REGISTROS_todos = new ArrayList<CancelamentoEvasao>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "i.IdItem, "
+                    + "i.IdLanc, "
+                    + "i.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "i.DataSaida, "
+                    + "i.HorarioSaida, "
+                    + "i.DataEntrada, "
+                    + "i.HorarioEntrada "
+                    + "FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO AS i "
+                    + "INNER JOIN PRONTUARIOSCRC AS p "
+                    + "ON i.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE i.Evadido='" + evadido + "' "
+                    + "AND i.HorarioEntrada='" + horarioEntrada + "'");
+            while (conecta.rs.next()) {
+                CancelamentoEvasao pLISTA_registros = new CancelamentoEvasao();
+                pLISTA_registros.setIdItem(conecta.rs.getInt("IdItem"));
+                pLISTA_registros.setIdRegistroLabor(conecta.rs.getInt("IdLanc"));
+                pLISTA_registros.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                pLISTA_registros.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pLISTA_registros.setDataSaida(conecta.rs.getDate("DataSaida"));
+                pLISTA_registros.setHorarioSaida(conecta.rs.getString("HorarioSaida"));
+                pLISTA_registros.setDataEntrada(conecta.rs.getDate("DataEntrada"));
+                pLISTA_registros.setHorarioEntrada(conecta.rs.getString("HorarioEntrada"));
+                LISTA_REGISTROS_todos.add(pLISTA_registros);
+                pTOTAL_REGISTRO_educa++;
+            }
+            return LISTA_REGISTROS_todos;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleCancelamentoEvasao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public List<CancelamentoEvasao> LISTA_REGISTROS_EVADIDOS_ED_nome() throws Exception {
+        pTOTAL_REGISTRO_educa = 0;
+        conecta.abrirConexao();
+        List<CancelamentoEvasao> LISTA_REGISTROS_todos = new ArrayList<CancelamentoEvasao>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "i.IdItem, "
+                    + "i.IdLanc, "
+                    + "i.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "i.DataSaida, "
+                    + "i.HorarioSaida, "
+                    + "i.DataEntrada, "
+                    + "i.HorarioEntrada "
+                    + "FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO AS i "
+                    + "INNER JOIN PRONTUARIOSCRC AS p "
+                    + "ON i.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE i.Evadido='" + evadido + "' "
+                    + "AND p.NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido_EDU.getText() + "%' "
+                    + "AND i.HorarioEntrada='" + horarioEntrada + "'");
+            while (conecta.rs.next()) {
+                CancelamentoEvasao pLISTA_registros = new CancelamentoEvasao();
+                pLISTA_registros.setIdItem(conecta.rs.getInt("IdItem"));
+                pLISTA_registros.setIdRegistroLabor(conecta.rs.getInt("IdLanc"));
+                pLISTA_registros.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                pLISTA_registros.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pLISTA_registros.setDataSaida(conecta.rs.getDate("DataSaida"));
+                pLISTA_registros.setHorarioSaida(conecta.rs.getString("HorarioSaida"));
+                pLISTA_registros.setDataEntrada(conecta.rs.getDate("DataEntrada"));
+                pLISTA_registros.setHorarioEntrada(conecta.rs.getString("HorarioEntrada"));
+                LISTA_REGISTROS_todos.add(pLISTA_registros);
+                pTOTAL_REGISTRO_educa++;
+            }
+            return LISTA_REGISTROS_todos;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleCancelamentoEvasao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public CancelamentoEvasao PESQUISAR_DADOS_INTERNO_EDU_evasao(CancelamentoEvasao objCancelaEvasao) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "i.IdItem, "
+                    + "i.IdLanc, "
+                    + "i.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "i.DataSaida, "
+                    + "i.HorarioSaida, "
+                    + "i.Evadido "
+                    + "FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO AS i "
+                    + "INNER JOIN PRONTUARIOSCRC AS p "
+                    + "ON i.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE p.NomeInternoCrc='" + jPesqNomeInternoEvadido_EDU.getText() + "' "
+                    + "AND i.Evadido='" + evadido + "'");
+            conecta.rs.first();
+            objCancelaEvasao.setIdItem(conecta.rs.getInt("IdItem"));
+            objCancelaEvasao.setIdSaida(conecta.rs.getInt("IdLanc"));
+            objCancelaEvasao.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+            objCancelaEvasao.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+            objCancelaEvasao.setDataSaida(conecta.rs.getDate("DataSaida"));
+            objCancelaEvasao.setHorarioSaida(conecta.rs.getString("HorarioSaida"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objCancelaEvasao;
+    }
+    
+     //------------------------------------------------ PESQUISA SAÍDA PARA MÉDICO -------------------------------------
+    
+    public List<CancelamentoEvasao> LISTA_REGISTROS_EVADIDOS_SM_todos() throws Exception {
+        pTOTAL_REGISTROS_medico = 0;
+        conecta.abrirConexao();
+        List<CancelamentoEvasao> LISTA_REGISTROS_todos = new ArrayList<CancelamentoEvasao>();
+        try {
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "m.IdItem, "
+                    + "m.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "m.IdSaida, "
+                    + "m.NrDocRetorno, "
+                    + "m.DataPrevRetorno, "
+                    + "m.DataEvasao, "
+                    + "m.DataSaida, "
+                    + "m.DataPrevRetorno, "
+                    + "m.NrDocRetorno, "
+                    + "m.ConfirmaEvasao, "
+                    + "i.DestinoSaida "
+                    + "FROM MOVISR AS m "
+                    + "INNER JOIN PRONTUARIOSCRC AS p "
+                    + "ON m.IdInternoCrc=p.IdInternoCrc "
+                    + "INNER JOIN ITENSREGSAIDA AS i "
+                    + "ON m.IdInternoCrc=i.IdInternoCrc "
+                    + "WHERE m.NrDocRetorno!='" + NrDocRetorno + "' "
+                    + "AND i.DestinoSaida='" + pTIPO_SAIDA_medico + "' "
+                    + "AND m.ConfirmaEvasao='" + pCONFIRMAR_EVASAO_sim + "'");
+            while (conecta.rs.next()) {
+                CancelamentoEvasao pLISTA_registros = new CancelamentoEvasao();
+                pLISTA_registros.setIdItem(conecta.rs.getInt("IdItem"));
+                pLISTA_registros.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                pLISTA_registros.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pLISTA_registros.setIdSaida(conecta.rs.getInt("IdSaida"));
+                pLISTA_registros.setDataSaida(conecta.rs.getDate("DataSaida"));
+                pLISTA_registros.setDataPrevRetorno(conecta.rs.getDate("DataPrevRetorno"));
+                pLISTA_registros.setNomeDestino(conecta.rs.getString("DestinoSaida"));
+                LISTA_REGISTROS_todos.add(pLISTA_registros);
+                pTOTAL_REGISTROS_medico++;
+            }
+            return LISTA_REGISTROS_todos;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleCancelamentoEvasao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+    
+    public List<CancelamentoEvasao> LISTA_REGISTROS_EVADIDOS_SM_nome() throws Exception {
+        pTOTAL_REGISTROS_medico = 0;
+        conecta.abrirConexao();
+        List<CancelamentoEvasao> LISTA_REGISTROS_todos = new ArrayList<CancelamentoEvasao>();
+        try {
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "m.IdItem, "
+                    + "m.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "m.IdSaida, "
+                    + "m.NrDocRetorno, "
+                    + "m.DataPrevRetorno, "
+                    + "m.DataEvasao, "
+                    + "m.DataSaida, "
+                    + "m.DataPrevRetorno, "
+                    + "m.NrDocRetorno, "
+                    + "m.ConfirmaEvasao, "
+                    + "i.DestinoSaida "
+                    + "FROM MOVISR AS m "
+                    + "INNER JOIN PRONTUARIOSCRC AS p "
+                    + "ON m.IdInternoCrc=m.IdInternoCrc "
+                    + "INNER JOIN ITENSREGSAIDA AS i "
+                    + "ON m.IdInternoCrc=i.IdInternoCrc "
+                    + "WHERE m.NrDocRetorno!='" + NrDocRetorno + "' "
+                    + "AND p.NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido_MED.getText() + "%' "
+                    + "AND i.DestinoSaida='" + pTIPO_SAIDA_medico + "' "
+                    + "AND m.ConfirmaEvasao='" + pCONFIRMAR_EVASAO_sim + "'");
+            while (conecta.rs.next()) {
+                CancelamentoEvasao pLISTA_registros = new CancelamentoEvasao();
+                pLISTA_registros.setIdItem(conecta.rs.getInt("IdItem"));
+                pLISTA_registros.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                pLISTA_registros.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pLISTA_registros.setIdSaida(conecta.rs.getInt("IdSaida"));
+                pLISTA_registros.setDataSaida(conecta.rs.getDate("DataSaida"));
+                pLISTA_registros.setDataPrevRetorno(conecta.rs.getDate("DataPrevRetorno"));
+                pLISTA_registros.setNomeDestino(conecta.rs.getString("DestinoSaida"));
+                LISTA_REGISTROS_todos.add(pLISTA_registros);
+                pTOTAL_REGISTROS_medico++;
+            }
+            return LISTA_REGISTROS_todos;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleCancelamentoEvasao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+    
+    //ABA DADOS DO INTERNO
+    public CancelamentoEvasao PESQUISAR_DADOS_INTERNO_SM_evasao(CancelamentoEvasao objCancelaEvasao) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "m.IdItem, "
+                    + "m.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "m.IdSaida, "
+                    + "m.DataSaida, "
+                    + "m.NrDocSaida "
+                    + "FROM MOVISR AS m "
+                    + "INNER JOIN PRONTUARIOSCRC AS p "
+                    + "ON m.IdInternoCrc=P.IdInternoCrc "
+                    + "WHERE p.NomeInternoCrc='" + nomeInterno_SM + "' "
+                    + "AND m.IdItem='" + idItem_CESMedico + "'");
+            conecta.rs.first();
+            objCancelaEvasao.setIdSaida(conecta.rs.getInt("IdSaida"));
+            objCancelaEvasao.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+            objCancelaEvasao.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+            objCancelaEvasao.setDataSaida(conecta.rs.getDate("DataSaida"));
+            objCancelaEvasao.setNrDocSaida(conecta.rs.getString("NrDocSaida"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objCancelaEvasao;
+    }
+
+    //ABA DADOS DO EVASÃO
+    public CancelamentoEvasao ENVIAR_DADOS_REGISTRO_SM_evasao(CancelamentoEvasao objCancelaEvasao) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdLanc, "
+                    + "StatusLanc, "
+                    + "DataLanc, "
+                    + "IdInternoCrc, "
+                    + "TipoOp "
+                    + "FROM EVADIDOSIND "
+                    + "WHERE IdInternoCrc='" + pCODIGO_INTERNO_medico + "' "
+                    + "AND IdSaida='" + pCODIGO_SAIDA_medico + "'");
+            conecta.rs.first();
+            objCancelaEvasao.setIdRegistroEvasao(conecta.rs.getInt("IdLanc"));
+            objCancelaEvasao.setStatusLanc(conecta.rs.getString("StatusLanc"));
+            objCancelaEvasao.setDataEvasao(conecta.rs.getDate("DataLanc"));
+            objCancelaEvasao.setTipoOperacao(conecta.rs.getString("TipoOp"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objCancelaEvasao;
+    }
+    
+    
     //---------------------------------------------------------------- SAIDA LABORATIVA EVASÃO ------------------------
     // SAIDA LABORATIVA EVASÃO   
     public CancelamentoEvasao UPDATE_ITENS_laborativa(CancelamentoEvasao objCancelaEvasao) {

@@ -5,12 +5,12 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
 import gestor.Controle.ControleCancelamentoEvasao;
 import gestor.Modelo.CancelamentoEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jDataEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jDataSaida;
+import static gestor.Visao.TelaCancelamentoEvasao.jDocumentoSaida;
 import static gestor.Visao.TelaCancelamentoEvasao.jIdInternoEvadido;
 import static gestor.Visao.TelaCancelamentoEvasao.jIdRegistroEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jIdSaida;
@@ -29,30 +29,26 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame {
+public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame {
 
     CancelamentoEvasao objCancelaEvasao = new CancelamentoEvasao();
     ControleCancelamentoEvasao CONTROLE = new ControleCancelamentoEvasao();
     //
-    String dataEntrada, dataSaida, dataSaidaTemp;
-    String dataRetorno, dataPrevRetorno;
-    String dataBrasil;
-    String dataEvasao = ""; // Variavel que controla a saida temporaria junto com a evasão
-    String NrDocRetorno = "";
-    String NrDocRetornoNull = null;
-    String evadido = "";
     int flag;
-    String nomeInterno;
-    public static String pCODIGO_LB_interno;
-    String horarioEntrada = "00:00";
-    public static int pTOTAL_REGISTROS_laborativa = 0;
-    public static String pCODIGO_LAB_saida;
-    public static String idItem_LAB;
+    String idInt;
+    String pDATA_saida = "";
+    String pDATA_previsao = "";
+    public static int pTOTAL_REGISTROS_medico = 0;
+    //
+    public static String nomeInterno_SM;
+    public static String idItem_CESMedico;
+    public static String pCODIGO_INTERNO_medico;
+    public static String pCODIGO_SAIDA_medico;
 
     /**
      * Creates new form TelaPesqInternosEvadidosManual
      */
-    public TelaPesquisaCancelaEvadidos_LAB() {
+    public TelaPesquisaCancelaEvadidos_MED() {
         initComponents();
     }
 
@@ -67,8 +63,8 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPesqNomeInternoEvadido_LAB = new javax.swing.JTextField();
-        jBtPesqNomeInternoEvadido_LAB = new javax.swing.JButton();
+        jPesqNomeInternoEvadido_MED = new javax.swing.JTextField();
+        jBtPesqNomeInternoEvadido = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jBtSelecionar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
@@ -81,7 +77,7 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         jLabel63 = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("...::: Pesquisa de Internos Saída Laborativa {Evadido} :::..");
+        setTitle("...::: Pesquisa de Internos Saída Médico {Evadido} :::..");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -90,13 +86,13 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Nome:");
 
-        jPesqNomeInternoEvadido_LAB.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesqNomeInternoEvadido_MED.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jBtPesqNomeInternoEvadido_LAB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqNomeInternoEvadido_LAB.setContentAreaFilled(false);
-        jBtPesqNomeInternoEvadido_LAB.addActionListener(new java.awt.event.ActionListener() {
+        jBtPesqNomeInternoEvadido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqNomeInternoEvadido.setContentAreaFilled(false);
+        jBtPesqNomeInternoEvadido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqNomeInternoEvadido_LABActionPerformed(evt);
+                jBtPesqNomeInternoEvadidoActionPerformed(evt);
             }
         });
 
@@ -116,9 +112,9 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeInternoEvadido_LAB)
+                .addComponent(jPesqNomeInternoEvadido_MED)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesqNomeInternoEvadido_LAB, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtPesqNomeInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
                 .addContainerGap())
@@ -128,9 +124,9 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPesqNomeInternoEvadido_LAB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPesqNomeInternoEvadido_MED, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jBtPesqNomeInternoEvadido_LAB, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqNomeInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -161,17 +157,9 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
 
             },
             new String [] {
-                "Registro", "Código", "Nome do Interno", "Id Doc.", "Data Saída", "Dt. Entrada", "H. Entrada"
+                "Item", "Código", "Nome do Interno", "Código Saída", "Data Saída", "Dt. Previsão", "Tipo de Saída"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jTabelaIntEvadidosSaidaLaborativa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaIntEvadidosSaidaLaborativaMouseClicked(evt);
@@ -181,18 +169,18 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         if (jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumnCount() > 0) {
             jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setMaxWidth(80);
             jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setMinWidth(250);
             jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setMaxWidth(250);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMinWidth(50);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMaxWidth(50);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMaxWidth(70);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMinWidth(200);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMaxWidth(200);
         }
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -247,15 +235,15 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -271,44 +259,63 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
                     .addComponent(jBtSair))
-                .addGap(3, 3, 3))
+                .addGap(5, 5, 5))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 594, 321);
+        setBounds(300, 20, 664, 311);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido_LAB.getText().equals("")) {
+        if (jPesqNomeInternoEvadido_MED.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome de interno a ser selecionado.");
-        } else if (pCODIGO_LB_interno == null) {
+        } else if (idItem_CESMedico == null) {
             JOptionPane.showMessageDialog(rootPane, "Selecione corretamente o nome do interno..");
         } else {
-            //ABA DADOS DO INTERNO - ITENSLABORINTERNO
-            CONTROLE.PESQUISAR_DADOS_INTERNO_LAB_evasao(objCancelaEvasao);
+            //ABA DADOS DO INTERNO - MOVISR
+            CONTROLE.PESQUISAR_DADOS_INTERNO_SM_evasao(objCancelaEvasao);
+            jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
             jIdInternoEvadido.setText(String.valueOf(objCancelaEvasao.getIdInternoCrc()));
             jNomeInternoEvadido.setText(objCancelaEvasao.getNomeInternoCrc());
-            jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
             jDataSaida.setDate(objCancelaEvasao.getDataSaida());
-            //ABA DADOS LANÇAMENTO DA EVASÃO - EVADIDOIND
-            CONTROLE.ENVIAR_DADOS_REGISTRO_LB_evasao(objCancelaEvasao);
-            jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdItem()));
+            jDocumentoSaida.setText(objCancelaEvasao.getNrDocSaida());
+            //ABA DADOS EVASÃO - EVADIDOIND
+            CONTROLE.ENVIAR_DADOS_REGISTRO_SM_evasao(objCancelaEvasao);
+            jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdRegistroEvasao()));
             jStatusEvasao.setText(objCancelaEvasao.getStatusLanc());
             jDataEvasao.setDate(objCancelaEvasao.getDataEvasao());
             jTipoEvasao.setText(objCancelaEvasao.getTipoOperacao());
             dispose();
+//            conecta.abrirConexao();
+//            try {
+//                conecta.executaSQL("SELECT * FROM MOVISR "
+//                        + "INNER JOIN PRONTUARIOSCRC "
+//                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+//                        + "AND IdItem='" + idInt + "'");
+//                conecta.rs.first();
+//                jIdInternoEvadido.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+//                jNomeInternoEvadido.setText(conecta.rs.getString("NomeInternoCrc"));
+//                jIdSaida.setText(conecta.rs.getString("IdSaida"));
+//                jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
+//                jDocumentoSaida.setText(conecta.rs.getString("NrDocSaida"));
+//                conecta.desconecta();
+//            } catch (SQLException ex) {
+//                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
+//            }
+//            dispose();
         }
     }//GEN-LAST:event_jBtSelecionarActionPerformed
 
@@ -317,43 +324,78 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
+    private void jBtPesqNomeInternoEvadidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadidoActionPerformed
+        // TODO add your handling code here:
+        if (jPesqNomeInternoEvadido_MED.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+        } else {
+            PREENCHER_TABELA_EVADIDOS_MEDICO_nome();
+            if (pTOTAL_REGISTROS_medico == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
+            }
+//                preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+//                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+//                        + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
+//                        + "MOVISR.DataSaida,DataPrevRetorno "
+//                        + "FROM MOVISR "
+//                        + "INNER JOIN PRONTUARIOSCRC "
+//                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                        + "INNER JOIN ITENSREGSAIDA "
+//                        + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
+//                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+//                        + "AND DataEvasao='" + dataEvasao + "' "
+//                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+//                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
+        }
+    }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
+
     private void jTabelaIntEvadidosSaidaLaborativaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaIntEvadidosSaidaLaborativaMouseClicked
         // TODO add your handling code here:
+//        flag = 1;
+//        if (flag == 1) {
+//            nomeInterno = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 2);
+//            jPesqNomeInternoEvadido.setText(nomeInterno);
+//            idInt = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 0);
+//        }
         flag = 1;
         if (flag == 1) {
-            idItem_LAB = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 0);            
-            pCODIGO_LB_interno = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 1);
-            nomeInterno = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 2);
-            jPesqNomeInternoEvadido_LAB.setText(nomeInterno);
-            pCODIGO_LAB_saida = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 3);
+            pCODIGO_SAIDA_medico = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 3);
+            nomeInterno_SM = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 2);
+            jPesqNomeInternoEvadido_MED.setText(nomeInterno_SM);
+            pCODIGO_INTERNO_medico = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 1);
+            idItem_CESMedico = "" + jTabelaIntEvadidosSaidaLaborativa.getValueAt(jTabelaIntEvadidosSaidaLaborativa.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaIntEvadidosSaidaLaborativaMouseClicked
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-        // TODO add your handling code here:
+        // TODO add your handling code here:                
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.PREENCHER_TABELA_EVADIDOS_SLAB_todos();
-            if (pTOTAL_REGISTROS_laborativa == 0) {
-                JOptionPane.showMessageDialog(rootPane, "Não existe registros a serem listados.");
+            PREENCHER_TABELA_EVADIDOS_MEDICO_todos();
+            if (pTOTAL_REGISTROS_medico == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
             }
+//            this.preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+//                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+//                    + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
+//                    + "MOVISR.DataSaida,DataPrevRetorno "
+//                    + "FROM MOVISR "
+//                    + "INNER JOIN PRONTUARIOSCRC "
+//                    + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                    + "INNER JOIN ITENSREGSAIDA "
+//                    + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
+//                    + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+//                    + "AND DataPrevRetorno <'" + dataSisConvert + "' "
+//                    + "AND DataEvasao='" + dataSisConvert2 + "' "
+//                    + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
         } else {
-            LIMPAR_tabela();
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
-    private void jBtPesqNomeInternoEvadido_LABActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadido_LABActionPerformed
-        // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido_LAB.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        } else {
-            PREENCHER_TABELA_EVADIDOS_SLAB_nome();
-        }
-    }//GEN-LAST:event_jBtPesqNomeInternoEvadido_LABActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtPesqNomeInternoEvadido_LAB;
+    private javax.swing.JButton jBtPesqNomeInternoEvadido;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSelecionar;
     private javax.swing.JCheckBox jCheckBox1;
@@ -363,140 +405,130 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
-    public static javax.swing.JTextField jPesqNomeInternoEvadido_LAB;
+    public static javax.swing.JTextField jPesqNomeInternoEvadido_MED;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaIntEvadidosSaidaLaborativa;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void PREENCHER_TABELA_EVADIDOS_SLAB_nome() {
+    public void PREENCHER_TABELA_EVADIDOS_MEDICO_nome() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno ", "Id Doc.", "Data Saída", "H. Saída", "Dt.Entrada", "H.Entrada"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Código Saída", "Data Saída", "Dt.Previsão", "Tipo de Saída"};
         try {
-            for (CancelamentoEvasao pp : CONTROLE.LISTA_REGISTROS_EVADIDOS_LB_nome()) {
-                // Formatar a data Saida
-                dataSaidaTemp = String.valueOf(pp.getDataSaida());
-                if (dataSaidaTemp != null) {
-                    String diap = dataSaidaTemp.substring(8, 10);
-                    String mesp = dataSaidaTemp.substring(5, 7);
-                    String anop = dataSaidaTemp.substring(0, 4);
-                    dataSaidaTemp = diap + "/" + mesp + "/" + anop;
-                }
-                // Formatar a data Entrada
-                dataEntrada = String.valueOf(pp.getDataEntrada());
-                if (dataEntrada != null) {
-                    String diar = dataEntrada.substring(8, 10);
-                    String mesr = dataEntrada.substring(5, 7);
-                    String anor = dataEntrada.substring(0, 4);
-                    dataEntrada = diar + "/" + mesr + "/" + anor;
-                }
-                dados.add(new Object[]{pp.getIdItem(), pp.getIdInternoCrc(), pp.getNomeInternoCrc(), pp.getIdRegistroLabor(), dataSaidaTemp, pp.getHorarioSaida(), dataEntrada, pp.getHorarioEntrada()});
+            for (CancelamentoEvasao dd : CONTROLE.LISTA_REGISTROS_EVADIDOS_SM_nome()) {
+                pDATA_saida = String.valueOf(dd.getDataSaida());
+                String dia = pDATA_saida.substring(8, 10);
+                String mes = pDATA_saida.substring(5, 7);
+                String ano = pDATA_saida.substring(0, 4);
+                pDATA_saida = dia + "/" + mes + "/" + ano;
+                //
+                pDATA_previsao = String.valueOf(dd.getDataPrevRetorno());
+                String pDia = pDATA_previsao.substring(8, 10);
+                String pMes = pDATA_previsao.substring(5, 7);
+                String pAno = pDATA_previsao.substring(0, 4);
+                pDATA_previsao = pDia + "/" + pMes + "/" + pAno;
+                dados.add(new Object[]{dd.getIdItem(), dd.getIdInternoCrc(), dd.getNomeInternoCrc(), dd.getIdSaida(), pDATA_saida, pDATA_previsao, dd.getNomeDestino()});
+                jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_medico));
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaIntEvadidosSaidaLaborativa.setModel(modelo);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setPreferredWidth(70);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(70);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setResizable(false);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setPreferredWidth(250);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setPreferredWidth(50);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(70);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(50);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(70);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(200);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(7).setPreferredWidth(70);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(7).setResizable(false);
                 jTabelaIntEvadidosSaidaLaborativa.getTableHeader().setReorderingAllowed(false);
                 jTabelaIntEvadidosSaidaLaborativa.setAutoResizeMode(jTabelaIntEvadidosSaidaLaborativa.AUTO_RESIZE_OFF);
                 jTabelaIntEvadidosSaidaLaborativa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                alinhaColunasTabelaEvadidosSaidaLaborativa();
+                alinhaColunasTabelaEvadidosSaidaTemporaria();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaPesquisaCancelaEvadidos_LAB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaCancelaEvadidos_MED.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void PREENCHER_TABELA_EVADIDOS_SLAB_todos() {
+    public void PREENCHER_TABELA_EVADIDOS_MEDICO_todos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno ", "Id Doc.", "Data Saída", "H. Saída", "Dt.Entrada", "H.Entrada"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Código Saída", "Data Saída", "Dt.Previsão", "Tipo de Saída"};
         try {
-            for (CancelamentoEvasao pp : CONTROLE.LISTA_REGISTROS_EVADIDOS_LB_todos()) {
-                // Formatar a data Saida
-                dataSaidaTemp = String.valueOf(pp.getDataSaida());
-                if (dataSaidaTemp != null) {
-                    String diap = dataSaidaTemp.substring(8, 10);
-                    String mesp = dataSaidaTemp.substring(5, 7);
-                    String anop = dataSaidaTemp.substring(0, 4);
-                    dataSaidaTemp = diap + "/" + mesp + "/" + anop;
+            for (CancelamentoEvasao dd : CONTROLE.LISTA_REGISTROS_EVADIDOS_SM_todos()) {
+                pDATA_saida = String.valueOf(dd.getDataSaida());
+                if (pDATA_saida != null) {
+                    String dia = pDATA_saida.substring(8, 10);
+                    String mes = pDATA_saida.substring(5, 7);
+                    String ano = pDATA_saida.substring(0, 4);
+                    pDATA_saida = dia + "/" + mes + "/" + ano;
                 }
-                // Formatar a data Entrada
-                dataEntrada = String.valueOf(pp.getDataEntrada());
-                if (dataEntrada != null) {
-                    String diar = dataEntrada.substring(8, 10);
-                    String mesr = dataEntrada.substring(5, 7);
-                    String anor = dataEntrada.substring(0, 4);
-                    dataEntrada = diar + "/" + mesr + "/" + anor;
+                //
+                pDATA_previsao = String.valueOf(dd.getDataPrevRetorno());
+                if (pDATA_previsao != null) {
+                    String pDia = pDATA_previsao.substring(8, 10);
+                    String pMes = pDATA_previsao.substring(5, 7);
+                    String pAno = pDATA_previsao.substring(0, 4);
+                    pDATA_previsao = pDia + "/" + pMes + "/" + pAno;
                 }
-                dados.add(new Object[]{pp.getIdItem(), pp.getIdInternoCrc(), pp.getNomeInternoCrc(), pp.getIdRegistroLabor(), dataSaidaTemp, pp.getHorarioSaida(), dataEntrada, pp.getHorarioEntrada()});
+                dados.add(new Object[]{dd.getIdItem(), dd.getIdInternoCrc(), dd.getNomeInternoCrc(), dd.getIdSaida(), pDATA_saida, pDATA_previsao, dd.getNomeDestino()});
+                jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_medico));
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaIntEvadidosSaidaLaborativa.setModel(modelo);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setPreferredWidth(70);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(70);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setResizable(false);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setPreferredWidth(250);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setPreferredWidth(50);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(70);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(50);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(80);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(70);
+                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(200);
                 jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setResizable(false);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(7).setPreferredWidth(70);
-                jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(7).setResizable(false);
                 jTabelaIntEvadidosSaidaLaborativa.getTableHeader().setReorderingAllowed(false);
                 jTabelaIntEvadidosSaidaLaborativa.setAutoResizeMode(jTabelaIntEvadidosSaidaLaborativa.AUTO_RESIZE_OFF);
                 jTabelaIntEvadidosSaidaLaborativa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                alinhaColunasTabelaEvadidosSaidaLaborativa();
+                alinhaColunasTabelaEvadidosSaidaTemporaria();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaPesquisaCancelaEvadidos_LAB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaCancelaEvadidos_MED.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void LIMPAR_tabela() {
+    public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno ", "Id Doc.", "Data Saída", "H. Saída", "Dt.Entrada", "H.Entrada"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Código Saída", "Data Saída", "Dt.Previsão", "Tipo de Saída"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaIntEvadidosSaidaLaborativa.setModel(modelo);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(1).setResizable(false);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setPreferredWidth(250);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(70);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(80);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(80);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(70);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(200);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(7).setPreferredWidth(70);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(7).setResizable(false);
         jTabelaIntEvadidosSaidaLaborativa.getTableHeader().setReorderingAllowed(false);
         jTabelaIntEvadidosSaidaLaborativa.setAutoResizeMode(jTabelaIntEvadidosSaidaLaborativa.AUTO_RESIZE_OFF);
         jTabelaIntEvadidosSaidaLaborativa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
 
-    public void alinhaColunasTabelaEvadidosSaidaLaborativa() {
+    public void alinhaColunasTabelaEvadidosSaidaTemporaria() {
         //
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -511,6 +543,5 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setCellRenderer(centralizado);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setCellRenderer(centralizado);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setCellRenderer(centralizado);
     }
 }
