@@ -1514,9 +1514,10 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             TelaModuloCRC.jPainelCRC.add(objPesqCanEvaMed);
             objPesqCanEvaMed.show();
         } else if (jRBtSaidaDomiciliar.isSelected()) {
-            TelaPesqInternosEvadidosPrisaoDomiciliar objPesqIntEvaDomiciliar = new TelaPesqInternosEvadidosPrisaoDomiciliar();
-            TelaModuloCRC.jPainelCRC.add(objPesqIntEvaDomiciliar);
-            objPesqIntEvaDomiciliar.show();
+//            TelaPesqInternosEvadidosPrisaoDomiciliar objPesqIntEvaDomiciliar = new TelaPesqInternosEvadidosPrisaoDomiciliar();
+            TelaPesquisaCancelaEvadidos_PD objPesqCanEvaDomiciliar  = new TelaPesquisaCancelaEvadidos_PD();
+            TelaModuloCRC.jPainelCRC.add(objPesqCanEvaDomiciliar);
+            objPesqCanEvaDomiciliar.show();
         }
     }//GEN-LAST:event_jBtPesquisaEvasaoActionPerformed
 

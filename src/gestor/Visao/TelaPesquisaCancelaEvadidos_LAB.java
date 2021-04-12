@@ -390,6 +390,7 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                     String anor = dataEntrada.substring(0, 4);
                     dataEntrada = diar + "/" + mesr + "/" + anor;
                 }
+                jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_laborativa));
                 dados.add(new Object[]{pp.getIdItem(), pp.getIdInternoCrc(), pp.getNomeInternoCrc(), pp.getIdRegistroLabor(), dataSaidaTemp, pp.getHorarioSaida(), dataEntrada, pp.getHorarioEntrada()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaIntEvadidosSaidaLaborativa.setModel(modelo);
@@ -440,6 +441,7 @@ public class TelaPesquisaCancelaEvadidos_LAB extends javax.swing.JInternalFrame 
                     String anor = dataEntrada.substring(0, 4);
                     dataEntrada = diar + "/" + mesr + "/" + anor;
                 }
+                jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_laborativa));
                 dados.add(new Object[]{pp.getIdItem(), pp.getIdInternoCrc(), pp.getNomeInternoCrc(), pp.getIdRegistroLabor(), dataSaidaTemp, pp.getHorarioSaida(), dataEntrada, pp.getHorarioEntrada()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaIntEvadidosSaidaLaborativa.setModel(modelo);

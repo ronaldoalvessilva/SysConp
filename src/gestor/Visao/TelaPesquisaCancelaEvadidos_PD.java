@@ -6,14 +6,16 @@
 package gestor.Visao;
 
 import Utilitarios.ModeloTabela;
+import gestor.Controle.converterDataStringDataDate;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Controle.ControleCancelamentoEvasao;
 import gestor.Modelo.CancelamentoEvasao;
+import static gestor.Visao.TelaCancelamentoEvasao.jIdSaida;
 import static gestor.Visao.TelaCancelamentoEvasao.jDataEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jDataSaida;
 import static gestor.Visao.TelaCancelamentoEvasao.jDocumentoSaida;
 import static gestor.Visao.TelaCancelamentoEvasao.jIdInternoEvadido;
 import static gestor.Visao.TelaCancelamentoEvasao.jIdRegistroEvasao;
-import static gestor.Visao.TelaCancelamentoEvasao.jIdSaida;
 import static gestor.Visao.TelaCancelamentoEvasao.jNomeInternoEvadido;
 import static gestor.Visao.TelaCancelamentoEvasao.jStatusEvasao;
 import static gestor.Visao.TelaCancelamentoEvasao.jTipoEvasao;
@@ -29,7 +31,10 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame {
+public class TelaPesquisaCancelaEvadidos_PD extends javax.swing.JInternalFrame {
+
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
 
     CancelamentoEvasao objCancelaEvasao = new CancelamentoEvasao();
     ControleCancelamentoEvasao CONTROLE = new ControleCancelamentoEvasao();
@@ -38,17 +43,17 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
     String idInt;
     String pDATA_saida = "";
     String pDATA_evasao = "";
-    public static int pTOTAL_REGISTROS_medico = 0;
+    public static int pTOTAL_REGISTROS_prisao = 0;
     //
-    public static String nomeInterno_SM;
-    public static String idItem_CESMedico;
-    public static String pCODIGO_INTERNO_medico;
-    public static String pCODIGO_SAIDA_medico;
+    public static String nomeInterno_PD;
+    public static String idItem_CEPDomiciliar;
+    public static String pCODIGO_INTERNO_prisao;
+    public static String pCODIGO_SAIDA_prisao;
 
     /**
      * Creates new form TelaPesqInternosEvadidosManual
      */
-    public TelaPesquisaCancelaEvadidos_MED() {
+    public TelaPesquisaCancelaEvadidos_PD() {
         initComponents();
     }
 
@@ -63,13 +68,13 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPesqNomeInternoEvadido_MED = new javax.swing.JTextField();
+        jPesqNomeInternoEvadidoPrisaoDomi = new javax.swing.JTextField();
         jBtPesqNomeInternoEvadido = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jBtSelecionar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaIntEvadidosSaidaMedico = new javax.swing.JTable();
+        jTabelaIntEvadidosPrisaoDomiciliar = new javax.swing.JTable();
         jPanel32 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
@@ -77,7 +82,7 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
         jLabel63 = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("...::: Pesquisa de Internos Saída Médico {Evadido} :::..");
+        setTitle("...::: Pesquisa de Internos Saída Domiciliar {Evadido} :::..");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -86,7 +91,7 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Nome:");
 
-        jPesqNomeInternoEvadido_MED.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesqNomeInternoEvadidoPrisaoDomi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNomeInternoEvadido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqNomeInternoEvadido.setContentAreaFilled(false);
@@ -112,7 +117,7 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeInternoEvadido_MED)
+                .addComponent(jPesqNomeInternoEvadidoPrisaoDomi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNomeInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -124,7 +129,7 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPesqNomeInternoEvadido_MED, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPesqNomeInternoEvadidoPrisaoDomi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jBtPesqNomeInternoEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1))
@@ -151,36 +156,36 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
             }
         });
 
-        jTabelaIntEvadidosSaidaMedico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaIntEvadidosSaidaMedico.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaIntEvadidosPrisaoDomiciliar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaIntEvadidosPrisaoDomiciliar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Item", "Código", "Nome do Interno", "Código Saída", "Data Saída", "Data Evasão", "Tipo de Saída"
+                "Item", "Código", "Nome do Interno", "Código Saída", "Data Saída", "Dt. Evasão", "Tipo de Saída"
             }
         ));
-        jTabelaIntEvadidosSaidaMedico.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaIntEvadidosPrisaoDomiciliar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaIntEvadidosSaidaMedicoMouseClicked(evt);
+                jTabelaIntEvadidosPrisaoDomiciliarMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTabelaIntEvadidosSaidaMedico);
-        if (jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumnCount() > 0) {
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setMinWidth(250);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setMaxWidth(250);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setMinWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setMaxWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setMinWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setMaxWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setMinWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setMaxWidth(80);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setMinWidth(200);
-            jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setMaxWidth(200);
+        jScrollPane1.setViewportView(jTabelaIntEvadidosPrisaoDomiciliar);
+        if (jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumnCount() > 0) {
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setMinWidth(200);
+            jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setMaxWidth(200);
         }
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -235,7 +240,7 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtSelecionar)
@@ -255,44 +260,45 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(4, 4, 4)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
                     .addComponent(jBtSair))
-                .addGap(5, 5, 5))
+                .addGap(4, 4, 4))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 664, 311);
+        setBounds(300, 20, 691, 297);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido_MED.getText().equals("")) {
+        if (jPesqNomeInternoEvadidoPrisaoDomi.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome de interno a ser selecionado.");
-        } else if (idItem_CESMedico == null) {
+        } else if (idItem_CEPDomiciliar == null) {
             JOptionPane.showMessageDialog(rootPane, "Selecione corretamente o nome do interno..");
         } else {
             //ABA DADOS DO INTERNO - MOVISR
-            CONTROLE.PESQUISAR_DADOS_INTERNO_SM_evasao(objCancelaEvasao);
+            CONTROLE.PESQUISAR_DADOS_INTERNO_PD_evasao(objCancelaEvasao);
             jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
             jIdInternoEvadido.setText(String.valueOf(objCancelaEvasao.getIdInternoCrc()));
             jNomeInternoEvadido.setText(objCancelaEvasao.getNomeInternoCrc());
+            jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
             jDataSaida.setDate(objCancelaEvasao.getDataSaida());
             jDocumentoSaida.setText(objCancelaEvasao.getNrDocSaida());
             //ABA DADOS EVASÃO - EVADIDOIND
-            CONTROLE.ENVIAR_DADOS_REGISTRO_SM_evasao(objCancelaEvasao);
+            CONTROLE.ENVIAR_DADOS_REGISTRO_PD_evasao(objCancelaEvasao);
             jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdRegistroEvasao()));
             jStatusEvasao.setText(objCancelaEvasao.getStatusLanc());
             jDataEvasao.setDate(objCancelaEvasao.getDataEvasao());
@@ -308,34 +314,34 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
 
     private void jBtPesqNomeInternoEvadidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadidoActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido_MED.getText().equals("")) {
+        if (jPesqNomeInternoEvadidoPrisaoDomi.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
             PREENCHER_TABELA_EVADIDOS_MEDICO_nome();
-            if (pTOTAL_REGISTROS_medico == 0) {
+            if (pTOTAL_REGISTROS_prisao == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
             }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
 
-    private void jTabelaIntEvadidosSaidaMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaIntEvadidosSaidaMedicoMouseClicked
+    private void jTabelaIntEvadidosPrisaoDomiciliarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaIntEvadidosPrisaoDomiciliarMouseClicked
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            pCODIGO_SAIDA_medico = "" + jTabelaIntEvadidosSaidaMedico.getValueAt(jTabelaIntEvadidosSaidaMedico.getSelectedRow(), 3);
-            nomeInterno_SM = "" + jTabelaIntEvadidosSaidaMedico.getValueAt(jTabelaIntEvadidosSaidaMedico.getSelectedRow(), 2);
-            jPesqNomeInternoEvadido_MED.setText(nomeInterno_SM);
-            pCODIGO_INTERNO_medico = "" + jTabelaIntEvadidosSaidaMedico.getValueAt(jTabelaIntEvadidosSaidaMedico.getSelectedRow(), 1);
-            idItem_CESMedico = "" + jTabelaIntEvadidosSaidaMedico.getValueAt(jTabelaIntEvadidosSaidaMedico.getSelectedRow(), 0);
+            pCODIGO_SAIDA_prisao = "" + jTabelaIntEvadidosPrisaoDomiciliar.getValueAt(jTabelaIntEvadidosPrisaoDomiciliar.getSelectedRow(), 3);
+            nomeInterno_PD = "" + jTabelaIntEvadidosPrisaoDomiciliar.getValueAt(jTabelaIntEvadidosPrisaoDomiciliar.getSelectedRow(), 2);
+            jPesqNomeInternoEvadidoPrisaoDomi.setText(nomeInterno_PD);
+            pCODIGO_INTERNO_prisao = "" + jTabelaIntEvadidosPrisaoDomiciliar.getValueAt(jTabelaIntEvadidosPrisaoDomiciliar.getSelectedRow(), 1);
+            idItem_CEPDomiciliar = "" + jTabelaIntEvadidosPrisaoDomiciliar.getValueAt(jTabelaIntEvadidosPrisaoDomiciliar.getSelectedRow(), 0);
         }
-    }//GEN-LAST:event_jTabelaIntEvadidosSaidaMedicoMouseClicked
+    }//GEN-LAST:event_jTabelaIntEvadidosPrisaoDomiciliarMouseClicked
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-        // TODO add your handling code here:                
+        // TODO add your handling code here:    
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             PREENCHER_TABELA_EVADIDOS_MEDICO_todos();
-            if (pTOTAL_REGISTROS_medico == 0) {
+            if (pTOTAL_REGISTROS_prisao == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
             }
         } else {
@@ -355,18 +361,19 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
-    public static javax.swing.JTextField jPesqNomeInternoEvadido_MED;
+    public static javax.swing.JTextField jPesqNomeInternoEvadidoPrisaoDomi;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTabelaIntEvadidosSaidaMedico;
+    private javax.swing.JTable jTabelaIntEvadidosPrisaoDomiciliar;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void PREENCHER_TABELA_EVADIDOS_MEDICO_nome() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Código Saída", "Data Saída", "Dt.Evasão", "Tipo de Saída"};
-        CONTROLE.PESQUISAR_INTERNO_nome(objCancelaEvasao);
+        CONTROLE.PESQUISAR_INTERNO_PD_nome(objCancelaEvasao);
+
         pDATA_saida = String.valueOf(objCancelaEvasao.getDataSaida());
-        if (pDATA_saida != null) {
+        if (pDATA_saida != null || !pDATA_saida.equals("")) {
             String dia = pDATA_saida.substring(8, 10);
             String mes = pDATA_saida.substring(5, 7);
             String ano = pDATA_saida.substring(0, 4);
@@ -379,27 +386,27 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
             String pAno = pDATA_evasao.substring(0, 4);
             pDATA_evasao = pDia + "/" + pMes + "/" + pAno;
         }
+        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_prisao));
         dados.add(new Object[]{objCancelaEvasao.getIdItem(), objCancelaEvasao.getIdInternoCrc(), objCancelaEvasao.getNomeInternoCrc(), objCancelaEvasao.getIdSaida(), pDATA_saida, pDATA_evasao, objCancelaEvasao.getNomeDestino()});
-        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_medico));
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaIntEvadidosSaidaMedico.setModel(modelo);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setPreferredWidth(250);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setPreferredWidth(200);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getTableHeader().setReorderingAllowed(false);
-        jTabelaIntEvadidosSaidaMedico.setAutoResizeMode(jTabelaIntEvadidosSaidaMedico.AUTO_RESIZE_OFF);
-        jTabelaIntEvadidosSaidaMedico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaIntEvadidosPrisaoDomiciliar.setModel(modelo);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setPreferredWidth(200);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getTableHeader().setReorderingAllowed(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.setAutoResizeMode(jTabelaIntEvadidosPrisaoDomiciliar.AUTO_RESIZE_OFF);
+        jTabelaIntEvadidosPrisaoDomiciliar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinhaColunasTabelaEvadidosSaidaTemporaria();
     }
 
@@ -407,7 +414,7 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Código Saída", "Data Saída", "Dt.Evasão", "Tipo de Saída"};
         try {
-            for (CancelamentoEvasao dd : CONTROLE.LISTA_REGISTROS_EVADIDOS_SM_todos()) {
+            for (CancelamentoEvasao dd : CONTROLE.LISTA_REGISTROS_EVADIDOS_PD_todos()) {
                 pDATA_saida = String.valueOf(dd.getDataSaida());
                 if (pDATA_saida != null) {
                     String dia = pDATA_saida.substring(8, 10);
@@ -423,31 +430,31 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
                     String pAno = pDATA_evasao.substring(0, 4);
                     pDATA_evasao = pDia + "/" + pMes + "/" + pAno;
                 }
+                jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_prisao));
                 dados.add(new Object[]{dd.getIdItem(), dd.getIdInternoCrc(), dd.getNomeInternoCrc(), dd.getIdSaida(), pDATA_saida, pDATA_evasao, dd.getNomeDestino()});
-                jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_medico));
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-                jTabelaIntEvadidosSaidaMedico.setModel(modelo);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setPreferredWidth(70);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setResizable(false);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setPreferredWidth(80);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setResizable(false);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setPreferredWidth(250);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setResizable(false);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setPreferredWidth(80);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setResizable(false);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setPreferredWidth(80);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setResizable(false);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setPreferredWidth(80);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setResizable(false);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setPreferredWidth(200);
-                jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setResizable(false);
-                jTabelaIntEvadidosSaidaMedico.getTableHeader().setReorderingAllowed(false);
-                jTabelaIntEvadidosSaidaMedico.setAutoResizeMode(jTabelaIntEvadidosSaidaMedico.AUTO_RESIZE_OFF);
-                jTabelaIntEvadidosSaidaMedico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                jTabelaIntEvadidosPrisaoDomiciliar.setModel(modelo);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setPreferredWidth(70);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setResizable(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setPreferredWidth(80);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setResizable(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setPreferredWidth(250);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setResizable(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setPreferredWidth(80);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setResizable(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setPreferredWidth(80);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setResizable(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setPreferredWidth(80);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setResizable(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setPreferredWidth(200);
+                jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setResizable(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.getTableHeader().setReorderingAllowed(false);
+                jTabelaIntEvadidosPrisaoDomiciliar.setAutoResizeMode(jTabelaIntEvadidosPrisaoDomiciliar.AUTO_RESIZE_OFF);
+                jTabelaIntEvadidosPrisaoDomiciliar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 alinhaColunasTabelaEvadidosSaidaTemporaria();
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaPesquisaCancelaEvadidos_MED.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaPesquisaCancelaEvadidos_PD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -455,24 +462,24 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Código Saída", "Data Saída", "Dt.Evasão", "Tipo de Saída"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaIntEvadidosSaidaMedico.setModel(modelo);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setPreferredWidth(250);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setPreferredWidth(200);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(6).setResizable(false);
-        jTabelaIntEvadidosSaidaMedico.getTableHeader().setReorderingAllowed(false);
-        jTabelaIntEvadidosSaidaMedico.setAutoResizeMode(jTabelaIntEvadidosSaidaMedico.AUTO_RESIZE_OFF);
-        jTabelaIntEvadidosSaidaMedico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaIntEvadidosPrisaoDomiciliar.setModel(modelo);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setPreferredWidth(200);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.getTableHeader().setReorderingAllowed(false);
+        jTabelaIntEvadidosPrisaoDomiciliar.setAutoResizeMode(jTabelaIntEvadidosPrisaoDomiciliar.AUTO_RESIZE_OFF);
+        jTabelaIntEvadidosPrisaoDomiciliar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
 
@@ -486,10 +493,10 @@ public class TelaPesquisaCancelaEvadidos_MED extends javax.swing.JInternalFrame 
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(4).setCellRenderer(centralizado);
-        jTabelaIntEvadidosSaidaMedico.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaIntEvadidosPrisaoDomiciliar.getColumnModel().getColumn(5).setCellRenderer(centralizado);
     }
 }
