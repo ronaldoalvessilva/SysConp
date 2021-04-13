@@ -1063,7 +1063,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             TelaPesqInternosEvadidosManualMedico objPesqIntEvaMedico = new TelaPesqInternosEvadidosManualMedico();
             TelaModuloCRC.jPainelCRC.add(objPesqIntEvaMedico);
             objPesqIntEvaMedico.show();
-        }else if(jRBtSaidaDomiciliar.isSelected()){
+        } else if (jRBtSaidaDomiciliar.isSelected()) {
             TelaPesqInternosEvadidosPrisaoDomiciliar objPesqIntEvaDomiciliar = new TelaPesqInternosEvadidosPrisaoDomiciliar();
             TelaModuloCRC.jPainelCRC.add(objPesqIntEvaDomiciliar);
             objPesqIntEvaDomiciliar.show();
@@ -1270,6 +1270,9 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                     jRBtSaidaEstudos.setSelected(true);
                 } else if (tipoEvasao == 3) {
                     jRBtSaidaMedico.setSelected(true);
+                } else if (tipoEvasao == 4) {
+                    jRBtSaidaDomiciliar.setSelected(true);
+                    jOperacao.setText("EVASÃO - SAIDA DOMICILIAR");
                 }
                 jIdInternoEvadido.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInternoEvadido.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -1917,13 +1920,18 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
         excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
     }
-// FINALIZA o Rol do interno quando o mesmo sair da unidade
 
+    // FINALIZA o Rol do interno quando o mesmo sair da unidade
     public void atualizarRolSaidaInterno() {
 
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ROLVISITAS WHERE IdInternoCrc='" + jIdInternoEvadido.getText() + "'AND StatusRol='" + statusRol + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdInternoCrc, "
+                    + "StatusRol "
+                    + "FROM ROLVISITAS "
+                    + "WHERE IdInternoCrc='" + jIdInternoEvadido.getText() + "' "
+                    + "AND StatusRol='" + statusRol + "'");
             conecta.rs.first();
             idInternoRol = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException ex) {

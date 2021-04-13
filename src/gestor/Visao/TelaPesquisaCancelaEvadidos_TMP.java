@@ -295,14 +295,14 @@ public class TelaPesquisaCancelaEvadidos_TMP extends javax.swing.JInternalFrame 
         } else {
             //ABA DADOS DO INTERNO - MOVISR
             CONTROLE.PESQUISAR_DADOS_INTERNO_ST_evasao(objCancelaEvasao);            
-            jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
+            jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
             jIdInternoEvadido.setText(String.valueOf(objCancelaEvasao.getIdInternoCrc()));
             jNomeInternoEvadido.setText(objCancelaEvasao.getNomeInternoCrc());            
             jDataSaida.setDate(objCancelaEvasao.getDataSaida());
             jDocumentoSaida.setText(objCancelaEvasao.getNrDocSaida());
             //ABA DADOS EVASÃO - EVADIDOIND
             CONTROLE.ENVIAR_DADOS_REGISTRO_ST_evasao(objCancelaEvasao);            
-            jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdRegistroEvasao()));
+            jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdRegistroEvasao()));
             jStatusEvasao.setText(objCancelaEvasao.getStatusLanc());
             jDataEvasao.setDate(objCancelaEvasao.getDataEvasao());
             jTipoEvasao.setText(objCancelaEvasao.getTipoOperacao());

@@ -32,6 +32,7 @@ public class CancelamentoEvasao {
     private int tipoEvasao;
     private int idInternoCrc;
     private String nomeInternoCrc;
+    private String situacaoCrc;
     private String maeInterno;
     private String paiInterno;
     private String observacao;
@@ -109,6 +110,11 @@ public class CancelamentoEvasao {
     private int sexta;
     private int sabado;
     //DADOS FINANCEIRO - SAQUE
+    private String historico;
+    private String statusMov;
+    private Date dataMov;
+    private String favorecidoDepositante;
+    private float saldo;
     private float valorSaque;
     private String favorecido;
     private String reciboSaque;
@@ -142,7 +148,7 @@ public class CancelamentoEvasao {
     public CancelamentoEvasao() {
     }
 
-    public CancelamentoEvasao(Integer idCancelaEvasao, String statusCancelarEvasao, Date dataRegistroCancelamento, Date dataCancelaEvasao, int tipoOperacaoCancelar, String descricaoOperacaoCancela, String nomeResponsavel, String cargoResponsavel, String numeroDocumentoCancela, Date dataCancelamento, String motivoCancelamento, String statusLanc, Date dataLanc, String tipoOperacao, String nrDocSaida, int tipoEvasao, int idInternoCrc, String nomeInternoCrc, String maeInterno, String paiInterno, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String internoEvadido, Date dataEvasao, Date dataDocumento, int idItem, String nomeInterno, Date dataEntrada, String horarioEntrada, Date dataSaida, String horarioSaida, int qtdInt, String mesReferencia, String horaInsert, String horaUp, byte[] assinaturaDigital, int idItemSaida, Date dataRetorno, String nomeDestino, String documento, int idInternoSaida, String confirmaRetorno, String confirmaEvasao, String confirmaSaida, Date dataEvasaoTmp, Date dataPrevRetorno, String obito, String confirmaObito, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek, String descricaoDoc, String regime, String tornozeleira, String descricaoCela, int qtdLanc, Date dataRol, String statusRol, String dataFechamento, String horaFechamento, String recebeVisita, int idInstituicao, String nomeInstituicaoRel, int domingo, int segunda, int terca, int quarta, int quinta, int sexta, int sabado, float valorSaque, String favorecido, String reciboSaque, float valorDeposito, String depositante, String efetuado, Date dataLancMov, int idHist, int tipo, float valorLiberado, int idUsuario, String nomeUsuario, float saldoAtual, String tipoTrans, Integer idRegistroEvasao, Integer idRegistroLabor, Integer idRegistroEduca, Integer idRegistroMedico, Integer idRegistroCovid, String dataPesquisaEvasao, Integer idSaida, int idDeposito, int idSaque, Integer idLancHist, Integer idLoca, Integer idCela, Integer idRol) {
+    public CancelamentoEvasao(Integer idCancelaEvasao, String statusCancelarEvasao, Date dataRegistroCancelamento, Date dataCancelaEvasao, int tipoOperacaoCancelar, String descricaoOperacaoCancela, String nomeResponsavel, String cargoResponsavel, String numeroDocumentoCancela, Date dataCancelamento, String motivoCancelamento, String statusLanc, Date dataLanc, String tipoOperacao, String nrDocSaida, int tipoEvasao, int idInternoCrc, String nomeInternoCrc, String situacaoCrc, String maeInterno, String paiInterno, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String internoEvadido, Date dataEvasao, Date dataDocumento, int idItem, String nomeInterno, Date dataEntrada, String horarioEntrada, Date dataSaida, String horarioSaida, int qtdInt, String mesReferencia, String horaInsert, String horaUp, byte[] assinaturaDigital, int idItemSaida, Date dataRetorno, String nomeDestino, String documento, int idInternoSaida, String confirmaRetorno, String confirmaEvasao, String confirmaSaida, Date dataEvasaoTmp, Date dataPrevRetorno, String obito, String confirmaObito, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek, String descricaoDoc, String regime, String tornozeleira, String descricaoCela, int qtdLanc, Date dataRol, String statusRol, String dataFechamento, String horaFechamento, String recebeVisita, int idInstituicao, String nomeInstituicaoRel, int domingo, int segunda, int terca, int quarta, int quinta, int sexta, int sabado, String historico, String statusMov, Date dataMov, String favorecidoDepositante, float saldo, float valorSaque, String favorecido, String reciboSaque, float valorDeposito, String depositante, String efetuado, Date dataLancMov, int idHist, int tipo, float valorLiberado, int idUsuario, String nomeUsuario, float saldoAtual, String tipoTrans, Integer idRegistroEvasao, Integer idRegistroLabor, Integer idRegistroEduca, Integer idRegistroMedico, Integer idRegistroCovid, String dataPesquisaEvasao, Integer idSaida, int idDeposito, int idSaque, Integer idLancHist, Integer idLoca, Integer idCela, Integer idRol) {
         this.idCancelaEvasao = idCancelaEvasao;
         this.statusCancelarEvasao = statusCancelarEvasao;
         this.dataRegistroCancelamento = dataRegistroCancelamento;
@@ -161,6 +167,7 @@ public class CancelamentoEvasao {
         this.tipoEvasao = tipoEvasao;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
+        this.situacaoCrc = situacaoCrc;
         this.maeInterno = maeInterno;
         this.paiInterno = paiInterno;
         this.observacao = observacao;
@@ -233,6 +240,11 @@ public class CancelamentoEvasao {
         this.quinta = quinta;
         this.sexta = sexta;
         this.sabado = sabado;
+        this.historico = historico;
+        this.statusMov = statusMov;
+        this.dataMov = dataMov;
+        this.favorecidoDepositante = favorecidoDepositante;
+        this.saldo = saldo;
         this.valorSaque = valorSaque;
         this.favorecido = favorecido;
         this.reciboSaque = reciboSaque;
@@ -512,6 +524,20 @@ public class CancelamentoEvasao {
      */
     public void setNomeInternoCrc(String nomeInternoCrc) {
         this.nomeInternoCrc = nomeInternoCrc;
+    }
+
+    /**
+     * @return the situacaoCrc
+     */
+    public String getSituacaoCrc() {
+        return situacaoCrc;
+    }
+
+    /**
+     * @param situacaoCrc the situacaoCrc to set
+     */
+    public void setSituacaoCrc(String situacaoCrc) {
+        this.situacaoCrc = situacaoCrc;
     }
 
     /**
@@ -1520,6 +1546,76 @@ public class CancelamentoEvasao {
      */
     public void setSabado(int sabado) {
         this.sabado = sabado;
+    }
+
+    /**
+     * @return the historico
+     */
+    public String getHistorico() {
+        return historico;
+    }
+
+    /**
+     * @param historico the historico to set
+     */
+    public void setHistorico(String historico) {
+        this.historico = historico;
+    }
+
+    /**
+     * @return the statusMov
+     */
+    public String getStatusMov() {
+        return statusMov;
+    }
+
+    /**
+     * @param statusMov the statusMov to set
+     */
+    public void setStatusMov(String statusMov) {
+        this.statusMov = statusMov;
+    }
+
+    /**
+     * @return the dataMov
+     */
+    public Date getDataMov() {
+        return dataMov;
+    }
+
+    /**
+     * @param dataMov the dataMov to set
+     */
+    public void setDataMov(Date dataMov) {
+        this.dataMov = dataMov;
+    }
+
+    /**
+     * @return the favorecidoDepositante
+     */
+    public String getFavorecidoDepositante() {
+        return favorecidoDepositante;
+    }
+
+    /**
+     * @param favorecidoDepositante the favorecidoDepositante to set
+     */
+    public void setFavorecidoDepositante(String favorecidoDepositante) {
+        this.favorecidoDepositante = favorecidoDepositante;
+    }
+
+    /**
+     * @return the saldo
+     */
+    public float getSaldo() {
+        return saldo;
+    }
+
+    /**
+     * @param saldo the saldo to set
+     */
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
     }
 
     /**

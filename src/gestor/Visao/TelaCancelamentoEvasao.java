@@ -71,14 +71,14 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     int tipoEvasao, idInternoRol;
     String horarioEntrada = "00:00";
     int count;
-    //
-    double valorDebito = 0;
-    double valorCredito = 0;
-    double saldoTotalCredito = 0;
-    double saldoTotalDebito = 0;
-    double valorLiquido = 0;
-    String tipoMovDeb = "D";
-    String tipoMovCred = "C";
+    //MÓDULO FINANCEIRO
+    public static double valorDebito = 0;
+    public static double valorCredito = 0;
+    public static double saldoTotalCredito = 0;
+    public static double saldoTotalDebito = 0;
+    public static double valorLiquido = 0;
+    public static String tipoMovDeb = "D";
+    public static String tipoMovCred = "C";
     String statusSaque = "FINALIZADO";
     String movStatus = "D";
     String movTrans = "C";
@@ -88,6 +88,9 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
     public static String pRESPOSTA_cancel = "";
     String pDATA_Registros = "";
     public static int pTOTAL_registros = 0;
+    String pTIPO_OPERCAO_cancelamento = "";
+    //
+    public static Integer pINTERNO_rol = 0;
 
     /**
      * Creates new form TelaCancelamentoEvasao
@@ -330,11 +333,11 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Doc.", "Data Evasão", "Status", "Nome do Interno"
+                "Doc.", "Data Evasão", "Status", "Tipo Evasão", "Nome do Interno"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -354,8 +357,10 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jTabelaCancelamentoEvasao.getColumnModel().getColumn(1).setMaxWidth(80);
             jTabelaCancelamentoEvasao.getColumnModel().getColumn(2).setMinWidth(100);
             jTabelaCancelamentoEvasao.getColumnModel().getColumn(2).setMaxWidth(100);
-            jTabelaCancelamentoEvasao.getColumnModel().getColumn(3).setMinWidth(300);
-            jTabelaCancelamentoEvasao.getColumnModel().getColumn(3).setMaxWidth(300);
+            jTabelaCancelamentoEvasao.getColumnModel().getColumn(3).setMinWidth(200);
+            jTabelaCancelamentoEvasao.getColumnModel().getColumn(3).setMaxWidth(200);
+            jTabelaCancelamentoEvasao.getColumnModel().getColumn(4).setMinWidth(300);
+            jTabelaCancelamentoEvasao.getColumnModel().getColumn(4).setMaxWidth(300);
         }
 
         jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1196,31 +1201,35 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
-            jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             jBtFinalizar.setEnabled(true);
-
+            //
             CONTROLE.MOSTRAR_pesquisa(objCancelaEvasao);
             jIdLanc.setText(String.valueOf(objCancelaEvasao.getIdCancelaEvasao()));
             jStatusLanc.setText(objCancelaEvasao.getStatusCancelarEvasao());
             jDataLanc.setDate(objCancelaEvasao.getDataCancelaEvasao());
             jOperacao.setText(objCancelaEvasao.getTipoOperacao());
-            jDocumentoSaida.setText(objCancelaEvasao.getDocumento());
             tipoEvasao = objCancelaEvasao.getTipoEvasao();
             if (tipoEvasao == 0) {
                 jRBtSaidaTemporaria.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA TEMPORARIA");
             } else if (tipoEvasao == 1) {
                 jRBtSaidaLaborativa.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA LABORATIVA");
             } else if (tipoEvasao == 2) {
                 jRBtSaidaEstudos.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA ESTUDOS");
             } else if (tipoEvasao == 3) {
                 jRBtSaidaMedico.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA MÉDICO");
+            } else if (tipoEvasao == 4) {
+                jRBtSaidaDomiciliar.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA DOMICILIAR");
             }
-            //ABA DADOS LIBERADOR
             jNomeResponsavel.setText(objCancelaEvasao.getNomeResponsavel());
             jComboBoxCargo.setSelectedItem(objCancelaEvasao.getCargoResponsavel());
+            jDataDocumento.setDate(objCancelaEvasao.getDataCancelamento());
             jNumeroDocumento.setText(objCancelaEvasao.getNumeroDocumentoCancela());
-            jDataDocumento.setDate(objCancelaEvasao.getDataSaida());
             //ABA DADOS DA EVASÃO
             jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdRegistroEvasao()));
             jStatusEvasao.setText(objCancelaEvasao.getStatusLanc());
@@ -1271,7 +1280,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             } else {
                 acao = 2;
                 bloquearBotoes(!true);
-                habilitarCampos(!true);
+                habilitarCampos(true);
                 Alterar();
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
@@ -1300,7 +1309,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                     statusMov = "Excluiu";
                     horaMov = jHoraSistema.getText();
                     objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdLanc.getText()));
-                    CONTROLE.excluirCancelamentoEvasaoInTernos(objCancelaEvasao);
+                    CONTROLE.excluirCancelamentoEvasaoInternos(objCancelaEvasao);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação         
                     bloquearBotoes(!true);
@@ -1351,7 +1360,7 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "O motivo do cancelmento da evasão do interno, não de ser em branco.\nA descrição do motivo do cancelamento da evasão, será lançada na observação do interno.");
             } else {
                 objCancelaEvasao.setStatusLanc(statusEva);
-                objCancelaEvasao.setDataCancelaEvasao(jDataLanc.getDate());
+                objCancelaEvasao.setDataRegistroCancelamento(jDataLanc.getDate());
                 if (jRBtSaidaTemporaria.isSelected()) {
                     tipoEvasao = 0;
                 } else if (jRBtSaidaLaborativa.isSelected()) {
@@ -1374,16 +1383,18 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 objCancelaEvasao.setIdRegistroEvasao(Integer.parseInt(jIdRegistroEvasao.getText()));
                 //ABA DADOS DO INTERNO
                 objCancelaEvasao.setIdInternoCrc(Integer.parseInt(jIdInternoEvadido.getText()));
+                objCancelaEvasao.setNomeInternoCrc(jNomeInternoEvadido.getText());
                 objCancelaEvasao.setMotivoCancelamento(jMotivo.getText());
                 if (acao == 1) {
                     objCancelaEvasao.setUsuarioInsert(nameUser);
                     objCancelaEvasao.setDataInsert(jDataSistema.getText());
                     objCancelaEvasao.setHorarioInsert(jHoraSistema.getText());
-                    CONTROLE.incluirCancelamentoEvasaoInTernos(objCancelaEvasao);
+                    CONTROLE.incluirCancelamentoEvasaoInternos(objCancelaEvasao);
                     BUSCAR_codigo();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos(!true);
+                    bloquearBotoes(!true);
                     Salvar();
                     if (pRESPOSTA_cancel.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -1397,10 +1408,11 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                     objCancelaEvasao.setDataUp(jDataSistema.getText());
                     objCancelaEvasao.setHorarioUp(jHoraSistema.getText());
                     objCancelaEvasao.setIdCancelaEvasao(Integer.parseInt(jIdLanc.getText()));
-                    CONTROLE.alterarCancelamentoEvasaoInTernos(objCancelaEvasao);
+                    CONTROLE.alterarCancelamentoEvasaoInternos(objCancelaEvasao);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos(!true);
+                    bloquearBotoes(!true);
                     Salvar();
                     if (pRESPOSTA_cancel.equals("Sim")) {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -1422,6 +1434,11 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        if (jStatusLanc.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado.");
+        } else {
+            FINALIZAR_cancelamento();
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1431,6 +1448,9 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaCancelamentoEvasao objAudiCancela = new TelaAuditoriaCancelamentoEvasao();
+        TelaModuloCRC.jPainelCRC.add(objAudiCancela);
+        objAudiCancela.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jRBtSaidaTemporariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBtSaidaTemporariaMouseClicked
@@ -1504,18 +1524,15 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             TelaModuloCRC.jPainelCRC.add(objPesqCanEvaLab);
             objPesqCanEvaLab.show();
         } else if (jRBtSaidaEstudos.isSelected()) {
-//            TelaPesqInternosEvadidosEducacao objPesqIntEvaEdu = new TelaPesqInternosEvadidosEducacao();
             TelaPesquisaCancelaEvadidos_EDU objPesqCanEvaEdu = new TelaPesquisaCancelaEvadidos_EDU();
             TelaModuloCRC.jPainelCRC.add(objPesqCanEvaEdu);
             objPesqCanEvaEdu.show();
         } else if (jRBtSaidaMedico.isSelected()) {
-//            TelaPesqInternosEvadidosManualMedico objPesqIntEvaMedico = new TelaPesqInternosEvadidosManualMedico();
             TelaPesquisaCancelaEvadidos_MED objPesqCanEvaMed = new TelaPesquisaCancelaEvadidos_MED();
             TelaModuloCRC.jPainelCRC.add(objPesqCanEvaMed);
             objPesqCanEvaMed.show();
         } else if (jRBtSaidaDomiciliar.isSelected()) {
-//            TelaPesqInternosEvadidosPrisaoDomiciliar objPesqIntEvaDomiciliar = new TelaPesqInternosEvadidosPrisaoDomiciliar();
-            TelaPesquisaCancelaEvadidos_PD objPesqCanEvaDomiciliar  = new TelaPesquisaCancelaEvadidos_PD();
+            TelaPesquisaCancelaEvadidos_PD objPesqCanEvaDomiciliar = new TelaPesquisaCancelaEvadidos_PD();
             TelaModuloCRC.jPainelCRC.add(objPesqCanEvaDomiciliar);
             objPesqCanEvaDomiciliar.show();
         }
@@ -1763,11 +1780,242 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //BUSCAR DADOS ANTERIOR
+            String IdLanc = "" + jTabelaCancelamentoEvasao.getValueAt(jTabelaCancelamentoEvasao.getSelectedRow(), 0);
+            jCodigo.setText(IdLanc);
+            bloquearCampos(!true);
+            bloquearBotoes(!true);
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            //
+            CONTROLE.MOSTRAR_pesquisa(objCancelaEvasao);
+            jIdLanc.setText(String.valueOf(objCancelaEvasao.getIdCancelaEvasao()));
+            jStatusLanc.setText(objCancelaEvasao.getStatusCancelarEvasao());
+            jDataLanc.setDate(objCancelaEvasao.getDataCancelaEvasao());
+            jOperacao.setText(objCancelaEvasao.getTipoOperacao());
+            tipoEvasao = objCancelaEvasao.getTipoEvasao();
+            if (tipoEvasao == 0) {
+                jRBtSaidaTemporaria.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA TEMPORARIA");
+            } else if (tipoEvasao == 1) {
+                jRBtSaidaLaborativa.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA LABORATIVA");
+            } else if (tipoEvasao == 2) {
+                jRBtSaidaEstudos.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA ESTUDOS");
+            } else if (tipoEvasao == 3) {
+                jRBtSaidaMedico.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA MÉDICO");
+            } else if (tipoEvasao == 4) {
+                jRBtSaidaDomiciliar.setSelected(true);
+                jOperacao.setText("EVASÃO - SAIDA DOMICILIAR");
+            }
+            jNomeResponsavel.setText(objCancelaEvasao.getNomeResponsavel());
+            jComboBoxCargo.setSelectedItem(objCancelaEvasao.getCargoResponsavel());
+            jDataDocumento.setDate(objCancelaEvasao.getDataCancelamento());
+            jNumeroDocumento.setText(objCancelaEvasao.getNumeroDocumentoCancela());
+            //ABA DADOS DA EVASÃO
+            jIdRegistroEvasao.setText(String.valueOf(objCancelaEvasao.getIdRegistroEvasao()));
+            jStatusEvasao.setText(objCancelaEvasao.getStatusLanc());
+            jDataEvasao.setDate(objCancelaEvasao.getDataEvasao());
+            jTipoEvasao.setText(objCancelaEvasao.getTipoOperacao());
+            //ABA DADOS INTERNOS
+            jIdInternoEvadido.setText(String.valueOf(objCancelaEvasao.getIdInternoCrc()));
+            jNomeInternoEvadido.setText(objCancelaEvasao.getNomeInternoCrc());
+            jIdSaida.setText(String.valueOf(objCancelaEvasao.getIdSaida()));
+            jDataSaida.setDate(objCancelaEvasao.getDataSaida());
+            jDocumentoSaida.setText(objCancelaEvasao.getNumeroDocumentoCancela());
+            jMotivo.setText(objCancelaEvasao.getMotivoCancelamento());
         }
     }
 
     public void BUSCAR_codigo() {
         CONTROLE.BUSCAR_CODIGO_cancelamento(objCancelaEvasao);
+    }
+
+    public void FINALIZAR_cancelamento() {
+        statusMov = "Finalizou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        String statusEntrada = "FINALIZADO";
+        JOptionPane.showMessageDialog(rootPane, "Se esse cancelamento de evasão de internos for finalizado, você não poderá mais excluir ou alterar.\nSerá necessário"
+                + "também realocar o interno na cela caso seja necessário.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZAR o lançamento selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            FINALIZAR_evasao();
+            objCancelaEvasao.setStatusLanc(statusEntrada);
+            objCancelaEvasao.setIdCancelaEvasao(Integer.parseInt(jIdLanc.getText()));
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            CONTROLE.FINALIZAR_CANCELAMENTO_evasao(objCancelaEvasao);
+            jStatusLanc.setText(statusEntrada);//          
+            // CALCULAR O VALOR LIQUIDO DO INTERNO
+            CONTROLE.CALCULAR_credito(objCancelaEvasao);
+            CONTROLE.CALCULAR_debito(objCancelaEvasao);
+            valorLiquido = saldoTotalCredito - saldoTotalDebito;
+            // INCLUIR SAQUE NA  TABELA SALDOVALORES
+            objCancelaEvasao.setHistorico(situacao);
+            objCancelaEvasao.setDataMov(jDataLanc.getDate());
+            objCancelaEvasao.setFavorecidoDepositante(jNomeInternoEvadido.getText());
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setStatusMov(movStatus);
+            objCancelaEvasao.setSaldo((float) valorLiquido);
+            objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdLanc.getText()));
+            CONTROLE.INCLUIR_saldo(objCancelaEvasao); // SALDOVALORES
+            // TABELA SALDO_VALORES_INATIVOS
+            objCancelaEvasao.setSaldoAtual((float) valorLiquido);
+            CONTROLE.INCLUIR_SALDO_inativos(objCancelaEvasao); // SALDO_VALORES_INATIVOS
+            // LANÇA DEBITO NA TABELA SAQUE
+            objCancelaEvasao.setStatusLanc(statusSaque);
+            objCancelaEvasao.setDataLanc(jDataLanc.getDate());
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setNomeInterno(jNomeInternoEvadido.getText());
+            objCancelaEvasao.setFavorecido(jNomeInternoEvadido.getText());
+            objCancelaEvasao.setObservacao(situacao);
+            objCancelaEvasao.setValorSaque((float) valorLiquido);
+            CONTROLE.INCLUIR_saque(objCancelaEvasao); // TABELA - SAQUE
+            // DEPOSITO NA CONTA DOS INATIVOS DEPOSITO_INATIVOS
+            objCancelaEvasao.setStatusLanc(statusSaque);
+            objCancelaEvasao.setDataLanc(jDataLanc.getDate());
+            objCancelaEvasao.setValorDeposito((float) valorLiquido);
+            objCancelaEvasao.setDepositante(jNomeInternoEvadido.getText());
+            objCancelaEvasao.setObservacao(situacao);
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setNomeInterno(jNomeInternoEvadido.getText());
+            CONTROLE.INCLUID_depositos(objCancelaEvasao); // TABELA - DEPOSITOS_INATIVOS
+            //
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            jDataLanc.setEnabled(!true);
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(!true);
+            jBtExcluir.setEnabled(!true);
+            jBtSalvar.setEnabled(!true);
+            jBtCancelar.setEnabled(!true);
+            jBtFinalizar.setEnabled(!true);
+        }
+    }
+
+    public void FINALIZAR_evasao() {
+        objCancelaEvasao.setStatusLanc(statusEva);
+        objCancelaEvasao.setTipoOperacao(jOperacao.getText());
+        objCancelaEvasao.setNrDocSaida(jDocumentoSaida.getText());
+        objCancelaEvasao.setDataLanc(jDataLanc.getDate());
+        objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+        objCancelaEvasao.setObservacao(jMotivo.getText());
+        // SE FOR EVSÃO DE SAIDA TEMPORARIA
+        if (tipoEvasao == 0) {
+            // INCLUIR NA TABELA (MOVIMENTOCRC)
+            objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdLanc.getText()));
+            CONTROLE.INSERT_movisr(objCancelaEvasao);
+            // Atualiza tabela de Itens de saida temporaria, quando interno está evadido. TESTADO EM 06/06/2015 FUNCIONANDO                        
+            objCancelaEvasao.setInternoEvadido(evadidoInd); // Quando interno EVADE
+            objCancelaEvasao.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setDocumento(jDocumentoSaida.getText());
+            objCancelaEvasao.setConfirmaEvasao(confirmaEvasao);
+            CONTROLE.UPDATE_ITENS_saida(objCancelaEvasao); // tabela ITENSSAIDA quando evadidos. TESTADO EM 06/06/2015 FUNCIONANDO                              
+            // CONFIRMA A EVASÃO DO INTERNO DA TABELA (MOVISR). TESTADO EM 06/06/2015 - FUNCIONANDO
+            objCancelaEvasao.setDataEvasaoTmp(jDataLanc.getDate()); // Data da Evasão 
+            objCancelaEvasao.setDocumento(jDocumentoSaida.getText());
+            objCancelaEvasao.setConfirmaEvasao(confirmaEvasao);
+//            control.confirmaEvasaoInternoSaidaTmp(objItemSaida);
+            // SE FOR EVASÃO DE SAIDA LABORATIVA EXTERNA
+        } else if (tipoEvasao == 1) {
+            // INCLUIR NA TABELA (MOVIMENTOCRC)
+            objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdLanc.getText()));
+            CONTROLE.INSERT_movisr(objCancelaEvasao);
+            // ATUALIZA TABELA DE (ITENSLABORINTERNO), QUADO INTERNO ESTÁ EVADIDO.
+            objCancelaEvasao.setInternoEvadido(evadidoInd);
+            objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdSaida.getText()));
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+//            control.incluirEvasaoInterno(objItenLabor);
+            // INSERIR NA TABELA (MOVISR) OS DADOS DO INTERNO EVADIDO
+            objCancelaEvasao.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setIdSaida(Integer.valueOf(jIdSaida.getText()));
+            objCancelaEvasao.setDataSaida(jDataSaida.getDate());
+            objCancelaEvasao.setDocumento(jDocumentoSaida.getText());
+            objCancelaEvasao.setConfirmaEvasao(confirmaEvasao);
+            objCancelaEvasao.setDataEvasaoTmp(jDataLanc.getDate());
+//            control.incluirEvasaoInternoSaidaLaborativa(objItemSaida);
+            // SE FOR EVASÃO DE SAIDA PARA ESTUDAR NA TABELA INTERNOS_ENTRADA_SAIDA_EDUCACAO  
+        } else if (tipoEvasao == 2) {
+            // INCLUIR NA TABELA (MOVIMENTOCRC)
+            objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdLanc.getText()));
+            CONTROLE.INSERT_movisr(objCancelaEvasao);
+            // UPDATE CAMPO (OBSERVACAO E EVADIDO) DA TABELA INTERNOS_ENTRADA_SAIDA_EDUCACAO - PORTARIA 
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setInternoEvadido(evadidoInd);
+            objCancelaEvasao.setObservacao(evadidoInd);
+            objCancelaEvasao.setHorarioEntrada(horarioEntrada);
+            CONTROLE.UPDATE_SAIDA_EDUCACIONAL_DATA_HORA_portaria(objCancelaEvasao);
+            // UPDATE NO CAMPO (EVADIDO) DA TABELA INTERNOS_SAIDA_EDUCACIONAL - PEDAGOGIA
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setInternoEvadido(evadidoInd);
+//            control.incluirEvasaoEducacionalInternoPedagogia(objItenLabor);
+            // INSERIR NA TABELA (MOVISR) OS DADOS DO INTERNO EVADIDO
+            objCancelaEvasao.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setIdSaida(Integer.valueOf(jIdSaida.getText()));
+            objCancelaEvasao.setDataSaida(jDataSaida.getDate());
+            objCancelaEvasao.setDocumento(jDocumentoSaida.getText());
+            objCancelaEvasao.setConfirmaEvasao(confirmaEvasao);
+            objCancelaEvasao.setDataEvasaoTmp(jDataLanc.getDate());
+//            control.incluirEvasaoInternoSaidaLaborativa(objItemSaida);
+        } else if (tipoEvasao == 3) {
+            // INCLUIR NA TABELA (MOVIMENTOCRC)
+            objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdLanc.getText()));
+            CONTROLE.INSERT_movisr(objCancelaEvasao);
+            // UPDATE CAMPO (OBSERVACAO E EVADIDO) DA TABELA INTERNOS_ENTRADA_SAIDA_EDUCACAO - PORTARIA 
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setInternoEvadido(evadidoInd);
+            objCancelaEvasao.setObservacao(evadidoInd);
+            objCancelaEvasao.setHorarioEntrada(horarioEntrada);
+//            control.incluirEvasaoEducacionalInternoPortaria(objItenLabor);
+            // UPDATE NO CAMPO (EVADIDO) DA TABELA INTERNOS_SAIDA_EDUCACIONAL - PEDAGOGIA
+            objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setInternoEvadido(evadidoInd);
+//            control.incluirEvasaoEducacionalInternoPedagogia(objItenLabor);
+            // INSERIR NA TABELA (MOVISR) OS DADOS DO INTERNO EVADIDO
+            objCancelaEvasao.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setIdSaida(Integer.valueOf(jIdSaida.getText()));
+            objCancelaEvasao.setDataSaida(jDataSaida.getDate());
+            objCancelaEvasao.setDocumento(jDocumentoSaida.getText());
+            objCancelaEvasao.setConfirmaEvasao(confirmaEvasao);
+            objCancelaEvasao.setDataEvasaoTmp(jDataLanc.getDate());
+//            control.incluirEvasaoInternoSaidaLaborativa(objCancelaEvasao);
+            //PRISÃO DOMICILIAR
+        } else if (tipoEvasao == 4) {
+            // INCLUIR NA TABELA (MOVIMENTOCRC)
+            objCancelaEvasao.setIdCancelaEvasao(Integer.valueOf(jIdLanc.getText()));
+            CONTROLE.INSERT_movisr(objCancelaEvasao);
+            // Atualiza tabela de Itens de saida temporaria, quando interno está evadido. TESTADO EM 06/06/2015 FUNCIONANDO                        
+            objCancelaEvasao.setInternoEvadido(evadidoInd); // Quando interno EVADE
+            objCancelaEvasao.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
+            objCancelaEvasao.setDocumento(jDocumentoSaida.getText());
+            objCancelaEvasao.setConfirmaEvasao(confirmaEvasao);
+//            control.alterarEvasaoInternoSaidaTmp(objItemSaida); // tabela ITENSSAIDA quando evadidos. TESTADO EM 06/06/2015 FUNCIONANDO                              
+            // CONFIRMA A EVASÃO DO INTERNO DA TABELA (MOVISR). TESTADO EM 06/06/2015 - FUNCIONANDO
+            objCancelaEvasao.setDataEvasaoTmp(jDataLanc.getDate()); // Data da Evasão 
+            objCancelaEvasao.setDocumento(jDocumentoSaida.getText());
+            objCancelaEvasao.setConfirmaEvasao(confirmaEvasao);
+//            control.confirmaEvasaoInternoSaidaPD(objItemSaida);
+        }
+        // MODIFICA A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
+        objCancelaEvasao.setIdInternoCrc(Integer.parseInt(jIdInternoEvadido.getText()));
+        objCancelaEvasao.setSituacaoCrc(situacao);
+        CONTROLE.UPDATE_SITUACAO_interno(objCancelaEvasao);
+        // ABRIR O ROL DE VISITAS, DESBLOQUEIA INTERNO NO ROL (ABERTO)         
+        CONTROLE.UPDATE_ROL_SAIDA_interno(objCancelaEvasao);
+        statusRol = "ABERTO";
+        objCancelaEvasao.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+        objCancelaEvasao.setStatusRol(statusRol);
+        objCancelaEvasao.setObservacao(jOperacao.getText());
+        objCancelaEvasao.setUsuarioUp(nameUser);
+        objCancelaEvasao.setDataUp(jDataSistema.getText());
+        objCancelaEvasao.setHoraUp(horaMov);
+        CONTROLE.FINALIZA_ROL_VISITAS_portaria(objCancelaEvasao);
     }
 
     public void LIMPAR_tabela() {
@@ -1786,7 +2034,18 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 String mes = pDATA_Registros.substring(5, 7);
                 String ano = pDATA_Registros.substring(0, 4);
                 pDATA_Registros = dia + "/" + mes + "/" + ano;
-                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), dd.getNomeInternoCrc()});
+                if (dd.getTipoOperacaoCancelar() == 0) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA TEMPORARIA";
+                } else if (dd.getTipoOperacaoCancelar() == 1) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA LABORATIVA";
+                } else if (dd.getTipoOperacaoCancelar() == 2) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA ESTUDOS";
+                } else if (dd.getTipoOperacaoCancelar() == 3) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA MÉDICO";
+                } else if (dd.getTipoOperacaoCancelar() == 4) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA DOMICILIAR";
+                }
+                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), pTIPO_OPERCAO_cancelamento, dd.getNomeInternoCrc()});
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCancelamentoEvasao.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1811,7 +2070,18 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 String mes = pDATA_Registros.substring(5, 7);
                 String ano = pDATA_Registros.substring(0, 4);
                 pDATA_Registros = dia + "/" + mes + "/" + ano;
-                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), dd.getNomeInternoCrc()});
+                if (dd.getTipoOperacaoCancelar() == 0) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA TEMPORARIA";
+                } else if (dd.getTipoOperacaoCancelar() == 1) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA LABORATIVA";
+                } else if (dd.getTipoOperacaoCancelar() == 2) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA ESTUDOS";
+                } else if (dd.getTipoOperacaoCancelar() == 3) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA MÉDICO";
+                } else if (dd.getTipoOperacaoCancelar() == 4) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA DOMICILIAR";
+                }
+                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), pTIPO_OPERCAO_cancelamento, dd.getNomeInternoCrc()});
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCancelamentoEvasao.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1836,7 +2106,18 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 String mes = pDATA_Registros.substring(5, 7);
                 String ano = pDATA_Registros.substring(0, 4);
                 pDATA_Registros = dia + "/" + mes + "/" + ano;
-                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), dd.getNomeInternoCrc()});
+                if (dd.getTipoOperacaoCancelar() == 0) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA TEMPORARIA";
+                } else if (dd.getTipoOperacaoCancelar() == 1) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA LABORATIVA";
+                } else if (dd.getTipoOperacaoCancelar() == 2) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA ESTUDOS";
+                } else if (dd.getTipoOperacaoCancelar() == 3) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA MÉDICO";
+                } else if (dd.getTipoOperacaoCancelar() == 4) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA DOMICILIAR";
+                }
+                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), pTIPO_OPERCAO_cancelamento, dd.getNomeInternoCrc()});
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCancelamentoEvasao.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1861,7 +2142,19 @@ public class TelaCancelamentoEvasao extends javax.swing.JInternalFrame {
                 String mes = pDATA_Registros.substring(5, 7);
                 String ano = pDATA_Registros.substring(0, 4);
                 pDATA_Registros = dia + "/" + mes + "/" + ano;
-                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), dd.getNomeInternoCrc()});
+                //TIPO DE CANCELAMENTO
+                if (dd.getTipoOperacaoCancelar() == 0) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA TEMPORARIA";
+                } else if (dd.getTipoOperacaoCancelar() == 1) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA LABORATIVA";
+                } else if (dd.getTipoOperacaoCancelar() == 2) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA ESTUDOS";
+                } else if (dd.getTipoOperacaoCancelar() == 3) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA MÉDICO";
+                } else if (dd.getTipoOperacaoCancelar() == 4) {
+                    pTIPO_OPERCAO_cancelamento = "EVASÃO - SAIDA DOMICILIAR";
+                }
+                dadosOrigem.addRow(new Object[]{dd.getIdCancelaEvasao(), pDATA_Registros, dd.getStatusCancelarEvasao(), pTIPO_OPERCAO_cancelamento, dd.getNomeInternoCrc()});
                 jtotalRegistros.setText(Integer.toString(pTOTAL_registros));
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaCancelamentoEvasao.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
