@@ -4788,14 +4788,12 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT "
-                        + "v.DataEntrada, "
-                        + "v.RetCrc "
-                        + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS AS v "
-                        + "WHERE v.DataEntrada='" + jDataSistema.getText() + "' "
-                        + "AND v.RetCrc='" + confirmacaoCrc + "' "
-                        + "OR v.DataEntrada!='" + jDataSistema.getText() + "' "
-                        + "AND v.RetCrc='" + confirmacaoCrc + "'");
+                conecta.executaSQL("SELECT * "
+                        + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                        + "WHERE DataEntrada='" + jDataSistema.getText() + "' "
+                        + "AND RetCrc='" + confirmacaoCrc + "' "
+                        + "OR DataEntrada!='" + jDataSistema.getText() + "' "
+                        + "AND RetCrc='" + confirmacaoCrc + "'");
                 conecta.rs.first();
                 dataEntradaV = conecta.rs.getString("DataEntrada");
                 // Formatar a data Saida
@@ -4823,18 +4821,12 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Doc.Retorno", "Data Retorno", "Hora", "Código", "Nome do Interno "};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT "
-                    + "v.IdInternoCrc, "
-                    + "p.NomeInternoCrc, "
-                    + "v.RetCrc, "
-                    + "v.DocEntrada, "
-                    + "v.HoraEntrada, "
-                    + "v.HoraEntrada, "
-                    + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS AS v"
-                    + "INNER JOIN PRONTUARIOSCRC AS p"
-                    + "ON v.IdInternoCrc=p.IdInternoCrc "
-                    + "WHERE v.RetCrc='" + confirmacaoCrc + "' "
-                    + "AND v.HoraEntrada!='" + horaRetorno + "'");
+            conecta.executaSQL("SELECT * "
+                    + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc "
+                    + "WHERE RetCrc='" + confirmacaoCrc + "' "
+                    + "AND HoraEntrada!='" + horaRetorno + "'");
             conecta.rs.first();
             do {
                 count = count + 1;
