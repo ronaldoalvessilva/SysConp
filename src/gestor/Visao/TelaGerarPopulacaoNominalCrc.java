@@ -615,6 +615,8 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             }
             if (dataPopulacao != null && dataGeracao.compareTo(dataPopulacao) <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
+            } else if (dataGeracao.equals(dataPopulacao)) {
+                JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
             } else {
                 if (jDataLancamento.getDate() == null) {
                     JOptionPane.showMessageDialog(rootPane, "Informe a data da População.");
@@ -646,6 +648,8 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 dataPopulacao = formatoAmerica.format(dataBanco);
             }
             if (dataPopulacao != null && dataGeracao.compareTo(dataPopulacao) <= 0) {
+                JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
+            } else if (dataGeracao.equals(dataPopulacao)) {
                 JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
             } else {
                 if (jDataLancamento.getDate() == null) {
@@ -1033,7 +1037,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT "
                     + "DataPop "
                     + "FROM POPULACAOINTERNOS_CRC "
-                    + "WHERE DataPop='" + dataGeracao + "'");
+                    + "WHERE CONVERT(DATE,DataPop)='" + dataGeracao + "'");
             conecta.rs.first();
             dataBanco = conecta.rs.getDate("DataPop");
         } catch (Exception e) {
@@ -1048,7 +1052,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT "
                     + "DataPop "
                     + "FROM POPULACAOINTERNOS_CRC "
-                    + "WHERE DataPop='" + dataGeracao + "'");
+                    + "WHERE CONVERT(DATE,DataPop)='" + dataGeracao + "'");
             conecta.rs.first();
             dataBanco = conecta.rs.getDate("DataPop");
         } catch (Exception e) {
