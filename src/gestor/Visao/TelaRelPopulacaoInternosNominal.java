@@ -48,8 +48,6 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jDataPopInicial = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        jDataPopFinal = new com.toedter.calendar.JDateChooser();
         jBtConfirmar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
 
@@ -73,29 +71,20 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Data Inicial:");
+        jLabel1.setText("Data da População:");
 
         jDataPopInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Data Final:");
-
-        jDataPopFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(64, 64, 64)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDataPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,9 +92,7 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
-                    .addComponent(jDataPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jDataPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDataPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -138,7 +125,7 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(97, Short.MAX_VALUE)
                 .addComponent(jBtConfirmar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
@@ -174,7 +161,7 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 40, 409, 159);
+        setBounds(360, 40, 409, 159);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
@@ -186,108 +173,98 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
                 JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
                 jDataPopInicial.requestFocus();
             } else {
-                if (jDataPopFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPopFinal.requestFocus();
-                } else {
-                    if (jDataPopInicial.getDate().after(jDataPopFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                    } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                        dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());
-                        dataPopFinal = formatoAmerica.format(jDataPopFinal.getDate().getTime());
-                        dataPopulacao = dataPopInicial;
-                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
-                        carregando.setVisible(true);//Teste tela aguarde
-                        Thread t = new Thread() { //Teste tela aguarde
-                            public void run() { //Teste
-                                try {
-                                    conecta.abrirConexao();
-                                    String path = "reports/CRC/RelatorioPopulacaoInternosNominal.jasper";
-                                    conecta.executaSQL("SELECT DataPop,MatriculaCrc,NomeInternoCrc,SexoCrc,Regime FROM POPULACAOINTERNOS_CRC "
-                                            + "INNER JOIN PRONTUARIOSCRC "
-                                            + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                            + "INNER JOIN DADOSPENAISINTERNOS "
-                                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                            + "WHERE DataPop BETWEEN'" + dataPopInicial + "' "
-                                            + "AND '" + dataPopFinal + "' "
-                                            + "ORDER BY NomeInternoCrc");
-                                    HashMap parametros = new HashMap();
-                                    parametros.put("dataPopInicial", dataPopInicial);
-                                    parametros.put("dataPopFinal", dataPopFinal);
-                                    parametros.put("dataPopulacao", jDataPopInicial.getDate());
-                                    parametros.put("nomeUsuario", nameUser);
-                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                    jv.setTitle("Relatório de População Internos Nominal");
-                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                    jv.toFront(); // Traz o relatorio para frente da aplicação      
-                                    carregando.dispose(); //Teste tela aguarde
-                                    conecta.desconecta();
-                                } catch (JRException e) {
-                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                                }
-                            }
-                        }; //Teste tela aguarde
-                        t.start(); //Teste tela aguarde
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());
+                dataPopulacao = dataPopInicial;
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/CRC/RelatorioPopulacaoInternosNominal.jasper";
+                            conecta.executaSQL("SELECT "
+                                    + "p.DataPop, "
+                                    + "i.MatriculaCrc, "
+                                    + "i.NomeInternoCrc, "
+                                    + "i.SexoCrc, "
+                                    + "d.Regime "
+                                    + "FROM POPULACAOINTERNOS_CRC AS p "
+                                    + "INNER JOIN PRONTUARIOSCRC AS i "
+                                    + "ON p.IdInternoCrc=i.IdInternoCrc "
+                                    + "INNER JOIN DADOSPENAISINTERNOS AS d "
+                                    + "ON i.IdInternoCrc=d.IdInternoCrc "
+                                    + "WHERE CONVERT(DATE,p.DataPop)='" + dataPopInicial + "' "
+                                    + "ORDER BY i.NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataPopInicial", dataPopInicial);
+                            parametros.put("dataPopulacao", jDataPopInicial.getDate());
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de População Internos Nominal");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação      
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            carregando.dispose(); //Teste tela aguarde
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
                     }
-                }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             if (jDataPopInicial.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
                 jDataPopInicial.requestFocus();
             } else {
-                if (jDataPopFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPopFinal.requestFocus();
-                } else {
-                    if (jDataPopInicial.getDate().after(jDataPopFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                    } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());
-                        dataPopFinal = formatoAmerica.format(jDataPopFinal.getDate().getTime());
-                        dataPopulacao = dataPopInicial;
-                        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
-                        carregando.setVisible(true);//Teste tela aguarde
-                        Thread t = new Thread() { //Teste tela aguarde
-                            public void run() { //Teste
-                                try {
-                                    conecta.abrirConexao();
-                                    String path = "reports/CRC/RelatorioPopulacaoInternosNominal.jasper";
-                                    conecta.executaSQL("SELECT DataPop,MatriculaCrc,NomeInternoCrc,SexoCrc,Regime FROM POPULACAOINTERNOS_CRC "
-                                            + "INNER JOIN PRONTUARIOSCRC "
-                                            + "ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                            + "INNER JOIN DADOSPENAISINTERNOS "
-                                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                            + "WHERE DataPop BETWEEN'" + dataPopInicial + "' "
-                                            + "AND '" + dataPopFinal + "' "
-                                            + "ORDER BY NomeInternoCrc");
-                                    HashMap parametros = new HashMap();
-                                    parametros.put("dataPopInicial", dataPopInicial);
-                                    parametros.put("dataPopFinal", dataPopFinal);
-                                    parametros.put("dataPopulacao", jDataPopInicial.getDate());
-                                    parametros.put("nomeUsuario", nameUser);
-                                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                                    jv.setTitle("Relatório de População Internos Nominal");
-                                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                                    jv.toFront(); // Traz o relatorio para frente da aplicação   
-                                    carregando.dispose(); //Teste tela aguarde
-                                    conecta.desconecta();
-                                } catch (JRException e) {
-                                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                                }
-                            }
-                        }; //Teste tela aguarde
-                        t.start(); //Teste tela aguarde
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataPopInicial = formatoAmerica.format(jDataPopInicial.getDate().getTime());
+                dataPopulacao = dataPopInicial;
+                final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+                carregando.setVisible(true);//Teste tela aguarde
+                Thread t = new Thread() { //Teste tela aguarde
+                    public void run() { //Teste
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/CRC/RelatorioPopulacaoInternosNominal.jasper";
+                            conecta.executaSQL("SELECT "
+                                    + "p.DataPop, "
+                                    + "i.MatriculaCrc, "
+                                    + "i.NomeInternoCrc, "
+                                    + "i.SexoCrc, "
+                                    + "d.Regime "
+                                    + "FROM POPULACAOINTERNOS_CRC AS p "
+                                    + "INNER JOIN PRONTUARIOSCRC AS i "
+                                    + "ON p.IdInternoCrc=i.IdInternoCrc "
+                                    + "INNER JOIN DADOSPENAISINTERNOS AS d "
+                                    + "ON i.IdInternoCrc=d.IdInternoCrc "
+                                    + "WHERE CONVERT(DATE,p.DataPop)='" + dataPopInicial + "' "
+                                    + "ORDER BY i.NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataPopInicial", dataPopInicial);
+                            parametros.put("dataPopulacao", jDataPopInicial.getDate());
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de População Internos Nominal");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação   
+                            carregando.dispose(); //Teste tela aguarde
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            carregando.dispose(); //Teste tela aguarde
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
                     }
-                }
+                }; //Teste tela aguarde
+                t.start(); //Teste tela aguarde
             }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
@@ -301,10 +278,8 @@ public class TelaRelPopulacaoInternosNominal extends javax.swing.JInternalFrame 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtSair;
-    private com.toedter.calendar.JDateChooser jDataPopFinal;
     private com.toedter.calendar.JDateChooser jDataPopInicial;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

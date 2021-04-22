@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPopulacaoNominalCRC_Todos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b711901-050c-46d7-ab0d-6fc6dae49daf">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -13,23 +13,27 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="pDATA_INICIAL" class="java.lang.String"/>
-	<parameter name="pDATA_FINAL" class="java.lang.String"/>
+	<parameter name="pDATA_INICIAL" class="java.util.Date"/>
 	<parameter name="pUNIDADE" class="java.lang.String"/>
 	<parameter name="pUSUARIO" class="java.lang.String"/>
 	<parameter name="dataPopulacao" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[SELECT POPULACAOINTERNOS_CRC.DataPop,
-       POPULACAOINTERNOS_CRC.IdInternoCrc,
-	   PRONTUARIOSCRC.NomeInternoCrc,
-	   PRONTUARIOSCRC.SituacaoCrc,
-PRONTUARIOSCRC.SexoCrc,
-DADOSPENAISINTERNOS.Regime
-       FROM POPULACAOINTERNOS_CRC
-       INNER JOIN PRONTUARIOSCRC
-	   ON POPULACAOINTERNOS_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE POPULACAOINTERNOS_CRC.DataPop BETWEEN $P{pDATA_INICIAL} AND $P{pDATA_FINAL} ORDER BY PRONTUARIOSCRC.NomeInternoCrc]]>
+		<![CDATA[SELECT
+p.DataPop,
+p.IdInternoCrc,
+i.NomeInternoCrc,
+i.SituacaoCrc,
+i.SexoCrc,
+d.Regime
+FROM POPULACAOINTERNOS_CRC AS p
+INNER JOIN PRONTUARIOSCRC AS i
+ON p.IdInternoCrc=i.IdInternoCrc
+INNER JOIN DADOSPENAISINTERNOS AS d
+ON i.IdInternoCrc=d.IdInternoCrc
+WHERE CONVERT (DATE,p.DataPop)=$P{pDATA_INICIAL}
+ORDER BY i.NomeInternoCrc]]>
 	</queryString>
-	<field name="DataPop" class="java.sql.Date"/>
+	<field name="DataPop" class="java.sql.Timestamp"/>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
