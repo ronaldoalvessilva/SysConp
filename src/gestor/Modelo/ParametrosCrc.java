@@ -103,11 +103,13 @@ public class ParametrosCrc {
     private Integer idUsuario;
     private String nomeUsuario;
     private Bytes senhaUsuario;
+    private String fecharSistema;
+    private String geraPopulacao;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, String numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao, String biometriaEF, Integer idImp, Integer idModulo, String nomeModulo, Integer idTelas, String nomeTela, String habilitarImp, Integer idUsuario, String nomeUsuario, Bytes senhaUsuario) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, String numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao, String biometriaEF, Integer idImp, Integer idModulo, String nomeModulo, Integer idTelas, String nomeTela, String habilitarImp, Integer idUsuario, String nomeUsuario, Bytes senhaUsuario, String fecharSistema, String geraPopulacao) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -197,6 +199,8 @@ public class ParametrosCrc {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.senhaUsuario = senhaUsuario;
+        this.fecharSistema = fecharSistema;
+        this.geraPopulacao = geraPopulacao;
     }
 
     /**
@@ -1443,5 +1447,33 @@ public class ParametrosCrc {
      */
     public void setSenhaUsuario(Bytes senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
+    }
+
+    /**
+     * @return the fecharSistema
+     */
+    public String getFecharSistema() {
+        return fecharSistema;
+    }
+
+    /**
+     * @param fecharSistema the fecharSistema to set
+     */
+    public void setFecharSistema(String fecharSistema) {
+        this.fecharSistema = fecharSistema;
+    }
+
+    /**
+     * @return the geraPopulacao
+     */
+    public String getGeraPopulacao() {
+        return geraPopulacao;
+    }
+
+    /**
+     * @param geraPopulacao the geraPopulacao to set
+     */
+    public void setGeraPopulacao(String geraPopulacao) {
+        this.geraPopulacao = geraPopulacao;
     }
 }

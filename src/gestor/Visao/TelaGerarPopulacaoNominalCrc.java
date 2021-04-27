@@ -12,6 +12,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Controle.listarInternosPopulacaoNominal;
 import gestor.Modelo.GerarPopNominal;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -40,6 +41,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     ControleGerarPopulacao control = new ControleGerarPopulacao();
     GerarPopNominal objPopNom = new GerarPopNominal();
     ControleMovInternos controlMov = new ControleMovInternos();  // HISTÓRICO DE MOVIMENTAÇÃO DE SAIDA NO CRC
+    ParametrosCrc objParCrc = new ParametrosCrc();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -685,29 +687,37 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
     private void jCheckBoxBuscarTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxBuscarTodosItemStateChanged
         // TODO add your handling code here:
-        count = 0;
-        qtdInternosPop = 0;
-        flag = 1;
-        jCheckBoxBuscarTodos.setEnabled(!true);
-        jDataLancamento.setEnabled(true);
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
-        GerarPopNominal p = new GerarPopNominal();
-        try {
-            for (GerarPopNominal pp : listaDAO.read()) {
-                jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop)); // Converter inteiro em string para exibir na tela 
-                count = qtdInternosPop;
-                dadosOrigem.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
-                // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                //
-                jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        //VERIFICAR SE O PARÂMETRO ESTÁ HABILITADO PARA GERAR POPULAÇÃO MANUAL/AUTOMÁTICA
+        //PARÂMETRO = "Não" - NÃO É AUTOMÁTICA, USUÁRIO PODE GERAR
+        //PARÂMETRO = "Sim" - É AUTMOÁTICA, USUÁRIO NÃO GERA, ROBÔ GERA
+        control.PESQUISAR_PARAMETRO_populacao(objParCrc);
+        if (evt.getStateChange() == evt.SELECTED && objParCrc.getGeraPopulacao().equals("Sim")) {            
+            JOptionPane.showMessageDialog(rootPane, "Não é possível gerar a população nominal, a população é gerada automáticamente pelo robô Rabbit.");
+        } else if (evt.getStateChange() == evt.SELECTED && objParCrc.getGeraPopulacao().equals("Não")) {            
+            count = 0;
+            qtdInternosPop = 0;
+            flag = 1;
+            jCheckBoxBuscarTodos.setEnabled(!true);
+            jDataLancamento.setEnabled(true);
+            DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+            GerarPopNominal p = new GerarPopNominal();
+            try {
+                for (GerarPopNominal pp : listaDAO.read()) {
+                    jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop)); // Converter inteiro em string para exibir na tela 
+                    count = qtdInternosPop;
+                    dadosOrigem.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaGerarPopulacaoNominalCrc.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCheckBoxBuscarTodosItemStateChanged
 

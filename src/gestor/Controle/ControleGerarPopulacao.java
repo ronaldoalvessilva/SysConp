@@ -8,6 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.FechamentoRegistros;
 import gestor.Modelo.GerarPopNominal;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaApagarPopulacaoCRC.jDataExclusao;
 import static gestor.Visao.TelaApagarPopulacaoCRC.pDATA_PESQUISA;
 import java.sql.PreparedStatement;
@@ -32,6 +33,7 @@ public class ControleGerarPopulacao {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     GerarPopNominal objPopNom = new GerarPopNominal();
+    ParametrosCrc objParCrc = new ParametrosCrc();
 
     //Método para SALVAR POPULAÇÃO NOMINAL
     public GerarPopNominal incluirPopulacaoNominal(GerarPopNominal objPopNom) {
@@ -101,10 +103,24 @@ public class ControleGerarPopulacao {
             }
             return LISTAR_populacao;
         } catch (SQLException ex) {
-            Logger.getLogger(ListagemOcorrenciaEF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleGerarPopulacao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }
         return null;
+    }
+
+    public ParametrosCrc PESQUISAR_PARAMETRO_populacao(ParametrosCrc objParCrc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "PopulacaoAutomatica "
+                    + "FROM PARAMETROSCRC");
+            conecta.rs.first();
+            objParCrc.setGeraPopulacao(conecta.rs.getString("PopulacaoAutomatica"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objParCrc;
     }
 }
