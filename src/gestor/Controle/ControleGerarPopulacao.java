@@ -69,7 +69,10 @@ public class ControleGerarPopulacao {
     public GerarPopNominal verificarPopulacaoLINUX_WINDOWS(GerarPopNominal objPopNom) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT DataPop FROM POPULACAOINTERNOS_CRC WHERE DataPop='" + objPopNom.getDataExclusaoPop() + "'");
+            conecta.executaSQL("SELECT "
+                    + "DataPop "
+                    + "FROM POPULACAOINTERNOS_CRC "
+                    + "WHERE DataPop='" + objPopNom.getDataExclusaoPop() + "'");
             conecta.rs.first();
             pREPSOSTA_existencia = conecta.rs.getString("DataPop");
         } catch (SQLException ex) {
@@ -92,7 +95,9 @@ public class ControleGerarPopulacao {
         List<FechamentoRegistros> LISTAR_populacao = new ArrayList<FechamentoRegistros>();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM "
+            conecta.executaSQL("SELECT "
+                    + "DataPop "
+                    + "FROM "
                     + "POPULACAOINTERNOS_CRC "
                     + "WHERE DataPop='" + pDATA_PESQUISA + "'");
             while (conecta.rs.next()) {
