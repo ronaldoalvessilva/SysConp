@@ -4347,7 +4347,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtSalvarInternosSelecionados;
     public static javax.swing.JButton jBtSalvarPavInternos;
     public static javax.swing.JButton jBtSalvarProduto;
-    private javax.swing.JButton jBtSalvarProdutoBanco;
+    public static javax.swing.JButton jBtSalvarProdutoBanco;
     public static javax.swing.JButton jBtSelecionarProdutos;
     public static javax.swing.JButton jBtSelecionarTodosInternos;
     public static javax.swing.JButton jBtSelecionarUmInterno;

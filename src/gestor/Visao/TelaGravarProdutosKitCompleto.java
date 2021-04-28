@@ -17,6 +17,7 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSalvarProdutoBanco;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
@@ -368,6 +369,7 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
         int resposta = JOptionPane.showConfirmDialog(this, "Confirmar a gravação dos dados selecionados?", "Confirmação",
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
+            jBtSalvarProdutoBanco.setEnabled(!true);
             jBtConfirmar.setEnabled(!true);
             jBtSair.setEnabled(!true);
             gravarDadosBanco();
