@@ -20,13 +20,13 @@ import static gestor.Visao.TelaProntuarioTriagem.nomeInterno;
 import static gestor.Visao.TelaProntuarioTriagem.codParametrosEntrada;
 import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_gravacao;
 import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_EXCLUSÃO_prontuario;
-import static gestor.Visao.TelaProntuarioTriagem.pRESPONSTA_update;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static gestor.Visao.TelaProntuarioCrc.CODIGO_INTERNO_TABELA_penal;
+import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_update;
 
 /**
  *
@@ -173,9 +173,9 @@ public class ControleInternoCrc_TRIAGEM {
                 + "AND confirmaEntrada='" + confirmaEntrada + "'")) {
             pst.setString(1, objProCrc.getConfirmaEntrada());
             pst.executeUpdate();
-            pRESPONSTA_update = "Sim";
+            pRESPOSTA_update = "Sim";
         } catch (SQLException ex) {
-            pRESPONSTA_update = "Não";
+            pRESPOSTA_update = "Não";
             Logger.getLogger(ControleInternoCrc_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
@@ -311,7 +311,8 @@ public class ControleInternoCrc_TRIAGEM {
         return objFisicoPenaisInternos;
     }
 
-    public ProntuarioFisicosPenaisInternos LOCALIZAR_DADOS_PENAIS_interno(ProntuarioFisicosPenaisInternos objFisicoPenaisInternos) {
+    //NÃO ESTÁ SENDO UTILIZADO (29/04/2021)
+    public ProntuarioCrc LOCALIZAR_DADOS_PENAIS_interno(ProntuarioCrc objProCrc) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
@@ -323,6 +324,6 @@ public class ControleInternoCrc_TRIAGEM {
         } catch (Exception e) {
         }
         conecta.desconecta();
-        return objFisicoPenaisInternos;
+        return objProCrc;
     }
 }

@@ -131,7 +131,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static String pRESPOSTA_EXCLUSÃO_fisicos = "";
     public static String pRESPOSTA_DADOS_penais = "";
     public static String pRESPOSTA_EXCLUSÃO_penais = "";
-    public static String pRESPONSTA_CRC_update = "";
+    public static String pRESPOSTA_CRC_update = "";
     // Variáveis para gravar o log
     String nomeModuloTela = "CRC:Prontuário de Internos";
     String statusMov;
@@ -141,7 +141,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String nomeUsuarioCrc = "ADMINISTRADOR DO SISTEMA"; // Para poder alterar a situação do interno
     String usuarioAutorizado;
     public static String nomeInterno; // Para pesquisa do interno no registroda portaria, bloquear.
-    String confirmaEntrada = "Sim"; // Confirma a utilização do registro do interno iniciado na portaria.
+    String pCONFIRMA_entrada = "Sim"; // Confirma a utilização do registro do interno iniciado na portaria.
     public static String codParametrosEntrada;
     int count = 0;
     String situacaoEnt = "ENTRADA NA UNIDADE";
@@ -4930,7 +4930,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     if (acao == 1) {
                         if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                             JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                            conecta.desconecta();
                         } else {
                             //GRAVA NA TABELA PRONTUARIOSCRC
                             CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
@@ -4943,44 +4942,39 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                             objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
                             objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
                             CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
-                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
-                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                            VERIFICAR_GRAVACAO_interno();
-                            if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                    && pRESPOSTA_gravacao.equals("Sim")
-                                    && pRESPOSTA_DADOS_fisicos.equals("Sim")
-                                    && pRESPOSTA_DADOS_penais.equals("Sim")) {
-                                // Confirma a utilização do registro do interno iniciado pela portaria.
-                                objProCrc.setNomeInterno(jNomeInterno.getText());
-                                objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
-                                //
-                                GRAVAR_DOCUMENTOS_internos();
-                                //
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                //SE O PRONTUÁRIO FOI GRAVADO E O ALERTA NÃO FOI RETIRADO - (ITENSENTRADAPORTARIA)
-                            } else if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                    && pRESPOSTA_gravacao.equals("Sim")
-                                    && pRESPOSTA_DADOS_fisicos.equals("Sim")
-                                    && pRESPOSTA_DADOS_penais.equals("Sim")
-                                    && pRESPONSTA_CRC_update.equals("Não")) {
-                                JOptionPane.showMessageDialog(rootPane, "O prontuário do interno foi gravado, porém o alerta não foi retirado, solicite ao administrador a retirada do alerta.");
-                                //SE NÃO FOI POSSÍVEL GRAVAR NAS DUAS TABELAS DADOSFISICOSINTERNOS, DADOSPENAISINTERNOS
-                            } else if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                    && pRESPOSTA_gravacao.equals("Sim") //GRAVOU NA TABELA PRONTUARIOSCRC
-                                    && pRESPOSTA_DADOS_fisicos.equals("Sim") //GRAVOU NA TABELA DADOSFISICOSINTERNOS
-                                    && pRESPOSTA_DADOS_penais.equals("Não") //NÃO GRAVOU NA TABELA DADOSPENAISINTERNOS
-                                    || pRESPOSTA_gravacao.equals("Sim") // OU GRAVOU NA TABELA PRONTUARIOSCRC
-                                    && pRESPOSTA_DADOS_fisicos.equals("Não")) { //NÃO GRAVOU NA TABELA DADOSFISCOSINTERNOS
-                                //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
-                                DELETAR_REGISTRO_interno();
-                                if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
-                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                                } else {
-                                    JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
-                                }
+                        }
+                        if (pRESPOSTA_gravacao.equals("Sim")
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                            // Confirma a utilização do registro do interno iniciado pela portaria. (ITENSENTRADAPORTARIA)
+                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                            objProCrc.setConfirmaEntrada(pCONFIRMA_entrada);
+                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                            //
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        }
+                        //SE O PRONTUÁRIO FOI GRAVADO E O ALERTA NÃO FOI RETIRADO - (ITENSENTRADAPORTARIA)
+                        if (pRESPOSTA_gravacao.equals("Sim")
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                && pRESPOSTA_DADOS_penais.equals("Sim")
+                                && pRESPOSTA_CRC_update.equals("Não")) {
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "O prontuário do interno foi gravado, porém o alerta não foi retirado, solicite ao administrador a retirada do alerta.");
+                        }
+                        if (pRESPOSTA_gravacao.equals("Sim") //GRAVOU NA TABELA PRONTUARIOSCRC
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim") //GRAVOU NA TABELA DADOSFISICOSINTERNOS
+                                && pRESPOSTA_DADOS_penais.equals("Não") //NÃO GRAVOU NA TABELA DADOSPENAISINTERNOS
+                                || pRESPOSTA_gravacao.equals("Sim") // OU GRAVOU NA TABELA PRONTUARIOSCRC
+                                && pRESPOSTA_DADOS_fisicos.equals("Não")) { //NÃO GRAVOU NA TABELA DADOSFISCOSINTERNOS
+                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                            DELETAR_REGISTRO_interno();
+                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
+                                JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
                             }
                         }
                     }
@@ -5902,7 +5896,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     if (acao == 1) {
                         if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                             JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                            conecta.desconecta();
                         } else {
                             //GRAVA NA TABELA PRONTUARIOSCRC
                             CONTROLE_DADOS_civil.incluirInternoCrc(objProCrc);
@@ -5915,44 +5908,39 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                             objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
                             objDadosPena.setNomeMaeInternoCrc(jMaeInterno.getText());
                             CONTROLE_DADOS_penais.incluirDadosPenais(objDadosPena);
-                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS COM SUCESSO
-                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                            VERIFICAR_GRAVACAO_interno();
-                            if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                    && pRESPOSTA_gravacao.equals("Sim")
-                                    && pRESPOSTA_DADOS_fisicos.equals("Sim")
-                                    && pRESPOSTA_DADOS_penais.equals("Sim")) {
-                                // Confirma a utilização do registro do interno iniciado pela portaria.
-                                objProCrc.setNomeInterno(jNomeInterno.getText());
-                                objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
-                                //
-                                GRAVAR_DOCUMENTOS_internos();
-                                //
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                //SE O PRONTUÁRIO FOI GRAVADO E O ALERTA NÃO FOI RETIRADO - (ITENSENTRADAPORTARIA)
-                            } else if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                    && pRESPOSTA_gravacao.equals("Sim")
-                                    && pRESPOSTA_DADOS_fisicos.equals("Sim")
-                                    && pRESPOSTA_DADOS_penais.equals("Sim")
-                                    && pRESPONSTA_CRC_update.equals("Não")) {
-                                JOptionPane.showMessageDialog(rootPane, "O prontuário do interno foi gravado, porém o alerta não foi retirado, solicite ao administrador a retirada do alerta.");
-                                //SE NÃO FOI POSSÍVEL GRAVAR NAS DUAS TABELAS DADOSFISICOSINTERNOS, DADOSPENAISINTERNOS
-                            } else if (jIdInterno.getText().equals(CODIGO_INTERNO_TABELA_penal)
-                                    && pRESPOSTA_gravacao.equals("Sim") //GRAVOU NA TABELA PRONTUARIOSCRC
-                                    && pRESPOSTA_DADOS_fisicos.equals("Sim") //GRAVOU NA TABELA DADOSFISICOSINTERNOS
-                                    && pRESPOSTA_DADOS_penais.equals("Não") //NÃO GRAVOU NA TABELA DADOSPENAISINTERNOS
-                                    || pRESPOSTA_gravacao.equals("Sim") // OU GRAVOU NA TABELA PRONTUARIOSCRC
-                                    && pRESPOSTA_DADOS_fisicos.equals("Não")) { //NÃO GRAVOU NA TABELA DADOSFISCOSINTERNOS
-                                //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
-                                DELETAR_REGISTRO_interno();
-                                if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
-                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                                } else {
-                                    JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
-                                }
+                        }
+                        if (pRESPOSTA_gravacao.equals("Sim")
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                && pRESPOSTA_DADOS_penais.equals("Sim")) {
+                            // Confirma a utilização do registro do interno iniciado pela portaria. (ITENSENTRADAPORTARIA)
+                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                            objProCrc.setConfirmaEntrada(pCONFIRMA_entrada);
+                            CONTROLE_DADOS_civil.confirmarRegInternoCrc(objProCrc);
+                            //
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        }
+                        //SE O PRONTUÁRIO FOI GRAVADO E O ALERTA NÃO FOI RETIRADO - (ITENSENTRADAPORTARIA)
+                        if (pRESPOSTA_gravacao.equals("Sim")
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim")
+                                && pRESPOSTA_DADOS_penais.equals("Sim")
+                                && pRESPOSTA_CRC_update.equals("Não")) {
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "O prontuário do interno foi gravado, porém o alerta não foi retirado, solicite ao administrador a retirada do alerta.");
+                        }
+                        if (pRESPOSTA_gravacao.equals("Sim") //GRAVOU NA TABELA PRONTUARIOSCRC
+                                && pRESPOSTA_DADOS_fisicos.equals("Sim") //GRAVOU NA TABELA DADOSFISICOSINTERNOS
+                                && pRESPOSTA_DADOS_penais.equals("Não") //NÃO GRAVOU NA TABELA DADOSPENAISINTERNOS
+                                || pRESPOSTA_gravacao.equals("Sim") // OU GRAVOU NA TABELA PRONTUARIOSCRC
+                                && pRESPOSTA_DADOS_fisicos.equals("Não")) { //NÃO GRAVOU NA TABELA DADOSFISCOSINTERNOS
+                            //SE O REGISTRO NÃO FOI INCLUÍDO NAS 03(TRÊS) TABELAS CORRETAMENTE, APAGA O REGISTRO NAS OUTRAS
+                            DELETAR_REGISTRO_interno();
+                            if (pRESPOSTA_EXCLUSÃO_fisicos.equals("Sim") && pRESPOSTA_EXCLUSÃO_prontuario.equals("Sim")) {
+                                JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Existem residuos do cadastro do interno, será necessário realizar uma limpeza diretamente no banco de dados.\nCaso não seja realizado a limpeza direto no banco de dados, não será possível registrar esse interno.");
                             }
                         }
                     }
