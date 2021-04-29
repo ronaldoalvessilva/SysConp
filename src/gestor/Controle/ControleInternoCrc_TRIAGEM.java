@@ -20,6 +20,7 @@ import static gestor.Visao.TelaProntuarioTriagem.nomeInterno;
 import static gestor.Visao.TelaProntuarioTriagem.codParametrosEntrada;
 import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_gravacao;
 import static gestor.Visao.TelaProntuarioTriagem.pRESPOSTA_EXCLUSÃO_prontuario;
+import static gestor.Visao.TelaProntuarioTriagem.pRESPONSTA_update;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -172,9 +173,9 @@ public class ControleInternoCrc_TRIAGEM {
                 + "AND confirmaEntrada='" + confirmaEntrada + "'")) {
             pst.setString(1, objProCrc.getConfirmaEntrada());
             pst.executeUpdate();
-            pRESPOSTA_gravacao = "Sim";
+            pRESPONSTA_update = "Sim";
         } catch (SQLException ex) {
-            pRESPOSTA_gravacao = "Não";
+            pRESPONSTA_update = "Não";
             Logger.getLogger(ControleInternoCrc_TRIAGEM.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();

@@ -118,7 +118,7 @@ public class TelaPesqEntradaIntPortariaCrc extends javax.swing.JInternalFrame {
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Data Cadastro"
@@ -131,8 +131,8 @@ public class TelaPesqEntradaIntPortariaCrc extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTabelaRegistroInterno);
         if (jTabelaRegistroInterno.getColumnModel().getColumnCount() > 0) {
-            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaRegistroInterno.getColumnModel().getColumn(1).setMinWidth(300);
             jTabelaRegistroInterno.getColumnModel().getColumn(1).setMaxWidth(300);
             jTabelaRegistroInterno.getColumnModel().getColumn(2).setMinWidth(80);
@@ -172,7 +172,7 @@ public class TelaPesqEntradaIntPortariaCrc extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -198,14 +198,14 @@ public class TelaPesqEntradaIntPortariaCrc extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
         );
 
-        setBounds(250, 20, 472, 259);
+        setBounds(250, 20, 492, 259);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -237,7 +237,9 @@ public class TelaPesqEntradaIntPortariaCrc extends javax.swing.JInternalFrame {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
+                conecta.executaSQL("SELECT "
+                        + "* "
+                        + "FROM ITENSENTRADAPORTARIA "
                         + "WHERE NomeInternoCrc='" + nomeInterno + "' "
                         + "AND IdItem='" + idInt + "'");
                 conecta.rs.first();
@@ -303,7 +305,7 @@ public class TelaPesqEntradaIntPortariaCrc extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaRegistroInterno.setModel(modelo);
-        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaRegistroInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setResizable(false);
@@ -321,7 +323,7 @@ public class TelaPesqEntradaIntPortariaCrc extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Cadastro"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaRegistroInterno.setModel(modelo);
-        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaRegistroInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setResizable(false);

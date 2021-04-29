@@ -24,6 +24,7 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     int flag;
+    String idInt;
     String dataCadastro;
     String nomeInterno;
     String confirmaEntrada = "Não";
@@ -117,7 +118,7 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Data Cadastro"
@@ -130,8 +131,8 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
         });
         jScrollPane1.setViewportView(jTabelaRegistroInterno);
         if (jTabelaRegistroInterno.getColumnModel().getColumnCount() > 0) {
-            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaRegistroInterno.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaRegistroInterno.getColumnModel().getColumn(1).setMinWidth(300);
             jTabelaRegistroInterno.getColumnModel().getColumn(1).setMaxWidth(300);
             jTabelaRegistroInterno.getColumnModel().getColumn(2).setMinWidth(80);
@@ -164,17 +165,14 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
@@ -184,7 +182,7 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtConfirmar)
@@ -199,14 +197,16 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
         );
 
-        setBounds(250, 20, 472, 260);
+        setBounds(250, 20, 491, 260);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -238,7 +238,11 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA WHERE NomeInternoCrc LIKE'" + nomeInterno + "%'");
+                conecta.executaSQL("SELECT "
+                        + "* "
+                        + "FROM ITENSENTRADAPORTARIA "
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "'"
+                        + "AND IdItem='" + idInt + "'");
                 conecta.rs.first();
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 conecta.desconecta();
@@ -260,7 +264,7 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
         if (flag == 1) {
             nomeInterno = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 1);
             jPesqNomeInterno.setText(nomeInterno);
-            String idInt = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 0);
+            idInt = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaRegistroInternoMouseClicked
 
@@ -302,7 +306,7 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaRegistroInterno.setModel(modelo);
-        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaRegistroInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setResizable(false);
@@ -320,7 +324,7 @@ public class TelaPesqEntradaIntPortariaTriagem extends javax.swing.JInternalFram
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Cadastro"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaRegistroInterno.setModel(modelo);
-        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaRegistroInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaRegistroInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaRegistroInterno.getColumnModel().getColumn(1).setResizable(false);
