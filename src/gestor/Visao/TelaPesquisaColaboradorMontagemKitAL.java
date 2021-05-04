@@ -31,6 +31,7 @@ public class TelaPesquisaColaboradorMontagemKitAL extends javax.swing.JDialog {
     int flag;
     String idColaborador;
     String caminhoFoto;
+    String pSTATUS_func = "Ativo";
 
     /**
      * Creates new form TelaPesquisaColaboradorMontagemKitAL
@@ -117,10 +118,11 @@ public class TelaPesquisaColaboradorMontagemKitAL extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        TabelaColaborador.setAutoCreateRowSorter(true);
         TabelaColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         TabelaColaborador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Colaborador", "Departamento", "Cargo"
@@ -210,7 +212,8 @@ public class TelaPesquisaColaboradorMontagemKitAL extends javax.swing.JDialog {
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-                    + "WHERE NomeFunc LIKE'%" + jPesquisarNomeColaborador.getText() + "%'");
+                    + "WHERE NomeFunc LIKE'%" + jPesquisarNomeColaborador.getText() + "%' "
+                    + "AND StatusFunc='" + pSTATUS_func + "'");
         }
     }//GEN-LAST:event_jBtPesquisaNomeActionPerformed
 
@@ -222,7 +225,9 @@ public class TelaPesquisaColaboradorMontagemKitAL extends javax.swing.JDialog {
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN CARGOS "
-                    + "ON COLABORADOR.IdCargo=CARGOS.IdCargo");
+                    + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "' "
+                    + "ORDER BY NomeFunc");
         } else {
             limparTabela();
         }
@@ -260,7 +265,7 @@ public class TelaPesquisaColaboradorMontagemKitAL extends javax.swing.JDialog {
                     jFotoColaborador.setIcon(a);
                     jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
                 }
-                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
@@ -361,6 +366,7 @@ public class TelaPesquisaColaboradorMontagemKitAL extends javax.swing.JDialog {
         TabelaColaborador.getTableHeader().setReorderingAllowed(false);
         TabelaColaborador.setAutoResizeMode(TabelaColaborador.AUTO_RESIZE_OFF);
         TabelaColaborador.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaColaborador();
         conecta.desconecta();
     }
 

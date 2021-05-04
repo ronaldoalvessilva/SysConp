@@ -76,6 +76,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public static String pTELA;
     //VALIDAR ACESSO A MODIFICAR OS ITENS IMPLEMENTADOS
     public static String pVALIDACAO_acesso = "";
+    String pSTATUS_func = "Ativo";
 
     /**
      * Creates new form TelaParamentrosCrc
@@ -4229,8 +4230,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaPRI.addItem(conecta.rs.getString("NomeFunc"));
@@ -4245,8 +4249,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaSEG.addItem(conecta.rs.getString("NomeFunc"));
@@ -4260,8 +4267,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaCRC.addItem(conecta.rs.getString("NomeFunc"));
@@ -4276,8 +4286,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaCRC_SEG.addItem(conecta.rs.getString("NomeFunc"));
@@ -4292,8 +4305,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaTER.addItem(conecta.rs.getString("NomeFunc"));
@@ -4307,8 +4323,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaQUA.addItem(conecta.rs.getString("NomeFunc"));
@@ -4322,8 +4341,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaQUI.addItem(conecta.rs.getString("NomeFunc"));
@@ -4337,8 +4359,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaLiberaUm.addItem(conecta.rs.getString("NomeFunc"));
@@ -4352,8 +4377,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaLiberaDois.addItem(conecta.rs.getString("NomeFunc"));
@@ -4367,8 +4395,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaEncerraUm.addItem(conecta.rs.getString("NomeFunc"));
@@ -4382,8 +4413,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
+                    + "StatusFunc, "
                     + "NomeFunc "
-                    + "FROM COLABORADOR ORDER BY NomeFunc");
+                    + "FROM COLABORADOR "
+                    + "WHERE StatusFunc='" + pSTATUS_func + "'"
+                    + "ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaEncerraDois.addItem(conecta.rs.getString("NomeFunc"));
