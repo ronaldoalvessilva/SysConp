@@ -114,6 +114,8 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     String pATENDENDO = "Sim";
     String pCONCLUIDO = "Não";
     String pSTATUS_ATENDIMENTO = "Em Atendimento";
+    //
+    int pSTATUS_usuario = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -1484,8 +1486,14 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     public void pesquisarAtendente() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "NomeUsuario, "
+                    + "StatusUsuario, "
+                    + "NomeDepartamento "
+                    + "FROM USUARIOS "
                     + "WHERE NomeDepartamento='" + nomeModuloENFER + "' "
+                    + "AND StatusUsuario='" + pSTATUS_usuario + "' "
                     + "ORDER BY NomeUsuario");
             conecta.rs.first();
             do {
