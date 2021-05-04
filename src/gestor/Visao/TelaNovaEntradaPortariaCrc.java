@@ -1411,6 +1411,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             jBtSalvarItem.setEnabled(!true);
             jBtCancelarItem.setEnabled(true);
             jBtAuditoriaItem.setEnabled(true);
+            jComboBoxOrigem.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ITENSNOVAENTRADA "
@@ -1426,7 +1427,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 jNrOficio.setText(conecta.rs.getString("NrOficio"));
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 jHorarioEntrada.setText(conecta.rs.getString("HorarioEntrada"));
-                jComboBoxOrigem.setSelectedItem(conecta.rs.getString("OrigemInterno"));
+                jComboBoxOrigem.addItem(conecta.rs.getString("OrigemInterno"));
                 jCanceladoCRC.setText(conecta.rs.getString("RegistroCancelado"));
                 conecta.desconecta();
             } catch (SQLException ex) {
