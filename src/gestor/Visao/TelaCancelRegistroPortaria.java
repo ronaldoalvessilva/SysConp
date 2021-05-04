@@ -54,10 +54,14 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -112,6 +116,11 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
     String REGISTRO_CANCELADO = "REGISTRO CANCELADO PELO CRC";
+    //CONVERSÃO E COMPARAÇÃO DE DATAS
+    String pDATA_REGISTRO_portaria;
+    String pDATA_REGISTRO_cancela;
+    Date dateA;
+    Date dateB;
 
     /**
      * Creates new form TelaCancelRegistroPortaria
@@ -1303,7 +1312,7 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
-        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteP1) && codAlterarP1 == 1) {            
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteP1) && codAlterarP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1401,6 +1410,7 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
         buscarAcessoUsuarioP1(telaCancelamentoRegEntInteP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntInteCRC) && codGravarCRC == 1) {
             confirmaUtilizacao = "Sim";
+            pCONVERTER_datas();
             if (jNomeInternoReg.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
                 jNomeInternoReg.requestFocus();
@@ -1408,9 +1418,9 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de Entrada.");
                 jDataEntrada.requestFocus();
                 jDataEntrada.setBackground(Color.red);
-            } else if (jDataEntrada.getDate().after(jDataLanc.getDate())) {
+            } else if (dateB.after(dateA)) {
                 JOptionPane.showMessageDialog(rootPane, "A data de entrada do interno é maior que a data do cancelamento, não é permitido realizar cancelamento retroativo.");
-            } else if (jDataEntrada.getDate().before(jDataLanc.getDate())) {
+            } else if (dateB.before(dateA)) {
                 JOptionPane.showMessageDialog(rootPane, "A data de entrada do interno é menor que a data do cancelamento, não é permitido realizar cancelamento futuro.");
             } else {
                 if (acao == 3) {
@@ -1546,11 +1556,11 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
         // TODO add your handling code here:
         if (TelaModuloCRC.jPainelCRC != null) {
-            TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
+            TelaAuditoriaItensRegCancelaCRC objAudItensCancel = new TelaAuditoriaItensRegCancelaCRC();
             TelaModuloCRC.jPainelCRC.add(objAudItensCancel);
             objAudItensCancel.show();
         } else if (TelaModuloPortarias.jPainelPortarias != null) {
-            TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
+            TelaAuditoriaItensRegCancelaCRC objAudItensCancel = new TelaAuditoriaItensRegCancelaCRC();
             TelaModuloPortarias.jPainelPortarias.add(objAudItensCancel);
             objAudItensCancel.show();
         }
@@ -2141,6 +2151,19 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
                 Excluir();
             }
         }
+    }
+
+    public void pCONVERTER_datas() {
+        try {
+            SimpleDateFormat dataConverte = new SimpleDateFormat("dd/MM/yyyy");
+            pDATA_REGISTRO_portaria = dataConverte.format(jDataLanc.getDate().getTime());
+            pDATA_REGISTRO_cancela = dataConverte.format(jDataEntrada.getDate().getTime());
+            //
+            dateA = dataConverte.parse(pDATA_REGISTRO_portaria);
+            dateB = dataConverte.parse(pDATA_REGISTRO_cancela);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCancelRegistroPortaria.class.getName()).log(Level.SEVERE, null, ex);
+        }       
     }
 
     public void preencherTabelaPesqRegCan(String sql) {
