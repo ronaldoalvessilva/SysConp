@@ -175,7 +175,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
             if (jPasswordNovaSenha.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "A nova senha não poderá ser em branco...");
             } else if (jPasswordConfirmaSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "A conformação da nova senha não poderá ser em branco...");
+                JOptionPane.showMessageDialog(rootPane, "A confirmação da nova senha não poderá ser em branco...");
             } else {
                 objUser.setIdUsuario(pID_usuario);
                 objUser.setDataCadastro(jDataTroca.getDate());
@@ -197,7 +197,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
             if (jPasswordNovaSenha.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "A nova senha não poderá ser em branco...");
             } else if (jPasswordConfirmaSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "A conformação da nova senha não poderá ser em branco...");
+                JOptionPane.showMessageDialog(rootPane, "A confirmação da nova senha não poderá ser em branco...");
             } else {
                 objUser.setIdUsuario(pID_usuario);
                 objUser.setDataCadastro(jDataTroca.getDate());
@@ -215,7 +215,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
             if (jPasswordNovaSenha.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "A nova senha não poderá ser em branco...");
             } else if (jPasswordConfirmaSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "A conformação da nova senha não poderá ser em branco...");
+                JOptionPane.showMessageDialog(rootPane, "A confirmação da nova senha não poderá ser em branco...");
             } else {
                 objUser.setIdUsuario(pID_usuario);
                 objUser.setDataCadastro(jDataTroca.getDate());
@@ -233,7 +233,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
             if (jPasswordNovaSenha.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "A nova senha não poderá ser em branco...");
             } else if (jPasswordConfirmaSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "A conformação da nova senha não poderá ser em branco...");
+                JOptionPane.showMessageDialog(rootPane, "A confirmação da nova senha não poderá ser em branco...");
             } else {
                 objUser.setIdUsuario(pID_usuario);
                 objUser.setDataCadastro(jDataTroca.getDate());
@@ -251,7 +251,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
             if (jPasswordNovaSenha.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "A nova senha não poderá ser em branco...");
             } else if (jPasswordConfirmaSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "A conformação da nova senha não poderá ser em branco...");
+                JOptionPane.showMessageDialog(rootPane, "A confirmação da nova senha não poderá ser em branco...");
             } else {
                 objUser.setIdUsuario(pID_usuario);
                 objUser.setDataCadastro(jDataTroca.getDate());
@@ -269,7 +269,7 @@ public class TelaTrocaSenha_MD5 extends javax.swing.JDialog {
             if (jPasswordNovaSenha.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "A nova senha não poderá ser em branco...");
             } else if (jPasswordConfirmaSenha.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "A conformação da nova senha não poderá ser em branco...");
+                JOptionPane.showMessageDialog(rootPane, "A confirmação da nova senha não poderá ser em branco...");
             } else {
                 objUser.setIdUsuario(pID_usuario);
                 objUser.setDataCadastro(jDataTroca.getDate());
