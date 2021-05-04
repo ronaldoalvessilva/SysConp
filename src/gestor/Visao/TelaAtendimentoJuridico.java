@@ -112,8 +112,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String atendido = "Sim";
     String opcao = "Não";
     public static int codigoDepartamentoJURI = 0;
-    String tipoAtendimentoAdm = "Admissão Juridico";
-    String tipoAtendimentoEvol = "Evolução Juridico";
+    String tipoAtendimentoAdm = "Admissão Jurídica";
+    String tipoAtendimentoEvol = "Evolução Jurídica";
     //
     String pHabilitaJuridico = "";
     //
