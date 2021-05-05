@@ -4827,19 +4827,19 @@ pAUDITORIA_SOAPII = new TelaAuditoriaAdmNova_SOAPII(this, true);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         //EVOLUÇÃO DA ADMISSÃO - AINDA NÃO FOI IMPLEMENTADA
-//                        objEvolu.setDataEvo(jDataLanc.getDate());
-//                        objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
-//                        // log de usuario
-//                        objEvolu.setUsuarioInsert(nameUser);
-//                        objEvolu.setDataInsert(dataModFinal);
-//                        objEvolu.setHorarioInsert(horaMov);
-//                        //
-//                        objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-//                        objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
-//                        objEvolu.setAdmEvo(admEvolucao);
-//                        controleEvolucao.incluirEvolucaoTerapia(objEvolu);
-//                        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
-//                                + "WHERE IdLanc='" + jIdAtend.getText() + "'");
+                        objEvolu.setDataEvo(jDataLanc.getDate());
+                        objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
+                        // log de usuario
+                        objEvolu.setUsuarioInsert(nameUser);
+                        objEvolu.setDataInsert(dataModFinal);
+                        objEvolu.setHorarioInsert(horaMov);
+                        //
+                        objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                        objEvolu.setAdmEvo(admEvolucao);
+                        controleEvolucao.incluirEvolucaoTerapia(objEvolu);
+                        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+                                + "WHERE IdLanc='" + jIdAtend.getText() + "'");
                         //
                         JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
                         Salvar();
@@ -4860,20 +4860,20 @@ pAUDITORIA_SOAPII = new TelaAuditoriaAdmNova_SOAPII(this, true);
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.alterarMovTec(objAtend);
                         //ADMISSÃO EVOLUÇÃO - AINDA NÃO IMPLEMENTADA
-//                        objEvolu.setDataEvo(jDataLanc.getDate());
-//                        objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
-//                        // log de usuario
-//                        objEvolu.setUsuarioUp(nameUser);
-//                        objEvolu.setDataUp(dataModFinal);
-//                        objEvolu.setHorarioUp(horaMov);
-//                        //
-//                        objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
-//                        objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-//                        objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
-//                        objEvolu.setAdmEvo(admEvolucao);
-//                        controleEvolucao.alterarEvolucaoTerapiaADM(objEvolu);
-//                        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
-//                                + "WHERE IdLanc='" + jIdAtend.getText() + "'");
+                        objEvolu.setDataEvo(jDataLanc.getDate());
+                        objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
+                        // log de usuario
+                        objEvolu.setUsuarioUp(nameUser);
+                        objEvolu.setDataUp(dataModFinal);
+                        objEvolu.setHorarioUp(horaMov);
+                        //
+                        objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
+                        objEvolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                        objEvolu.setAdmEvo(admEvolucao);
+                        controleEvolucao.alterarEvolucaoTerapiaADM(objEvolu);
+                        preencherItensEvolucao("SELECT * FROM EVOLUCAOTERAPIA "
+                                + "WHERE IdLanc='" + jIdAtend.getText() + "'");
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");

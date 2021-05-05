@@ -61,6 +61,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import static gestor.Visao.TelaAtendimentoSocial.jIdADM_Principal;
+import static gestor.Visao.TelaAtendimentoSocial.jIdEvolucao;
 
 /**
  *
@@ -128,6 +129,9 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
     String codInterno;
     String nomeInternoAnterior = "";
     String pATENDIDO_PESQUISA = "Não";
+    //
+    String admEvolucao = "Sim";
+    String statusEvolucao = "EVOLUINDO";
 
     /**
      * Creates new form PortaEntradaServicoSocial
@@ -2309,6 +2313,23 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             control_PE.alterarPortaEntradaSocial(objPortaEntrada);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            //GRAVAR UMA EVOLUÇÃO REFERENTE A ADMISSÃO (13/05/2020)
+                            objEvol.setDataEvol(jDataAtendimento.getDate());
+                            objEvol.setTextoEvolucao(jConsideracoes.getText());
+                            objEvol.setStatusLanc(statusEvolucao);
+                            // log de usuario
+                            objEvol.setUsuarioInsert(nameUser);
+                            objEvol.setDataInsert(dataModFinal);
+                            objEvol.setHorarioInsert(horaMov);
+                            objEvol.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objEvol.setIdAtend(Integer.valueOf(jIDNovoAtend.getText()));
+                            objEvol.setAdmEvo(admEvolucao);
+                            controleEvol.incluirEvolucaoServicoSocial(objEvol);
+                            buscarEvolucao();
+                            preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                                    + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
                             Salvar();
                         }
@@ -2333,6 +2354,20 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             objPortaEntrada.setNomeInternoCrc(jNomeInternoAD.getText());
                             objPortaEntrada.setHabSso(pHABILITA_ASSISTENTE_SOCIAL);
                             control_PE.alterarPortaEntradaSocial(objPortaEntrada);
+                            //ALTERAR EVOLUÇÃO
+                            objEvol.setDataEvol(jDataAtendimento.getDate());
+                            objEvol.setTextoEvolucao(jConsideracoes.getText());
+                            objEvol.setStatusLanc(statusEvolucao);
+                            //
+                            objEvol.setUsuarioUp(nameUser);
+                            objEvol.setDataUp(dataModFinal);
+                            objEvol.setHorarioUp(horaMov);
+                            objEvol.setIdAtend(Integer.valueOf(jIDNovoAtend.getText()));
+                            objEvol.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
+                            objEvol.setAdmEvo(admEvolucao);
+                            controleEvol.alterarEvolucaoServicoSocialADM(objEvol);
+                            preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                                    + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
@@ -3228,6 +3263,17 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
             pHabilitaSSocial = conecta.rs.getString("AtendInterSocial");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+    
+    public void buscarEvolucao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL");
+            conecta.rs.last();
+            jIdEvolucao.setText(conecta.rs.getString("IdItem"));
         } catch (Exception e) {
         }
         conecta.desconecta();

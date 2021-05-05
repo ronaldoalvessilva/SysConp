@@ -23,8 +23,10 @@ import gestor.Modelo.EvolucaoPsicologica;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import static gestor.Visao.TelaAdmissaoPsicologica.jIdEvolucao;
 import static gestor.Visao.TelaAdmissaoPsicologica.jIdInterno;
 import static gestor.Visao.TelaAdmissaoPsicologica.jIdLanc;
+import static gestor.Visao.TelaAdmissaoPsicologica.jTabelaEvolucaoPsicologia;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -141,6 +143,8 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     String codInterno;
     String nomeInternoAnterior = "";
     String pATENDIDO_PESQUISA = "Não";
+    //EVOLUÇÃO DA ADMISSAO
+    String admEvolucao = "Sim";
 
     /**
      * Creates new form TelaNovaAdmissaoPSI
@@ -269,7 +273,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jComboBoxAcompanhaPSI = new javax.swing.JComboBox();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jEncaminhamento = new javax.swing.JTextArea();
+        jTextoSegundaEvolucao = new javax.swing.JTextArea();
         jComboBoxDepartamentoEncaminha = new javax.swing.JComboBox();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
@@ -978,11 +982,12 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
 
         jTabbedPane2.addTab("Transtorno Mental", jPanel7);
 
-        jEncaminhamento.setColumns(20);
-        jEncaminhamento.setRows(5);
-        jEncaminhamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jEncaminhamento.setEnabled(false);
-        jScrollPane2.setViewportView(jEncaminhamento);
+        jTextoSegundaEvolucao.setColumns(20);
+        jTextoSegundaEvolucao.setRows(5);
+        jTextoSegundaEvolucao.setText("DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...");
+        jTextoSegundaEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTextoSegundaEvolucao.setEnabled(false);
+        jScrollPane2.setViewportView(jTextoSegundaEvolucao);
 
         jComboBoxDepartamentoEncaminha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDepartamentoEncaminha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
@@ -1600,7 +1605,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (jIDPesq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
-        } else {          
+        } else {
             preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1614,7 +1619,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             jPesqNomeInterno.requestFocus();
-        } else {            
+        } else {
             preencherAdmissoPsicologia("SELECT * FROM PORTA_ENTRADA_PSICOLOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1809,7 +1814,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                 jComboBoxDepartamentoEncaminha.setSelectedItem(conecta.rs.getString("DepartamentoEncaminha"));
                 jDataEncaminhamento.setDate(conecta.rs.getDate("DataEncaminhamento"));
                 jHoraAcompanha.setText(conecta.rs.getString("HoraAcompanha"));
-                jEncaminhamento.setText(conecta.rs.getString("Encaminhamento"));
+                jTextoSegundaEvolucao.setText(conecta.rs.getString("Encaminhamento"));
                 // TRATAMENTO ANTERIORES
                 jComboBoxTratamentoSaude.setSelectedItem(conecta.rs.getString("TratamentoSaude"));
                 jQualTratamentoSaude.setText(conecta.rs.getString("QualTratamentoSaude"));
@@ -2046,7 +2051,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                     objAdmPsi.setDepartamentoEncaminha((String) jComboBoxDepartamentoEncaminha.getSelectedItem());
                     objAdmPsi.setDataEncaminhamento(jDataEncaminhamento.getDate());
                     objAdmPsi.setHoraAcompanha(jHoraAcompanha.getText());
-                    objAdmPsi.setEncaminhamento(jEncaminhamento.getText());
+                    objAdmPsi.setEncaminhamento(jTextoSegundaEvolucao.getText());
                     // TRATAMENTO ANTERIORES
                     objAdmPsi.setTratamentoSaude((String) jComboBoxTratamentoSaude.getSelectedItem());
                     objAdmPsi.setQualTratamentoSaude(jQualTratamentoSaude.getText());
@@ -2115,6 +2120,27 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                         objPortaEntrada.setHabPsi(pHABILITA_PSICOLOGIA);
                         control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        //
+                        // ADICIONAR UMA EVOLUÇÃO INICIAL
+                        evolu.setDataEvolucao(jDataLanc.getDate());
+                        evolu.setNomeDepartamento((String) jComboBoxDepartamentoEncaminha.getSelectedItem());
+                        evolu.setDataEncaminhamento(jDataEncaminhamento.getDate());
+                        evolu.setHoraEncaminhamento(jHoraAcompanha.getText());
+                        evolu.setTextoEvolucaoAdmissao(jTextoSegundaEvolucao.getText());
+                        // Para o log do registro
+                        evolu.setUsuarioInsert(nameUser);
+                        evolu.setDataInsert(dataModFinal);
+                        evolu.setHorarioInsert(horaMov);
+                        evolu.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
+                        evolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        evolu.setNomeInternoCrc(jNomeInterno.getText());
+                        evolu.setAdmEvo(admEvolucao);
+                        controlEvolu.incluirEvolucaoPsiADM(evolu);
+                        buscarCodEvolucao();
+                        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja iniciar tratamento ao interno agora?", "Confirmação",
@@ -2142,6 +2168,26 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                         objPortaEntrada.setHabPsi(pHABILITA_PSICOLOGIA);
                         control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
+                        //
+                        //EVOLUÇÃO DA ADMISSÃO
+                        evolu.setUsuarioUp(nameUser);
+                        evolu.setDataUp(jDataSistema.getText());
+                        evolu.setHorarioUp(jHoraSistema.getText());
+                        //
+                        evolu.setDataEvolucao(jDataLanc.getDate());
+                        evolu.setNomeDepartamento((String) jComboBoxDepartamentoEncaminha.getSelectedItem());
+                        evolu.setDataEncaminhamento(jDataEncaminhamento.getDate());
+                        evolu.setHoraEncaminhamento(jHoraAcompanha.getText());
+                        evolu.setTextoEvolucaoAdmissao(jTextoSegundaEvolucao.getText());
+                        evolu.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
+                        evolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        evolu.setNomeInternoCrc(jNomeInterno.getText());
+                        evolu.setAdmEvo(admEvolucao);
+                        controlEvolu.alterarEvolucaoPsiADM(evolu);
+                        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         Salvar();
@@ -2299,7 +2345,6 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser jDataInicial;
     private com.toedter.calendar.JDateChooser jDataLanc;
     private javax.swing.JTextArea jDrogas;
-    private javax.swing.JTextArea jEncaminhamento;
     private javax.swing.JTextArea jFamiliares;
     public static javax.swing.JLabel jFotoInterno;
     private javax.swing.JTextArea jHistoricoCriminal;
@@ -2394,6 +2439,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAdmissaoPsicologica;
     private javax.swing.JTextArea jTentativaSuicidio;
+    private javax.swing.JTextArea jTextoSegundaEvolucao;
     private javax.swing.JTextArea jTranstornoMental;
     private javax.swing.JTextArea jTratamentoAntriores;
     private javax.swing.JTextArea jUsoMedicamentos;
@@ -2533,8 +2579,8 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jTranstornoMental.setLineWrap(true);
         jTranstornoMental.setWrapStyleWord(true);
         //
-        jEncaminhamento.setLineWrap(true);
-        jEncaminhamento.setWrapStyleWord(true);
+        jTextoSegundaEvolucao.setLineWrap(true);
+        jTextoSegundaEvolucao.setWrapStyleWord(true);
         //
         jTratamentoAntriores.setLineWrap(true);
         jTratamentoAntriores.setWrapStyleWord(true);
@@ -2603,7 +2649,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jComboBoxDepartamentoEncaminha.setBackground(Color.white);
         jDataEncaminhamento.setBackground(Color.white);
         jHoraAcompanha.setBackground(Color.white);
-        jEncaminhamento.setBackground(Color.white);
+        jTextoSegundaEvolucao.setBackground(Color.white);
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setBackground(Color.white);
         jQualTratamentoSaude.setBackground(Color.white);
@@ -2657,7 +2703,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jComboBoxDepartamentoEncaminha.setEnabled(!true);
         jDataEncaminhamento.setEnabled(!true);
         jHoraAcompanha.setEnabled(!true);
-        jEncaminhamento.setEnabled(!true);
+        jTextoSegundaEvolucao.setEnabled(!true);
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setEnabled(!true);
         jQualTratamentoSaude.setEnabled(!true);
@@ -2716,7 +2762,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jComboBoxDepartamentoEncaminha.setSelectedItem("Selecione...");
         jDataEncaminhamento.setDate(null);
         jHoraAcompanha.setText(jHoraSistema.getText());
-        jEncaminhamento.setText("");
+        jTextoSegundaEvolucao.setText("");
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setSelectedItem("Não");
         jQualTratamentoSaude.setText("");
@@ -2769,7 +2815,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jComboBoxDepartamentoEncaminha.setEnabled(true);
         jDataEncaminhamento.setEnabled(true);
         jHoraAcompanha.setEnabled(true);
-        jEncaminhamento.setEnabled(true);
+        jTextoSegundaEvolucao.setEnabled(true);
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setEnabled(true);
         jQualTratamentoSaude.setEnabled(true);
@@ -3053,5 +3099,65 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    //--------------------------------------------------- EVOLUÇÃO DA SEGUNDA ADMISSÃO ---------------------------------------------
+    public void buscarCodEvolucao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA");
+            conecta.rs.last();
+            jIdEvolucao.setText(conecta.rs.getString("IdEvolucao"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o código da evolução");
+        }
+    }
+
+    public void preencherEvolucaoPsicologia(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Evolução"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                // Formatar a data Entrada
+                dataEvolucao = conecta.rs.getString("DataEvolucao");
+                String diae = dataEvolucao.substring(8, 10);
+                String mese = dataEvolucao.substring(5, 7);
+                String anoe = dataEvolucao.substring(0, 4);
+                dataEvolucao = diae + "/" + mese + "/" + anoe;
+                dados.add(new Object[]{conecta.rs.getInt("IdEvolucao"), dataEvolucao, conecta.rs.getString("StatusEvo"), conecta.rs.getString("Historico")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaEvolucaoPsicologia.setModel(modelo);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(3).setPreferredWidth(380);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaEvolucaoPsicologia.getTableHeader().setReorderingAllowed(false);
+        jTabelaEvolucaoPsicologia.setAutoResizeMode(jTabelaEvolucaoPsicologia.AUTO_RESIZE_OFF);
+        jTabelaEvolucaoPsicologia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaEvolucao();
+        conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaEvolucao() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaEvolucaoPsicologia.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }

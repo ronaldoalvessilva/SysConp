@@ -2207,21 +2207,21 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objPortaEntrada.setHabEnf(pHABILITA_MEDICO);
                     control_PE.alterarPortaEntradaEnfermeira(objPortaEntrada);
                     // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO - RETIRADO POR INCONSISTENCIA
-//                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-//                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-//                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
-//                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
-//                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
-//                    objEvolEnferma.setAdmEvo(admEvolucao);
-//                    // log de usuario
-//                    objEvolEnferma.setUsuarioInsert(nameUser);
-//                    objEvolEnferma.setDataInsert(dataModFinal);
-//                    objEvolEnferma.setHoraInsert(horaMov);
-//                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
+                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    objEvolEnferma.setAdmEvo(admEvolucao);
+                    // log de usuario
+                    objEvolEnferma.setUsuarioInsert(nameUser);
+                    objEvolEnferma.setDataInsert(dataModFinal);
+                    objEvolEnferma.setHoraInsert(horaMov);
+                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
                     //
-//                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-//                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
-//                    buscarEvolucao();
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
+                    buscarEvolucao();
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2238,25 +2238,25 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
                     objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());
                     objAdmEnfermagem.setIdADME(Integer.valueOf(jIdADM_Secundaria.getText()));
-//                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     control.alterarAdmissaoEnfermagem(objAdmEnfermagem);
                     objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.alterarMovTec(objAdmEnfermagem);
                     // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO - RETIRADO POR INCONSISTENCIA
-//                    objEvolEnferma.setIdItem(Integer.valueOf(jIdADM_Secundaria.getText()));
-//                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-//                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
-//                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
-//                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
-//                    // log de usuario
-//                    objEvolEnferma.setUsuarioInsert(nameUser);
-//                    objEvolEnferma.setDataInsert(dataModFinal);
-//                    objEvolEnferma.setHoraInsert(horaMov);
-//                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
-//                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-//                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
+                    objEvolEnferma.setIdItem(Integer.valueOf(jIdADM_Secundaria.getText()));
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
+                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    // log de usuario
+                    objEvolEnferma.setUsuarioInsert(nameUser);
+                    objEvolEnferma.setDataInsert(dataModFinal);
+                    objEvolEnferma.setHoraInsert(horaMov);
+                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();

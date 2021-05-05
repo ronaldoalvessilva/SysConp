@@ -1297,6 +1297,32 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     objPortaEntrada.setNomeInternoCrc(jNomeInternoJuridicoAD.getText());
                     objPortaEntrada.setHabJur(pHABILITA_JURIDICO);
                     control_PE.alterarPortaEntradaJuridico(objPortaEntrada);
+                    // PRIMEIRA EVOLUÇÃO EM CONJUNTO COM A ADMISSÃO
+                    objEvolu.setDataEvo(jDataLancAD.getDate());
+                    objEvolu.setDataEnca(jDataEncaminhamentoAD.getDate());
+                    objEvolu.setTipoAdvogado((String) jComboBoxTipoAdvogadoAD.getSelectedItem());
+                    objEvolu.setResposta((String) jComboBoxRespostaAD.getSelectedItem());
+                    objEvolu.setHoraEnvio(jHoraEnvioAD.getText());
+                    objEvolu.setSetorEncaminhamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
+                    objEvolu.setEvolucao(jEvolucaoAdmissaoAD.getText());
+                    objEvolu.setAdmEvo(admEvolucao);
+                    // log de usuario
+                    objEvolu.setUsuarioInsert(nameUser);
+                    objEvolu.setDataInsert(jDataSistema.getText());
+                    objEvolu.setHorarioInsert(jHoraSistema.getText());
+                    //
+                    objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                    objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objEvolu.setAdmEvo(admEvolucao);
+                    controleJuri.incluirEvolucaoJuridico(objEvolu);
+                    // BUSCAR O CÓDIGO DA EVOLUÇÃO CASO O USUÁRIO QUEIRA ALTERAR A EVOLUÇÃO INICIAL.
+                    buscarIdEvolucao();
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
+                    //
+                    preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
+                            + "WHERE IdLanc='" + jIDLanc.getText() + "'");
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1320,6 +1346,25 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     controleItens.alterarInternoAtividade(objAtivi);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    // MODIFICAR A EVOLUÇÃO CASO SEJA MODIFICADA
+                    // log de usuario
+                    objEvolu.setUsuarioUp(nameUser);
+                    objEvolu.setDataUp(jDataSistema.getText());
+                    objEvolu.setHorarioUp(jHoraSistema.getText());
+                    //
+                    objEvolu.setDataEvo(jDataLancAD.getDate());
+                    objEvolu.setDataEnca(jDataEncaminhamentoAD.getDate());
+                    objEvolu.setTipoAdvogado((String) jComboBoxTipoAdvogadoAD.getSelectedItem());
+                    objEvolu.setResposta((String) jComboBoxRespostaAD.getSelectedItem());
+                    objEvolu.setHoraEnvio(jHoraEnvioAD.getText());
+                    objEvolu.setSetorEncaminhamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
+                    objEvolu.setEvolucao(jEvolucaoAdmissaoAD.getText());
+                    objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                    objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objEvolu.setIdEvo(Integer.valueOf(codigoEvolucao));
+                    controleJuri.alterarEvolucaoJuridico(objEvolu);
+                    preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
+                            + "WHERE IdLanc='" + jIDLanc.getText() + "'");
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }

@@ -3651,7 +3651,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAdmissaoPsicologica;
-    private javax.swing.JTable jTabelaEvolucaoPsicologia;
+    public static javax.swing.JTable jTabelaEvolucaoPsicologia;
     private javax.swing.JTable jTabelaParecerPsicologico;
     private javax.swing.JTextArea jTentativaSuicidio;
     private javax.swing.JTextArea jTextoEvolucaoAdmissao;
