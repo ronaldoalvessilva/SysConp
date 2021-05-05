@@ -102,9 +102,11 @@ public class ControlePesquisarEmpresaLogon {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE LoginUsuario='" + jUsuario.getText() + "'");
             conecta.rs.first();
+            objUsuarios.setLogin(conecta.rs.getString("LoginUsuario"));
             objUsuarios.setDataCadastro(conecta.rs.getDate("DataSenha"));
+            objUsuarios.setStatus(conecta.rs.getBoolean("StatusUsuario"));
+            objUsuarios.setSenha1(conecta.rs.getString("SenhaUsuario"));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
         }
         conecta.desconecta();
         return objUsuarios;

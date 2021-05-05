@@ -116,7 +116,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoConecta = "C:\\SysConp\\Conecta.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
-            if (pDATA_cadastro == null) {
+            if(objUsuarios.getLogin() == null){
+                JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
+            }
+            if (pDATA_cadastro == null && jUsuario.getText().equals(objUsuarios.getLogin())) {
                 mostrarTrocaSenha();
             } else {
                 pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
@@ -186,7 +189,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
-            if (pDATA_cadastro == null) {
+            if(objUsuarios.getLogin() == null){
+                JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
+            }
+            if (pDATA_cadastro == null && jUsuario.getText().equals(objUsuarios.getLogin())) {
                 mostrarTrocaSenha();
             } else {
                 pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
@@ -256,7 +262,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoConecta = "C:\\SysConp\\ConectaSSA.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
-            if (pDATA_cadastro == null) {
+            if(objUsuarios.getLogin() == null){
+                JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
+            }
+            if (pDATA_cadastro == null && jUsuario.getText().equals(objUsuarios.getLogin())) {
                 mostrarTrocaSenha();
             } else {
                 pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
@@ -326,7 +335,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoConecta = "C:\\SysConp\\ConectaITB.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
-            if (pDATA_cadastro == null) {
+            if(objUsuarios.getLogin() == null){
+                JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
+            }
+            if (pDATA_cadastro == null && jUsuario.getText().equals(objUsuarios.getLogin())) {
                 mostrarTrocaSenha();
             } else {
                 pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
@@ -396,7 +408,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoConecta = "C:\\SysConp\\ConectaVC.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
-            if (pDATA_cadastro == null) {
+            if(objUsuarios.getLogin() == null){
+                JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
+            }
+            if (pDATA_cadastro == null && jUsuario.getText().equals(objUsuarios.getLogin())) {
                 mostrarTrocaSenha();
             } else {
                 pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
@@ -466,7 +481,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoConecta = "C:\\SysConp\\ConectaBAR.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
-            if (pDATA_cadastro == null) {
+            if(objUsuarios.getLogin() == null){
+                JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
+            }
+            if (pDATA_cadastro == null && jUsuario.getText().equals(objUsuarios.getLogin())) {
                 mostrarTrocaSenha();
             } else {
                 pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
@@ -536,7 +554,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
             BUSCAR_usuarios();
             BUSCAR_data();
-            if (pDATA_cadastro == null) {
+            if(objUsuarios.getLogin() == null){
+                JOptionPane.showMessageDialog(null, "ERROR: Não Foi possível localizar o LOGIN DO USUÁRIO, verifique se foi digitado o LOGIN correto do usuário.");
+            }
+            if (pDATA_cadastro == null && jUsuario.getText().equals(objUsuarios.getLogin())) {
                 mostrarTrocaSenha();
             } else {
                 pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jPassword.getText());
