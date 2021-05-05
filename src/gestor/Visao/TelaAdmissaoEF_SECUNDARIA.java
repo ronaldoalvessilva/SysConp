@@ -1691,17 +1691,17 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                     objPortaEntrada.setNomeInternoCrc(jNomeInternoEF_NOVO.getText());
                     objPortaEntrada.setHabEdu(pHABILITA_EDUCACAO_FISICA);
                     control_PE.alterarPortaEntradaEducacao(objPortaEntrada);
-//                        //GRAVAR EVOLUÇÃO DA ADMISSÃO  - IMPLEMENTAR NA PRÓXIMA VERSÃO
-//                        objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-//                        objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
-//                        objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
-//                        objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
-//                        objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
-//                        objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
-//                        control.incluir_EVOLUCAO_EF(objAdmissao);
-//                        buscarCodigoEvolucao();
-//                        limparTabelaEvolucao();
-//                        preencherEvolucao_REGISTRO_EF();
+                    //GRAVAR EVOLUÇÃO DA ADMISSÃO  - IMPLEMENTAR NA PRÓXIMA VERSÃO
+                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
+                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+                    objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
+                    objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
+                    objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
+                    control.incluir_EVOLUCAO_EF(objAdmissao);
+                    buscarCodigoEvolucao();
+                    limparTabelaEvolucao();
+                    preencherEvolucao_REGISTRO_EF();
                     objLog1();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosBotoes(!true);
@@ -1728,15 +1728,15 @@ public class TelaAdmissaoEF_SECUNDARIA extends javax.swing.JDialog {
                     objAdmPsi.setDeptoPsicologico(deptoTecnico);
                     controle.alterarMovTec(objAdmPsi);
                     //EVOLUÇÃO DA ADMISSÃO - IMPLEMENTAR NA PRÓXIMA VERSÃO
-//                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
-//                    objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
-//                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
-//                    objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
-//                    objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
-//                    objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
-//                    control.alterar_EVOLUCAO_EF_ADM(objAdmissao);
-//                    limparTabelaEvolucao();
-//                    preencherEvolucao_REGISTRO_EF();
+                    objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF_NOVO.getText()));
+                    objAdmissao.setNomeInternoEF(jNomeInternoEF_NOVO.getText());
+                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF_NOVO.getText()));
+                    objAdmissao.setDataEvolucaoEF(jDataRegistroEF.getDate());
+                    objAdmissao.setTextoEvolucaoEF(jTextoEvolucaoAdmissao.getText());
+                    objAdmissao.setAdmEvo(pADMISSAO_EVOLUCAO);
+                    control.alterar_EVOLUCAO_EF_ADM(objAdmissao);
+                    limparTabelaEvolucao();
+                    preencherEvolucao_REGISTRO_EF();
                     objLog1();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosBotoes(!true);
