@@ -157,6 +157,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     String nomeUserRegistro;
     //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
     String pHABILITA_PEDAGOGIA = "Não";
+    // PARA EVOULÇAO DA PRIMEIRA ADMISSÃO
+    int pID_EVOLUCAO = 0;
 
     /**
      * Creates new form AdmissaoEvolucaoPsicologica
@@ -3042,7 +3044,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         objPortaEntrada.setHabPed(pHABILITA_PEDAGOGIA);
                         control_PE.alterarPortaEntradaPedagogia(objPortaEntrada);
                         objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
+                        //
                         bloquearCampos();
                         bloquearBotoes();
                         Salvar();
@@ -3481,6 +3484,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     objEvolucaoAdmPedago.setHorarioUp(horaMov);
                     objEvolucaoAdmPedago.setAdmEvo(admEvolucao);
                     //
+//                    objEvolucaoAdmPedago.setIdEvolucao(pID_EVOLUCAO);// AINDA NÃO TESTADO (06/05/2021)
                     objEvolucaoAdmPedago.setIdEvolucao(Integer.valueOf(jCodigoAdmissao.getText()));
                     controleEvol.alterarEvolucaoPedADM(objEvolucaoAdmPedago);
                     preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
@@ -6017,6 +6021,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 String mese = dataEvolucao.substring(5, 7);
                 String anoe = dataEvolucao.substring(0, 4);
                 dataEvolucao = diae + "/" + mese + "/" + anoe;
+                //
+                pID_EVOLUCAO = conecta.rs.getInt("IdEvolucao");
                 dados.add(new Object[]{conecta.rs.getInt("IdEvolucao"), dataEvolucao, conecta.rs.getString("TextoEvolucao")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
