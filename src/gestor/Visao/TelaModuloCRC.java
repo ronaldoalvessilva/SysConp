@@ -5871,7 +5871,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void buscarCodigoModulo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM MODULOS "
+            conecta.executaSQL("SELECT "
+                    + "IdModulo, "
+                    + "NomeModulo "
+                    + "FROM MODULOS "
                     + "WHERE NomeModulo='" + nomeModuloCRC + "'");
             conecta.rs.first();
             pCodModulo = conecta.rs.getInt("IdModulo");
@@ -5882,7 +5885,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT NomeUsuario FROM USUARIOS "
+            conecta.executaSQL("SELECT "
+                    + "IdUsuario, "
+                    + "NomeUsuario "
+                    + "FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
             codigoUserCRC = conecta.rs.getInt("IdUsuario");
