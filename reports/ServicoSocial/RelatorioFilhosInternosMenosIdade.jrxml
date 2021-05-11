@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFilhosInternosMenosIdade" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e4d4cf5-981e-41c1-8be1-120ac44c739f">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="408"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -15,8 +15,8 @@
 	</style>
 	<parameter name="dataInicial" class="java.lang.String"/>
 	<parameter name="dataFinal" class="java.lang.String"/>
-	<parameter name="decricaoUnidade" class="java.lang.String"/>
-	<parameter name="NomeUsuario" class="java.lang.String"/>
+	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
 	<parameter name="pSITUACAO_entrada" class="java.lang.String"/>
 	<parameter name="pSITUACAO_retorno" class="java.lang.String"/>
 	<queryString>
@@ -50,15 +50,17 @@ ORDER BY p.NomeInternoCrc]]>
 	<field name="Idade" class="java.math.BigDecimal"/>
 	<field name="SexoVisita" class="java.lang.String"/>
 	<field name="StatusVisita" class="java.lang.String"/>
-	<variable name="pTOTAL_internos" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[1]]></variableExpression>
+	<variable name="pTOTAL_internos" class="java.lang.Integer" incrementType="Group" incrementGroup="IdInternoCrc" calculation="Count">
+		<variableExpression><![CDATA[$F{IdInternoCrc}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<variable name="pTOTAL_filhos" class="java.lang.Integer" resetType="Group" resetGroup="IdInternoCrc" calculation="Count">
 		<variableExpression><![CDATA[1]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="pTOTAL_GERAL_filhos" class="java.lang.Integer" calculation="Sum">
+	<variable name="pTOTAL_GERAL_filhos" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$V{pTOTAL_filhos}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<group name="IdInternoCrc">
 		<groupExpression><![CDATA[$F{IdInternoCrc}]]></groupExpression>
@@ -132,7 +134,7 @@ ORDER BY p.NomeInternoCrc]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{decricaoUnidade}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -263,7 +265,7 @@ ORDER BY p.NomeInternoCrc]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{NomeUsuario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

@@ -377,6 +377,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         RelatorioVisitasPorIdade = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jRelatorioVisitasInternos = new javax.swing.JMenuItem();
+        jRelatorioInternosFilhosIdade = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenu6 = new javax.swing.JMenu();
         CartaoSus = new javax.swing.JMenuItem();
@@ -783,6 +784,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(jRelatorioVisitasInternos);
+
+        jRelatorioInternosFilhosIdade.setText("Relatório de Internos com Filhos por Idade");
+        jRelatorioInternosFilhosIdade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioInternosFilhosIdadeActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRelatorioInternosFilhosIdade);
         jMenu3.add(jSeparator17);
 
         jMenu6.setText("Relatório de Internos sem Documentos");
@@ -2414,6 +2423,13 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jPlanejamentoAtividadesActionPerformed
 
+    private void jRelatorioInternosFilhosIdadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioInternosFilhosIdadeActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosFilhosIdade objRelIntIdade = new TelaRelatorioInternosFilhosIdade();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objRelIntIdade);
+        objRelIntIdade.show();
+    }//GEN-LAST:event_jRelatorioInternosFilhosIdadeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoInternos;
@@ -2483,6 +2499,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JMenuItem jRelatorioGeralQuantidadeAtendimentoFamiliar;
+    private javax.swing.JMenuItem jRelatorioInternosFilhosIdade;
     private javax.swing.JMenuItem jRelatorioQuantidadeAtendimentoFamiliar;
     private javax.swing.JMenuItem jRelatorioVisitasInternos;
     private javax.swing.JMenuItem jRolVisitas;
@@ -3309,7 +3326,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaCancelAtendInternoSS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-         if (!pNomePAG_SS.equals(telaPlanejamentoAtividadesManu_SS) || pNomePAG_SS == null || pNomePAG_SS.equals("")) {
+        if (!pNomePAG_SS.equals(telaPlanejamentoAtividadesManu_SS) || pNomePAG_SS == null || pNomePAG_SS.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaPlanejamentoAtividadesManu_SS);
@@ -3629,7 +3646,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void PESQUISAR_LIBERACAO_implementacao() {
         PESQUISAR_IMPLEMENTA_SS_001(telaPlanejamentoAtividadesManu_SS);
         PESQUISAR_IMPLEMENTA_SS_002(telaAprovadoresOcrSS);
@@ -3687,7 +3704,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             jSeparator10.setVisible(true);
         }
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_SS_003(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
@@ -3712,7 +3729,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             jSeparator19.setVisible(true);
         }
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_SS_004(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
@@ -3737,7 +3754,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             jSeparator9.setVisible(true);
         }
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_SS_005(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
