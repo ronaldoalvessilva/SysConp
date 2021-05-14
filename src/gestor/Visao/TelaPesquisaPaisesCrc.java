@@ -23,6 +23,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
+    String NomePais = "";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -197,7 +198,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
         if (jPesNomePais.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesNomePais.requestFocus();
-        } else {            
+        } else {
             preencherTabelaNome("SELECT * FROM PAISES WHERE NomePais LIKE'%" + jPesNomePais.getText() + "%'");
         }
 
@@ -206,8 +207,8 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
     private void jTabelaPaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPaisMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String NomeCidade = "" + jTabelaPais.getValueAt(jTabelaPais.getSelectedRow(), 1);
-            jPesNomePais.setText(NomeCidade);
+            NomePais = "" + jTabelaPais.getValueAt(jTabelaPais.getSelectedRow(), 1);
+            jPesNomePais.setText(NomePais);
         }
     }//GEN-LAST:event_jTabelaPaisMouseClicked
 
@@ -215,9 +216,12 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesNomePais.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome da cidade e clique no botão ENVIAR");
+        } else if (!jPesNomePais.getText().isEmpty() && NomePais.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa do Pais.");
+        } else {
+            TelaProntuarioCrc.jComboBoxPais.setText(jPesNomePais.getText());
+            dispose();
         }
-        TelaProntuarioCrc.jComboBoxPais.setText(jPesNomePais.getText());
-        dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -228,7 +232,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabela();
         } else {
             limparTabela();

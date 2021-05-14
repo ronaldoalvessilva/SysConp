@@ -21,6 +21,7 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
+    String nomePais = "";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -107,7 +108,7 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Nome  Pais"
+                "Código", "Nome  Pais"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -213,7 +214,7 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
     private void jTabelaPaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPaisMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String nomePais = "" + jTabelaPais.getValueAt(jTabelaPais.getSelectedRow(), 1);
+            nomePais = "" + jTabelaPais.getValueAt(jTabelaPais.getSelectedRow(), 1);
             jPesNomePais.setText(nomePais);
         }
     }//GEN-LAST:event_jTabelaPaisMouseClicked
@@ -222,9 +223,12 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesNomePais.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do PAÍS e clique no botão ENVIAR");
+        } else if (!jPesNomePais.getText().isEmpty() && nomePais.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa do Pais.");
+        } else {
+            TelaProntuarioTriagem.jComboBoxPais.setText(jPesNomePais.getText());
+            dispose();
         }
-        TelaProntuarioTriagem.jComboBoxPais.setText(jPesNomePais.getText());
-        dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -259,7 +263,7 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Pais"};
+        String[] Colunas = new String[]{"Código", "Nome Pais"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PAISES ORDER BY NomePais");
@@ -284,7 +288,7 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome País"};
+        String[] Colunas = new String[]{"Código", "Nome País"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
