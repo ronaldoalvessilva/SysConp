@@ -23,6 +23,7 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
+    String NomeCidade = "";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -208,7 +209,7 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
     private void jTabelaCidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCidadeMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String NomeCidade = "" + jTabelaCidade.getValueAt(jTabelaCidade.getSelectedRow(), 1);
+            NomeCidade = "" + jTabelaCidade.getValueAt(jTabelaCidade.getSelectedRow(), 1);
             jPesNomeCidade.setText(NomeCidade);
         }
     }//GEN-LAST:event_jTabelaCidadeMouseClicked
@@ -217,9 +218,12 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesNomeCidade.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome da cidade e clique no botão ENVIAR");
+        } else if (!jPesNomeCidade.getText().isEmpty() && NomeCidade.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa da Cidade.");
+        } else {
+            TelaProntuarioCrc.jComboBoxCidade.setText(jPesNomeCidade.getText());
+            dispose();
         }
-        TelaProntuarioCrc.jComboBoxCidade.setText(jPesNomeCidade.getText());
-        dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed

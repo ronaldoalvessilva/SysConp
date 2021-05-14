@@ -21,6 +21,7 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
+    String NomeCidade = "";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -207,7 +208,7 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
     private void jTabelaCidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCidadeMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String NomeCidade = "" + jTabelaCidade.getValueAt(jTabelaCidade.getSelectedRow(), 1);
+            NomeCidade = "" + jTabelaCidade.getValueAt(jTabelaCidade.getSelectedRow(), 1);
             jPesNomeCidade.setText(NomeCidade);
         }
     }//GEN-LAST:event_jTabelaCidadeMouseClicked
@@ -216,9 +217,12 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesNomeCidade.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome da cidade e clique no botão ENVIAR");
+        } else if (!jPesNomeCidade.getText().isEmpty() && NomeCidade.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa da Cidade.");
+        } else {
+            TelaProntuarioTriagem.jComboBoxCidade.setText(jPesNomeCidade.getText());
+            dispose();
         }
-        TelaProntuarioTriagem.jCidade.setText(jPesNomeCidade.getText());
-        dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -229,12 +233,12 @@ public class TelaPesquisaCidadesEndTri extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-            if (evt.getStateChange() == evt.SELECTED) {
-                jTabelaCidade.setVisible(true);
-                this.preencherTabela();
-            } else {
-                jTabelaCidade.setVisible(!true);
-            }
+        if (evt.getStateChange() == evt.SELECTED) {
+            jTabelaCidade.setVisible(true);
+            this.preencherTabela();
+        } else {
+            jTabelaCidade.setVisible(!true);
+        }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
 

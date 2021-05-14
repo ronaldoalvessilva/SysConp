@@ -24,7 +24,7 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
-    String NomeCidade = "";
+    String NomeUnidade = "";
 
     /**
      * Creates new form TelaPesquisaCidade
@@ -211,8 +211,8 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
     private void jTabelaUnidadePenalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaUnidadePenalMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            NomeCidade = "" + jTabelaUnidadePenal.getValueAt(jTabelaUnidadePenal.getSelectedRow(), 2);
-            jPesNomeUnidade.setText(NomeCidade);
+            NomeUnidade = "" + jTabelaUnidadePenal.getValueAt(jTabelaUnidadePenal.getSelectedRow(), 2);
+            jPesNomeUnidade.setText(NomeUnidade);
         }
     }//GEN-LAST:event_jTabelaUnidadePenalMouseClicked
 
@@ -220,10 +220,10 @@ public class TelaPesquisaUnidadeTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesNomeUnidade.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome da UNIDADE e clique no botão ENVIAR.");
-        } else if (!jPesNomeUnidade.getText().isEmpty() && NomeCidade.equals("")) {
+        } else if (!jPesNomeUnidade.getText().isEmpty() && NomeUnidade.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa da unidade prisional.");
         } else {
-            jComboBoxUnid.setText(NomeCidade);
+            jComboBoxUnid.setText(NomeUnidade);
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
