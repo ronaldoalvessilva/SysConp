@@ -2131,7 +2131,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         evolu.setUsuarioInsert(nameUser);
                         evolu.setDataInsert(dataModFinal);
                         evolu.setHorarioInsert(horaMov);
-                        evolu.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
+                        evolu.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         evolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                         evolu.setNomeInternoCrc(jNomeInterno.getText());
                         evolu.setAdmEvo(admEvolucao);
@@ -2159,7 +2159,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
                         objAdmPsi.setIdPortaPSI(Integer.valueOf(jIdADM_NOVA.getText()));
                         control.alterarNovaAdmissaoPsi(objAdmPsi);
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdADM_NOVA.getText()));
+                        objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.alterarMovTec(objAdmPsi);
                         //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
