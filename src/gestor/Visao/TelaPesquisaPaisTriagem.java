@@ -226,7 +226,7 @@ public class TelaPesquisaPaisTriagem extends javax.swing.JInternalFrame {
         } else if (!jPesNomePais.getText().isEmpty() && nomePais.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa do Pais.");
         } else {
-            TelaProntuarioTriagem.jComboBoxPais.setText(jPesNomePais.getText());
+            TelaProntuarioTriagem.jComboBoxPais.setText(nomePais);
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed

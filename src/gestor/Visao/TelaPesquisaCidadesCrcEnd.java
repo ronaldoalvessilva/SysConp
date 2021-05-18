@@ -222,7 +222,7 @@ public class TelaPesquisaCidadesCrcEnd extends javax.swing.JInternalFrame {
         } else if (!jPesNomeCidade.getText().isEmpty() && NomeCidade.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa da Cidade.");
         } else {
-            TelaProntuarioCrc.jCidade.setText(jPesNomeCidade.getText());
+            TelaProntuarioCrc.jCidade.setText(NomeCidade);
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
