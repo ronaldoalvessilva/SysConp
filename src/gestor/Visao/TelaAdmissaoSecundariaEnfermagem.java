@@ -2209,7 +2209,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO - RETIRADO POR INCONSISTENCIA
                     objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
                     objEvolEnferma.setAdmEvo(admEvolucao);
@@ -2220,7 +2220,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
                     //
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     buscarEvolucao();
                     //
                     objLog();
@@ -2256,7 +2256,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objEvolEnferma.setHoraInsert(horaMov);
                     controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();

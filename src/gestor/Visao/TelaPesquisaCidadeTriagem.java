@@ -229,7 +229,7 @@ public class TelaPesquisaCidadeTriagem extends javax.swing.JInternalFrame {
         } else if (!jPesNomeCidade.getText().isEmpty() && NomeCidade.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa da Cidade.");
         } else {
-            TelaProntuarioTriagem.jComboBoxCidade.setText(jPesNomeCidade.getText());
+            TelaProntuarioTriagem.jComboBoxCidade.setText(NomeCidade);
             dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed

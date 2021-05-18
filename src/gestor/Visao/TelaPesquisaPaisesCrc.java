@@ -219,7 +219,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
         } else if (!jPesNomePais.getText().isEmpty() && NomePais.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não foi realizada pesquisa do Pais.");
         } else {
-            TelaProntuarioCrc.jComboBoxPais.setText(jPesNomePais.getText());
+            TelaProntuarioCrc.jComboBoxPais.setText(NomePais);
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed

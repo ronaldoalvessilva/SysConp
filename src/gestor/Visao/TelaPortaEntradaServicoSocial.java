@@ -1641,6 +1641,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
 
         jConsideracoes.setColumns(20);
         jConsideracoes.setRows(5);
+        jConsideracoes.setText("[DIGITE O TEXTO DA NOVA EVOLUÇÃO AQUI...]");
         jConsideracoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jConsideracoes.setEnabled(false);
         jScrollPane1.setViewportView(jConsideracoes);
@@ -2322,7 +2323,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             objEvol.setDataInsert(dataModFinal);
                             objEvol.setHorarioInsert(horaMov);
                             objEvol.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
-                            objEvol.setIdAtend(Integer.valueOf(jIDNovoAtend.getText()));
+                            objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                             objEvol.setAdmEvo(admEvolucao);
                             controleEvol.incluirEvolucaoServicoSocial(objEvol);
                             buscarEvolucao();
@@ -2362,7 +2363,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
                             objEvol.setUsuarioUp(nameUser);
                             objEvol.setDataUp(dataModFinal);
                             objEvol.setHorarioUp(horaMov);
-                            objEvol.setIdAtend(Integer.valueOf(jIDNovoAtend.getText()));
+                            objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                             objEvol.setIdInternoCrc(Integer.valueOf(jIDInternoAD.getText()));
                             objEvol.setAdmEvo(admEvolucao);
                             controleEvol.alterarEvolucaoServicoSocialADM(objEvol);
@@ -2931,7 +2932,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         jTotalFilhos.setText("0");
         jQtdFilhosRela.setText("0");
         jPaternidade.setText("0");
-        jConsideracoes.setText("");
+        jConsideracoes.setText("[DIGITE O TEXTO DA NOVA EVOLUÇÃO AQUI...]");
         jComboBoxTrabalho.setSelectedItem("Não");
         jComboBoxAuxReclusao.setSelectedItem("Não");
         jComboBoxDireitoReclusao.setSelectedItem("Não");
