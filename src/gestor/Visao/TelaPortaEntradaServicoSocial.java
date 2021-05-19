@@ -1641,7 +1641,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
 
         jConsideracoes.setColumns(20);
         jConsideracoes.setRows(5);
-        jConsideracoes.setText("[DIGITE O TEXTO DA NOVA EVOLUÇÃO AQUI...]");
+        jConsideracoes.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jConsideracoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jConsideracoes.setEnabled(false);
         jScrollPane1.setViewportView(jConsideracoes);
@@ -2932,7 +2932,7 @@ public class TelaPortaEntradaServicoSocial extends javax.swing.JDialog {
         jTotalFilhos.setText("0");
         jQtdFilhosRela.setText("0");
         jPaternidade.setText("0");
-        jConsideracoes.setText("[DIGITE O TEXTO DA NOVA EVOLUÇÃO AQUI...]");
+        jConsideracoes.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jComboBoxTrabalho.setSelectedItem("Não");
         jComboBoxAuxReclusao.setSelectedItem("Não");
         jComboBoxDireitoReclusao.setSelectedItem("Não");

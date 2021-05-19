@@ -1068,7 +1068,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
 
         jTextoEvolucaoAdmissao.setColumns(20);
         jTextoEvolucaoAdmissao.setRows(5);
-        jTextoEvolucaoAdmissao.setText("DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...");
+        jTextoEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jTextoEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTextoEvolucaoAdmissao.setEnabled(false);
         jScrollPane2.setViewportView(jTextoEvolucaoAdmissao);
@@ -3901,7 +3901,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jComboBoxDepartamentoEncaminha.setSelectedItem("Selecione...");
         jDataEncaminhamento.setDate(null);
         jHoraAcompanha.setText(jHoraSistema.getText());
-        jTextoEvolucaoAdmissao.setText("DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...");
+        jTextoEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setSelectedItem("Não");
         jQualTratamentoSaude.setText("");

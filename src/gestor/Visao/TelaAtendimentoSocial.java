@@ -1671,6 +1671,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
         jConsideracoes.setColumns(20);
         jConsideracoes.setRows(5);
+        jConsideracoes.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jConsideracoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jConsideracoes.setEnabled(false);
         jScrollPane1.setViewportView(jConsideracoes);
@@ -3523,7 +3524,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jQtdFilhosRela.setText("0");
         jPaternidade.setText("0");
         //
-        jConsideracoes.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jConsideracoes.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         // Habilitar/Desabilitar botões
         jBtPesqInterno.setEnabled(true);
         jBtNovo.setEnabled(!true);

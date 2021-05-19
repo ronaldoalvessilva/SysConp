@@ -1118,7 +1118,7 @@ pAUDITORIA_SOAPII = new TelaAuditoriaAdmNova_SOAPII(this, true);
 
         jObsDesempenhoOcupacional.setColumns(20);
         jObsDesempenhoOcupacional.setRows(5);
-        jObsDesempenhoOcupacional.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jObsDesempenhoOcupacional.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jObsDesempenhoOcupacional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jObsDesempenhoOcupacional.setEnabled(false);
         jScrollPane1.setViewportView(jObsDesempenhoOcupacional);
@@ -6479,7 +6479,7 @@ pAUDITORIA_SOAPII = new TelaAuditoriaAdmNova_SOAPII(this, true);
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jObsDesempenhoOcupacional.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setSelectedItem("Não");
         jComboBoxTemCompanheira.setSelectedItem("Não");

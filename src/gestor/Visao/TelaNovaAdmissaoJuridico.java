@@ -676,6 +676,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
 
         jEvolucaoAdmissaoAD.setColumns(20);
         jEvolucaoAdmissaoAD.setRows(5);
+        jEvolucaoAdmissaoAD.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jEvolucaoAdmissaoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEvolucaoAdmissaoAD.setEnabled(false);
         jScrollPane5.setViewportView(jEvolucaoAdmissaoAD);
@@ -1581,7 +1582,7 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
         jMatriculaPenaJuridico.setText("");
         jDataNascInternoJuriAD.setDate(null);
         jDataCondIntJuriAD.setDate(null);
-        jEvolucaoAdmissaoAD.setText("");
+        jEvolucaoAdmissaoAD.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jComboBoxTipoAdvogadoAD.setEnabled(true);
         jComboBoxRespostaAD.setEnabled(true);
         if (pAcao_AD == 1) {

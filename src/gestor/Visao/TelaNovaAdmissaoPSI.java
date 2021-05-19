@@ -984,7 +984,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
 
         jTextoSegundaEvolucao.setColumns(20);
         jTextoSegundaEvolucao.setRows(5);
-        jTextoSegundaEvolucao.setText("DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...");
+        jTextoSegundaEvolucao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jTextoSegundaEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTextoSegundaEvolucao.setEnabled(false);
         jScrollPane2.setViewportView(jTextoSegundaEvolucao);
@@ -2762,7 +2762,7 @@ public class TelaNovaAdmissaoPSI extends javax.swing.JDialog {
         jComboBoxDepartamentoEncaminha.setSelectedItem("Selecione...");
         jDataEncaminhamento.setDate(null);
         jHoraAcompanha.setText(jHoraSistema.getText());
-        jTextoSegundaEvolucao.setText("");
+        jTextoSegundaEvolucao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setSelectedItem("Não");
         jQualTratamentoSaude.setText("");

@@ -2002,6 +2002,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
         jEvolucaoAdmissao.setColumns(20);
         jEvolucaoAdmissao.setRows(5);
+        jEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEvolucaoAdmissao.setEnabled(false);
         jScrollPane1.setViewportView(jEvolucaoAdmissao);
@@ -7592,7 +7593,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDoencas.setText("");
         jQuaisAlergias.setText("");
         // Observação
-        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         //Habilitar/Desabilitar Campos        
         jDataLanc.setEnabled(true);
         jBtPesqInternoEnfermaria.setEnabled(true);
