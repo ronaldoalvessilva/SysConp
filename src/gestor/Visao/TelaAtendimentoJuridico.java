@@ -633,15 +633,14 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                                 .addComponent(jStatusLanc)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel9))
                             .addComponent(jLabel5)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataLanc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDataNascInternoJuri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel9)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jDataLanc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jDataNascInternoJuri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addComponent(jLabel2))
                 .addGap(6, 6, 6))
         );
@@ -856,6 +855,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
         jEvolucaoAdmissao.setColumns(20);
         jEvolucaoAdmissao.setRows(5);
+        jEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEvolucaoAdmissao.setEnabled(false);
         jScrollPane5.setViewportView(jEvolucaoAdmissao);
@@ -2948,7 +2948,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jDataNascInternoJuri.setDate(null);
         jDataCondIntJuri.setDate(null);
         jFotoInternoJuridico.setIcon(null);
-        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jComboBoxResposta.setEnabled(true);
         if (pAcao == 1) {
             if (jComboBoxResposta.getSelectedItem().equals("Sim")) {

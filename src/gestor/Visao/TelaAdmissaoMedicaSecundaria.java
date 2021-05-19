@@ -1456,6 +1456,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
 
         jDiagnosticoInicial.setColumns(20);
         jDiagnosticoInicial.setRows(5);
+        jDiagnosticoInicial.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jDiagnosticoInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDiagnosticoInicial.setEnabled(false);
         jScrollPane17.setViewportView(jDiagnosticoInicial);
@@ -2918,7 +2919,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQualMedicacaoUsa.setText("");
         jComboBoxOutrasAlergias.setSelectedItem("Não");
         jQuaisOutrasAlergias.setText("");
-        jDiagnosticoInicial.setText("");
+        jDiagnosticoInicial.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
         jComboBoxTipoAdmissao.setSelectedItem("Selecione...");
         //

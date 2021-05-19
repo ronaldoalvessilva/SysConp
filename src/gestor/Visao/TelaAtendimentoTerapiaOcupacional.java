@@ -1031,7 +1031,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
 
         jEvolucaoAdmissao.setColumns(20);
         jEvolucaoAdmissao.setRows(5);
-        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEvolucaoAdmissao.setEnabled(false);
         jScrollPane1.setViewportView(jEvolucaoAdmissao);
@@ -7252,7 +7252,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jEvolucaoAdmissao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setSelectedItem("Não");
         jComboBoxTemCompanheira.setSelectedItem("Não");

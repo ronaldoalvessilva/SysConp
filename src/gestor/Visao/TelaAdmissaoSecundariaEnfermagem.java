@@ -1469,6 +1469,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
 
         jObservacao.setColumns(20);
         jObservacao.setRows(5);
+        jObservacao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         jObservacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jObservacao.setEnabled(false);
         jScrollPane1.setViewportView(jObservacao);
@@ -2693,7 +2694,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         jQuaisDrogas.setText("");
         jQuaisDoencas.setText("");
         jQuaisAlergias.setText("");
-        jObservacao.setText("");
+        jObservacao.setText("[DIGITE AQUI O TEXTO DA EVOLUÇÃO DA ADMISSÃO...]");
         //
         jPressaoArterial.setText("");
         jHemograma.setText("");
