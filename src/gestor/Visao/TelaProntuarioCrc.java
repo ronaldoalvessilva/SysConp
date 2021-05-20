@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.CalcularIdade;
 import gestor.Controle.ControleDadosFisicos;
 import gestor.Controle.ControleDadosPenais;
 import gestor.Controle.ControleDocInternosFaltando;
@@ -55,8 +56,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,6 +102,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
     // GRAVAR DOCUMENTOS DO INTERNO FALTANDO.
     ControleDocInternosFaltando CONTROLE_DADOS_documentos = new ControleDocInternosFaltando();
+    //
+    CalcularIdade cal = new CalcularIdade();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -205,6 +213,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     int pTOTAL_ATIVOS = 0;
     //
     public static boolean pNUMERO_cpf;
+    //CALCULO DE MENOR IDADE
+    String pDATA_nascimento;
+    int pIDADE;
+    int pIDADE_crime = 18;
     /**
      * Creates new form TelaTriagem
      */
@@ -4740,6 +4752,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:hh
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codGravarCRC == 1) {
+            CALCULAR_idade();
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -4823,6 +4836,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a terceira foto do perfil do interno.");
             } else if (jFotoCorpo2.getIcon() == null || caminhoFotoCorpo2 == null || caminhoFotoCorpo2.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a quarta foto do perfil do interno.");
+            } else if (pIDADE < pIDADE_crime) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível gravar o registro desse interno, pois, o mesmo é menor de idade.");
             } else {
                 if (ValidaCPF.isCPF(jCPFInterno.getText()) == true) {
                     objProCrc.setMatricula(jMatriculaPenal.getText());
@@ -5710,6 +5725,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCadastroProntuarioManuCRC) && codGravarCRC == 1) {
+            CALCULAR_idade();
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -5793,6 +5809,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a terceira foto do perfil do interno.");
             } else if (jFotoCorpo2.getIcon() == null || caminhoFotoCorpo2 == null || caminhoFotoCorpo2.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a quarta foto do perfil do interno.");
+            } else if (pIDADE < pIDADE_crime) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível gravar o registro desse interno, pois, o mesmo é menor de idade.");
             } else {
                 if (ValidaCPF.isCPF(jCPFInterno.getText()) == true) {
                     objProCrc.setMatricula(jMatriculaPenal.getText());
@@ -7105,6 +7123,28 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxQuaisDocumentosFaltam.setBackground(Color.white);
     }
 
+    public void CALCULAR_idade() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        pDATA_nascimento = sdf.format(jDataNascimento.getDate().getTime());
+        Date dataNascInput = null;
+        try {
+            dataNascInput = sdf.parse(pDATA_nascimento);
+        } catch (ParseException e) {
+        }
+        Calendar dateOfBirth = new GregorianCalendar();
+        dateOfBirth.setTime(dataNascInput);
+        // Cria um objeto calendar com a data atual
+        Calendar today = Calendar.getInstance();
+        // Obtém a idade baseado no ano
+        int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+        dateOfBirth.add(Calendar.YEAR, age);
+        if (today.before(dateOfBirth)) {
+            age--;
+        }
+        pIDADE = age;
+    }
+
     public void Novo() {
         if (codParametrosEntrada == null) {
             JOptionPane.showMessageDialog(rootPane, "O Parametro que controla a situação do interno está vazio, é necessário\nque seja configurado. Solicite ao Administrador do Sistema.");
@@ -8317,7 +8357,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 return comp;
             }
         };
-        jTabelaInterno.setDefaultRenderer(Object.class, tableCellRenderer);
+        jTabelaInterno.setDefaultRenderer(Object.class,
+                tableCellRenderer);
     }
 
     //Preencher tabela com todos os INTERNOS
