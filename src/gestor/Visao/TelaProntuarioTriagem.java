@@ -72,6 +72,10 @@ import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 import java.awt.Component;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JTable;
 
 /**
@@ -182,6 +186,10 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     int pATIVOS_ENTRADA = 0;
     int pATIVOS_RETORNO = 0;
     int pTOTAL_ATIVOS = 0;
+    //CALCULO DE MENOR IDADE
+    String pDATA_nascimento;
+    int pIDADE;
+    int pIDADE_crime = 18;
 
     /**
      * Creates new form TelaTriagem
@@ -3856,6 +3864,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:  
         buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            CALCULAR_idade();
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -3901,6 +3910,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
                 jComboBoxEscolaridade.requestFocus();
                 jComboBoxEscolaridade.setBackground(Color.red);
+            } else if (pIDADE < pIDADE_crime) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível gravar o registro desse interno, pois, o mesmo é menor de idade.");
             } else {
                 if (ValidaCPF.isCPF(jCPFInterno.getText()) == true) {
                     objProCrc.setMatricula(jMatriculaPenal.getText());
@@ -4655,6 +4666,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            CALCULAR_idade();
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -4700,6 +4712,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
                 jComboBoxEscolaridade.requestFocus();
                 jComboBoxEscolaridade.setBackground(Color.red);
+            } else if (pIDADE < pIDADE_crime) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível gravar o registro desse interno, pois, o mesmo é menor de idade.");
             } else {
                 if (ValidaCPF.isCPF(jCPFInterno.getText()) == true) {
                     objProCrc.setMatricula(jMatriculaPenal.getText());
@@ -5808,6 +5822,28 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jRegiaoCorpo1.setBackground(Color.white);
         jRegiaoCorpo2.setBackground(Color.white);
         jVaraCondenacao.setBackground(Color.white);
+    }
+
+    public void CALCULAR_idade() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        pDATA_nascimento = sdf.format(jDataNascimento.getDate().getTime());
+        Date dataNascInput = null;
+        try {
+            dataNascInput = sdf.parse(pDATA_nascimento);
+        } catch (ParseException e) {
+        }
+        Calendar dateOfBirth = new GregorianCalendar();
+        dateOfBirth.setTime(dataNascInput);
+        // Cria um objeto calendar com a data atual
+        Calendar today = Calendar.getInstance();
+        // Obtém a idade baseado no ano
+        int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+        dateOfBirth.add(Calendar.YEAR, age);
+        if (today.before(dateOfBirth)) {
+            age--;
+        }
+        pIDADE = age;
     }
 
     public void Novo() {
