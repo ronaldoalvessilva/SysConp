@@ -52,7 +52,7 @@ public class ControleParamentrosCrc {
                     + "PreLocacaoB2=?,HabilitarAlertaVisitasBaseI=?,HabilitarAlertaVisitasBaseII=?,NomeColaboradorPRI=?,NomeColaboradorSEG=?,AtendInterSocial=?,LigacaoTelSocial=?,AtendimentoBioPSI=?,"
                     + "AvaliacaoBioPSI=?,AdmissaoJuridico=?,AdmissaoTO=?,AdmissaoOdonto=?,NomeColaboradorCRC=?,NomeColaboradorCRCSEG=?,BiometriaPeda=?,NomeColaboradorTER=?,NomeColaboradorQUA=?,"
                     + "NomeColaboradorQUI=?,TipoServidor=?,TipoBancoDados=?,NomeColaboradorLiberaUm=?,NomeColaboradorLiberaDois=?,NomeColaboradorEncerraUm=?,NomeColaboradorEncerraDois=?,PagamentoKit=?,"
-                    + "SistemaManutencao=?,BiometriaEF=?,PopulacaoAutomatica=?,FecharSistema=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
+                    + "SistemaManutencao=?,BiometriaEF=?,PopulacaoAutomatica=?,FecharSistema=?,MaioridadePenal=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
             pst.setInt(1, objParCrc.getQtdDias());
             pst.setString(2, objParCrc.getQtdHoras());
             pst.setString(3, objParCrc.getUsuarioAutorizado());
@@ -135,6 +135,7 @@ public class ControleParamentrosCrc {
             pst.setString(76, objParCrc.getBiometriaEF());
             pst.setString(77, objParCrc.getGeraPopulacao());
             pst.setString(78, objParCrc.getFecharSistema());
+            pst.setInt(79, objParCrc.getMaioridadePenal());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
