@@ -8,6 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.Cidades;
 import gestor.Modelo.Paises;
+import gestor.Modelo.ParametrosCrc;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import static gestor.Visao.TelaProntuarioCrc.jIdInterno;
@@ -326,5 +327,21 @@ public class ControleInternoCrc {
         }
         conecta.desconecta();
         return objFisicoPenaisInternos;
+    }
+
+    public ParametrosCrc pPARAMETRO_maioridade(ParametrosCrc objParCrc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "ControlaMP, "
+                    + "MaioridadePenal "
+                    + "FROM PARAMETROSCRC");
+            conecta.rs.first();
+            objParCrc.setControlaMP(conecta.rs.getString("ControlaMP"));
+            objParCrc.setMaioridadePenal(conecta.rs.getInt("MaioridadePenal"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objParCrc;
     }
 }
