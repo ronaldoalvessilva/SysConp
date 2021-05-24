@@ -139,12 +139,15 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel39 = new javax.swing.JPanel();
         jLabel40 = new javax.swing.JLabel();
         jComboBoxCarcereFem = new javax.swing.JComboBox();
-        jLabel77 = new javax.swing.JLabel();
-        jSpIdadePenal = new javax.swing.JSpinner();
         jPanel40 = new javax.swing.JPanel();
         jLabel75 = new javax.swing.JLabel();
         jComboBoxPopulacaoAutomatica = new javax.swing.JComboBox<>();
         jPanel48 = new javax.swing.JPanel();
+        jPanel49 = new javax.swing.JPanel();
+        jLabelMP = new javax.swing.JLabel();
+        jSpIdadePenal = new javax.swing.JSpinner();
+        jLabelCMP = new javax.swing.JLabel();
+        jComboBoxControlarMP = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -593,45 +596,25 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxCarcereFem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCarcereFem.setEnabled(false);
 
-        jLabel77.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel77.setText("Maioridade Penal:");
-
-        jSpIdadePenal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jSpIdadePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jSpIdadePenal.setEnabled(false);
-
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
         jPanel39.setLayout(jPanel39Layout);
         jPanel39Layout.setHorizontalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel77, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jLabel40)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSpIdadePenal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel39Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxCarcereFem, jSpIdadePenal});
-
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel39Layout.createSequentialGroup()
                 .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel40)
                     .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jSpIdadePenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel77))
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 41, Short.MAX_VALUE))
         );
-
-        jPanel39Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxCarcereFem, jSpIdadePenal});
 
         jPanel40.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -661,7 +644,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxPopulacaoAutomatica, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel75))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel48.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -674,7 +657,53 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
+        jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabelMP.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelMP.setText("Maioridade Penal:");
+
+        jSpIdadePenal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSpIdadePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSpIdadePenal.setEnabled(false);
+
+        jLabelCMP.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelCMP.setText("Controlar Maioridade Penal?");
+
+        jComboBoxControlarMP.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxControlarMP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxControlarMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxControlarMP.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
+        jPanel49.setLayout(jPanel49Layout);
+        jPanel49Layout.setHorizontalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelMP, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelCMP, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxControlarMP, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpIdadePenal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel49Layout.setVerticalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCMP)
+                    .addComponent(jComboBoxControlarMP, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelMP)
+                    .addComponent(jSpIdadePenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -692,7 +721,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -711,7 +742,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3))
         );
@@ -3113,13 +3147,16 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setGeraPopulacao((String) jComboBoxPopulacaoAutomatica.getSelectedItem());
         objParCrc.setFecharSistema((String) jComboBoxFecharSistema.getSelectedItem());
         objParCrc.setMaioridadePenal((int) jSpIdadePenal.getValue());
+        objParCrc.setControlaMP((String) jComboBoxControlarMP.getSelectedItem());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado.");
         } else if (jDataVersao.getDate() == null && !jNumeroVersao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário preencher a data da versão.");
         } else if (jComboBoxSistemaManutencao.getSelectedItem().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
             JOptionPane.showMessageDialog(rootPane, "Usuário logado '" + nameUser + "' não tem acesso para modificar o parâmetro (SISTEMA EM MANUTENÇÃO).\nSomente o usuário ADMINISTRADOR DO SISTEMA poderá modificar esse parâmetro.");
-        } else {
+        } else if(jSpIdadePenal.getValue().hashCode() == -1){
+            JOptionPane.showMessageDialog(rootPane, "O valor do parâmetro não pode ser negativo.");
+        }else {
             control.alterarParametrosCrc(objParCrc);
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3476,6 +3513,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxCadastroPavilhaoCelas;
     private javax.swing.JComboBox jComboBoxCadastroPavilhaoCelasBpa;
     private javax.swing.JComboBox jComboBoxCarcereFem;
+    private javax.swing.JComboBox<String> jComboBoxControlarMP;
     private javax.swing.JComboBox<String> jComboBoxControleTel;
     private javax.swing.JComboBox jComboBoxDocAlvara;
     private javax.swing.JComboBox jComboBoxDocAud;
@@ -3615,9 +3653,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCMP;
+    private javax.swing.JLabel jLabelMP;
     private javax.swing.JTextField jLocalPDF_B1;
     private javax.swing.JTextField jLocalPDF_B2;
     private javax.swing.JTextField jLocalPDF_P1;
@@ -3678,6 +3717,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel46;
     private javax.swing.JPanel jPanel47;
     private javax.swing.JPanel jPanel48;
+    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -3757,6 +3797,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxPopulacaoAutomatica.setBackground(Color.white);
         jComboBoxFecharSistema.setBackground(Color.white);
         jSpIdadePenal.setBackground(Color.white);
+        jComboBoxControlarMP.setBackground(Color.white);
     }
 
     public void formatarCampos() {
@@ -3867,7 +3908,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             if (jComboBoxFecharSistema.getSelectedItem() == null) {
                 jComboBoxFecharSistema.setSelectedItem("Não");
             }
-            jSpIdadePenal.setValue(conecta.rs.getInt("MaioridadePenal"));
+            jSpIdadePenal.setValue(conecta.rs.getInt("MaioridadePenal"));  
+            jComboBoxControlarMP.setSelectedItem(conecta.rs.getString("ControlaMP"));
+            if (jComboBoxControlarMP.getSelectedItem() == null || jComboBoxControlarMP.getSelectedItem().equals("")) {
+                jComboBoxControlarMP.setSelectedItem("Não");
+            }
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -3999,6 +4044,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxPopulacaoAutomatica.setEnabled(true);
         jComboBoxFecharSistema.setEnabled(true);
         jSpIdadePenal.setEnabled(true);
+        jComboBoxControlarMP.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -4121,6 +4167,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxFecharSistema.setEnabled(!true);
         //
         jSpIdadePenal.setEnabled(!true);
+        jComboBoxControlarMP.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -4243,6 +4290,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jComboBoxPopulacaoAutomatica.setEnabled(!true);
         jComboBoxFecharSistema.setEnabled(!true);
+        //
+        jSpIdadePenal.setEnabled(!true);
+        jComboBoxControlarMP.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -4667,6 +4717,15 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jPainelBotoesImplemenetacoes.setVisible(!true);
         } else {
             jPainelBotoesImplemenetacoes.setVisible(true);
+        }
+    }
+    
+    public void PESQUISAR_IMPLEMENTA_CONF_008(String pNOME_tela) {
+        if(nameUser.equals("ADMINISTRADOR DO SISTEMA")){
+           jLabelCMP.setVisible(true);
+           jComboBoxControlarMP.setVisible(true);
+           jLabelMP.setVisible(true);
+           jSpIdadePenal.setVisible(true);
         }
     }
 }
