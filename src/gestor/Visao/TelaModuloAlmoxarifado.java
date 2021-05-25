@@ -120,6 +120,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaConsultaKitsEntregueNaoEntregues objConsultaKit_PAGO_NAO_PAGO = null;
     private TelaConsultaKitsEntregueNaoEntreguesInternos objKitPago_interno = null;
     private TelaConsultaKitsEntregueNaoEntreguesInternosTodos objKitPagoTodos = null;
+    private TelaAlertaEntradaInternosPortaria objEntradasPortarias = null;
+    private TelaAlertaNovaEntradaInternosPortaria objNovaEntradaPortarias = null;
     //
     String dataLanc;
     int codUsuario;
@@ -134,6 +136,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     String horaLembrete;
     String usuarioAgenda;
     String codigoAgendaComp;
+    String confirmaEntrada = "Não"; // Variavel que verificar os alerta de enttrada de interno na unidade
+    String utilizadoCrc = "Não";
     //
     String modulo = "A";
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
@@ -1724,10 +1728,102 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         timer.scheduleAtFixedRate(new TimerTask() {
 
             public void run() {
+                VERIFICAR_ENTRADA_primeiraVez();
+                VERIFICAR_INTERNOS_novaEntrada();
                 verificarRecado();
                 verificarAgendaCompromisso();
             }
         }, periodo, tempo);
+    }
+
+    //Verificar se existem interos registrados na portaria
+    public void VERIFICAR_ENTRADA_primeiraVez() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "* "
+                    + "FROM ITENSENTRADAPORTARIA "
+                    + "WHERE ConfirmaEntrada='" + confirmaEntrada + "'");
+            conecta.rs.first();
+            confirmaEntrada = conecta.rs.getString("ConfirmaEntrada");
+            if (confirmaEntrada.equals("Não")) {
+                if (objEntradasPortarias == null || objEntradasPortarias.isClosed()) {
+                    objEntradasPortarias = new TelaAlertaEntradaInternosPortaria();
+                    TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objEntradasPortarias);
+                    objEntradasPortarias.setVisible(true);
+                } else {
+                    if (objEntradasPortarias.isVisible()) {
+                        if (objEntradasPortarias.isIcon()) { // Se esta minimizado
+                            try {
+                                objEntradasPortarias.setIcon(false); // maximiniza
+                            } catch (PropertyVetoException ex) {
+                            }
+                        } else {
+                            objEntradasPortarias.toFront(); // traz para frente
+                            objEntradasPortarias.pack();//volta frame 
+                        }
+                    } else {
+                        objEntradasPortarias = new TelaAlertaEntradaInternosPortaria();
+                        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objEntradasPortarias);//adicona frame ao JDesktopPane  
+                        objEntradasPortarias.setVisible(true);
+                    }
+                }
+                try {
+                    objEntradasPortarias.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                }
+            }
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void VERIFICAR_INTERNOS_novaEntrada() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "i.IdItem, "
+                    + "i.IdEntrada, "
+                    + "i.IdInternoCrc, "
+                    + "p.NomeInternoCrc, "
+                    + "i.NrOficio, "
+                    + "i.DataEntrada, "
+                    + "i.OrigemInterno, "
+                    + "i.UtilizadoCrc "
+                    + "FROM ITENSNOVAENTRADA AS i "
+                    + "INNER JOIN PRONTUARIOSCRC AS p "
+                    + "ON i.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE i.UtilizadoCrc='" + confirmaEntrada + "'");
+            conecta.rs.first();
+            utilizadoCrc = conecta.rs.getString("UtilizadoCrc");
+            if (utilizadoCrc.equals("Não")) {
+                if (objNovaEntradaPortarias == null || objNovaEntradaPortarias.isClosed()) {
+                    objNovaEntradaPortarias = new TelaAlertaNovaEntradaInternosPortaria();
+                    TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objNovaEntradaPortarias);
+                    objNovaEntradaPortarias.setVisible(true);
+                } else {
+                    if (objNovaEntradaPortarias.isVisible()) {
+                        if (objNovaEntradaPortarias.isIcon()) { // Se esta minimizado
+                            try {
+                                objNovaEntradaPortarias.setIcon(false); // maximiniza
+                            } catch (PropertyVetoException ex) {
+                            }
+                        } else {
+                            objNovaEntradaPortarias.toFront(); // traz para frente
+                            objNovaEntradaPortarias.pack();//volta frame 
+                        }
+                    } else {
+                        objNovaEntradaPortarias = new TelaAlertaNovaEntradaInternosPortaria();
+                        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objNovaEntradaPortarias);//adicona frame ao JDesktopPane  
+                        objNovaEntradaPortarias.setVisible(true);
+                    }
+                }
+                try {
+                    objNovaEntradaPortarias.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                }
+            }
+        } catch (SQLException ex) {
+        }
     }
 
     public void VERIFICAR_KITS_agendado() {
