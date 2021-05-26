@@ -46,7 +46,7 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Alerta de Entrada de Internos na Portaria [NOVA ENTRADA]:::...");
+        setTitle("...::: Alerta de Entrada de Internos na Unidade :::...");
 
         jTabelaEntradaInternosPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaInternosPortaria.setForeground(new java.awt.Color(0, 102, 0));
@@ -85,47 +85,43 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
 
     public void preencherTabelaEntradasPortaria() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "Horario", "Nr. Oficio"};
+        String[] Colunas = new String[]{"ID_Kit", "Data Entrada", "Código", "Nome do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "i.IdItem, "
-                    + "i.IdEntrada, "
-                    + "i.IdInternoCrc, "
+                    + "k.IdKitInicial, "
+                    + "k.DataChegada, "
+                    + "k.IdInternoCrc, "
                     + "p.NomeInternoCrc, "
-                    + "i.NrOficio, "
-                    + "i.DataEntrada, "
-                    + "i.HorarioEntrada, "
-                    + "i.OrigemInterno, "
-                    + "i.UtilizadoCrc "
-                    + "FROM ITENSNOVAENTRADA AS i "
+                    + "p.NomeInternoCrc, "
+                    + "k.Utilizado "
+                    + "FROM KITS_INICIAL_INTERNOS AS k "
                     + "INNER JOIN PRONTUARIOSCRC AS p "
-                    + "ON i.IdInternoCrc=p.IdInternoCrc "
-                    + "WHERE i.UtilizadoCrc='" + confirmadoEntrada + "'");
+                    + "ON k.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE k.Utilizado='" + confirmadoEntrada + "' "
+                    + "ORDER BY p.NomeInternoCrc");
             conecta.rs.first();
             do {
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataEntrada");
+                dataEntrada = conecta.rs.getString("DataChegada");
                 String diae = dataEntrada.substring(8, 10);
                 String mese = dataEntrada.substring(5, 7);
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
-                dados.add(new Object[]{conecta.rs.getInt("IdEntrada"), conecta.rs.getString("NomeInternoCrc"), dataEntrada, conecta.rs.getString("HorarioEntrada"), conecta.rs.getString("NrOficio")});
+                dados.add(new Object[]{conecta.rs.getInt("IdKitInicial"), dataEntrada, conecta.rs.getString("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEntradaInternosPortaria.setModel(modelo);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(70);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(350);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setResizable(false);
         jTabelaEntradaInternosPortaria.getTableHeader().setReorderingAllowed(false);
         jTabelaEntradaInternosPortaria.setAutoResizeMode(jTabelaEntradaInternosPortaria.AUTO_RESIZE_OFF);
         jTabelaEntradaInternosPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -142,8 +138,7 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 }
