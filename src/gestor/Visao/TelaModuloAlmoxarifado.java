@@ -1728,73 +1728,30 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         timer.scheduleAtFixedRate(new TimerTask() {
 
             public void run() {
-                VERIFICAR_ENTRADA_primeiraVez();
                 VERIFICAR_INTERNOS_novaEntrada();
                 verificarRecado();
                 verificarAgendaCompromisso();
             }
         }, periodo, tempo);
     }
-
-    //Verificar se existem interos registrados na portaria
-    public void VERIFICAR_ENTRADA_primeiraVez() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT "
-                    + "* "
-                    + "FROM ITENSENTRADAPORTARIA "
-                    + "WHERE ConfirmaEntrada='" + confirmaEntrada + "'");
-            conecta.rs.first();
-            confirmaEntrada = conecta.rs.getString("ConfirmaEntrada");
-            if (confirmaEntrada.equals("Não")) {
-                if (objEntradasPortarias == null || objEntradasPortarias.isClosed()) {
-                    objEntradasPortarias = new TelaAlertaEntradaInternosPortaria();
-                    TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objEntradasPortarias);
-                    objEntradasPortarias.setVisible(true);
-                } else {
-                    if (objEntradasPortarias.isVisible()) {
-                        if (objEntradasPortarias.isIcon()) { // Se esta minimizado
-                            try {
-                                objEntradasPortarias.setIcon(false); // maximiniza
-                            } catch (PropertyVetoException ex) {
-                            }
-                        } else {
-                            objEntradasPortarias.toFront(); // traz para frente
-                            objEntradasPortarias.pack();//volta frame 
-                        }
-                    } else {
-                        objEntradasPortarias = new TelaAlertaEntradaInternosPortaria();
-                        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objEntradasPortarias);//adicona frame ao JDesktopPane  
-                        objEntradasPortarias.setVisible(true);
-                    }
-                }
-                try {
-                    objEntradasPortarias.setSelected(true);
-                } catch (java.beans.PropertyVetoException e) {
-                }
-            }
-        } catch (SQLException ex) {
-        }
-    }
-
+ 
     public void VERIFICAR_INTERNOS_novaEntrada() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "i.IdItem, "
-                    + "i.IdEntrada, "
-                    + "i.IdInternoCrc, "
+                    + "k.IdKitInicial, "
+                    + "k.DataChegada, "
+                    + "k.IdInternoCrc, "
                     + "p.NomeInternoCrc, "
-                    + "i.NrOficio, "
-                    + "i.DataEntrada, "
-                    + "i.OrigemInterno, "
-                    + "i.UtilizadoCrc "
-                    + "FROM ITENSNOVAENTRADA AS i "
+                    + "p.NomeInternoCrc, "
+                    + "k.Utilizado "
+                    + "FROM KITS_INICIAL_INTERNOS AS k "
                     + "INNER JOIN PRONTUARIOSCRC AS p "
-                    + "ON i.IdInternoCrc=p.IdInternoCrc "
-                    + "WHERE i.UtilizadoCrc='" + confirmaEntrada + "'");
+                    + "ON k.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE k.Utilizado='" + confirmaEntrada + "' "
+                    + "ORDER BY p.NomeInternoCrc");
             conecta.rs.first();
-            utilizadoCrc = conecta.rs.getString("UtilizadoCrc");
+            utilizadoCrc = conecta.rs.getString("Utilizado");
             if (utilizadoCrc.equals("Não")) {
                 if (objNovaEntradaPortarias == null || objNovaEntradaPortarias.isClosed()) {
                     objNovaEntradaPortarias = new TelaAlertaNovaEntradaInternosPortaria();

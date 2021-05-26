@@ -23,6 +23,7 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
 
     String dataEntrada;
     String confirmadoEntrada = "Não";
+    int pTOTAL_registros = 0;
 
     /**
      * Creates new form TelaAlertaEntradaInternosPortaria
@@ -43,10 +44,15 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaEntradaInternosPortaria = new javax.swing.JTable();
+        jPanel30 = new javax.swing.JPanel();
+        jLabel67 = new javax.swing.JLabel();
+        jPanel32 = new javax.swing.JPanel();
+        jtotalRegistros = new javax.swing.JLabel();
+        jPanel31 = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Alerta de Entrada de Internos na Portaria [NOVA ENTRADA]:::...");
+        setTitle("...::: Alerta de Entrada de Internos na Unidade :::...");
 
         jTabelaEntradaInternosPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaInternosPortaria.setForeground(new java.awt.Color(0, 102, 0));
@@ -63,15 +69,78 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
         ));
         jScrollPane1.setViewportView(jTabelaEntradaInternosPortaria);
 
+        jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel67.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
+        jPanel30.setLayout(jPanel30Layout);
+        jPanel30Layout.setHorizontalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel30Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel67))
+        );
+        jPanel30Layout.setVerticalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel67)
+        );
+
+        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
+        jPanel31.setLayout(jPanel31Layout);
+        jPanel31Layout.setHorizontalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 312, Short.MAX_VALUE)
+        );
+        jPanel31Layout.setVerticalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4))
         );
 
         setBounds(370, 20, 525, 422);
@@ -79,53 +148,57 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaEntradaInternosPortaria;
+    private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void preencherTabelaEntradasPortaria() {
+        pTOTAL_registros = 0;
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "Horario", "Nr. Oficio"};
+        String[] Colunas = new String[]{"ID_Kit", "Data Entrada", "Código", "Nome do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "i.IdItem, "
-                    + "i.IdEntrada, "
-                    + "i.IdInternoCrc, "
+                    + "k.IdKitInicial, "
+                    + "k.DataChegada, "
+                    + "k.IdInternoCrc, "
                     + "p.NomeInternoCrc, "
-                    + "i.NrOficio, "
-                    + "i.DataEntrada, "
-                    + "i.HorarioEntrada, "
-                    + "i.OrigemInterno, "
-                    + "i.UtilizadoCrc "
-                    + "FROM ITENSNOVAENTRADA AS i "
+                    + "p.NomeInternoCrc, "
+                    + "k.Utilizado "
+                    + "FROM KITS_INICIAL_INTERNOS AS k "
                     + "INNER JOIN PRONTUARIOSCRC AS p "
-                    + "ON i.IdInternoCrc=p.IdInternoCrc "
-                    + "WHERE i.UtilizadoCrc='" + confirmadoEntrada + "'");
+                    + "ON k.IdInternoCrc=p.IdInternoCrc "
+                    + "WHERE k.Utilizado='" + confirmadoEntrada + "' "
+                    + "ORDER BY p.NomeInternoCrc");
             conecta.rs.first();
             do {
+                pTOTAL_registros++;
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataEntrada");
+                dataEntrada = conecta.rs.getString("DataChegada");
                 String diae = dataEntrada.substring(8, 10);
                 String mese = dataEntrada.substring(5, 7);
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
-                dados.add(new Object[]{conecta.rs.getInt("IdEntrada"), conecta.rs.getString("NomeInternoCrc"), dataEntrada, conecta.rs.getString("HorarioEntrada"), conecta.rs.getString("NrOficio")});
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros)); // Converter inteiro em string para exibir na tela
+                dados.add(new Object[]{conecta.rs.getInt("IdKitInicial"), dataEntrada, conecta.rs.getString("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEntradaInternosPortaria.setModel(modelo);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(70);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(350);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setResizable(false);
         jTabelaEntradaInternosPortaria.getTableHeader().setReorderingAllowed(false);
         jTabelaEntradaInternosPortaria.setAutoResizeMode(jTabelaEntradaInternosPortaria.AUTO_RESIZE_OFF);
         jTabelaEntradaInternosPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -142,8 +215,7 @@ public class TelaAlertaNovaEntradaInternosPortaria extends javax.swing.JInternal
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 }
