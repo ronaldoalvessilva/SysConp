@@ -1519,7 +1519,9 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
 
     private void jRelatorioPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPagamentoKitActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento...");
+        TelaRelatorioKitsPagos objRelKitsPago = new TelaRelatorioKitsPagos();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objRelKitsPago);
+        objRelKitsPago.show();
     }//GEN-LAST:event_jRelatorioPagamentoKitActionPerformed
 
     private void jCancelarPagamentoKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarPagamentoKitActionPerformed
