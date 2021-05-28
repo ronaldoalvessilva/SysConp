@@ -3,9 +3,11 @@ package gestor.Controle;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AlertaKitHigiente;
+import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaAlertaPagamentoKitHigiene.pTOTAL_produtos;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import static gestor.Visao.TelaModuloAlmoxarifado.pALERTA;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class ControleListaKitsAgendado {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AlertaKitHigiente objComp = new AlertaKitHigiente();
+    ParametrosCrc objParCrc = new ParametrosCrc();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
     String pKIT_pago = "Não";
@@ -205,5 +208,21 @@ public class ControleListaKitsAgendado {
             conecta.desconecta();
         }
         return objComp;
+    }
+
+    public ParametrosCrc VERIFICAR_alerta(ParametrosCrc objParCrc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "HabilitarAlerta "
+                    + "FROM PARAMETROSCRC");
+            conecta.rs.first();
+//            objParCrc.setHabilitarAlerta(conecta.rs.getString("HabilitarAlerta"));    
+            pALERTA = conecta.rs.getString("HabilitarAlerta");
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleListaKitsAgendado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+        return objParCrc;
     }
 }

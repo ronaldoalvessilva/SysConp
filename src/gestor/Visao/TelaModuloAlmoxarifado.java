@@ -138,6 +138,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     String codigoAgendaComp;
     String confirmaEntrada = "Não"; // Variavel que verificar os alerta de enttrada de interno na unidade
     String utilizadoCrc = "Não";
+    public static String pALERTA = "";
     //
     String modulo = "A";
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
@@ -1736,52 +1737,55 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         }, periodo, tempo);
     }
- 
+
     public void VERIFICAR_INTERNOS_novaEntrada() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT "
-                    + "k.IdKitInicial, "
-                    + "k.DataChegada, "
-                    + "k.IdInternoCrc, "
-                    + "p.NomeInternoCrc, "
-                    + "p.NomeInternoCrc, "
-                    + "k.Utilizado "
-                    + "FROM KITS_INICIAL_INTERNOS AS k "
-                    + "INNER JOIN PRONTUARIOSCRC AS p "
-                    + "ON k.IdInternoCrc=p.IdInternoCrc "
-                    + "WHERE k.Utilizado='" + confirmaEntrada + "' "
-                    + "ORDER BY p.NomeInternoCrc");
-            conecta.rs.first();
-            utilizadoCrc = conecta.rs.getString("Utilizado");
-            if (utilizadoCrc.equals("Não")) {
-                if (objNovaEntradaPortarias == null || objNovaEntradaPortarias.isClosed()) {
-                    objNovaEntradaPortarias = new TelaAlertaNovaEntradaInternosPortaria();
-                    TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objNovaEntradaPortarias);
-                    objNovaEntradaPortarias.setVisible(true);
-                } else {
-                    if (objNovaEntradaPortarias.isVisible()) {
-                        if (objNovaEntradaPortarias.isIcon()) { // Se esta minimizado
-                            try {
-                                objNovaEntradaPortarias.setIcon(false); // maximiniza
-                            } catch (PropertyVetoException ex) {
+        CONTROLE_LISTA_kits.VERIFICAR_alerta(objParCrc);
+        if (pALERTA.equals("Sim")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT "
+                        + "k.IdKitInicial, "
+                        + "k.DataChegada, "
+                        + "k.IdInternoCrc, "
+                        + "p.NomeInternoCrc, "
+                        + "p.NomeInternoCrc, "
+                        + "k.Utilizado "
+                        + "FROM KITS_INICIAL_INTERNOS AS k "
+                        + "INNER JOIN PRONTUARIOSCRC AS p "
+                        + "ON k.IdInternoCrc=p.IdInternoCrc "
+                        + "WHERE k.Utilizado='" + confirmaEntrada + "' "
+                        + "ORDER BY p.NomeInternoCrc");
+                conecta.rs.first();
+                utilizadoCrc = conecta.rs.getString("Utilizado");
+                if (utilizadoCrc.equals("Não")) {
+                    if (objNovaEntradaPortarias == null || objNovaEntradaPortarias.isClosed()) {
+                        objNovaEntradaPortarias = new TelaAlertaNovaEntradaInternosPortaria();
+                        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objNovaEntradaPortarias);
+                        objNovaEntradaPortarias.setVisible(true);
+                    } else {
+                        if (objNovaEntradaPortarias.isVisible()) {
+                            if (objNovaEntradaPortarias.isIcon()) { // Se esta minimizado
+                                try {
+                                    objNovaEntradaPortarias.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objNovaEntradaPortarias.toFront(); // traz para frente
+                                objNovaEntradaPortarias.pack();//volta frame 
                             }
                         } else {
-                            objNovaEntradaPortarias.toFront(); // traz para frente
-                            objNovaEntradaPortarias.pack();//volta frame 
+                            objNovaEntradaPortarias = new TelaAlertaNovaEntradaInternosPortaria();
+                            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objNovaEntradaPortarias);//adicona frame ao JDesktopPane  
+                            objNovaEntradaPortarias.setVisible(true);
                         }
-                    } else {
-                        objNovaEntradaPortarias = new TelaAlertaNovaEntradaInternosPortaria();
-                        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objNovaEntradaPortarias);//adicona frame ao JDesktopPane  
-                        objNovaEntradaPortarias.setVisible(true);
+                    }
+                    try {
+                        objNovaEntradaPortarias.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
                     }
                 }
-                try {
-                    objNovaEntradaPortarias.setSelected(true);
-                } catch (java.beans.PropertyVetoException e) {
-                }
+            } catch (SQLException ex) {
             }
-        } catch (SQLException ex) {
         }
     }
 
