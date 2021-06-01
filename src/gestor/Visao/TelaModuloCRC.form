@@ -604,6 +604,16 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioRegimePenalActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioRegimePenalDataEntrada">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Por Regime Penal e Data de Entrada"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioRegimePenalDataEntradaActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator35">
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="RelatorioRegimePenalSexo">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Por Regime Penal e Sexo"/>
