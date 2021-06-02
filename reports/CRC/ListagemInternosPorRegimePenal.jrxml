@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemInternoPorRegimePenal" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1d3a3a-4c30-4279-b53f-ccb64ed0b524">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -20,86 +20,34 @@
 	<parameter name="entrada" class="java.lang.String"/>
 	<parameter name="retorno" class="java.lang.String"/>
 	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<parameter name="covid" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE PRONTUARIOSCRC.SituacaoCrc=$P{entrada} AND DADOSPENAISINTERNOS.Regime=$P{regimePenal}  OR   PRONTUARIOSCRC.SituacaoCrc=$P{retorno}  AND DADOSPENAISINTERNOS.Regime=$P{regimePenal} ORDER BY PRONTUARIOSCRC.NomeInternoCrc]]>
+		<![CDATA[SELECT
+    p.IdInternoCrc,
+    p.NomeInternoCrc,
+    p.MatriculaCrc,
+    p.SituacaoCrc,
+    p.SexoCrc,
+    d.Regime,
+    d.DataEntrada
+    FROM PRONTUARIOSCRC AS p
+    INNER JOIN DADOSPENAISINTERNOS AS d
+    ON p.IdInternoCrc=d.IdInternoCrc
+    WHERE p.SituacaoCrc=$P{entrada}
+    AND d.Regime=$P{regimePenal}
+    OR p.SituacaoCrc=$P{retorno}
+    AND d.Regime=$P{regimePenal}
+    OR p.SituacaoCrc LIKE '%'+$P{covid}+'%'
+    AND d.Regime=$P{regimePenal}
+    ORDER BY p.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
-	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
-	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
-	<field name="FotoInternoCrc" class="java.lang.String"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
-	<field name="MaeInternoCrc" class="java.lang.String"/>
-	<field name="PaiInternoCrc" class="java.lang.String"/>
-	<field name="AlcunhaCrc" class="java.lang.String"/>
-	<field name="RgInternoCrc" class="java.lang.String"/>
-	<field name="CpfInternoCrc" class="java.lang.String"/>
-	<field name="EscolaridadeCrc" class="java.lang.String"/>
-	<field name="EstadoCivilCrc" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
-	<field name="IdPais" class="java.lang.Integer"/>
-	<field name="IdCidade" class="java.lang.Integer"/>
-	<field name="ReligiaoCrc" class="java.lang.String"/>
-	<field name="ProfissaoCrc" class="java.lang.String"/>
-	<field name="EnderecoCrc" class="java.lang.String"/>
-	<field name="BairroCrc" class="java.lang.String"/>
-	<field name="CidadeCrc" class="java.lang.String"/>
-	<field name="EstadoCrc" class="java.lang.String"/>
-	<field name="TelefoneCrc" class="java.lang.String"/>
-	<field name="Telefone1Crc" class="java.lang.String"/>
-	<field name="CelularCrc" class="java.lang.String"/>
-	<field name="UsuarioInsert" class="java.lang.String"/>
-	<field name="UsuarioUp" class="java.lang.String"/>
-	<field name="UsuarioDelete" class="java.lang.String"/>
-	<field name="DataInsert" class="java.lang.String"/>
-	<field name="DataUp" class="java.lang.String"/>
-	<field name="DataDelete" class="java.lang.String"/>
-	<field name="HorarioInsert" class="java.lang.String"/>
-	<field name="HorarioUp" class="java.lang.String"/>
-	<field name="CartaoSus" class="java.lang.String"/>
-	<field name="IdPenais" class="java.lang.Integer"/>
-	<field name="IdUnid" class="java.lang.Integer"/>
-	<field name="DataEntrada" class="java.sql.Timestamp"/>
-	<field name="DataCrime" class="java.sql.Timestamp"/>
-	<field name="DataPrisao" class="java.sql.Timestamp"/>
-	<field name="DataCondenacao" class="java.sql.Timestamp"/>
-	<field name="Participacao" class="java.lang.String"/>
 	<field name="Regime" class="java.lang.String"/>
-	<field name="Pena" class="java.lang.String"/>
-	<field name="Artigo1" class="java.lang.String"/>
-	<field name="Artigo2" class="java.lang.String"/>
-	<field name="Artigo3" class="java.lang.String"/>
-	<field name="Paragrafo1" class="java.lang.String"/>
-	<field name="Paragrafo2" class="java.lang.String"/>
-	<field name="Paragrafo3" class="java.lang.String"/>
-	<field name="CrimeEdiondo" class="java.lang.String"/>
-	<field name="TerminoPena" class="java.sql.Timestamp"/>
-	<field name="FotoPerfil" class="java.lang.String"/>
-	<field name="FotoCorpo" class="java.lang.String"/>
-	<field name="FotoCorpo1" class="java.lang.String"/>
-	<field name="FotoCorpo2" class="java.lang.String"/>
-	<field name="FotoPolegarDireito" class="java.lang.String"/>
-	<field name="FotoIndicadorDireito" class="java.lang.String"/>
-	<field name="FotoMedioDireito" class="java.lang.String"/>
-	<field name="FotoAnularDireito" class="java.lang.String"/>
-	<field name="FotoMinimoDireito" class="java.lang.String"/>
-	<field name="FotoPolegarEsquerdo" class="java.lang.String"/>
-	<field name="FotoIndicadorEsquerdo" class="java.lang.String"/>
-	<field name="FotoMedioEsquerdo" class="java.lang.String"/>
-	<field name="FotoAnularEsquerdo" class="java.lang.String"/>
-	<field name="FotoMinimoEsquerdo" class="java.lang.String"/>
-	<field name="Identificador" class="java.lang.String"/>
-	<field name="Identificador1" class="java.lang.String"/>
-	<field name="Identificador2" class="java.lang.String"/>
-	<field name="Identificador3" class="java.lang.String"/>
-	<field name="Perfil" class="java.lang.String"/>
-	<field name="RegiaoCorpo" class="java.lang.String"/>
-	<field name="RegiaoCorpo1" class="java.lang.String"/>
-	<field name="RegiaoCorpo2" class="java.lang.String"/>
-	<field name="RegiaoCorpo3" class="java.lang.String"/>
-	<field name="VaraCondenatoria" class="java.lang.String"/>
-	<field name="DataNovaEntrada" class="java.sql.Timestamp"/>
+	<field name="DataEntrada" class="java.sql.Timestamp"/>
 	<variable name="totalMasculino" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[new Integer (($F{Regime}!=null && $F{SexoCrc}.equals("Masculino"))? new Integer(1): new Integer(0))]]></variableExpression>
 		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
@@ -161,12 +109,12 @@
 	<columnHeader>
 		<band height="15" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="0" width="92" height="15" forecolor="#000000" uuid="f52c2459-6dc5-4dad-91f8-8960cca2a1c4"/>
+				<reportElement style="Column header" x="0" y="0" width="64" height="15" forecolor="#000000" uuid="f52c2459-6dc5-4dad-91f8-8960cca2a1c4"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Matricula Penal]]></text>
+				<text><![CDATA[M.P.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="97" y="0" width="320" height="15" forecolor="#000000" uuid="14aa16da-24ac-4bef-a00d-e2550047e29c"/>
+				<reportElement style="Column header" x="65" y="0" width="280" height="15" forecolor="#000000" uuid="14aa16da-24ac-4bef-a00d-e2550047e29c"/>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
@@ -184,6 +132,13 @@
 			<line>
 				<reportElement x="0" y="14" width="555" height="1" uuid="53c940bc-c04b-42d4-931c-9b3f0e35f4e7"/>
 			</line>
+			<staticText>
+				<reportElement x="345" y="0" width="72" height="14" uuid="51dcf63e-a672-4f63-bb81-b9cfa0417390"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt.Entrada]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -191,24 +146,37 @@
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="b9b54020-7643-4d48-9c88-8c8f0fb23e2c"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="45d74313-bc16-4b40-907b-e05bd9cacb59"/>
-					<textElement textAlignment="Center"/>
+					<reportElement style="Detail" x="0" y="0" width="64" height="15" uuid="45d74313-bc16-4b40-907b-e05bd9cacb59"/>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="92" y="0" width="325" height="15" uuid="4986c8b9-078d-49e5-9d0e-8f7611875e16"/>
+					<reportElement style="Detail" x="64" y="0" width="281" height="15" uuid="4986c8b9-078d-49e5-9d0e-8f7611875e16"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement style="Detail" x="481" y="0" width="74" height="15" uuid="c0e4d3f8-3fea-4575-9274-695402ea20d7"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{Regime}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="417" y="0" width="61" height="15" uuid="3781a6ea-b139-4689-9f4c-563de2363a67"/>
 					<textElement textAlignment="Center">
-						<font fontName="Arial" size="12" isBold="false"/>
+						<font fontName="Arial" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{SexoCrc}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement x="345" y="0" width="72" height="15" uuid="0d123f65-2026-4e95-82cc-1414f9c0a113"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{DataEntrada}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

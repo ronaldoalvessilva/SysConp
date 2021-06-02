@@ -145,11 +145,11 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     int codUsuario;
     int flag;
     String statusAgenda = "Pendente";
-    String situacaoEnt = "ENTRADA NA UNIDADE"; // Todas as Entradas
-    String situacaoRet = "RETORNO A UNIDADE"; // Todos os Retornos
-    String situacaoTran = "TRANSFERENCIA"; // Todas as Transferencias
+    String pSITUACAO_entrada = "ENTRADA NA UNIDADE"; // Todas as Entradas
+    String pSITUACAO_retorno = "RETORNO A UNIDADE"; // Todos os Retornos
+    String pSITUACAO_transferencia = "TRANSFERENCIA"; // Todas as Transferencias
     String situacaoNull = ""; // Cadastrado mas não foi feito entrada
-    String situacaoSai = "SAIDA TEMPORARIA";
+    String pSITUACAO_SAIDA_temporaria = "SAIDA TEMPORARIA";
     String pPRISAO_DOMICILIAR = "PRISAO DOMICILIAR";
     //
     int idInterno = 0;
@@ -535,6 +535,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         RelatorioUnidadePenal = new javax.swing.JMenuItem();
         jSeparator24 = new javax.swing.JPopupMenu.Separator();
         RelatorioRegimePenal = new javax.swing.JMenuItem();
+        jRelatorioRegimePenalDataEntrada = new javax.swing.JMenuItem();
+        jSeparator35 = new javax.swing.JPopupMenu.Separator();
         RelatorioRegimePenalSexo = new javax.swing.JMenuItem();
         RelatorioPorSexo = new javax.swing.JMenuItem();
         PorVaraCondenatoria = new javax.swing.JMenuItem();
@@ -1152,6 +1154,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         RelatorioInternos.add(RelatorioRegimePenal);
+
+        jRelatorioRegimePenalDataEntrada.setText("Por Regime Penal e Data de Entrada");
+        jRelatorioRegimePenalDataEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioRegimePenalDataEntradaActionPerformed(evt);
+            }
+        });
+        RelatorioInternos.add(jRelatorioRegimePenalDataEntrada);
+        RelatorioInternos.add(jSeparator35);
 
         RelatorioRegimePenalSexo.setText("Por Regime Penal e Sexo");
         RelatorioRegimePenalSexo.addActionListener(new java.awt.event.ActionListener() {
@@ -2263,44 +2274,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void RelatorioRegimePenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioRegimePenalActionPerformed
         // TODO add your handling code here:
-        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
-        carregando.setVisible(true);//Teste tela aguarde
-        Thread t = new Thread() { //Teste tela aguarde
-            public void run() { //Teste
-                // Remodelar esse relatório com o regime e sexo dos internos. (Feito em 26/11/2014)
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/CRC/ListagemPronturarioInternosRegime.jasper";
-                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                            + "INNER JOIN DADOSPENAISINTERNOS "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE SituacaoCrc='" + situacaoEnt + "' "
-                            + "OR SituacaoCrc='" + situacaoRet + "' "
-                            + "OR SituacaoCrc='" + situacaoSai + "' "
-                            + "OR SituacaoCrc LIKE'%" + pPRISAO_DOMICILIAR + "%' "
-                            + "ORDER BY NomeInternoCrc");
-                    HashMap parametros = new HashMap();
-                    parametros.put("situacaoEntrada", situacaoEnt);
-                    parametros.put("situacaoRetorno", situacaoRet);
-                    parametros.put("situacaoSaida", situacaoSai);
-                    parametros.put("situacaoDomi", pPRISAO_DOMICILIAR);
-                    parametros.put("nomeUsuario", nameUser);
-                    parametros.put("descricaoUnidade", descricaoUnidade);
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Listagem de Internos Por Regime Penal");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação      
-                    carregando.dispose(); //Teste tela aguarde
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                }
-            }
-        }; //Teste tela aguarde
-        t.start(); //Teste tela aguarde
+        TelaRelatorioInternosRegime objRelRegime = new TelaRelatorioInternosRegime();
+        TelaModuloCRC.jPainelCRC.add(objRelRegime);
+        objRelRegime.show();
     }//GEN-LAST:event_RelatorioRegimePenalActionPerformed
 
     private void RelatorioEstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioEstadoCivilActionPerformed
@@ -2409,13 +2385,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                             + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                             + "INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                             + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                            + "WHERE SituacaoCrc='" + situacaoEnt + "' "
-                            + "OR SituacaoCrc='" + situacaoRet + "' "
+                            + "WHERE SituacaoCrc='" + pSITUACAO_entrada + "' "
+                            + "OR SituacaoCrc='" + pSITUACAO_retorno + "' "
                             + "ORDER BY NomeInternoCrc");
                     HashMap parametros = new HashMap();
                     parametros.put("nomeUsuario", nameUser);
-                    parametros.put("situacaoEntrada", situacaoEnt);
-                    parametros.put("situacaoRetorno", situacaoRet);
+                    parametros.put("situacaoEntrada", pSITUACAO_entrada);
+                    parametros.put("situacaoRetorno", pSITUACAO_retorno);
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -3469,8 +3445,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                             + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSROL.IdInternoCrc "
                             + "INNER JOIN VISITASINTERNO "
                             + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
-                            + "WHERE PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoEnt + "' "
-                            + "OR PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoRet + "' "
+                            + "WHERE PRONTUARIOSCRC.SituacaoCrc LIKE '" + pSITUACAO_entrada + "' "
+                            + "OR PRONTUARIOSCRC.SituacaoCrc LIKE '" + pSITUACAO_retorno + "' "
                             + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
                     HashMap parametros = new HashMap();
                     parametros.put("descricaoUnidade", descricaoUnidade);
@@ -3955,6 +3931,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelamentoEvasaoActionPerformed
 
+    private void jRelatorioRegimePenalDataEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioRegimePenalDataEntradaActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosRegimeDataEntrada objRelRegime = new TelaRelatorioInternosRegimeDataEntrada();
+        TelaModuloCRC.jPainelCRC.add(objRelRegime);
+        objRelRegime.show();
+    }//GEN-LAST:event_jRelatorioRegimePenalDataEntradaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -4064,6 +4047,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioEvadidos;
     private javax.swing.JMenuItem jRelatorioGeralInternosPavilhaoCelas;
     private javax.swing.JMenuItem jRelatorioInternosNominalNovo;
+    private javax.swing.JMenuItem jRelatorioRegimePenalDataEntrada;
     private javax.swing.JMenuItem jRelatorioRetorno;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
@@ -4100,6 +4084,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator32;
     private javax.swing.JPopupMenu.Separator jSeparator33;
     private javax.swing.JPopupMenu.Separator jSeparator34;
+    private javax.swing.JPopupMenu.Separator jSeparator35;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
@@ -6028,7 +6013,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             jSolicitacaoEmissaoAtestadiReclusao.setVisible(true);
         }
     }
-    public void PESQUISAR_IMPLEMENTA_CRC_005(String pNOME_tela){
+
+    public void PESQUISAR_IMPLEMENTA_CRC_005(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);
         controlImp.pPESQUISAR_liberacao(objParCrc);
