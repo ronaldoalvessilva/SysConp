@@ -9,11 +9,13 @@ import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleAlertaSaidaCRCAlmoxarifado;
 import gestor.Controle.ControleImplementacoes;
 import gestor.Controle.ControleListaKitsAgendado;
 import gestor.Modelo.AlertaKitHigiente;
 import gestor.Modelo.CadastroTelasSistema;
 import gestor.Modelo.ParametrosCrc;
+import gestor.Modelo.SaidasInternosCRCAlmoxarifado;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -92,6 +94,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     //
     AlertaKitHigiente objComp = new AlertaKitHigiente();
     ControleListaKitsAgendado CONTROLE_LISTA_kits = new ControleListaKitsAgendado();
+    ControleAlertaSaidaCRCAlmoxarifado CONTROLE_SAIDA_crc = new ControleAlertaSaidaCRCAlmoxarifado();
+    SaidasInternosCRCAlmoxarifado objSaidaCRCAlmox = new SaidasInternosCRCAlmoxarifado();
     //
     ParametrosCrc objParCrc = new ParametrosCrc();
     ControleImplementacoes controlImp = new ControleImplementacoes();
@@ -122,6 +126,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaConsultaKitsEntregueNaoEntreguesInternosTodos objKitPagoTodos = null;
     private TelaAlertaEntradaInternosPortaria objEntradasPortarias = null;
     private TelaAlertaNovaEntradaInternosPortaria objNovaEntradaPortarias = null;
+    private TelaAlertaSaidaInternosCRCAlmoxarifado objAlertaSaidaAlmox = null;
     //
     String dataLanc;
     int codUsuario;
@@ -139,6 +144,10 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     String confirmaEntrada = "Não"; // Variavel que verificar os alerta de enttrada de interno na unidade
     String utilizadoCrc = "Não";
     public static String pALERTA = "";
+    public static String pALERTA_almox = "";
+    public static String pNOME_usuario1 = "";
+    public static String pNOME_usuario2 = "";
+    public static String pNOME_usuario3 = "";
     //
     String modulo = "A";
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
@@ -1732,10 +1741,44 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
 
             public void run() {
                 VERIFICAR_INTERNOS_novaEntrada();
+                MOSTRAR_SAIDA_internos();
                 verificarRecado();
                 verificarAgendaCompromisso();
             }
         }, periodo, tempo);
+    }
+
+    public void MOSTRAR_SAIDA_internos() {
+        CONTROLE_SAIDA_crc.pPESQUISAR_saida(objSaidaCRCAlmox);
+        if (pALERTA_almox.equals("Sim")) {
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || pNOME_usuario1.equals(nameUser) || pNOME_usuario2.equals(nameUser) || pNOME_usuario3.equals(nameUser)) {
+                if (objAlertaSaidaAlmox == null || objAlertaSaidaAlmox.isClosed()) {
+                    objAlertaSaidaAlmox = new TelaAlertaSaidaInternosCRCAlmoxarifado();
+                    TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAlertaSaidaAlmox);
+                    objAlertaSaidaAlmox.setVisible(true);
+                } else {
+                    if (objAlertaSaidaAlmox.isVisible()) {
+                        if (objAlertaSaidaAlmox.isIcon()) { // Se esta minimizado
+                            try {
+                                objAlertaSaidaAlmox.setIcon(false); // maximiniza
+                            } catch (PropertyVetoException ex) {
+                            }
+                        } else {
+                            objAlertaSaidaAlmox.toFront(); // traz para frente
+                            objAlertaSaidaAlmox.pack();//volta frame 
+                        }
+                    } else {
+                        objAlertaSaidaAlmox = new TelaAlertaSaidaInternosCRCAlmoxarifado();
+                        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAlertaSaidaAlmox);//adicona frame ao JDesktopPane  
+                        objAlertaSaidaAlmox.setVisible(true);
+                    }
+                }
+                try {
+                    objAlertaSaidaAlmox.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                }
+            }
+        }
     }
 
     public void VERIFICAR_INTERNOS_novaEntrada() {

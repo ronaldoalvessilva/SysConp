@@ -73,6 +73,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     //VALIDAR ACESSO A MODIFICAR OS ITENS IMPLEMENTADOS
     public static String pVALIDACAO_acesso = "";
     String pSTATUS_func = "Ativo";
+    String pCARGO_func = "ALMOXARIFE";
+    String pDEPARTAMENTO_func = "ALMOXARIFADO";
 
     /**
      * Creates new form TelaParamentrosCrc
@@ -138,7 +140,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel40 = new javax.swing.JPanel();
         jLabel75 = new javax.swing.JLabel();
         jComboBoxPopulacaoAutomatica = new javax.swing.JComboBox<>();
-        jPanel48 = new javax.swing.JPanel();
         jPanel49 = new javax.swing.JPanel();
         jLabelMP = new javax.swing.JLabel();
         jSpIdadePenal = new javax.swing.JSpinner();
@@ -146,6 +147,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxControlarMP = new javax.swing.JComboBox<>();
         jLabel77 = new javax.swing.JLabel();
         jComboBoxHabilitarAlertaPortaria = new javax.swing.JComboBox<>();
+        jPanel50 = new javax.swing.JPanel();
+        jLabel78 = new javax.swing.JLabel();
+        jComboBoxHabiltaAIAlmox = new javax.swing.JComboBox<>();
+        jLabel79 = new javax.swing.JLabel();
+        jComboBoxUsuarioAlmox_01 = new javax.swing.JComboBox<>();
+        jComboBoxUsuarioAlmox_02 = new javax.swing.JComboBox<>();
+        jComboBoxUsuarioAlmox_03 = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -655,19 +663,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        jPanel48.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
-
-        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
-        jPanel48.setLayout(jPanel48Layout);
-        jPanel48Layout.setHorizontalGroup(
-            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
-        );
-        jPanel48Layout.setVerticalGroup(
-            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabelMP.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -731,6 +726,72 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel50.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel78.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel78.setText("Habilita Alerta Saida Internos Almoxarifado:");
+
+        jComboBoxHabiltaAIAlmox.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxHabiltaAIAlmox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxHabiltaAIAlmox.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxHabiltaAIAlmox.setEnabled(false);
+
+        jLabel79.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel79.setText("Usuários que recebem o Alerta:");
+
+        jComboBoxUsuarioAlmox_01.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxUsuarioAlmox_01.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxUsuarioAlmox_01.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxUsuarioAlmox_01.setEnabled(false);
+
+        jComboBoxUsuarioAlmox_02.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxUsuarioAlmox_02.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxUsuarioAlmox_02.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxUsuarioAlmox_02.setEnabled(false);
+
+        jComboBoxUsuarioAlmox_03.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxUsuarioAlmox_03.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxUsuarioAlmox_03.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxUsuarioAlmox_03.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
+        jPanel50.setLayout(jPanel50Layout);
+        jPanel50Layout.setHorizontalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxUsuarioAlmox_01, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxUsuarioAlmox_02, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel50Layout.createSequentialGroup()
+                        .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel50Layout.createSequentialGroup()
+                                .addComponent(jLabel78)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxHabiltaAIAlmox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel79))
+                        .addGap(0, 146, Short.MAX_VALUE))
+                    .addComponent(jComboBoxUsuarioAlmox_03, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel50Layout.setVerticalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel78)
+                    .addComponent(jComboBoxHabiltaAIAlmox, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel79)
+                .addGap(3, 3, 3)
+                .addComponent(jComboBoxUsuarioAlmox_01, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jComboBoxUsuarioAlmox_02, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxUsuarioAlmox_03, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -742,8 +803,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -766,13 +827,15 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(3, 3, 3))
         );
 
@@ -3088,6 +3151,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         pesquisarColaboradorENCERRA_01();
         pesquisarColaboradorENCERRA_02();
         pMOSTRA_modulos();
+        pPESQUISAR_COLABORADOR_almoxarifado_01();
+        pPESQUISAR_COLABORADOR_almoxarifado_02();
+        pPESQUISAR_COLABORADOR_almoxarifado_03();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
@@ -3175,6 +3241,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setMaioridadePenal((int) jSpIdadePenal.getValue());
         objParCrc.setControlaMP((String) jComboBoxControlarMP.getSelectedItem());
         objParCrc.setHabilitarAlerta((String) jComboBoxHabilitarAlertaPortaria.getSelectedItem());
+        objParCrc.setHabilitarAlertaAlmox((String) jComboBoxHabiltaAIAlmox.getSelectedItem());
+        objParCrc.setNomeUsuarioAlmox1((String) jComboBoxUsuarioAlmox_01.getSelectedItem());
+        objParCrc.setNomeUsuarioAlmox2((String) jComboBoxUsuarioAlmox_02.getSelectedItem());
+        objParCrc.setNomeUsuarioAlmox3((String) jComboBoxUsuarioAlmox_03.getSelectedItem());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado.");
         } else if (jDataVersao.getDate() == null && !jNumeroVersao.getText().equals("")) {
@@ -3565,6 +3635,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB2;
     private javax.swing.JComboBox<String> jComboBoxHabilitarVisitantesBaseI;
     private javax.swing.JComboBox<String> jComboBoxHabilitarVisitantesBaseII;
+    private javax.swing.JComboBox<String> jComboBoxHabiltaAIAlmox;
     private javax.swing.JComboBox<String> jComboBoxJuridico;
     private javax.swing.JComboBox<String> jComboBoxKitHigene;
     private javax.swing.JComboBox jComboBoxLocacao;
@@ -3599,6 +3670,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxTipoServidor;
     private javax.swing.JComboBox jComboBoxTransferencia;
     private javax.swing.JComboBox jComboBoxTransferenciaBpa;
+    public static javax.swing.JComboBox<String> jComboBoxUsuarioAlmox_01;
+    private javax.swing.JComboBox<String> jComboBoxUsuarioAlmox_02;
+    private javax.swing.JComboBox<String> jComboBoxUsuarioAlmox_03;
     private javax.swing.JComboBox jComboBoxValAlvara;
     private javax.swing.JComboBox jComboBoxValAud;
     private javax.swing.JComboBox jComboBoxValLivraPro;
@@ -3690,6 +3764,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCMP;
@@ -3753,9 +3829,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
     private javax.swing.JPanel jPanel47;
-    private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -3955,6 +4031,16 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             if (jComboBoxHabilitarAlertaPortaria.getSelectedItem() == null || jComboBoxHabilitarAlertaPortaria.getSelectedItem().equals("")) {
                 jComboBoxHabilitarAlertaPortaria.setSelectedItem("Não");
             }
+            jComboBoxHabiltaAIAlmox.setSelectedItem(conecta.rs.getString("HabilitarAlertaAlmox"));
+            if (jComboBoxHabiltaAIAlmox.getSelectedItem() == null || jComboBoxHabiltaAIAlmox.getSelectedItem().equals("")) {
+                jComboBoxHabiltaAIAlmox.setSelectedItem("Não");
+            }
+            jComboBoxUsuarioAlmox_01.removeAllItems();
+            jComboBoxUsuarioAlmox_02.removeAllItems();
+            jComboBoxUsuarioAlmox_03.removeAllItems();
+            jComboBoxUsuarioAlmox_01.addItem(conecta.rs.getString("UsuarioAlmoxarifado01"));
+            jComboBoxUsuarioAlmox_02.addItem(conecta.rs.getString("UsuarioAlmoxarifado02"));
+            jComboBoxUsuarioAlmox_03.addItem(conecta.rs.getString("UsuarioAlmoxarifado03"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -4089,6 +4175,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxControlarMP.setEnabled(true);
         jComboBoxHabilitarAlertaPortaria.setEnabled(true);
         //
+        jComboBoxHabiltaAIAlmox.setEnabled(true);
+        jComboBoxUsuarioAlmox_01.setEnabled(true);
+        jComboBoxUsuarioAlmox_02.setEnabled(true);
+        jComboBoxUsuarioAlmox_03.setEnabled(true);
+        //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -4212,6 +4303,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jSpIdadePenal.setEnabled(!true);
         jComboBoxControlarMP.setEnabled(!true);
         jComboBoxHabilitarAlertaPortaria.setEnabled(!true);
+        //
+        jComboBoxHabiltaAIAlmox.setEnabled(!true);
+        jComboBoxUsuarioAlmox_01.setEnabled(!true);
+        jComboBoxUsuarioAlmox_02.setEnabled(!true);
+        jComboBoxUsuarioAlmox_03.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -4338,6 +4434,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jSpIdadePenal.setEnabled(!true);
         jComboBoxControlarMP.setEnabled(!true);
         jComboBoxHabilitarAlertaPortaria.setEnabled(!true);
+        //
+        jComboBoxHabiltaAIAlmox.setEnabled(!true);
+        jComboBoxUsuarioAlmox_01.setEnabled(!true);
+        jComboBoxUsuarioAlmox_02.setEnabled(!true);
+        jComboBoxUsuarioAlmox_03.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -4541,6 +4642,93 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaEncerraDois.addItem(conecta.rs.getString("NomeFunc"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pPESQUISAR_COLABORADOR_almoxarifado_01() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "c.IdFunc, "
+                    + "c.NomeFunc, "
+                    + "c.StatusFunc, "
+                    + "a.IdCargo, "
+                    + "a.NomeCargo, "
+                    + "d.IdDepartamento, "
+                    + "d.NomeDepartamento "
+                    + "FROM COLABORADOR AS c "
+                    + "INNER JOIN DEPARTAMENTOS AS d "
+                    + "ON c.IdDepartamento=d.IdDepartamento "
+                    + "INNER JOIN CARGOS AS a "
+                    + "ON c.IdCargo=a.IdCargo "
+                    + "WHERE d.NomeDepartamento='" + pDEPARTAMENTO_func + "' "
+                    + "AND A.NomeCargo='" + pCARGO_func + "' "
+                    + "AND c.StatusFunc='" + pSTATUS_func + "' "
+                    + "ORDER BY NomeFunc");
+            conecta.rs.first();
+            do {
+                jComboBoxUsuarioAlmox_01.addItem(conecta.rs.getString("NomeFunc"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pPESQUISAR_COLABORADOR_almoxarifado_02() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "c.IdFunc, "
+                    + "c.NomeFunc, "
+                    + "c.StatusFunc, "
+                    + "a.IdCargo, "
+                    + "a.NomeCargo, "
+                    + "d.IdDepartamento, "
+                    + "d.NomeDepartamento "
+                    + "FROM COLABORADOR AS c "
+                    + "INNER JOIN DEPARTAMENTOS AS d "
+                    + "ON c.IdDepartamento=d.IdDepartamento "
+                    + "INNER JOIN CARGOS AS a "
+                    + "ON c.IdCargo=a.IdCargo "
+                    + "WHERE d.NomeDepartamento='" + pDEPARTAMENTO_func + "' "
+                    + "AND A.NomeCargo='" + pCARGO_func + "' "
+                    + "AND c.StatusFunc='" + pSTATUS_func + "' "
+                    + "ORDER BY NomeFunc");
+            conecta.rs.first();
+            do {
+                jComboBoxUsuarioAlmox_02.addItem(conecta.rs.getString("NomeFunc"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pPESQUISAR_COLABORADOR_almoxarifado_03() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "c.IdFunc, "
+                    + "c.NomeFunc, "
+                    + "c.StatusFunc, "
+                    + "a.IdCargo, "
+                    + "a.NomeCargo, "
+                    + "d.IdDepartamento, "
+                    + "d.NomeDepartamento "
+                    + "FROM COLABORADOR AS c "
+                    + "INNER JOIN DEPARTAMENTOS AS d "
+                    + "ON c.IdDepartamento=d.IdDepartamento "
+                    + "INNER JOIN CARGOS AS a "
+                    + "ON c.IdCargo=a.IdCargo "
+                    + "WHERE d.NomeDepartamento='" + pDEPARTAMENTO_func + "' "
+                    + "AND A.NomeCargo='" + pCARGO_func + "' "
+                    + "AND c.StatusFunc='" + pSTATUS_func + "' "
+                    + "ORDER BY NomeFunc");
+            conecta.rs.first();
+            do {
+                jComboBoxUsuarioAlmox_03.addItem(conecta.rs.getString("NomeFunc"));
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }

@@ -108,11 +108,15 @@ public class ParametrosCrc {
     private int maioridadePenal;
     private String controlaMP;
     private String habilitarAlerta;
+    private String habilitarAlertaAlmox;
+    private String nomeUsuarioAlmox1;
+    private String nomeUsuarioAlmox2;
+    private String nomeUsuarioAlmox3;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, String numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao, String biometriaEF, Integer idImp, Integer idModulo, String nomeModulo, Integer idTelas, String nomeTela, String habilitarImp, Integer idUsuario, String nomeUsuario, Bytes senhaUsuario, String fecharSistema, String geraPopulacao, int maioridadePenal, String controlaMP, String habilitarAlerta) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, String numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao, String biometriaEF, Integer idImp, Integer idModulo, String nomeModulo, Integer idTelas, String nomeTela, String habilitarImp, Integer idUsuario, String nomeUsuario, Bytes senhaUsuario, String fecharSistema, String geraPopulacao, int maioridadePenal, String controlaMP, String habilitarAlerta, String habilitarAlertaAlmox, String nomeUsuarioAlmox1, String nomeUsuarioAlmox2, String nomeUsuarioAlmox3) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -207,6 +211,10 @@ public class ParametrosCrc {
         this.maioridadePenal = maioridadePenal;
         this.controlaMP = controlaMP;
         this.habilitarAlerta = habilitarAlerta;
+        this.habilitarAlertaAlmox = habilitarAlertaAlmox;
+        this.nomeUsuarioAlmox1 = nomeUsuarioAlmox1;
+        this.nomeUsuarioAlmox2 = nomeUsuarioAlmox2;
+        this.nomeUsuarioAlmox3 = nomeUsuarioAlmox3;
     }
 
     /**
@@ -1523,5 +1531,61 @@ public class ParametrosCrc {
      */
     public void setHabilitarAlerta(String habilitarAlerta) {
         this.habilitarAlerta = habilitarAlerta;
+    }
+
+    /**
+     * @return the habilitarAlertaAlmox
+     */
+    public String getHabilitarAlertaAlmox() {
+        return habilitarAlertaAlmox;
+    }
+
+    /**
+     * @param habilitarAlertaAlmox the habilitarAlertaAlmox to set
+     */
+    public void setHabilitarAlertaAlmox(String habilitarAlertaAlmox) {
+        this.habilitarAlertaAlmox = habilitarAlertaAlmox;
+    }
+
+    /**
+     * @return the nomeUsuarioAlmox1
+     */
+    public String getNomeUsuarioAlmox1() {
+        return nomeUsuarioAlmox1;
+    }
+
+    /**
+     * @param nomeUsuarioAlmox1 the nomeUsuarioAlmox1 to set
+     */
+    public void setNomeUsuarioAlmox1(String nomeUsuarioAlmox1) {
+        this.nomeUsuarioAlmox1 = nomeUsuarioAlmox1;
+    }
+
+    /**
+     * @return the nomeUsuarioAlmox2
+     */
+    public String getNomeUsuarioAlmox2() {
+        return nomeUsuarioAlmox2;
+    }
+
+    /**
+     * @param nomeUsuarioAlmox2 the nomeUsuarioAlmox2 to set
+     */
+    public void setNomeUsuarioAlmox2(String nomeUsuarioAlmox2) {
+        this.nomeUsuarioAlmox2 = nomeUsuarioAlmox2;
+    }
+
+    /**
+     * @return the nomeUsuarioAlmox3
+     */
+    public String getNomeUsuarioAlmox3() {
+        return nomeUsuarioAlmox3;
+    }
+
+    /**
+     * @param nomeUsuarioAlmox3 the nomeUsuarioAlmox3 to set
+     */
+    public void setNomeUsuarioAlmox3(String nomeUsuarioAlmox3) {
+        this.nomeUsuarioAlmox3 = nomeUsuarioAlmox3;
     }
 }
