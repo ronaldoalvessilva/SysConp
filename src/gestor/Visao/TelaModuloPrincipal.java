@@ -8,6 +8,7 @@ package gestor.Visao;
 //import gestor.Modelo.clsDataHora;
 import Util.Produtividade.Produtividade;
 import gestor.Controle.ControleImplementacoes;
+import gestor.Controle.ControlePesquisarEmpresaLogon;
 //import com.sun.glass.events.KeyEvent;
 import java.awt.event.KeyEvent;
 import gestor.Controle.ControleTelasSistema;
@@ -28,6 +29,13 @@ import static gestor.Visao.TelaModuloBaseUm.LocacaoInternos;
 import static gestor.Visao.TelaModuloBaseUm.PavilhaoCela;
 import static gestor.Visao.TelaModuloBaseUm.PopulacaoInternosAgentes;
 import static gestor.Visao.TelaModuloBaseUm.TransferenciaPavilhaoCelas;
+import static gestor.Dao.ConexaoBancoDados.caminhoConecta;
+import gestor.Modelo.EmpresaUnidade;
+import static gestor.Visao.TelaLoginSenha.codigoEmpresa;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
+import static gestor.Visao.TelaLoginSenha.jUsuario;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaLoginSenha.razaoSocial;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
@@ -174,6 +182,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         control.incluirHostName(userConectado);
         // VERIFICAR PARAMETRO PARA SABER SE O OS É LINUX(UBUNTU) OU WINDOWS.     
         verificarParametrosSRV();
+        USUARIO_administrador();
         //
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X    
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -335,6 +344,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jConfiguracoesF2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jPRORES = new javax.swing.JMenuItem();
+        jUNIDADES_PRISIONAIS = new javax.swing.JMenu();
+        jUnidadeBarreiras = new javax.swing.JMenuItem();
+        jUnidadeItabuna = new javax.swing.JMenuItem();
+        jUnidadeLauroFreitas = new javax.swing.JMenuItem();
+        jUnidadeVitoriaConquista = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        jUnidadeSalvador = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jLocalHost = new javax.swing.JMenuItem();
         jMenuSobre = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuSair = new javax.swing.JMenu();
@@ -1314,6 +1332,61 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenu5.add(jPRORES);
 
         jMenuBar1.add(jMenu5);
+
+        jUNIDADES_PRISIONAIS.setForeground(new java.awt.Color(0, 0, 204));
+        jUNIDADES_PRISIONAIS.setText("UNIDADES PRISIONAIS");
+
+        jUnidadeBarreiras.setText("CPBA - Barreiras");
+        jUnidadeBarreiras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUnidadeBarreirasActionPerformed(evt);
+            }
+        });
+        jUNIDADES_PRISIONAIS.add(jUnidadeBarreiras);
+
+        jUnidadeItabuna.setText("CPIT - Itabuna");
+        jUnidadeItabuna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUnidadeItabunaActionPerformed(evt);
+            }
+        });
+        jUNIDADES_PRISIONAIS.add(jUnidadeItabuna);
+
+        jUnidadeLauroFreitas.setText("CPLF - Lauro de Freitas");
+        jUnidadeLauroFreitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUnidadeLauroFreitasActionPerformed(evt);
+            }
+        });
+        jUNIDADES_PRISIONAIS.add(jUnidadeLauroFreitas);
+
+        jUnidadeVitoriaConquista.setText("CPBA - Vitória da Conquista");
+        jUnidadeVitoriaConquista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUnidadeVitoriaConquistaActionPerformed(evt);
+            }
+        });
+        jUNIDADES_PRISIONAIS.add(jUnidadeVitoriaConquista);
+        jUNIDADES_PRISIONAIS.add(jSeparator12);
+
+        jUnidadeSalvador.setText("CPMS - Salvador");
+        jUnidadeSalvador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUnidadeSalvadorActionPerformed(evt);
+            }
+        });
+        jUNIDADES_PRISIONAIS.add(jUnidadeSalvador);
+        jUNIDADES_PRISIONAIS.add(jSeparator13);
+
+        jLocalHost.setText("LocalHost");
+        jLocalHost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLocalHostActionPerformed(evt);
+            }
+        });
+        jUNIDADES_PRISIONAIS.add(jLocalHost);
+
+        jMenuBar1.add(jUNIDADES_PRISIONAIS);
 
         jMenuSobre.setMnemonic('S');
         jMenuSobre.setText("Sobre");
@@ -2299,6 +2372,84 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         t.start(); //Teste tela aguarde
     }//GEN-LAST:event_jPRORESActionPerformed
 
+    private void jUnidadeBarreirasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadeBarreirasActionPerformed
+        // TODO add your handling code here:       
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                ACESSO_barreiras();
+                carregando.dispose(); //Teste tela aguarde
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
+    }//GEN-LAST:event_jUnidadeBarreirasActionPerformed
+
+    private void jUnidadeItabunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadeItabunaActionPerformed
+        // TODO add your handling code here: 
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                ACESSO_itabuna();
+                carregando.dispose(); //Teste tela aguarde
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
+    }//GEN-LAST:event_jUnidadeItabunaActionPerformed
+
+    private void jUnidadeLauroFreitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadeLauroFreitasActionPerformed
+        // TODO add your handling code here:
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                ACESSO_lauro();
+                carregando.dispose(); //Teste tela aguarde
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
+    }//GEN-LAST:event_jUnidadeLauroFreitasActionPerformed
+
+    private void jUnidadeSalvadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadeSalvadorActionPerformed
+        // TODO add your handling code here:
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                ACESSO_salvador();
+                carregando.dispose(); //Teste tela aguarde
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
+    }//GEN-LAST:event_jUnidadeSalvadorActionPerformed
+
+    private void jUnidadeVitoriaConquistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadeVitoriaConquistaActionPerformed
+        // TODO add your handling code here:
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                ACESSO_conquista();
+                carregando.dispose(); //Teste tela aguarde
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
+    }//GEN-LAST:event_jUnidadeVitoriaConquistaActionPerformed
+
+    private void jLocalHostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLocalHostActionPerformed
+        // TODO add your handling code here:
+        final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
+        carregando.setVisible(true);//Teste tela aguarde
+        Thread t = new Thread() { //Teste tela aguarde
+            public void run() { //Teste
+                ACESSO_local();
+                carregando.dispose(); //Teste tela aguarde
+            }
+        }; //Teste tela aguarde
+        t.start(); //Teste tela aguarde
+    }//GEN-LAST:event_jLocalHostActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2441,6 +2592,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelPainelCentral;
+    private javax.swing.JMenuItem jLocalHost;
     private javax.swing.JLabel jLoginConectado;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -2487,6 +2639,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JToolBar.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -2500,6 +2654,12 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar5;
     private javax.swing.JToolBar jToolBar6;
     private javax.swing.JToolBar jToolBar8;
+    private javax.swing.JMenu jUNIDADES_PRISIONAIS;
+    private javax.swing.JMenuItem jUnidadeBarreiras;
+    private javax.swing.JMenuItem jUnidadeItabuna;
+    private javax.swing.JMenuItem jUnidadeLauroFreitas;
+    private javax.swing.JMenuItem jUnidadeSalvador;
+    private javax.swing.JMenuItem jUnidadeVitoriaConquista;
     // End of variables declaration//GEN-END:variables
 
     //MENU ADMINISTRAÇÃO I
@@ -4444,11 +4604,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         }
     }
-    
-    
-    
-    
-    
+
 //    // Atualizar Versão do sistema quando existir
 //    public void atualizarSistema() throws FileNotFoundException, IOException {
 //        // Arquivos que iremos copiar
@@ -4482,7 +4638,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 //        }
 //    }
     // Buscar o ip e o nome do host
-
     public void buscarIpNome() {
 
         InetAddress myself;
@@ -4861,6 +5016,117 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         }
     }
 
+    //------------------------------------------- MENU UNIDADES --------------------------------------------------------------------------------------
+    //DATA: 10/06/2021
+    public void ACESSO_barreiras() {
+        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+        EmpresaUnidade objEmpresa = new EmpresaUnidade();
+        caminhoConecta = "C:\\SysConp\\ConectaBAR.properties";
+        //PESQUISAR DADOS DA EMPRESA
+        ControlePesquisarEmpresaLogon pPESQUISAS_empresa = new ControlePesquisarEmpresaLogon();
+        pPESQUISAS_empresa.PESQUISAR_empresa(objEmpresa);
+        codigoEmpresa = objEmpresa.getIdEmpresa();
+        razaoSocial = objEmpresa.getDescricaoEmpresa();
+        descricaoUnidade = objEmpresa.getDescricaoUnidade();
+        // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
+        jNomeUnidade.setText(descricaoUnidade);
+        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+        tp.setVisible(true);
+        this.dispose();
+    }
+
+    public void ACESSO_itabuna() {
+        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+        EmpresaUnidade objEmpresa = new EmpresaUnidade();
+        caminhoConecta = "C:\\SysConp\\ConectaITB.properties";
+        //PESQUISAR DADOS DA EMPRESA
+        ControlePesquisarEmpresaLogon pPESQUISAS_empresa = new ControlePesquisarEmpresaLogon();
+        pPESQUISAS_empresa.PESQUISAR_empresa(objEmpresa);
+        codigoEmpresa = objEmpresa.getIdEmpresa();
+        razaoSocial = objEmpresa.getDescricaoEmpresa();
+        descricaoUnidade = objEmpresa.getDescricaoUnidade();
+        // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
+        jNomeUnidade.setText(descricaoUnidade);
+        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+        tp.setVisible(true);
+        this.dispose();
+    }
+
+    public void ACESSO_lauro() {
+        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+        EmpresaUnidade objEmpresa = new EmpresaUnidade();
+        caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
+        //PESQUISAR DADOS DA EMPRESA
+        ControlePesquisarEmpresaLogon pPESQUISAS_empresa = new ControlePesquisarEmpresaLogon();
+        pPESQUISAS_empresa.PESQUISAR_empresa(objEmpresa);
+        codigoEmpresa = objEmpresa.getIdEmpresa();
+        razaoSocial = objEmpresa.getDescricaoEmpresa();
+        descricaoUnidade = objEmpresa.getDescricaoUnidade();
+        // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
+        jNomeUnidade.setText(descricaoUnidade);
+        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+        tp.setVisible(true);
+        this.dispose();
+    }
+
+    public void ACESSO_salvador() {
+        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+        EmpresaUnidade objEmpresa = new EmpresaUnidade();
+        caminhoConecta = "C:\\SysConp\\ConectaSSA.properties";
+        //PESQUISAR DADOS DA EMPRESA
+        ControlePesquisarEmpresaLogon pPESQUISAS_empresa = new ControlePesquisarEmpresaLogon();
+        pPESQUISAS_empresa.PESQUISAR_empresa(objEmpresa);
+        codigoEmpresa = objEmpresa.getIdEmpresa();
+        razaoSocial = objEmpresa.getDescricaoEmpresa();
+        descricaoUnidade = objEmpresa.getDescricaoUnidade();
+        // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
+        jNomeUnidade.setText(descricaoUnidade);
+        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+        tp.setVisible(true);
+        this.dispose();
+    }
+
+    public void ACESSO_conquista() {
+        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+        EmpresaUnidade objEmpresa = new EmpresaUnidade();
+        caminhoConecta = "C:\\SysConp\\ConectaVC.properties";
+        //PESQUISAR DADOS DA EMPRESA
+        ControlePesquisarEmpresaLogon pPESQUISAS_empresa = new ControlePesquisarEmpresaLogon();
+        pPESQUISAS_empresa.PESQUISAR_empresa(objEmpresa);
+        codigoEmpresa = objEmpresa.getIdEmpresa();
+        razaoSocial = objEmpresa.getDescricaoEmpresa();
+        descricaoUnidade = objEmpresa.getDescricaoUnidade();
+        // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
+        jNomeUnidade.setText(descricaoUnidade);
+        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+        tp.setVisible(true);
+        this.dispose();
+    }
+
+    public void ACESSO_local() {
+        ControlePesquisarEmpresaLogon control = new ControlePesquisarEmpresaLogon();
+        EmpresaUnidade objEmpresa = new EmpresaUnidade();
+        caminhoConecta = "C:\\SysConp\\Conecta.properties";
+        //PESQUISAR DADOS DA EMPRESA
+        ControlePesquisarEmpresaLogon pPESQUISAS_empresa = new ControlePesquisarEmpresaLogon();
+        pPESQUISAS_empresa.PESQUISAR_empresa(objEmpresa);
+        codigoEmpresa = objEmpresa.getIdEmpresa();
+        razaoSocial = objEmpresa.getDescricaoEmpresa();
+        descricaoUnidade = objEmpresa.getDescricaoUnidade();
+        // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
+        jNomeUnidade.setText(descricaoUnidade);
+        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+        tp.setVisible(true);
+        this.dispose();
+    }
+
+    public void USUARIO_administrador() {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jUNIDADES_PRISIONAIS.setVisible(true);
+        } else {
+            jUNIDADES_PRISIONAIS.setVisible(!true);
+        }
+    }
 //    public void copyDirectory(File srcPath, File dstPath) throws IOException {
 //
 //        if (srcPath.isDirectory()) {
