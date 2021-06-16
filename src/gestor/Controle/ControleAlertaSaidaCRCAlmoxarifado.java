@@ -67,7 +67,10 @@ public class ControleAlertaSaidaCRCAlmoxarifado {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "HabilitarAlertaAlmox "
+                    + "HabilitarAlertaAlmox, "
+                    + "UsuarioAlmoxarifado01, "
+                    + "UsuarioAlmoxarifado02, "
+                    + "UsuarioAlmoxarifado03 "
                     + "FROM PARAMETROSCRC");
             conecta.rs.first();
             pALERTA_almox = conecta.rs.getString("HabilitarAlertaAlmox");

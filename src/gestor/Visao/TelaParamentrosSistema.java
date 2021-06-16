@@ -3253,6 +3253,24 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Usuário logado '" + nameUser + "' não tem acesso para modificar o parâmetro (SISTEMA EM MANUTENÇÃO).\nSomente o usuário ADMINISTRADOR DO SISTEMA poderá modificar esse parâmetro.");
         } else if (jSpIdadePenal.getValue().hashCode() == -1) {
             JOptionPane.showMessageDialog(rootPane, "O valor do parâmetro não pode ser negativo.");
+        } else if (jComboBoxUsuarioAlmox_01.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do primneiro usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_01.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do primneiro usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_01.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do primneiro usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_02.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Segundo usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_02.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Segundo usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_02.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Segundo usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_03.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Terceiro usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_03.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Terceiro usuário do almoxarifado.");
+        } else if (jComboBoxUsuarioAlmox_03.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Terceiro usuário do almoxarifado.");
         } else {
             control.alterarParametrosCrc(objParCrc);
             objLog();

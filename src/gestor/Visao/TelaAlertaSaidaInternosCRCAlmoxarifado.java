@@ -146,7 +146,7 @@ public class TelaAlertaSaidaInternosCRCAlmoxarifado extends javax.swing.JInterna
                 .addGap(4, 4, 4))
         );
 
-        setBounds(370, 20, 525, 422);
+        setBounds(570, 30, 525, 422);
     }// </editor-fold>//GEN-END:initComponents
 
 

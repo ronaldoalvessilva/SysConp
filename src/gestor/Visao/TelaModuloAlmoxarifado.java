@@ -1751,7 +1751,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public void MOSTRAR_SAIDA_internos() {
         CONTROLE_SAIDA_crc.pPESQUISAR_saida(objSaidaCRCAlmox);
         if (pALERTA_almox.equals("Sim")) {
-            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || pNOME_usuario1.equals(nameUser) || pNOME_usuario2.equals(nameUser) || pNOME_usuario3.equals(nameUser)) {
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nameUser.equals(pNOME_usuario1) || nameUser.equals(pNOME_usuario2) || nameUser.equals(pNOME_usuario3)) {
                 if (objAlertaSaidaAlmox == null || objAlertaSaidaAlmox.isClosed()) {
                     objAlertaSaidaAlmox = new TelaAlertaSaidaInternosCRCAlmoxarifado();
                     TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAlertaSaidaAlmox);
