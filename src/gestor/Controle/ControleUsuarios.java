@@ -18,8 +18,13 @@ import static gestor.Visao.TelaTrocaSenha_MD5.pRESPOSTA_senha;
 import static gestor.Visao.TelaTrocaSenha.pCODIGO_usuario;
 import static gestor.Visao.TelaTrocaSenha.pSENHA_anterior;
 import static gestor.Visao.TelaTrocaSenha.pACESSO_TODAS_UNIDADES;
+import static gestor.Visao.TelaUsuarios.jlogin;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -91,6 +96,35 @@ public class ControleUsuarios {
                 pst.setTimestamp(10, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
             } else {
                 pst.setDate(10, null);
+            }
+            pst.executeUpdate(); // Executa a inserção
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objUser;
+    }
+    
+    public Usuarios ALTERAR_Usuarios(Usuarios objUser) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE USUARIOS SET StatusUsuario=?,DataCadastro=?,NomeUsuario=?,NomeDepartamento=?,NomeCargo=?,LoginUsuario=?,AcessoTodasUnidades=?,DataSenha=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            pst.setBoolean(1, objUser.getStatus());
+            if (objUser.getDataCadastro() != null) {
+                pst.setTimestamp(2, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
+            } else {
+                pst.setDate(2, null);
+            }
+            pst.setString(3, objUser.getNomeUsuario());
+            pst.setString(4, objUser.getNomeDepartamento());
+            pst.setString(5, objUser.getNomeCargo());
+            pst.setString(6, objUser.getLogin());
+            pst.setString(7, objUser.getAcessoTodasUnidades());
+            if (objUser.getDataCadastro() != null) {
+                pst.setTimestamp(8, new java.sql.Timestamp(objUser.getDataCadastro().getTime()));
+            } else {
+                pst.setDate(8, null);
             }
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
@@ -610,5 +644,39 @@ public class ControleUsuarios {
         }
         conectaBAR.desconecta();
         return objUser;
+    }
+    
+   
+    public List<Usuarios> PESQUISAR_usuario() throws Exception {
+
+        conecta.abrirConexao();
+        List<Usuarios> listarUsuarios = new ArrayList<Usuarios>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "StatusUsuario, "
+                    + "IdUsuario, "
+                    + "LoginUsuario, "
+                    + "SenhaUsuario, "
+                    + "ConfirmaSenhaUsuario, "                    
+                    + "NomeUsuario "
+                    + "FROM USUARIOS  "
+                    + "WHERE LoginUsuario='" + jlogin.getText() + "'");
+            while (conecta.rs.next()) {
+                Usuarios pUser = new Usuarios();
+                pUser.setStatus(conecta.rs.getBoolean("StatusUsuario"));
+                pUser.setIdUsuario(conecta.rs.getInt("IdUsuario"));
+                pUser.setLogin(conecta.rs.getString("LoginUsuario"));
+                pUser.setNomeUsuario(conecta.rs.getString("NomeUsuario"));
+                pUser.setSenha1(conecta.rs.getString("SenhaUsuario"));      
+                pUser.setSenha2(conecta.rs.getString("ConfirmaSenhaUsuario"));      
+                listarUsuarios.add(pUser);
+            }
+            return listarUsuarios;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }

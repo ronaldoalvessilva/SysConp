@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.Criptografia;
 import gestor.Controle.ControleGrupoUsuarios;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleModulosUsuariosGrupos;
@@ -30,11 +31,12 @@ import java.awt.AWTKeyStroke;
 import java.awt.Color;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -124,6 +126,17 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     //
     String pCODIGO_USUARIO_VC = null;
     String pLOGIN_USUARIO_VC = null;
+    //
+    public static int pID_usuario = 0;
+    String pLOGIN_usuario = "";
+    String pNOME_usuario = "";
+    String pSENHA_usuario = "";
+    String pSENHA1_usuario = "";
+    Date pDATA_cadastro;
+    String pPASSWORD0_pwd = "";
+    String pPASSWORD1_pwd = "";
+    String pSENHA1_CRIPTOGRAFA = "";
+    String pSENHA2_CRIPTOGRAFA = "";
 
     /**
      * Creates new form TelaUsuarios
@@ -1836,15 +1849,15 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
-        }else if(!nameUser.equals("ADMINISTRADOR DO SISTEMA") && jlogin.getText().equals("admin") && jNomeUsuarioCompleto.getText().equals("ADMINISTRADOR DO SISTEMA")){
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para modificar os dados do ADMINISTRADOR DO SISTEMA.");     
-        }else if(nameUser.equals("ADMINISTRADOR DO SISTEMA") && !jlogin.getText().equals("admin")){
+        } else if (!nameUser.equals("ADMINISTRADOR DO SISTEMA") && jlogin.getText().equals("admin") && jNomeUsuarioCompleto.getText().equals("ADMINISTRADOR DO SISTEMA")) {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para modificar os dados do ADMINISTRADOR DO SISTEMA.");
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && !jlogin.getText().equals("admin")) {
             acao = 2;
             Alterar();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
-        } else if (!jlogin.getText().equals("admin")){
+        } else if (!jlogin.getText().equals("admin")) {
             acao = 2;
             Alterar();
             statusMov = "Alterou";
@@ -1937,10 +1950,21 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                                 }
                             }
                             if (acao == 2) {
+                                //PESQUISAR USUÁRIO CASO MODIFIQUE A SENHA
+                                BUSCAR_usuarios();
                                 if (jSenhaConf.getText() == null ? jSenha.getText() == null : jSenhaConf.getText().equals(jSenha.getText())) {
                                     objUser.setNomeGrupo(jDescricaoGrupo.getText());
                                     objUser.setIdUsuario(Integer.valueOf(IdUsuario.getText()));
-                                    control.alterarUsuarios(objUser);
+                                    pSENHA1_CRIPTOGRAFA = Criptografia.criptografar(jSenha.getText());
+                                    pSENHA2_CRIPTOGRAFA = Criptografia.criptografar(jSenhaConf.getText());
+                                    if (jSenha.getText().equals(pPASSWORD0_pwd) && jSenhaConf.getText().equals(pPASSWORD1_pwd)) {
+                                        //PERSISTE SEM ALTERAR A SENHA
+                                        control.ALTERAR_Usuarios(objUser);
+                                    } else if (!jSenha.getText().equals(pPASSWORD0_pwd) && !jSenhaConf.getText().equals(pPASSWORD1_pwd)) {
+                                        control.alterarUsuarios(objUser);
+                                    } else if (!pSENHA_usuario.equals(pSENHA1_CRIPTOGRAFA) && !pSENHA1_usuario.equals(pSENHA2_CRIPTOGRAFA)) {
+                                        control.alterarUsuarios(objUser);
+                                    } 
                                     //GRAVAR OS DADOS DO USUÁRIO EM TODAS AS BASES DE DADOS DA SOCIALIZA.
                                     if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jComboBoxAcessaTodasUnidades.getSelectedItem().equals("Sim")) {
                                         mostrarMensagem();
@@ -2032,6 +2056,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             jlogin.setText(conecta.rs.getString("LoginUsuario"));
             jSenha.setText(conecta.rs.getString("SenhaUsuario"));
             jSenhaConf.setText(conecta.rs.getString("ConfirmaSenhaUsuario"));
+            // VARIÁVEIS DE SENHA CASO O USUÁRIO FAÇA ALTERARÇÃO TAMBÉM DA SENHA
+            pPASSWORD0_pwd = conecta.rs.getString("SenhaUsuario");
+            pPASSWORD1_pwd = conecta.rs.getString("ConfirmaSenhaUsuario");
+            //
             statusUser = conecta.rs.getInt("StatusUsuario");
             if (statusUser == 0) {
                 statusNome = "Inativo";
@@ -2984,7 +3012,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtPesDepto.setEnabled(!true);
     }
 
-    public void AlterarUser(){
+    public void AlterarUser() {
         jComboBoxStatus.setEnabled(!true);
         jNomeUsuarioCompleto.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
@@ -3001,6 +3029,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtPesDepto.setEnabled(!true);
     }
+
     public void Excluir() {
         //
         IdUsuario.setText("");
@@ -4053,5 +4082,20 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void BUSCAR_usuarios() {
+        ControleUsuarios usuario = new ControleUsuarios();
+        try {
+            for (Usuarios dd : usuario.PESQUISAR_usuario()) {
+                pID_usuario = dd.getIdUsuario();
+                pLOGIN_usuario = dd.getLogin();
+                pNOME_usuario = dd.getNomeUsuario();
+                pSENHA_usuario = dd.getSenha1();
+                pSENHA1_usuario = dd.getSenha2();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
