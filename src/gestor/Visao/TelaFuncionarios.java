@@ -104,7 +104,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     String horaMov;
     String dataModFinal;
     //
-    public static String caminhoFotoFunc;
+    public static String caminhoFotoFunc = "";
     int acao;
     int flag;
     String dataCadastro;
@@ -5171,6 +5171,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jComboBoxSexo.setSelectedItem("Selecione...");
         jComboBoxEscolaridade.setSelectedItem("Selecione...");
         jFotoColaborador.setIcon(null);
+        caminhoFotoFunc = "";
         jComboBoxEstadoCivil.setSelectedItem("Selecione...");
         jDataNascimento.setDate(null);
         jNomeMae.setText("");
