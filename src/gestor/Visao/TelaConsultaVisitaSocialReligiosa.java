@@ -1248,7 +1248,7 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
                 String ano = dataCadVisita.substring(0, 4);
                 dataCadVisita = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdVisitaRel"), conecta.rs.getString("NomeVisitaRel"), dataCadVisita, conecta.rs.getString("ReligiaoRel")});
+                dados.add(new Object[]{conecta.rs.getInt("IdVisitaRel"), conecta.rs.getString("NomeVisitaRel"), dataCadVisita, conecta.rs.getString("ReligiaoVisitaRel")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
