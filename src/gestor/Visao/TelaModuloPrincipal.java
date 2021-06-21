@@ -2373,7 +2373,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPRORESActionPerformed
 
     private void jUnidadeBarreirasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadeBarreirasActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:    
         final ViewAguardeProcessando carregando = new ViewAguardeProcessando(); //Teste tela aguarde
         carregando.setVisible(true);//Teste tela aguarde
         Thread t = new Thread() { //Teste tela aguarde
@@ -2382,7 +2382,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 carregando.dispose(); //Teste tela aguarde
             }
         }; //Teste tela aguarde
-        t.start(); //Teste tela aguarde
+        t.start(); //Teste tela aguarde        
     }//GEN-LAST:event_jUnidadeBarreirasActionPerformed
 
     private void jUnidadeItabunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadeItabunaActionPerformed
