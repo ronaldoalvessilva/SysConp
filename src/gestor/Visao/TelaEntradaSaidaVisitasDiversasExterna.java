@@ -1408,7 +1408,10 @@ public class TelaEntradaSaidaVisitasDiversasExterna extends javax.swing.JInterna
                         + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
                         + "INNER JOIN DEPARTAMENTOS "
                         + "ON ITENSVISITASDIVERSAS.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "WHERE NomeVisita='" + jNomeVisitante.getText() + "' AND IdLanc='" + jIDlanc.getText() + "'AND HorarioEntrada='" + jHorarioEntrada.getText() + "'AND HorarioSaida='" + jHorarioSaida.getText() + "'");
+                        + "WHERE NomeVisita='" + jNomeVisitante.getText() + "' "
+                        + "AND IdLanc='" + jIDlanc.getText() + "' "
+                        + "AND HorarioEntrada='" + jHorarioEntrada.getText() + "' "
+                        + "AND HorarioSaida='" + jHorarioSaida.getText() + "'");
                 conecta.rs.first();
                 jIDVisita.setText(conecta.rs.getString("IdVisita")); //Coluna 0
                 jNomeVisitante.setText(conecta.rs.getString("NomeVisita")); // Coluna 1

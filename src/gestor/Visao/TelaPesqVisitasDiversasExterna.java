@@ -30,6 +30,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
     int flag;
     String caminho;
     String statusVisita = "Inativa";
+    String idFunc = "";
 
     /**
      * Creates new form TelaPesqColaborador
@@ -65,7 +66,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Visitantes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Visitantes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jNomeVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -95,7 +96,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeVisita)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -118,7 +119,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jTabelaPesqFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Visitante"
@@ -169,10 +170,13 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 223, Short.MAX_VALUE))
+                        .addGap(0, 240, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -199,7 +203,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 432, 277);
+        setBounds(550, 60, 461, 277);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -208,12 +212,14 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String nomeVisitante = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 1);
             jNomeVisita.setText(nomeVisitante);
-            String idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
+            idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
             jIDVisita.setText(idFunc);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
-                        + "WHERE NomeVisita='" + nomeVisitante + "'");
+                conecta.executaSQL("SELECT * "
+                        + "FROM VISITASDIVERSAS "
+                        + "WHERE NomeVisita='" + nomeVisitante + "' "
+                        + "AND IdVisita='" + idFunc + "'");
                 conecta.rs.first();
                 jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeVisitante.setText(conecta.rs.getString("NomeVisita"));
@@ -278,7 +284,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
         if (flag == 1 && evt.getClickCount() == 1) {
             String nomeVisitante = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 1);
             jNomeVisita.setText(nomeVisitante);
-            String idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
+            idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
             jIDVisita.setText(idFunc);
         }
     }//GEN-LAST:event_jTabelaPesqFuncMouseClicked

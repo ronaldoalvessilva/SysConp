@@ -23,7 +23,7 @@ public class ControleItensEntradaSaidaVisitasDiversas {
     int codDepto;
 
     public ItensEntradaSaidaVisitasDiversas incluirItensVisitas(ItensEntradaSaidaVisitasDiversas objItensVisita) {
-        buscarVisita(objItensVisita.getNomeVisita());
+        buscarVisita(objItensVisita.getNomeVisita(), objItensVisita.getIdVisita());
         buscarDepto(objItensVisita.getNomeDepartamento());
         conecta.abrirConexao();
         try {
@@ -48,7 +48,7 @@ public class ControleItensEntradaSaidaVisitasDiversas {
     }
 
     public ItensEntradaSaidaVisitasDiversas alterarItensVisitas(ItensEntradaSaidaVisitasDiversas objItensVisita) {
-        buscarVisita(objItensVisita.getNomeVisita());
+        buscarVisita(objItensVisita.getNomeVisita(), objItensVisita.getIdVisita());
         buscarDepto(objItensVisita.getNomeDepartamento());
         conecta.abrirConexao();
         try {
@@ -84,10 +84,15 @@ public class ControleItensEntradaSaidaVisitasDiversas {
         return objItensVisita;
     }
 
-    public void buscarVisita(String desc) {
+    public void buscarVisita(String desc, int codigo) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita='" + desc + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdVisita, "
+                    + "NomeVisita "
+                    + "FROM VISITASDIVERSAS "
+                    + "WHERE NomeVisita='" + desc + "' "
+                    + "AND IdVisita='" + codigo + "'");
             conecta.rs.first();
             codVisita = conecta.rs.getInt("IdVisita");
         } catch (Exception e) {
