@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Confere" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a419d19-a0ea-4dbe-8c28-a6ad698c7c28">
 	<property name="ireport.zoom" value="1.5026296018031553"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="54"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Servidor - CPVC"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
@@ -118,8 +117,9 @@
 		<variableExpression><![CDATA[1]]></variableExpression>
 		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
-	<variable name="totalCela" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[1]]></variableExpression>
+	<variable name="totalCela" class="java.lang.Integer" resetType="Group" resetGroup="EndCelaPav" calculation="Count">
+		<variableExpression><![CDATA[0]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
 	</variable>
 	<group name="DescricaoPav">
 		<groupExpression><![CDATA[$F{DescricaoPav}]]></groupExpression>
@@ -183,6 +183,27 @@
 				</staticText>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="28">
+				<rectangle>
+					<reportElement x="388" y="3" width="167" height="16" uuid="6b8f8895-ae44-499f-95b7-47712ca7e74b"/>
+				</rectangle>
+				<textField>
+					<reportElement x="458" y="4" width="95" height="15" uuid="91e78e9d-88c9-4f43-8e68-bbc8bd3859b5"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalCela}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="383" y="4" width="89" height="15" uuid="dd788ea4-f761-498b-8381-ee0cd4f44982"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Cela:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>

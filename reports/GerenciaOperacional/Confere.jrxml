@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Confere" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a419d19-a0ea-4dbe-8c28-a6ad698c7c28">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
@@ -118,8 +117,9 @@
 		<variableExpression><![CDATA[1]]></variableExpression>
 		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
-	<variable name="totalCela" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[1]]></variableExpression>
+	<variable name="totalCela" class="java.lang.Integer" resetType="Group" resetGroup="EndCelaPav" calculation="Count">
+		<variableExpression><![CDATA[0]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
 	</variable>
 	<variable name="pSITUACAO_CRC" class="java.lang.String">
 		<variableExpression><![CDATA[$F{SituacaoCrc} == "SAIDA TEMPORARIA" ? "SAIDA TEMPORARIA" : $F{SituacaoCrc} == "ENTRADA NA UNIDADE" ? "" : $F{SituacaoCrc} == "RETORNO A UNIDADE" ? "" : $F{SituacaoCrc} == "PRISAO DOMICILIAR - COVID-19" ? "PRISAO DOMICILIAR - COVID-19" : ""]]></variableExpression>
@@ -135,7 +135,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="16"/>
+			<band height="8"/>
 		</groupFooter>
 	</group>
 	<group name="EndCelaPav">
@@ -222,6 +222,27 @@
 				</staticText>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<rectangle>
+					<reportElement x="384" y="0" width="171" height="15" uuid="4815a361-fa07-4ce8-8906-b0f4d32af12d"/>
+				</rectangle>
+				<textField>
+					<reportElement x="459" y="0" width="91" height="15" uuid="72026b2d-94bd-4d83-ad0b-c2049e74912c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalCela}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="384" y="0" width="75" height="15" uuid="f9a4eebe-dfe0-4d4b-b858-ad30bd58f63e"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Cela:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -269,7 +290,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="13b7907a-8fc1-4d69-ba7f-1df41dc5e8a0"/>
 				<graphicElement>
