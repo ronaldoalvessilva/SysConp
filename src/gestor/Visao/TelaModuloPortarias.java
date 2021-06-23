@@ -4452,13 +4452,13 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //CANCELAMENTO RETORNO
-        if (!pNomeCPEM.equals(telaCancelamentoRetornosManu_P1) || pNomeCPEM == null || pNomeCPEM.equals("")) {
+        if (!pNomeCRM.equals(telaCancelamentoRetornosManu_P1) || pNomeCRM == null || pNomeCRM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCancelamentoRetornosManu_P1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeCPEI.equals(telaCancelamentoRetornosInte_P1) || pNomeCPEI == null || pNomeCPEI.equals("")) {
+        if (!pNomeCRI.equals(telaCancelamentoRetornosInte_P1) || pNomeCRI == null || pNomeCRI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCancelamentoRetornosInte_P1);
