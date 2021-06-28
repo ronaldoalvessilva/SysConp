@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EntradaLote;
-import static gestor.Visao.TelaRetornoAudiencia.jIDLanc;
+import static gestor.Visao.TelaRetornoEspontaneo.jIDLanc;
 import java.sql.SQLException;
 
 /**
@@ -251,7 +251,15 @@ public class TelaAuditoriaRetornoEspontaneo extends javax.swing.JInternalFrame {
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM RETORNOAUDIENCIA WHERE IdRetorno='" + jIDLanc.getText() + "'");
+            conecta.executaSQL("SELECT "
+                    + "UsuarioInsert, "
+                    + "DataInsert, "
+                    + "HorarioInsert, "
+                    + "UsuarioUp, "
+                    + "DataUp, "
+                    + "HorarioUp "
+                    + "FROM RETORNOESPONTANEO "
+                    + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));

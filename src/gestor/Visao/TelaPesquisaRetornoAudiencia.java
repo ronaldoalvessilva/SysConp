@@ -33,7 +33,7 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
     String nomeInterno;
     String dataCadastro;
     String dataEntrada;
-    String situacaoEnt = "ENTRADA NA UNIDADE";    
+    String situacaoEnt = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
     String situacaoTra = "TRANSFERENCIA";
     String situacaoNull = "";
@@ -86,8 +86,9 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Pesquisa por Matricula:");
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq_atv.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa Por Nome");
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -96,6 +97,7 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
 
         jBtMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtMatricula.setToolTipText("Pesquisa Por Matricula");
+        jBtMatricula.setContentAreaFilled(false);
         jBtMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtMatriculaActionPerformed(evt);
@@ -125,7 +127,7 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
                         .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
                         .addComponent(jCheckBox2))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqNome)
@@ -145,19 +147,16 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtMatricula)
-                    .addComponent(jCheckBox2))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jCheckBox2)))
         );
 
+        jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
             }
         ));
         jTabelaInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,6 +165,18 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaInterno);
+        if (jTabelaInterno.getColumnModel().getColumnCount() > 0) {
+            jTabelaInterno.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaInterno.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaInterno.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaInterno.getColumnModel().getColumn(1).setMaxWidth(350);
+            jTabelaInterno.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(4).setMaxWidth(80);
+        }
 
         jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSair.setForeground(new java.awt.Color(255, 0, 0));
@@ -212,12 +223,12 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
                     .addComponent(jBtEnviar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -230,12 +241,10 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(200, 10, 440, 346);
+        setBounds(200, 10, 708, 340);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -258,9 +267,9 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
-                    + "AND SituacaoCrc<>'" + situacaoEnt  + "' "
-                    + "AND SituacaoCrc<>'" + situacaoRet  + "' "
-                    + "AND SituacaoCrc<>'" + situacaoTra  + "' "
+                    + "AND SituacaoCrc<>'" + situacaoEnt + "' "
+                    + "AND SituacaoCrc<>'" + situacaoRet + "' "
+                    + "AND SituacaoCrc<>'" + situacaoTra + "' "
                     + "AND SituacaoCrc<>'" + situacaoNull + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -284,9 +293,9 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid "
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
-                    + "AND SituacaoCrc<>'" + situacaoEnt  + "' "
-                    + "AND SituacaoCrc<>'" + situacaoRet  + "' "
-                    + "AND SituacaoCrc<>'" + situacaoTra  + "' "
+                    + "AND SituacaoCrc<>'" + situacaoEnt + "' "
+                    + "AND SituacaoCrc<>'" + situacaoRet + "' "
+                    + "AND SituacaoCrc<>'" + situacaoTra + "' "
                     + "AND SituacaoCrc<>'" + situacaoNull + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
@@ -321,7 +330,7 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 FotoInternoCrcRetEsp.setIcon(i);
-                FotoInternoCrcRetEsp.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrcRetEsp.getWidth(), FotoInternoCrcRetEsp.getHeight(), Image.SCALE_DEFAULT)));                
+                FotoInternoCrcRetEsp.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrcRetEsp.getWidth(), FotoInternoCrcRetEsp.getHeight(), Image.SCALE_DEFAULT)));
                 //
                 conecta.desconecta();
             } catch (SQLException e) {
@@ -363,7 +372,7 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -388,9 +397,9 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
@@ -407,10 +416,26 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
     //Preencher tabela com todos os INTERNOS
     public void preencherTodosInternos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais = PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid WHERE SituacaoCrc<>'" + situacaoEnt  + "'AND SituacaoCrc<>'" + situacaoRet  + "'AND SituacaoCrc<>'" + situacaoTra  + "'AND SituacaoCrc<>'" + situacaoNull + "'");
+            conecta.executaSQL("SELECT "
+                    + "* "
+                    + "FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE SituacaoCrc<>'" + situacaoEnt + "' "
+                    + "AND SituacaoCrc<>'" + situacaoRet + "' "
+                    + "AND SituacaoCrc<>'" + situacaoTra + "' "
+                    + "AND SituacaoCrc<>'" + situacaoNull + "'");
             conecta.rs.first();
             do {
                 // Formatar a data no formato Brasil
@@ -432,9 +457,9 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
@@ -451,7 +476,7 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
     // Método de pesquisa pela Matricula
     public void buscarInternosMatricula(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -476,9 +501,9 @@ public class TelaPesquisaRetornoAudiencia extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);

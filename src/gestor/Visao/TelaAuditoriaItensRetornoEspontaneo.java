@@ -7,8 +7,8 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensEntradaLote;
-import static gestor.Visao.TelaRetornoAudiencia.jIDLanc;
-import static gestor.Visao.TelaRetornoAudiencia.idItem;
+import static gestor.Visao.TelaRetornoEspontaneo.jIDLanc;
+import static gestor.Visao.TelaRetornoEspontaneo.idItem;
 import java.sql.SQLException;
 
 /**
@@ -252,7 +252,16 @@ public class TelaAuditoriaItensRetornoEspontaneo extends javax.swing.JInternalFr
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM ITENSRETORNOAUDIENCIA WHERE IdRetorno='" + jIDLanc.getText() + "'AND IdItem='" + idItem + "'");
+            conecta.executaSQL("SELECT "
+                    + "UsuarioInsert, "
+                    + "DataInsert, "
+                    + "HorarioInsert, "
+                    + "UsuarioUp, "
+                    + "DataUp, "
+                    + "HorarioUp "
+                    + "FROM ITENSRETORNOESPONTANEO "
+                    + "WHERE IdRetorno='" + jIDLanc.getText() + "' "
+                    + "AND IdItem='" + idItem + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));
@@ -261,7 +270,7 @@ public class TelaAuditoriaItensRetornoEspontaneo extends javax.swing.JInternalFr
             jDataUpdate.setText(conecta.rs.getString("DataUp"));
             jHoraUpdate.setText(conecta.rs.getString("HorarioUp"));
             conecta.desconecta();
-        } catch (SQLException e) {           
+        } catch (SQLException e) {
         }
     }
 }

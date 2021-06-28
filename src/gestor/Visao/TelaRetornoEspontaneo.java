@@ -1055,12 +1055,12 @@ public class TelaRetornoEspontaneo extends javax.swing.JInternalFrame {
             jTabelaRetorno.setVisible(true);
             pesquisarRecapturaInterno("SELECT * FROM RETORNOESPONTANEO "
                     + "INNER JOIN ITENSRETORNOESPONTANEO "
-                    + "ON RETORNOESPONTANEO.IdRecaptura=ITENSRETORNOESPONTANEO.IdRecaptura "
+                    + "ON RETORNOESPONTANEO.IdRetorno=ITENSRETORNOESPONTANEO.IdRetorno "
                     + "INNER JOIN OPERACAO "
                     + "ON RETORNOESPONTANEO.IdOp=OPERACAO.IdOp "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSRETORNOESPONTANEO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeInternoActionPerformed
 
