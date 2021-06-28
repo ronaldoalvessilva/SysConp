@@ -129,6 +129,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private TelaAcessoriosArmasEPIs objAcessoriosEPI = null;
     private TelaArmas objArmas = null;
     private TelaEquipamentosEPI objEPI = null;
+    private TelaLocalArmazenamentoEPI objLocalArma = null;
     //MOVIMENTAÇÃO
     private TelaInventarioArmasEquipamentosEPI objInventa = null;
     //
@@ -219,6 +220,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaEquipamentosEPI = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Equipamentos de Segurança/EPI:Manutenção";
     public static String telaEquipamentosQRCode = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Equipamentos de Segurança/EPI:QRCode";
     public static String telaEquipamentosCODIGO_barras = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Equipamentos de Segurança/EPI:Código Barras";
+    public static String telaCadastroLocalArmazenamentoEPI = "Controle de Armas e EPI´s:Cadastros Armas, EPI´s e Acessórios:Local de Armazenamento";
     //
     public static String telaInventarioEPIManu = "Controle de Armas e EPI´s:Movimentação:Inventário:Manutenção";
     public static String telaInventarioEPICont = "Controle de Armas e EPI´s:Movimentação:Inventário:Contagem";
@@ -279,6 +281,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     String pNomeCB = "";
     String pNomeACES = "";
     String pNomeHIST = "";
+    String pNomeLOCA = "";
     //
     String pNomeEPIManu = "";
     String pNomeEPIQRCo = "";
@@ -369,7 +372,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jCadastroArmas = new javax.swing.JMenuItem();
         jEquipamentosSegurancaEPI = new javax.swing.JMenuItem();
         jSeparator29 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jLocalArmazenamento = new javax.swing.JMenuItem();
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jMovimentacaoArmas = new javax.swing.JMenu();
         jInventario = new javax.swing.JMenuItem();
@@ -726,8 +729,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMenu2.add(jEquipamentosSegurancaEPI);
         jMenu2.add(jSeparator29);
 
-        jMenuItem1.setText("Local de Armazenamento");
-        jMenu2.add(jMenuItem1);
+        jLocalArmazenamento.setText("Local de Armazenamento");
+        jLocalArmazenamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLocalArmazenamentoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jLocalArmazenamento);
 
         jControleArmasEPI.add(jMenu2);
         jControleArmasEPI.add(jSeparator27);
@@ -2874,6 +2882,40 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jDevolucaoArmasActionPerformed
 
+    private void jLocalArmazenamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLocalArmazenamentoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroLocalArmazenamentoEPI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroLocalArmazenamentoEPI) && codAbrir == 1) {
+            if (objLocalArma == null || objLocalArma.isClosed()) {
+                objLocalArma = new TelaLocalArmazenamentoEPI();
+                jPainelSeguranca.add(objLocalArma);
+                objLocalArma.setVisible(true);
+            } else {
+                if (objLocalArma.isVisible()) {
+                    if (objLocalArma.isIcon()) { // Se esta minimizado
+                        try {
+                            objLocalArma.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objLocalArma.toFront(); // traz para frente
+                        objLocalArma.pack();//volta frame 
+                    }
+                } else {
+                    objLocalArma = new TelaLocalArmazenamentoEPI();
+                    TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objLocalArma);//adicona frame ao JDesktopPane  
+                    objLocalArma.setVisible(true);
+                }
+            }
+            try {
+                objLocalArma.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jLocalArmazenamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2953,13 +2995,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jGruposEPIS;
     private javax.swing.JMenuItem jInventario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jLocalArmazenamento;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu jMovimentacaoArmas;
@@ -3718,6 +3760,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeEPICOBR = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroLocalArmazenamentoEPI + "'");
+            conecta.rs.first();
+            pNomeLOCA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomePA.equals(telaPavilhao) || pNomePA == null || pNomePA.equals("")) {
             buscarCodigoModulo();
@@ -4023,6 +4072,12 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaEquipamentosCODIGO_barras);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        if (!pNomeLOCA.equals(telaCadastroLocalArmazenamentoEPI) || pNomeLOCA == null || pNomeLOCA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroLocalArmazenamentoEPI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
@@ -4118,7 +4173,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             ControlePertences.setVisible(true);
         }
     }
-    
+
     public void PESQUISAR_IMPLEMENTA_SEG_004(String pNOME_tela) {
         objParCrc.setNomeTela(pNOME_tela);
         controlImp.pPESQUISAR_CODIGO_TELA(objParCrc);

@@ -214,7 +214,7 @@ public class TelaPertences extends javax.swing.JInternalFrame {
         jTabelaPertences.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPertences.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Descrição", "Data"
