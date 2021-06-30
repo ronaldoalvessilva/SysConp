@@ -830,35 +830,40 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                                          <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLicencaArma" min="-2" pref="132" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                                  <Component id="jDataLicencaArma" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="jLicencaArma" min="-2" pref="117" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                          <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jDataLicencaArma" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jComboBoxUnidadeArma" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel50" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jComboBoxUnidadeArma" min="-2" pref="60" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLocalizacaoArma" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLocalizacaoArma" max="32767" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtPesquisarLocalArma" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -952,7 +957,7 @@
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
@@ -961,10 +966,6 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                   <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="432" pref="432" max="-2" attributes="0"/>
-                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1087,6 +1088,7 @@
                               <Component id="jLabel23" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel24" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel26" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel50" alignment="2" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -1095,13 +1097,14 @@
                               <Component id="jDataLicencaArma" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jLicencaArma" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jRegistroArma" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtPesquisarLocalArma" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jBtAessorios" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jEstoqueArma" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -1109,7 +1112,7 @@
                               <Component id="jBtQRCode" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel49" alignment="2" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1853,6 +1856,27 @@
                       <Color blue="0" green="0" red="cc" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="(*) - Campos Obrigat&#xf3;rios"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtPesquisarLocalArma">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Pesquisar local de armazenamento"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisarLocalArmaActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel50">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="*"/>
                   </Properties>
                 </Component>
               </SubComponents>

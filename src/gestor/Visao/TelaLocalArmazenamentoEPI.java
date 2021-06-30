@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitos;
+import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.ModeloTabela;
 import gestor.Controle.ControleLocalArmazenamentoEPI;
 import gestor.Modelo.LocalArmazenamento;
@@ -53,7 +54,7 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
     // Variáveis para gravar o log
     String nomeModuloTela = "Segurança:Local de Armazenamento:Manutenção";
     int acao, flag;
-    String codLocal;
+    public static String codLocal;
     int nivelLocalFar = 1;
     int nivelLocalEnf = 2;
     String nivelLocal; // Variavel para verificar quem criou o local de armazenamento.
@@ -105,6 +106,10 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         jIDLocal = new javax.swing.JTextField();
         jDescricaoLocal = new javax.swing.JTextField();
         jComboBoxStatusLocal = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jDescricaoResumida = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -263,13 +268,14 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -298,42 +304,78 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         jComboBoxStatusLocal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatusLocal.setEnabled(false);
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Descrição Local Resumida");
+
+        jDescricaoResumida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDescricaoResumida.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel7.setText("*");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel8.setText("*");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDescricaoLocal)
-                            .addComponent(jComboBoxStatusLocal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
+                            .addComponent(jLabel1)
+                            .addComponent(jIDLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jComboBoxStatusLocal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jDescricaoLocal)
+                    .addComponent(jDescricaoResumida)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jIDLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jLabel1)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jIDLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(2, 2, 2)
+                        .addComponent(jComboBoxStatusLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jIDLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addGap(2, 2, 2)
-                .addComponent(jComboBoxStatusLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jLabel3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDescricaoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDescricaoResumida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -446,7 +488,7 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("*** LOCAL DE ARMAZENAMENTO ARMAS/EPI ***");
+        jLabel5.setText("*** CAMPOS OBRIGATÓRIOS (*) ***");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -460,9 +502,9 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -499,10 +541,10 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 10, 426, 346);
+        setBounds(300, 10, 426, 325);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -553,45 +595,48 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o local está ativo ou inativo.");
                 jComboBoxStatusLocal.requestFocus();
                 jComboBoxStatusLocal.setBackground(Color.red);
+            } else if (jDescricaoLocal.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local.");
+                jDescricaoLocal.requestFocus();
+                jDescricaoLocal.setBackground(Color.red);
+            } else if (jDescricaoResumida.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição resumida do local.");
+                jDescricaoResumida.requestFocus();
+                jDescricaoResumida.setBackground(Color.red);
             } else {
-                if (jDescricaoLocal.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local.");
-                    jDescricaoLocal.requestFocus();
-                    jDescricaoLocal.setBackground(Color.red);
-                } else {
-                    objLocalMaster.setStatusLocal((String) jComboBoxStatusLocal.getSelectedItem());
-                    objLocalMaster.setDescricaLocal(jDescricaoLocal.getText());
-                    objLocalMaster.setModulo(modulo);
-                    objLocalMaster.setNivelLocal(nivelLocalFar);
-                    if (acao == 1) {
-                        objLocalMaster.setUsuarioInsert(nameUser);
-                        objLocalMaster.setDataInsert(dataModFinal);
-                        objLocalMaster.setHorarioInsert(horaMov);
-                        CONTROLE.incluirLocalMaster(objLocalMaster);
-                        BUSCAR_id();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        Salvar();
-                        if (pRESPOSTA_local.equals("Sim")) {
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        } else if (pRESPOSTA_local.equals("Não")) {
-                            JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
-                        }
+                objLocalMaster.setStatusLocal((String) jComboBoxStatusLocal.getSelectedItem());
+                objLocalMaster.setDescricaLocal(jDescricaoLocal.getText());
+                objLocalMaster.setDescricaoResumida(jDescricaoResumida.getText());
+                objLocalMaster.setModulo(modulo);
+                objLocalMaster.setNivelLocal(nivelLocalFar);
+                if (acao == 1) {
+                    objLocalMaster.setUsuarioInsert(nameUser);
+                    objLocalMaster.setDataInsert(dataModFinal);
+                    objLocalMaster.setHorarioInsert(horaMov);
+                    CONTROLE.incluirLocalMaster(objLocalMaster);
+                    BUSCAR_id();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    if (pRESPOSTA_local.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_local.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
                     }
-                    if (acao == 2) {
-                        objLocalMaster.setUsuarioUp(nameUser);
-                        objLocalMaster.setDataUp(dataModFinal);
-                        objLocalMaster.setHorarioUp(horaMov);
-                        objLocalMaster.setIdLocal(Integer.valueOf(jIDLocal.getText()));
-                        CONTROLE.alterarLocalMaster(objLocalMaster);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        Salvar();
-                        if (pRESPOSTA_local.equals("Sim")) {
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        } else if (pRESPOSTA_local.equals("Não")) {
-                            JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
-                        }
+                }
+                if (acao == 2) {
+                    objLocalMaster.setUsuarioUp(nameUser);
+                    objLocalMaster.setDataUp(dataModFinal);
+                    objLocalMaster.setHorarioUp(horaMov);
+                    objLocalMaster.setIdLocal(Integer.valueOf(jIDLocal.getText()));
+                    CONTROLE.alterarLocalMaster(objLocalMaster);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    if (pRESPOSTA_local.equals("Sim")) {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else if (pRESPOSTA_local.equals("Não")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro.");
                     }
                 }
             }
@@ -664,13 +709,17 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxTodosLocais;
     private javax.swing.JComboBox jComboBoxStatusLocal;
     private javax.swing.JTextField jDescricaoLocal;
+    private javax.swing.JTextField jDescricaoResumida;
     public static javax.swing.JTextField jIDLocal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -688,23 +737,27 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
-        jDescricaoLocal.setDocument(new LimiteDigitos(200));
-        jPesqDescricaoLocal.setDocument(new LimiteDigitos(50));
+        jDescricaoLocal.setDocument(new LimiteDigitosAlfa(200));
+        jPesqDescricaoLocal.setDocument(new LimiteDigitosAlfa(50));
+        jDescricaoResumida.setDocument(new LimiteDigitosAlfa(20));
     }
 
     public void corCampos() {
         jIDLocal.setBackground(Color.white);
         jComboBoxStatusLocal.setBackground(Color.white);
         jDescricaoLocal.setBackground(Color.white);
+        jDescricaoResumida.setBackground(Color.white);
     }
 
     public void Novo() {
         jIDLocal.setText("");
         jComboBoxStatusLocal.setSelectedItem("Ativo");
         jDescricaoLocal.setText("");
+        jDescricaoResumida.setText("");
         //
         jComboBoxStatusLocal.setEnabled(true);
         jDescricaoLocal.setEnabled(true);
+        jDescricaoResumida.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -717,6 +770,7 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
     public void Alterar() {
         jComboBoxStatusLocal.setEnabled(true);
         jDescricaoLocal.setEnabled(true);
+        jDescricaoResumida.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -730,9 +784,11 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         jIDLocal.setText("");
         jComboBoxStatusLocal.setSelectedItem(null);
         jDescricaoLocal.setText("");
+        jDescricaoResumida.setText("");
         //
         jComboBoxStatusLocal.setEnabled(!true);
         jDescricaoLocal.setEnabled(!true);
+        jDescricaoResumida.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(!true);
@@ -745,6 +801,7 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
     public void Salvar() {
         jComboBoxStatusLocal.setEnabled(!true);
         jDescricaoLocal.setEnabled(!true);
+        jDescricaoResumida.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -757,6 +814,7 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
     public void Cancelar() {
         jComboBoxStatusLocal.setEnabled(!true);
         jDescricaoLocal.setEnabled(!true);
+        jDescricaoResumida.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(!true);
@@ -770,20 +828,19 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         CONTROLE.BUSCAR_codigo(objLocalMaster);
     }
 
-    public void verificarLocalArmazenamento() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT "
-                    + "* "
-                    + "FROM LOCAL_ARMAZENAMENTO_AC "
-                    + "WHERE IdLocal='" + jIDLocal.getText() + "'");
-            conecta.rs.first();
-            nivelLocal = conecta.rs.getString("NivelLocal");
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaLocalArmazenamentoEPI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//    public void verificarLocalArmazenamento() {
+//        conecta.abrirConexao();
+//        try {
+//            conecta.executaSQL("SELECT "
+//                    + "* "
+//                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+//                    + "WHERE IdLocal='" + jIDLocal.getText() + "'");
+//            conecta.rs.first();
+//            nivelLocal = conecta.rs.getString("NivelLocal");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TelaLocalArmazenamentoEPI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     public void PREENCHER_TABELA_todos() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Local Armazenamento", "Status"};
@@ -865,16 +922,8 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         statusMov = "Excluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT "
-                    + "* "
-                    + "FROM PRODUTOS_AC");
-            conecta.rs.first();
-            codLocal = conecta.rs.getString("IdLocal");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o arquivo.\nERRO: " + ex);
-        }
+        objLocalMaster.setIdLocal(Integer.parseInt(jIDLocal.getText()));
+        CONTROLE.VERIFICAR_local(objLocalMaster);
         if (jIDLocal.getText() == null ? codLocal == null : jIDLocal.getText().equals(codLocal)) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse local, o mesmo está sendo utilizado por outro registro.");
         } else {
@@ -883,8 +932,12 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
             if (resposta == JOptionPane.YES_OPTION) {
                 objLocalMaster.setIdLocal(Integer.valueOf(jIDLocal.getText()));
                 CONTROLE.excluirLocalMaster(objLocalMaster);
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                 Excluir();
+                if (pRESPOSTA_local.equals("Sim")) {
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                } else if (pRESPOSTA_local.equals("Não")) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possível excluir o registro, tente novamente...");
+                }
             }
         }
     }
@@ -912,13 +965,13 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT "
-                    + "IdUsuario, "
-                    + "IdGrupo, "
-                    + "NomeGrupo "
-                    + "FROM USUARIOS_GRUPOS "
-                    + "INNER JOIN GRUPOUSUARIOS "
-                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "u.IdUsuario, "
+                    + "g.IdGrupo, "
+                    + "g.NomeGrupo "
+                    + "FROM USUARIOS_GRUPOS AS u "
+                    + "INNER JOIN GRUPOUSUARIOS AS g "
+                    + "ON u.IdGrupo=g.IdGrupo "
+                    + "WHERE u.IdUsuario='" + codigoUser + "'");
             conecta.rs.first();
             codigoUserGroup = conecta.rs.getInt("IdUsuario");
             codigoGrupo = conecta.rs.getInt("IdGrupo");

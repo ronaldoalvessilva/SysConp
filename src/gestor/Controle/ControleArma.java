@@ -44,15 +44,17 @@ public class ControleArma {
 
     Integer pCODIGO_grupo = 0;
     Integer pCODIGO_acessorio = 0;
+    Integer pCODIGO_local = 0;
 
     public Arma incluirArmas(Arma objArma) {
         PESQUISAR_grupo(objArma.getGrupoArma());
+        PESQUISAR_local(objArma.getLocalizacaoArma());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ARMAS (SerieArma,NCMArma,DataCadastroArma,StatusArma,"
                     + "DescricaoArma,IdGrupoArm,MarcaArma,ModeloArma,CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma,PesoArma,MiraArma,AlturaArma,"
                     + "LarguraArma,ComprimentoCanoArma,ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma,RegistroArma,LicencaArma,"
-                    + "DataLicencaArma,UnidadeArma,LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "DataLicencaArma,UnidadeArma,IdLocal,CustoArma,EstoqueArma,FotoArma,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objArma.getSerieArma());
             pst.setString(2, objArma.getnCMArma());
             pst.setTimestamp(3, new java.sql.Timestamp(objArma.getDataCadastroArma().getTime()));
@@ -81,7 +83,7 @@ public class ControleArma {
                 pst.setDate(23, null);
             }
             pst.setString(24, objArma.getUnidadeArma());
-            pst.setString(25, objArma.getLocalizacaoArma());
+            pst.setInt(25, pCODIGO_local);
             pst.setFloat(26, objArma.getCustoArma());
             pst.setString(27, objArma.getEstoqueArma());
             pst.setBytes(28, objArma.getFotoArma());
@@ -100,13 +102,13 @@ public class ControleArma {
 
     public Arma alterarArmas(Arma objArma) {
         PESQUISAR_grupo(objArma.getGrupoArma());
-
+        PESQUISAR_local(objArma.getLocalizacaoArma());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ARMAS SET SerieArma=?,NCMArma=?,DataCadastroArma=?,StatusArma=?,"
                     + "DescricaoArma=?,IdGrupoArm=?,MarcaArma=?,ModeloArma=?,CalibreArma=?,CanoArma=?,NumeroTirosArma=?,AcabamentoArma=?,PesoArma=?,MiraArma=?,AlturaArma=?,"
                     + "LarguraArma=?,ComprimentoCanoArma=?,ComprimentoTotalArma=?,DispositivoSegurancaArma=?,OutrasCaracteristicasArma=?,RegistroArma=?,LicencaArma=?,"
-                    + "DataLicencaArma=?,UnidadeArma=?,LocalizacaoArma=?,CustoArma=?,EstoqueArma=?,FotoArma=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdArma='" + objArma.getIdArma() + "'");
+                    + "DataLicencaArma=?,UnidadeArma=?,IdLocal=?,CustoArma=?,EstoqueArma=?,FotoArma=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdArma='" + objArma.getIdArma() + "'");
             pst.setString(1, objArma.getSerieArma());
             pst.setString(2, objArma.getnCMArma());
             pst.setTimestamp(3, new java.sql.Timestamp(objArma.getDataCadastroArma().getTime()));
@@ -135,7 +137,7 @@ public class ControleArma {
                 pst.setDate(23, null);
             }
             pst.setString(24, objArma.getUnidadeArma());
-            pst.setString(25, objArma.getLocalizacaoArma());
+            pst.setInt(25, pCODIGO_local);
             pst.setFloat(26, objArma.getCustoArma());
             pst.setString(27, objArma.getEstoqueArma());
             pst.setBytes(28, objArma.getFotoArma());
@@ -312,20 +314,47 @@ public class ControleArma {
         conecta.abrirConexao();
         List<Arma> LISTAR_ARAMAS_codigo = new ArrayList<Arma>();
         try {
-            conecta.executaSQL("SELECT ARMAS.IdArma,SerieArma, "
-                    + "NCMArma,DataCadastro,StatusArma,DescricaoArma, "
-                    + "ARMAS.IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
-                    + "CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma, "
-                    + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
-                    + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
-                    + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode,CodigoBarra "
-                    + "FROM ARMAS "
-                    + "INNER JOIN GRUPO_ARMAS "
-                    + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
-                    + "INNER JOIN CODIGO_BARRA_ARMA "
-                    + "ON ARMAS.IdArma=CODIGO_BARRA_ARMA.IdArma "
-                    + "WHERE ARMAS.IdArma='" + pID_grupo.toString().trim() + "' ");
+            conecta.executaSQL("SELECT "
+                    + "a.IdArma, "
+                    + "a.SerieArma, "
+                    + "a.NCMArma, "
+                    + "a.DataCadastro, "
+                    + "a.StatusArma, "
+                    + "a.DescricaoArma, "
+                    + "a.IdGrupoArm, "
+                    + "g.DescricaoGrupoArma, "
+                    + "a.MarcaArma, "
+                    + "a.ModeloArma, "
+                    + "a.CalibreArma, "
+                    + "a.CanoArma, "
+                    + "a.NumeroTirosArma, "
+                    + "a.AcabamentoArma, "
+                    + "a.PesoArma, "
+                    + "a.MiraArma, "
+                    + "a.AlturaArma, "
+                    + "a.LarguraArma, "
+                    + "a.ComprimentoCanoArma, "
+                    + "a.ComprimentoTotalArma, "
+                    + "a.DispositivoSegurancaArma, "
+                    + "a.OutrasCaracteristicasArma, "
+                    + "a.RegistroArma, "
+                    + "a.LicencaArma, "
+                    + "a.DataLicencaArma, "
+                    + "a.UnidadeArma, "
+                    + "l.DescricaoLocal, "
+                    + "a.CustoArma, "
+                    + "a.EstoqueArma, "
+                    + "a.FotoArma, "
+                    + "a.QRCode, "
+                    + "a.CodigoBarra "
+                    + "FROM ARMAS AS a "
+                    + "INNER JOIN GRUPO_ARMAS AS g "
+                    + "ON a.IdGrupoArm=g.IdGrupoArm "
+                    + "INNER JOIN CODIGO_BARRA_ARMA AS c "
+                    + "ON a.IdArma=c.IdArma "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON a.IdLocal=l.IdLocal "
+                    + "WHERE a.IdArma='" + pID_grupo.toString().trim() + "' ");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
                 pArmas.setIdArma(conecta.rs.getInt("IdArma"));
@@ -354,7 +383,7 @@ public class ControleArma {
                 pArmas.setLicencaArma(conecta.rs.getString("LicencaArma"));
                 pArmas.setDataLicencaArma(conecta.rs.getDate("DataLicencaArma"));
                 pArmas.setUnidadeArma(conecta.rs.getString("UnidadeArma"));
-                pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
+                pArmas.setLocalizacaoArma(conecta.rs.getString("DescricaoLocal"));
                 pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
                 pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
@@ -581,6 +610,22 @@ public class ControleArma {
         }
         conecta.desconecta();
         return objArma;
+    }
+
+    public void PESQUISAR_local(String local) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdLocal, "
+                    + "DescricaoLocal "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI"
+                    + "WHERE DescricaoLocal='" + local + "'");
+            conecta.rs.first();
+            pCODIGO_local = conecta.rs.getInt("IdLocal");
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleArma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
     }
 
     public List<Arma> pPESQUISAR_QRCode_read() throws Exception {

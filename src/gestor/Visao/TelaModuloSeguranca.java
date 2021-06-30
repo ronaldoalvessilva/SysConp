@@ -369,10 +369,10 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jSeparator26 = new javax.swing.JPopupMenu.Separator();
         jAcessorios = new javax.swing.JMenuItem();
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
+        jLocalArmazenamento = new javax.swing.JMenuItem();
+        jSeparator29 = new javax.swing.JPopupMenu.Separator();
         jCadastroArmas = new javax.swing.JMenuItem();
         jEquipamentosSegurancaEPI = new javax.swing.JMenuItem();
-        jSeparator29 = new javax.swing.JPopupMenu.Separator();
-        jLocalArmazenamento = new javax.swing.JMenuItem();
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jMovimentacaoArmas = new javax.swing.JMenu();
         jInventario = new javax.swing.JMenuItem();
@@ -712,6 +712,15 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMenu2.add(jAcessorios);
         jMenu2.add(jSeparator28);
 
+        jLocalArmazenamento.setText("Local de Armazenamento");
+        jLocalArmazenamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLocalArmazenamentoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jLocalArmazenamento);
+        jMenu2.add(jSeparator29);
+
         jCadastroArmas.setText("Armas");
         jCadastroArmas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -727,15 +736,6 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(jEquipamentosSegurancaEPI);
-        jMenu2.add(jSeparator29);
-
-        jLocalArmazenamento.setText("Local de Armazenamento");
-        jLocalArmazenamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jLocalArmazenamentoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jLocalArmazenamento);
 
         jControleArmasEPI.add(jMenu2);
         jControleArmasEPI.add(jSeparator27);

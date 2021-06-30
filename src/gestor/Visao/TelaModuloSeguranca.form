@@ -281,6 +281,16 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator28">
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jLocalArmazenamento">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Local de Armazenamento"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLocalArmazenamentoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator29">
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jCadastroArmas">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Armas"/>
@@ -295,16 +305,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEquipamentosSegurancaEPIActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator29">
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jLocalArmazenamento">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Local de Armazenamento"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLocalArmazenamentoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

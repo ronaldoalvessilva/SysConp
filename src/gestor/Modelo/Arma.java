@@ -40,6 +40,7 @@ public class Arma {
     private String licencaArma;
     private Date dataLicencaArma;
     private String unidadeArma;
+    private Integer idLocal;
     private String localizacaoArma;
     private float custoArma;
     private String estoqueArma;
@@ -64,7 +65,7 @@ public class Arma {
     public Arma() {
     }
 
-    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma, String textoQRCode, Integer idQrCodeArma, Integer idAcesArma, int quantidade, Integer idCodigoBarraArma, byte[] codigoBarra, Integer idArmaACE, String descricaoAcessorio, String observacao) {
+    public Arma(Integer idArma, String serieArma, String nCMArma, Date dataCadastroArma, String statusArma, String descricaoArma, Integer idGrupoArma, String grupoArma, String marcaArma, String modeloArma, String calibreArma, String canoArma, String numeroTirosArma, String acabamentoArma, String pesoArma, String miraArma, String alturaArma, String larguraArma, String comprimentoCanoArma, String comprimentoTotalArma, String dispositivoSegurancaArma, String outrasCaracteristicasArma, String registroArma, String licencaArma, Date dataLicencaArma, String unidadeArma, Integer idLocal, String localizacaoArma, float custoArma, String estoqueArma, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, byte[] fotoArma, byte[] qRCodeArma, String textoQRCode, Integer idQrCodeArma, Integer idAcesArma, int quantidade, Integer idCodigoBarraArma, byte[] codigoBarra, Integer idArmaACE, String descricaoAcessorio, String observacao) {
         this.idArma = idArma;
         this.serieArma = serieArma;
         this.nCMArma = nCMArma;
@@ -91,6 +92,7 @@ public class Arma {
         this.licencaArma = licencaArma;
         this.dataLicencaArma = dataLicencaArma;
         this.unidadeArma = unidadeArma;
+        this.idLocal = idLocal;
         this.localizacaoArma = localizacaoArma;
         this.custoArma = custoArma;
         this.estoqueArma = estoqueArma;
@@ -478,6 +480,20 @@ public class Arma {
     }
 
     /**
+     * @return the idLocal
+     */
+    public Integer getIdLocal() {
+        return idLocal;
+    }
+
+    /**
+     * @param idLocal the idLocal to set
+     */
+    public void setIdLocal(Integer idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    /**
      * @return the localizacaoArma
      */
     public String getLocalizacaoArma() {
@@ -756,6 +772,8 @@ public class Arma {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

@@ -242,6 +242,8 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
+        jBtPesquisarLocalArma = new javax.swing.JButton();
+        jLabel50 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jFotoArma = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -878,6 +880,19 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLabel49.setForeground(new java.awt.Color(204, 0, 0));
         jLabel49.setText("(*) - Campos Obrigatórios");
 
+        jBtPesquisarLocalArma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisarLocalArma.setToolTipText("Pesquisar local de armazenamento");
+        jBtPesquisarLocalArma.setContentAreaFilled(false);
+        jBtPesquisarLocalArma.setEnabled(false);
+        jBtPesquisarLocalArma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarLocalArmaActionPerformed(evt);
+            }
+        });
+
+        jLabel50.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel50.setText("*");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -974,27 +989,32 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addGap(99, 99, 99)
-                                .addComponent(jLabel23))
+                            .addComponent(jLabel22)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel27)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jDataLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(3, 3, 3)
+                                    .addComponent(jLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel23))
+                            .addComponent(jDataLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxUnidadeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jComboBoxUnidadeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLocalizacaoArma))))
+                                .addComponent(jLabel50)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLocalizacaoArma))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisarLocalArma, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jEstoqueArma, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1071,9 +1091,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel25))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(432, 432, 432)
-                        .addComponent(jLabel26))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel20)))
@@ -1177,26 +1194,28 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel22)
                     .addComponent(jLabel23)
                     .addComponent(jLabel24)
-                    .addComponent(jLabel26))
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLocalizacaoArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxUnidadeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRegistroArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jRegistroArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisarLocalArma))
+                .addGap(4, 4, 4)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel27)
                     .addComponent(jLabel25))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtAessorios)
                     .addComponent(jEstoqueArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCustoArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtQRCode)
                     .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(6, 6, 6))
+                .addGap(5, 5, 5))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1687,6 +1706,10 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                 jMiraArma.requestFocus();
                 jMiraArma.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de mira da arma.");
+            }else if(jLocalizacaoArma.getText().equals("")){
+                jLocalizacaoArma.requestFocus();
+                jLocalizacaoArma.setBackground(Color.red);
+                JOptionPane.showMessageDialog(rootPane, "Informe a localização da arma.");
             } else {
                 pBEANS_armas();
                 if (acao == 1) {
@@ -1859,6 +1882,10 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtCodigoBarraActionPerformed
 
+    private void jBtPesquisarLocalArmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarLocalArmaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtPesquisarLocalArmaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField jAcabamentoArma;
@@ -1875,6 +1902,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqCodigoArma;
     private javax.swing.JButton jBtPesqData;
     private javax.swing.JButton jBtPesqNomeGrupo;
+    private javax.swing.JButton jBtPesquisarLocalArma;
     private javax.swing.JButton jBtQRCode;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
@@ -1939,6 +1967,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel7;
@@ -2102,7 +2131,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLicencaArma.setEnabled(opcao);
         jDataLicencaArma.setEnabled(opcao);
         jComboBoxUnidadeArma.setEnabled(opcao);
-        jLocalizacaoArma.setEnabled(opcao);
+        //jLocalizacaoArma.setEnabled(opcao);
         jCustoArma.setEnabled(opcao);
         jEstoqueArma.setEnabled(opcao);
     }
@@ -2120,6 +2149,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jBtCodigoBarra.setEnabled(opcao);
         jBtAessorios.setEnabled(opcao);
         jBtQRCode.setEnabled(opcao);
+        jBtPesquisarLocalArma.setEnabled(opcao);
     }
 
     public void limparTabela() {

@@ -21,7 +21,7 @@
 FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP R
        INNER JOIN PRONTUARIOSCRC P
                ON P.IdInternoCrc = R.IdInternoCrc
-WHERE  TipoAtendimento LIKE 'Evolução Jurídica'
+WHERE  TipoAtendimento LIKE 'Admissão Juridico'
        AND Atendido LIKE 'Sim'
        AND CONVERT(DATE, DataReg) BETWEEN $P{dataInicial} AND $P{dataFinal}
 ORDER  BY R.UsuarioUp, R.DataReg]]>
@@ -38,11 +38,11 @@ ORDER  BY R.UsuarioUp, R.DataReg]]>
 					<reportElement x="1" y="5" width="554" height="20" uuid="efa24ffe-d353-4515-97bf-2438b05cf5d6"/>
 				</rectangle>
 				<staticText>
-					<reportElement x="6" y="5" width="127" height="20" uuid="3787fc0c-c3d6-4ecd-a49a-16ddd761bdcf"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="6" y="5" width="154" height="20" uuid="3787fc0c-c3d6-4ecd-a49a-16ddd761bdcf"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total de Evoluções de  ]]></text>
+					<text><![CDATA[Total de Atendimentos de  ]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="478" y="7" width="76" height="18" uuid="09bbc7d6-501c-46fd-a9c7-0bbda7349280"/>
@@ -52,7 +52,7 @@ ORDER  BY R.UsuarioUp, R.DataReg]]>
 					<textFieldExpression><![CDATA[$V{TotalAtendimento_COUNT}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="136" y="5" width="326" height="20" uuid="60051b49-980f-4b74-8834-bdbd8cbc7693"/>
+					<reportElement x="156" y="5" width="326" height="20" uuid="60051b49-980f-4b74-8834-bdbd8cbc7693"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -88,35 +88,35 @@ ORDER  BY R.UsuarioUp, R.DataReg]]>
 	<pageHeader>
 		<band height="30">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="30" uuid="1faf4d35-ae69-470c-a8f8-72987c33b48d"/>
+				<reportElement x="0" y="0" width="555" height="30" uuid="e4337a6e-156b-436e-8e85-0b21cd3cd649"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EVOLUÇÕES]]></text>
+				<text><![CDATA[ATENDIMENTOS]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<rectangle>
-				<reportElement x="-1" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d2fe6b91-6b31-444f-baec-27180b36bc46"/>
+				<reportElement x="0" y="1" width="555" height="20" backcolor="#CCCCFF" uuid="ab77ef1d-a3a6-4733-9eb2-fe3efc855c3d"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="163" y="0" width="238" height="20" uuid="aa164c70-b03f-44ae-9a96-46f5284dac6e"/>
+				<reportElement x="164" y="1" width="238" height="20" uuid="a7f7665a-a4ca-4569-9e09-8b8e1aaadc08"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="93" y="0" width="61" height="20" uuid="1bb41d6c-0e85-4cdf-a999-8bcc06a6d0de"/>
+				<reportElement x="94" y="1" width="61" height="20" uuid="b4e7ecb0-e05d-4072-98c3-875540a09fa9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cnc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="1" width="90" height="19" uuid="44a9b57e-6f1f-4e78-a321-5e6e7479cdff"/>
+				<reportElement x="1" y="2" width="90" height="19" uuid="a61269bb-1bf5-4c91-a297-34f8069a467c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -127,22 +127,22 @@ ORDER  BY R.UsuarioUp, R.DataReg]]>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="15" forecolor="#FFFFFF" backcolor="#CCFFFF" uuid="02db0df1-fc91-47fd-b070-f5f93c9f8322">
+				<reportElement x="0" y="0" width="555" height="15" forecolor="#FFFFFF" backcolor="#CCFFFF" uuid="75b7bead-297e-41ae-8c41-085c0a2eb4d1">
 					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==1)]]></printWhenExpression>
 				</reportElement>
 			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="90" height="15" uuid="fa607868-e05f-481f-8842-7f2798259013"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{DataReg}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="93" y="0" width="61" height="15" uuid="dc89479b-4ab9-4be2-98ba-94d16e848ec3"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="94" y="0" width="61" height="15" uuid="dc89479b-4ab9-4be2-98ba-94d16e848ec3"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="158" y="0" width="395" height="15" uuid="add96977-55fb-4ccc-abee-31b223ab1763"/>
+				<reportElement x="0" y="0" width="91" height="15" uuid="e53f8319-4af4-454b-85a2-94e2abc008b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DataReg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="393" height="15" uuid="caabb606-e53a-4400-b309-ab02d2aa2b15"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
@@ -158,7 +158,7 @@ ORDER  BY R.UsuarioUp, R.DataReg]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Evoluções do Setor : ]]></text>
+				<text><![CDATA[Total de Atendimentos do Setor : ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="478" y="2" width="76" height="20" uuid="fb25af73-1c41-46eb-89de-85c4783589d4"/>
