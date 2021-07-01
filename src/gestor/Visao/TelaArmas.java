@@ -995,17 +995,15 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxUnidadeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel24))
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel50)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxLocalizacaoArma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jComboBoxLocalizacaoArma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jEstoqueArma, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1585,6 +1583,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             limparCampos();
             habilitarCampos(true);
             PREENCHER_COMBO_grupo();
+            PREENCHER_COMBO_local();
             Novo();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -1606,6 +1605,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             bloquearBotoes(!true);
             habilitarCampos(true);
             PREENCHER_COMBO_grupo();
+            PREENCHER_COMBO_local();
             Alterar();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
@@ -2118,6 +2118,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jRegistroArma.setEnabled(opcao);
         jLicencaArma.setEnabled(opcao);
         jDataLicencaArma.setEnabled(opcao);
+        jComboBoxLocalizacaoArma.setEnabled(opcao);
         jComboBoxUnidadeArma.setEnabled(opcao);
         jCustoArma.setEnabled(opcao);
         jEstoqueArma.setEnabled(opcao);
