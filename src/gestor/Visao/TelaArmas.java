@@ -221,7 +221,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLicencaArma = new javax.swing.JTextField();
         jDataLicencaArma = new com.toedter.calendar.JDateChooser();
         jComboBoxUnidadeArma = new javax.swing.JComboBox<>();
-        jLocalizacaoArma = new javax.swing.JTextField();
         jCustoArma = new javax.swing.JFormattedTextField();
         jLabel27 = new javax.swing.JLabel();
         jEstoqueArma = new javax.swing.JFormattedTextField();
@@ -242,8 +241,8 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        jBtPesquisarLocalArma = new javax.swing.JButton();
         jLabel50 = new javax.swing.JLabel();
+        jComboBoxLocalizacaoArma = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jFotoArma = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -798,10 +797,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jComboBoxUnidadeArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxUnidadeArma.setEnabled(false);
 
-        jLocalizacaoArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jLocalizacaoArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jLocalizacaoArma.setEnabled(false);
-
         jCustoArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCustoArma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jCustoArma.setText("0");
@@ -880,18 +875,13 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLabel49.setForeground(new java.awt.Color(204, 0, 0));
         jLabel49.setText("(*) - Campos Obrigatórios");
 
-        jBtPesquisarLocalArma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesquisarLocalArma.setToolTipText("Pesquisar local de armazenamento");
-        jBtPesquisarLocalArma.setContentAreaFilled(false);
-        jBtPesquisarLocalArma.setEnabled(false);
-        jBtPesquisarLocalArma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisarLocalArmaActionPerformed(evt);
-            }
-        });
-
         jLabel50.setForeground(new java.awt.Color(204, 0, 0));
         jLabel50.setText("*");
+
+        jComboBoxLocalizacaoArma.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxLocalizacaoArma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxLocalizacaoArma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxLocalizacaoArma.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1005,16 +995,17 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxUnidadeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel24))
-                        .addGap(2, 2, 2)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel50)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLocalizacaoArma))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisarLocalArma, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxLocalizacaoArma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jEstoqueArma, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1024,8 +1015,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                         .addComponent(jBtAessorios, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(jBtQRCode, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)))
-                .addContainerGap())
+                        .addGap(34, 34, 34))))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1198,13 +1188,12 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLocalizacaoArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxLocalizacaoArma, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxUnidadeArma, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLicencaArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRegistroArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisarLocalArma))
-                .addGap(4, 4, 4)
+                    .addComponent(jRegistroArma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel27)
                     .addComponent(jLabel25))
@@ -1542,7 +1531,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     jLicencaArma.setText(aa.getLicencaArma());
                     jDataLicencaArma.setDate(aa.getDataLicencaArma());
                     jComboBoxUnidadeArma.setSelectedItem(aa.getUnidadeArma());
-                    jLocalizacaoArma.setText(aa.getLocalizacaoArma());
+                    jComboBoxLocalizacaoArma.setSelectedItem(aa.getLocalizacaoArma());
                     jCustoArma.setText(Float.valueOf(aa.getCustoArma()).toString());
                     jEstoqueArma.setText(aa.getEstoqueArma());
                     // BUSCAR A FOTO NO BANCO DE DADOS
@@ -1706,9 +1695,13 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                 jMiraArma.requestFocus();
                 jMiraArma.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de mira da arma.");
-            }else if(jLocalizacaoArma.getText().equals("")){
-                jLocalizacaoArma.requestFocus();
-                jLocalizacaoArma.setBackground(Color.red);
+            } else if (jComboBoxLocalizacaoArma.getSelectedItem() == null) {
+                jComboBoxLocalizacaoArma.requestFocus();
+                jComboBoxLocalizacaoArma.setBackground(Color.red);
+                JOptionPane.showMessageDialog(rootPane, "Informe a localização da arma.");
+            } else if (jComboBoxLocalizacaoArma.getSelectedItem().equals("")) {
+                jComboBoxLocalizacaoArma.requestFocus();
+                jComboBoxLocalizacaoArma.setBackground(Color.red);
                 JOptionPane.showMessageDialog(rootPane, "Informe a localização da arma.");
             } else {
                 pBEANS_armas();
@@ -1882,10 +1875,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtCodigoBarraActionPerformed
 
-    private void jBtPesquisarLocalArmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarLocalArmaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtPesquisarLocalArmaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField jAcabamentoArma;
@@ -1902,7 +1891,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqCodigoArma;
     private javax.swing.JButton jBtPesqData;
     private javax.swing.JButton jBtPesqNomeGrupo;
-    private javax.swing.JButton jBtPesquisarLocalArma;
     private javax.swing.JButton jBtQRCode;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
@@ -1912,6 +1900,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     public static javax.swing.JLabel jCodigoBarraArma;
     private javax.swing.JTextField jCodigoPesquisaArma;
     public static javax.swing.JComboBox<String> jComboBoxGrupoArma;
+    public static javax.swing.JComboBox<String> jComboBoxLocalizacaoArma;
     private javax.swing.JComboBox<String> jComboBoxStatusArma;
     private javax.swing.JComboBox<String> jComboBoxUnidadeArma;
     private javax.swing.JTextField jComprimentoCanoArma;
@@ -1975,7 +1964,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jLarguraArma;
     private javax.swing.JTextField jLicencaArma;
-    private javax.swing.JTextField jLocalizacaoArma;
     public static javax.swing.JTextField jMarcaArma;
     public static javax.swing.JTextField jMiraArma;
     public static javax.swing.JTextField jModeloArma;
@@ -2040,7 +2028,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLicencaArma.setBackground(Color.white);
         jDataLicencaArma.setBackground(Color.white);
         jComboBoxUnidadeArma.setBackground(Color.white);
-        jLocalizacaoArma.setBackground(Color.white);
+        jComboBoxLocalizacaoArma.setBackground(Color.white);
         jCustoArma.setBackground(Color.white);
         jEstoqueArma.setBackground(Color.white);
     }
@@ -2071,7 +2059,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLicencaArma.setEnabled(opcao);
         jDataLicencaArma.setEnabled(opcao);
         jComboBoxUnidadeArma.setEnabled(opcao);
-        jLocalizacaoArma.setEnabled(opcao);
+        jComboBoxLocalizacaoArma.setEnabled(opcao);
         jCustoArma.setEnabled(opcao);
         jEstoqueArma.setEnabled(opcao);
     }
@@ -2102,7 +2090,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLicencaArma.setText("");
         jDataLicencaArma.setDate(null);
         jComboBoxUnidadeArma.setSelectedItem("Pc");
-        jLocalizacaoArma.setText("");
+        jComboBoxLocalizacaoArma.setSelectedItem("Selecione...");
         jCustoArma.setText("0");
         jEstoqueArma.setText("0");
     }
@@ -2131,7 +2119,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jLicencaArma.setEnabled(opcao);
         jDataLicencaArma.setEnabled(opcao);
         jComboBoxUnidadeArma.setEnabled(opcao);
-        //jLocalizacaoArma.setEnabled(opcao);
         jCustoArma.setEnabled(opcao);
         jEstoqueArma.setEnabled(opcao);
     }
@@ -2149,7 +2136,6 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jBtCodigoBarra.setEnabled(opcao);
         jBtAessorios.setEnabled(opcao);
         jBtQRCode.setEnabled(opcao);
-        jBtPesquisarLocalArma.setEnabled(opcao);
     }
 
     public void limparTabela() {
@@ -2215,6 +2201,10 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         CONTROL.PESQUISAR_grupo(objArma);
     }
 
+    public void PREENCHER_COMBO_local() {
+        CONTROL.PESQUISAR_local(objArma);
+    }
+
     public void pBEANS_armas() {
         DecimalFormat valorReal = new DecimalFormat("###,##00.0");
         valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
@@ -2242,7 +2232,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         objArma.setLicencaArma(jLicencaArma.getText());
         objArma.setDataLicencaArma(jDataLicencaArma.getDate());
         objArma.setUnidadeArma((String) jComboBoxUnidadeArma.getSelectedItem());
-        objArma.setLocalizacaoArma(jLocalizacaoArma.getText());
+        objArma.setLocalizacaoArma((String) jComboBoxLocalizacaoArma.getSelectedItem());
         objArma.setFotoArma(persona_imagem);
         try {
             objArma.setCustoArma(valorReal.parse(jCustoArma.getText()).floatValue());

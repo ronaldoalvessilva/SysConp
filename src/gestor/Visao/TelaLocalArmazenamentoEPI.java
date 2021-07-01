@@ -828,24 +828,12 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         CONTROLE.BUSCAR_codigo(objLocalMaster);
     }
 
-//    public void verificarLocalArmazenamento() {
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL("SELECT "
-//                    + "* "
-//                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
-//                    + "WHERE IdLocal='" + jIDLocal.getText() + "'");
-//            conecta.rs.first();
-//            nivelLocal = conecta.rs.getString("NivelLocal");
-//        } catch (SQLException ex) {
-//            Logger.getLogger(TelaLocalArmazenamentoEPI.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     public void PREENCHER_TABELA_todos() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Local Armazenamento", "Status"};
         try {
             for (LocalArmazenamento dd : CONTROLE.TODOS_read()) {
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros)); // Converter inteiro em string para exibir na tela 
                 dados.add(new Object[]{dd.getIdLocal(), dd.getDescricaLocal(), dd.getStatusLocal()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaLocalArmazenamento.setModel(modelo);
@@ -870,6 +858,7 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Local Armazenamento", "Status"};
         try {
             for (LocalArmazenamento dd : CONTROLE.TODOS_nome()) {
+                jtotalRegistros.setText(Integer.toString(pTOTAL_registros)); // Converter inteiro em string para exibir na tela 
                 dados.add(new Object[]{dd.getIdLocal(), dd.getDescricaLocal(), dd.getStatusLocal()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaLocalArmazenamento.setModel(modelo);

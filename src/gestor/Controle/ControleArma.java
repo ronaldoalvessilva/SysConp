@@ -25,6 +25,7 @@ import static gestor.Visao.TelaAcessoriosArma.pCODIGO_ACESSORIOS_arma;
 import static gestor.Visao.TelaCodigoBarraArma.pCODIGO_BARRA_arma;
 import static gestor.Visao.TelaAcessoriosArma.pID_acessorio;
 import static gestor.Visao.TelaAcessoriosArma.pRESPOSTA_acessorio;
+import static gestor.Visao.TelaArmas.jComboBoxLocalizacaoArma;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -492,6 +493,27 @@ public class ControleArma {
                 jComboBoxGrupoArma.addItem(conecta.rs.getString("DescricaoGrupoArma"));
             } while (conecta.rs.next());
             jComboBoxGrupoArma.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        return objArma;
+    }
+
+    public Arma PESQUISAR_local(Arma objArma) {
+        jComboBoxLocalizacaoArma.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdLocal,"
+                    + "DescricaoLocal, "
+                    + "DescricaoResumida "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "ORDER BY DescricaoLocal");
+            conecta.rs.first();
+            do {
+                jComboBoxLocalizacaoArma.addItem(conecta.rs.getString("DescricaoResumida"));
+            } while (conecta.rs.next());
+            jComboBoxLocalizacaoArma.updateUI();
         } catch (SQLException ex) {
         }
         conecta.desconecta();
