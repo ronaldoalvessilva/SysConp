@@ -68,7 +68,7 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Listagem de Locais de Armazenamento {AC} :::...");
+        setTitle("...::: Listagem de Locais de Armazenamento {SEG} :::...");
 
         jTabbedPane1.setForeground(new java.awt.Color(0, 0, 255));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -127,7 +127,7 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         jTabelaLocaisArmazenamento.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLocaisArmazenamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Descrição do Local"
@@ -175,15 +175,16 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)
+                        .addGap(0, 258, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -210,7 +211,7 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 10, 427, 281);
+        setBounds(300, 10, 479, 281);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDescricaoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoProdActionPerformed
@@ -219,7 +220,10 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         if (jPesqDescricaoLocal.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {
-            preencherTabelaProdutos("SELECT * FROM LOCAL_ARMAZENAMENTO_AC WHERE DescricaoLocal LIKE'%" + jPesqDescricaoLocal.getText() + "%'AND Modulo='" + modulo + "'");
+            preencherTabelaProdutos("SELECT "
+                    + "* "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "WHERE DescricaoPrincipal LIKE'%" + jPesqDescricaoLocal.getText() + "%'AND Modulo='" + modulo + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoProdActionPerformed
 
@@ -231,7 +235,10 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM LOCAL_ARMAZENAMENTO_AC WHERE DescricaoLocal='" + jPesqDescricaoLocal.getText() + "'");
+                conecta.executaSQL("SELECT "
+                        + "* "
+                        + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                        + "WHERE DescricaoPrincipal='" + jPesqDescricaoLocal.getText() + "'");
                 conecta.rs.first();
                 jIdLocal.setText(String.valueOf(conecta.rs.getInt("IdLocal")));
                 jLocalArmazenamento.setText(conecta.rs.getString("DescricaoLocal"));
@@ -261,7 +268,10 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaProdutos("SELECT * FROM LOCAL_ARMAZENAMENTO_AC WHERE Modulo='" + modulo + "'");
+            this.preencherTabelaProdutos("SELECT "
+                    + "* "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "WHERE Modulo='" + modulo + "'");
         } else {
             limparTabela();
         }

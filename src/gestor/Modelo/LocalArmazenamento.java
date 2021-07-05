@@ -14,6 +14,7 @@ public class LocalArmazenamento {
     private int idLocal;
     private String statusLocal;
     private int nivelLocal;
+    private String descricaoPrincipal;
     private String descricaLocal;   
     private String descricaoResumida;
     private String modulo;
@@ -27,10 +28,11 @@ public class LocalArmazenamento {
     public LocalArmazenamento() {
     }
 
-    public LocalArmazenamento(int idLocal, String statusLocal, int nivelLocal, String descricaLocal, String descricaoResumida, String modulo, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public LocalArmazenamento(int idLocal, String statusLocal, int nivelLocal, String descricaoPrincipal, String descricaLocal, String descricaoResumida, String modulo, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idLocal = idLocal;
         this.statusLocal = statusLocal;
         this.nivelLocal = nivelLocal;
+        this.descricaoPrincipal = descricaoPrincipal;
         this.descricaLocal = descricaLocal;
         this.descricaoResumida = descricaoResumida;
         this.modulo = modulo;
@@ -82,6 +84,20 @@ public class LocalArmazenamento {
      */
     public void setNivelLocal(int nivelLocal) {
         this.nivelLocal = nivelLocal;
+    }
+
+    /**
+     * @return the descricaoPrincipal
+     */
+    public String getDescricaoPrincipal() {
+        return descricaoPrincipal;
+    }
+
+    /**
+     * @param descricaoPrincipal the descricaoPrincipal to set
+     */
+    public void setDescricaoPrincipal(String descricaoPrincipal) {
+        this.descricaoPrincipal = descricaoPrincipal;
     }
 
     /**

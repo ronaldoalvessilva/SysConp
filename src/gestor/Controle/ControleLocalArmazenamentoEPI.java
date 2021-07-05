@@ -32,13 +32,14 @@ public class ControleLocalArmazenamentoEPI {
     public LocalArmazenamento incluirLocalMaster(LocalArmazenamento objLocalMaster) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO LOCAL_ARMAZENAMENTO_ARMAS_EPI (StatusLocal,DescricaoLocal,DescricaoResumida,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO LOCAL_ARMAZENAMENTO_ARMAS_EPI (StatusLocal,DescricaoPrincipal,DescricaoLocal,DescricaoResumida,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
             pst.setString(1, objLocalMaster.getStatusLocal());
-            pst.setString(2, objLocalMaster.getDescricaLocal());
-            pst.setString(3, objLocalMaster.getDescricaoResumida());
-            pst.setString(4, objLocalMaster.getUsuarioInsert());
-            pst.setString(5, objLocalMaster.getDataInsert());
-            pst.setString(6, objLocalMaster.getHorarioInsert());
+            pst.setString(2, objLocalMaster.getDescricaoPrincipal());
+            pst.setString(3, objLocalMaster.getDescricaLocal());
+            pst.setString(4, objLocalMaster.getDescricaoResumida());
+            pst.setString(5, objLocalMaster.getUsuarioInsert());
+            pst.setString(6, objLocalMaster.getDataInsert());
+            pst.setString(7, objLocalMaster.getHorarioInsert());
             pst.execute();
             pRESPOSTA_local = "Sim";
         } catch (SQLException ex) {
@@ -52,13 +53,14 @@ public class ControleLocalArmazenamentoEPI {
     public LocalArmazenamento alterarLocalMaster(LocalArmazenamento objLocalMaster) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE LOCAL_ARMAZENAMENTO_ARMAS_EPI SET StatusLocal=?,DescricaoLocal=?,DescricaoResumida=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLocal='" + objLocalMaster.getIdLocal() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE LOCAL_ARMAZENAMENTO_ARMAS_EPI SET StatusLocal=?,DescricaoPrincipal=?,DescricaoLocal=?,DescricaoResumida=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLocal='" + objLocalMaster.getIdLocal() + "'");
             pst.setString(1, objLocalMaster.getStatusLocal());
-            pst.setString(2, objLocalMaster.getDescricaLocal());
-            pst.setString(3, objLocalMaster.getDescricaoResumida());;
-            pst.setString(4, objLocalMaster.getUsuarioUp());
-            pst.setString(5, objLocalMaster.getDataUp());
-            pst.setString(6, objLocalMaster.getHorarioUp());
+            pst.setString(2, objLocalMaster.getDescricaoPrincipal());
+            pst.setString(3, objLocalMaster.getDescricaLocal());
+            pst.setString(4, objLocalMaster.getDescricaoResumida());
+            pst.setString(5, objLocalMaster.getUsuarioUp());
+            pst.setString(6, objLocalMaster.getDataUp());
+            pst.setString(7, objLocalMaster.getHorarioUp());
             pst.executeUpdate();
             pRESPOSTA_local = "Sim";
         } catch (SQLException ex) {
@@ -149,6 +151,7 @@ public class ControleLocalArmazenamentoEPI {
             conecta.executaSQL("SELECT "
                     + "IdLocal, "
                     + "StatusLocal, "
+                    + "DescricaoPrincipal, "
                     + "DescricaoLocal, "
                     + "DescricaoResumida "
                     + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
@@ -156,6 +159,7 @@ public class ControleLocalArmazenamentoEPI {
             conecta.rs.first();
             objLocalMaster.setIdLocal(conecta.rs.getInt("IdLocal"));
             objLocalMaster.setStatusLocal(conecta.rs.getString("StatusLocal"));
+            objLocalMaster.setDescricaoPrincipal(conecta.rs.getString("DescricaoPrincipal"));
             objLocalMaster.setDescricaLocal(conecta.rs.getString("DescricaoLocal"));
             objLocalMaster.setDescricaoResumida(conecta.rs.getString("DescricaoResumida"));
         } catch (Exception ex) {

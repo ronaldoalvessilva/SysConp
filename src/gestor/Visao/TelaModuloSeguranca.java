@@ -377,7 +377,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMovimentacaoArmas = new javax.swing.JMenu();
         jInventario = new javax.swing.JMenuItem();
         jSeparator30 = new javax.swing.JPopupMenu.Separator();
-        jEntradasArmas = new javax.swing.JMenuItem();
+        jEntradasArmasEPI = new javax.swing.JMenuItem();
         jSaidasArmas = new javax.swing.JMenuItem();
         jSeparator31 = new javax.swing.JPopupMenu.Separator();
         jDevolucaoArmas = new javax.swing.JMenuItem();
@@ -751,15 +751,15 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMovimentacaoArmas.add(jInventario);
         jMovimentacaoArmas.add(jSeparator30);
 
-        jEntradasArmas.setText("Entradas");
-        jEntradasArmas.addActionListener(new java.awt.event.ActionListener() {
+        jEntradasArmasEPI.setText("Entradas de Armas e EPI´s");
+        jEntradasArmasEPI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEntradasArmasActionPerformed(evt);
+                jEntradasArmasEPIActionPerformed(evt);
             }
         });
-        jMovimentacaoArmas.add(jEntradasArmas);
+        jMovimentacaoArmas.add(jEntradasArmasEPI);
 
-        jSaidasArmas.setText("Saídas");
+        jSaidasArmas.setText("Saídas de Armas e EPI´s");
         jSaidasArmas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSaidasArmasActionPerformed(evt);
@@ -768,7 +768,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jMovimentacaoArmas.add(jSaidasArmas);
         jMovimentacaoArmas.add(jSeparator31);
 
-        jDevolucaoArmas.setText("Devolução");
+        jDevolucaoArmas.setText("Devolução de Armas e EPI´s");
         jDevolucaoArmas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDevolucaoArmasActionPerformed(evt);
@@ -2870,9 +2870,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jInventarioActionPerformed
 
-    private void jEntradasArmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEntradasArmasActionPerformed
+    private void jEntradasArmasEPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEntradasArmasEPIActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jEntradasArmasActionPerformed
+    }//GEN-LAST:event_jEntradasArmasEPIActionPerformed
 
     private void jSaidasArmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaidasArmasActionPerformed
         // TODO add your handling code here:
@@ -2989,7 +2989,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jConsultaInternosIsolamento;
     private javax.swing.JMenu jControleArmasEPI;
     private javax.swing.JMenuItem jDevolucaoArmas;
-    private javax.swing.JMenuItem jEntradasArmas;
+    private javax.swing.JMenuItem jEntradasArmasEPI;
     private javax.swing.JMenuItem jEquipamentosSegurancaEPI;
     private javax.swing.JMenuItem jGruposArmas;
     private javax.swing.JMenuItem jGruposEPIS;

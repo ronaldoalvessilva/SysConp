@@ -326,17 +326,17 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator30">
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jEntradasArmas">
+                <MenuItem class="javax.swing.JMenuItem" name="jEntradasArmasEPI">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Entradas"/>
+                    <Property name="text" type="java.lang.String" value="Entradas de Armas e EPI&#xb4;s"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEntradasArmasActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEntradasArmasEPIActionPerformed"/>
                   </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jSaidasArmas">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Sa&#xed;das"/>
+                    <Property name="text" type="java.lang.String" value="Sa&#xed;das de Armas e EPI&#xb4;s"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaidasArmasActionPerformed"/>
@@ -346,7 +346,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jDevolucaoArmas">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Devolu&#xe7;&#xe3;o"/>
+                    <Property name="text" type="java.lang.String" value="Devolu&#xe7;&#xe3;o de Armas e EPI&#xb4;s"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDevolucaoArmasActionPerformed"/>
