@@ -1486,8 +1486,10 @@ public class TelaArmas extends javax.swing.JInternalFrame {
 
     private void jTabelaArmasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaArmasMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             pID_grupo = "" + jTabelaArmas.getValueAt(jTabelaArmas.getSelectedRow(), 0);
+            jCodigoPesquisaArma.setText(pID_grupo);
             String nomeArma = "" + jTabelaArmas.getValueAt(jTabelaArmas.getSelectedRow(), 3);
             jPesqDescricaoArma.setText(nomeArma);
             //
@@ -1502,6 +1504,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
             jBtAessorios.setEnabled(true);
             jBtQRCode.setEnabled(true);
             jComboBoxGrupoArma.removeAllItems();
+            jComboBoxLocalizacaoArma.removeAllItems();
             try {
                 for (Arma aa : CONTROL.pCODIGO_GRUPO_read()) {
                     jIdArma.setText(String.valueOf(aa.getIdArma()));
@@ -1529,7 +1532,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
                     jLicencaArma.setText(aa.getLicencaArma());
                     jDataLicencaArma.setDate(aa.getDataLicencaArma());
                     jComboBoxUnidadeArma.setSelectedItem(aa.getUnidadeArma());
-                    jComboBoxLocalizacaoArma.setSelectedItem(aa.getLocalizacaoArma());
+                    jComboBoxLocalizacaoArma.addItem(aa.getLocalizacaoArma());
                     jCustoArma.setText(Float.valueOf(aa.getCustoArma()).toString());
                     jEstoqueArma.setText(aa.getEstoqueArma());
                     // BUSCAR A FOTO NO BANCO DE DADOS
@@ -1898,7 +1901,7 @@ public class TelaArmas extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCanoArma;
     private javax.swing.JCheckBox jCheckBoxPesqTodos;
     public static javax.swing.JLabel jCodigoBarraArma;
-    private javax.swing.JTextField jCodigoPesquisaArma;
+    public static javax.swing.JTextField jCodigoPesquisaArma;
     public static javax.swing.JComboBox<String> jComboBoxGrupoArma;
     public static javax.swing.JComboBox<String> jComboBoxLocalizacaoArma;
     private javax.swing.JComboBox<String> jComboBoxStatusArma;

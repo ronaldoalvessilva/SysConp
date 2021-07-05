@@ -25,6 +25,7 @@ import static gestor.Visao.TelaAcessoriosArma.pCODIGO_ACESSORIOS_arma;
 import static gestor.Visao.TelaCodigoBarraArma.pCODIGO_BARRA_arma;
 import static gestor.Visao.TelaAcessoriosArma.pID_acessorio;
 import static gestor.Visao.TelaAcessoriosArma.pRESPOSTA_acessorio;
+import static gestor.Visao.TelaArmas.jCodigoPesquisaArma;
 import static gestor.Visao.TelaArmas.jComboBoxLocalizacaoArma;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -191,24 +192,51 @@ public class ControleArma {
         conecta.abrirConexao();
         List<Arma> LISTAR_TODAS_Armas = new ArrayList<Arma>();
         try {
-            conecta.executaSQL("SELECT IdArma,SerieArma, "
-                    + "NCMArma,DataCadastro,StatusArma,DescricaoArma, "
-                    + "ARMAS.IdGrupoArm,DescricaoGrupoArma,MarcaArma,ModeloArma, "
-                    + "CalibreArma,CanoArma,NumeroTirosArma,AcabamentoArma, "
-                    + "PesoArma,MiraArma,AlturaArma,LarguraArma,ComprimentoCanoArma, "
-                    + "ComprimentoTotalArma,DispositivoSegurancaArma,OutrasCaracteristicasArma, "
-                    + "RegistroArma,LicencaArma,DataLicencaArma,UnidadeArma, "
-                    + "LocalizacaoArma,CustoArma,EstoqueArma,FotoArma,QRCode "
-                    + "FROM ARMAS "
-                    + "INNER JOIN GRUPO_ARMAS "
-                    + "ON ARMAS.IdGrupoArm=GRUPO_ARMAS.IdGrupoArm "
-                    + "ORDER BY DescricaoArma");
+            conecta.executaSQL("SELECT "
+                    + "a.IdArma, "
+                    + "a.SerieArma, "
+                    + "a.NCMArma, "
+                    + "a.DataCadastroArma, "
+                    + "a.StatusArma, "
+                    + "a.DescricaoArma, "
+                    + "a.IdGrupoArm, "
+                    + "g.DescricaoGrupoArma, "
+                    + "a.MarcaArma, "
+                    + "a.ModeloArma, "
+                    + "a.CalibreArma, "
+                    + "a.CanoArma, "
+                    + "a.NumeroTirosArma, "
+                    + "a.AcabamentoArma, "
+                    + "a.PesoArma, "
+                    + "a.MiraArma, "
+                    + "a.AlturaArma, "
+                    + "a.LarguraArma, "
+                    + "a.ComprimentoCanoArma, "
+                    + "a.ComprimentoTotalArma, "
+                    + "a.DispositivoSegurancaArma, "
+                    + "a.OutrasCaracteristicasArma, "
+                    + "a.RegistroArma, "
+                    + "a.LicencaArma, "
+                    + "l.IdLocal, "
+                    + "a.DataLicencaArma, "
+                    + "a.UnidadeArma, "
+                    + "l.DescricaoResumida, "
+                    + "a.CustoArma, "
+                    + "a.EstoqueArma, "
+                    + "a.FotoArma, "
+                    + "a.QRCode "
+                    + "FROM ARMAS AS a "
+                    + "INNER JOIN GRUPO_ARMAS AS g "
+                    + "ON a.IdGrupoArm=g.IdGrupoArm "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON a.IdLocal=l.IdLocal "
+                    + "ORDER BY a.DescricaoArma");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
                 pArmas.setIdArma(conecta.rs.getInt("IdArma"));
                 pArmas.setSerieArma(conecta.rs.getString("SerieArma"));
                 pArmas.setnCMArma(conecta.rs.getString("NCMArma"));
-                pArmas.setDataCadastroArma(conecta.rs.getDate("DataCadastro"));
+                pArmas.setDataCadastroArma(conecta.rs.getDate("DataCadastroArma"));
                 pArmas.setStatusArma(conecta.rs.getString("StatusArma"));
                 pArmas.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
                 pArmas.setIdGrupoArma(conecta.rs.getInt("IdGrupoArm"));
@@ -231,7 +259,7 @@ public class ControleArma {
                 pArmas.setLicencaArma(conecta.rs.getString("LicencaArma"));
                 pArmas.setDataLicencaArma(conecta.rs.getDate("DataLicencaArma"));
                 pArmas.setUnidadeArma(conecta.rs.getString("UnidadeArma"));
-                pArmas.setLocalizacaoArma(conecta.rs.getString("LocalizacaoArma"));
+                pArmas.setLocalizacaoArma(conecta.rs.getString("DescricaoResumida"));
                 pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
                 pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
@@ -319,7 +347,7 @@ public class ControleArma {
                     + "a.IdArma, "
                     + "a.SerieArma, "
                     + "a.NCMArma, "
-                    + "a.DataCadastro, "
+                    + "a.DataCadastroArma, "
                     + "a.StatusArma, "
                     + "a.DescricaoArma, "
                     + "a.IdGrupoArm, "
@@ -342,26 +370,25 @@ public class ControleArma {
                     + "a.LicencaArma, "
                     + "a.DataLicencaArma, "
                     + "a.UnidadeArma, "
-                    + "l.DescricaoLocal, "
+                    + "l.DescricaoResumida, "
                     + "a.CustoArma, "
                     + "a.EstoqueArma, "
                     + "a.FotoArma, "
-                    + "a.QRCode, "
-                    + "a.CodigoBarra "
+                    + "a.QRCode "
                     + "FROM ARMAS AS a "
                     + "INNER JOIN GRUPO_ARMAS AS g "
                     + "ON a.IdGrupoArm=g.IdGrupoArm "
-                    + "INNER JOIN CODIGO_BARRA_ARMA AS c "
-                    + "ON a.IdArma=c.IdArma "
+//                    + "INNER JOIN CODIGO_BARRA_ARMA AS c "
+//                    + "ON a.IdArma=c.IdArma "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
                     + "ON a.IdLocal=l.IdLocal "
-                    + "WHERE a.IdArma='" + pID_grupo.toString().trim() + "' ");
+                    + "WHERE a.IdArma='" + jCodigoPesquisaArma.getText() + "'");
             while (conecta.rs.next()) {
                 Arma pArmas = new Arma();
                 pArmas.setIdArma(conecta.rs.getInt("IdArma"));
                 pArmas.setSerieArma(conecta.rs.getString("SerieArma"));
                 pArmas.setnCMArma(conecta.rs.getString("NCMArma"));
-                pArmas.setDataCadastroArma(conecta.rs.getDate("DataCadastro"));
+                pArmas.setDataCadastroArma(conecta.rs.getDate("DataCadastroArma"));
                 pArmas.setStatusArma(conecta.rs.getString("StatusArma"));
                 pArmas.setDescricaoArma(conecta.rs.getString("DescricaoArma"));
                 pArmas.setIdGrupoArma(conecta.rs.getInt("IdGrupoArm"));
@@ -384,12 +411,11 @@ public class ControleArma {
                 pArmas.setLicencaArma(conecta.rs.getString("LicencaArma"));
                 pArmas.setDataLicencaArma(conecta.rs.getDate("DataLicencaArma"));
                 pArmas.setUnidadeArma(conecta.rs.getString("UnidadeArma"));
-                pArmas.setLocalizacaoArma(conecta.rs.getString("DescricaoLocal"));
+                pArmas.setLocalizacaoArma(conecta.rs.getString("DescricaoResumida"));
                 pArmas.setCustoArma(conecta.rs.getFloat("CustoArma"));
                 pArmas.setEstoqueArma(conecta.rs.getString("EstoqueArma"));
                 pArmas.setFotoArma(conecta.rs.getBytes("FotoArma"));
                 pArmas.setqRCodeArma(conecta.rs.getBytes("QRCode"));
-                pArmas.setCodigoBarra(conecta.rs.getBytes("CodigoBarra"));
                 LISTAR_ARAMAS_codigo.add(pArmas);
                 pTOTAL_grupo++;
             }
@@ -639,9 +665,10 @@ public class ControleArma {
         try {
             conecta.executaSQL("SELECT "
                     + "IdLocal, "
-                    + "DescricaoLocal "
-                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI"
-                    + "WHERE DescricaoLocal='" + local + "'");
+                    + "DescricaoLocal, "
+                    + "DescricaoResumida "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "WHERE DescricaoResumida='" + local + "'");
             conecta.rs.first();
             pCODIGO_local = conecta.rs.getInt("IdLocal");
         } catch (SQLException ex) {

@@ -95,7 +95,7 @@ public class ControleAcessoriosArmaEPI {
         try {
             conecta.executaSQL("SELECT IdArmaACE,StatusACE, "
                     + "DataCadastro,DescricaoArmaACE, "
-                    + "Obsercacao "
+                    + "Observacao "
                     + "FROM ACESSORIOS_ARMA_EPIs "
                     + "ORDER BY DescricaoArmaACE");
             while (conecta.rs.next()) {
@@ -124,7 +124,7 @@ public class ControleAcessoriosArmaEPI {
         try {
             conecta.executaSQL("SELECT IdArmaACE,StatusACE, "
                     + "DataCadastro,DescricaoArmaACE, "
-                    + "Obsercacao "
+                    + "Observacao "
                     + "FROM ACESSORIOS_ARMA_EPIs "
                     + "WHERE DescricaoArmaACE LIKE'%" + jPesqNomeGrupoArma.getText() + "%' ");
             while (conecta.rs.next()) {
@@ -153,7 +153,7 @@ public class ControleAcessoriosArmaEPI {
         try {
             conecta.executaSQL("SELECT IdArmaACE,StatusACE, "
                     + "DataCadastro,DescricaoArmaACE, "
-                    + "Obsercacao "
+                    + "Observacao "
                     + "FROM ACESSORIOS_ARMA_EPIs "
                     + "WHERE IdArmaACE='" + pID_grupo.toString().trim() + "' ");
             while (conecta.rs.next()) {
