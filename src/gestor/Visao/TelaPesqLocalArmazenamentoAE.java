@@ -5,12 +5,14 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
-import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLocal;
-import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jLocalArmazenamento;
-import java.sql.SQLException;
+import gestor.Controle.ControlePesquisaLocalAramaEPI;
+import gestor.Modelo.InventarioArmaEPI;
+//import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLocal;
+//import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jLocalArmazenamento;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -22,9 +24,12 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
 
-    ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ControlePesquisaLocalAramaEPI PESQUISA_local = new ControlePesquisaLocalAramaEPI();
+    InventarioArmaEPI objInventEstoque = new InventarioArmaEPI();
+    //
     int flag;
-    String modulo = "A";
+    public static String idLocal = "";
+    public static String nomeProduto = "";
 
     /**
      * Creates new form TelaPesqProdutoFarmacia
@@ -130,7 +135,7 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Descrição do Local"
+                "Código", "Status", "Descrição do Local"
             }
         ));
         jTabelaLocaisArmazenamento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,21 +147,21 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         if (jTabelaLocaisArmazenamento.getColumnModel().getColumnCount() > 0) {
             jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setMinWidth(80);
             jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setMaxWidth(80);
-            jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setMinWidth(360);
-            jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setMaxWidth(360);
+            jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setMinWidth(360);
+            jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setMaxWidth(360);
         }
 
-        jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
+        jBtEnviar.setForeground(new java.awt.Color(0, 102, 0));
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtEnviar.setText("Enviar");
+        jBtEnviar.setText("Confirmar");
         jBtEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEnviarActionPerformed(evt);
             }
         });
 
-        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSair.setForeground(new java.awt.Color(255, 0, 0));
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
@@ -178,7 +183,7 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 258, Short.MAX_VALUE))
+                        .addGap(0, 234, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -191,11 +196,11 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel2);
@@ -208,10 +213,10 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 10, 479, 281);
+        setBounds(300, 10, 479, 275);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDescricaoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoProdActionPerformed
@@ -220,10 +225,7 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         if (jPesqDescricaoLocal.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {
-            preencherTabelaProdutos("SELECT "
-                    + "* "
-                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
-                    + "WHERE DescricaoPrincipal LIKE'%" + jPesqDescricaoLocal.getText() + "%'AND Modulo='" + modulo + "'");
+            PREENCHER_TABELA_PRODUTOS_nome();
         }
     }//GEN-LAST:event_jBtPesqDescricaoProdActionPerformed
 
@@ -231,21 +233,11 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (jPesqDescricaoLocal.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
+            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do local de armazenamento e clique no botão ENVIAR");
         } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT "
-                        + "* "
-                        + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
-                        + "WHERE DescricaoPrincipal='" + jPesqDescricaoLocal.getText() + "'");
-                conecta.rs.first();
-                jIdLocal.setText(String.valueOf(conecta.rs.getInt("IdLocal")));
-                jLocalArmazenamento.setText(conecta.rs.getString("DescricaoLocal"));
-                conecta.desconecta();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);
-            }
+            PESQUISA_local.MOSTRAR_dados(objInventEstoque);
+//            jIdLocal.setText(String.valueOf(objInventEstoque.getIdLocal()));
+//            jLocalArmazenamento.setText(objInventEstoque.getNomeLocalArmazenamento());
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -259,7 +251,8 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String nomeProduto = "" + jTabelaLocaisArmazenamento.getValueAt(jTabelaLocaisArmazenamento.getSelectedRow(), 1);
+            idLocal = "" + jTabelaLocaisArmazenamento.getValueAt(jTabelaLocaisArmazenamento.getSelectedRow(), 0);
+            nomeProduto = "" + jTabelaLocaisArmazenamento.getValueAt(jTabelaLocaisArmazenamento.getSelectedRow(), 2);
             jPesqDescricaoLocal.setText(nomeProduto);
         }
     }//GEN-LAST:event_jTabelaLocaisArmazenamentoMouseClicked
@@ -268,10 +261,7 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaProdutos("SELECT "
-                    + "* "
-                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
-                    + "WHERE Modulo='" + modulo + "'");
+            this.PREENCHER_TABELA_PRODUTOS_todos();
         } else {
             limparTabela();
         }
@@ -287,47 +277,73 @@ public class TelaPesqLocalArmazenamentoAE extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jPesqDescricaoLocal;
+    public static javax.swing.JTextField jPesqDescricaoLocal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaLocaisArmazenamento;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherTabelaProdutos(String sql) {
+    public void PREENCHER_TABELA_PRODUTOS_todos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição do Local"};
-        conecta.abrirConexao();
-        conecta.executaSQL(sql);
+        String[] Colunas = new String[]{"Código", "Status", "Descrição do Local"};
         try {
-            conecta.rs.first();
-            do {
-                dados.add(new Object[]{conecta.rs.getInt("IdLocal"), conecta.rs.getString("DescricaoLocal")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
+            for (InventarioArmaEPI pp : PESQUISA_local.LOCAL_ARMAZENAMENTO_todos()) {
+                dados.add(new Object[]{pp.getIdLocal(), pp.getNomeLocalArmazenamento()});
+                ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+                jTabelaLocaisArmazenamento.setModel(modelo);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setPreferredWidth(80);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setResizable(false);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setPreferredWidth(80);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setResizable(false);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setPreferredWidth(360);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setResizable(false);
+                jTabelaLocaisArmazenamento.getTableHeader().setReorderingAllowed(false);
+                jTabelaLocaisArmazenamento.setAutoResizeMode(jTabelaLocaisArmazenamento.AUTO_RESIZE_OFF);
+                jTabelaLocaisArmazenamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                alinharCamposTabela();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesqLocalArmazenamentoAE.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaLocaisArmazenamento.setModel(modelo);
-        jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setPreferredWidth(360);
-        jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaLocaisArmazenamento.getTableHeader().setReorderingAllowed(false);
-        jTabelaLocaisArmazenamento.setAutoResizeMode(jTabelaLocaisArmazenamento.AUTO_RESIZE_OFF);
-        jTabelaLocaisArmazenamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabela();
-        conecta.desconecta();
+    }
+
+    public void PREENCHER_TABELA_PRODUTOS_nome() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Status", "Descrição do Local"};
+        try {
+            for (InventarioArmaEPI pp : PESQUISA_local.LOCAL_ARMAZENAMENTO_desc()) {
+                dados.add(new Object[]{pp.getIdLocal(), pp.getNomeLocalArmazenamento()});
+                ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+                jTabelaLocaisArmazenamento.setModel(modelo);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setPreferredWidth(80);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setResizable(false);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setPreferredWidth(80);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setResizable(false);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setPreferredWidth(360);
+                jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setResizable(false);
+                jTabelaLocaisArmazenamento.getTableHeader().setReorderingAllowed(false);
+                jTabelaLocaisArmazenamento.setAutoResizeMode(jTabelaLocaisArmazenamento.AUTO_RESIZE_OFF);
+                jTabelaLocaisArmazenamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                alinharCamposTabela();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPesqLocalArmazenamentoAE.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
+        }
     }
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição do Local"};
+        String[] Colunas = new String[]{"Código", "Status", "Descrição do Local"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaLocaisArmazenamento.setModel(modelo);
-        jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaLocaisArmazenamento.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setPreferredWidth(360);
+        jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaLocaisArmazenamento.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setPreferredWidth(360);
+        jTabelaLocaisArmazenamento.getColumnModel().getColumn(2).setResizable(false);
         jTabelaLocaisArmazenamento.getTableHeader().setReorderingAllowed(false);
         jTabelaLocaisArmazenamento.setAutoResizeMode(jTabelaLocaisArmazenamento.AUTO_RESIZE_OFF);
         jTabelaLocaisArmazenamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

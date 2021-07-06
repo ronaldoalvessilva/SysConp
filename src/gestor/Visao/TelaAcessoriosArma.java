@@ -736,6 +736,7 @@ public class TelaAcessoriosArma extends javax.swing.JDialog {
 
     public void Cancelar() {
         jBtNovo.setEnabled(true);
+        bloquearCampos(!true);
     }
 
     public void pBUSCAR_acessorio() {

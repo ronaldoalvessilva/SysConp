@@ -2124,7 +2124,11 @@ public class TelaArmas extends javax.swing.JInternalFrame {
         jComboBoxLocalizacaoArma.setEnabled(opcao);
         jComboBoxUnidadeArma.setEnabled(opcao);
         jCustoArma.setEnabled(opcao);
-        jEstoqueArma.setEnabled(opcao);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jEstoqueArma.setEnabled(opcao);
+        } else {
+            jEstoqueArma.setEnabled(!opcao);
+        }
     }
 
     public void bloquearBotoes(boolean opcao) {

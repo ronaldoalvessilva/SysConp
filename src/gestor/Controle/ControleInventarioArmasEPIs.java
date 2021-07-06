@@ -133,9 +133,10 @@ public class ControleInventarioArmasEPIs {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "DescricaoLocal "
-                    + "FROM LOCAL_ARMAZENAMENTO_AC "
-                    + "WHERE DescricaoLocal='" + nomeLocal + "'");
+                    + "IdLocal,"
+                    + "DescricaoPrincipal "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "WHERE DescricaoPrincipal='" + nomeLocal + "'");
             conecta.rs.first();
             codLocal = conecta.rs.getInt("IdLocal");
         } catch (SQLException ex) {
@@ -289,7 +290,7 @@ public class ControleInventarioArmasEPIs {
         try {
             conecta.executaSQL("SELECT "
                     + "IdLanc "
-                    + "FROM ITENS_INVENTARIO_ARMAS_EPI ");
+                    + "FROM INVENTARIO_ARMAS_EPI ");
             conecta.rs.last();
             jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
         } catch (SQLException ex) {

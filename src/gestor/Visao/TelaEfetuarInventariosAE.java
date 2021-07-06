@@ -19,7 +19,7 @@ import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxTipoInven
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jDataTermino;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jHorarioTermino;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLanc;
-import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLocal;
+//import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLocal;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jStatusLanc;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jTabelaItensProdutoInvent;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -300,7 +300,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         controlLote.alterarLoteProdutoAC(objProdMed);
                         //
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+//                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
                         objHistMovAC.setTipoOpe(tipoInventario);
                         objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
                         objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
@@ -352,7 +352,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         controlLote.alterarLoteProdutoAC(objProdMed);
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+//                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
                         objHistMovAC.setTipoOpe(tipoInventario);
                         objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
                         objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
@@ -403,7 +403,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         controlLote.alterarLoteProdutoAC(objProdMed);
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+//                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
                         objHistMovAC.setTipoOpe(tipoInventario);
                         objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
                         objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));

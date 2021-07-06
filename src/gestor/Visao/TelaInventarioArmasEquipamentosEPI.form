@@ -27,6 +27,8 @@
         <Property name="text" type="java.lang.String" value="jLabel13"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="grupoBotoes">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
@@ -476,16 +478,14 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jIdLocal" linkSize="9" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLocalArmazenamento" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxLocalArmazenamento" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtPesqLocalArmazenamento" min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jIdLanc" linkSize="9" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Component id="jIdLanc" min="-2" pref="50" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jComboBoxTipoProduto" max="32767" attributes="0"/>
                                       </Group>
@@ -568,7 +568,7 @@
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jComboBoxTipoProduto" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jBtEfetivar" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jIdLanc" linkSize="11" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jIdLanc" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
@@ -592,14 +592,13 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLocalArmazenamento" linkSize="13" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jIdLocal" linkSize="11" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxLocalArmazenamento" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jBtPesqLocalArmazenamento" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jUsuarioResponsavel" linkSize="13" min="-2" max="-2" attributes="0"/>
+                          <Component id="jUsuarioResponsavel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -704,19 +703,6 @@
                     <Property name="text" type="java.lang.String" value="Local de Armazenamento"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jLocalArmazenamento">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                        <BevelBorder bevelType="1"/>
-                      </Border>
-                    </Property>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JButton" name="jBtPesqLocalArmazenamento">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -737,20 +723,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jIdLocal">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                        <BevelBorder bevelType="1"/>
-                      </Border>
-                    </Property>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
@@ -936,11 +908,12 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
+                      <StringArray count="5">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Armas"/>
                         <StringItem index="2" value="Equipamentos Seguran&#xe7;a"/>
                         <StringItem index="3" value="EPI&#xb4;s Diversos"/>
+                        <StringItem index="4" value="Todos os Produtos"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -952,6 +925,28 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jComboBoxLocalArmazenamento">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="1">
+                        <StringItem index="0" value="Selecione..."/>
+                      </StringArray>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -1275,16 +1270,22 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jDescricaoProduto" min="-2" pref="286" max="-2" attributes="0"/>
-                                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jBtPesqProdutoInve" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jDataVctoLote" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jDataVctoLote" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jRBtArmas" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jRBtEPIs" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                               <Component id="jtotalItens" alignment="0" max="32767" attributes="0"/>
@@ -1303,7 +1304,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="125" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="jComboBoxUnidProduto" max="32767" attributes="0"/>
                                   </Group>
@@ -1378,9 +1379,11 @@
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLote" linkSize="16" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jDataVctoLote" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="jRBtArmas" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRBtEPIs" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jtotalItens" alignment="2" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1611,6 +1614,31 @@
                     <Property name="horizontalAlignment" type="int" value="4"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JRadioButton" name="jRBtArmas">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="grupoBotoes"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="Armas"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="jRBtEPIs">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="grupoBotoes"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="EPI&#xb4;s"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel11">
@@ -1627,17 +1655,17 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="jBtNovoItem" pref="38" max="32767" attributes="0"/>
+                          <Component id="jBtNovoItem" pref="0" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          <Component id="jBtAlterarItem" pref="38" max="32767" attributes="0"/>
+                          <Component id="jBtAlterarItem" pref="0" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          <Component id="jBtExcluirItem" pref="38" max="32767" attributes="0"/>
+                          <Component id="jBtExcluirItem" pref="0" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          <Component id="jBtSalvarItem" pref="40" max="32767" attributes="0"/>
+                          <Component id="jBtSalvarItem" pref="0" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          <Component id="jBtCancelarItem" pref="38" max="32767" attributes="0"/>
+                          <Component id="jBtCancelarItem" pref="0" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          <Component id="jBtBuscarProduto" pref="37" max="32767" attributes="0"/>
+                          <Component id="jBtBuscarProduto" pref="0" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Component id="jBtImpressaoItens" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
