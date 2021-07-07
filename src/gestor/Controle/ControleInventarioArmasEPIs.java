@@ -7,11 +7,12 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.InventarioArmaEPI;
-import gestor.Modelo.InventarioEstoque;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.dataFinal;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.dataInicial;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxTipoInventario;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIDPesq;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLanc;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdProduto;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.pTOTAL_inve;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.pRESPOSTA_inv;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.pCODIGO_inventario;
@@ -150,8 +151,11 @@ public class ControleInventarioArmasEPIs {
         List<InventarioArmaEPI> LISTAR_inventario = new ArrayList<InventarioArmaEPI>();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdLanc,TipoProduto,DataInicio, "
-                    + "StatusLanc,Observacao "
+                    + "IdLanc, "
+                    + "TipoProduto, "
+                    + "DataInicio, "
+                    + "StatusLanc, "
+                    + "Observacao "
                     + "FROM INVENTARIO_ARMAS_EPI "
                     + "WHERE IdLanc='" + jIDPesq.getText() + "'");
             while (conecta.rs.next()) {
@@ -179,8 +183,11 @@ public class ControleInventarioArmasEPIs {
         List<InventarioArmaEPI> LISTAR_inventario = new ArrayList<InventarioArmaEPI>();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdLanc,TipoProduto,DataInicio, "
-                    + "StatusLanc,Observacao "
+                    + "IdLanc, "
+                    + "TipoProduto, "
+                    + "DataInicio, "
+                    + "StatusLanc, "
+                    + "Observacao "
                     + "FROM INVENTARIO_ARMAS_EPI "
                     + "ORDER BY IdLanc");
             while (conecta.rs.next()) {
@@ -208,8 +215,11 @@ public class ControleInventarioArmasEPIs {
         List<InventarioArmaEPI> LISTAR_inventario = new ArrayList<InventarioArmaEPI>();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdLanc,TipoProduto,DataInicio, "
-                    + "StatusLanc,Observacao "
+                    + "IdLanc, "
+                    + "TipoProduto, "
+                    + "DataInicio, "
+                    + "StatusLanc, "
+                    + "Observacao "
                     + "FROM INVENTARIO_ARMAS_EPI "
                     + "WHERE DataInicio BETWEEN'" + dataInicial + "' "
                     + "AND'" + dataFinal + "'");
@@ -238,10 +248,22 @@ public class ControleInventarioArmasEPIs {
         List<InventarioArmaEPI> LISTAR_inventario = new ArrayList<InventarioArmaEPI>();
         try {
             conecta.executaSQL("SELECT  "
-                    + "IdLanc,TipoProduto,DataInicio, "
-                    + "StatusLanc,Observacao "
-                    + "FROM INVENTARIO_ARMAS_EPI "
-                    + "WHERE IdLanc='" + jIDPesq.getText() + "'");
+                    + "i.IdLanc, "
+                    + "i.TipoProduto, "                    
+                    + "i.StatusLanc, "
+                    + "i.TipoInventario, "
+                    + "i.IdLocal, "
+                    + "l.DescricaoPrincipal, "
+                    + "i.Responsavel, "
+                    + "i.DataInicio, "
+                    + "i.HorarioInicio, "
+                    + "i.DataTermino, "
+                    + "i.HorarioTermino, "
+                    + "i.Observacao "
+                    + "FROM INVENTARIO_ARMAS_EPI AS i "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON i.IdLocal=l.IdLocal "
+                    + "WHERE i.IdLanc='" + jIDPesq.getText() + "'");
             while (conecta.rs.next()) {
                 InventarioArmaEPI pInventaEPI = new InventarioArmaEPI();
                 pInventaEPI.setIdLanc(conecta.rs.getInt("IdLanc"));
@@ -249,7 +271,7 @@ public class ControleInventarioArmasEPIs {
                 pInventaEPI.setStatusLanc(conecta.rs.getString("StatusLanc"));
                 pInventaEPI.setTipoInventario(conecta.rs.getString("TipoInventario"));
                 pInventaEPI.setIdLocal(conecta.rs.getInt("IdLocal"));
-                pInventaEPI.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoLocal"));
+                pInventaEPI.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoPrincipal"));
                 pInventaEPI.setResponsavel(conecta.rs.getString("Responsavel"));
                 pInventaEPI.setDataInicio(conecta.rs.getDate("DataInicio"));
                 pInventaEPI.setHorarioInicio(conecta.rs.getString("HorarioInicio"));
@@ -302,6 +324,8 @@ public class ControleInventarioArmasEPIs {
     //---------------------------------------------- PRODUTOS ---------------------------------------------------------------------------
     public InventarioArmaEPI incluirItensInventarioAE(InventarioArmaEPI objInventEstoque) {
         pBUSCAR_arma(objInventEstoque.getNomeProduto());
+        pBUSCAR_LOCAL_armazenamento(objInventEstoque.getNomeLocalArmazenamento());
+
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INVENTARIO_ARMAS_EPI (IdLanc,IdProd,QtdItem,ValorCusto,IdLocal,Lote,DataLote,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -331,6 +355,7 @@ public class ControleInventarioArmasEPIs {
 
     public InventarioArmaEPI alterarItensInventarioAE(InventarioArmaEPI objInventEstoque) {
         pBUSCAR_arma(objInventEstoque.getNomeProduto());
+        pBUSCAR_LOCAL_armazenamento(objInventEstoque.getNomeLocalArmazenamento());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_INVENTARIO_ARMAS_EPI SET IdLanc=?,IdProd=?,QtdItem=?,ValorCusto=?,IdLocal=?,Lote=?,DataLote=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
@@ -364,7 +389,9 @@ public class ControleInventarioArmasEPIs {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_INVENTARIO_ARMAS_EPI WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
             pst.executeUpdate();
+            pRESPOSTA_inv = "Sim";
         } catch (SQLException ex) {
+            pRESPOSTA_inv = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -375,7 +402,8 @@ public class ControleInventarioArmasEPIs {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdArma "
+                    + "IdArma, "
+                    + "DescricaoArma "
                     + "FROM ARMAS "
                     + "WHERE DescricaoArma='" + nome + "'");
             conecta.rs.first();
@@ -390,7 +418,8 @@ public class ControleInventarioArmasEPIs {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdEquipamento "
+                    + "IdEquipamento, "
+                    + "DescricaoEquipamento "
                     + "FROM EQUIPAMENTOS_SEGURANCA_EPI "
                     + "WHERE DescricaoEquipamento='" + descricao + "'");
             conecta.rs.first();
@@ -407,18 +436,24 @@ public class ControleInventarioArmasEPIs {
         List<InventarioArmaEPI> LISTAR_inventario = new ArrayList<InventarioArmaEPI>();
         try {
             conecta.executaSQL("SELECT "
-                    + ""
-                    + "FROM ITENS_INVENTARIO_ARMAS_EPI "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON ITENS_INVENTARIO_ARMAS_EPI.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE IdLanc='" + jIdLanc.getText() + "' "
-                    + "ORDER BY DescricaoProd");
+                    + "i.IdLanc, "
+                    + "i.IdItem, "
+                    + "i.IdProd, "
+                    + "a.IdArma, "
+                    + "a.DescricaoArma, "
+                    + "a.UnidadeArma, "
+                    + "a.QtdItem "
+                    + "FROM ITENS_INVENTARIO_ARMAS_EPI AS i "
+                    + "INNER JOIN ARMAS AS a "
+                    + "ON i.IdProd=a.IdArma "
+                    + "WHERE i.IdLanc='" + jIdLanc.getText() + "' "
+                    + "ORDER BY a.DescricaoArma");
             while (conecta.rs.next()) {
                 InventarioArmaEPI pInventaEPI = new InventarioArmaEPI();
                 pInventaEPI.setIdItem(conecta.rs.getInt("IdItem"));
                 pInventaEPI.setIdProduto(conecta.rs.getInt("IdProd"));
-                pInventaEPI.setNomeProduto(conecta.rs.getString("NomeProduto"));
-                pInventaEPI.setUnidade(conecta.rs.getString("Unidade"));
+                pInventaEPI.setNomeProduto(conecta.rs.getString("DescricaoArma"));
+                pInventaEPI.setUnidade(conecta.rs.getString("UnidadeArma"));
                 pInventaEPI.setQtdItem(conecta.rs.getInt("QtdItem"));
                 LISTAR_inventario.add(pInventaEPI);
                 pTOTAL_inve++;
@@ -430,5 +465,40 @@ public class ControleInventarioArmasEPIs {
             conecta.desconecta();
         }
         return null;
+    }
+
+    public InventarioArmaEPI PESQUISAR_codigo(InventarioArmaEPI objInventEstoque) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "i.IdLanc, "
+                    + "i.IdProd "
+                    + "FROM ITENS_INVENTARIO_ARMAS_EPI AS i "
+                    + "WHERE i.IdProd='" + jIdProduto.getText() + "' "
+                    + "AND i.IdLanc='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            objInventEstoque.setIdProduto(conecta.rs.getInt("IdProd"));
+            objInventEstoque.setIdLanc(conecta.rs.getInt("IdLanc"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objInventEstoque;
+    }
+
+    public InventarioArmaEPI PESQUISA_inventario(InventarioArmaEPI objInventEstoque) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "i.IdLocal, "
+                    + "i.TipoInventario "
+                    + "FROM INVENTARIO_ARMAS_EPI AS i "
+                    + "WHERE i.TipoInventario='" + jComboBoxTipoInventario.getSelectedItem() + "'");
+            conecta.rs.first();
+            objInventEstoque.setTipoInventario(conecta.rs.getString("TipoInventario"));
+            objInventEstoque.setIdLocal(conecta.rs.getInt("IdLocal"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objInventEstoque;
     }
 }

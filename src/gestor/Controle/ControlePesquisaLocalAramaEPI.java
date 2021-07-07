@@ -8,9 +8,11 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.InventarioArmaEPI;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxLocalArmazenamento;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLanc;
 import static gestor.Visao.TelaLocalArmazenamentoEPI.jPesqDescricaoLocal;
 import static gestor.Visao.TelaPesqLocalArmazenamentoAE.idLocal;
 import static gestor.Visao.TelaPesqLocalArmazenamentoAE.nomeProduto;
+import static gestor.Visao.TelaPesqProdutoInventarioArmas.idInt;
 import static gestor.Visao.TelaPesqProdutoInventarioArmas.jCodigoPesquisa;
 import static gestor.Visao.TelaPesqProdutoInventarioArmas.jPesqDescricaoProdutos;
 import java.sql.SQLException;
@@ -124,7 +126,7 @@ public class ControlePesquisaLocalAramaEPI {
     }
 
     //--------------------- PESQUISAS DE ITENS (ARMAS) E (EPIS) --------------------------------------------
-    public List<InventarioArmaEPI> ITENS_ARMAS_todos() throws Exception {
+    public List<InventarioArmaEPI> ITENS_LOCAL_ARMAS_todos() throws Exception {
 
         conecta.abrirConexao();
         List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
@@ -136,10 +138,10 @@ public class ControlePesquisaLocalAramaEPI {
                     + "UnidadeArma, "
                     + "CustoArma, "
                     + "l.IdLocal, "
-                    + "l.DescricaoResumida"
+                    + "l.DescricaoResumida "
                     + "FROM ARMAS AS a "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
-                    + "a.IdLocal=l.IdLocal "
+                    + "ON a.IdLocal=l.IdLocal "
                     + "WHERE a.StatusArma='" + pSTATUS + "'");
             while (conecta.rs.next()) {
                 InventarioArmaEPI pArmas = new InventarioArmaEPI();
@@ -161,7 +163,7 @@ public class ControlePesquisaLocalAramaEPI {
         return null;
     }
 
-    public List<InventarioArmaEPI> ITENS_ARMAS_nome() throws Exception {
+    public List<InventarioArmaEPI> ITENS_LOCAL_ARMAS_nome() throws Exception {
 
         conecta.abrirConexao();
         List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
@@ -173,7 +175,7 @@ public class ControlePesquisaLocalAramaEPI {
                     + "UnidadeArma, "
                     + "CustoArma, "
                     + "l.IdLocal, "
-                    + "l.DescricaoResumida"
+                    + "l.DescricaoResumida "
                     + "FROM ARMAS AS a "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
                     + "a.IdLocal=l.IdLocal "
@@ -189,7 +191,6 @@ public class ControlePesquisaLocalAramaEPI {
                 pArmas.setIdLocal(conecta.rs.getInt("IdLocal"));
                 pArmas.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
                 LISTAR_armas.add(pArmas);
-                LISTAR_armas.add(pArmas);
             }
             return LISTAR_armas;
         } catch (SQLException ex) {
@@ -200,7 +201,7 @@ public class ControlePesquisaLocalAramaEPI {
         return null;
     }
 
-    public List<InventarioArmaEPI> ITENS_ARMAS_codigo() throws Exception {
+    public List<InventarioArmaEPI> ITENS_LOCAL_ARMAS_codigo() throws Exception {
 
         conecta.abrirConexao();
         List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
@@ -212,7 +213,7 @@ public class ControlePesquisaLocalAramaEPI {
                     + "UnidadeArma, "
                     + "CustoArma, "
                     + "l.IdLocal, "
-                    + "l.DescricaoResumida"
+                    + "l.DescricaoResumida "
                     + "FROM ARMAS AS a "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
                     + "a.IdLocal=l.IdLocal "
@@ -228,7 +229,6 @@ public class ControlePesquisaLocalAramaEPI {
                 pArmas.setIdLocal(conecta.rs.getInt("IdLocal"));
                 pArmas.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
                 LISTAR_armas.add(pArmas);
-                LISTAR_armas.add(pArmas);
             }
             return LISTAR_armas;
         } catch (SQLException ex) {
@@ -243,20 +243,67 @@ public class ControlePesquisaLocalAramaEPI {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "IdProd, "
-                    + "DescricaoArma, "
-                    + "UnidadeArma, "
-                    + "CustoArma, "
-                    + "FROM ITENS_INVENTARIO_ARMAS_EPI AS i "
-                    + "INNER JOIN ARMAS AS a "
-                    + "ON i.IdProd=a.Armas "
-                    + "WHERE DescricaoArma='" + jPesqDescricaoProdutos.getText() + "' "
-                    + "AND");
+                    + "a.IdArma, "
+                    + "a.DescricaoArma, "
+                    + "a.UnidadeArma, "
+                    + "a.CustoArma "
+                    + "FROM ARMAS AS a "
+                    + "WHERE a.DescricaoArma='" + jPesqDescricaoProdutos.getText() + "' "
+                    + "AND a.IdArma='" + idInt + "'");
             conecta.rs.first();
-            objInventEstoque.setIdProduto(conecta.rs.getInt("IdProd"));
+            objInventEstoque.setIdProduto(conecta.rs.getInt("IdArma"));
+            objInventEstoque.setNomeProduto(conecta.rs.getString("DescricaoArma"));
+            objInventEstoque.setUnidade(conecta.rs.getString("UnidadeArma"));
+            objInventEstoque.setValorCusto(conecta.rs.getFloat("CustoArma"));
         } catch (Exception e) {
         }
         conecta.desconecta();
         return objInventEstoque;
+    }
+
+    public List<InventarioArmaEPI> ITENS_ARMAS_registro() throws Exception {
+
+        conecta.abrirConexao();
+        List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "a.IdArma, "
+                    + "a.StatusArma, "
+                    + "a.DescricaoArma, "
+                    + "a.UnidadeArma, "
+                    + "a.CustoArma, "
+                    + "i.IdItem, "
+                    + "i.IdLanc, "
+                    + "i.IdProd, "
+                    + "i.QtdItem, "
+                    + "i.Lote, "
+                    + "i.DataLote, "
+                    + "l.IdLocal, "
+                    + "l.DescricaoResumida "
+                    + "FROM ARMAS AS a "
+                    + "INNER JOIN ITENS_INVENTARIO_ARMAS_EPI AS i "
+                    + "ON a.IdArma=i.IdProd "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON a.IdLocal=l.IdLocal "
+                    + "WHERE i.IdLanc='" + jIdLanc.getText() + "'");
+            while (conecta.rs.next()) {
+                InventarioArmaEPI pArmas = new InventarioArmaEPI();
+                pArmas.setIdItem(conecta.rs.getInt("IdItem"));
+                pArmas.setIdProduto(conecta.rs.getInt("IdProd"));
+                pArmas.setNomeProduto(conecta.rs.getString("DescricaoArma"));
+                pArmas.setUnidade(conecta.rs.getString("UnidadeArma"));
+                pArmas.setValorCusto(conecta.rs.getFloat("CustoArma"));
+                pArmas.setQtdItem(conecta.rs.getInt("QtdItem"));
+                pArmas.setLote(conecta.rs.getString("Lote"));
+                pArmas.setDataLote(conecta.rs.getDate("DataLote"));
+                LISTAR_armas.add(pArmas);
+            }
+            return LISTAR_armas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePesquisaLocalAramaEPI.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }

@@ -8,12 +8,13 @@ package gestor.Visao;
 import Utilitarios.ModeloTabela;
 import gestor.Controle.ControlePesquisaLocalAramaEPI;
 import gestor.Modelo.InventarioArmaEPI;
-import static gestor.Visao.TelaInventarioProdutosAC.jComboBoxUnidProduto;
-import static gestor.Visao.TelaInventarioProdutosAC.jDescricaoProduto;
-import static gestor.Visao.TelaInventarioProdutosAC.jIdProduto;
-import static gestor.Visao.TelaInventarioProdutosAC.jCodigoBarra;
-import static gestor.Visao.TelaInventarioProdutosAC.jValorCusto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxUnidProduto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jDescricaoProduto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdProduto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jCodigoBarra;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jValorCusto;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -30,8 +31,9 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
     InventarioArmaEPI objInventEstoque = new InventarioArmaEPI();
     int flag;
     String statusProd = "Ativo";
-    String idInt;
+    public static String idInt;
     String modulo = "A";
+    double valorCusto = 0;
 
     /**
      * Creates new form TelaPesqProdutoFarmacia
@@ -269,23 +271,16 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
         if (jPesqDescricaoProdutos.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
         } else {
-            try {
-                CONTROL.MOSTRAR_ITENS_inventario(objInventEstoque);
-//                conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
-//                        + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-//                        + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-//                        + "WHERE DescricaoProd='" + jPesqDescricaoProdutos.getText() + "' "
-//                        + "AND StatusProd='" + statusProd + "' "
-//                        + "AND IdProd='" + idInt + "'");
-                jIdProduto.setText(String.valueOf(objInventEstoque.getIdProduto()));
-                jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
+            CONTROL.MOSTRAR_ITENS_inventario(objInventEstoque);
+            jIdProduto.setText(String.valueOf(objInventEstoque.getIdProduto()));
+            jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
 //                jCodigoBarra.setText(conecta.rs.getString("CodigoBarra"));
-                jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
-                jValorCusto.setText(String.valueOf(objInventEstoque.getValorCusto()));
-                //  jLote.setText(conecta.rs.getString("Lote"));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);
-            }
+            jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
+//            jValorCusto.setText(String.valueOf(objInventEstoque.getValorCusto()));
+            valorCusto = objInventEstoque.getValorCusto();
+                DecimalFormat vc = new DecimalFormat("#,##0.00");
+                String vlCusto = vc.format(valorCusto);
+                jValorCusto.setText(vlCusto);
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -302,6 +297,7 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
             String nomeProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 1);
             jPesqDescricaoProdutos.setText(nomeProduto);
             idInt = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 0);
+            jCodigoPesquisa.setText(idInt);
         }
     }//GEN-LAST:event_jTabelaProdutosMouseClicked
 
@@ -349,7 +345,7 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
         try {
-            for (InventarioArmaEPI b : CONTROL.ITENS_ARMAS_todos()) {
+            for (InventarioArmaEPI b : CONTROL.ITENS_LOCAL_ARMAS_todos()) {
                 dados.add(new Object[]{b.getIdProduto(), b.getNomeProduto(), b.getNomeLocalArmazenamento()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaProdutos.setModel(modelo);
@@ -373,7 +369,7 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
         try {
-            for (InventarioArmaEPI b : CONTROL.ITENS_ARMAS_nome()) {
+            for (InventarioArmaEPI b : CONTROL.ITENS_LOCAL_ARMAS_nome()) {
                 dados.add(new Object[]{b.getIdProduto(), b.getNomeProduto(), b.getNomeLocalArmazenamento()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaProdutos.setModel(modelo);
@@ -397,7 +393,7 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
         try {
-            for (InventarioArmaEPI b : CONTROL.ITENS_ARMAS_codigo()) {
+            for (InventarioArmaEPI b : CONTROL.ITENS_LOCAL_ARMAS_codigo()) {
                 dados.add(new Object[]{b.getIdProduto(), b.getNomeProduto(), b.getNomeLocalArmazenamento()});
                 ModeloTabela modelo = new ModeloTabela(dados, Colunas);
                 jTabelaProdutos.setModel(modelo);
