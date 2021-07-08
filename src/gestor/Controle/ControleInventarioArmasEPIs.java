@@ -135,9 +135,9 @@ public class ControleInventarioArmasEPIs {
         try {
             conecta.executaSQL("SELECT "
                     + "IdLocal,"
-                    + "DescricaoPrincipal "
+                    + "DescricaoResumida "
                     + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
-                    + "WHERE DescricaoPrincipal='" + nomeLocal + "'");
+                    + "WHERE DescricaoResumida='" + nomeLocal + "'");
             conecta.rs.first();
             codLocal = conecta.rs.getInt("IdLocal");
         } catch (SQLException ex) {
@@ -333,7 +333,7 @@ public class ControleInventarioArmasEPIs {
             pst.setInt(2, codProd);
             pst.setFloat(3, objInventEstoque.getQtdItem());
             pst.setFloat(4, objInventEstoque.getValorCusto());
-            pst.setInt(5, objInventEstoque.getIdLocal());
+            pst.setInt(5, codLocal);
             pst.setString(6, objInventEstoque.getLote());
             if (objInventEstoque.getDataLote() != null) {
                 pst.setTimestamp(7, new java.sql.Timestamp(objInventEstoque.getDataLote().getTime()));
@@ -363,7 +363,7 @@ public class ControleInventarioArmasEPIs {
             pst.setInt(2, codProd);
             pst.setFloat(3, objInventEstoque.getQtdItem());
             pst.setFloat(4, objInventEstoque.getValorCusto());
-            pst.setInt(5, objInventEstoque.getIdLocal());
+            pst.setInt(5, codLocal);
             pst.setString(6, objInventEstoque.getLote());
             if (objInventEstoque.getDataLote() != null) {
                 pst.setTimestamp(7, new java.sql.Timestamp(objInventEstoque.getDataLote().getTime()));

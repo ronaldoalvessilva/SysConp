@@ -77,6 +77,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     public static String dataInicial;
     public static String dataFinal;
     public static String idItem;
+    public static String nomeProdutoArma;
     double valorCusto = 0;
     public static double qtdItem = 0;
     public static String qtdItemTab;
@@ -187,7 +188,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jLabel10 = new javax.swing.JLabel();
         jCodigoBarra = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
-        jLote = new javax.swing.JTextField();
+        jLocalArmazenamentoItem = new javax.swing.JTextField();
         jComboBoxUnidProduto = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         jDataVctoLote = new com.toedter.calendar.JDateChooser();
@@ -814,9 +815,17 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 
             },
             new String [] {
-                "Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Lote", "Data Validade"
+                "Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Local", "Data Validade"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaItensProdutoInvent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaItensProdutoInventMouseClicked(evt);
@@ -867,7 +876,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jQtd.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Lote");
+        jLabel4.setText("Localização");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Código");
@@ -891,9 +900,9 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Código Barras");
 
-        jLote.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jLote.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jLote.setEnabled(false);
+        jLocalArmazenamentoItem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLocalArmazenamentoItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLocalArmazenamentoItem.setEnabled(false);
 
         jComboBoxUnidProduto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxUnidProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "UN", "Caixa", "Pacote", "Ml", "Kg", "Litro", "Peça", "Ampla", "Kit", "PR", "Pç" }));
@@ -901,7 +910,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jComboBoxUnidProduto.setEnabled(false);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel18.setText("Data Validade");
+        jLabel18.setText("Data Licença");
 
         jDataVctoLote.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataVctoLote.setEnabled(false);
@@ -989,7 +998,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLote, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLocalArmazenamentoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
@@ -1028,7 +1037,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLocalArmazenamentoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataVctoLote, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRBtArmas)
                     .addComponent(jRBtEPIs)
@@ -1036,7 +1045,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 .addGap(0, 7, Short.MAX_VALUE))
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCodigoBarra, jComboBoxUnidProduto, jLote, jQtd});
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCodigoBarra, jComboBoxUnidProduto, jLocalArmazenamentoItem, jQtd});
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -1563,8 +1572,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do item.");
                 jQtd.requestFocus();
                 jQtd.setBackground(Color.red);
-            } else if (jDataVctoLote.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de validade do produto.");
             } else if (jComboBoxUnidProduto.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a unidade do produto.");
             } else {
@@ -1578,7 +1585,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaInventarioArmasEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                objInventEstoque.setLote(jLote.getText());
+                objInventEstoque.setNomeLocalArmazenamento(jLocalArmazenamentoItem.getText());
                 objInventEstoque.setDataLote(jDataVctoLote.getDate());
 //                objInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
                 if (acao == 3) {
@@ -1685,6 +1692,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             }
         }
         count = 0;
+        limparProdutosInventario();
         preencherTabelaItensInventario();
         jBtResultadoInventario.setEnabled(true);
 
@@ -1695,8 +1703,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         if (flag == 1) {
             String idProduto = "" + jTabelaItensProdutoInvent.getValueAt(jTabelaItensProdutoInvent.getSelectedRow(), 1);
             jIdProduto.setText(idProduto);
-            String nomeProduto = "" + jTabelaItensProdutoInvent.getValueAt(jTabelaItensProdutoInvent.getSelectedRow(), 3);
-            jDescricaoProduto.setText(nomeProduto);
+            nomeProdutoArma = "" + jTabelaItensProdutoInvent.getValueAt(jTabelaItensProdutoInvent.getSelectedRow(), 3);
+            jDescricaoProduto.setText(nomeProdutoArma);
             idItem = "" + jTabelaItensProdutoInvent.getValueAt(jTabelaItensProdutoInvent.getSelectedRow(), 0);
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(!true);
@@ -1704,44 +1712,30 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(!true);
             //  jBtEfetivar.setEnabled(!true);
-            //
             jBtNovoItem.setEnabled(true);
             jBtAlterarItem.setEnabled(true);
             jBtExcluirItem.setEnabled(true);
             jBtSalvarItem.setEnabled(!true);
             jBtCancelarItem.setEnabled(true);
             jBtAuditoriaItens.setEnabled(true);
-//            conecta.abrirConexao();
-//            try {
-//                conecta.executaSQL("SELECT * FROM ITENS_INVENTARIO_AC "
-//                        + "INNER JOIN PRODUTOS_AC "
-//                        + "ON ITENS_INVENTARIO_AC.IdProd=PRODUTOS_AC.IdProd "
-//                        + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-//                        + "ON ITENS_INVENTARIO_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-//                        + "WHERE IdLanc='" + jIdLanc.getText() + "'AND DescricaoProd='" + jDescricaoProduto.getText() + "'AND IdItem='" + idItem + "'");
-//                conecta.rs.first();
-//                jIdProduto.setText(conecta.rs.getString("IdProd"));
-//                jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
-//                idItem = conecta.rs.getString("IdItem");
-//                jCodigoBarra.setText(conecta.rs.getString("CodigoBarra"));
-//                jComboBoxUnidProduto.setSelectedItem(conecta.rs.getString("UnidadeProd"));
-//                //
-//                qtdItem = conecta.rs.getFloat("QtdItem");
-//                DecimalFormat vi = new DecimalFormat("#,##0.00");
-//                String vqtdItem = vi.format(qtdItem);
-//                jQtd.setText(vqtdItem);
-//                // Formata o valor para ser exibido na tela no formato BR                                                   
-//                valorCusto = conecta.rs.getFloat("ValorCusto");
-//                DecimalFormat vc = new DecimalFormat("#,##0.00");
-//                String vlCusto = vc.format(valorCusto);
-//                jValorCusto.setText(vlCusto);
-//                //
-//                jLote.setText(conecta.rs.getString("Lote"));
-//                jDataVctoLote.setDate(conecta.rs.getDate("DataLote"));
-//                conecta.desconecta();
-//            } catch (SQLException e) {
-//                JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
-//            }
+            CONTROLE.EXIBIR_produto(objInventEstoque);
+            jIdProduto.setText(String.valueOf(objInventEstoque.getIdProduto()));
+            jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
+            idItem = String.valueOf(objInventEstoque.getIdItem());
+            jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
+            //
+            qtdItem = objInventEstoque.getQtdItem();
+            DecimalFormat vi = new DecimalFormat("#,##0.00");
+            String vqtdItem = vi.format(qtdItem);
+            jQtd.setText(vqtdItem);
+            // Formata o valor para ser exibido na tela no formato BR                                                   
+            valorCusto = objInventEstoque.getValorCusto();
+            DecimalFormat vc = new DecimalFormat("#,##0.00");
+            String vlCusto = vc.format(valorCusto);
+            jValorCusto.setText(vlCusto);
+            //
+            jLocalArmazenamentoItem.setText(objInventEstoque.getNomeLocalArmazenamento());
+            jDataVctoLote.setDate(objInventEstoque.getDataLote());
         }
     }//GEN-LAST:event_jTabelaItensProdutoInventMouseClicked
 
@@ -1989,7 +1983,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    public static javax.swing.JTextField jLote;
+    public static javax.swing.JTextField jLocalArmazenamentoItem;
     private javax.swing.JTextArea jObservacao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2047,7 +2041,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jComboBoxUnidProduto.setBackground(Color.white);
         jQtd.setBackground(Color.white);
         jValorCusto.setBackground(Color.white);
-        jLote.setBackground(Color.white);
+        jLocalArmazenamentoItem.setBackground(Color.white);
         jDataVctoLote.setBackground(Color.white);
     }
 
@@ -2227,7 +2221,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jComboBoxUnidProduto.setSelectedItem(null);
         jQtd.setText("");
         jValorCusto.setText("");
-        jLote.setText("");
+        jLocalArmazenamentoItem.setText("");
         jDataVctoLote.setDate(null);
         //
         if (jComboBoxTipoProduto.getSelectedItem().equals("Todos os Produtos")) {
@@ -2242,8 +2236,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jCodigoBarra.setEnabled(true);
         jQtd.setEnabled(true);
         jValorCusto.setEnabled(true);
-        jLote.setEnabled(true);
-        jDataVctoLote.setEnabled(true);
+        jLocalArmazenamentoItem.setEnabled(!true);
+        jDataVctoLote.setEnabled(!true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -2275,8 +2269,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jCodigoBarra.setEnabled(true);
         jQtd.setEnabled(true);
         jValorCusto.setEnabled(true);
-        jLote.setEnabled(true);
-        jDataVctoLote.setEnabled(true);
+        jLocalArmazenamentoItem.setEnabled(!true);
+        jDataVctoLote.setEnabled(!true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -2301,7 +2295,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jComboBoxUnidProduto.setSelectedItem(null);
         jQtd.setText("");
         jValorCusto.setText("");
-        jLote.setText("");
+        jLocalArmazenamentoItem.setText("");
         jDataVctoLote.setDate(null);
         //
         jBtPesqProdutoInve.setEnabled(!true);
@@ -2309,7 +2303,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jCodigoBarra.setEnabled(!true);
         jQtd.setEnabled(!true);
         jValorCusto.setEnabled(!true);
-        jLote.setEnabled(!true);
+        jLocalArmazenamentoItem.setEnabled(!true);
         jDataVctoLote.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
@@ -2335,7 +2329,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jComboBoxUnidProduto.setSelectedItem(null);
         jQtd.setText("");
         jValorCusto.setText("");
-        jLote.setText("");
+        jLocalArmazenamentoItem.setText("");
         jDataVctoLote.setDate(null);
         //
         jBtPesqProdutoInve.setEnabled(!true);
@@ -2343,7 +2337,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jQtd.setEnabled(!true);
         jValorCusto.setEnabled(!true);
         jComboBoxUnidProduto.setEnabled(!true);
-        jLote.setEnabled(!true);
+        jLocalArmazenamentoItem.setEnabled(!true);
         jDataVctoLote.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
@@ -2369,7 +2363,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jComboBoxUnidProduto.setEnabled(!true);
         jQtd.setEnabled(!true);
         jValorCusto.setEnabled(!true);
-        jLote.setEnabled(!true);
+        jLocalArmazenamentoItem.setEnabled(!true);
         jDataVctoLote.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
@@ -2473,7 +2467,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         try {
             for (InventarioArmaEPI gg : CONTROLE.ITENS_ARMAS_registro()) {
                 jtotalRegistros.setText(Integer.toString(pTOTAL_epi)); // Converter inteiro em string para exibir na tela
-                dadosOrigem.addRow(new Object[]{gg.getIdItem(), gg.getIdProduto(), gg.getIdLanc(), gg.getNomeProduto(), gg.getUnidade(), gg.getQtdItem(), gg.getLote(), gg.getDataLote()});
+                dadosOrigem.addRow(new Object[]{gg.getIdItem(), gg.getIdProduto(), gg.getIdLanc(), gg.getNomeProduto(), gg.getUnidade(), gg.getQtdItem(), gg.getNomeLocalArmazenamento(), gg.getDataLote()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaItensProdutoInvent.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -2482,6 +2476,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 //
                 jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                 jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
@@ -2493,30 +2488,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         while (jTabelaItensProdutoInvent.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTabelaItensProdutoInvent.getModel()).removeRow(0);
         }
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Lote", "Data Validade"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaItensProdutoInvent.setModel(modelo);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setPreferredWidth(50);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(2).setPreferredWidth(90);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(3).setPreferredWidth(200);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(4).setPreferredWidth(40);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setPreferredWidth(50);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setPreferredWidth(100);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setResizable(false);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setPreferredWidth(80);
-        jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setResizable(false);
-        jTabelaItensProdutoInvent.getTableHeader().setReorderingAllowed(false);
-        jTabelaItensProdutoInvent.setAutoResizeMode(jTabelaItensProdutoInvent.AUTO_RESIZE_OFF);
-        jTabelaItensProdutoInvent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
     }
 
     public void objLog() {

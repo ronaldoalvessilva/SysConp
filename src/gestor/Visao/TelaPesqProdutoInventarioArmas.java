@@ -12,6 +12,7 @@ import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxUnidProdu
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jDescricaoProduto;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdProduto;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jCodigoBarra;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jLocalArmazenamentoItem;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jValorCusto;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -172,7 +173,15 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
             new String [] {
                 "Código", "Descrição Produto", "Local Armazenamento"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaProdutosMouseClicked(evt);
@@ -276,11 +285,11 @@ public class TelaPesqProdutoInventarioArmas extends javax.swing.JInternalFrame {
             jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
 //                jCodigoBarra.setText(conecta.rs.getString("CodigoBarra"));
             jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
-//            jValorCusto.setText(String.valueOf(objInventEstoque.getValorCusto()));
+            jLocalArmazenamentoItem.setText(objInventEstoque.getNomeLocalArmazenamento());
             valorCusto = objInventEstoque.getValorCusto();
-                DecimalFormat vc = new DecimalFormat("#,##0.00");
-                String vlCusto = vc.format(valorCusto);
-                jValorCusto.setText(vlCusto);
+            DecimalFormat vc = new DecimalFormat("#,##0.00");
+            String vlCusto = vc.format(valorCusto);
+            jValorCusto.setText(vlCusto);
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
