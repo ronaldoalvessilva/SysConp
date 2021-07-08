@@ -257,7 +257,9 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         if (jPesqDescricaoProdutos.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {           
-            preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
+            preencherTabelaProdutos("SELECT "
+                    + "* "
+                    + "FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "WHERE DescricaoProd LIKE'%" + jPesqDescricaoProdutos.getText() + "%' "
@@ -274,7 +276,9 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
+                conecta.executaSQL("SELECT "
+                        + "* "
+                        + "FROM PRODUTOS_AC "
                         + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                         + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                         + "WHERE DescricaoProd='" + jPesqDescricaoProdutos.getText() + "' "
@@ -314,7 +318,9 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {           
-            this.preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
+            this.preencherTabelaProdutos("SELECT "
+                    + "* "
+                    + "FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "WHERE StatusProd='" + statusProd + "' "
@@ -331,7 +337,9 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         if (jCodigoPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {           
-            preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
+            preencherTabelaProdutos("SELECT "
+                    + "* "
+                    + "FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "WHERE IdProd='" + jCodigoPesquisa.getText() + "' "
