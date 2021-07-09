@@ -94,6 +94,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     public static String pCODIGO_inventario = "";
     public static String pRESPOSTA_inv = "";
     public static int pTOTAL_epi = 0;
+    int TIPO_produto = 0;
 
     /**
      * Creates new form TelaInventarioProdutosMed
@@ -1588,6 +1589,13 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 objInventEstoque.setNomeLocalArmazenamento(jLocalArmazenamentoItem.getText());
                 objInventEstoque.setDataLote(jDataVctoLote.getDate());
 //                objInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                if (jRBtArmas.isSelected()) {
+                    TIPO_produto = 0;
+                    objInventEstoque.setTipoArmaEPI(TIPO_produto);
+                } else if (jRBtEPIs.isSelected()) {
+                    TIPO_produto = 1;
+                    objInventEstoque.setTipoArmaEPI(TIPO_produto);
+                }
                 if (acao == 3) {
                     if (jIdProduto.getText().equals(codigoProduto) && jIdLanc.getText().equals(codigoInventario)) {
                         JOptionPane.showMessageDialog(rootPane, "Produto já foi incluido nesse inventário.");

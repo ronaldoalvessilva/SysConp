@@ -34,6 +34,7 @@ public class InventarioArmaEPI {
     private float valorCusto;
     private String lote;
     private Date DataLote;
+    private int tipoArmaEPI;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -44,7 +45,7 @@ public class InventarioArmaEPI {
     public InventarioArmaEPI() {
     }
 
-    public InventarioArmaEPI(Integer idLanc, String statusLanc, String tipoProduto, String tipoInventario, int idLocal, String nomeLocalArmazenamento, String responsavel, Date dataInicio, Date dataTermino, String horarioInicio, String horarioTermino, String observacao, int idItem, int idProduto, String nomeProduto, String unidade, float qtdItem, float valorCusto, String lote, Date DataLote, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public InventarioArmaEPI(Integer idLanc, String statusLanc, String tipoProduto, String tipoInventario, int idLocal, String nomeLocalArmazenamento, String responsavel, Date dataInicio, Date dataTermino, String horarioInicio, String horarioTermino, String observacao, int idItem, int idProduto, String nomeProduto, String unidade, float qtdItem, float valorCusto, String lote, Date DataLote, int tipoArmaEPI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.tipoProduto = tipoProduto;
@@ -65,6 +66,7 @@ public class InventarioArmaEPI {
         this.valorCusto = valorCusto;
         this.lote = lote;
         this.DataLote = DataLote;
+        this.tipoArmaEPI = tipoArmaEPI;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -351,6 +353,20 @@ public class InventarioArmaEPI {
      */
     public void setDataLote(Date DataLote) {
         this.DataLote = DataLote;
+    }
+
+    /**
+     * @return the tipoArmaEPI
+     */
+    public int getTipoArmaEPI() {
+        return tipoArmaEPI;
+    }
+
+    /**
+     * @param tipoArmaEPI the tipoArmaEPI to set
+     */
+    public void setTipoArmaEPI(int tipoArmaEPI) {
+        this.tipoArmaEPI = tipoArmaEPI;
     }
 
     /**

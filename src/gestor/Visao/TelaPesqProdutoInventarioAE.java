@@ -7,12 +7,16 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
-import static gestor.Visao.TelaInventarioProdutosAC.jComboBoxUnidProduto;
-import static gestor.Visao.TelaInventarioProdutosAC.jDescricaoProduto;
-import static gestor.Visao.TelaInventarioProdutosAC.jIdProduto;
-import static gestor.Visao.TelaInventarioProdutosAC.jCodigoBarra;
-import static gestor.Visao.TelaInventarioProdutosAC.jValorCusto;
+import gestor.Controle.ControlePesquisaLocalAramaEPI;
+import gestor.Modelo.InventarioArmaEPI;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxUnidProduto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jDescricaoProduto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdProduto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jCodigoBarra;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jLocalArmazenamentoItem;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jValorCusto;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -26,10 +30,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ControlePesquisaLocalAramaEPI CONTROLE = new ControlePesquisaLocalAramaEPI();
+    InventarioArmaEPI objInventEstoque = new InventarioArmaEPI();
+    //
     int flag;
     String statusProd = "Ativo";
     String idInt;
     String modulo = "A";
+    double valorCusto = 0;
 
     /**
      * Creates new form TelaPesqProdutoFarmacia
@@ -257,44 +265,26 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         if (jPesqDescricaoProdutosEPI.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {           
-            preencherTabelaProdutos("SELECT "
-                    + "* "
-                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI "
-                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                    + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE DescricaoProd LIKE'%" + jPesqDescricaoProdutosEPI.getText() + "%' "
-                    + "AND StatusProd='" + statusProd + "' "
-                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
+            PREENCHER_TABELA_PRODUTOS_nome();
         }
     }//GEN-LAST:event_jBtPesqDescricaoProdActionPerformed
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
-        flag = 1;
+       flag = 1;
         if (jPesqDescricaoProdutosEPI.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
         } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT "
-                        + "* "
-                        + "FROM PRODUTOS_AC "
-                        + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                        + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                        + "WHERE DescricaoProd='" + jPesqDescricaoProdutosEPI.getText() + "' "
-                        + "AND StatusProd='" + statusProd + "' "
-                        + "AND IdProd='" + idInt + "'");
-                conecta.rs.first();
-                jIdProduto.setText(String.valueOf(conecta.rs.getInt("IdProd")));
-                jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
-                jCodigoBarra.setText(conecta.rs.getString("CodigoBarra"));
-                jComboBoxUnidProduto.setSelectedItem(conecta.rs.getString("UnidadeProd"));
-                jValorCusto.setText(conecta.rs.getString("ValorCompra"));
-                //  jLote.setText(conecta.rs.getString("Lote"));
-                conecta.desconecta();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);
-            }
+            CONTROLE.MOSTRAR_ITENS_inventarioEPI(objInventEstoque);
+            jIdProduto.setText(String.valueOf(objInventEstoque.getIdProduto()));
+            jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
+//                jCodigoBarra.setText(conecta.rs.getString("CodigoBarra"));
+            jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
+            jLocalArmazenamentoItem.setText(objInventEstoque.getNomeLocalArmazenamento());
+            valorCusto = objInventEstoque.getValorCusto();
+            DecimalFormat vc = new DecimalFormat("#,##0.00");
+            String vlCusto = vc.format(valorCusto);
+            jValorCusto.setText(vlCusto);
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -318,14 +308,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {           
-            this.preencherTabelaProdutos("SELECT "
-                    + "* "
-                    + "FROM PRODUTOS_AC "
-                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                    + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE StatusProd='" + statusProd + "' "
-                    + "AND PRODUTOS_AC.Modulo='" + modulo + "' "
-                    + "ORDER BY PRODUTOS_AC.DescricaoProd");
+            this.PREENCHER_TABELA_PRODUTOS_todos();
         } else {
             limparTelaProdutos();
         }
@@ -337,14 +320,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         if (jCodigoPesquisaEPI.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {           
-            preencherTabelaProdutos("SELECT "
-                    + "* "
-                    + "FROM PRODUTOS_AC "
-                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                    + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE IdProd='" + jCodigoPesquisaEPI.getText() + "' "
-                    + "AND StatusProd='" + statusProd + "' "
-                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
+            PREENCHER_TABELA_PRODUTOS_codigo();
         }
     }//GEN-LAST:event_jBtPesqCodigoActionPerformed
 
@@ -368,34 +344,78 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     // Método de pesquisa pela Matricula
-    public void preencherTabelaProdutos(String sql) {
+    public void PREENCHER_TABELA_PRODUTOS_todos() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
-        conecta.abrirConexao();
-        conecta.executaSQL(sql);
         try {
-            conecta.rs.first();
-            do {
-                dados.add(new Object[]{conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("DescricaoLocal")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
+            for (InventarioArmaEPI b : CONTROLE.ITENS_EPI_todos()) {
+                dados.add(new Object[]{b.getIdProduto(), b.getNomeProduto(), b.getNomeLocalArmazenamento()});
+                ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+                jTabelaProdutos.setModel(modelo);
+                jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
+                jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
+                jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
+                jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
+                jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(250);
+                jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
+                jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
+                jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
+                jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                alinharCamposTabela();
+            }
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaProdutos.setModel(modelo);
-        jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(250);
-        jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
-        jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
-        jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabela();
-        conecta.desconecta();
     }
 
+    public void PREENCHER_TABELA_PRODUTOS_nome() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
+        try {
+            for (InventarioArmaEPI b : CONTROLE.ITENS_EPI_nome()) {
+                dados.add(new Object[]{b.getIdProduto(), b.getNomeProduto(), b.getNomeLocalArmazenamento()});
+                ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+                jTabelaProdutos.setModel(modelo);
+                jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
+                jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
+                jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
+                jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
+                jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(250);
+                jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
+                jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
+                jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
+                jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                alinharCamposTabela();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
+        }
+    }
+
+    public void PREENCHER_TABELA_PRODUTOS_codigo() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
+        try {
+            for (InventarioArmaEPI b : CONTROLE.ITENS_EPI_codigo()) {
+                dados.add(new Object[]{b.getIdProduto(), b.getNomeProduto(), b.getNomeLocalArmazenamento()});
+                ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+                jTabelaProdutos.setModel(modelo);
+                jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
+                jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
+                jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
+                jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
+                jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(250);
+                jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
+                jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
+                jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
+                jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                alinharCamposTabela();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
+        }
+    }
+    
     public void alinharCamposTabela() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();

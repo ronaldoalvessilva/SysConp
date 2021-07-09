@@ -463,4 +463,30 @@ public class ControlePesquisaLocalAramaEPI {
         }
         return null;
     }
+    
+    public InventarioArmaEPI MOSTRAR_ITENS_inventarioEPI(InventarioArmaEPI objInventEstoque) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "a.IdArma, "
+                    + "a.DescricaoArma, "
+                    + "a.UnidadeArma, "
+                    + "a.CustoArma, "
+                    + "l.DescricaoResumida "
+                    + "FROM ARMAS AS a "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON a.IdLocal=l.IdLocal "
+                    + "WHERE a.DescricaoArma='" + jPesqDescricaoProdutosEPI.getText() + "' "
+                    + "AND a.IdArma='" + idInt + "'");
+            conecta.rs.first();
+            objInventEstoque.setIdProduto(conecta.rs.getInt("IdArma"));
+            objInventEstoque.setNomeProduto(conecta.rs.getString("DescricaoArma"));
+            objInventEstoque.setUnidade(conecta.rs.getString("UnidadeArma"));
+            objInventEstoque.setValorCusto(conecta.rs.getFloat("CustoArma"));
+            objInventEstoque.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        return objInventEstoque;
+    }
 }
