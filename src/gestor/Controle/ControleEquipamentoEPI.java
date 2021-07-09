@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static gestor.Visao.TelaCodigoBarraEpi.pNUMERO_equipamento;
+import static gestor.Visao.TelaEquipamentosEPI.jComboBoxLocalizacao;
 
 /**
  *
@@ -32,12 +33,14 @@ public class ControleEquipamentoEPI {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     EquipamentoSegurancaEPI objEquipa = new EquipamentoSegurancaEPI();
+    //
+    int codLocal;
 
     public EquipamentoSegurancaEPI incluirEQUIPAMENTO_epi(EquipamentoSegurancaEPI objEquipa) {
-
+        pPESQUISAR_localizacao(objEquipa.getNomeLocal());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EQUIPAMENTOS_SEGURANCA_EPI (FotoEquipamento,StatusEquipamento,DataCadastroEquipamento,DescricaoEquipamento,Unidade,MarcaEquipamento,ModeloEquipamento,ComprimentoEquipamento,TipoMaterialEquipamento,PesoEquipamento,CorEquipamento,Observacao,NumeroCodigoBarras,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EQUIPAMENTOS_SEGURANCA_EPI (FotoEquipamento,StatusEquipamento,DataCadastroEquipamento,DescricaoEquipamento,Unidade,MarcaEquipamento,ModeloEquipamento,ComprimentoEquipamento,TipoMaterialEquipamento,PesoEquipamento,CorEquipamento,IdLocal,Observacao,NumeroCodigoBarras,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setBytes(1, objEquipa.getFotoEquipamento());
             pst.setString(2, objEquipa.getStatusEquipamento());
             pst.setTimestamp(3, new java.sql.Timestamp(objEquipa.getDataCadastroEquipamento().getTime()));
@@ -49,11 +52,12 @@ public class ControleEquipamentoEPI {
             pst.setString(9, objEquipa.getTipoMaterialEquipamento());
             pst.setFloat(10, objEquipa.getPesoEquipamento());
             pst.setString(11, objEquipa.getCorEquipamento());
-            pst.setString(12, objEquipa.getObservacao());
-            pst.setString(13, objEquipa.getNumeroCodigoBarras());
-            pst.setString(14, objEquipa.getUsuarioInsert());
-            pst.setString(15, objEquipa.getDataInsert());
-            pst.setString(16, objEquipa.getHorarioInsert());
+            pst.setInt(12, codLocal);
+            pst.setString(13, objEquipa.getObservacao());
+            pst.setString(14, objEquipa.getNumeroCodigoBarras());
+            pst.setString(15, objEquipa.getUsuarioInsert());
+            pst.setString(16, objEquipa.getDataInsert());
+            pst.setString(17, objEquipa.getHorarioInsert());
             pst.execute();
             pRESPOSTA_epi = "Sim";
         } catch (SQLException ex) {
@@ -65,10 +69,10 @@ public class ControleEquipamentoEPI {
     }
 
     public EquipamentoSegurancaEPI alterarEQUIPAMENTO_epi(EquipamentoSegurancaEPI objEquipa) {
-
+        pPESQUISAR_localizacao(objEquipa.getNomeLocal());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EQUIPAMENTOS_SEGURANCA_EPI SET FotoEquipamento=?,StatusEquipamento=?,DataCadastroEquipamento=?,DescricaoEquipamento=?,Unidade=?,MarcaEquipamento=?,ModeloEquipamento=?,ComprimentoEquipamento=?,TipoMaterialEquipamento=?,PesoEquipamento=?,CorEquipamento=?,Observacao=?,NumeroCodigoBarras=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdEquipamento='" + objEquipa.getIdEquipamento() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EQUIPAMENTOS_SEGURANCA_EPI SET FotoEquipamento=?,StatusEquipamento=?,DataCadastroEquipamento=?,DescricaoEquipamento=?,Unidade=?,MarcaEquipamento=?,ModeloEquipamento=?,ComprimentoEquipamento=?,TipoMaterialEquipamento=?,PesoEquipamento=?,CorEquipamento=?,IdLocal=?,Observacao=?,NumeroCodigoBarras=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdEquipamento='" + objEquipa.getIdEquipamento() + "'");
             pst.setBytes(1, objEquipa.getFotoEquipamento());
             pst.setString(2, objEquipa.getStatusEquipamento());
             pst.setTimestamp(3, new java.sql.Timestamp(objEquipa.getDataCadastroEquipamento().getTime()));
@@ -80,11 +84,12 @@ public class ControleEquipamentoEPI {
             pst.setString(9, objEquipa.getTipoMaterialEquipamento());
             pst.setFloat(10, objEquipa.getPesoEquipamento());
             pst.setString(11, objEquipa.getCorEquipamento());
-            pst.setString(12, objEquipa.getObservacao());
-            pst.setString(13, objEquipa.getNumeroCodigoBarras());
-            pst.setString(14, objEquipa.getUsuarioUp());
-            pst.setString(15, objEquipa.getDataUp());
-            pst.setString(16, objEquipa.getHorarioUp());
+            pst.setInt(12, codLocal);
+            pst.setString(13, objEquipa.getObservacao());
+            pst.setString(14, objEquipa.getNumeroCodigoBarras());
+            pst.setString(15, objEquipa.getUsuarioUp());
+            pst.setString(16, objEquipa.getDataUp());
+            pst.setString(17, objEquipa.getHorarioUp());
             pst.executeUpdate();
             pRESPOSTA_epi = "Sim";
         } catch (SQLException ex) {
@@ -105,6 +110,42 @@ public class ControleEquipamentoEPI {
         } catch (SQLException ex) {
             pRESPOSTA_epi = "Não";
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEquipa;
+    }
+
+    //--------------------------------------------------- PESQUISAS ---------------------------------------------------------------------------------------
+    public void pPESQUISAR_localizacao(String descricao) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdLocal, "
+                    + "DescricaoResumida "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "WHERE DescricaoResumida='" + descricao + "'");
+            conecta.rs.first();
+            codLocal = conecta.rs.getInt("IdLocal");
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleEquipamentoEPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+    }
+
+    public EquipamentoSegurancaEPI MOSTRA_local(EquipamentoSegurancaEPI objEquipa) {
+        jComboBoxLocalizacao.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "DescricaoResumida "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "GROUP BY DescricaoResumida");
+            conecta.rs.first();
+            do {
+                jComboBoxLocalizacao.addItem(conecta.rs.getString("DescricaoResumida"));
+            } while (conecta.rs.next());
+            jComboBoxLocalizacao.updateUI();
+        } catch (SQLException ex) {
         }
         conecta.desconecta();
         return objEquipa;
@@ -190,23 +231,28 @@ public class ControleEquipamentoEPI {
         List<EquipamentoSegurancaEPI> listaGruposArmas = new ArrayList<EquipamentoSegurancaEPI>();
         try {
             conecta.executaSQL("SELECT "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.IdEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.StatusEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.DataCadastroEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.DescricaoEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.NumeroCodigoBarras, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.MarcaEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.ModeloEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.ComprimentoEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.TipoMaterialEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.PesoEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.CorEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.Observacao, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.FotoEquipamento, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.QRCode, "
-                    + "EQUIPAMENTOS_SEGURANCA_EPI.CodigoBarras "
-                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI "
-                    + "WHERE EQUIPAMENTOS_SEGURANCA_EPI.IdEquipamento='" + pID_equipamento.toString().trim() + "' ");
+                    + "e.IdEquipamento, "
+                    + "e.StatusEquipamento, "
+                    + "e.DataCadastroEquipamento, "
+                    + "e.DescricaoEquipamento, "
+                    + "e.Unidade, "
+                    + "e.NumeroCodigoBarras, "
+                    + "e.MarcaEquipamento, "
+                    + "e.ModeloEquipamento, "
+                    + "e.ComprimentoEquipamento, "
+                    + "e.TipoMaterialEquipamento, "
+                    + "e.PesoEquipamento, "
+                    + "e.CorEquipamento, "
+                    + "e.Observacao, "
+                    + "e.FotoEquipamento, "
+                    + "e.QRCode, "
+                    + "e.CodigoBarras, "
+                    + "l.IdLocal, "
+                    + "l.DescricaoResumida "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI AS e "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON e.IdLocal=l.IdLocal "
+                    + "WHERE e.IdEquipamento='" + pID_equipamento.toString().trim() + "' ");
             while (conecta.rs.next()) {
                 EquipamentoSegurancaEPI objEquipa = new EquipamentoSegurancaEPI();
                 objEquipa.setIdEquipamento(conecta.rs.getInt("IdEquipamento"));
@@ -214,12 +260,14 @@ public class ControleEquipamentoEPI {
                 objEquipa.setDataCadastroEquipamento(conecta.rs.getDate("DataCadastroEquipamento"));
                 objEquipa.setNumeroCodigoBarras(conecta.rs.getString("NumeroCodigoBarras"));
                 objEquipa.setDescricaoEquipamento(conecta.rs.getString("DescricaoEquipamento"));
+                objEquipa.setUnidadeArmazenamento(conecta.rs.getString("Unidade"));
                 objEquipa.setMarcaEquipamento(conecta.rs.getString("MarcaEquipamento"));
                 objEquipa.setModeloEquipamento(conecta.rs.getString("ModeloEquipamento"));
                 objEquipa.setComprimentoEquipamento(conecta.rs.getString("ComprimentoEquipamento"));
                 objEquipa.setTipoMaterialEquipamento(conecta.rs.getString("TipoMaterialEquipamento"));
                 objEquipa.setPesoEquipamento(conecta.rs.getFloat("PesoEquipamento"));
                 objEquipa.setCorEquipamento(conecta.rs.getString("CorEquipamento"));
+                objEquipa.setNomeLocal(conecta.rs.getString("DescricaoResumida"));
                 objEquipa.setObservacao(conecta.rs.getString("Observacao"));
                 objEquipa.setFotoEquipamento(conecta.rs.getBytes("FotoEquipamento"));
                 objEquipa.setqRCodeEquipamento(conecta.rs.getBytes("QRCode"));
@@ -335,7 +383,7 @@ public class ControleEquipamentoEPI {
         return objEquipa;
     }
 
-     public EquipamentoSegurancaEPI pVERIFICAR_QRCode_codigo(EquipamentoSegurancaEPI objEquipa) {
+    public EquipamentoSegurancaEPI pVERIFICAR_QRCode_codigo(EquipamentoSegurancaEPI objEquipa) {
 
         conecta.abrirConexao();
         try {
@@ -345,12 +393,12 @@ public class ControleEquipamentoEPI {
                     + "WHERE IdEquipamento='" + jCodigoEquipamento.getText() + "'");
             conecta.rs.first();
             pNUMERO_EQUIP_epi = conecta.rs.getString("IdEquipamento");
-        } catch (SQLException ex) {            
+        } catch (SQLException ex) {
         }
         conecta.desconecta();
         return objEquipa;
     }
-    
+
     public List<EquipamentoSegurancaEPI> pPESQUISAR_QRCode_read() throws Exception {
         pTOTAL_epi = 0;
         conecta.abrirConexao();
@@ -472,7 +520,7 @@ public class ControleEquipamentoEPI {
                     + "WHERE IdEquipamento='" + jCodigoEquipamento.getText() + "'");
             conecta.rs.first();
             pNUMERO_equipamento = conecta.rs.getString("IdEquipamento");
-        } catch (SQLException ex) {            
+        } catch (SQLException ex) {
         }
         conecta.desconecta();
         return objEquipa;

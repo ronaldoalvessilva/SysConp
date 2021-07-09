@@ -52,11 +52,11 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPesqDescricaoProdutos = new javax.swing.JTextField();
+        jPesqDescricaoProdutosEPI = new javax.swing.JTextField();
         jBtPesqDescricaoProd = new javax.swing.JButton();
         jCheckBoxPesqTodosProd = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
-        jCodigoPesquisa = new javax.swing.JTextField();
+        jCodigoPesquisaEPI = new javax.swing.JTextField();
         jBtPesqCodigo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaProdutos = new javax.swing.JTable();
@@ -87,7 +87,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Descrição:");
 
-        jPesqDescricaoProdutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesqDescricaoProdutosEPI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqDescricaoProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqDescricaoProd.setContentAreaFilled(false);
@@ -108,8 +108,8 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Código:");
 
-        jCodigoPesquisa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCodigoPesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoPesquisaEPI.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoPesquisaEPI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqCodigo.setContentAreaFilled(false);
@@ -131,11 +131,11 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPesqDescricaoProdutos)
+                        .addComponent(jPesqDescricaoProdutosEPI)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqDescricaoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCodigoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCodigoPesquisaEPI, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -149,12 +149,12 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jCodigoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCodigoPesquisaEPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jBtPesqCodigo, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(jCheckBoxPesqTodosProd, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPesqDescricaoProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPesqDescricaoProdutosEPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqDescricaoProd)
                     .addComponent(jLabel1))
                 .addGap(5, 5, 5))
@@ -254,15 +254,15 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
     private void jBtPesqDescricaoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoProdActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jPesqDescricaoProdutos.getText().equals("")) {
+        if (jPesqDescricaoProdutosEPI.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {           
             preencherTabelaProdutos("SELECT "
                     + "* "
-                    + "FROM PRODUTOS_AC "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE DescricaoProd LIKE'%" + jPesqDescricaoProdutos.getText() + "%' "
+                    + "WHERE DescricaoProd LIKE'%" + jPesqDescricaoProdutosEPI.getText() + "%' "
                     + "AND StatusProd='" + statusProd + "' "
                     + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
         }
@@ -271,7 +271,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jPesqDescricaoProdutos.getText().isEmpty()) {
+        if (jPesqDescricaoProdutosEPI.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
         } else {
             conecta.abrirConexao();
@@ -281,7 +281,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
                         + "FROM PRODUTOS_AC "
                         + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                         + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                        + "WHERE DescricaoProd='" + jPesqDescricaoProdutos.getText() + "' "
+                        + "WHERE DescricaoProd='" + jPesqDescricaoProdutosEPI.getText() + "' "
                         + "AND StatusProd='" + statusProd + "' "
                         + "AND IdProd='" + idInt + "'");
                 conecta.rs.first();
@@ -309,7 +309,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
         flag = 1;
         if (flag == 1) {
             String nomeProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 1);
-            jPesqDescricaoProdutos.setText(nomeProduto);
+            jPesqDescricaoProdutosEPI.setText(nomeProduto);
             idInt = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaProdutosMouseClicked
@@ -334,7 +334,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
     private void jBtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoActionPerformed
         // TODO add your handling code here:
          flag = 1;
-        if (jCodigoPesquisa.getText().equals("")) {
+        if (jCodigoPesquisaEPI.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {           
             preencherTabelaProdutos("SELECT "
@@ -342,7 +342,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
                     + "FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE IdProd='" + jCodigoPesquisa.getText() + "' "
+                    + "WHERE IdProd='" + jCodigoPesquisaEPI.getText() + "' "
                     + "AND StatusProd='" + statusProd + "' "
                     + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
         }
@@ -355,13 +355,13 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqDescricaoProd;
     private javax.swing.JButton jBtSair;
     private javax.swing.JCheckBox jCheckBoxPesqTodosProd;
-    private javax.swing.JTextField jCodigoPesquisa;
+    public static javax.swing.JTextField jCodigoPesquisaEPI;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jPesqDescricaoProdutos;
+    public static javax.swing.JTextField jPesqDescricaoProdutosEPI;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaProdutos;

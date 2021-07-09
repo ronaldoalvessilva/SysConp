@@ -132,12 +132,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jPesqDescricaoProdutos" max="32767" attributes="0"/>
+                                  <Component id="jPesqDescricaoProdutosEPI" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtPesqDescricaoProd" min="-2" pref="27" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jCodigoPesquisa" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="jCodigoPesquisaEPI" min="-2" pref="53" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtPesqCodigo" min="-2" pref="27" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -155,7 +155,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCodigoPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCodigoPesquisaEPI" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jBtPesqCodigo" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -163,7 +163,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jPesqDescricaoProdutos" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPesqDescricaoProdutosEPI" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtPesqDescricaoProd" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -184,7 +184,7 @@
                     <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jPesqDescricaoProdutos">
+                <Component class="javax.swing.JTextField" name="jPesqDescricaoProdutosEPI">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -192,6 +192,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtPesqDescricaoProd">
                   <Properties>
@@ -223,7 +226,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jCodigoPesquisa">
+                <Component class="javax.swing.JTextField" name="jCodigoPesquisaEPI">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -232,6 +235,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtPesqCodigo">
                   <Properties>

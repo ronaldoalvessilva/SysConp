@@ -14,6 +14,8 @@ import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.nomeProdutoArma;
 import static gestor.Visao.TelaLocalArmazenamentoEPI.jPesqDescricaoLocal;
 import static gestor.Visao.TelaPesqLocalArmazenamentoAE.idLocal;
 import static gestor.Visao.TelaPesqLocalArmazenamentoAE.nomeProduto;
+import static gestor.Visao.TelaPesqProdutoInventarioAE.jCodigoPesquisaEPI;
+import static gestor.Visao.TelaPesqProdutoInventarioAE.jPesqDescricaoProdutosEPI;
 import static gestor.Visao.TelaPesqProdutoInventarioArmas.idInt;
 import static gestor.Visao.TelaPesqProdutoInventarioArmas.jCodigoPesquisa;
 import static gestor.Visao.TelaPesqProdutoInventarioArmas.jPesqDescricaoProdutos;
@@ -352,5 +354,113 @@ public class ControlePesquisaLocalAramaEPI {
         }
         conecta.desconecta();
         return objInventEstoque;
+    }
+
+    //----------------------------------------- EQUIPAMENTOS - EPI -------------------------------------------------------------
+    public List<InventarioArmaEPI> ITENS_EPI_todos() throws Exception {
+
+        conecta.abrirConexao();
+        List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdEquipamento, "
+                    + "StatusEquipamento, "
+                    + "DescricaoEquipamento, "
+                    + "Unidade, "
+                    + "l.IdLocal, "
+                    + "l.DescricaoResumida "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI AS e "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON e.IdLocal=l.IdLocal "
+                    + "WHERE e.StatusEquipamento='" + pSTATUS + "'");
+            while (conecta.rs.next()) {
+                InventarioArmaEPI pArmas = new InventarioArmaEPI();
+                pArmas.setIdProduto(conecta.rs.getInt("IdEquipamento"));
+                pArmas.setStatusLanc(conecta.rs.getString("StatusEquipamento"));
+                pArmas.setNomeProduto(conecta.rs.getString("DescricaoEquipamento"));
+                pArmas.setUnidade(conecta.rs.getString("Unidade"));
+                pArmas.setIdLocal(conecta.rs.getInt("IdLocal"));
+                pArmas.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
+                LISTAR_armas.add(pArmas);
+            }
+            return LISTAR_armas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePesquisaLocalAramaEPI.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public List<InventarioArmaEPI> ITENS_EPI_codigo() throws Exception {
+
+        conecta.abrirConexao();
+        List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdEquipamento, "
+                    + "StatusEquipamento, "
+                    + "DescricaoEquipamento, "
+                    + "Unidade, "
+                    + "l.IdLocal, "
+                    + "l.DescricaoResumida "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI AS e "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON e.IdLocal=l.IdLocal "
+                    + "WHERE e.StatusEquipamento='" + pSTATUS + "' "
+                    + "AND e.IdEquipamento'" + jCodigoPesquisaEPI.getText() + "'");
+            while (conecta.rs.next()) {
+                InventarioArmaEPI pArmas = new InventarioArmaEPI();
+                pArmas.setIdProduto(conecta.rs.getInt("IdEquipamento"));
+                pArmas.setStatusLanc(conecta.rs.getString("StatusEquipamento"));
+                pArmas.setNomeProduto(conecta.rs.getString("DescricaoEquipamento"));
+                pArmas.setUnidade(conecta.rs.getString("Unidade"));
+                pArmas.setIdLocal(conecta.rs.getInt("IdLocal"));
+                pArmas.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
+                LISTAR_armas.add(pArmas);
+            }
+            return LISTAR_armas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePesquisaLocalAramaEPI.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public List<InventarioArmaEPI> ITENS_EPI_nome() throws Exception {
+
+        conecta.abrirConexao();
+        List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdEquipamento, "
+                    + "StatusEquipamento, "
+                    + "DescricaoEquipamento, "
+                    + "Unidade, "
+                    + "l.IdLocal, "
+                    + "l.DescricaoResumida "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI AS e "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON e.IdLocal=l.IdLocal "
+                    + "WHERE e.StatusEquipamento='" + pSTATUS + "' "
+                    + "AND e.DescricaoEquipamento LIKE '%" + jPesqDescricaoProdutosEPI.getText() + "%'");
+            while (conecta.rs.next()) {
+                InventarioArmaEPI pArmas = new InventarioArmaEPI();
+                pArmas.setIdProduto(conecta.rs.getInt("IdEquipamento"));
+                pArmas.setStatusLanc(conecta.rs.getString("StatusEquipamento"));
+                pArmas.setNomeProduto(conecta.rs.getString("DescricaoEquipamento"));
+                pArmas.setUnidade(conecta.rs.getString("Unidade"));
+                pArmas.setIdLocal(conecta.rs.getInt("IdLocal"));
+                pArmas.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
+                LISTAR_armas.add(pArmas);
+            }
+            return LISTAR_armas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePesquisaLocalAramaEPI.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }

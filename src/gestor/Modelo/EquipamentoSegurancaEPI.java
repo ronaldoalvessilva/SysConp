@@ -33,6 +33,8 @@ public class EquipamentoSegurancaEPI {
     private Integer idCodigoBarraEquipamento;
     private byte[] codigoBarra;
     private String numeroCodigoBarras;
+    private Integer idLocal;
+    private String nomeLocal;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -43,7 +45,7 @@ public class EquipamentoSegurancaEPI {
     public EquipamentoSegurancaEPI() {
     }
 
-    public EquipamentoSegurancaEPI(Integer idEquipamento, String statusEquipamento, Date dataCadastroEquipamento, String descricaoEquipamento, String unidadeArmazenamento, String marcaEquipamento, String modeloEquipamento, String comprimentoEquipamento, String tipoMaterialEquipamento, Float pesoEquipamento, String corEquipamento, String observacao, byte[] fotoEquipamento, byte[] qRCodeEquipamento, String textoQRCode, Integer idQrCodeEquipamento, Integer idCodigoBarraEquipamento, byte[] codigoBarra, String numeroCodigoBarras, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public EquipamentoSegurancaEPI(Integer idEquipamento, String statusEquipamento, Date dataCadastroEquipamento, String descricaoEquipamento, String unidadeArmazenamento, String marcaEquipamento, String modeloEquipamento, String comprimentoEquipamento, String tipoMaterialEquipamento, Float pesoEquipamento, String corEquipamento, String observacao, byte[] fotoEquipamento, byte[] qRCodeEquipamento, String textoQRCode, Integer idQrCodeEquipamento, Integer idCodigoBarraEquipamento, byte[] codigoBarra, String numeroCodigoBarras, Integer idLocal, String nomeLocal, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idEquipamento = idEquipamento;
         this.statusEquipamento = statusEquipamento;
         this.dataCadastroEquipamento = dataCadastroEquipamento;
@@ -63,6 +65,8 @@ public class EquipamentoSegurancaEPI {
         this.idCodigoBarraEquipamento = idCodigoBarraEquipamento;
         this.codigoBarra = codigoBarra;
         this.numeroCodigoBarras = numeroCodigoBarras;
+        this.idLocal = idLocal;
+        this.nomeLocal = nomeLocal;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -338,6 +342,34 @@ public class EquipamentoSegurancaEPI {
     }
 
     /**
+     * @return the idLocal
+     */
+    public Integer getIdLocal() {
+        return idLocal;
+    }
+
+    /**
+     * @param idLocal the idLocal to set
+     */
+    public void setIdLocal(Integer idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    /**
+     * @return the nomeLocal
+     */
+    public String getNomeLocal() {
+        return nomeLocal;
+    }
+
+    /**
+     * @param nomeLocal the nomeLocal to set
+     */
+    public void setNomeLocal(String nomeLocal) {
+        this.nomeLocal = nomeLocal;
+    }
+
+    /**
      * @return the usuarioInsert
      */
     public String getUsuarioInsert() {
@@ -419,37 +451,5 @@ public class EquipamentoSegurancaEPI {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
-    }
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.idEquipamento);
-        hash = 41 * hash + Objects.hashCode(this.idQrCodeEquipamento);
-        hash = 41 * hash + Objects.hashCode(this.idCodigoBarraEquipamento);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final EquipamentoSegurancaEPI other = (EquipamentoSegurancaEPI) obj;
-        if (!Objects.equals(this.idEquipamento, other.idEquipamento)) {
-            return false;
-        }
-        if (!Objects.equals(this.idQrCodeEquipamento, other.idQrCodeEquipamento)) {
-            return false;
-        }
-        if (!Objects.equals(this.idCodigoBarraEquipamento, other.idCodigoBarraEquipamento)) {
-            return false;
-        }
-        return true;
     }
 }

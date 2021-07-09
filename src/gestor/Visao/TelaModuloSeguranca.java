@@ -2806,7 +2806,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEquipamentosEPI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaEquipamentosEPI) && codAbrir == 1) {
-            if (objEPI == null || objArmas.isClosed()) {
+            if (objEPI == null || objEPI.isClosed()) {
                 objEPI = new TelaEquipamentosEPI();
                 jPainelSeguranca.add(objEPI);
                 objEPI.setVisible(true);

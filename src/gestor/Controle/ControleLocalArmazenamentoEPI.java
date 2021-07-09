@@ -175,7 +175,7 @@ public class ControleLocalArmazenamentoEPI {
             conecta.executaSQL("SELECT "
                     + "IdLocal "
                     + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI");
-            conecta.rs.first();
+            conecta.rs.last();
             jIDLocal.setText(String.valueOf(conecta.rs.getInt("IdLocal")));
         } catch (Exception ex) {
             Logger.getLogger(ControleLocalArmazenamentoEPI.class.getName()).log(Level.SEVERE, null, ex);

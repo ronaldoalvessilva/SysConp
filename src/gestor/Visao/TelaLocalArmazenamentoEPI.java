@@ -800,6 +800,7 @@ public class TelaLocalArmazenamentoEPI extends javax.swing.JInternalFrame {
         jDescricaoResumida.setText("");
         //
         jComboBoxStatusLocal.setEnabled(true);
+        jDescricaoPrinicipal.setEnabled(true);
         jDescricaoLocal.setEnabled(true);
         jDescricaoResumida.setEnabled(true);
         //
