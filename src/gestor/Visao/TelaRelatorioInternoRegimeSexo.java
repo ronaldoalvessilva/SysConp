@@ -26,6 +26,7 @@ public class TelaRelatorioInternoRegimeSexo extends javax.swing.JInternalFrame {
 
     String situacaoEnt = "ENTRADA NA UNIDADE"; // Todas as Entradas
     String situacaoRet = "RETORNO A UNIDADE"; // Todos os Retornos
+    String situacaoCov = "PRISAO DOMICILIAR - COVID-19";
 
     /**
      * Creates new form TelaRelatorioInternoRegimeSexo
@@ -144,7 +145,7 @@ public class TelaRelatorioInternoRegimeSexo extends javax.swing.JInternalFrame {
             public void run() { //Teste
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/CRC/ListagemInternoPorRegimePenal.jasper";
+                    String path = "reports/CRC/ListagemInternosPorRegimePenal.jasper";
                     conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
@@ -156,6 +157,7 @@ public class TelaRelatorioInternoRegimeSexo extends javax.swing.JInternalFrame {
                     HashMap parametros = new HashMap();
                     parametros.put("entrada", situacaoEnt);
                     parametros.put("retorno", situacaoRet);
+                    parametros.put("COVID", situacaoCov);
                     parametros.put("nomeUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
                     parametros.put("regimePenal", jComboBoxRegimePenal.getSelectedItem());

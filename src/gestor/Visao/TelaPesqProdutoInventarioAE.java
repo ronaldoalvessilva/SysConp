@@ -301,6 +301,7 @@ public class TelaPesqProdutoInventarioAE extends javax.swing.JInternalFrame {
             String nomeProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 1);
             jPesqDescricaoProdutosEPI.setText(nomeProduto);
             idInt = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 0);
+            jCodigoPesquisaEPI.setText(idInt);
         }
     }//GEN-LAST:event_jTabelaProdutosMouseClicked
 

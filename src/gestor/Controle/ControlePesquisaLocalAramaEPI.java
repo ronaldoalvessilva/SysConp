@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.InventarioArmaEPI;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.idItem;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxLocalArmazenamento;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIDPesq;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLanc;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.nomeProdutoArma;
 import static gestor.Visao.TelaLocalArmazenamentoEPI.jPesqDescricaoLocal;
@@ -269,6 +270,24 @@ public class ControlePesquisaLocalAramaEPI {
         return objInventEstoque;
     }
 
+    // ---------------------- ITENS DO INVENTÁRIIO -------------------------------------------------
+    public InventarioArmaEPI VERIFICAR_TIPO_produto(InventarioArmaEPI objInventEstoque) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "IdLanc, "
+                    + "TipoProduto "
+                    + "FROM ITENS_INVENTARIO_ARMAS_EPI "
+                    + "WHERE IdLanc='" + jIDPesq.getText() + "'");
+            conecta.rs.first();
+            objInventEstoque.setTipoArmaEPI(conecta.rs.getInt("TipoProduto"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePesquisaLocalAramaEPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+        return objInventEstoque;
+    }
+
     public List<InventarioArmaEPI> ITENS_ARMAS_registro() throws Exception {
 
         conecta.abrirConexao();
@@ -301,6 +320,52 @@ public class ControlePesquisaLocalAramaEPI {
                 pArmas.setNomeProduto(conecta.rs.getString("DescricaoArma"));
                 pArmas.setUnidade(conecta.rs.getString("UnidadeArma"));
                 pArmas.setValorCusto(conecta.rs.getFloat("CustoArma"));
+                pArmas.setQtdItem(conecta.rs.getInt("QtdItem"));
+                pArmas.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
+                pArmas.setDataLote(conecta.rs.getDate("DataLote"));
+                LISTAR_armas.add(pArmas);
+            }
+            return LISTAR_armas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePesquisaLocalAramaEPI.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+    public List<InventarioArmaEPI> ITENS_EPI_registro() throws Exception {
+
+        conecta.abrirConexao();
+        List<InventarioArmaEPI> LISTAR_armas = new ArrayList<InventarioArmaEPI>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "e.IdEquipamento, "
+                    + "e.StatusEquipamento, "
+                    + "e.DescricaoEquipamento, "
+                    + "e.Unidade, "
+                    //                    + "e.CustoArma, "
+                    + "i.IdItem, "
+                    + "i.IdLanc, "
+                    + "i.IdProd, "
+                    + "i.QtdItem, "
+                    + "i.Lote, "
+                    + "i.DataLote, "
+                    + "l.IdLocal, "
+                    + "l.DescricaoResumida "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI AS e "
+                    + "INNER JOIN ITENS_INVENTARIO_ARMAS_EPI AS i "
+                    + "ON e.IdEquipamento=i.IdProd "
+                    + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
+                    + "ON e.IdLocal=l.IdLocal "
+                    + "WHERE i.IdLanc='" + jIdLanc.getText() + "'");
+            while (conecta.rs.next()) {
+                InventarioArmaEPI pArmas = new InventarioArmaEPI();
+                pArmas.setIdItem(conecta.rs.getInt("IdItem"));
+                pArmas.setIdProduto(conecta.rs.getInt("IdProd"));
+                pArmas.setNomeProduto(conecta.rs.getString("DescricaoEquipamento"));
+                pArmas.setUnidade(conecta.rs.getString("Unidade"));
+//                pArmas.setValorCusto(conecta.rs.getFloat("CustoArma"));
                 pArmas.setQtdItem(conecta.rs.getInt("QtdItem"));
                 pArmas.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
                 pArmas.setDataLote(conecta.rs.getDate("DataLote"));
@@ -463,26 +528,26 @@ public class ControlePesquisaLocalAramaEPI {
         }
         return null;
     }
-    
+
     public InventarioArmaEPI MOSTRAR_ITENS_inventarioEPI(InventarioArmaEPI objInventEstoque) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT "
-                    + "a.IdArma, "
-                    + "a.DescricaoArma, "
-                    + "a.UnidadeArma, "
-                    + "a.CustoArma, "
+                    + "e.IdEquipamento, "
+                    + "e.DescricaoEquipamento, "
+                    + "e.Unidade, "
+                    //                    + "e.CustoArma, "
                     + "l.DescricaoResumida "
-                    + "FROM ARMAS AS a "
+                    + "FROM EQUIPAMENTOS_SEGURANCA_EPI AS e "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_ARMAS_EPI AS l "
-                    + "ON a.IdLocal=l.IdLocal "
-                    + "WHERE a.DescricaoArma='" + jPesqDescricaoProdutosEPI.getText() + "' "
-                    + "AND a.IdArma='" + idInt + "'");
+                    + "ON e.IdLocal=l.IdLocal "
+                    + "WHERE e.DescricaoEquipamento='" + jPesqDescricaoProdutosEPI.getText() + "' "
+                    + "AND e.IdEquipamento='" + jCodigoPesquisaEPI.getText() + "'");
             conecta.rs.first();
-            objInventEstoque.setIdProduto(conecta.rs.getInt("IdArma"));
-            objInventEstoque.setNomeProduto(conecta.rs.getString("DescricaoArma"));
-            objInventEstoque.setUnidade(conecta.rs.getString("UnidadeArma"));
-            objInventEstoque.setValorCusto(conecta.rs.getFloat("CustoArma"));
+            objInventEstoque.setIdProduto(conecta.rs.getInt("IdEquipamento"));
+            objInventEstoque.setNomeProduto(conecta.rs.getString("DescricaoEquipamento"));
+            objInventEstoque.setUnidade(conecta.rs.getString("Unidade"));
+//            objInventEstoque.setValorCusto(conecta.rs.getFloat("CustoArma"));
             objInventEstoque.setNomeLocalArmazenamento(conecta.rs.getString("DescricaoResumida"));
         } catch (Exception e) {
         }

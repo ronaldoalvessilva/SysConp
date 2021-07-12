@@ -95,6 +95,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     public static String pRESPOSTA_inv = "";
     public static int pTOTAL_epi = 0;
     int TIPO_produto = 0;
+    int pTIPO_ARMA_epi = 0;
 
     /**
      * Creates new form TelaInventarioProdutosMed
@@ -906,7 +907,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         jLocalArmazenamentoItem.setEnabled(false);
 
         jComboBoxUnidProduto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxUnidProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "UN", "Caixa", "Pacote", "Ml", "Kg", "Litro", "Peça", "Ampla", "Kit", "PR", "Pç" }));
+        jComboBoxUnidProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "UN", "Caixa", "Pacote", "Ml", "Kg", "Litro", "Peça", "Ampla", "Kit", "PR", "Pç", "Pc" }));
         jComboBoxUnidProduto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxUnidProduto.setEnabled(false);
 
@@ -1545,7 +1546,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                         if (pRESPOSTA_inv.equals("Sim")) {
                             JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                         } else if (pRESPOSTA_inv.equals("Não")) {
-                            JOptionPane.showMessageDialog(rootPane, "Não foi possível excluir o registro.");
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível excluir o registro, tente novamente.");
                         }
                     }
                 }
@@ -1588,7 +1589,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                 }
                 objInventEstoque.setNomeLocalArmazenamento(jLocalArmazenamentoItem.getText());
                 objInventEstoque.setDataLote(jDataVctoLote.getDate());
-//                objInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
                 if (jRBtArmas.isSelected()) {
                     TIPO_produto = 0;
                     objInventEstoque.setTipoArmaEPI(TIPO_produto);
@@ -2006,8 +2006,8 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     public static javax.swing.JTextField jQtd;
-    private javax.swing.JRadioButton jRBtArmas;
-    private javax.swing.JRadioButton jRBtEPIs;
+    public static javax.swing.JRadioButton jRBtArmas;
+    public static javax.swing.JRadioButton jRBtEPIs;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2471,23 +2471,45 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     }
 
     public void preencherTabelaItensInventario() {
+        CONTROLE.VERIFICAR_TIPO_produto(objInventEstoque);
+        pTIPO_ARMA_epi = objInventEstoque.getTipoArmaEPI();
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaItensProdutoInvent.getModel();
-        try {
-            for (InventarioArmaEPI gg : CONTROLE.ITENS_ARMAS_registro()) {
-                jtotalRegistros.setText(Integer.toString(pTOTAL_epi)); // Converter inteiro em string para exibir na tela
-                dadosOrigem.addRow(new Object[]{gg.getIdItem(), gg.getIdProduto(), gg.getIdLanc(), gg.getNomeProduto(), gg.getUnidade(), gg.getQtdItem(), gg.getNomeLocalArmazenamento(), gg.getDataLote()});
-                // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaItensProdutoInvent.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                //
-                jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        if (pTIPO_ARMA_epi == 0 || pTIPO_ARMA_epi == 1) {
+            try {
+                for (InventarioArmaEPI gg : CONTROLE.ITENS_ARMAS_registro()) {
+                    jtotalRegistros.setText(Integer.toString(pTOTAL_epi)); // Converter inteiro em string para exibir na tela
+                    dadosOrigem.addRow(new Object[]{gg.getIdItem(), gg.getIdProduto(), gg.getIdLanc(), gg.getNomeProduto(), gg.getUnidade(), gg.getQtdItem(), gg.getNomeLocalArmazenamento(), gg.getDataLote()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaItensProdutoInvent.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TelaEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
+            //ITENS EPI, QUANDO TIVER
+            try {
+                for (InventarioArmaEPI gg : CONTROLE.ITENS_EPI_registro()) {
+                    jtotalRegistros.setText(Integer.toString(pTOTAL_epi)); // Converter inteiro em string para exibir na tela
+                    dadosOrigem.addRow(new Object[]{gg.getIdItem(), gg.getIdProduto(), gg.getIdLanc(), gg.getNomeProduto(), gg.getUnidade(), gg.getQtdItem(), gg.getNomeLocalArmazenamento(), gg.getDataLote()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaItensProdutoInvent.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

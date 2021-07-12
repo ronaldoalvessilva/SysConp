@@ -13,6 +13,8 @@ import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxTipoInven
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIDPesq;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLanc;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdProduto;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jRBtArmas;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jRBtEPIs;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.pTOTAL_inve;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.pRESPOSTA_inv;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.pCODIGO_inventario;
@@ -249,7 +251,7 @@ public class ControleInventarioArmasEPIs {
         try {
             conecta.executaSQL("SELECT  "
                     + "i.IdLanc, "
-                    + "i.TipoProduto, "                    
+                    + "i.TipoProduto, "
                     + "i.StatusLanc, "
                     + "i.TipoInventario, "
                     + "i.IdLocal, "
@@ -323,12 +325,15 @@ public class ControleInventarioArmasEPIs {
 
     //---------------------------------------------- PRODUTOS ---------------------------------------------------------------------------
     public InventarioArmaEPI incluirItensInventarioAE(InventarioArmaEPI objInventEstoque) {
-        pBUSCAR_arma(objInventEstoque.getNomeProduto());
+        if (jRBtArmas.isSelected()) {
+            pBUSCAR_arma(objInventEstoque.getNomeProduto());
+        } else if (jRBtEPIs.isSelected()) {
+            pBUSCAR_epi(objInventEstoque.getNomeProduto());
+        }
         pBUSCAR_LOCAL_armazenamento(objInventEstoque.getNomeLocalArmazenamento());
-
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INVENTARIO_ARMAS_EPI (IdLanc,IdProd,QtdItem,ValorCusto,IdLocal,Lote,DataLote,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INVENTARIO_ARMAS_EPI (IdLanc,IdProd,QtdItem,ValorCusto,IdLocal,Lote,DataLote,TipoProduto,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objInventEstoque.getIdLanc());
             pst.setInt(2, codProd);
             pst.setFloat(3, objInventEstoque.getQtdItem());
@@ -340,9 +345,10 @@ public class ControleInventarioArmasEPIs {
             } else {
                 pst.setDate(7, null);
             }
-            pst.setString(8, objInventEstoque.getUsuarioInsert());
-            pst.setString(9, objInventEstoque.getDataInsert());
-            pst.setString(10, objInventEstoque.getHorarioInsert());
+            pst.setInt(8, objInventEstoque.getTipoArmaEPI());
+            pst.setString(9, objInventEstoque.getUsuarioInsert());
+            pst.setString(10, objInventEstoque.getDataInsert());
+            pst.setString(11, objInventEstoque.getHorarioInsert());
             pst.execute();
             pRESPOSTA_inv = "Sim";
         } catch (SQLException ex) {
@@ -354,11 +360,15 @@ public class ControleInventarioArmasEPIs {
     }
 
     public InventarioArmaEPI alterarItensInventarioAE(InventarioArmaEPI objInventEstoque) {
-        pBUSCAR_arma(objInventEstoque.getNomeProduto());
+        if (jRBtArmas.isSelected()) {
+            pBUSCAR_arma(objInventEstoque.getNomeProduto());
+        } else if (jRBtEPIs.isSelected()) {
+            pBUSCAR_epi(objInventEstoque.getNomeProduto());
+        }
         pBUSCAR_LOCAL_armazenamento(objInventEstoque.getNomeLocalArmazenamento());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_INVENTARIO_ARMAS_EPI SET IdLanc=?,IdProd=?,QtdItem=?,ValorCusto=?,IdLocal=?,Lote=?,DataLote=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_INVENTARIO_ARMAS_EPI SET IdLanc=?,IdProd=?,QtdItem=?,ValorCusto=?,IdLocal=?,Lote=?,DataLote=?,TipoProduto=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objInventEstoque.getIdItem() + "'");
             pst.setInt(1, objInventEstoque.getIdLanc());
             pst.setInt(2, codProd);
             pst.setFloat(3, objInventEstoque.getQtdItem());
@@ -370,9 +380,10 @@ public class ControleInventarioArmasEPIs {
             } else {
                 pst.setDate(7, null);
             }
-            pst.setString(8, objInventEstoque.getUsuarioUp());
-            pst.setString(9, objInventEstoque.getDataUp());
-            pst.setString(10, objInventEstoque.getHorarioUp());
+            pst.setInt(8, objInventEstoque.getTipoArmaEPI());
+            pst.setString(9, objInventEstoque.getUsuarioUp());
+            pst.setString(10, objInventEstoque.getDataUp());
+            pst.setString(11, objInventEstoque.getHorarioUp());
             pst.executeUpdate();
             pRESPOSTA_inv = "Sim";
         } catch (SQLException ex) {
