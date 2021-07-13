@@ -25,11 +25,12 @@ public class ControleHistoricoMovimentacaoAREFIS {
     // INCLUIR HISTÓRICO DE MOVIMENTAÇÃO DO ESTOQUE PARA CONSULTA DE SALDO DE ESTOQUE
     // QUANDO EXECUTANDO A FINALIZAÇÃO DAS REQUISIÇÕES
     public HistoricoMovimentacaoEstoque incluirHistoricoProdutoAC(HistoricoMovimentacaoEstoque objHistMovAC) {      
+        buscarLocalArmazenamento(objHistMovAC.getDescricaoLocal());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO HISTORICO_MOVIMENTACAO_ESTOQUE_AE (IdProd,IdLocal,TipoOpe,NomeOperacao,IdDoc,DataMov,QtdItem,SaldoAtual) VALUES (?,?,?,?,?,?,?,?)");
             pst.setInt(1, objHistMovAC.getIdProd());
-            pst.setInt(2, objHistMovAC.getIdLocal());
+            pst.setInt(2, codLocal);
             pst.setString(3, objHistMovAC.getTipoOpe());
             pst.setString(4, objHistMovAC.getNomeOperacao());
             pst.setInt(5, objHistMovAC.getIdDoc());
@@ -73,11 +74,12 @@ public class ControleHistoricoMovimentacaoAREFIS {
         return objHistMovAC;
     }
     public HistoricoMovimentacaoEstoque alterarHistoricoProdutoAC(HistoricoMovimentacaoEstoque objHistMovAC) {
+        buscarLocalArmazenamento(objHistMovAC.getDescricaoLocal());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICO_MOVIMENTACAO_ESTOQUE_AE SET IdProd=?,IdLocal=?,TipoOpe=?,NomeOperacao=?,IdDoc=?,DataMov=?,QtdItem=?,SaldoAtual=? WHERE IdProd='" + objHistMovAC.getIdProd() + "'");
             pst.setInt(1, objHistMovAC.getIdProd());
-            pst.setInt(2, objHistMovAC.getIdLocal());
+            pst.setInt(2, codLocal);
             pst.setString(3, objHistMovAC.getTipoOpe());
             pst.setString(4, objHistMovAC.getNomeOperacao());
             pst.setInt(5, objHistMovAC.getIdDoc());
@@ -111,7 +113,11 @@ public class ControleHistoricoMovimentacaoAREFIS {
     public void buscarLocalArmazenamento(String nome) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOCAL_ARMAZENAMENTO_AC WHERE DescricaoLocal='" + nome + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdLocal, "
+                    + "DescricaoResumida "
+                    + "FROM LOCAL_ARMAZENAMENTO_ARMAS_EPI "
+                    + "WHERE DescricaoResumida='" + nome + "'");
             conecta.rs.first();
             codLocal = conecta.rs.getInt("IdLocal");
         } catch (SQLException ex) {

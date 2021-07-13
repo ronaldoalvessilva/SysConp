@@ -19,6 +19,7 @@ import gestor.Modelo.InventarioEstoque;
 import gestor.Modelo.ItensInventarioEstoque;
 import gestor.Modelo.ProdutoMedicamento;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jBtResultadoInventario;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxLocalArmazenamento;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jComboBoxTipoInventario;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jDataTermino;
 import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jHorarioTermino;
@@ -66,7 +67,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
     String dataModFinal, dataValidade;
     double qtdEstoque = 0;
     double qtdItem = 0;
-    int codProduto;
+    int codProduto = 0;
     String numeroLote;
     int saldoAtual;
     String tipoInventario; // Se for I = Inventario Inicial, se for A = Ajuste Estoque  
@@ -288,11 +289,13 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                     objProdMed.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objProdMed.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
                     objProdMed.setSaldoAtual((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
-                    objProdMed.setLote((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
-                    try {
-                        // Converte a data de string para date, para ser inserido no banco de dados.
-                        date = (java.util.Date) formatter.parse((String) jTabelaItensProdutoInvent.getValueAt(i, 7));
-                    } catch (ParseException ex) {
+                    objProdMed.setNomeLocal((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
+                    if (jTabelaItensProdutoInvent.getValueAt(i, 7) != null) {
+                        try {
+                            // Converte a data de string para date, para ser inserido no banco de dados.
+                            date = (java.util.Date) formatter.parse((String) jTabelaItensProdutoInvent.getValueAt(i, 7));
+                        } catch (ParseException ex) {
+                        }
                     }
                     CONTROLE.alterarEstoqueProdutoAC(objProdMed); // alterar saldo de estoque dos produtos SALDO_ESTQUE_AC
                     verificarProdutoNovoLote(); // Verifica se o produto e o lote existe
@@ -304,12 +307,13 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         CONTROLE.alterarLoteProdutoAC(objProdMed);
                         //
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-//                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                        objHistMovAC.setDescricaoLocal((String) (jComboBoxLocalArmazenamento.getSelectedItem()));
                         objHistMovAC.setTipoOpe(tipoInventario);
                         objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
                         objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
                         objHistMovAC.setDataMov(jDataTermino.getDate());
                         objHistMovAC.setQtdItem((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
+                        objHistMovAC.setDescricaoLocal((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
                         objHistMovAC.setSaldoAtual((float) qtdEstoque);
                         verificarModEstoque(); // VERIFICAR SE O PRODUTO EXISTE NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
                         if (codProduto != 0) {
@@ -324,7 +328,18 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         // Incluir o mesmo produto caso tenha mais de um lote
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
-                        CONTROLE.incluirNovoLoteProdutoAC(objProdMed); // Alterar lote de produtos na tabela LOTEPRODUTOS                                           
+                        CONTROLE.incluirNovoLoteProdutoAC(objProdMed); // Alterar lote de produtos na tabela LOTEPRODUTOS    
+                        SomaProduto(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
+                        objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
+                        objHistMovAC.setDescricaoLocal((String) (jComboBoxLocalArmazenamento.getSelectedItem()));
+                        objHistMovAC.setTipoOpe(tipoInventario);
+                        objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
+                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
+                        objHistMovAC.setDataMov(jDataTermino.getDate());
+                        objHistMovAC.setQtdItem((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
+                        objHistMovAC.setDescricaoLocal((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
+                        // objHistMovAC.setSaldoAtual((float) qtdEstoque);
+                        CONTROLE_historico.incluirHistoricoProdutoAC(objHistMovAC);
                     }
                 }
                 // Modificar o status do inventário para EFETUADO.
@@ -348,7 +363,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                     } catch (ParseException ex) {
                     }
                     CONTROLE.alterarEstoqueProdutoAC(objProdMed); // alterar saldo de estoque dos produtos SALDO_ESTQUE_AC
-//                    verificarProdutoNovoLote(); // Verifica se o produto e o lote existe
+                    verificarProdutoNovoLote(); // Verifica se o produto e o lote existe
                     //if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() || codProduto == objProdMed.getIdProd() && numeroLote.equals("")) { // Se existir altera
                     if (codProduto == objProdMed.getIdProd()) { // Se existir altera
                         // Se existir atualiza
@@ -356,7 +371,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         CONTROLE.alterarLoteProdutoAC(objProdMed);
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-//                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                        objHistMovAC.setDescricaoLocal((String) (jComboBoxLocalArmazenamento.getSelectedItem()));
                         objHistMovAC.setTipoOpe(tipoInventario);
                         objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
                         objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
@@ -376,7 +391,18 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         // Incluir o mesmo produto caso tenha mais de um lote
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
-                        CONTROLE.incluirNovoLoteProdutoAC(objProdMed); // Alterar lote de produtos na tabela LOTEPRODUTOS                                           
+                        CONTROLE.incluirNovoLoteProdutoAC(objProdMed); // Alterar lote de produtos na tabela LOTEPRODUTOS    
+                        SomaProduto(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
+                        objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
+                        objHistMovAC.setDescricaoLocal((String) (jComboBoxLocalArmazenamento.getSelectedItem()));
+                        objHistMovAC.setTipoOpe(tipoInventario);
+                        objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
+                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
+                        objHistMovAC.setDataMov(jDataTermino.getDate());
+                        objHistMovAC.setQtdItem((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
+                        objHistMovAC.setDescricaoLocal((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
+                        // objHistMovAC.setSaldoAtual((float) qtdEstoque);
+                        CONTROLE_historico.incluirHistoricoProdutoAC(objHistMovAC);
                     }
                 }
                 // Modificar o status do inventário para EFETUADO.
@@ -399,7 +425,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                     } catch (ParseException ex) {
                     }
                     CONTROLE.alterarEstoqueProdutoAC(objProdMed); // alterar saldo de estoque dos produtos SALDO_ESTQUE_AC
-//                    verificarProdutoNovoLote(); // Verifica se o produto e o lote existe
+                    verificarProdutoNovoLote(); // Verifica se o produto e o lote existe
                     //if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() || codProduto == objProdMed.getIdProd() && numeroLote.equals("")) { // Se existir altera
                     if (codProduto == objProdMed.getIdProd()) { // Se existir altera
                         // Se existir atualiza
@@ -407,7 +433,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         CONTROLE.alterarLoteProdutoAC(objProdMed);
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-//                        objHistMovAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                        objHistMovAC.setDescricaoLocal((String) (jComboBoxLocalArmazenamento.getSelectedItem()));
                         objHistMovAC.setTipoOpe(tipoInventario);
                         objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
                         objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
@@ -427,7 +453,18 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                         // Incluir o mesmo produto caso tenha mais de um lote
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
-                        CONTROLE.incluirNovoLoteProdutoAC(objProdMed); // Alterar lote de produtos na tabela LOTEPRODUTOS                                           
+                        CONTROLE.incluirNovoLoteProdutoAC(objProdMed); // Alterar lote de produtos na tabela LOTEPRODUTOS    
+                        SomaProduto(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
+                        objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
+                        objHistMovAC.setDescricaoLocal((String) (jComboBoxLocalArmazenamento.getSelectedItem()));
+                        objHistMovAC.setTipoOpe(tipoInventario);
+                        objHistMovAC.setNomeOperacao((String) jComboBoxTipoInventario.getSelectedItem());
+                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
+                        objHistMovAC.setDataMov(jDataTermino.getDate());
+                        objHistMovAC.setQtdItem((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
+                        objHistMovAC.setDescricaoLocal((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
+                        // objHistMovAC.setSaldoAtual((float) qtdEstoque);
+                        CONTROLE_historico.incluirHistoricoProdutoAC(objHistMovAC);
                     }
                 }
                 // Modificar o status do inventário para EFETUADO.
@@ -445,9 +482,10 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
         qtdEstoque = 0;
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdProd, "
+            conecta.executaSQL("SELECT "
+                    + "IdProd, "
                     + "Qtd "
-                    + "FROM LOTE_PRODUTOS_AC "
+                    + "FROM LOTE_PRODUTOS_AE "
                     + "WHERE IdProd='" + objProdMed.getIdProd() + "'");
             while (conecta.rs.next()) {
                 qtdEstoque = qtdEstoque + conecta.rs.getFloat("Qtd");
@@ -462,15 +500,16 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
     public void verificarProdutoNovoLote() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdProd, "
+            conecta.executaSQL("SELECT "
+                    + "IdProd, "
                     + "Lote "
-                    + "FROM LOTE_PRODUTOS_AC "
+                    + "FROM LOTE_PRODUTOS_AE "
                     + "WHERE IdProd='" + objProdMed.getIdProd() + "'");
             conecta.rs.first();
             codProduto = conecta.rs.getInt("IdProd");
             numeroLote = conecta.rs.getString("Lote");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Produto não encontrado.\nERRO: " + ex);
+//            JOptionPane.showMessageDialog(rootPane, "Produto não encontrado.\nERRO: " + ex);
         }
         conecta.desconecta();
     }
@@ -481,7 +520,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT "
                     + "IdProd, "
                     + "Qtd "
-                    + "FROM HISTORICO_MOVIMENTACAO_ESTOQUE_AC "
+                    + "FROM HISTORICO_MOVIMENTACAO_ESTOQUE_AE "
                     + "WHERE IdProd='" + objProdMed.getIdProd() + "'");
             conecta.rs.first();
             codProduto = conecta.rs.getInt("IdProd");
@@ -497,7 +536,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT "
                     + "SaldoAtual, "
                     + "InvEstoque "
-                    + "FROM SALDO_ESTOQUE_AC "
+                    + "FROM SALDO_ESTOQUE_AE "
                     + "WHERE IdProd='" + objProdMed.getIdProd() + "'");
             conecta.rs.first();
             saldoAtual = conecta.rs.getInt("SaldoAtual");
@@ -518,7 +557,7 @@ public class TelaEfetuarInventariosAE extends javax.swing.JInternalFrame {
                 PreparedStatement sql = conecta.con.prepareStatement("SELECT "
                         + "IdProd, "
                         + "SaldoAtual "
-                        + "FROM ITENS_INVENTARIO_AC");
+                        + "FROM ITENS_INVENTARIO_AE");
                 rs = sql.executeQuery();
                 while (rs.next()) {
                     ItensInventarioEstoque produto = new ItensInventarioEstoque();

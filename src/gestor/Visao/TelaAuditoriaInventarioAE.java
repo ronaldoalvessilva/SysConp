@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaInventarioProdutosAC.jIdLanc;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLanc;
 import java.sql.SQLException;
 
 /**
@@ -16,7 +16,6 @@ import java.sql.SQLException;
 public class TelaAuditoriaInventarioAE extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-  
 
     /**
      * Creates new form TelaAuditoriaRolInternas
@@ -248,9 +247,18 @@ public class TelaAuditoriaInventarioAE extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void auditoria() {
+        conecta.abrirConexao();
         try {
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM INVENTARIO_AC WHERE IdLanc='" + jIdLanc.getText() + "'");
+            conecta.executaSQL("SELECT "
+                    + "IdLanc, "
+                    + "UsuarioInsert, "
+                    + "DataInsert, "
+                    + "HorarioInsert, "
+                    + "UsuarioUp, "
+                    + "DataUp, "
+                    + "HorarioUp "
+                    + "FROM INVENTARIO_ARMAS_EPI "
+                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));
@@ -258,8 +266,8 @@ public class TelaAuditoriaInventarioAE extends javax.swing.JInternalFrame {
             jUsuarioUpdate.setText(conecta.rs.getString("UsuarioUp"));
             jDataUpdate.setText(conecta.rs.getString("DataUp"));
             jHoraUpdate.setText(conecta.rs.getString("HorarioUp"));
-            conecta.desconecta();
-        } catch (SQLException e) {           
+        } catch (SQLException e) {
         }
+        conecta.desconecta();
     }
 }

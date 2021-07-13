@@ -30,7 +30,7 @@ public class InventarioArmaEPI {
     private int idProduto;
     private String nomeProduto;
     private String unidade;
-    private float qtdItem;
+    private Integer qtdItem;
     private float valorCusto;
     private String lote;
     private Date DataLote;
@@ -45,7 +45,7 @@ public class InventarioArmaEPI {
     public InventarioArmaEPI() {
     }
 
-    public InventarioArmaEPI(Integer idLanc, String statusLanc, String tipoProduto, String tipoInventario, int idLocal, String nomeLocalArmazenamento, String responsavel, Date dataInicio, Date dataTermino, String horarioInicio, String horarioTermino, String observacao, int idItem, int idProduto, String nomeProduto, String unidade, float qtdItem, float valorCusto, String lote, Date DataLote, int tipoArmaEPI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public InventarioArmaEPI(Integer idLanc, String statusLanc, String tipoProduto, String tipoInventario, int idLocal, String nomeLocalArmazenamento, String responsavel, Date dataInicio, Date dataTermino, String horarioInicio, String horarioTermino, String observacao, int idItem, int idProduto, String nomeProduto, String unidade, Integer qtdItem, float valorCusto, String lote, Date DataLote, int tipoArmaEPI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.tipoProduto = tipoProduto;
@@ -302,14 +302,14 @@ public class InventarioArmaEPI {
     /**
      * @return the qtdItem
      */
-    public float getQtdItem() {
+    public Integer getQtdItem() {
         return qtdItem;
     }
 
     /**
      * @param qtdItem the qtdItem to set
      */
-    public void setQtdItem(float qtdItem) {
+    public void setQtdItem(Integer qtdItem) {
         this.qtdItem = qtdItem;
     }
 

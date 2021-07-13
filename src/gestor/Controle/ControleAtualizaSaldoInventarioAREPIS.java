@@ -65,7 +65,7 @@ public class ControleAtualizaSaldoInventarioAREPIS {
     public ProdutoMedicamento incluirLoteProdutoAC(ProdutoMedicamento objProdMed) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO LOTE_PRODUTOS_AC (IdProd,Lote,Qtd,Modulo) VALUES (?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO LOTE_PRODUTOS_AE (IdProd,Lote,Qtd,Modulo) VALUES (?,?,?,?)");
             pst.setInt(1, objProdMed.getIdProd());
             pst.setString(2, objProdMed.getLote());
             pst.setFloat(3, objProdMed.getQtdLote());
@@ -82,7 +82,7 @@ public class ControleAtualizaSaldoInventarioAREPIS {
     public ProdutoMedicamento incluirNovoLoteProdutoAC(ProdutoMedicamento objProdMed) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO LOTE_PRODUTOS_AC (IdProd,IdLanc,DataVenc,Lote,Qtd,DataEstoque,Modulo) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO LOTE_PRODUTOS_AE (IdProd,IdLanc,DataVenc,Lote,Qtd,DataEstoque,Modulo) VALUES (?,?,?,?,?,?,?)");
             pst.setInt(1, objProdMed.getIdProd());
             pst.setInt(2, objProdMed.getIdLanc());
             if (objProdMed.getDataValidade() != null) {
@@ -105,7 +105,7 @@ public class ControleAtualizaSaldoInventarioAREPIS {
     public ProdutoMedicamento alterarLoteProdutoAC(ProdutoMedicamento objProdMed) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE LOTE_PRODUTOS_AC SET IdLanc=?,DataVenc=?,Lote=?,Qtd=?,DataEstoque=?,Modulo=? WHERE IdProd='" + objProdMed.getIdProd() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE LOTE_PRODUTOS_AE SET IdLanc=?,DataVenc=?,Lote=?,Qtd=?,DataEstoque=?,Modulo=? WHERE IdProd='" + objProdMed.getIdProd() + "'");
             pst.setInt(1, objProdMed.getIdLanc());
             if (objProdMed.getDataValidade() != null) {
                 pst.setTimestamp(2, new java.sql.Timestamp(objProdMed.getDataValidade().getTime()));

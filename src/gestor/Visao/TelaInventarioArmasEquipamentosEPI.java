@@ -96,6 +96,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
     public static int pTOTAL_epi = 0;
     int TIPO_produto = 0;
     int pTIPO_ARMA_epi = 0;
+    Integer pQTD_item = 0;
 
     /**
      * Creates new form TelaInventarioProdutosMed
@@ -1577,11 +1578,12 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             } else if (jComboBoxUnidProduto.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a unidade do produto.");
             } else {
-                try {
-                    objInventEstoque.setQtdItem(valorReal.parse(jQtd.getText()).floatValue());
-                } catch (ParseException ex) {
-                    Logger.getLogger(TelaInventarioArmasEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    objInventEstoque.setQtdItem(valorReal.parse(jQtd.getText()).floatValue());
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(TelaInventarioArmasEquipamentosEPI.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                objInventEstoque.setQtdItem(Integer.valueOf(jQtd.getText()));
                 try {
                     objInventEstoque.setValorCusto(valorReal.parse(jValorCusto.getText()).floatValue());
                 } catch (ParseException ex) {
@@ -1686,7 +1688,6 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
                     jComboBoxTipoProduto.setSelectedItem(ii.getTipoProduto());
                     jStatusLanc.setText(ii.getStatusLanc());
                     jComboBoxTipoInventario.setSelectedItem(ii.getTipoInventario());
-//                    jIdLocal.setText(String.valueOf(ii.getIdLocal()));
                     jComboBoxLocalArmazenamento.addItem(ii.getNomeLocalArmazenamento());
                     jUsuarioResponsavel.setText(ii.getResponsavel());
                     jDataInicio.setDate(ii.getDataInicio());
@@ -1708,6 +1709,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
 
     private void jTabelaItensProdutoInventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaItensProdutoInventMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String idProduto = "" + jTabelaItensProdutoInvent.getValueAt(jTabelaItensProdutoInvent.getSelectedRow(), 1);
             jIdProduto.setText(idProduto);
@@ -1726,24 +1728,38 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
             jBtSalvarItem.setEnabled(!true);
             jBtCancelarItem.setEnabled(true);
             jBtAuditoriaItens.setEnabled(true);
-            CONTROLE.EXIBIR_produto(objInventEstoque);
-            jIdProduto.setText(String.valueOf(objInventEstoque.getIdProduto()));
-            jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
-            idItem = String.valueOf(objInventEstoque.getIdItem());
-            jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
             //
-            qtdItem = objInventEstoque.getQtdItem();
-            DecimalFormat vi = new DecimalFormat("#,##0.00");
-            String vqtdItem = vi.format(qtdItem);
-            jQtd.setText(vqtdItem);
-            // Formata o valor para ser exibido na tela no formato BR                                                   
-            valorCusto = objInventEstoque.getValorCusto();
-            DecimalFormat vc = new DecimalFormat("#,##0.00");
-            String vlCusto = vc.format(valorCusto);
-            jValorCusto.setText(vlCusto);
+            CONTROLE.VERIFICAR_TIPO2_produto(objInventEstoque);
+            pTIPO_ARMA_epi = objInventEstoque.getTipoArmaEPI();
             //
-            jLocalArmazenamentoItem.setText(objInventEstoque.getNomeLocalArmazenamento());
-            jDataVctoLote.setDate(objInventEstoque.getDataLote());
+            if (objInventEstoque.getTipoArmaEPI() == 0) {
+                limparItensInventario();
+                CONTROLE.EXIBIR_produto(objInventEstoque);
+                jIdProduto.setText(String.valueOf(objInventEstoque.getIdProduto()));
+                jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
+                idItem = String.valueOf(objInventEstoque.getIdItem());
+                jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
+                jQtd.setText(String.valueOf(objInventEstoque.getQtdItem()));
+                // Formata o valor para ser exibido na tela no formato BR                                                   
+                valorCusto = objInventEstoque.getValorCusto();
+                DecimalFormat vc = new DecimalFormat("#,##0.00");
+                String vlCusto = vc.format(valorCusto);
+                jValorCusto.setText(vlCusto);
+                //
+                jLocalArmazenamentoItem.setText(objInventEstoque.getNomeLocalArmazenamento());
+                jDataVctoLote.setDate(objInventEstoque.getDataLote());
+            } else if (objInventEstoque.getTipoArmaEPI() == 1) {
+                limparItensInventario();
+                CONTROLE.EXIBIR_produtoEPI(objInventEstoque);
+                jIdProduto.setText(String.valueOf(objInventEstoque.getIdProduto()));
+                jDescricaoProduto.setText(objInventEstoque.getNomeProduto());
+                idItem = String.valueOf(objInventEstoque.getIdItem());
+                jComboBoxUnidProduto.setSelectedItem(objInventEstoque.getUnidade());
+                jQtd.setText(String.valueOf(objInventEstoque.getQtdItem()));
+                //
+                jLocalArmazenamentoItem.setText(objInventEstoque.getNomeLocalArmazenamento());
+                jDataVctoLote.setDate(objInventEstoque.getDataLote());
+            }
         }
     }//GEN-LAST:event_jTabelaItensProdutoInventMouseClicked
 
@@ -2222,6 +2238,17 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         CONTROLE.MOSTRA_local(objInventEstoque);
     }
 
+    public void limparItensInventario() {
+        jIdProduto.setText("");
+        jDescricaoProduto.setText("");
+        jCodigoBarra.setText("");
+        jComboBoxUnidProduto.setSelectedItem(null);
+        jQtd.setText("");
+        jValorCusto.setText("");
+        jLocalArmazenamentoItem.setText("");
+        jDataVctoLote.setDate(null);
+    }
+
     public void NovoItem() {
         jIdProduto.setText("");
         jDescricaoProduto.setText("");
@@ -2477,6 +2504,7 @@ public class TelaInventarioArmasEquipamentosEPI extends javax.swing.JInternalFra
         if (pTIPO_ARMA_epi == 0 || pTIPO_ARMA_epi == 1) {
             try {
                 for (InventarioArmaEPI gg : CONTROLE.ITENS_ARMAS_registro()) {
+//                    pQTD_item = Integer.valueOf(gg.getQtdItem());
                     jtotalRegistros.setText(Integer.toString(pTOTAL_epi)); // Converter inteiro em string para exibir na tela
                     dadosOrigem.addRow(new Object[]{gg.getIdItem(), gg.getIdProduto(), gg.getIdLanc(), gg.getNomeProduto(), gg.getUnidade(), gg.getQtdItem(), gg.getNomeLocalArmazenamento(), gg.getDataLote()});
                     // BARRA DE ROLAGEM HORIZONTAL

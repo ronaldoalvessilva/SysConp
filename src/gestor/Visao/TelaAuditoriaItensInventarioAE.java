@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaInventarioProdutosAC.idItem;
-import static gestor.Visao.TelaInventarioProdutosAC.jIdLanc;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.idItem;
+import static gestor.Visao.TelaInventarioArmasEquipamentosEPI.jIdLanc;
 import java.sql.SQLException;
 
 /**
@@ -248,9 +248,21 @@ public class TelaAuditoriaItensInventarioAE extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void auditoria() {
+        conecta.abrirConexao();
         try {
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM ITENS_INVENTARIO_AC WHERE IdLanc='" + jIdLanc.getText() + "'AND IdItem='" + idItem + "'");
+
+            conecta.executaSQL("SELECT "
+                    + "IdItem, "
+                    + "IdLanc, "
+                    + "UsuarioInsert, "
+                    + "DataInsert, "
+                    + "HorarioInsert, "
+                    + "UsuarioUp, "
+                    + "DataUp, "
+                    + "HorarioUp "
+                    + "FROM ITENS_INVENTARIO_ARMAS_EPI "
+                    + "WHERE IdLanc='" + jIdLanc.getText() + "' "
+                    + "AND IdItem='" + idItem + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));
@@ -258,8 +270,8 @@ public class TelaAuditoriaItensInventarioAE extends javax.swing.JInternalFrame {
             jUsuarioUpdate.setText(conecta.rs.getString("UsuarioUp"));
             jDataUpdate.setText(conecta.rs.getString("DataUp"));
             jHoraUpdate.setText(conecta.rs.getString("HorarioUp"));
-            conecta.desconecta();
         } catch (SQLException e) {
         }
+        conecta.desconecta();
     }
 }
